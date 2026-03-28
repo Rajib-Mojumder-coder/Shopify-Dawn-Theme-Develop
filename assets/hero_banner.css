@@ -1,0 +1,318 @@
+.custom-hero-{{section.id}} .hero_container{
+position: relative;
+z-index: 5;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+gap: 5px;
+}
+
+.hero_container:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background-color: var(--bottom_bg_color);
+    z-index: 6;
+}
+
+
+.top_content h1{
+max-width: var(--heading_width);
+}
+.top_content p{
+max-width: var(--description_width);
+}
+.bottom_content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.last-word {
+  color: #52B099;
+}
+.positionAbsolute{
+position: absolute;
+width: 100%;
+height: 100%;
+top:0;
+left: 50%;
+transform: translateX(-50%);
+z-index: 10000;
+}   
+.hero_banner_content{
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+padding: 100px 0;
+height: 100%;
+}
+
+.features_content {
+    display: flex;
+    gap: 8px;
+}
+
+.features_item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--features_bg_color);
+    padding: 13px 22px;
+    border-radius: 30px;
+}
+img.hero_slide_icon {
+    margin-top: -2px;
+}
+
+.heroSlider {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.heroSlider .swiper-slide {
+  display: flex;
+  justify-content: flex-start; /* 👈 LEFT align */
+}
+
+.heroSlider .hero_slide_image {
+    width: 100%;   
+    max-width: var(--slider-width);
+    display: block;
+    object-fit: cover;
+    height: 100%;
+    aspect-ratio: 1 / var(--slide_height);
+    position: relative;
+    z-index: 1;
+}
+
+.hero_slide_image.mobile-image {
+    display: none;
+}
+
+/*Hero banner slider block overlay*/
+.slide-media {
+  position: relative;
+  border-top-right-radius: var(--radius_top_right);
+  border-bottom-right-radius: var(--radius_bottom_right);
+  overflow: hidden;
+}
+
+.slide-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+  rgba(0, 0, 0, var(--overlay-opacity, 0)) 0%,
+  rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+/*End Hero banner slider block overlay*/
+
+/*Appointment Button Design Start */
+.appointment_container {
+    z-index: 10;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 65px;
+    padding-bottom: 20px;
+}
+
+.appointment_container .appointment_button{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgb(var(--color-foreground));
+    padding: 14px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 2px 2px 15px 0px #00000026;
+    cursor: pointer;
+}
+.appointment_container .appointment_text{
+    color: var(--gradient-background);
+    font-weight: 500;
+    line-height: 90%; 
+}
+.appointment_button svg{
+    margin-top: -2px;
+}
+/*End Appointment Button Design */
+
+/* Start Hero Search Options CSS */
+.search-mobile {
+  display: none;
+}
+
+.search-desktop {
+  display: block;
+}
+
+.hero_search_bar{
+background: #fff;
+/* height: 100px; */
+border-radius: 100px;
+padding: 25px 35px;
+max-width: 1246px;
+}
+.hero_search_bar form {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+}
+.form_left_content {
+display: flex;
+align-items: center;
+width: 100%;
+gap: 14px;
+}
+.hero_search_bar input{
+width: 100%;
+font-family: 'Nohemi';
+color: var(--gradient-background);
+font-size: 25px;
+line-height: 90%;
+font-weight: 600;
+border: 0;
+}
+input::placeholder{
+font-family: var(--font-nohemi);
+font-size: var(--font-search-placeholder);
+font-weight: var(--font-weight-semi-bold);
+line-height: var(--line-height-placeholder);
+letter-spacing: var(--letter-spacing-normal);
+color: var(--color-primary);
+}
+
+.hero_search_bar .heroSearchIcon {
+max-width: 50px;
+}
+.hero_search_bar button{
+padding: 10px 35px;
+border-radius: 100px;
+display: flex;
+align-items: center;
+gap: 8px;
+cursor: pointer;
+}
+
+/*End Hero Search design css*/
+
+.hero_container .swiper-wrapper {
+z-index: 10000;
+position: relative;
+}
+.hero_container .swiper {
+  z-index: auto;
+}
+
+/* Media query for Hero banner */
+@media (max-width: 1024px){
+.custom-hero-{{section.id}} .hero_container{
+gap: 10px;
+}
+.hero_container:after {
+  height: 120px;  
+}
+  .hero_banner_content {
+  padding: 50px 0;
+  gap: 20px;
+  height: 95%;
+}
+.heroSlider .swiper-slide {
+  width: 98% !important;
+}
+.hero_search_bar {
+    padding: 20px 30px;
+}
+.appointment_container {
+    padding-right: 30px;
+}
+}
+@media (max-width: 768px) {
+
+  .hero_container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.page-width {
+    padding: 0 3rem;
+}
+  .hero_banner_content {
+    padding: 4rem 0px;
+  }
+
+  .positionAbsolute {
+    position: static;
+    transform: none;
+    order: 1;
+}
+.heroSlider {
+  order: 2;
+}
+
+.hero_slide_image.desktop_image{
+  display: none;
+}
+.hero_slide_image.mobile-image {
+        display: block;
+  }
+.appointment_container {
+  order: 3;
+}
+
+.top_content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.top_content h1 {
+    max-width: 350px;
+}
+.bottom_content {
+    display: none;
+}
+.search-desktop {
+    display: none;
+  }
+
+  .search-mobile {
+    display: block;
+    order: 4;
+    z-index: 10;
+    padding: 0 3rem 4rem;
+    transform: translateY(-20px);
+  }
+  .hero_search_bar {
+    border-radius: 25px;
+}
+  .hero_search_bar .heroSearchIcon {
+    display: none;
+  }
+  .hero_search_bar form {
+    flex-direction: column;
+    gap: 25px;
+}
+.hero_search_bar input {
+    text-align: center;
+}
+.search-submit-button {
+    background: var( --color-secondary);
+    border: none;
+}
+.hero_container:after {
+    height: 450px;
+  }
+  .appointment_container {
+    transform: translateY(-100px);
+    z-index: 111111;
+    padding-right: 25px;
+}
+}

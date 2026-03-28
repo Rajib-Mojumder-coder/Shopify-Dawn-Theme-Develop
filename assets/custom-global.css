@@ -1,0 +1,183 @@
+
+h1, p{
+    margin: 0;
+}
+
+*:focus-visible {
+    outline: none;
+    outline-offset: none;
+    box-shadow: none;
+}
+
+
+/* Global font settings */
+:root {
+  /* Font Families */
+  --font-nohemi: 'Nohemi', sans-serif;
+  --font-gentona: 'Gentona', serif; /* You may add this font if needed */
+
+  /* Font Sizes */
+  --font-title-large: 85px;
+  --font-title-medium: 65px;
+  --font-subtitle: 25px;
+  --font-body: 17px;
+  --font-button: 17px;
+  --font-card-title: 22px;
+  --font-search-placeholder: 25px;
+  --font-search-button: 20px;
+
+  /* Line Heights */
+  --line-height-title: 1;
+  --line-height-body: 1.5;
+  --line-height-button: 0.9;
+  --line-height-placeholder: 0.9;
+
+  /* Letter Spacing */
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em; /* 5% letter spacing for body */
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* Colors */
+  --color-white: #ffffff;
+  --color-primary: #06123D;  /* Used for dark text */
+  --color-button: #fff;
+  --color-overlay: #000000;
+  --color-secondary: #52B099;
+}
+
+/* Responsive Font Setup */
+@media (max-width: 1024px) {
+  :root {
+    --font-title-large: 65px;
+    --font-title-medium: 55px;
+    --font-subtitle: 20px;
+    --font-body: 16px;
+    --font-button: 16px;
+    --font-card-title: 18px;
+    --font-search-placeholder: 22px;
+    --font-search-button: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-title-large: 55px;
+    --font-title-medium: 50px;
+    --font-subtitle: 18px;
+    --font-body: 17px;
+    --font-button: 15px;
+    --font-card-title: 16px;
+    --font-search-placeholder: 25px;
+    --font-search-button: 16px;
+  }
+
+  /* Additional responsive adjustments */
+  .font-title-large {
+    font-size: var(--font-title-large);
+  }
+
+  .first-section-body {
+    font-size: var(--font-body);
+  }
+
+  .appointment_button {
+    font-size: var(--font-button);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-title-large: 55px;
+    --font-title-medium: 40px;
+    --font-subtitle: 16px;
+    --font-body: 17px;
+    --font-button: 14px;
+    --font-card-title: 14px;
+    --font-search-placeholder: 25px;
+    --font-search-button: 14px;
+  }
+}
+
+/* Global Body and Button Styles */
+body, .button {
+  font-family: var(--font-nohemi);
+  font-size: var(--font-body);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-white);
+}
+
+/* Appointment Button */
+.appointment_button {
+  font-family: var(--font-nohemi);
+  font-size: var(--font-button);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-button);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--color-white);
+}
+
+/* Search Placeholder */
+
+
+/* Search Submit Button */
+.search-submit-button {
+  font-family: var(--font-nohemi);
+  font-size: var(--font-search-button);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-button);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--color-white);
+  background: var(--color-primary); 
+}
+
+/*Global Setup for Different Font*/
+/* Global Font Sizes (from :root) */
+.font-title-large {
+  font-family: var(--font-nohemi);
+  font-size: var(--font-title-large);   /* 85px */
+  font-weight: var(--font-weight-semi-bold);
+  line-height: var(--line-height-title);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--color-white);
+}
+
+@media (max-width: 768px) {
+  .font-title-large {
+  font-weight: var(--font-weight-medium);
+}
+}
+
+.font-title-medium {
+  font-family: var(--font-nohemi);
+  font-size: var(--font-title-medium);  /* 65px */
+  font-weight: var(--font-weight-semi-bold);
+  line-height: var(--line-height-title);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--color-primary);           /* #06123D */
+}
+
+.font-subtitle {
+  font-family: var(--font-nohemi);
+  font-size: var(--font-subtitle);      /* 25px */
+  font-weight: var(--font-weight-semi-bold);
+  line-height: var(--line-height-title);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--color-primary);           /* #06123D */
+}
+
+/* Body text styles */
+p {
+  font-family: var(--font-nohemi);
+  font-size: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-white); /* white text for dark background */
+}
