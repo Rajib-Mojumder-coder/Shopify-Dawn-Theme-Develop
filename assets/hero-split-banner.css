@@ -203,6 +203,7 @@ cursor: pointer;
     transform: translateY(-130px);
 }
 .search-bar {
-    transform: translateY(-50px);
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 }
