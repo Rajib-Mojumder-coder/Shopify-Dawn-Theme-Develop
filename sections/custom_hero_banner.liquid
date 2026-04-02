@@ -1,0 +1,668 @@
+{{ 'hero-split-banner.css' | asset_url | stylesheet_tag }}
+{% liquid
+  
+  assign herosearch_top_spacing = section.settings.herosearch_top_spacing
+  assign herosearch_bottom_spacing = section.settings.herosearch_bottom_spacing
+
+  assign heading_width = section.settings.heading_width
+  assign description = section.settings.description
+  assign description_width = section.settings.description_width
+
+  assign features_text_01 = section.settings.features_text_01
+  assign features_text_02 = section.settings.features_text_02
+  assign features_icon_01 = section.settings.features_icon_01
+  assign features_icon_02 = section.settings.features_icon_02
+  assign features_bg_color = section.settings.features_bg_color
+  assign features_icon_size = section.settings.features_icon_size
+
+  assign radius_top_right = section.settings.radius_top_right
+  assign radius_bottom_right = section.settings.radius_bottom_right
+
+  assign search_placeholder = section.settings.search_placeholder
+  assign search_button_text = section.settings.search_button_text
+
+  assign appointment_text = section.settings.appointment_text
+  assign appointment_btn_url = section.settings.appointment_btn_url
+  
+%}
+<div class="custom-hero-{{ section.id }}">
+  <div class="hero-container">
+    
+    <div class="hero-content page-width mobile-padding">
+        <div class="content-top">
+          {% assign heading_text = section.settings.heading | strip_html | strip %}
+          {% assign words = heading_text | split: ' ' %}
+          {% assign last_word = words | last %}
+          {% assign words_count = words | size | minus: 1 %}
+
+          <h1 class="{{ section.settings.heading_size }}">
+            {% if words.size > 1 %}
+              {{ words | slice: 0, words_count | join: ' ' }}
+              <span class="last-word">{{ last_word }}</span>
+            {% else %}
+              <span class="last-word">{{ heading_text }}</span>
+            {% endif %}
+          </h1>
+
+          <p>{{ description }}</p>
+        </div>
+
+        <div class="content-bottom only-desktop">
+          <div class="features_content">
+            {% if features_text_01 != blank %}
+                <div class="features_content_item1 features_item appointment_button">
+                {% if features_icon_01 %} 
+                  {{ features_icon_01 | image_url: width: features_icon_size | image_tag: loading: 'lazy', fetchpriority: 'high', class: 'hero_slide_icon'}} 
+                  {% else %}
+                  {% render 'user-icon2' %}
+                {% endif %}
+                <span class="hero_features_text"> {{ features_text_01}} </span>
+                </div>
+            {% endif %}
+            {% if features_text_02 != blank %}
+                <div class="features_content_item2 features_item appointment_button">
+                {% if features_icon_02 %} {{ features_icon_02 | image_url: width: features_icon_size | image_tag: loading: 'lazy', fetchpriority: 'high', class: 'hero_slide_icon'}} 
+              {% else %}
+                  {% render 'user-icon2' %}
+              {% endif %}
+                <span class="hero_features_text"> {{ features_text_02}} </span>
+                </div>
+            {% endif %}
+          </div>
+
+        
+          <div class="only-desktop search-bar">
+            {% render 'hero_search_bar',
+              search_placeholder: search_placeholder,
+              search_button_text: search_button_text
+            %}
+          </div>
+        
+
+      </div>
+    </div> 
+
+
+    <div class="swiper heroSlider">
+        <div class="swiper-wrapper" style="--slider-width: {{ slider_width }};">
+            {% for block in section.blocks %}
+              {% liquid
+                assign media = block.settings.media
+                assign mobile_media = block.settings.mobile_media
+                assign slider_image_overlay = block.settings.slider_image_overlay  
+              %}
+                  
+              <div class="swiper-slide slide">
+                
+                <div class="slide-media"
+                  style="
+                    --overlay-opacity: {{ slider_image_overlay | divided_by: 100.0 }};
+                  ">
+                    {% if media %}
+                  <!-- Desktop Image -->
+                  {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', fetchpriority: 'high', class: 'hero_slide_image only-desktop' }}
+                  {% else %}
+                  {{ 'detailed-apparel-1' | placeholder_svg_tag: 'hero_slide_image' }}
+                  {% endif %}
+
+                  {% if mobile_media %}
+                  <!-- Mobile Image (for devices < 768px) -->
+                  {{ mobile_media | image_url: width: 800 | image_tag: loading: 'lazy', fetchpriority: 'high', class: 'hero_slide_image only-mobile' }}
+                  {% endif %}
+
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+  
+   {% if appointment_btn_url != blank %}
+    <div class="appointment_container"> 
+        <a class="appointment_button" href="{{ appointment_btn_url }}">
+          {% render 'user-icon' %}
+          <p class="appointment_text"> {{ appointment_text}} </p>
+        </a>
+    </div>
+  {% endif %}
+    
+<div class="only-mobile search-bar mobile-padding">
+  {% render 'hero_search_bar',
+    search_placeholder: search_placeholder,
+    search_button_text: search_button_text
+  %}
+</div>
+
+</div>
+</div>
+
+<style>
+.custom-hero-{{ section.id }}{
+{% comment %} --split: clamp(600px, 65vh, 800px);
+width:100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #06123D 0, #06123D var(--split),
+   #3F7280 var(--split), #3F7280 100%); {% endcomment %}
+  --split: calc(70vw * 903 / 1483);
+
+  width: 100%;
+  min-height: var(--split);
+
+  background: linear-gradient(
+    to bottom,
+    #06123D 0,
+    #06123D var(--split),
+    #3F7280 var(--split),
+    #3F7280 100%
+  );
+--heading_width: {{ heading_width }}px;
+--description_width: {{ description_width }}px;
+
+--radius_top_right: {{ radius_top_right }}px;
+--radius_bottom_right: {{ radius_bottom_right }}px;
+--slide_height: {{ slide_height }};
+
+--features_bg_color: {{ features_bg_color }};
+--herosearch_top_spacing: {{ herosearch_top_spacing }}px;
+--herosearch_bottom_spacing: {{ herosearch_bottom_spacing }}px;
+
+  position: relative;
+  
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .custom-hero-{{ section.id }} {
+    --split: calc(80vw * 903 / 1483);
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .custom-hero-{{ section.id }} {
+    --split: calc(85vw * 903 / 1483);
+  }
+  .hero-content {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+}
+@media (max-width: 767px) {
+  .custom-hero-{{ section.id }} {
+    --split: 60%;
+    
+    background: linear-gradient(
+      to bottom,
+      #06123D 0,
+      #06123D var(--split),
+      #3F7280 var(--split),
+      #3F7280 100%
+    );
+  }
+}
+</style>
+
+<script>
+    var swiper = new Swiper(".heroSlider", {
+    slidesPerView: 1,
+    spaceBetween: 0,
+    loop: true,
+    effect: "fade",
+    {% comment %} autoplay: false, {% endcomment %}
+    {% comment %} autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },  {% endcomment %}
+    });
+  </script>
+{% schema %}
+{
+"name": "Custom Hero Banner",
+"class": "custom-hero-banner",
+"tag": "section",
+"settings": [
+  {
+  "type": "header",
+  "content": "Section Style"
+  },
+  {
+    "type": "range",
+    "id": "herosearch_top_spacing",
+    "label": "Top Spacing",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "default": 80,
+    "unit": "px"
+    },
+  {
+    "type": "range",
+    "id": "herosearch_bottom_spacing",
+    "label": "Top Spacing",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "default": 80,
+    "unit": "px"
+    },
+  {
+      "type": "header",
+      "content": "Text"
+    },
+  {
+    "type": "inline_richtext",
+    "id": "heading",
+    "label": "Input Heading",
+    "default": "Wij houden van fietsen"
+    },
+    {
+    "type": "select",
+    "id": "heading_size",
+    "label": "Heading Size",
+    "default": "font-title-large",
+    "options": [
+      {"label": "Sub-title", "value": "font-subtitle"},
+      {"label": "Medium", "value": "font-title-medium"},
+      {"label": "Extra Large", "value": "font-title-large"}
+    ]
+    },
+    {
+    "type": "range",
+    "id": "heading_width",
+    "label": "Heading Width",
+    "min": 300,
+    "max": 600,
+    "step": 20,
+    "default": 460
+    },
+    {
+    "type": "textarea",
+    "id": "description",
+    "label": "Description",
+    "default": "Ultiem fietsplezier door middel van optimale service, kwaliteit en vakmanschap. Dat staat bij ons voorop!"
+    },
+     {
+    "type": "range",
+    "id": "description_width",
+    "label": "Description Width",
+    "min": 300,
+    "max": 600,
+    "step": 20,
+    "default": 400
+    },
+    {
+    "type": "header",
+    "content": "Features Button"
+    },
+    {
+    "type": "image_picker",
+    "id": "features_icon_01",
+    "label": "Features Icon 1"
+    },
+    {
+    "type": "text",
+    "id": "features_text_01",
+    "label": "Features Text 1",
+    "default": "Plan een advies gesprek"
+    },
+    {
+    "type": "image_picker",
+    "id": "features_icon_02",
+    "label": "Features Icon 2"
+    },
+    {
+    "type": "text",
+    "id": "features_text_02",
+    "label": "Features Text 2",
+    "default": "Plan een service gesprek"
+    },
+    {
+    "type": "color",
+    "id": "features_bg_color",
+    "label": "Features Item Background",
+    "default":" #52B099",
+    },
+    {
+    "type": "text",
+    "id": "features_icon_size",
+    "label": "Icon Size",
+    "default": "14px"
+    },
+    {
+    "type": "header",
+    "content": "Slider Style"
+    },
+    {
+    "type": "range",
+    "id": "radius_top_right",
+    "label": "Top Right Radius",
+    "min": 0,
+    "max": 400,
+    "step": 10,
+    "default": 400,
+    "unit": "px"
+    },
+    {
+    "type": "range",
+    "id": "radius_bottom_right",
+    "label": "Bottom Right Radius",
+    "min": 0,
+    "max": 400,
+    "step": 10,
+    "default": 400,
+    "unit": "px"
+    },
+    {
+    "type": "header",
+    "content": "Search Bar Content"
+    },
+    {
+     "type": "text",
+    "id": "search_placeholder",
+    "label": "Search Placeholder Text",
+    "default": "Waar ben je naar op zoek?"
+    },
+    {
+     "type": "text",
+    "id": "search_button_text",
+    "label": "Search Button Text",
+    "default": "ZOEKEN"
+    },
+    {
+    "type": "header",
+    "content": "Appointment Content"
+    },
+    {
+     "type": "text",
+    "id": "appointment_text",
+    "label": "Appointment Text",
+    "default": "Make an appointment!"
+    }, 
+    {
+    "type": "url",
+    "id": "appointment_btn_url",
+    "label": "URL"
+    }
+],
+"disabled_on": {"groups": ["header", "footer", "aside"]},
+"blocks": [
+  {
+    "type": "slide",
+    "name": "Image Slider",
+    "settings": [
+        {
+        "type": "image_picker",
+        "id": "media",
+        "label": "Select Slider Image"
+        },
+        {
+        "type": "image_picker",
+        "id": "mobile_media",
+        "label": "Select Mobile Slider Image"
+        },
+        {
+        "type": "range",
+        "id": "slider_image_overlay",
+        "label": "Image Overlay Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "default": 0
+        }
+    ]
+    }
+],
+"presets": [{"name": "Hero BAnner New"}]
+}
+{% endschema %}
+
+<style>
+  .custom-hero-{{ section.id }}{
+  }
+</style>
+{% comment %} 
+ {% liquid
+  assign slides = section.blocks | where: "type", "slide"
+%}
+
+<section class="custom-hero-{{ section.id }}">
+
+  <style>
+    .custom-hero-{{ section.id }} {
+      --hero-blue: {{ section.settings.color_blue }};
+      --hero-green: {{ section.settings.color_green }};
+      --accent: {{ section.settings.color_accent }};
+
+      /* 🔥 BIG BLUE, SMALL GREEN */
+      --split: clamp(450px, 65vh, 780px);
+
+      min-height: clamp(700px, 95vh, 950px);
+
+      background: linear-gradient(
+        to bottom,
+        var(--hero-blue) 0,
+        var(--hero-blue) var(--split),
+        var(--hero-green) var(--split),
+        var(--hero-green) 100%
+      );
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: 1728px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* TITLE */
+    .hero-top {
+      text-align: center;
+      padding-top: clamp(40px, 8vh, 90px);
+      position: relative;
+      z-index: 3;
+    }
+
+    /* 🔥 SEARCH EXACT SPLIT */
+    .hero-search-anchor {
+      position: absolute;
+      top: var(--split);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 1246px;
+      z-index: 5;
+    }
+
+    /* SWIPER */
+    .hero-swiper {
+      max-width: 1485px;
+      margin: calc(var(--split) * 0.15) auto 0;
+      position: relative;
+    }
+
+    .hero-swiper .swiper-slide {
+      aspect-ratio: 1485 / 900;
+      overflow: hidden;
+    }
+
+    .hero-swiper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* BUTTON */
+    .hero-btn {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .hero-btn a {
+      width: 225px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* MOBILE */
+    @media(max-width: 768px){
+      .custom-hero-{{ section.id }} {
+        --split: 55vh;
+      }
+    }
+
+  </style>
+
+  <div class="hero-inner">
+
+    <!-- TITLE -->
+    <div class="hero-top">
+      <h1>{{ section.settings.heading }}</h1>
+      <p>{{ section.settings.description }}</p>
+    </div>
+
+    <!-- 🔥 SEARCH -->
+    <div class="hero-search-anchor">
+      {% render 'hero_search_bar',
+        search_placeholder: section.settings.search_placeholder,
+        search_button_text: section.settings.search_button_text
+      %}
+    </div>
+
+    <!-- 🔥 SWIPER SLIDER -->
+    <div class="swiper hero-swiper">
+      <div class="swiper-wrapper">
+        {% for block in slides %}
+          <div class="swiper-slide">
+            {% if block.settings.image %}
+              {{ block.settings.image | image_url: width: 1500 | image_tag }}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- BUTTON -->
+    {% if section.settings.button_text != blank %}
+    <div class="hero-btn">
+      <a href="{{ section.settings.button_link }}">
+        {{ section.settings.button_text }}
+      </a>
+    </div>
+    {% endif %}
+
+  </div>
+
+  <!-- 🔥 SWIPER INIT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      new Swiper(".custom-hero-{{ section.id }} .hero-swiper", {
+        loop: true,
+        effect: "fade",
+        autoplay: {
+          delay: {{ section.settings.autoplay_speed }},
+          disableOnInteraction: false
+        }
+      });
+    });
+  </script>
+
+</section>
+
+{% schema %}
+{
+  "name": "Custom Hero Pro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Find Your Service"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search Placeholder",
+      "default": "Search..."
+    },
+    {
+      "type": "text",
+      "id": "search_button_text",
+      "label": "Search Button",
+      "default": "Search"
+    },
+    {
+      "type": "color",
+      "id": "color_blue",
+      "label": "Top Background",
+      "default": "#3f72ff"
+    },
+    {
+      "type": "color",
+      "id": "color_green",
+      "label": "Bottom Background",
+      "default": "#22c55e"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Button Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Make Appointment"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "default": 4000,
+      "label": "Autoplay Speed"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Slide Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Hero Pro"
+    }
+  ]
+}
+{% endschema %}
+
+{% endcomment %}

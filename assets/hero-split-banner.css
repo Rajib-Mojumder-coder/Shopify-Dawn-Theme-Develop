@@ -1,0 +1,208 @@
+.hero-container {
+  position: relative;    
+} 
+
+.heroSlider {
+  max-width: 1300px;
+  aspect-ratio: 1483 / 903;
+  margin: 0;
+} 
+
+.heroSlider .hero_slide_image {
+  width: 100%;   
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1483 / 903; 
+}
+
+/*Hero banner slider block overlay*/
+.slide-media {
+  border-top-right-radius: var(--radius_top_right);
+  border-bottom-right-radius: var(--radius_bottom_right);
+  overflow: hidden;
+}
+
+
+.hero-content {
+    position: absolute;
+    z-index: 2;
+    padding-top: var(--herosearch_top_spacing);
+    padding-bottom: var(--herosearch_bottom_spacing);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.content-top h1{
+  max-width: var(--heading_width);
+}
+.content-top p{
+  max-width: var(--description_width);
+}
+.content-bottom {
+    position: absolute;
+    top: var(--split);
+    transform: translateY(-64%);
+    max-width: 92%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.last-word {
+  color: #52B099;
+}
+
+/*Features Content*/
+.features_content {
+    display: flex;
+    gap: 8px;
+}
+
+.features_item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--features_bg_color);
+    padding: 13px 22px;
+    border-radius: 30px;
+}
+img.hero_slide_icon {
+    margin-top: -2px;
+}
+
+/* Start Hero Search Options CSS */
+
+.hero_search_bar{
+background: #fff;
+border-radius: 100px;
+padding: 25px 35px;
+}
+.hero_search_bar form {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+}
+.form_left_content {
+display: flex;
+align-items: center;
+width: 100%;
+gap: 14px;
+}
+.hero_search_bar input{
+width: 100%;
+font-family: 'Nohemi';
+color: var(--gradient-background);
+font-size: 25px;
+line-height: 90%;
+font-weight: 600;
+border: 0;
+}
+input::placeholder{
+font-family: var(--font-nohemi);
+font-size: var(--font-search-placeholder);
+font-weight: var(--font-weight-semi-bold);
+line-height: var(--line-height-placeholder);
+letter-spacing: var(--letter-spacing-normal);
+color: var(--color-primary);
+}
+
+.hero_search_bar .heroSearchIcon {
+max-width: 50px;
+}
+.hero_search_bar button{
+padding: 10px 35px;
+border-radius: 100px;
+display: flex;
+align-items: center;
+gap: 8px;
+cursor: pointer;
+}
+
+/* End Hero Search design css*/
+/*Appointment Button Design Start */
+.appointment_container {
+    z-index: 1;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 65px;
+    padding-bottom: 20px;
+}
+
+.appointment_container .appointment_button{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color:  var(--color-white);
+    padding: 14px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 2px 2px 15px 0px #00000026;
+    cursor: pointer;
+}
+.appointment_container .appointment_text{
+    color: var(--color-primary);
+    font-weight: 500;
+    line-height: 90%; 
+}
+.appointment_button svg{
+    margin-top: -2px;
+}
+/*Appointment Button Design End */
+
+/* Media Query*/
+
+
+@media (max-width: 767px) {
+
+.mobile-padding {
+    padding: 3rem;
+} 
+  .hero-content {
+    position: relative;
+}
+.content-top {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.hero_search_bar {
+    border-radius: 25px;
+}
+  .hero_search_bar .heroSearchIcon {
+    display: none;
+  }
+  .hero_search_bar form {
+    flex-direction: column;
+    gap: 25px;
+}
+.hero_search_bar input {
+    text-align: center;
+}
+.search-submit-button {
+    background: var( --color-secondary);
+    border: none;
+}
+.heroSlider {
+    aspect-ratio: 103 / 121;
+}
+.heroSlider .hero_slide_image {
+    aspect-ratio: 103 / 121;
+}
+.slide-media {
+    max-width: 95%;
+}
+.appointment_container {
+   
+    padding-bottom: 0;
+    transform: translateY(-130px);
+}
+.search-bar {
+    transform: translateY(-50px);
+}
+}

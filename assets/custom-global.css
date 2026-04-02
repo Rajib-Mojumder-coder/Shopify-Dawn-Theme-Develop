@@ -65,7 +65,7 @@ h1, p{
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   :root {
     --font-title-large: 55px;
     --font-title-medium: 50px;
@@ -121,6 +121,7 @@ body, .button {
   line-height: var(--line-height-button);
   letter-spacing: var(--letter-spacing-normal);
   color: var(--color-white);
+  
 }
 
 /* Search Placeholder */
@@ -148,7 +149,7 @@ body, .button {
   color: var(--color-white);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .font-title-large {
   font-weight: var(--font-weight-medium);
 }
@@ -180,4 +181,23 @@ p {
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-wide);
   color: var(--color-white); /* white text for dark background */
+}
+
+/* Display Hide & Visible for device wise*/
+
+@media ( min-width: 768px){
+.only-mobile{
+  display: none !important;
+}
+/* .banner_height{
+  min-height: 56rem;
+} */
+}
+@media ( max-width: 767px){
+.only-desktop{
+  display: none !important;
+}
+.only-mobile{
+  display: block !important;
+}
 }
