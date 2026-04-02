@@ -161,7 +161,7 @@ cursor: pointer;
 @media (max-width: 767px) {
 
 .mobile-padding {
-    padding: 3rem;
+    padding: 4rem 3rem;
 } 
   .hero-content {
     position: relative;
@@ -205,5 +205,6 @@ cursor: pointer;
 .search-bar {
     padding-left: 3rem;
     padding-right: 3rem;
+    padding-bottom: 4rem;
 }
 }
