@@ -9,23 +9,25 @@
  */
 {
   "sections": {
-    "hero_banner_tRPcUt": {
-      "type": "hero_banner",
+    "custom_hero_banner_drDydw": {
+      "type": "custom_hero_banner",
       "blocks": {
-        "slide_Yanahc": {
+        "slide_nJfYiz": {
           "type": "slide",
           "settings": {
             "media": "shopify://shop_images/Peeters_Tweewielers_sRGB-18_2.png",
-            "mobile_media": "shopify://shop_images/Peeters_Tweewielers_sRGB-18_1_1.png",
+            "mobile_media": "shopify://shop_images/Peeters_Tweewielers_sRGB-18_1.png",
             "slider_image_overlay": 0
           }
         }
       },
       "block_order": [
-        "slide_Yanahc"
+        "slide_nJfYiz"
       ],
-      "name": "Hero Banner",
+      "name": "Hero BAnner New",
       "settings": {
+        "herosearch_top_spacing": 80,
+        "herosearch_bottom_spacing": 80,
         "heading": "Wij houden van fietsen",
         "heading_size": "font-title-large",
         "heading_width": 460,
@@ -35,20 +37,16 @@
         "features_text_02": "Plan een service gesprek",
         "features_bg_color": "#52B099",
         "features_icon_size": "14px",
+        "radius_top_right": 400,
+        "radius_bottom_right": 400,
         "search_placeholder": "Waar ben je naar op zoek?",
         "search_button_text": "ZOEKEN",
         "appointment_text": "Make an appointment!",
-        "appointment_btn_url": "shopify://pages/contact",
-        "color_scheme": "",
-        "bottom_bg_color": "#3F7280",
-        "slider_width": "1350px",
-        "slide_height": 0.5,
-        "radius_top_right": 400,
-        "radius_bottom_right": 400
+        "appointment_btn_url": "shopify://pages/contact"
       }
     }
   },
   "order": [
-    "hero_banner_tRPcUt"
+    "custom_hero_banner_drDydw"
   ]
 }
