@@ -63,43 +63,138 @@
 }
 
 @media(max-width: 767px){
- 
-.block-{{ block.id }} .featured-slider-content{
-    position: relative;
-    padding: 7.5% 5%;
-    flex: 1 1 auto;
-    justify-content: flex-start;
-}
-.slide-media-main {
-   border-radius: 150px;
-   aspect-ratio: 0;
-}
 .block-{{ block.id }} .mobile-media {
-    flex: 1 1 44%; 
-  min-height: 290px;
+    /* flex: 1 1 44%;  */
+    height: 40vh;
+} 
 
-}
-.block-{{ block.id }} .mobile-media img {
+ .block-{{ block.id }} .mobile-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.custom-global-button {
+
+.block-{{ block.id }} .featured-slider-content{
+    position: relative;
+    padding: 7.5% 5%;
+    /* flex: 1 1 auto; */
+    justify-content: flex-start;
+}
+
+
+.block-{{ block.id }} .custom-global-button {
     width: 100%;
     margin: auto;
 }
+/* .block-{{ block.id }} .featured-middle-content .desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+} */
 .block-{{ block.id }} .brand_icon {
     display: flex;
     gap: 8px;
     max-width: 500px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .block-{{ block.id }} .brand_icon_items img{
     max-width: 34px;
   }
+  .block-{{ block.id }} .notetext{
+    text-align: center;
+  }
 }
 </style>
 
-<div class="color-{{ color_scheme }} swiper-slide slide-media-main flex block-{{ block.id }}" style="--title-width: {{ title_width }}px; --desc-width: {{ description_width }}px; --radius: {{ slider_border_radius }}px;">
+{% comment %} <div class="color-{{ color_scheme }} swiper-slide slide-media-main flex block-{{ block.id }}" style="--title-width: {{ title_width }}px; --desc-width: {{ description_width }}px; --radius: {{ slider_border_radius }}px;">
+    
+    <div class="slide-media-container">
+        {% if enable_product_badge %}
+        {% if product-badge %}
+            <div class="product-badge">
+                <img src="{{product-badge |  image_url: width: 255 }}"> 
+            </div>
+        {% endif %}
+    {% endif %}
+    <div class="slide-media only-desktop slide-background-media"
+        style="background-image:url({% if desktop-image %}
+            {{ desktop-image | image_url: width: 1000 }}
+        {% else %}
+            {{ 'custom-bicycle.svg' | asset_url }}
+        {% endif %})">
+    </div>
+
+    <div class="slide-media only-mobile mobile-media"> 
+        {% if mobile-image %}
+            {{ mobile-image | image_url: width: 768 | image_tag: loading: 'lazy', fetchpriority: 'high', class: 'mobile-image only-mobile' }}
+        {% else %}
+            {{ 'detailed-apparel-1' | placeholder_svg_tag: 'mobile-image only-mobile'  }}
+        {% endif %}
+    </div> 
+    <!-- GRADIENT -->
+    {% if enable_gradient %}
+        <div class="media-gradient only-desktop" style="background: {{ overlay_background }};">&nbsp</div>
+    {% endif %}
+
+
+    <div class="featured-slider-content"> 
+        <div class="featured-top-content"> 
+            {% if subtitle %}
+                <h5 class="font-subtitle-2">{{ subtitle |  upcase }}</h5>
+            {% endif %}
+
+            {% if title %}
+                <h2 class="title font-title-medium">{{ title }}</h2>
+            {% endif %}
+        </div>
+        
+        <div class="featured-middle-content">
+            {% if description %}
+                <div class="desc">{{ description }}</div>
+            {% endif %}
+
+            <div class="brand_icon">
+
+                {% for i in (1..6) %}
+                    {% assign icon_key = "brand_icon_" | append: i %}
+                    {% assign icon = [icon_key] %} 
+                    
+                    {% if icon %}
+                        <div class="brand_icon_items">
+                            <img src="{{ icon | image_url: width: 68 }}">
+                        </div>
+                        {%  unless forloop.last %} 
+                            <span class="plus-icon">+</span>
+                        {% endunless %} 
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+        </div>
+        
+        
+        <div class="featured-bottom-content {% if has_bottom_content %}has-content{% endif %}">
+                {% render 'custom-global-button',
+                button_link: button_link,
+                button_text: button_text,
+                transparent: true
+            %}
+        </div>
+        
+
+        {% if notetext %}
+            <div class="notetext">{{ notetext }}</div>
+        {% endif %}
+
+    </div>
+    </div>
+    
+</div> {% endcomment %}
+
+ <div class="color-{{ color_scheme }} swiper-slide slide-media-main flex block-{{ block.id }}" style="--title-width: {{ title_width }}px; --desc-width: {{ description_width }}px; --radius: {{ slider_border_radius }}px;">
     
     {% if enable_product_badge %}
         {% if product-badge %}
@@ -181,6 +276,5 @@
 
     </div>
 
-</div>
-
+</div> 
                       

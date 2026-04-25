@@ -101,5 +101,10 @@
  .custom-features-slider-{{ section.id }} .page-width{
         padding: 0 2.5rem;
     }
+ .custom-features-slider-{{ section.id }} .slide-media-main {
+   border-radius: 100px;
+   aspect-ratio: 0;
+   height: 100vh;
+   }
   }
 </style>

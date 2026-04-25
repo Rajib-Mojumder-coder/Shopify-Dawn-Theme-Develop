@@ -242,6 +242,7 @@ body, .button {
   position: relative;
   z-index: 2;
   transition: transform 0.35s ease;
+  text-align: center;
 }
 
 /* Icon */
@@ -275,6 +276,12 @@ body, .button {
 .custom-global-button:hover .btn-icon {
   opacity: 1;
   transform: translateX(8px); /* arrow appears smoothly */
+}
+@media (max-width: 450px){
+  .custom-global-button {
+  padding: 13px 20px;
+  max-width: 75%;
+}
 }
 /* Search Placeholder */
 
