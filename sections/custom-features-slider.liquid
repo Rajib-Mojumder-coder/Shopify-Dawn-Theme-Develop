@@ -1,0 +1,223 @@
+
+{{ 'features_slider.css' | asset_url | stylesheet_tag }}
+
+
+{% render 'custom-features-slider' %} 
+
+{% schema %}
+{
+"name": "Custom Features Slider",
+"settings": [
+{
+"type": "text",
+"id": "layout_max_width",
+"label": "Layout Max Width",
+"default": "1728"
+},
+{
+  "type": "header",
+  "content": "Section Style"
+  },
+  {
+  "type": "color_scheme",
+  "id": "color_scheme",
+  "label": "Chose Color Scheme",
+  "default": "scheme-7"
+  },
+  {
+    "type": "range",
+    "id": "padding_top",
+    "label": "Top Spacing",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "default": 80,
+    "unit": "px"
+    },
+  {
+    "type": "range",
+    "id": "padding_bottom",
+    "label": "Top Spacing",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "default": 80,
+    "unit": "px"
+    }
+],
+"blocks": [
+  {
+  "type": "image_slider",
+  "name": "Featured Image Slider",
+  "settings":
+  [
+    {
+    "type": "color_scheme",
+    "id": "color_scheme",
+    "label": "Slider Color Scheme",
+    "default": "scheme-6"
+    },
+    {
+    "type": "image_picker",
+    "id": "desktop-image",
+    "label": "Desktop Image"
+    },
+    {
+    "type": "image_picker",
+    "id": "mobile-image",
+    "label": "Mobile Image"
+    },
+    {
+    "type": "checkbox",
+    "id": "enable_product_badge",
+    "label": "Enable Product Badge",
+    "default":false
+    },
+    {
+    "type": "image_picker",
+    "id": "product-badge",
+    "label": "Product Badge"
+    },
+    {
+    "type": "range",
+    "id": "slider_border_radius",
+    "label": "Slider Border Radius",
+    "default": 200,
+    "min": 0,
+    "max": 400,
+    "step": 10,
+    "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "Enable Overlaping Over Image",
+      "default": true
+    },
+    {
+      "type": "color_background",
+      "id": "overlay_background",
+      "label": "Overlay Color",
+      "default": "linear-gradient(84deg, #06123D 26%, rgba(6,18,61,0.46) 50%, transparent 70%)"
+      },
+    {
+    "type": "header",
+    "content": "Slide Block Content"
+    },
+    
+    { 
+    "type": "text",
+    "id": "subtitle",
+    "label": "Subtitle",
+    "default": "Hello Subtitle"
+    },
+    { 
+    "type": "text",
+    "id": "title",
+    "label": "Title",
+    "default": "Hello Title" 
+    },
+    {
+    "type": "range",
+    "id": "title_width",
+    "label": "Title Width",
+    "min": 400,
+    "max": 750,
+    "step": 10,
+    "default": 430,
+    "unit": "px"
+    },
+    {
+    "type": "range",
+    "id": "top_spacing",
+    "label": "Top Spacing",
+    "min": 0,
+    "max": 60,
+    "step": 1,
+    "default": 30,
+    "unit": "px"
+    },
+    {
+    "type": "range",
+    "id": "bottom_spacing",
+    "label": "Bottom Spacing",
+    "min": 0,
+    "max": 60,
+    "step": 1,
+    "default": 30,
+    "unit": "px"
+    },
+    { 
+    "type": "richtext", 
+    "id": "description", 
+    "label": "Description",
+    "default": "<p> Heb jij net zo'n passie voor fietsen als wij en heb je ervaring in het onderhouden, repareren en afstellen van diverse fietsen? Bekijk dan onze vacature en wie weet tot snel! </p>" 
+    },
+      {
+    "type": "range",
+    "id": "description_width",
+    "label": "Description Width",
+    "min": 350,
+    "max": 550,
+    "step": 5,
+    "default": 500,
+    "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_icon_1",
+      "label": "Brand Icon 01"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_icon_2",
+      "label": "Brand Icon 02"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_icon_3",
+      "label": "Brand Icon 03"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_icon_4",
+      "label": "Brand Icon 04"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_icon_5",
+      "label": "Brand Icon 05"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_icon_6",
+      "label": "Brand Icon 06"
+    },
+    { 
+    "type": "text",
+    "id": "button_text",
+    "label": "Button Label",
+    "default": "View All"
+    },
+    { 
+    "type": "url",
+    "id": "button_link",
+    "label": "Button Link" 
+    },
+    
+    {
+      "type": "inline_richtext",
+      "id": "notetext",
+      "label": "Bottom Note Text",
+      "default": "*Zolang de voorraad strekt"
+    }
+  ]
+  }
+],
+"presets": [
+    {"name": "Features Block Slider"}
+],
+"class": "custom-features-slider",
+"disabled_on": {"groups": ["header", "footer", "aside"]}
+}
+{% endschema %}

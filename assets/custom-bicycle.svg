@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" role="img" aria-label="Bicycle placeholder">
+  <style>
+    .stroke { stroke: #555; stroke-width: 6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .wheel { stroke: #333; stroke-width: 6; fill: none; }
+  </style>
+
+  <!-- Wheels -->
+  <circle cx="120" cy="220" r="70" class="wheel"/>
+  <circle cx="380" cy="220" r="70" class="wheel"/>
+
+  <!-- Frame -->
+  <path d="M120 220 L200 120 L300 220 L240 220 L200 120 L260 120" class="stroke"/>
+
+  <!-- Seat -->
+  <line x1="200" y1="120" x2="190" y2="90" class="stroke"/>
+  <line x1="170" y1="90" x2="210" y2="90" class="stroke"/>
+
+  <!-- Handle -->
+  <line x1="260" y1="120" x2="300" y2="90" class="stroke"/>
+  <line x1="300" y1="90" x2="330" y2="100" class="stroke"/>
+
+  <!-- Pedal -->
+  <circle cx="240" cy="220" r="8" fill="#555"/>
+  <line x1="240" y1="220" x2="260" y2="240" class="stroke"/>
+  <line x1="240" y1="220" x2="220" y2="200" class="stroke"/>
+</svg>

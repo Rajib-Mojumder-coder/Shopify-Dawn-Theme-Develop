@@ -1,0 +1,88 @@
+
+{{ 'features_slider.css' | asset_url | stylesheet_tag }}
+
+
+{% liquid
+  assign layout_max_width = section.settings.layout_max_width
+  assign color_scheme = section.settings.color_scheme
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+%}
+
+<style>
+    .custom-features-slider-{{ section.id }}{
+        padding: var(--padding_top) 0 var(--padding_bottom) 0;
+    }
+    @media(max-width: 1024px){
+   .custom-features-slider-{{ section.id }} {
+        padding: 40px 0 40px 0 !important;
+    }
+}
+    
+    
+
+</style>
+
+<div class="custom-features-slider-{{ section.id }} color-{{ color_scheme }}" style="--padding_top: {{ padding_top }}px; --padding_bottom: {{padding_bottom}}px;">
+ 
+    <div class="page-width" style="{% if layout_max_width != blank %} max-width: {{ layout_max_width }}px;{% endif %}"> 
+        <div class="swiper featuresSlider">
+            <div class="swiper-wrapper">
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                    {% when 'image_slider' %}
+                        {% render 'featured_image_slider', block: block,
+                        color_scheme: block.settings.color_scheme,
+                        desktop-image: block.settings.desktop-image,
+                        mobile-image: block.settings.mobile-image,
+                        enable_product_badge: block.settings.enable_product_badge,
+                        product-badge: block.settings.product-badge,
+                        slider_border_radius: block.settings.slider_border_radius,
+                        enable_gradient: block.settings.enable_gradient,
+                        overlay_background: block.settings.overlay_background,
+                        subtitle: block.settings.subtitle,
+                        title: block.settings.title,
+                        title_width: block.settings.title_width,
+                        top_spacing: block.settings.top_spacing,
+                        bottom_spacing: block.settings.bottom_spacing,
+                        description: block.settings.description,
+                        description_width: block.settings.description_width,
+                        button_text: block.settings.button_text,
+                        button_link: block.settings.button_link,
+                        notetext: block.settings.notetext,
+                        brand_icon_1: block.settings.brand_icon_1,
+                        brand_icon_2: block.settings.brand_icon_2,
+                        brand_icon_3: block.settings.brand_icon_3,
+                        brand_icon_4: block.settings.brand_icon_4,
+                        brand_icon_5: block.settings.brand_icon_5,
+                        brand_icon_6: block.settings.brand_icon_6
+                        %}
+                    {% endcase %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var swiper = new Swiper(".featuresSlider", {
+    slidesPerView: 1,
+    spaceBetween: 0,
+    loop: true,
+    effect: "fade",
+    pagination: {
+        el: '.pagination-{{section.id }}',
+        clickable: true,
+      },
+       navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    // autoplay: {
+    // delay: 2500,
+    // disableOnInteraction: false,
+    //   }, 
+    });
+  </script>
+

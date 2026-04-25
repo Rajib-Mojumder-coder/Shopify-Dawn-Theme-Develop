@@ -1,0 +1,204 @@
+{% liquid
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+
+  assign slide_per_desktop = section.settings.slide_per_desktop
+  assign desktop_item_gap = section.settings.desktop_item_gap
+  assign slide_per_mobile = section.settings.slide_per_mobile
+  assign mobile_item_gap = section.settings.mobile_item_gap
+
+  assign slider_speed = section.settings.slider_speed
+%}
+<div class="custom-logo-marque-{{ section.id }} color-{{ section.settings.color_scheme }} gradient"> 
+
+    <div  class="swiper logoMarque">
+        <div class="swiper-wrapper">
+
+            {% for block in section.blocks %}
+                {% liquid
+                  assign marque_logo = block.settings.marque_logo
+                %}
+            <div class="swiper-slide">
+                  {% if marque_logo %}
+                  {{ marque_logo | image_url: width: 200 | image_tag: loading: 'lazy', fetchpriority: 'high', class: 'marque-logo' }}
+                  {% else %}
+                  {{ 'detailed-apparel-1' | placeholder_svg_tag: 'marque-logo'  }}
+                  {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+
+<style>
+.custom-logo-marque-{{ section.id }}{
+padding: {{ padding_top }}rem 0 {{ padding_bottom }}rem 0;
+max-height: 260px;
+background: rgb(var(--color-background));
+}
+.custom-logo-marque-{{ section.id }} .marque-logo{
+filter: brightness(0) invert(1);
+opacity: 0.5; 
+transition-duration: 0.3s;
+object-fit: cover;
+height: 100%;
+width: 100%;
+max-width: 200px;
+}
+.custom-logo-marque-{{ section.id }} .marque-logo:hover{
+filter: brightness(1) invert(0) !important;
+opacity: 1 !important;
+} 
+.custom-logo-marque-{{ section.id }} .swiper-wrapper {
+    justify-content: space-between;
+    align-items: center;
+}
+.swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+@media (max-width: 640px){
+.custom-logo-marque-{{ section.id }}{
+padding: 3rem 0 3rem 0;
+max-height: 140px;
+}
+.custom-logo-marque-{{ section.id }} .marque-logo{
+max-width: 140px;
+}
+}
+</style>
+
+<script>
+    var swiper = new Swiper(".logoMarque", {
+      slidesPerView: {{slide_per_mobile}},
+      spaceBetween: {{mobile_item_gap}},
+      loop: {{section.settings.looping}},
+      freeMode: true,
+      allowTouchMove: false,
+      speed: {{slider_speed}},
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+        reverseDirection: {{ section.settings.left_to_right | json }},
+      },
+      
+      breakpoints: {
+        640: {
+         slidesPerView: 3,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: {{ slide_per_desktop }},
+          spaceBetween: {{desktop_item_gap}},
+        },
+      },
+    });
+  </script>
+{% schema %}
+{
+"name": "Logo Marque",
+"class": "logo-marque",
+"settings": [
+{
+"type": "color_scheme",
+"id": "color_scheme",
+"label": "Color Scheme",
+"default": "scheme-7"
+},
+{
+"type": "range",
+"id": "padding_top",
+"label": "Padding Top",
+"min": 0,
+"max": 10,
+"default": 5,
+"step": 0.1,
+"unit": "rem"
+},
+{
+"type": "range",
+"id": "padding_bottom",
+"label": "Padding Bottom",
+"min": 0,
+"max": 10,
+"default": 5,
+"step": 0.1,
+"unit": "rem"
+},
+{
+"type": "range",
+"id": "slide_per_desktop",
+"label": "Slide Per Desktop",
+"min": 4,
+"max": 7,
+"default": 5,
+"step": 1
+},
+{
+"type": "text",
+"id": "desktop_item_gap",
+"label": "Desktop Item Gap",
+"default": "40"
+},
+{
+"type": "range",
+"id": "slide_per_mobile",
+"label": "Slide Per mobile",
+"min": 2,
+"max": 4,
+"default": 2,
+"step": 1
+},
+{
+"type": "range",
+"id": "slider_speed",
+"label": "Slider Speed",
+"min": 0,
+"max": 9500,
+"default": 5000,
+"step": 100
+},
+{
+"type": "text",
+"id": "mobile_item_gap",
+"label": "mobile Item Gap",
+"default": "40"
+},
+{
+"type": "checkbox",
+"id": "left_to_right",
+"label": "Enable Slider Direction Left to Right",
+"default": false
+},
+{
+"type": "checkbox",
+"id": "looping",
+"label": "Enable Looping",
+"default": true
+}
+],
+"blocks": [
+    {
+    "type": "logo",
+    "name": "Add Logo",
+    "settings": [
+        {
+        "type": "image_picker",
+        "id": "marque_logo",
+        "label": "Add Logo"
+        }
+    ]
+    }
+],
+"presets": [
+    {"name": "Logo Marque"}
+]
+
+}
+{% endschema %}

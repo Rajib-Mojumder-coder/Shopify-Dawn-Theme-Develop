@@ -20,8 +20,17 @@
   border-top-right-radius: var(--radius_top_right);
   border-bottom-right-radius: var(--radius_bottom_right);
   overflow: hidden;
+  position: relative;
 }
-
+.slide-media.has-overlay::after {
+    content: "";
+    background: linear-gradient(133deg,#000 -67.71%,#0000 61%);
+    top: 0;
+    left: 0;
+    width: 80%;
+    position: absolute;
+    height: 100%;
+}
 
 .hero-content {
     position: absolute;
@@ -96,7 +105,7 @@ gap: 14px;
 .hero_search_bar input{
 width: 100%;
 font-family: 'Nohemi';
-color: var(--gradient-background);
+color: var(--color-primary);
 font-size: 25px;
 line-height: 90%;
 font-weight: 600;
@@ -114,14 +123,18 @@ color: var(--color-primary);
 .hero_search_bar .heroSearchIcon {
 max-width: 50px;
 }
-.hero_search_bar button{
-padding: 10px 35px;
-border-radius: 100px;
-display: flex;
-align-items: center;
-gap: 8px;
-cursor: pointer;
+
+/* start design of Submit Button*/
+.search-submit-button .btn-text {
+  letter-spacing: 1px;
 }
+
+/* Hover effects */
+.search-submit-button:hover {
+  background: var(--color-secondary); 
+}
+
+/*end sumbit button*/
 
 /* End Hero Search design css*/
 /*Appointment Button Design Start */

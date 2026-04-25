@@ -1,0 +1,488 @@
+{% liquid
+  assign section_padding = section.settings.section_padding
+%}
+<div class="features-slider-{{ section.id }} color-{{ section.settings.color_scheme }}">
+    <div class="swiper featuresSwiper">
+    <div class="swiper-wrapper">
+
+        {% for block in section.blocks %}
+            <style>
+               .features-slider-{{section.id }} .slide-media img{
+                    max-width: {{ block.settings.media_width }}%;
+                }
+                .features-slider-{{ section.id }} .slide-content{
+                    gap: 10px !important;
+                }
+               .features-slider-{{ section.id }} .media-gradient {
+                    position: absolute;
+                    inset: 0;
+                    z-index: 2;
+                }
+                .features-slider-{{ section.id }} .content_logo {
+                    margin-bottom: {{block.settings.bottom_spacing}}px;
+                }
+               .features-slider-{{ section.id }} .slide-content{
+                padding: {{ block.settings.slide_inner_padding }};
+                position: absolute;
+                inset: 0;
+                z-index: 3;
+                max-width: 35%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                max-height: 100%;
+                height: 100%;
+                }
+                
+              .features-slider-{{ section.id }}  .icons {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                max-width: 620px;
+                }
+              .features-slider-{{ section.id }}  .icons img{
+                max-width: 58px;
+                height: 100%;
+                object-fit: cover;
+                }
+                .features-slider-{{ section.id }} plus {
+                margin: 0 8px;
+                font-weight: bold;
+                color: #52B099;
+                }
+                .features-slider-{{ section.id }} .title{
+                max-width: {{block.settings.title_width}}px;
+                }
+                .features-slider-{{ section.id }} .desc{
+                max-width: {{block.settings.description_width}}px;
+                }
+
+
+                 @media (min-width: 768px) and (max-width: 1400px){
+
+                .features-slider-{{ section.id }} .content_logo {
+                    margin-bottom: 20px !important;
+                    }
+                .features-slider-{{section.id }} .slide-media img{
+                    max-width: 100%;
+                    height: auto;
+                    }
+                }
+
+                 @media (min-width: 768px) and (max-width: 1023px){
+
+                .features-slider-{{ section.id }} .content_logo img {
+                    max-width: 200px;
+                    }
+                .features-slider-{{ section.id }} .slide-content{
+                padding: 5% 5%;
+                }
+
+                }
+
+                @media (min-width: 1024px) and (max-width: 1199px){
+                   .features-slider-{{ section.id }} .desc{
+                    font-size: 15px !important;
+                }   
+                }
+            </style>
+            <div class="swiper-slide color-{{ block.settings.color_scheme }} .features-slider-{{ block.id }}">
+                    <!-- MEDIA -->
+                <div class="slide-media">
+                    {% if block.settings.video != blank %}
+                    <video autoplay muted loop playsinline>
+                        <source src="{{ block.settings.video }}" type="video/mp4">
+                    </video>
+
+                    {% elsif block.settings.image != blank %}
+                        <img src="{{ block.settings.image | image_url: width: 2000 }}" alt="">
+
+                    {% else %}
+                        {{ 'detailed-apparel-1' | placeholder_svg_tag: 'slide-media' }}
+                    {% endif %}
+                </div>
+                
+                <!-- GRADIENT -->
+                {% if block.settings.enable_gradient %}
+                    <div class="media-gradient" style="background: {{ block.settings.background }};">&nbsp</div>
+                {% endif %}
+
+                <!-- CONTENT -->
+                <div class="slide-content">
+
+                    <div class="slide-top-content">
+            
+                        {% if block.settings.content_logo != blank %}
+                            <div class="content_logo">
+                                <img src="{{ block.settings.content_logo | image_url: width: 270 }}">
+                            </div>
+                        {%  endif %}
+                        {% if block.settings.subtitle != blank %}
+                            <p class="subtitle">{{ block.settings.subtitle }}</p>
+                        {% endif %}
+
+                        {% if block.settings.title != blank %}
+                            <h2 class="title font-title-medium">{{ block.settings.title }}</h2>
+                        {% endif %}
+                    </div>
+
+
+                    <div class="slide-middle-content">
+                        <div class="icons">
+                            {% for i in (1..6) %}
+                                
+                                {% assign icon_key = "icon_" | append: i %}
+                                {% assign icon = block.settings[icon_key] %}
+
+                                {% if icon != blank %}
+                                <div class="icon-item">
+                                    <img src="{{ icon | image_url: width: 150 }}">
+                                </div>
+
+                                {% unless forloop.last %}
+                                    <span class="plus">+</span>
+                                {% endunless %}
+                                {% endif %}
+
+                            {% endfor %}
+                            </div>
+
+                                        
+                    {% if block.settings.description != blank %}
+                        <p class="desc">{{ block.settings.description }}</p>
+                    {% endif %}
+                    </div>
+
+                    <div class="slide-bottom-content">
+                        {% render 'custom-global-button',
+                            button_link: block.settings.button_link,
+                            button_text: block.settings.button_text
+                        %}
+                           
+                    </div>
+
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+                
+        <div class="swiper-next-prev-pagi"> 
+            <div class="swiper-button-next next-{{section.id }}">  {% render 'arrow-border.liquid' %} </div> 
+            <div class="swiper-pagination pagination-{{section.id }}">&nbsp</div>
+            <div class="swiper-button-prev prev-{{section.id }}"> {% render 'arrow-border.liquid' %} </div> 
+        </div> 
+    </div>
+    
+</div>
+<style>
+.features-slider-{{section.id }}{
+padding: {{section_padding}};
+}
+
+.features-slider-{{section.id }} .featuresSwiper{
+width: 100%;
+max-width: 1603px;
+max-height: 641px;
+height: 100%;
+}
+.features-slider-{{section.id }} .swiper-slide{
+position: relative;
+overflow: hidden;
+display: flex;
+justify-content: flex-end;
+{% comment %} border-radius: 200px;
+aspect-ratio: 1603 / 641;  {% endcomment %}
+}
+.features-slider-{{section.id }} .slide-media {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+    max-width: 65%;
+}
+
+.features-slider-{{section.id }} .slide-media img {
+  height: 100%;
+  object-fit: cover;
+}
+/* Swiper Next, Prev, & Pagination Worked */
+.features-slider-{{section.id }} .pagination-{{section.id }}{
+    position: static;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.features-slider-{{section.id }} .pagination-{{section.id }} .swiper-pagination-bullet{
+    width: var(--swiper-pagination-bullet-width);
+    height: var(--swiper-pagination-bullet-height);
+}
+
+.features-slider-{{section.id }} .pagination-{{section.id }} .swiper-pagination-bullet{
+    background: var(--swiper-pagination-bullet-inactive-color);
+    opacity: var(--swiper-pagination-bullet-inactive-opacity);
+} 
+.features-slider-{{section.id }} .pagination-{{section.id }} .swiper-pagination-bullet-active{
+    background: var(--swiper-theme-color);
+    opacity: var(--swiper-pagination-bullet-active-opacity);
+} 
+.features-slider-{{section.id }} .swiper-next-prev-pagi {
+    width: 100%;
+    height: 55px;
+    position: relative;
+    max-width: 250px;
+    max-height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+} 
+
+@media (min-width: 1024px) and (max-width: 1400px){
+.features-slider-{{section.id }}{
+padding: 5rem;
+}
+}
+
+@media (min-width: 768px) and (max-width: 1023px){
+
+.features-slider-{{section.id }}{
+padding: 3.2rem;
+}
+
+{% comment %} .features-slider-{{section.id }} .swiper-slide{
+aspect-ratio: 1603 / 660;  
+}{% endcomment %}
+}
+@media (min-width: 1200px) and (max-width: 1400px){
+.features-slider-{{section.id }} .title {
+font-size: 60px;
+}
+}
+
+@media (min-width: 768px) and (max-width: 1199px){
+
+.features-slider-{{section.id }}{
+min-height: 55rem;
+}
+.features-slider-{{section.id }} .title {
+font-size: var(--font-title-small);
+}
+}
+</style>
+<script>
+    var swiper = new Swiper(".featuresSwiper", {
+    slidesPerView: 1,
+    spaceBetween: 0,
+    loop: true,
+    effect: "fade",
+    pagination: {
+        el: '.pagination-{{section.id }}',
+        clickable: true,
+      },
+       navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    {% comment %} autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      }, {% endcomment %}
+    });
+  </script>
+  
+{% schema %}
+{
+"name": "Features Slider",
+"class": "custom_features_slider",
+"disabled_on": {"groups": ["header", "footer", "aside"]},
+"settings": [
+    {
+    "type": "color_scheme",
+    "id": "color_scheme",
+    "label": "Section Background Color",
+    "default": "scheme-5"
+    },
+    {
+    "type": "header",
+    "content": "Section Padding"
+    },
+    {
+    "type": "text",
+    "id": "section_padding",
+    "label": "Section Padding",
+    "default": "60px 60px 60px 60px"
+    }
+],
+"blocks": [
+    {
+    "type": "slide",
+    "name": "slide",
+    "settings": [
+        {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Slider Color Scheme",
+        "default": "scheme-8"
+        },
+        {
+        "type": "url",
+        "id": "video",
+        "label": "Video URL"
+        },
+        {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Background Image"
+        },
+        {
+        "type": "range",
+        "id": "media_width",
+        "label": "Image Width",
+        "min": 50,
+        "max": 70,
+        "step": 1,
+        "default": 65,
+        "unit": "%"
+        },
+        {
+        "type": "header",
+        "content": "Slide Style"
+        },
+        {
+        "type": "text",
+        "id": "slide_inner_padding",
+        "label": "Inner Padding",
+        "default": "5% 10%"
+        },
+        { 
+        "type": "checkbox", 
+        "id": "enable_gradient", 
+        "label": "Enable Gradient", 
+        "default": false
+        },
+        {
+        "type": "color_background",
+        "id": "background",
+        "label": "Overlay Color",
+        "default": "linear-gradient(84deg, #06123D 26%, rgba(6,18,61,0.46) 50%, transparent 70%)"
+        },
+        {
+        "type": "header",
+        "content": "Slide Content"
+        },
+        {
+        "type": "image_picker",
+        "id": "content_logo", 
+        "label": "Content Logo"
+        },
+        {
+        "type": "range",
+        "id": "bottom_spacing",
+        "label": "Bottom Spacing",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 30,
+        "unit": "px"
+        },
+        { 
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+        },
+        { 
+        "type": "text",
+        "id": "title",
+        "label": "Title" 
+        },
+        {
+        "type": "range",
+        "id": "title_width",
+        "label": "Title Width",
+        "min": 300,
+        "max": 500,
+        "step": 10,
+        "default": 430,
+        "unit": "px"
+        },
+        
+        { 
+        "type": "textarea", 
+        "id": "description", 
+        "label": "Description" 
+        },
+         {
+        "type": "range",
+        "id": "description_width",
+        "label": "Description Width",
+        "min": 350,
+        "max": 500,
+        "step": 5,
+        "default": 445,
+        "unit": "px"
+        },
+        { 
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label" 
+        },
+        { 
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link" 
+        },
+        {
+        "type": "header",
+        "content": "Icons"
+        },
+        {
+        "type": "image_picker",
+        "id": "icon_1",
+        "label": "Icon 1"
+        },
+        {
+        "type": "image_picker",
+        "id": "icon_2",
+        "label": "Icon 2"
+        },
+        {
+        "type": "image_picker",
+        "id": "icon_3",
+        "label": "Icon 3"
+        },
+        {
+        "type": "image_picker",
+        "id": "icon_4",
+        "label": "Icon 4"
+        },
+        {
+        "type": "image_picker",
+        "id": "icon_5",
+        "label": "Icon 5"
+        },
+        {
+        "type": "image_picker",
+        "id": "icon_6",
+        "label": "Icon 6"
+        },
+        {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "View The Collection"
+        },
+        {
+        "type": "url",
+        "id": "button-link",
+        "label": "Button Link"
+        }
+    ]
+    }
+],
+"presets": [{"name": "Custom Features Slider"}]
+}
+{% endschema %}

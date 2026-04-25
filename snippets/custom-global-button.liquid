@@ -1,0 +1,11 @@
+{% if button_link != blank %}
+<a 
+  href="{{ button_link }}" 
+  class="custom-global-button {% if transparent %}btn-transparant-bg{% endif %}"
+>
+  <span class="btn-text">{{ button_text }}</span>
+  <span class="btn-icon">
+    <img src="{{ 'Vector 1.svg' | asset_url }}" alt="">
+  </span>
+</a>
+{% endif %}

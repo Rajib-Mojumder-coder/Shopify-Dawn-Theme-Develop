@@ -25,7 +25,7 @@
   assign appointment_btn_url = section.settings.appointment_btn_url
   
 %}
-<div class="custom-hero-{{ section.id }}">
+<div class="custom-hero-{{ section.id }} color-{{ section.settings.color_scheme }} gradient" style="--bg-2: {{ section.settings.background_2 }};">
   <div class="hero-container">
     
     <div class="hero-content page-width mobile-padding">
@@ -94,10 +94,7 @@
                   
               <div class="swiper-slide slide">
                 
-                <div class="slide-media"
-                  style="
-                    --overlay-opacity: {{ slider_image_overlay | divided_by: 100.0 }};
-                  ">
+                <div class="slide-media {% if block.settings.slider_image_overlay %}has-overlay{% endif %}">
                     {% if media %}
                   <!-- Desktop Image -->
                   {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', fetchpriority: 'high', class: 'hero_slide_image only-desktop' }}
@@ -136,24 +133,25 @@
 </div>
 
 <style>
+ 
+ 
+
 .custom-hero-{{ section.id }}{
-{% comment %} --split: clamp(600px, 65vh, 800px);
-width:100%;
-  height: 100%;
-  background: linear-gradient(to bottom, #06123D 0, #06123D var(--split),
-   #3F7280 var(--split), #3F7280 100%); {% endcomment %}
   --split: calc(70vw * 903 / 1483);
-
-  width: 100%;
-  min-height: var(--split);
-
-  background: linear-gradient(
+    width: 100%;
+    min-height: var(--split);
+    position: relative; 
+    background: rgb(var(--color-background));
+    overflow: hidden;
+{% comment %}
+   background: linear-gradient(
     to bottom,
-    #06123D 0,
-    #06123D var(--split),
-    #3F7280 var(--split),
-    #3F7280 100%
-  );
+    var(--color-background) 0,
+    var(--color-background) var(--split),
+    var(--bg-2) var(--split),
+    var(--bg-2) 100%
+  ); {% endcomment %}
+  
 --heading_width: {{ heading_width }}px;
 --description_width: {{ description_width }}px;
 
@@ -164,10 +162,31 @@ width:100%;
 --features_bg_color: {{ features_bg_color }};
 --herosearch_top_spacing: {{ herosearch_top_spacing }}px;
 --herosearch_bottom_spacing: {{ herosearch_bottom_spacing }}px;
-
-  position: relative;
-  
 }
+.custom-hero-{{ section.id }}::before {
+  content: "";
+  position: absolute;
+  top: var(--split);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--split));
+
+  background: var(--bg-2); 
+
+  z-index: 0;
+}
+.custom-hero-{{ section.id }}::after{
+content: '';
+position: absolute;
+width: 100%;
+height: 100%;
+inset: 0;
+border-radius: 0 500px 500px 0; 
+opacity: 0.1; 
+background: #52B099; 
+filter: blur(75px); 
+z-index: 1;
+} 
 @media (min-width: 1024px) and (max-width: 1400px) {
   .custom-hero-{{ section.id }} {
     --split: calc(80vw * 903 / 1483);
@@ -219,6 +238,18 @@ width:100%;
   "type": "header",
   "content": "Section Style"
   },
+  {
+  "type": "color_scheme",
+  "id": "color_scheme",
+  "label": "Chose Color Scheme",
+  "default": "scheme-6"
+  },
+  {
+  "type": "color",
+  "id": "background_2",
+  "label": "Second Background Color",
+  "default": "#3F7280"
+},
   {
     "type": "range",
     "id": "herosearch_top_spacing",
@@ -395,14 +426,10 @@ width:100%;
         "label": "Select Mobile Slider Image"
         },
         {
-        "type": "range",
+        "type": "checkbox",
         "id": "slider_image_overlay",
-        "label": "Image Overlay Opacity",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "%",
-        "default": 0
+        "label": "Enable Image Overlay",
+        "default": true
         }
     ]
     }
@@ -410,258 +437,3 @@ width:100%;
 "presets": [{"name": "Hero BAnner New"}]
 }
 {% endschema %}
-
-<style>
-  .custom-hero-{{ section.id }}{
-  }
-</style>
-{% comment %} 
- {% liquid
-  assign slides = section.blocks | where: "type", "slide"
-%}
-
-<section class="custom-hero-{{ section.id }}">
-
-  <style>
-    .custom-hero-{{ section.id }} {
-      --hero-blue: {{ section.settings.color_blue }};
-      --hero-green: {{ section.settings.color_green }};
-      --accent: {{ section.settings.color_accent }};
-
-      /* 🔥 BIG BLUE, SMALL GREEN */
-      --split: clamp(450px, 65vh, 780px);
-
-      min-height: clamp(700px, 95vh, 950px);
-
-      background: linear-gradient(
-        to bottom,
-        var(--hero-blue) 0,
-        var(--hero-blue) var(--split),
-        var(--hero-green) var(--split),
-        var(--hero-green) 100%
-      );
-
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-inner {
-      max-width: 1728px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    /* TITLE */
-    .hero-top {
-      text-align: center;
-      padding-top: clamp(40px, 8vh, 90px);
-      position: relative;
-      z-index: 3;
-    }
-
-    /* 🔥 SEARCH EXACT SPLIT */
-    .hero-search-anchor {
-      position: absolute;
-      top: var(--split);
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      max-width: 1246px;
-      z-index: 5;
-    }
-
-    /* SWIPER */
-    .hero-swiper {
-      max-width: 1485px;
-      margin: calc(var(--split) * 0.15) auto 0;
-      position: relative;
-    }
-
-    .hero-swiper .swiper-slide {
-      aspect-ratio: 1485 / 900;
-      overflow: hidden;
-    }
-
-    .hero-swiper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* BUTTON */
-    .hero-btn {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .hero-btn a {
-      width: 225px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-    }
-
-    /* MOBILE */
-    @media(max-width: 768px){
-      .custom-hero-{{ section.id }} {
-        --split: 55vh;
-      }
-    }
-
-  </style>
-
-  <div class="hero-inner">
-
-    <!-- TITLE -->
-    <div class="hero-top">
-      <h1>{{ section.settings.heading }}</h1>
-      <p>{{ section.settings.description }}</p>
-    </div>
-
-    <!-- 🔥 SEARCH -->
-    <div class="hero-search-anchor">
-      {% render 'hero_search_bar',
-        search_placeholder: section.settings.search_placeholder,
-        search_button_text: section.settings.search_button_text
-      %}
-    </div>
-
-    <!-- 🔥 SWIPER SLIDER -->
-    <div class="swiper hero-swiper">
-      <div class="swiper-wrapper">
-        {% for block in slides %}
-          <div class="swiper-slide">
-            {% if block.settings.image %}
-              {{ block.settings.image | image_url: width: 1500 | image_tag }}
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- BUTTON -->
-    {% if section.settings.button_text != blank %}
-    <div class="hero-btn">
-      <a href="{{ section.settings.button_link }}">
-        {{ section.settings.button_text }}
-      </a>
-    </div>
-    {% endif %}
-
-  </div>
-
-  <!-- 🔥 SWIPER INIT -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      new Swiper(".custom-hero-{{ section.id }} .hero-swiper", {
-        loop: true,
-        effect: "fade",
-        autoplay: {
-          delay: {{ section.settings.autoplay_speed }},
-          disableOnInteraction: false
-        }
-      });
-    });
-  </script>
-
-</section>
-
-{% schema %}
-{
-  "name": "Custom Hero Pro",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Find Your Service"
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Description"
-    },
-    {
-      "type": "text",
-      "id": "search_placeholder",
-      "label": "Search Placeholder",
-      "default": "Search..."
-    },
-    {
-      "type": "text",
-      "id": "search_button_text",
-      "label": "Search Button",
-      "default": "Search"
-    },
-    {
-      "type": "color",
-      "id": "color_blue",
-      "label": "Top Background",
-      "default": "#3f72ff"
-    },
-    {
-      "type": "color",
-      "id": "color_green",
-      "label": "Bottom Background",
-      "default": "#22c55e"
-    },
-    {
-      "type": "color",
-      "id": "color_accent",
-      "label": "Button Color",
-      "default": "#000000"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "Make Appointment"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link"
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Enable Autoplay",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "autoplay_speed",
-      "min": 2000,
-      "max": 8000,
-      "step": 500,
-      "default": 4000,
-      "label": "Autoplay Speed"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "slide",
-      "name": "Slide",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Slide Image"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Custom Hero Pro"
-    }
-  ]
-}
-{% endschema %}
-
-{% endcomment %}

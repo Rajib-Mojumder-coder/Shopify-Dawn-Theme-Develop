@@ -10,7 +10,12 @@
             >
         </div>
         
-        <button class="search-submit-button" type="submit"> <p>{{ search_button_text}} </p> <img class="heroClickBtnIcon" src="{{ 'Vector 1.svg' | asset_url }}" width= "19" height= 100% alt="{{ clickButton }}"> </button>
+        {% comment %} <button class="search-submit-button" type="submit"> <p>{{ search_button_text}} </p> <img class="heroClickBtnIcon" src="{{ 'Vector 1.svg' | asset_url }}" width= "19" height= 100% alt="{{ clickButton }}"> </button> {% endcomment %}
+
+        <button class="search-submit-button custom-global-button" type="submit">
+            <span class="btn-text">{{ search_button_text }}</span>
+            <span class="btn-icon"> <img src="{{ 'Vector 1.svg' | asset_url }}" alt=""> </span>
+        </button>
     </form>
  </div>
 
