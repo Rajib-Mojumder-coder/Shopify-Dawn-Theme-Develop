@@ -122,7 +122,7 @@
             </div>
         {% endif %}
     {% endif %}
-    <div class="slide-media only-desktop slide-background-media"
+    <div class="only-desktop slide-background-media"
         style="background-image:url({% if desktop-image %}
             {{ desktop-image | image_url: width: 1000 }}
         {% else %}
@@ -130,7 +130,7 @@
         {% endif %})">
     </div>
 
-    <div class="slide-media only-mobile mobile-media"> 
+    <div class="only-mobile mobile-media"> 
         {% if mobile-image %}
             {{ mobile-image | image_url: width: 768 | image_tag: loading: 'lazy', fetchpriority: 'high', class: 'mobile-image only-mobile' }}
         {% else %}
