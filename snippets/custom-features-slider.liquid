@@ -1,5 +1,6 @@
 
-{{ 'features_slider.css' | asset_url | stylesheet_tag }}
+{% comment %} {{ 'features_slider.css' | asset_url | stylesheet_tag }} {% endcomment %}
+{{ 'features_slider_new.css' | asset_url | stylesheet_tag }}
 
 
 {% liquid
@@ -17,6 +18,7 @@
    .custom-features-slider-{{ section.id }} {
         padding: 40px 0 40px 0 !important;
     }
+   
 }
     
     
@@ -57,9 +59,18 @@
                         brand_icon_5: block.settings.brand_icon_5,
                         brand_icon_6: block.settings.brand_icon_6
                         %}
+                    {%  when 'video_slider' %}
+                         {% render 'featured_video_slider', block: block %}
                     {% endcase %}
                 {% endfor %}
             </div>
+
+        <div class="swiper-nav-wrapper">
+            <div class="swiper-button-prev prev-{{section.id }}">{% render 'arrow-border.liquid' %}</div>
+            <div class="swiper-pagination pagination-{{section.id }}">&nbsp</div>
+            <div class="swiper-button-next next-{{section.id }}">{% render 'arrow-border.liquid' %}</div>
+        </div>
+
         </div>
     </div>
 
@@ -76,8 +87,8 @@
         clickable: true,
       },
        navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        nextEl: '.next-{{section.id }}',
+        prevEl: '.prev-{{section.id }}',
       },
     // autoplay: {
     // delay: 2500,

@@ -1,6 +1,7 @@
 {{ 'hero-split-banner.css' | asset_url | stylesheet_tag }}
 {% liquid
   
+  assign layout_max_width = section.settings.layout_max_width
   assign herosearch_top_spacing = section.settings.herosearch_top_spacing
   assign herosearch_bottom_spacing = section.settings.herosearch_bottom_spacing
 
@@ -26,7 +27,7 @@
   
 %}
 <div class="custom-hero-{{ section.id }} color-{{ section.settings.color_scheme }} gradient" style="--bg-2: {{ section.settings.background_2 }};">
-  <div class="hero-container">
+  <div class="hero-container" style="max-width: {{layout_max_width}}px;">
     
     <div class="hero-content page-width mobile-padding">
         <div class="content-top">
@@ -234,6 +235,12 @@ z-index: 1;
 "class": "custom-hero-banner",
 "tag": "section",
 "settings": [
+    {
+  "type": "text",
+  "id": "layout_max_width",
+  "label": "Layout Max Width",
+  "default": "1728"
+  },
   {
   "type": "header",
   "content": "Section Style"

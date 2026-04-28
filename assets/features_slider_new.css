@@ -1,10 +1,13 @@
 <style>
- 
-        .custom-features-slider-{{ section.id }} .slide-media-main {
+
+.custom-features-slider-{{ section.id }} .slide-media-main {
         overflow: hidden;
-        aspect-ratio: 1604 / 641;
-    }
-    .custom-features-slider-{{ section.id }} .slide-background-media{
+        min-height: 640px;
+        max-width: 1604px; 
+        border-radius: var(--radius);
+    }   
+      
+    .featuresSlider .slide-background-media{
         background-size: cover;
         background-repeat: no-repeat;
         position: absolute;
@@ -13,35 +16,36 @@
         background-attachment: fixed;
         z-index: 1;
     }
-    .custom-features-slider-{{ section.id }} .media-gradient {
+    .featuresSlider .media-gradient {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
         z-index: 2;
     }
-    .custom-features-slider-{{ section.id }} .featured-slider-content {
+    .featuresSlider .featured-slider-content {
     position: absolute;
     inset: 0;
     z-index: 3;
-    padding: 80px 0 70px 180px;
     max-width: 735px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 70px 0px 70px 180px;
 } 
-.custom-features-slider-{{ section.id }} .title {
+.featuresSlider .title {
   max-width: var(--title-width);
 }
 
-.custom-features-slider-{{ section.id }} .desc {
+.featuresSlider .desc {
   max-width: var(--desc-width);
   color: rgba(var(--color-foreground), 1) !important;
 }
 
-.custom-features-slider-{{ section.id }} .slide-media-main {
-  border-radius: var(--radius);
-}
+.featured-slider-content > div:nth-child(4) {
+    margin-top: auto;
+  }
+
 .featuresSlider .swiper-nav-wrapper {
     display: flex;
     justify-content: center;
@@ -64,66 +68,89 @@
   }
 
 @media(min-width: 1201px) and (max-width: 1400px){
-  .slide-media-main {
-    aspect-ratio: 1604 / 690;
-}
-
+ .custom-features-slider-{{ section.id }} .slide-media-main {
+  min-height: 540px;
+  }
 .custom-features-slider-{{ section.id }} .title{
   font-size: var(--font-title-semimedium);
-}
- .custom-features-slider-{{ section.id }} .featured-slider-content {
-  padding: 60px 0 80px 140px;
 }
 
 }
 @media(min-width: 1024px) and (max-width: 1200px){
-  .slide-media-main {
-    aspect-ratio: 1604 / 750;
+  
+  .custom-features-slider-{{ section.id }} .slide-media-main {
+  min-height: 480px;
+  }
+
+ .featuresSlider .featured-slider-content {
+  padding: 60px 0px 60px 120px;
 }
- .custom-features-slider-{{ section.id }} .featured-slider-content {
-  padding: 50px 0 50px 120px;
-}
-.custom-features-slider-{{ section.id }} .featured-middle-content {
+.featuresSlider .featured-middle-content {
     padding: 20px 0 20px !important;
 }
-.custom-features-slider-{{ section.id }} .title{
+.featuresSlider .title{
   font-size: var(--font-title-exmedium);
   max-width: 475px;
 }
-.desc {
+.featuresSlider .desc {
     max-width: 450px;
 }
 }
 
 @media(min-width: 767px) and (max-width: 1024px) {
-  .custom-features-slider-{{ section.id }} .title{
+ .custom-features-slider-{{ section.id }} .slide-media-main {
+  min-height: 450px;
+  border-radius: 120px;
+  }
+  .featuresSlider .title{
   font-size: var(--font-title-small);
   max-width: 440px;
 }
   
-   .custom-features-slider-{{ section.id }} .featured-slider-content {
-  padding: 40px 0 40px 120px;
+  .featuresSlider .featured-slider-content {
+  padding-left: 100px;
 }
-.desc p {
+.featuresSlider .desc p {
     font-size: var(--font-body-small);
-}
-.slide-media-main {
-    overflow: hidden;
-    aspect-ratio: 1604 / 800 !important;
-}
-.featured-slider-content {
-    max-width: 100%;
 }
 
 } 
+
 @media(max-width: 767px){
+  .featuresSlider .slide-media-main {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+    height: auto;
+    border-radius: 120px;
+  }
+
  .custom-features-slider-{{ section.id }} .page-width{
-        padding: 0 2.5rem;
+    padding: 0 32px;
+  }
+.featuresSlider .slide-media-main .mobile-media {
+  min-height: 260px;
+  max-height: 320px;
+} 
+.featuresSlider .slide-media-main .mobile-media svg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} 
+
+ .featuresSlider .slide-media-main .mobile-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+ .featuresSlider .featured-slider-content{
+    position: relative;
+    padding: 32px 25px;
+    justify-content: flex-start;
+    flex: 1;
+  }
+.featured-slider-content > div:nth-child(4) {
+    margin-top: 20px;
     }
- .custom-features-slider-{{ section.id }} .slide-media-main {
-   border-radius: 100px;
-   aspect-ratio: 0;
-   height: 100vh;
-   }
   }
 </style>

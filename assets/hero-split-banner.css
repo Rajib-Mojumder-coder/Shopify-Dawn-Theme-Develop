@@ -169,12 +169,16 @@ max-width: 50px;
 /*Appointment Button Design End */
 
 /* Media Query*/
-
+@media (max-width: 1500px) and (min-width: 1200px){
+    .heroSlider .hero_slide_image {
+    aspect-ratio: 1200 / 740;
+}
+}
 
 @media (max-width: 767px) {
 
 .mobile-padding {
-    padding: 4rem 3rem;
+    padding: 4rem 3rem !important;
 } 
   .hero-content {
     position: relative;

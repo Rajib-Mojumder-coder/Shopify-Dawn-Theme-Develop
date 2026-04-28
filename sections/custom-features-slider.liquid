@@ -1,5 +1,6 @@
 
-{{ 'features_slider.css' | asset_url | stylesheet_tag }}
+{% comment %} {{ 'features_slider.css' | asset_url | stylesheet_tag }} {% endcomment %}
+{{ 'features_slider_new.css' | asset_url | stylesheet_tag }}
 
 
 {% render 'custom-features-slider' %} 
@@ -48,7 +49,7 @@
 "blocks": [
   {
   "type": "image_slider",
-  "name": "Featured Image Slider",
+  "name": "Image Slider Block",
   "settings":
   [
     {
@@ -212,7 +213,14 @@
       "default": "*Zolang de voorraad strekt"
     }
   ]
-  }
+  },
+{
+  "type": "video_slider",
+  "name": "Video Slider Block",
+  "settings": [
+   
+  ]
+}
 ],
 "presets": [
     {"name": "Features Block Slider"}
