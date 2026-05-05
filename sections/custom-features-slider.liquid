@@ -216,9 +216,115 @@
   },
 {
   "type": "video_slider",
-  "name": "Video Slider Block",
+  "name": "Video Slide",
   "settings": [
-   
+    {
+      "type": "select",
+      "id": "video_type",
+      "label": "Video Type",
+      "options": [
+        { "label": "Upload", "value": "upload" },
+        { "label": "Video URL", "value": "url" },
+        { "label": "Youtube", "value": "youtube" },
+        { "label": "Vimeo", "value": "vimeo" }
+      ],
+      "default": "upload"
+    },
+    {
+      "type": "video",
+      "id": "video_file",
+      "label": "Upload",
+      "visible_if": "{{ block.settings.video_type == 'upload' }}"
+    },
+    {
+      "type": "url",
+      "id": "video_file_url",
+      "label": "Video File URL",
+      "visible_if": "{{ block.settings.video_type == 'url' }}",
+      "info": "Upload your video to Shopify Files first, then paste the URL here. Recommended: MP4 format for best compatibility"
+    },
+    {
+      "type": "video_url",
+      "id": "external_video_url",
+      "label": "Youtube or Vimeo URL",
+      "accept": ["youtube", "vimeo"],
+      "visible_if": "{{ block.settings.video_type == 'youtube' or block.settings.video_type == 'vimeo' }}"
+    },
+    {
+    "type": "color_scheme",
+    "id": "color_scheme",
+    "label": "Slider Color Scheme",
+    "default": "scheme-6"
+    },
+    {
+    "type": "range",
+    "id": "slider_border_radius",
+    "label": "Slider Border Radius",
+    "default": 200,
+    "min": 0,
+    "max": 400,
+    "step": 10,
+    "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "videocontroloptions",
+      "label": "Video Control Options",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true,
+      "visible_if": "{{block.settings.videocontroloptions == true}}"
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop",
+      "default": true,
+      "visible_if": "{{block.settings.videocontroloptions == true}}"
+    },
+    {
+      "type": "checkbox",
+      "id": "controls",
+      "label": "Show Controls",
+      "default": false,
+      "visible_if": "{{block.settings.videocontroloptions == true}}"
+    },
+      {
+      "type": "image_picker",
+      "id": "video_poster",
+      "label": "Poster Image"
+    },
+    {
+      "type": "header",
+      "content": "Slder Content"
+    },
+    { 
+    "type": "text",
+    "id": "title",
+    "label": "Title",
+    "default": "Hello Title" 
+    },
+    { 
+    "type": "richtext", 
+    "id": "description", 
+    "label": "Description",
+    "default": "<p> Heb jij net zo'n passie voor! </p>" 
+    },
+    { 
+    "type": "text",
+    "id": "button_text",
+    "label": "Button Label",
+    "default": "View All"
+    },
+    { 
+    "type": "url",
+    "id": "button_link",
+    "label": "Button Link" 
+    }
   ]
 }
 ],
@@ -229,3 +335,87 @@
 "disabled_on": {"groups": ["header", "footer", "aside"]}
 }
 {% endschema %}
+
+{% comment %} { 
+  "type": "video_slider", 
+  "name": "Video Slider Block", 
+  "settings": 
+  [ { 
+    "type": "select", 
+    "id": "video_type", 
+    "label": "Video Type", 
+    "default": "hosted_video", 
+    "options": [ 
+      {"value": "hosted_video", "label": "Hosted Video"}, 
+      {"value": "youtubeOrvimeo", "label": "Youtube or Vimeo"} 
+      ] 
+    }, 
+      { "type": "video", 
+      "id": "custom_video", 
+      "label": "Upload Video", 
+      "visible_if": "{{block.settings.video_type == 'hosted_video'}}" 
+      }, 
+      { 
+        "type": "video_url", 
+        "id": "video_url", 
+        "accept": ["vimeo", "youtube"], 
+        "label": "Paste Youtube or Vimeo URL", 
+        "visible_if": "{{block.settings.video_type == 'youtubeOrvimeo'}}" 
+        }, 
+        { "type": "checkbox", 
+        "id": "video_controls", 
+        "label": "Video Controls", 
+        "default": true 
+        }, 
+        { "type": "checkbox", 
+        "id": "loop", 
+        "label": "Looping", 
+        "default": true, 
+        "visible_if": "{{block.settings.video_controls == true}}" 
+        }, 
+        { "type": "checkbox", 
+        "id": "autoplay", 
+        "label": "Autoplay", 
+        "default": true, 
+        "visible_if": "{{block.settings.video_controls == true}}" 
+        }, 
+        { "type": "checkbox", 
+        "id": "muted", 
+        "label": "Muted", 
+        "default": true, 
+        "visible_if": "{{block.settings.video_controls == true}}" 
+        }, 
+        { "type": "checkbox", 
+        "id": "controls", 
+        "label": "Controls", 
+        "default": true, 
+        "visible_if": "{{block.settings.video_controls == true}}" 
+      } 
+      ] 
+} {% endcomment %}
+
+{% comment %} {
+      "type": "video_slider",
+      "name": "Video Slide",
+      "settings": [
+      {
+        "type": "select",
+        "id": "video_type",
+        "label": "Video Type",
+        "options": [
+          { "value": "upload", "label": "Uploaded Video" },
+          { "value": "youtube", "label": "YouTube" },
+          { "value": "vimeo", "label": "Vimeo" }
+        ],
+        "default": "upload"
+      },
+
+      { "type": "video", "id": "video_file", "label": "Upload Video" },
+      { "type": "text", "id": "video_url", "label": "YouTube/Vimeo URL" },
+      { "type": "image_picker", "id": "poster", "label": "Poster Image" },
+
+      { "type": "checkbox", "id": "autoplay", "label": "Autoplay", "default": false },
+      { "type": "checkbox", "id": "loop", "label": "Loop", "default": false },
+      { "type": "checkbox", "id": "controls", "label": "Show Controls", "default": true }
+    ]
+    } {% endcomment %}

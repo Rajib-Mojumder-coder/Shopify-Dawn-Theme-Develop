@@ -1,4 +1,298 @@
-<div class="color-{{ color_scheme }} swiper-slide slide-media-main flex block-{{ block.id }}" style="--radius: {{ slider_border_radius }}px;">
+<style>
+  .custom-features-slider-{{ section.id }} .custom-video-slider {
+        display: flex;
+    } 
+  .custom-video-slider .featured-slider-content{
+        position: relative !important;
+    } 
+ .custom-video-slider .video_slider_content {
+    max-width: 50% !important;
+    width: 50% !important;
+    display: flex;
+    gap: 30px;
+    padding-right: 50px;
+    /* flex-direction: column;
+    justify-content: center;
+    padding: 70px 0px 70px 180px; */
+}
+.custom-video-slider .video_slider_videos {
+    max-width: 50%;
+    width: 100%;
+    position: relative;
+}
+.custom-video-slider .video_slider_videos video,
+.custom-video-slider .video_slider_videos iframe{
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+    max-height: 640px;
+    position: absolute;
+    inset: 0;
+}
 
+@media(max-width: 768px){
+.custom-features-slider-{{ section.id }} .custom-video-slider {
+  flex-direction: column-reverse;
+}
+.custom-video-slider .video_slider_videos{
+  max-width: 100%;
+}    
+.custom-video-slider .video_slider_videos video,
+.custom-video-slider .video_slider_videos iframe{
+  position: relative;
+  aspect-ratio: 1 / .67;
+} 
+.custom-video-slider .video_slider_content {
+    max-width: 90% !important;
+    width: 100% !important;
+}   
+.video_slider_content > div {
+    max-width: 350px;
+    display: flex;
+    width: 100%;
+    /* margin: auto; */
+} 
+.video_slider_content .custom-button-container {
+    margin: auto;
+} 
+.custom-video-slider .custom-global-button {
+   width: 100%;
+  margin: auto;
+}   
+}
+</style>
 
+<div
+  class="color-{{ color_scheme }} swiper-slide slide-media-main custom-video-slider block-{{ block.id }}"
+  style="--radius: {{ slider_border_radius }}px;"
+  {{ block.shopify_attributes }}
+>
+  <div class="video_slider_content featured-slider-content">
+         {% if title %}
+            <h2 class="title font-title-medium">{{ title }}</h2>
+        {% endif %}
+        
+        {% if description %}
+            <div class="desc">{{ description }}</div>
+        {% endif %}
+        
+        <div class="custom-button-container"> 
+          {% render 'custom-global-button',
+          button_link: button_link,
+          button_text: button_text,
+          transparent: true
+        %}
+        </div>
+  </div>
+  <div class="video_slider_videos">
+    {% liquid
+      assign autoplay = block.settings.autoplay
+      assign loop = block.settings.loop
+      assign controls = block.settings.controls
+    %}
+    {% if block.settings.video_type == 'upload' and block.settings.video_file != blank %}
+
+        {% comment %} <video
+          {% if autoplay %} autoplay muted {% endif %}
+          {% if loop %} loop {% endif %}
+          {% if controls %} controls {% endif %}
+          playsinline
+          poster="{{ poster_image | image_url }}"
+          >
+          <source src="{{ block.settings.video_file.sources[0].url }}" type="video/mp4">
+        </video> {% endcomment %}
+
+        {{
+          block.settings.video_file
+          | video_tag:
+            image_size: '640',
+            autoplay: autoplay,
+            loop: loop,
+            controls: controls,
+            muted: autoplay,
+            playsinline: true,
+            class: 'video-slider__video'
+        }} 
+
+      {% elsif block.settings.video_type == 'url' and block.settings.video_file_url != blank %}
+          <video 
+            class="video-element" 
+            id="video-{{ block.id }}"
+            {% if autoplay %}autoplay{% endif %}
+            {% if loop %}loop{% endif %}
+            {% if controls %}controls{% endif %}
+            poster="{{ block.settings.video_poster | image_url: width: 1200 }}"
+            muted
+            playsinline
+            preload="metadata">
+            
+            <source src="{{ block.settings.video_file_url }}" type="video/mp4">
+            
+            Your browser does not support the video tag.
+          </video>
+      {% elsif block.settings.video_type == 'youtube' and block.settings.external_video_url != blank %}
+            {% assign video_id = block.settings.external_video_url.id %}
+
+                <iframe
+                  src="https://www.youtube.com/embed/{{ video_id }}?autoplay={% if autoplay %}1{% else %}0{% endif %}&loop={% if loop %}1{% else %}0{% endif %}&controls={% if controls %}1{% else %}0{% endif %}&mute=1&playlist={{ video_id }}"
+                  frameborder="0"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen> 
+                </iframe>
+
+      {% elsif block.settings.video_type == 'vimeo' and block.settings.external_video_url != blank %}
+          {% assign video_id = block.settings.external_video_url.id %}
+
+            <iframe
+              src="https://player.vimeo.com/video/{{ video_id }}?autoplay={% if autoplay %}1{% else %}0{% endif %}&loop={% if loop %}1{% else %}0{% endif %}&controls={% if controls %}1{% else %}0{% endif %}&muted=1"
+              frameborder="0"
+              allow="autoplay; fullscreen"
+              allowfullscreen>
+            </iframe>
+            
+      {% endif %}
+
+  </div>
+  
 </div>
+ 
+ 
+ 
+ {% comment %} <div
+  class="color-{{ color_scheme }} swiper-slide video-slider-container block-{{ block.id }}"
+  style="--radius: {{ slider_border_radius }}px;"
+  {{ block.shopify_attributes }}
+>
+  <div class="video-slider-videos">
+
+    {% if video_type == 'hosted_video' %}
+
+     
+     
+        {{
+          block.settings.video_file
+          | video_tag:
+            image_size: '600x',
+            autoplay: autoplay,
+            loop: loop,
+            controls: controls,
+            muted: autoplay,
+            playsinline: true,
+            class: 'video-slider__video'
+        }}
+      
+
+    {% elsif video_type == 'youtubeOrvimeo' %}
+
+      
+      {% if video_url != blank %}
+
+        {% if video_url.type == 'youtube' %}
+          <iframe
+            src="https://www.youtube.com/embed/{{ video_url.id }}?enablejsapi=1&autoplay={{ autoplay_param }}&loop={{ loop_param }}&mute={{ muted_param }}&controls={{ controls | replace: 'true', '1' | replace: 'false', '0' }}&playlist={{ video_url.id }}"
+            class="video-slider__iframe js-youtube"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            loading="lazy"
+            title="{{ block.settings.video_title | default: 'YouTube Video' | escape }}"
+          ></iframe>
+
+        {% elsif video_url.type == 'vimeo' %}
+          <iframe
+            src="https://player.vimeo.com/video/{{ video_url.id }}?autoplay={{ autoplay_param }}&loop={{ loop_param }}&muted={{ muted_param }}&controls={{ controls | replace: 'true', '1' | replace: 'false', '0' }}"
+            class="video-slider__iframe js-vimeo"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            loading="lazy"
+            title="{{ block.settings.video_title | default: 'Vimeo Video' | escape }}"
+          ></iframe>
+        {% endif %}
+
+      {% endif %}
+
+    {% endif %}
+
+  </div>
+</div>   {% endcomment %}
+
+{% comment %} <div class="color-{{ color_scheme }} swiper-slide video-slider-container block-{{ block.id }}" style="--radius: {{ slider_border_radius }}px;">
+    
+    
+        <div class="video-slider-videos"> 
+        {% assign autoplay = block.settings.autoplay %}
+        {% assign loop = block.settings.loop %}
+        {% assign controls = block.settings.controls %}
+
+        {% if block.settings.video_type == 'upload' and block.settings.video_file != blank %}
+
+
+        {{
+          block.settings.video_file
+          | video_tag:
+            image_size: '600x',
+            autoplay: autoplay,
+            loop: loop,
+            controls: controls,
+            muted: autoplay,
+            playsinline: true,
+            class: 'video-slider__video'
+        }}
+        <video
+        {% if autoplay %} autoplay muted {% endif %}
+        {% if loop %} loop {% endif %}
+        {% if controls %} controls {% endif %}
+        playsinline
+        poster="{{ block.settings.poster | image_url }}"
+        >
+        <source src="{{ block.settings.video_file.sources[0].url }}" type="video/mp4">
+        </video> 
+
+        {% elsif block.settings.video_type == 'youtube' %}
+
+        {% assign video_id = block.settings.video_url | split: 'v=' | last %}
+
+        <iframe
+        src="https://www.youtube.com/embed/{{ video_id }}?autoplay={% if autoplay %}1{% else %}0{% endif %}&loop={% if loop %}1{% else %}0{% endif %}&controls={% if controls %}1{% else %}0{% endif %}&mute=1&playlist={{ video_id }}"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen> 
+        </iframe>
+
+        {% elsif block.settings.video_type == 'vimeo' %}
+
+        {% assign video_id = block.settings.video_url | split: '/' | last %}
+
+        <iframe
+        src="https://player.vimeo.com/video/{{ video_id }}?autoplay={% if autoplay %}1{% else %}0{% endif %}&loop={% if loop %}1{% else %}0{% endif %}&controls={% if controls %}1{% else %}0{% endif %}&muted=1"
+        frameborder="0"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+        </iframe>
+
+        {% endif %}
+    </div> 
+    
+    <div class="video-slider-content"> 
+        
+            {% if title %}
+                <h2 class="title font-title-medium">{{ title }}</h2>
+            {% endif %}
+        
+        
+       
+            {% if description %}
+                <div class="desc">{{ description }}</div>
+            {% endif %}
+        
+                {% render 'custom-global-button',
+                button_link: button_link,
+                button_text: button_text,
+                transparent: true
+            %}
+                       
+    </div>
+   
+
+</div>   {% endcomment %}

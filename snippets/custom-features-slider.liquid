@@ -59,8 +59,15 @@
                         brand_icon_5: block.settings.brand_icon_5,
                         brand_icon_6: block.settings.brand_icon_6
                         %}
-                    {%  when 'video_slider' %}
-                         {% render 'featured_video_slider', block: block %}
+                    {% when 'video_slider' %}
+                    {% render 'featured_video_slider', block: block,
+                      color_scheme: block.settings.color_scheme,
+                      slider_border_radius: block.settings.slider_border_radius,
+                      title: block.settings.title,
+                      description: block.settings.description,
+                      button_text: block.settings.button_text,
+                      button_link: block.settings.button_link
+                    %}
                     {% endcase %}
                 {% endfor %}
             </div>
@@ -93,7 +100,16 @@
     // autoplay: {
     // delay: 2500,
     // disableOnInteraction: false,
-    //   }, 
+    // }, 
     });
-  </script>
+  </script> 
 
+{% comment %} {% render 'featured_video_slider', block: block, 
+                    video_type: block.settings.video_type, 
+                    custom_video: block.settings.custom_video, 
+                    video_url: block.settings.video_url, 
+                    video_controls: block.settings.video_controls, 
+                    loop: block.settings.loop, 
+                    autoplay: block.settings.autoplay, 
+                    muted: block.settings.muted, controls: 
+                    block.settings.controls %} {% endcomment %}
