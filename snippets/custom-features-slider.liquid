@@ -68,6 +68,16 @@
                       button_text: block.settings.button_text,
                       button_link: block.settings.button_link
                     %}
+                    {% when 'product_slider' %}
+                    {% render 'featured_product_slider', block: block,
+                      color_scheme: block.settings.color_scheme,
+                      slider_border_radius: block.settings.slider_border_radius,
+                      product: block.settings.product,
+                      desktop-image: block.settings.desktop-image,
+                      mobile-image: block.settings.mobile-image,
+                      title: block.settings.title,
+                      description: block.settings.description
+                    %}
                     {% endcase %}
                 {% endfor %}
             </div>
