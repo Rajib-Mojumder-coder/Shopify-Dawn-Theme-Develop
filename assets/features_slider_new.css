@@ -16,6 +16,9 @@
         background-attachment: fixed;
         z-index: 1;
     }
+    .featuresSlider .featured-product-media{
+    background-size: contain !important;
+  }
     .featuresSlider .media-gradient {
         position: absolute;
         inset: 0;
@@ -122,7 +125,7 @@
     flex-direction: column;
     min-height: auto;
     height: auto;
-    border-radius: 120px;
+    border-radius: 75px;
   }
 
  .custom-features-slider-{{ section.id }} .page-width{

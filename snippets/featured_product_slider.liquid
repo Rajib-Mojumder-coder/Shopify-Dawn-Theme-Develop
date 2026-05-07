@@ -1,12 +1,23 @@
 <style>
 /* Start CSS for Image Slider*/
+
+
+  .block-{{ block.id }} .featured-product-content{
+    justify-content: space-between;
+    max-width: 33%;
+    width: 100%;
+    } 
+
+  .block-{{ block.id }} .featured-bottom-content{
+    display: flex;
+  }
   .block-{{ block.id }}.custom-product_slider .price{
- font-family: var(--font-nohemi);
-  font-size: var(--font-subtitle-large);
-  font-weight: var(--font-weight-semi-bold);
-  line-height: var(--line-height-body);
-  letter-spacing: var(--letter-spacing-normal);
-  color: var(--color-background);
+    font-family: var(--font-nohemi);
+    font-size: var(--font-subtitle-large);
+    font-weight: var(--font-weight-semi-bold);
+    line-height: var(--line-height-body);
+    letter-spacing: var(--letter-spacing-normal);
+    color: var(--color-background);
   }
   .block-{{ block.id }}.custom-product_slider .main-price{
   font-weight: var(--font-weight-regular);
@@ -16,7 +27,7 @@
     display: flex;
     gap: 50px;
     align-items: center;
-    margin-top: 20px;
+    margin: 20px 0;
 }
  .block-{{ block.id }} .price-wrapper .main-price {
   position: relative;
@@ -40,39 +51,76 @@
   padding: 15px 64px 7px 32px;
 }
 
-
-
-  .block-{{ block.id }} .font-subtitle-2{
-    margin-bottom: 20px;
-  }
-  .block-{{ block.id }} .featured-middle-content{
-    padding: {{top_spacing}}px 0 {{bottom_spacing}}px;
-  }
-  .block-{{ block.id }} .featured-bottom-content{
-    display: flex;
-  }
     
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+    .block-{{ block.id }}.custom-product_slider .price{
+    font-size: var(--font-subtitle);
+  }  
+}
+@media (min-width: 1024px) and (max-width: 1200px) {
+    .block-{{ block.id }}.custom-product_slider .price{
+    font-size: var(--font-subtitle-small);
+  }  
+}
 
 @media (min-width: 767px) and (max-width: 1024px) {
     .block-{{ block.id }} .featured-middle-content{
     padding: 20px 0 20px;
   }
-   
+   .block-{{ block.id }}.custom-product_slider .price{
+    font-size: var(--font-subtitle-small);
+  }
+  .block-{{ block.id }} .featured-product-content{
+    max-width: 36%;
+    }
+    .block-{{ block.id }} .price-wrapper {
+    gap: 24px;
+    }
+    .block-{{ block.id }} .price-wrapper .compare-price {
+    padding: 12px 34px 7px 24px;
+    }
+    .featured-product-content .line-clamp-tablet {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    }
 }
 
 @media(max-width: 767px){
-
-.featured-bottom-content {
-    max-width: 350px;
-    display: flex;
-    width: 100%;
-    margin: auto;
+    .featuresSlider .slide-media-main.custom-product_slider{
+    flex-direction: column-reverse;
 }
-.block-{{ block.id }} .custom-global-button {
-    width: 100%;
-    margin: auto;
+        
+.block-{{ block.id }}  .featured-product-content {
+    max-width: 100%;
+    justify-content: flex-start;
+    padding-top: 50px;
+}
+.block-{{ block.id }} .featured-bottom-content {
+    margin: 0;
+    max-width: 90%;
+}
+.block-{{ block.id }}  .featured-product-content .title{
+    max-width: 370px;
+}
+.block-{{ block.id }} .price-wrapper {
+    gap: 24px;
+    }
+.block-{{ block.id }}.custom-product_slider .price{
+    font-size: var(--font-subtitle-small);
+  }   
+    .block-{{ block.id }} .price-wrapper .compare-price {
+    padding: 12px 34px 7px 24px;
+    }
+
 }
 
+@media (min-width: 767px) {
+  .only-mobile.mobile-media {
+    display: none;
+  }
 }
 /*End Css for Image Slider*/
 
@@ -83,33 +131,31 @@
 
  <div class="color-{{ color_scheme }} custom-product_slider swiper-slide slide-media-main block-{{ block.id }}" style="--title-width: {{ title_width }}px; --desc-width: {{ description_width }}px; --radius: {{ slider_border_radius }}px;">
     
-   
-
-    <div class="only-desktop slide-background-media"
+    <div class="only-desktop slide-background-media featured-product-media"
         style="background-image:url({% if desktop-image %}
             {{ desktop-image | image_url: width: 1000 }}
         {% else product.featured_image %}
             {{ product.featured_image | image_url: width: 1400 }}
         {% endif %})">
-    </div>
-
-    <div class="only-mobile mobile-media"> 
+    </div> 
+    
+    <div class="only-mobile mobile-media featured-product-media"> 
         {% if mobile-image %}
             {{ mobile-image | image_url: width: 768 | image_tag: loading: 'lazy', fetchpriority: 'high', class: 'mobile-image only-mobile' }}
         {% elsif product.metafields.custom.product_mobile_img %}
-             {{ product.metafields.custom.product_mobile_img | image_url: width: 768 | image_tag: class: 'mobile-image only-mobile', loading: 'lazy' }}
+             {{ product.metafields.custom.product_mobile_img | image_url: width: 768 | image_tag: class: 'mobile-image only-mobile featured-product-media', loading: 'lazy' }}
         {% else product.featured_image %}
-             {{ product.featured_image | image_url: width: 768 | image_tag: class: 'mobile-image only-mobile', loading: 'lazy' }}
+             {{ product.featured_image | image_url: width: 768 | image_tag: class: 'mobile-image only-mobile featured-product-media', loading: 'lazy' }}
         {% endif %}
     </div> 
-   
 
-    <div class="featured-slider-content"> 
+    <div class="featured-slider-content featured-product-content"> 
         <div class="featured-top-content"> 
-            {% if title %}
-                <h2 class="title font-title-medium">{{ title }}</h2>
-            {% else product.title%}
+           
+            {% if product.title != blank%}
                 <h2 class="title font-title-medium">{{ product.title }}</h2>
+            {% elsif title %}
+                <h2 class="title font-title-medium">{{ title }}</h2>
             {% endif %}
 
             <div class="price-wrapper">
@@ -126,11 +172,12 @@
         
         <div class="featured-bottom-content">
 
-            {% if description %}
-                <div class="desc">{{ description }}</div>
-            {%  elsif product.description %}
-                <div class="product-desc">{{ product.description }}</div>
-            {% endif %}
+            {% if product.description != blank %}
+                <div class="product-desc line-clamp-tablet">{{ product.description }}</div>
+            {%  elsif description != blank %}
+                <div class="desc line-clamp-tablet">{{ description }}</div>
+            {% endif %} 
+            
 
                 {% render 'custom-global-button',
                 button_link: button_link,
@@ -140,7 +187,7 @@
         </div>
         
     </div>
-   
+         
 
 </div> 
 {% endif %}                  
