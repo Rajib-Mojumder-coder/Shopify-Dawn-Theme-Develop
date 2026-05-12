@@ -1,0 +1,450 @@
+{{ 'custom-block-section.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign layout_max_width    = section.settings.layout_max_width
+  assign content_vertical_alignment    = section.settings.content_vertical_alignment
+  assign content_horizontal_alignment    = section.settings.content_horizontal_alignment
+  assign color_scheme        = section.settings.color_scheme
+  assign padding_top         = section.settings.padding_top
+  assign padding_bottom      = section.settings.padding_bottom
+
+  assign desktop_layout_type      = section.settings.desktop_layout_type
+  assign desktop_flex_direction   = section.settings.desktop_flex_direction
+  assign desktop_flex_wrap        = section.settings.desktop_flex_wrap
+  assign desktop_justify_content  = section.settings.desktop_justify_content
+  assign desktop_align_items      = section.settings.desktop_align_items
+  assign desktop_columns          = section.settings.desktop_columns
+  assign desktop_gap              = section.settings.desktop_gap
+
+  assign mobile_layout_type     = section.settings.mobile_layout_type
+  assign mobile_flex_direction  = section.settings.mobile_flex_direction
+  assign mobile_flex_wrap       = section.settings.mobile_flex_wrap
+  assign mobile_columns         = section.settings.mobile_columns
+  assign mobile_gap             = section.settings.mobile_gap
+%}
+<style>
+   .cbs-{{ section.id }}{
+    padding : {{ padding_top }}px 0 {{ padding_bottom }}px 0;
+
+     {% case section.settings.section_height_mode %}
+
+      {% when 'preset' %}
+
+        {% case section.settings.preset_height %}
+
+          {% when 'small' %}
+            min-height: clamp(320px, 40vh, 500px);
+
+          {% when 'medium' %}
+            min-height: clamp(450px, 60vh, 800px);
+
+          {% when 'large' %}
+            min-height: clamp(600px, 80vh, 1100px);
+
+          {% when 'fullscreen' %}
+            min-height: 100vh;
+
+        {% endcase %}
+
+      {% when 'custom' %}
+
+        min-height:
+          clamp(
+            {{ section.settings.custom_min_height }}px,
+            {{ section.settings.custom_viewport_height }}vh,
+            {{ section.settings.custom_max_height }}px
+          );
+
+      {% else %}
+
+        min-height: auto;
+
+    {% endcase %}
+   }
+
+   .cbs-{{ section.id }} .page-width{
+    {% if layout_max_width != blank %}
+        max-width: {{layout_max_width}}px;
+    {% endif %}
+      width: 100%;
+      box-sizing: border-box;
+      min-height: inherit;
+      margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: {{ content_vertical_alignment }};
+  align-items: {{ content_horizontal_alignment }};
+   }
+
+   /* ─── Blocks container: DESKTOP ─── */
+  @media screen and (min-width: 768px) {
+    .cbs-{{ section.id }} .cbs_blocks-container {
+      {% if desktop_layout_type == 'flex' %}
+        display:         flex;
+        flex-direction:  {{ desktop_flex_direction }};
+        flex-wrap:       {{ desktop_flex_wrap }};
+        justify-content: {{ desktop_justify_content }};
+        align-items:     {{ desktop_align_items }};
+        gap:             {{ desktop_gap }}px;
+      {% else %}
+        display:               grid;
+        grid-template-columns: repeat({{ desktop_columns }}, 1fr);
+        justify-content:       {{ desktop_justify_content }};
+        align-items:           {{ desktop_align_items }};
+        gap:                   {{ desktop_gap }}px;
+      {% endif %}
+    }
+  }
+
+  /* ─── Blocks container: MOBILE ─── */
+  @media screen and (max-width: 767px) {
+    .cbs-{{ section.id }} .cbs_blocks-container {
+      {% if mobile_layout_type == 'flex' %}
+        display:         flex;
+        flex-direction:  {{ mobile_flex_direction }};
+        flex-wrap:       {{ mobile_flex_wrap }};
+        justify-content: {{ desktop_justify_content }};
+        align-items:     {{ desktop_align_items }};
+        gap:             {{ mobile_gap }}px;
+      {% else %}
+        display:               grid;
+        grid-template-columns: repeat({{ mobile_columns }}, 1fr);
+        justify-content:       {{ desktop_justify_content }};
+        align-items:           {{ desktop_align_items }};
+        gap:                   {{ mobile_gap }}px;
+      {% endif %}
+    }
+  }
+</style>
+
+<div class="cbs-{{ section.id }} color-{{ color_scheme }}" data-section-id="{{ section.id }}"
+  data-section-type="custom-block-section">
+ 
+    <div class="page-width">
+        <div class="cbs_blocks-container">
+            {% content_for 'blocks' %}
+        </div>
+    </div>  
+</div>
+
+{% schema %}
+{
+  "name": "Custom Block Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "text",
+      "id": "layout_max_width",
+      "label": "Layout Max Width (px/%)",
+      "default": "1728",
+      "info": "Leave blank to use theme default width."
+    },
+    {
+      "type": "select",
+      "id": "section_height_mode",
+      "label": "Height",
+      "options": [
+        { "value": "auto", "label": "Auto" },
+        { "value": "preset", "label": "Preset" },
+        { "value": "custom", "label": "Custom" }
+      ],
+      "default": "auto"
+    },
+      {
+    "type": "select",
+    "id": "preset_height",
+    "label": "Preset Height",
+    "options": [
+      { "value": "small", "label": "Small" },
+      { "value": "medium", "label": "Medium" },
+      { "value": "large", "label": "Large" },
+      { "value": "fullscreen", "label": "Full Screen" }
+    ],
+    "default": "medium",
+    "visible_if": "{{section.settings.section_height_mode == 'preset' }}"
+  },
+  {
+  "type": "range",
+  "id": "custom_min_height",
+  "label": "Minimum Height",
+  "min": 200,
+  "max": 1200,
+  "step": 20,
+  "unit": "px",
+  "default": 400
+},
+{
+  "type": "range",
+  "id": "custom_viewport_height",
+  "label": "Viewport Height (%)",
+  "min": 10,
+  "max": 100,
+  "step": 5,
+  "unit": "vh",
+  "default": 60
+},
+{
+  "type": "range",
+  "id": "custom_max_height",
+  "label": "Maximum Height",
+  "min": 300,
+  "max": 1600,
+  "step": 20,
+  "unit": "px",
+  "default": 900
+},
+{
+  "type": "header",
+  "content": "Padding"
+},
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Spacing",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Spacing",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Apparance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "desktop_layout_type",
+      "label": "Layout System",
+      "options": [
+        { "value": "flex", "label": "Flex" },
+        { "value": "grid", "label": "Grid" }
+      ],
+      "default": "grid"
+    },   
+    {
+      "type": "select",
+      "id": "desktop_flex_direction",
+      "label": "Flex Direction (Flex only)",
+      "options": [
+        { "value": "row",            "label": "Row" },
+        { "value": "row-reverse",    "label": "Row Reverse" },
+        { "value": "column",         "label": "Column" },
+        { "value": "column-reverse", "label": "Column Reverse" }
+      ],
+      "default": "row",
+      "info": "Only applies when Desktop Layout is set to Flex.",
+      "visible_if": "{{section.settings.desktop_layout_type == 'flex'}}"
+    },
+    {
+      "type": "select",
+      "id": "desktop_flex_wrap",
+      "label": "Flex Wrap (Flex only)",
+      "options": [
+        { "value": "nowrap",       "label": "No Wrap" },
+        { "value": "wrap",         "label": "Wrap" },
+        { "value": "wrap-reverse", "label": "Wrap Reverse" }
+      ],
+      "default": "wrap",
+      "info": "Only applies when Desktop Layout is set to Flex.",
+      "visible_if": "{{section.settings.desktop_layout_type == 'flex'}}"
+    },
+    {
+      "type": "select",
+      "id": "desktop_justify_content",
+      "label": "Justify Content",
+      "options": [
+        { "value": "flex-start",    "label": "Start" },
+        { "value": "flex-end",      "label": "End" },
+        { "value": "center",        "label": "Center" },
+        { "value": "space-between", "label": "Space Between" },
+        { "value": "space-around",  "label": "Space Around" },
+        { "value": "space-evenly",  "label": "Space Evenly" }
+      ],
+      "default": "flex-start",
+      "info": "Applies to both Flex and Grid layout.",
+      "visible_if": "{{section.settings.desktop_layout_type == 'flex' or section.settings.desktop_layout_type == 'grid'}}"
+    },
+    {
+      "type": "select",
+      "id": "desktop_align_items",
+      "label": "Align Items",
+      "options": [
+        { "value": "flex-start", "label": "Start" },
+        { "value": "flex-end",   "label": "End" },
+        { "value": "center",     "label": "Center" },
+        { "value": "stretch",    "label": "Stretch" },
+        { "value": "baseline",   "label": "Baseline" }
+      ],
+      "default": "stretch",
+      "info": "Applies to both Flex and Grid layout.",
+      "visible_if": "{{section.settings.desktop_layout_type == 'flex' or section.settings.desktop_layout_type == 'grid'}}"
+    },
+    {
+  "type": "select",
+  "id": "content_vertical_alignment",
+  "label": "Content Vertical Alignment",
+  "options": [
+    {
+      "value": "flex-start",
+      "label": "Top"
+    },
+    {
+      "value": "center",
+      "label": "Middle"
+    },
+    {
+      "value": "flex-end",
+      "label": "Bottom"
+    }
+  ],
+  "default": "center"
+},
+    {
+  "type": "select",
+  "id": "content_horizontal_alignment",
+  "label": "Content Horizontal Alignment",
+  "options": [
+    {
+      "value": "flex-start",
+      "label": "Left"
+    },
+    {
+      "value": "center",
+      "label": "Center"
+    },
+    {
+      "value": "flex-end",
+      "label": "Right"
+    }
+  ],
+  "default": "flex-start"
+},
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "label": "Desktop Columns (Grid only)",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 3,
+      "info": "Number of equal columns. Only applies when Desktop Layout is set to Grid.",
+      "visible_if": "{{section.settings.desktop_layout_type == 'grid'}}"
+    },
+    {
+      "type": "range",
+      "id": "desktop_gap",
+      "label": "Desktop Gap",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 24,
+      "unit": "px",
+      "visible_if": "{{section.settings.desktop_layout_type == 'flex' or section.settings.desktop_layout_type == 'grid'}}"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Layout"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout_type",
+      "label": "Mobile Layout",
+      "options": [
+        { "value": "flex", "label": "Flex System" },
+        { "value": "grid", "label": "Grid System" }
+      ],
+      "default": "flex"
+    },
+    {
+      "type": "select",
+      "id": "mobile_flex_direction",
+      "label": "Flex Direction (Flex only)",
+      "options": [
+        { "value": "row",            "label": "Row" },
+        { "value": "row-reverse",    "label": "Row Reverse" },
+        { "value": "column",         "label": "Column" },
+        { "value": "column-reverse", "label": "Column Reverse" }
+      ],
+      "default": "column",
+      "info": "Only applies when Mobile Layout is set to Flex.",
+      "visible_if": "{{section.settings.desktop_layout_type == 'flex'}}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_flex_wrap",
+      "label": "Flex Wrap (Flex only)",
+      "options": [
+        { "value": "nowrap",       "label": "No Wrap" },
+        { "value": "wrap",         "label": "Wrap" },
+        { "value": "wrap-reverse", "label": "Wrap Reverse" }
+      ],
+      "default": "wrap",
+      "info": "Only applies when Mobile Layout is set to Flex.",
+      "visible_if": "{{section.settings.desktop_layout_type == 'flex'}}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_columns",
+      "label": "Mobile Columns (Grid only)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 1,
+      "info": "Number of columns on mobile. Only applies when Mobile Layout is set to Grid.",
+      "visible_if": "{{section.settings.desktop_layout_type == 'grid'}}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile Gap",
+      "min": 0,
+      "max": 48,
+      "step": 4,
+      "default": 16,
+      "unit": "px",
+      "visible_if": "{{section.settings.desktop_layout_type == 'flex' or section.settings.desktop_layout_type == 'grid'}}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Block Section"
+    }
+  ],
+  "class": "custom-block-section",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  }
+}
+{% endschema %}
