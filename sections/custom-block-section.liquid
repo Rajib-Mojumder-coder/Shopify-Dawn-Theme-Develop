@@ -1,131 +1,253 @@
+{% comment %} <div class="cbs-{{ section.id }}">
+
+  <!-- BACKGROUND -->
+  <div class="cbs-bg">  </div>
+
+  <!-- OVERLAY -->
+  <div class="cbs-overlay">  </div>
+
+  <!-- CONTENT -->
+  <div class="cbs-inner">
+
+    <div class="page-width">
+      <div class="cbs-blocks">
+        {% content_for 'blocks' %}
+      </div>
+    </div>
+  </div>
+</div> {% endcomment %}
+
 {{ 'custom-block-section.css' | asset_url | stylesheet_tag }}
 
 {% liquid
+  assign custom_layout_type    = section.settings.custom_layout_type
   assign layout_max_width    = section.settings.layout_max_width
-  assign content_vertical_alignment    = section.settings.content_vertical_alignment
-  assign content_horizontal_alignment    = section.settings.content_horizontal_alignment
+  
   assign color_scheme        = section.settings.color_scheme
+  assign background_media        = section.settings.background_media
+  assign background_image        = section.settings.background_image
+  assign background_image_position        = section.settings.background_image_position
+  assign background_overlay        = section.settings.background_overlay
+
   assign padding_top         = section.settings.padding_top
   assign padding_bottom      = section.settings.padding_bottom
 
-  assign desktop_layout_type      = section.settings.desktop_layout_type
-  assign desktop_flex_direction   = section.settings.desktop_flex_direction
-  assign desktop_flex_wrap        = section.settings.desktop_flex_wrap
-  assign desktop_justify_content  = section.settings.desktop_justify_content
-  assign desktop_align_items      = section.settings.desktop_align_items
+  assign desktop_layout      = section.settings.desktop_layout
+  assign desktop_direction   = section.settings.desktop_direction
+  assign desktop_wrap        = section.settings.desktop_wrap
+  assign desktop_justify  = section.settings.desktop_justify
+  assign desktop_align     = section.settings.desktop_align
   assign desktop_columns          = section.settings.desktop_columns
   assign desktop_gap              = section.settings.desktop_gap
 
-  assign mobile_layout_type     = section.settings.mobile_layout_type
-  assign mobile_flex_direction  = section.settings.mobile_flex_direction
-  assign mobile_flex_wrap       = section.settings.mobile_flex_wrap
+  assign mobile_layout     = section.settings.mobile_layout
+  assign mobile_direction  = section.settings.mobile_direction
+  assign mobile_wrap       = section.settings.mobile_wrap
+  assign mobile_justify    = section.settings.mobile_justify
+  assign mobile_align      = section.settings.mobile_align
   assign mobile_columns         = section.settings.mobile_columns
   assign mobile_gap             = section.settings.mobile_gap
 %}
 <style>
    .cbs-{{ section.id }}{
+    position: relative;
+    overflow: hidden;
+  isolation: isolate;
     padding : {{ padding_top }}px 0 {{ padding_bottom }}px 0;
+    --desktop-gap: {{ desktop_gap }}px;
+    --mobile-gap: {{ mobile_gap }}px;
 
+    --desktop-columns: {{ desktop_columns }};
+    --mobile-columns: {{ mobile_columns }};
      {% case section.settings.section_height_mode %}
-
       {% when 'preset' %}
-
         {% case section.settings.preset_height %}
-
           {% when 'small' %}
             min-height: clamp(320px, 40vh, 500px);
-
           {% when 'medium' %}
             min-height: clamp(450px, 60vh, 800px);
-
           {% when 'large' %}
             min-height: clamp(600px, 80vh, 1100px);
-
           {% when 'fullscreen' %}
             min-height: 100vh;
-
         {% endcase %}
 
       {% when 'custom' %}
-
         min-height:
           clamp(
             {{ section.settings.custom_min_height }}px,
             {{ section.settings.custom_viewport_height }}vh,
             {{ section.settings.custom_max_height }}px
           );
-
       {% else %}
-
         min-height: auto;
-
     {% endcase %}
-   }
+  }
+/* ====BACKGROUND======= */
 
-   .cbs-{{ section.id }} .page-width{
-    {% if layout_max_width != blank %}
-        max-width: {{layout_max_width}}px;
-    {% endif %}
-      width: 100%;
-      box-sizing: border-box;
-      min-height: inherit;
-      margin-inline: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: {{ content_vertical_alignment }};
-  align-items: {{ content_horizontal_alignment }};
-   }
+.cbs-{{ section.id }} .cbs-bg{
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+}
 
-   /* ─── Blocks container: DESKTOP ─── */
-  @media screen and (min-width: 768px) {
-    .cbs-{{ section.id }} .cbs_blocks-container {
-      {% if desktop_layout_type == 'flex' %}
-        display:         flex;
-        flex-direction:  {{ desktop_flex_direction }};
-        flex-wrap:       {{ desktop_flex_wrap }};
-        justify-content: {{ desktop_justify_content }};
-        align-items:     {{ desktop_align_items }};
-        gap:             {{ desktop_gap }}px;
-      {% else %}
-        display:               grid;
-        grid-template-columns: repeat({{ desktop_columns }}, 1fr);
-        justify-content:       {{ desktop_justify_content }};
-        align-items:           {{ desktop_align_items }};
-        gap:                   {{ desktop_gap }}px;
+.cbs-{{ section.id }} .cbs-bg-image,
+.cbs-{{ section.id }} .cbs-bg-video{
+  width: 100%;
+  height: 100%;
+  object-fit: {{ background_image_position }};
+}
+
+/* =========OVERLAY======= */
+
+.cbs-{{ section.id }} .cbs-overlay{
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 }});
+}
+  /* ===== CONTAINER WIDTH SYSTEM ========= */
+ .cbs-{{ section.id }} .cbs-container--custom{
+    max-width: {{ layout_max_width }};
+  }
+
+  .cbs-{{ section.id }} .cbs-container--full{
+    max-width: 100%;
+  }
+    /* ======= BLOCKS BASE============ */
+
+  .cbs-{{ section.id }} .cbs-blocks{
+    width: 100%;
+  }
+
+   /* ======DESKTOP========== */
+
+  @media screen and (min-width: 768px){
+    .cbs-{{ section.id }} .cbs-blocks{
+      gap: var(--desktop-gap);
+      {% if desktop_layout == 'flex' %}
+      display: flex;
+      flex-direction: {{ desktop_direction }};
+      flex-wrap: {{ desktop_wrap }};
+      justify-content: {{ desktop_justify }};
+      align-items: {{ desktop_align }};
+       {% else %}
+      display: grid;
+      grid-template-columns: repeat(var(--desktop-columns), minmax(0,1fr));
+        justify-content: {{ desktop_justify }};
+        align-items: {{ desktop_align }};
       {% endif %}
     }
   }
 
-  /* ─── Blocks container: MOBILE ─── */
-  @media screen and (max-width: 767px) {
-    .cbs-{{ section.id }} .cbs_blocks-container {
-      {% if mobile_layout_type == 'flex' %}
-        display:         flex;
-        flex-direction:  {{ mobile_flex_direction }};
-        flex-wrap:       {{ mobile_flex_wrap }};
-        justify-content: {{ desktop_justify_content }};
-        align-items:     {{ desktop_align_items }};
-        gap:             {{ mobile_gap }}px;
+  /* =======MOBILE========*/
+
+  @media screen and (max-width: 767px){
+
+    .cbs-{{ section.id }} .cbs-blocks{
+      gap: var(--mobile-gap);
+      {% if mobile_layout == 'flex' %}
+        display: flex;
+        flex-direction:  {{ mobile_direction }};
+        flex-wrap:       {{ mobile_wrap }};
+        justify-content:    {{ mobile_justify }};
+        align-items:  {{ mobile_align }};
       {% else %}
-        display:               grid;
-        grid-template-columns: repeat({{ mobile_columns }}, 1fr);
-        justify-content:       {{ desktop_justify_content }};
-        align-items:           {{ desktop_align_items }};
-        gap:                   {{ mobile_gap }}px;
+        display: grid;
+        grid-template-columns: repeat( var(--mobile-columns), minmax(0,1fr));
+        justify-content: {{ mobile_justify }};
+        align-items: {{ mobile_align }};
       {% endif %}
     }
   }
 </style>
 
-<div class="cbs-{{ section.id }} color-{{ color_scheme }}" data-section-id="{{ section.id }}"
-  data-section-type="custom-block-section">
- 
-    <div class="page-width">
-        <div class="cbs_blocks-container">
-            {% content_for 'blocks' %}
-        </div>
-    </div>  
+<div class="cbs-{{ section.id }} color-{{ color_scheme }}">
+  <!-- BACKGROUND -->
+   <div class="cbs-bg">
+      {% if background_media == 'image' and background_image != blank %}
+      <img src="{{ background_image | image_url: width: 3500 }}" alt="" class="cbs-bg-image">
+    {% elsif background_media == 'video' and section.settings.video != blank %}
+      {{
+        section.settings.video
+        | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          controls: false,
+          playsinline: true,
+          class: 'cbs-bg-video'
+      }}
+    {% endif %}
+   </div>
+
+   <!-- OVERLAY -->
+  {% if background_overlay %}
+    <div class="cbs-overlay"></div>
+  {% endif %}
+  <div class="page-width {% if custom_layout_type != 'default' %} cbs-container--{{ custom_layout_type }}{% endif %}">
+    <div class="cbs-blocks">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
 </div>
+
+{% comment %} <div class="cbs-{{ section.id }} color-{{ section.settings.color_scheme }}">
+
+  <!-- BACKGROUND -->
+  <div class="cbs-bg">
+
+    {% if section.settings.background_media == 'image' and section.settings.background_image != blank %}
+
+      <img
+        src="{{ section.settings.background_image | image_url: width: 2500 }}"
+        alt=""
+        class="cbs-bg-image"
+      >
+
+    {% elsif section.settings.background_media == 'video' and section.settings.video != blank %}
+
+      {{
+        section.settings.video
+        | video_tag:
+          autoplay: true,
+          loop: true,
+          muted: true,
+          controls: false,
+          playsinline: true,
+          class: 'cbs-bg-video'
+      }}
+
+    {% endif %}
+
+  </div>
+
+  <!-- OVERLAY -->
+  {% if section.settings.enable_overlay %}
+    <div class="cbs-overlay"></div>
+  {% endif %}
+
+  <!-- CONTENT -->
+  <div class="cbs-inner">
+
+    <div class="
+      page-width
+      {% if section.settings.custom_layout_type == 'custom' %}
+        cbs-page-width-custom
+      {% else %}
+        cbs-page-width-full
+      {% endif %}
+    ">
+
+      <div class="cbs-blocks">
+        {% content_for 'blocks' %}
+      </div>
+
+    </div>
+
+  </div>
+
+</div> {% endcomment %}
 
 {% schema %}
 {
@@ -133,14 +255,25 @@
   "settings": [
     {
       "type": "header",
-      "content": "Size"
+      "content": "Layout Size"
+    },
+    {
+      "type": "select",
+      "id": "custom_layout_type",
+      "label": "Layout Type",
+      "options": [
+        {"value": "custom", "label": "Custom"},
+        {"value": "full", "label": "Full"}
+      ],
+      "default": "full"
     },
     {
       "type": "text",
       "id": "layout_max_width",
       "label": "Layout Max Width (px/%)",
-      "default": "1728",
-      "info": "Leave blank to use theme default width."
+      "default": "1728px",
+      "info": "Leave blank to use theme default width.",
+      "visible_if": "{{ section.settings.custom_layout_type == 'custom'}}"
     },
     {
       "type": "select",
@@ -174,7 +307,8 @@
   "max": 1200,
   "step": 20,
   "unit": "px",
-  "default": 400
+  "default": 400,
+  "visible_if": "{{section.settings.section_height_mode == 'custom' }}"
 },
 {
   "type": "range",
@@ -184,7 +318,8 @@
   "max": 100,
   "step": 5,
   "unit": "vh",
-  "default": 60
+  "default": 60,
+  "visible_if": "{{section.settings.section_height_mode == 'custom' }}"
 },
 {
   "type": "range",
@@ -194,7 +329,8 @@
   "max": 1600,
   "step": 20,
   "unit": "px",
-  "default": 900
+  "default": 900,
+  "visible_if": "{{section.settings.section_height_mode == 'custom' }}"
 },
 {
   "type": "header",
@@ -220,214 +356,267 @@
       "default": 80,
       "unit": "px"
     },
-    {
-      "type": "header",
-      "content": "Apparance"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color Scheme",
-      "default": "scheme-1"
-    },
-    
-    {
-      "type": "header",
-      "content": "Layout"
-    },
-    {
-      "type": "select",
-      "id": "desktop_layout_type",
-      "label": "Layout System",
-      "options": [
-        { "value": "flex", "label": "Flex" },
-        { "value": "grid", "label": "Grid" }
-      ],
-      "default": "grid"
-    },   
-    {
-      "type": "select",
-      "id": "desktop_flex_direction",
-      "label": "Flex Direction (Flex only)",
-      "options": [
-        { "value": "row",            "label": "Row" },
-        { "value": "row-reverse",    "label": "Row Reverse" },
-        { "value": "column",         "label": "Column" },
-        { "value": "column-reverse", "label": "Column Reverse" }
-      ],
-      "default": "row",
-      "info": "Only applies when Desktop Layout is set to Flex.",
-      "visible_if": "{{section.settings.desktop_layout_type == 'flex'}}"
-    },
-    {
-      "type": "select",
-      "id": "desktop_flex_wrap",
-      "label": "Flex Wrap (Flex only)",
-      "options": [
-        { "value": "nowrap",       "label": "No Wrap" },
-        { "value": "wrap",         "label": "Wrap" },
-        { "value": "wrap-reverse", "label": "Wrap Reverse" }
-      ],
-      "default": "wrap",
-      "info": "Only applies when Desktop Layout is set to Flex.",
-      "visible_if": "{{section.settings.desktop_layout_type == 'flex'}}"
-    },
-    {
-      "type": "select",
-      "id": "desktop_justify_content",
-      "label": "Justify Content",
-      "options": [
-        { "value": "flex-start",    "label": "Start" },
-        { "value": "flex-end",      "label": "End" },
-        { "value": "center",        "label": "Center" },
-        { "value": "space-between", "label": "Space Between" },
-        { "value": "space-around",  "label": "Space Around" },
-        { "value": "space-evenly",  "label": "Space Evenly" }
-      ],
-      "default": "flex-start",
-      "info": "Applies to both Flex and Grid layout.",
-      "visible_if": "{{section.settings.desktop_layout_type == 'flex' or section.settings.desktop_layout_type == 'grid'}}"
-    },
-    {
-      "type": "select",
-      "id": "desktop_align_items",
-      "label": "Align Items",
-      "options": [
-        { "value": "flex-start", "label": "Start" },
-        { "value": "flex-end",   "label": "End" },
-        { "value": "center",     "label": "Center" },
-        { "value": "stretch",    "label": "Stretch" },
-        { "value": "baseline",   "label": "Baseline" }
-      ],
-      "default": "stretch",
-      "info": "Applies to both Flex and Grid layout.",
-      "visible_if": "{{section.settings.desktop_layout_type == 'flex' or section.settings.desktop_layout_type == 'grid'}}"
-    },
-    {
-  "type": "select",
-  "id": "content_vertical_alignment",
-  "label": "Content Vertical Alignment",
-  "options": [
-    {
-      "value": "flex-start",
-      "label": "Top"
-    },
-    {
-      "value": "center",
-      "label": "Middle"
-    },
-    {
-      "value": "flex-end",
-      "label": "Bottom"
-    }
-  ],
-  "default": "center"
+{
+  "type": "header",
+  "content": "Apparance"
 },
-    {
-  "type": "select",
-  "id": "content_horizontal_alignment",
-  "label": "Content Horizontal Alignment",
-  "options": [
-    {
-      "value": "flex-start",
-      "label": "Left"
-    },
-    {
-      "value": "center",
-      "label": "Center"
-    },
-    {
-      "value": "flex-end",
-      "label": "Right"
-    }
-  ],
-  "default": "flex-start"
+{
+  "type": "color_scheme",
+  "id": "color_scheme",
+  "label": "Color Scheme",
+  "default": "scheme-1"
 },
-    {
-      "type": "range",
-      "id": "desktop_columns",
-      "label": "Desktop Columns (Grid only)",
-      "min": 1,
-      "max": 12,
-      "step": 1,
-      "default": 3,
-      "info": "Number of equal columns. Only applies when Desktop Layout is set to Grid.",
-      "visible_if": "{{section.settings.desktop_layout_type == 'grid'}}"
+ {
+      "type": "select",
+      "id": "background_media",
+      "label": "Background Media",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "none"
     },
     {
-      "type": "range",
-      "id": "desktop_gap",
-      "label": "Desktop Gap",
-      "min": 0,
-      "max": 80,
-      "step": 4,
-      "default": 24,
-      "unit": "px",
-      "visible_if": "{{section.settings.desktop_layout_type == 'flex' or section.settings.desktop_layout_type == 'grid'}}"
-    },
-    {
-      "type": "header",
-      "content": "Mobile Layout"
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "visible_if": "{{ section.settings.background_media == 'video' }}"
     },
     {
       "type": "select",
-      "id": "mobile_layout_type",
-      "label": "Mobile Layout",
+      "id": "video_position",
+      "label": "Video Position",
       "options": [
-        { "value": "flex", "label": "Flex System" },
-        { "value": "grid", "label": "Grid System" }
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
       ],
-      "default": "flex"
+      "default": "cover",
+      "visible_if": "{{ section.settings.background_media == 'video' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Image",
+      "visible_if": "{{ section.settings.background_media == 'image' }}"
     },
     {
       "type": "select",
-      "id": "mobile_flex_direction",
-      "label": "Flex Direction (Flex only)",
+      "id": "background_image_position",
+      "label": "Image Position",
       "options": [
-        { "value": "row",            "label": "Row" },
-        { "value": "row-reverse",    "label": "Row Reverse" },
-        { "value": "column",         "label": "Column" },
-        { "value": "column-reverse", "label": "Column Reverse" }
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "fit",
+          "label": "Fit"
+        }
       ],
-      "default": "column",
-      "info": "Only applies when Mobile Layout is set to Flex.",
-      "visible_if": "{{section.settings.desktop_layout_type == 'flex'}}"
+      "default": "cover",
+      "visible_if": "{{ section.settings.background_media == 'image' }}"
     },
-    {
-      "type": "select",
-      "id": "mobile_flex_wrap",
-      "label": "Flex Wrap (Flex only)",
-      "options": [
-        { "value": "nowrap",       "label": "No Wrap" },
-        { "value": "wrap",         "label": "Wrap" },
-        { "value": "wrap-reverse", "label": "Wrap Reverse" }
-      ],
-      "default": "wrap",
-      "info": "Only applies when Mobile Layout is set to Flex.",
-      "visible_if": "{{section.settings.desktop_layout_type == 'flex'}}"
-    },
-    {
-      "type": "range",
-      "id": "mobile_columns",
-      "label": "Mobile Columns (Grid only)",
-      "min": 1,
-      "max": 4,
-      "step": 1,
-      "default": 1,
-      "info": "Number of columns on mobile. Only applies when Mobile Layout is set to Grid.",
-      "visible_if": "{{section.settings.desktop_layout_type == 'grid'}}"
-    },
-    {
-      "type": "range",
-      "id": "mobile_gap",
-      "label": "Mobile Gap",
-      "min": 0,
-      "max": 48,
-      "step": 4,
-      "default": 16,
-      "unit": "px",
-      "visible_if": "{{section.settings.desktop_layout_type == 'flex' or section.settings.desktop_layout_type == 'grid'}}"
-    }
+{
+  "type": "checkbox",
+  "id": "background_overlay",
+  "label": "Background Overlay",
+  "default": false
+},
+{
+  "type": "color",
+  "id": "overlay_color",
+  "label": "Overlay Color",
+  "alpha": true,
+  "visible_if": "{{ section.settings.background_overlay == true }}"
+},
+{
+"type": "header",
+"content": "Layout"
+},
+{
+"type": "select",
+"id": "layout_options",
+"label": "Layout Options",
+"options": [
+  { "label": "Desktop", "value": "desktop_layout"},
+  { "label": "Mobile", "value": "mobile_layout"}
+]
+},
+{
+  "type": "select",
+  "id": "desktop_layout",
+  "label": "Layout Type",
+  "options": [
+    { "value": "flex", "label": "Flex" },
+    { "value": "grid", "label": "Grid" }
+  ],
+  "default": "flex",
+  "visible_if": "{{ section.settings.layout_options == 'desktop_layout' }}"
+},
+{
+  "type": "select",
+  "id": "desktop_direction",
+  "label": "Flex Direction",
+  "options": [
+    { "value": "row", "label": "Row" },
+    { "value": "column", "label": "Column" }
+  ],
+  "default": "row",
+  "visible_if": "{{ section.settings.layout_options == 'desktop_layout' and section.settings.desktop_layout == 'flex' }}"
+},
+{
+  "type": "select",
+  "id": "desktop_wrap",
+  "label": "Flex Wrap",
+  "options": [
+    { "value": "nowrap", "label": "No Wrap" },
+    { "value": "wrap", "label": "Wrap" }
+  ],
+  "default": "wrap",
+  "visible_if": "{{ section.settings.layout_options == 'desktop_layout' and section.settings.desktop_layout == 'flex' }}"
+},
+{
+  "type": "range",
+  "id": "desktop_columns",
+  "label": "Grid Columns",
+  "min": 1,
+  "max": 6,
+  "step": 1,
+  "default": 3,
+  "visible_if": "{{ section.settings.layout_options == 'desktop_layout' and section.settings.desktop_layout == 'grid' }}"
+},
+{
+  "type": "select",
+  "id": "desktop_justify",
+  "label": "Horizontal Alignment",
+  "options": [
+    { "value": "flex-start", "label": "Start" },
+    { "value": "center", "label": "Center" },
+    { "value": "flex-end", "label": "End" },
+    { "value": "space-between", "label": "Space Between" }
+  ],
+  "default": "flex-start",
+  "visible_if": "{{ section.settings.layout_options == 'desktop_layout' }}"
+},
+{
+  "type": "select",
+  "id": "desktop_align",
+  "label": "Vertical Alignment",
+  "options": [
+    { "value": "stretch", "label": "Stretch" },
+    { "value": "flex-start", "label": "Top" },
+    { "value": "center", "label": "Middle" },
+    { "value": "flex-end", "label": "Bottom" }
+  ],
+  "default": "stretch",
+  "visible_if": "{{ section.settings.layout_options == 'desktop_layout' }}"
+},
+{
+  "type": "range",
+  "id": "desktop_gap",
+  "label": "Gap",
+  "min": 0,
+  "max": 80,
+  "step": 4,
+  "unit": "px",
+  "default": 24,
+  "visible_if": "{{ section.settings.layout_options == 'desktop_layout' }}"
+},
+{
+  "type": "select",
+  "id": "mobile_layout",
+  "label": "Layout Type",
+  "options": [
+    { "value": "flex", "label": "Flex" },
+    { "value": "grid", "label": "Grid" }
+  ],
+  "default": "flex",
+  "visible_if": "{{ section.settings.layout_options == 'mobile_layout' }}"
+},
+{
+  "type": "select",
+  "id": "mobile_direction",
+  "label": "Flex Direction",
+  "options": [
+    { "value": "row", "label": "Row" },
+    { "value": "column", "label": "Column" }
+  ],
+  "default": "column",
+  "visible_if": "{{ section.settings.layout_options == 'mobile_layout' and section.settings.mobile_layout == 'flex' }}"
+},
+{
+  "type": "select",
+  "id": "mobile_wrap",
+  "label": "Flex Wrap",
+  "options": [
+    { "value": "nowrap", "label": "No Wrap" },
+    { "value": "wrap", "label": "Wrap" }
+  ],
+  "default": "wrap",
+  "visible_if": "{{ section.settings.layout_options == 'mobile_layout' and section.settings.mobile_layout == 'flex' }}"
+},
+{
+  "type": "range",
+  "id": "mobile_columns",
+  "label": "Grid Columns",
+  "min": 1,
+  "max": 3,
+  "step": 1,
+  "default": 1,
+  "visible_if": "{{ section.settings.layout_options == 'mobile_layout' and section.settings.mobile_layout == 'grid' }}"
+},
+{
+  "type": "select",
+  "id": "mobile_justify",
+  "label": "Horizontal Alignment",
+  "options": [
+    { "value": "flex-start", "label": "Start" },
+    { "value": "center", "label": "Center" },
+    { "value": "flex-end", "label": "End" }
+  ],
+  "default": "flex-start",
+  "visible_if": "{{ section.settings.layout_options == 'mobile_layout' }}"
+},
+{
+  "type": "select",
+  "id": "mobile_align",
+  "label": "Vertical Alignment",
+  "options": [
+    { "value": "stretch", "label": "Stretch" },
+    { "value": "flex-start", "label": "Top" },
+    { "value": "center", "label": "Middle" },
+    { "value": "flex-end", "label": "Bottom" }
+  ],
+  "default": "stretch",
+  "visible_if": "{{ section.settings.layout_options == 'mobile_layout' }}"
+},
+{
+  "type": "range",
+  "id": "mobile_gap",
+  "label": "Gap",
+  "min": 0,
+  "max": 40,
+  "step": 4,
+  "unit": "px",
+  "default": 16,
+  "visible_if": "{{ section.settings.layout_options == 'mobile_layout' }}"
+}
   ],
   "blocks": [
     {
