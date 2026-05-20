@@ -1,0 +1,478 @@
+{{ 'shopify_custom_section.css' | asset_url | stylesheet_tag }}
+
+<style>
+    .custom_section-{{section.id}}{
+    --section_padding: {{ section.settings.section_top_padding }}px 0 {{ section.settings.section_bottom_padding }}px 0;
+    --section_height:
+    {% case section.settings.section_height_type %}
+        {% when 'preset' %}
+            {% case section.settings.preset_height %}
+                {%  when 'small' %} 
+                    clamp(320px, 40vh, 500px);
+                {%  when 'medium' %} 
+                    clamp(450px, 60vh, 800px);
+                {%  when 'large' %} 
+                    clamp(600px, 80vh, 1100px);
+                {%  when 'fullscreen' %} 
+                    100vh;
+            {% endcase %}
+        
+        {% when 'custom' %}
+            clamp(
+                    {{ section.settings.custom_min_height }}px,
+                    {{ section.settings.custom_viewport_height }}vh,
+                    {{ section.settings.custom_max_height }}px
+                );
+        {%  else %}
+            auto;
+    {% endcase %}
+      min-height: var(--section_height); 
+
+    .custom_section_bg-image,
+    .custom_section_bg-video {
+        width: 100%;
+        height: 100%;
+        object-fit: {{ section.settings.background_fit }};
+        object-position: {{ section.settings.background_position }};
+    }
+    .custom_section-overlay{
+       
+        {% if section.settings.overlay_style == 'solid' %}
+        background: {{section.settings.overlay_color}};
+            {% else %}
+        background: {{section.settings.overlay_gradient}};
+        {% endif %}
+
+        opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+        mix-blend-mode: {{ section.settings.overlay_blend }};
+        backdrop-filter: blur({{ section.settings.overlay_blur }}px);
+        -webkit-backdrop-filter: blur({{ section.settings.overlay_blur }}px);
+    }
+        .section_layout-full{
+        max-width: 100%;
+    }
+        .section_layout-custom{
+        max-width: {{section.settings.custom_layout-size}}px;
+    }
+        {% if section.settings.layout_padding %}
+    .section_layout_padding{
+        padding: var(--layout_padding_top) var(--layout_padding_right) var(--layout_padding_bottom) var(--layout_padding_left);
+    }
+        {% endif %}
+    {% if section.settings.layout_border %}
+    .section_layout-container{
+        border: {{ section.settings.layout_border-width }}px {{section.settings.layout_border-style}} {{section.settings.layout_border-color}};
+        border-radius: {{ section.settings.layout_border-radius }}px;
+        opacity: {{ section.settings.layout_border-opacity }}%;
+    }
+    .section_layout-container:hover{
+        border-color: {{section.settings.border_hover-color}};
+    }
+
+    {% endif %}
+}
+    
+</style>
+<div class="custom_section-{{section.id}} custom_section-main color-{{ section.settings.color_scheme }} gradient" style="padding : var(--section_padding)"> 
+
+                        <!-- BACKGROUND -->
+    <div class="custom_section-bg">
+        {% if section.settings.background_media == 'image' and section.settings.image_picker != blank %}
+            {{ section.settings.image_picker |  image_url: width: 3600 | image_tag: loading: 'eager', fetchpriority: 'high', class: 'custom_section_bg-image' }}
+
+        {%  elsif section.settings.background_media == 'video' and section.settings.custom_video != blank %}
+            {{ section.settings.custom_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'custom_section_bg-video'}}
+        {% endif %}
+    </div>
+
+    <!-- BACKGROUND Overlay-->
+        {% if section.settings.custom_section-overlay %}
+    <div class="custom_section-overlay"> &nbsp </div>
+        {% endif %}
+
+    <!-- CONTENT-->
+    <div class="custom_section-inner">
+        <div class="page-width section_layout-{{ section.settings.layout_type }} section_layout_padding"
+        style="--layout_padding_top: {{ section.settings.layout_padding-top }}px; --layout_padding_bottom: {{ section.settings.layout_padding-bottom }}px; --layout_padding_left: {{ section.settings.layout_padding-left }}px; --layout_padding_right: {{ section.settings.layout_padding-right
+         }}px;">
+            <div class="section_layout-container">
+             {% content_for 'blocks' %}
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+{%  schema  %}  
+{
+    "name": "Shopify Custom Section",
+    "tag": "section",
+    "class": "shopify_custom_section",
+    "disabled_on": {
+        "groups": ["aside", "footer", "header"]
+    },
+    "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "Color Scheme"
+        },
+        {
+            "type": "select",
+            "id": "section_height_type",
+            "label": "Section Height",
+            "options": [
+                { "label": "Auto", "value": "auto" },
+                { "label": "Custom", "value": "custom" },
+                { "label": "Preset", "value": "preset" }
+            ],
+            "default": "auto"
+        },
+        {
+            "type": "select",
+            "id": "preset_height",
+            "label": "Preset Height",
+            "options": [
+                { "value": "small", "label": "Small" },
+                { "value": "medium", "label": "Medium" },
+                { "value": "large", "label": "Large" },
+                { "value": "fullscreen", "label": "Full" }
+            ],
+            "default": "medium",
+            "visible_if": "{{ section.settings.section_height_type == 'preset' }}"
+        },
+        {
+            "type": "range",
+            "id": "custom_min_height",
+            "label": "Section Minimun Height",
+            "min": 200,
+            "max": 1200,
+            "step": 10,
+            "unit": "px",
+            "default": 400,
+            "visible_if": "{{ section.settings.section_height_type == 'custom' }}"
+        },
+        {
+            "type": "range",
+            "id": "custom_viewport_height",
+            "label": "Viewport Height (%)",
+            "min": 10,
+            "max": 100,
+            "step": 5,
+            "unit": "vh",
+            "default": 60,
+            "visible_if": "{{section.settings.section_height_type == 'custom' }}"
+        },
+        {
+            "type": "range",
+            "id": "custom_max_height",
+            "label": "Maximum Height",
+            "min": 300,
+            "max": 1600,
+            "step": 20,
+            "unit": "px",
+            "default": 900,
+            "visible_if": "{{section.settings.section_height_type == 'custom' }}"
+        },
+        {
+            "type": "range",
+            "id": "section_top_padding",
+            "label": "Section Top Spacing",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 60
+        },
+        {
+            "type": "range",
+            "id": "section_bottom_padding",
+            "label": "Section Bottom Spacing",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 60
+        },
+        {
+            "type": "select",
+            "id": "background_media",
+            "label": "Background Media",
+            "options": [
+                { "label": "None", "value": "none" },
+                { "label": "Image", "value": "image" },
+                { "label": "Video", "value": "video" }
+            ],
+            "default": "none"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_picker",
+            "label": "Background Image",
+            "visible_if": "{{ section.settings.background_media == 'image'  }}"
+        },
+        {
+            "type": "video",
+            "id": "custom_video",
+            "label": "Video",
+             "visible_if": "{{ section.settings.background_media == 'video'  }}"
+        },
+        {
+            "type": "select",
+            "id": "background_fit",
+            "label": "Background Fit",
+            "options": [
+                { "value": "cover", "label": "Cover" },
+                { "value": "contain", "label": "Contain" },
+                { "value": "fill", "label": "Fill" },
+                { "value": "scale-down", "label": "Scale down" },
+                { "value": "none", "label": "None" }
+            ],
+            "default": "cover",
+            "visible_if": "{{ section.settings.background_media == 'image' or section.settings.background_media == 'video' }}"
+        },
+        {
+            "type": "select",
+            "id": "background_position",
+            "label": "Background position",
+            "default": "center center",
+            "options": [
+                { "value": "left top", "label": "Left Top" },
+                { "value": "center top", "label": "Center Top" },
+                { "value": "right top", "label": "Right Top" },
+
+                { "value": "left center", "label": "Left Center" },
+                { "value": "center center", "label": "Center Center" },
+                { "value": "right center", "label": "Right Center" },
+
+                { "value": "left bottom", "label": "Left Bottom" },
+                { "value": "center bottom", "label": "Center Bottom" },
+                { "value": "right bottom", "label": "Right Bottom" }
+            ],
+            "visible_if": "{{ section.settings.background_media == 'image' or section.settings.background_media == 'video' }}"
+        },
+        {
+            "type": "checkbox",
+            "id": "custom_section-overlay",
+            "label": "Background Overlay",
+            "default": false
+        },
+        {
+            "type": "select",
+            "id": "overlay_style",
+            "label": "Overlay Style",
+            "options": [
+            { "value": "solid", "label": "Solid" },
+            { "value": "gradient", "label": "Gradient" }
+            ],
+            "default": "solid",
+            "visible_if": "{{ section.settings.custom_section-overlay }}"
+        },
+        {
+            "type": "color",
+            "id": "overlay_color",
+            "label": "Overlay Color",
+            "default": "#000000",
+            "visible_if": "{{ section.settings.custom_section-overlay and section.settings.overlay_style == 'solid' }}"
+        },
+        {
+            "type": "color_background",
+            "id": "overlay_gradient",
+            "label": "Gradient Overlay",
+            "default": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+            "visible_if": "{{ section.settings.custom_section-overlay and section.settings.overlay_style == 'gradient' }}"
+        },
+        {
+            "type": "range",
+            "id": "overlay_opacity",
+            "label": "Overlay Opacity",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "default": 40,
+            "visible_if": "{{ section.settings.custom_section-overlay }}"
+        },
+        {
+            "type": "select",
+            "id": "overlay_blend",
+            "label": "Blend Mode",
+            "options": [
+            { "value": "normal", "label": "Normal" },
+            { "value": "multiply", "label": "Multiply" },
+            { "value": "overlay", "label": "Overlay" },
+            { "value": "darken", "label": "Darken" },
+            { "value": "lighten", "label": "Lighten" },
+            { "value": "soft-light", "label": "Soft Light" }
+            ],
+            "default": "normal",
+            "visible_if": "{{ section.settings.custom_section-overlay }}"
+        },
+        {
+            "type": "range",
+            "id": "overlay_blur",
+            "label": "Overlay Blur",
+            "min": 0,
+            "max": 20,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.custom_section-overlay }}"
+        },
+        {
+            "type": "header",
+            "content": "Layout Settings"
+        },
+        {
+            "type": "select",
+            "id": "layout_type",
+            "label": "Layout",
+            "options": [
+                { "label": "Default", "value": "Default" },
+                { "label": "Full", "value": "full" },
+                { "label": "Custom", "value": "custom" }
+            ]
+        },
+        {
+            "type": "range",
+            "id": "custom_layout-size",
+            "label": "Custom Layout Size",
+            "min": 800,
+            "max": 1600,
+            "step": 20,
+            "unit": "px",
+            "default": 1200,
+            "visible_if": "{{ section.settings.layout_type == 'custom' }}"
+        },
+        {
+            "type": "checkbox",
+            "id": "layout_padding",
+            "label": "Layout Padding",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "layout_padding-top",
+            "min": 0,
+            "max": 200,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding Top",
+            "default": 20,
+            "visible_if": "{{ section.settings.layout_padding }}"
+        },
+        {
+            "type": "range",
+            "id": "layout_padding-bottom",
+            "min": 0,
+            "max": 200,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding Bottom",
+            "default": 20,
+            "visible_if": "{{ section.settings.layout_padding }}"
+        },
+        {
+            "type": "range",
+            "id": "layout_padding-left",
+            "min": 0,
+            "max": 200,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding Left",
+            "default": 20,
+            "visible_if": "{{ section.settings.layout_padding }}"
+        },
+        {
+            "type": "range",
+            "id": "layout_padding-right",
+            "min": 0,
+            "max": 200,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding Right",
+            "default": 20,
+            "visible_if": "{{ section.settings.layout_padding }}"
+        }, 
+        {
+            "type": "checkbox",
+            "id": "layout_border",
+            "label": "Layout Border",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "layout_border-width",
+            "label": "Border Size",
+            "min": 0,
+            "max": 10,
+            "step": 0.5,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.layout_border }}"
+        },
+        {
+            "type": "select",
+            "id": "layout_border-style",
+            "label": "Border Style",
+            "default": "solid",
+            "options": [
+            {"label": "Solid", "value": "solid"},
+            {"label": "Dashed", "value": "dashed"},
+            {"label": "Dotted", "value": "dotted"},
+            {"label": "Double", "value": "double"}
+            ],
+            "visible_if": "{{section.settings.layout_border}}"
+        },
+        {
+            "type": "color",
+            "id": "layout_border-color",
+            "label": "Border Color",
+            "default": "#000000",
+            "visible_if": "{{section.settings.layout_border}}"
+        },
+        {
+            "type": "range",
+            "id": "layout_border-radius",
+            "label": "Layout Border Radius",
+            "min": 0,
+            "max": 500,
+            "step": 10,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.layout_border }}"
+        },
+        {
+            "type": "range",
+            "id": "layout_border-opacity",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "%",
+            "label": "Border Opacity",
+            "default": 100,
+            "visible_if": "{{section.settings.layout_border}}"
+        },
+        {
+            "type": "color",
+            "id": "border_hover-color",
+            "label": "Border Hover Color",
+            "default": "#ff0000",
+            "visible_if": "{{section.settings.layout_border}}"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "@theme"
+        },
+        {
+            "type": "@app"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Shopify Custom Section"
+        }
+    ]
+}
+{% endschema %}

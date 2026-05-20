@@ -1,0 +1,23 @@
+.custom_section-main{
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+.custom_section-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.custom_section-overlay{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.custom_section-inner{
+    position: relative;
+    z-index: 3;
+}
+
