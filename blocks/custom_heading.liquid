@@ -1,0 +1,375 @@
+{%  assign heading_tag = block.settings.heading_tag %}
+<div class= "custom_heading custom_heading--{{ block.id }} color-{{ block.settings.color_scheme }} gradient
+{% if block.settings.block_border %} block_border {% endif %}" {{ block.shopify_attributes }}
+style="padding: var(--content_spacing)">
+    <{{heading_tag}} class="custom_heading_text">{{ block.settings.custom_heading }} </{{heading_tag}}>
+</div>
+
+<style>
+    .custom_heading--{{ block.id }}{
+        width: {{ block.settings.block_outer_width }};
+        max-width: {{ block.settings.max_width }}px;
+        --content_spacing: {{ block.settings.padding_top }}px {{ block.settings.padding_right }}px {{ block.settings.padding_bottom }}px {{ block.settings.padding_left }}px;
+        height: 100%;
+    }
+    .custom_heading--{{ block.id }}.block_border{
+       border: {{ block.settings.block_border-width }}px {{block.settings.block_border-style}} {{block.settings.block_border-color}};
+        border-radius: {{ block.settings.block_border_top_left_radius }}px
+                        {{ block.settings.block_border_top_right_radius }}px
+                        {{ block.settings.block_border_bottom_right_radius }}px
+                        {{ block.settings.block_border_bottom_left_radius }}px;
+
+        opacity: {{ block.settings.block_border-opacity }}%; 
+    }
+    .custom_heading--{{ block.id }}.block_border:hover{
+       border-color: {{block.settings.border_hover-color}};
+    }
+    .custom_heading--{{ block.id }} .custom_heading_text{
+        margin: 0;
+        font-size: clamp(
+            {{ block.settings.mobile_min_fontsize }}px,
+            calc( {{ block.settings.mobile_min_fontsize }}px + 
+            ( {{ block.settings.desktop_max_fontsize }} - {{ block.settings.mobile_min_fontsize }} ) * ((100vw - 320px) / 880)),
+            {{ block.settings.desktop_max_fontsize }}px
+        );
+        font-weight: {{ block.settings.font_weight }};
+        line-height: {{ block.settings.line_height }};
+        letter-spacing: {{ block.settings.letter_spacing }}px;
+        width: {{ block.settings.content_width }};
+        text-align: {{ block.settings.text_horizontal_alignment }};
+        text-transform: {{ block.settings.text_transform }};
+        white-space: {{ block.settings.white_space }};
+    }
+    
+</style>
+{%  schema  %} 
+{
+    "name": "Heading Title block",
+    "tag": null,
+    "settings": [
+        {
+            "type": "select",
+            "id": "block_outer_width",
+            "label": "Block Size",
+            "options": [
+                { "value": "100%", "label": "100%" },
+                { "value": "75%", "label": "75%" },
+                { "value": "66.66%", "label": "66%" },
+                { "value": "50%", "label": "50%" },
+                { "value": "33.33%", "label": "33%" },
+                { "value": "25%", "label": "25%" },
+                { "value": "fit-content", "label": "Fit Content" }
+            ],
+            "default": "100%"
+        },
+        {
+            "type": "range",
+            "id": "max_width",
+            "label": "Max Width",
+            "min": 200,
+            "max": 2000,
+            "step": 20,
+            "unit": "px",
+            "default": 1200
+        },
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "Color Scheme",
+            "default": "scheme-1"
+        },
+         {
+            "type": "inline_richtext",
+            "id": "custom_heading",
+            "label": "Heading",
+            "default": "Your heading here"
+        },
+        {
+            "type": "select",
+            "id": "content_width",
+            "label": "Content Width",
+            "options": [
+                
+                { "value": "100%", "label": "Full" },
+                { "value": "fit-content", "label": "Fit Content" }
+            ],
+            "default": "fit-content"
+        },
+        {
+            "type": "select",
+            "id": "heading_tag",
+            "label": "Heading Tag",
+            "options": [
+                { "value": "h1", "label": "H1" },
+                { "value": "h2", "label": "H2" },
+                { "value": "h3", "label": "H3" },
+                { "value": "h4", "label": "H4" },
+                { "value": "h5", "label": "H5" },
+                { "value": "h6", "label": "H6" }
+            ],
+            "default": "h2"
+        },
+        {
+            "type": "checkbox",
+            "id": "typography",
+            "label": "Typography",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "mobile_min_fontsize",
+            "label": "Mobile Font Size",
+            "min": 24,
+            "max": 80,
+            "step": 1,
+            "unit": "px",
+            "default": 32,
+            "visible_if": "{{ block.settings.typography }}"
+        },
+        {
+            "type": "range",
+            "id": "desktop_max_fontsize",
+            "label": "Desktop Font Size",
+            "min": 30,
+            "max": 130,
+            "step": 1,
+            "unit": "px",
+            "default": 80,
+             "visible_if": "{{ block.settings.typography }}"
+        },
+        {
+            "type": "select",
+            "id": "font_weight",
+            "label": "Font Weight",
+            "options": [
+                { "value": "300", "label": "Light" },
+                { "value": "400", "label": "Regular" },
+                { "value": "500", "label": "Medium" },
+                { "value": "600", "label": "Semi Bold" },
+                { "value": "700", "label": "Bold" },
+                { "value": "800", "label": "Extra Bold" },
+                { "value": "900", "label": "Black" }
+            ],
+            "default": "700",
+             "visible_if": "{{ block.settings.typography }}"
+        },
+        {
+            "type": "range",
+            "id": "line_height",
+            "label": "Line Height",
+            "min": 0.8,
+            "max": 3,
+            "step": 0.1,
+            "default": 1.1,
+             "visible_if": "{{ block.settings.typography }}"
+        },
+        {
+            "type": "range",
+            "id": "letter_spacing",
+            "label": "Letter Spacing",
+            "min": -5,
+            "max": 20,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+             "visible_if": "{{ block.settings.typography }}"
+        },
+        {
+            "type": "select",
+            "id": "text_transform",
+            "label": "Text Transform",
+            "options": [
+                { "value": "none", "label": "None" },
+                { "value": "uppercase", "label": "UPPERCASE" },
+                { "value": "lowercase", "label": "lowercase" },
+                { "value": "capitalize", "label": "Capitalize" }
+        ],
+            "default": "none",
+             "visible_if": "{{ block.settings.typography }}"
+        },  
+        {
+            "type": "select",
+            "id": "white_space",
+            "label": "Text Wrap",
+            "options": [
+                { "value": "normal", "label": "Wrap" },
+                { "value": "nowrap", "label": "No Wrap" }
+            ],
+            "default": "nowrap",
+             "visible_if": "{{ block.settings.typography }}"
+        },
+        {
+            "type": "select",
+            "id": "text_horizontal_alignment",
+            "label": "Text Alignment",
+            "options": [
+                { "value": "left", "label": "Left" },
+                { "value": "center", "label": "Center" },
+                { "value": "right", "label": "Right" }
+            ],
+            "default": "left",
+            "visible_if": "{{ block.settings.content_width == '100%' }}"
+        },
+        
+        {
+            "type": "checkbox",
+            "id": "content_spacing",
+            "label": "Block Padding",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "label": "Padding Top",
+            "min": 0,
+            "max": 200,
+            "step": 4,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.content_spacing }}"
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "label": "Padding Bottom",
+            "min": 0,
+            "max": 200,
+            "step": 4,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.content_spacing }}"
+        },
+        {
+            "type": "range",
+            "id": "padding_left",
+            "label": "Padding Left",
+            "min": 0,
+            "max": 200,
+            "step": 4,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.content_spacing }}"
+        },
+        {
+            "type": "range",
+            "id": "padding_right",
+            "label": "Padding Right",
+            "min": 0,
+            "max": 200,
+            "step": 4,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.content_spacing }}"
+        },
+        {
+            "type": "checkbox",
+            "id": "block_border",
+            "label": "Block Border",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "block_border-width",
+            "label": "Border Size",
+            "min": 0,
+            "max": 10,
+            "step": 0.5,
+            "unit": "px",
+            "default": 3,
+            "visible_if": "{{ block.settings.block_border }}"
+        },
+        {
+            "type": "select",
+            "id": "block_border-style",
+            "label": "Border Style",
+            "default": "solid",
+            "options": [
+            {"label": "Solid", "value": "solid"},
+            {"label": "Dashed", "value": "dashed"},
+            {"label": "Dotted", "value": "dotted"},
+            {"label": "Double", "value": "double"}
+            ],
+            "visible_if": "{{block.settings.block_border}}"
+        },
+        {
+            "type": "color",
+            "id": "block_border-color",
+            "label": "Border Color",
+            "default": "#000000",
+            "visible_if": "{{block.settings.block_border}}"
+        },
+        {
+            "type": "range",
+            "id": "block_border-opacity",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "%",
+            "label": "Border Opacity",
+            "default": 100,
+            "visible_if": "{{block.settings.block_border}}"
+        },
+        {
+            "type": "color",
+            "id": "border_hover-color",
+            "label": "Border Hover Color",
+            "default": "#ff0000",
+            "visible_if": "{{block.settings.block_border}}"
+        },
+        {
+            "type": "checkbox",
+            "id": "block_border_radius",
+            "label": "Border Radius",
+            "default": false,
+             "visible_if": "{{block.settings.block_border}}"
+        },
+        {
+            "type": "range",
+            "id": "block_border_top_left_radius",
+            "label": "Top Left Radius",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.block_border and block.settings.block_border_radius }}"
+        },
+        {
+            "type": "range",
+            "id": "block_border_top_right_radius",
+            "label": "Top Right Radius",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.block_border and block.settings.block_border_radius }}"
+        },
+        {
+            "type": "range",
+            "id": "block_border_bottom_left_radius",
+            "label": "Bottom Left Radius",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.block_border and block.settings.block_border_radius }}"
+        },
+            {
+            "type": "range",
+            "id": "block_border_bottom_right_radius",
+            "label": "Bottom Right Radius",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.block_border and block.settings.block_border_radius }}"
+        }
+    ],
+    "presets": [
+        {"name": "Heading Title block"}
+    ]
+}
+{% endschema %} 

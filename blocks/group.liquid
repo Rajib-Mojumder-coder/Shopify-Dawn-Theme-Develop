@@ -1,0 +1,168 @@
+<div
+  class="custom-block-group custom-block-group-{{ block.id }} 
+  width-{{ block.settings.custom_group_width }} height-{{ block.settings.custom_group_height }}"
+  {{ block.shopify_attributes }}
+>
+    <div class="group-inner">
+        {% content_for 'blocks' %}
+    </div>
+</div>
+<style>
+  .custom-block-group-{{ block.id }}{
+    display: flex;
+    height: 100%;
+  }
+    /*Group Width CSS*/
+    .custom-block-group-{{ block.id }}.width-fill {
+      flex: 1;
+      width: 100%;
+    }
+
+    .custom-block-group-{{ block.id }}.width-fit-content {
+      width: fit-content;
+      max-width: 100%;
+      flex: 0 0 auto;
+    }
+
+    .custom-block-group-{{ block.id }}.width-custom {
+      --group-width: {{ block.settings.group_custom_width }}%;
+
+      width: var(--group-width);
+      max-width: var(--group-width);
+      flex: 0 0 var(--group-width);
+    }
+    /* Group HEIGHT */
+
+  .custom-block-group-{{ block.id }}.height-fit {
+    height: auto;
+  }
+
+  .custom-block-group-{{ block.id }}.height-fill {
+    align-self: stretch;
+    flex: 1;
+  }
+
+  .custom-block-group-{{ block.id }}.height-custom {
+    --group-height: {{ block.settings.group_custom_height }}px;
+
+    height: var(--group-height);
+  }
+
+  /* Group INNER */
+    .custom-block-group-{{ block.id }} .group-inner{
+        display: flex;
+        flex-direction: {{ block.settings.direction }};
+        justify-content: {{ block.settings.justify }};
+        align-items: {{ block.settings.align }};
+        gap: {{ block.settings.gap }}px;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+{%  schema  %}  
+{
+"name": "Group Block",
+"tag": null,
+"blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
+],
+"settings": [
+     {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "options": [
+        { "value": "row", "label": "Row" },
+        { "value": "column", "label": "Column" }
+      ],
+      "default": "column"
+    },
+
+    {
+      "type": "select",
+      "id": "justify",
+      "label": "Justify",
+      "options": [
+        { "value": "flex-start", "label": "Start" },
+        { "value": "center", "label": "Center" },
+        { "value": "space-between", "label": "Space Between" }
+      ],
+      "default": "flex-start"
+    },
+
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Align",
+      "options": [
+        { "value": "flex-start", "label": "Start" },
+        { "value": "center", "label": "Center" },
+        { "value": "stretch", "label": "Stretch" }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 20,
+      "label": "Gap"
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "select",
+      "id": "custom_group_width",
+      "label": "Group Width",
+      "options": [
+        { "label": "Fit", "value": "fit-content" },
+        { "label": "Fill", "value": "fill" },
+        { "label": "custom", "value": "custom" }
+      ],
+      "default": "fill"
+    },
+    {
+      "type": "range",
+      "id": "group_custom_width",
+      "label": "Custom Width",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50,
+      "visible_if": "{{ block.settings.custom_group_width == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "custom_group_height",
+      "label": "Group Height",
+      "options": [
+        { "label": "Fit", "value": "fit" },
+        { "label": "Fill", "value": "fill" },
+        { "label": "custom", "value": "custom" }
+      ],
+      "default": "fit"
+    },
+    {
+      "type": "range",
+      "id": "group_custom_height",
+      "label": "Custom Height",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50,
+      "visible_if": "{{ block.settings.custom_group_height == 'custom' }}"
+    }
+],
+"presets": [
+    { "name": "Group Block"}
+]
+}
+{% endschema %} 

@@ -59,21 +59,27 @@
         padding: var(--layout_padding_top) var(--layout_padding_right) var(--layout_padding_bottom) var(--layout_padding_left);
     }
         {% endif %}
-    {% if section.settings.layout_border %}
-    .section_layout-container{
+    .section_layout_border{
         border: {{ section.settings.layout_border-width }}px {{section.settings.layout_border-style}} {{section.settings.layout_border-color}};
-        border-radius: {{ section.settings.layout_border-radius }}px;
+        border-radius:  {{ section.settings.layout_border_top_left_radius }}px
+                        {{ section.settings.layout_border_top_right_radius }}px
+                        {{ section.settings.layout_border_bottom_right_radius }}px
+                        {{ section.settings.layout_border_bottom_left_radius }}px;
         opacity: {{ section.settings.layout_border-opacity }}%;
     }
-    .section_layout-container:hover{
+    .section_layout_border:hover{
         border-color: {{section.settings.border_hover-color}};
     }
-
-    {% endif %}
+    .section_layout-container{
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+    
 }
     
 </style>
-<div class="custom_section-{{section.id}} custom_section-main color-{{ section.settings.color_scheme }} gradient" style="padding : var(--section_padding)"> 
+<div class="custom_section-{{section.id}} custom_section-main color-{{ section.settings.color_scheme }} gradient" style="padding : var(--section_padding)" {{ section.shopify_attributes }}> 
 
                         <!-- BACKGROUND -->
     <div class="custom_section-bg">
@@ -92,10 +98,10 @@
 
     <!-- CONTENT-->
     <div class="custom_section-inner">
-        <div class="page-width section_layout-{{ section.settings.layout_type }} section_layout_padding"
+        <div class="page-width section_layout-{{ section.settings.layout_type }} section_layout_padding section_inner-width"
         style="--layout_padding_top: {{ section.settings.layout_padding-top }}px; --layout_padding_bottom: {{ section.settings.layout_padding-bottom }}px; --layout_padding_left: {{ section.settings.layout_padding-left }}px; --layout_padding_right: {{ section.settings.layout_padding-right
-         }}px;">
-            <div class="section_layout-container">
+         }}px; overflow: hidden;">
+            <div class="section_layout-container  {% if section.settings.layout_border %}section_layout_border {% endif %}">
              {% content_for 'blocks' %}
             </div>
         </div>
@@ -408,7 +414,7 @@
             "max": 10,
             "step": 0.5,
             "unit": "px",
-            "default": 0,
+            "default": 5,
             "visible_if": "{{ section.settings.layout_border }}"
         },
         {
@@ -433,17 +439,6 @@
         },
         {
             "type": "range",
-            "id": "layout_border-radius",
-            "label": "Layout Border Radius",
-            "min": 0,
-            "max": 500,
-            "step": 10,
-            "unit": "px",
-            "default": 0,
-            "visible_if": "{{ section.settings.layout_border }}"
-        },
-        {
-            "type": "range",
             "id": "layout_border-opacity",
             "min": 0,
             "max": 100,
@@ -451,15 +446,67 @@
             "unit": "%",
             "label": "Border Opacity",
             "default": 100,
-            "visible_if": "{{section.settings.layout_border}}"
+            "visible_if": "{{ section.settings.layout_border }}"
         },
         {
             "type": "color",
             "id": "border_hover-color",
             "label": "Border Hover Color",
             "default": "#ff0000",
-            "visible_if": "{{section.settings.layout_border}}"
+            "visible_if": "{{ section.settings.layout_border }}"
+        },
+        {
+            "type": "checkbox",
+            "id": "Layout_Border_radius",
+            "label": "Border Radius",
+            "default": false,
+             "visible_if": "{{section.settings.layout_border}}"
+        },
+        {
+            "type": "range",
+            "id": "layout_border_top_left_radius",
+            "label": "Top Left Radius",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.layout_border and section.settings.Layout_Border_radius }}"
+        },
+        {
+            "type": "range",
+            "id": "layout_border_top_right_radius",
+            "label": "Top Right Radius",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.layout_border and section.settings.Layout_Border_radius }}"
+        },
+        {
+            "type": "range",
+            "id": "layout_border_bottom_left_radius",
+            "label": "Bottom Left Radius",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.layout_border and section.settings.Layout_Border_radius }}"
+        },
+            {
+            "type": "range",
+            "id": "layout_border_bottom_right_radius",
+            "label": "Bottom Right Radius",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.layout_border and section.settings.Layout_Border_radius }}"
         }
+        
     ],
     "blocks": [
         {
