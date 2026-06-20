@@ -1,5 +1,8 @@
-{%  assign heading_tag = block.settings.heading_tag %}
-<div class= "custom_heading custom_heading--{{ block.id }} color-{{ block.settings.color_scheme }} gradient
+{%  liquid
+    assign inherit_color_scheme = block.settings.inherit_color_scheme 
+    assign heading_tag = block.settings.heading_tag 
+%}
+<div class= "custom_heading custom_heading--{{ block.id }} {% if inherit_color_scheme %} color-{{ block.settings.color_scheme }} gradient {% endif %}
 {% if block.settings.block_border %} block_border {% endif %}" {{ block.shopify_attributes }}
 style="padding: var(--content_spacing)">
     <{{heading_tag}} class="custom_heading_text">{{ block.settings.custom_heading }} </{{heading_tag}}>
@@ -73,10 +76,17 @@ style="padding: var(--content_spacing)">
             "default": 1200
         },
         {
+            "type": "checkbox",
+            "id": "inherit_color_scheme",
+            "label": "Block Color Scheme",
+            "default": false
+        },
+        {
             "type": "color_scheme",
             "id": "color_scheme",
             "label": "Color Scheme",
-            "default": "scheme-1"
+            "default": "scheme-1",
+            "visible_if": "{{block.settings.inherit_color_scheme == true}}"
         },
          {
             "type": "inline_richtext",
@@ -368,6 +378,7 @@ style="padding: var(--content_spacing)">
             "visible_if": "{{ block.settings.block_border and block.settings.block_border_radius }}"
         }
     ],
+    
     "presets": [
         {"name": "Heading Title block"}
     ]

@@ -1,0 +1,1016 @@
+ {% liquid
+   assign content_position = block.settings.content_position
+   assign content_horizontal = block.settings.content_horizontal
+   assign content_vertical = block.settings.content_vertical
+   assign overlay_spacing = block.settings.overlay_spacing
+   assign image_overlay = block.settings.image_overlay
+   assign overlay_color = block.settings.overlay_color
+   assign image_overlay_opacity = block.settings.image_overlay_opacity
+   
+   assign reverse_direction = block.settings.reverse_direction
+   assign center_mode = block.settings.center_mode
+   assign center_scale = block.settings.center_scale
+   assign grab_cursor = block.settings.grab_cursor
+   assign loop = block.settings.loop
+   assign autoplay = block.settings.autoplay
+   assign autoplay_speed = block.settings.autoplay_speed 
+   assign pause_on_hover= block.settings.pause_on_hover
+   assign disable_on_interaction = block.settings.disable_on_interaction
+   assign rewind = block.settings.rewind
+  assign free_mode = block.settings.free_mode
+  assign touch_swipe = block.settings.touch_swipe
+  assign keyboard = block.settings.keyboard
+  assign mousewheel = block.settings.mousewheel
+  assign auto_height = block.settings.auto_height
+  assign effect = block.settings.effect
+
+  assign show_navigation = block.settings.show_navigation
+  assign show_navigation_mobile = block.settings.show_navigation_mobile
+  assign show_pagination = block.settings.show_pagination
+  assign nav_position = block.settings.nav_position
+  assign nav_gap = block.settings.nav_gap
+  assign nav_outside_offset = block.settings.nav_outside_offset
+
+  assign icon_type = block.settings.icon_type
+  assign prev_icon = block.settings.prev_icon
+  assign next_icon = block.settings.next_icon
+    
+ %}
+
+ {% assign mobile_view = block.settings.mobile_slides %}
+{% assign tablet_view = block.settings.tablet_slides %}
+{% assign desktop_view = block.settings.desktop_slides %}
+
+{% if block.settings.partial_slider %}
+  {% assign mobile_view = mobile_view | plus: block.settings.mobile_partial_amount %}
+  {% assign tablet_view = tablet_view | plus: block.settings.tablet_partial_amount %}
+  {% assign desktop_view = desktop_view | plus: block.settings.desktop_partial_amount %}
+{% endif %}
+
+<div class="custom-slider custom-slider-{{ block.id }} {% if content_position %} content_vertical_{{ content_vertical }} {% endif %} content_horizontal_{{ content_horizontal }} nav-{{ nav_position }}"
+  style="--overlay-spacing: {{ overlay_spacing }}%; --overlay-spacing-negative: {{ overlay_spacing }}%;
+   --nav-gap: {{ nav_gap }}px; --nav-outside-offset: {{ nav_outside_offset }}px;"
+  {{ block.shopify_attributes }}>
+
+  <div class="swiper slider-{{ block.id }}">
+    <div class="swiper-wrapper">
+
+      {% content_for 'blocks' %}
+
+    </div>
+
+      {% if show_navigation or show_navigation_mobile %}
+            <div class="slider-navigation slider-navigation-{{ block.id }}
+              {% unless show_navigation %} nav-hide-desktop{% endunless %}
+              {% unless show_navigation_mobile %} nav-hide-mobile{% endunless %}">
+
+              <!-- PREVIOUS -->
+              <div class="swiper-button-prev slider-prev-{{ block.id }}">
+
+                {% case icon_type %}
+
+                  {% when 'theme_arrow' %}
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-linecap="round" stroke-linejoin="round" >
+                      <path d="M15 18L9 12L15 6"/>
+                    </svg>
+
+                  {% when 'image' %}
+                    {% if prev_icon != blank %}
+                    {{ prev_icon | image_url: width: 100 | image_tag: class: 'nav-image', loading: 'lazy' }}                
+                    {% endif %}
+
+                  {% when 'svg_code' %}
+                    <div class="nav-svg">
+                      {{ block.settings.prev_svg }}
+                    </div>
+
+                {% endcase %}
+
+              </div>
+
+              <!-- NEXT -->
+              <div class="swiper-button-next slider-next-{{ block.id }}">
+
+                {% case icon_type %}
+
+                  {% when 'theme_arrow' %}
+                    <svg class="nav-icon" viewBox="0 0 24 24"  fill="none" stroke="currentColor"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 18L15 12L9 6"/>
+                    </svg>
+
+                  {% when 'image' %}
+                    {% if next_icon != blank %}
+                      {{ next_icon | image_url: width: 100 | image_tag: class: 'nav-image',                       loading: 'lazy'}}
+                    {% endif %}
+
+                  {% when 'svg_code' %}
+                    <div class="nav-svg">
+                      {{ block.settings.next_svg }}
+                    </div>
+
+                {% endcase %}
+
+              </div>
+
+            </div>
+      {% endif %}
+
+     {% if show_pagination %}
+        <div class="swiper-pagination slider-pagination-{{ block.id }}"></div>
+      {% endif %}
+  </div>
+
+</div>
+
+<style>
+  #shopify-block-{{block.id}}{
+    width: 100%;
+    position: relative;
+  }
+  .custom-slider{
+  position:relative;
+  width:100%;
+}
+
+.custom-slider .swiper{
+  width:100%;
+  height: 100%;
+  /* overflow:hidden; */
+  overflow:visible;
+}
+.slider-{{ block.id }}{
+  display: flex;
+  flex-direction: column;
+}
+.custom-slider .swiper-slide{
+  height:auto;
+}
+
+.custom-slider img,
+.custom-slider video{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  position: relative;
+  z-index: 0;
+}
+{% if image_overlay %}
+.custom-slider .image-overlay{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: {{image_overlay_opacity |  divided_by: 100.00}};
+  background: {{ overlay_color }};
+}
+{% endif %}
+  /* .swiper-slide {
+    width: 100% !important;
+} */
+/*Slider CSS End*/
+
+ .image-text-slider__content{
+  position: static;
+  display: flex;
+  flex-direction: column;
+}
+
+.content_vertical_top .image-text-slider__content,
+.content_vertical_middle .image-text-slider__content,
+.content_vertical_bottom .image-text-slider__content {
+  position: absolute;
+  width: 100%;
+  z-index: 3;
+}
+
+ .content_vertical_top .image-text-slider__content {
+  top: var(--overlay-spacing);
+}
+
+.content_vertical_bottom .image-text-slider__content {
+  bottom: var(--overlay-spacing-negative);
+}
+
+.content_vertical_middle .image-text-slider__content{
+  top: 50%;
+  transform: translateY(-50%);
+}
+.content_horizontal_start .image-text-slider__content{
+  align-items: flex-start;
+}
+.content_horizontal_center .image-text-slider__content{
+  align-items: center;
+}
+.content_horizontal_end .image-text-slider__content{
+  align-items: flex-end;
+}
+
+/* ======  Custom Navigation Icon ========= */
+/* Hide Swiper default arrows */
+
+.slider-prev-{{ block.id }}::after,
+.slider-next-{{ block.id }}::after {
+  display:none;
+}
+
+/* ========= BUTTON WRAPPER =========== */
+
+.slider-prev-{{ block.id }},
+.slider-next-{{ block.id }} {
+
+  width: calc({{ block.settings.icon_size }}px );
+  height: calc({{ block.settings.icon_size }}px );
+  padding: 6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background: {{ block.settings.bg_color }};
+  color: {{ block.settings.icon_color }};
+
+  border-radius: {{ block.settings.border_radius }}px;
+
+  transition: all .3s ease;
+}
+
+.slider-prev-{{ block.id }}:hover,
+.slider-next-{{ block.id }}:hover {
+
+  background: {{ block.settings.hover_bg_color }};
+  color: {{ block.settings.hover_icon_color }};
+}
+
+/* =========   THEME SVG ============ */
+
+.slider-prev-{{ block.id }} .nav-icon,
+.slider-next-{{ block.id }} .nav-icon {
+
+  width: {{ block.settings.icon_size }}px;
+  height: {{ block.settings.icon_size }}px;
+
+  stroke-width: {{ block.settings.stroke_width }};
+}
+
+/* =======  CUSTOM SVG ======== */
+
+.slider-prev-{{ block.id }} .nav-svg svg,
+.slider-next-{{ block.id }} .nav-svg svg {
+
+  width: {{ block.settings.icon_size }}px;
+  height: {{ block.settings.icon_size }}px;
+
+  fill: currentColor;
+  stroke: currentColor;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-next-{{ block.id }} .nav-svg svg {
+  rotate: 180deg;
+}
+
+/* ==========  IMAGE ============= */
+
+.slider-prev-{{ block.id }} .nav-image,
+.slider-next-{{ block.id }} .nav-image {
+
+  width: {{ block.settings.icon_size }}px;
+  height: {{ block.settings.icon_size }}px;
+
+  object-fit: contain;
+  display:block;
+}
+
+/* ======  EndCustom Navigation Icon ========= */
+
+/* ======   Navigation Position Base ========= */
+
+.custom-slider .slider-navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--nav-gap);
+  z-index: 20;
+}
+
+.custom-slider .swiper-button-prev,
+.custom-slider .swiper-button-next {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ========== TOP POSITIONS =============== */
+/* means: Select any .custom-slider whose class contains the text "nav-top-".
+.custom-slider[class*="nav-top-"]{
+    display:flex;
+    flex-direction:column;
+} */
+ /* ===========  TOP POSITIONS =============== */
+
+.custom-slider.nav-top-left,
+.custom-slider.nav-top-center,
+.custom-slider.nav-top-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-slider.nav-top-left .slider-navigation,
+.custom-slider.nav-top-center .slider-navigation,
+.custom-slider.nav-top-right .slider-navigation {
+  order: 1;
+  margin-bottom: 20px;
+}
+
+.custom-slider.nav-top-left .swiper-wrapper,
+.custom-slider.nav-top-center .swiper-wrapper,
+.custom-slider.nav-top-right .swiper-wrapper {
+  order: 2;
+}
+
+.custom-slider.nav-top-left .slider-navigation {
+  justify-content: flex-start;
+}
+
+.custom-slider.nav-top-center .slider-navigation {
+  justify-content: center;
+}
+
+.custom-slider.nav-top-right .slider-navigation {
+  justify-content: flex-end;
+}
+
+/* ================   BOTTOM POSITIONS ================== */
+
+.custom-slider.nav-bottom-left,
+.custom-slider.nav-bottom-center,
+.custom-slider.nav-bottom-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-slider.nav-bottom-left .swiper-wrapper,
+.custom-slider.nav-bottom-center .swiper-wrapper,
+.custom-slider.nav-bottom-right .swiper-wrapper {
+  order: 1;
+}
+
+.custom-slider.nav-bottom-left .slider-navigation,
+.custom-slider.nav-bottom-center .slider-navigation,
+.custom-slider.nav-bottom-right .slider-navigation {
+  order: 2;
+  margin-top: 20px;
+}
+
+.custom-slider.nav-bottom-left .slider-navigation {
+  justify-content: flex-start;
+}
+
+.custom-slider.nav-bottom-center .slider-navigation {
+  justify-content: center;
+}
+
+.custom-slider.nav-bottom-right .slider-navigation {
+  justify-content: flex-end;
+}
+
+/* ===============   CENTER INSIDE ================= */
+
+.custom-slider.nav-center-inner .slider-navigation {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  padding-inline: 20px;
+  transform: translateY(-50%);
+  justify-content: space-between;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.custom-slider.nav-center-inner .swiper-button-prev,
+.custom-slider.nav-center-inner .swiper-button-next {
+  pointer-events: auto;
+}
+
+/* =============   CENTER OUTSIDE ==================== */
+
+ .custom-slider.nav-center-outer .slider-navigation {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--nav-outside-offset) * -1);
+  right: calc(var(--nav-outside-offset) * -1);
+  transform: translateY(-50%);
+  justify-content: space-between;
+  z-index: 30;
+  pointer-events: none;
+} 
+
+.custom-slider.nav-center-outer .swiper-button-prev,
+.custom-slider.nav-center-outer .swiper-button-next {
+  pointer-events: auto;
+}
+
+/* =======   Nav Responsive Visibility ================== */
+
+@media screen and (min-width: 750px) {
+  .custom-slider-{{ block.id }} .nav-hide-desktop {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .custom-slider-{{ block.id }} .nav-hide-mobile {
+    display: none;
+  }
+}
+
+/*====== Slider Centermode CSS ====*/
+{% if center_mode %}
+.slider-{{ block.id }} {
+  padding: 30px 0;
+}
+
+.slider-{{ block.id }} .swiper-slide {
+  transform: scale(.85);
+  opacity: .5;
+  filter: blur(1px);
+  transition: all .45s ease;
+}
+
+.slider-{{ block.id }} .swiper-slide-active {
+  transform: scale({{ center_scale | divided_by: 100.0 }});
+  opacity: 1;
+  filter: blur(0);
+  z-index: 10;
+}
+{% endif %}
+
+</style>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  var swiper = new Swiper(".slider-{{ block.id }}", {
+    loop: {{loop}},
+    rewind: {{ rewind }},
+   freeMode: {{ free_mode }},
+  allowTouchMove: {{ touch_swipe }},
+  centeredSlides: {{ center_mode }},
+  grabCursor: {{ grab_cursor }},
+  keyboard: {  enabled: {{ keyboard }}  },
+  mousewheel: {{ mousewheel }},
+  autoHeight: {{ auto_height }},
+  effect: "{{ effect }}",
+  preloadImages: false,
+  lazy: true,
+ autoplay: {% if autoplay %}
+              {
+                delay: {{ autoplay_speed }},
+                pauseOnMouseEnter: {{ pause_on_hover }},
+                reverseDirection: {{ reverse_direction }},
+                disableOnInteraction: !{{ disable_on_interaction }}
+              }
+              {% else %}
+              false
+              {% endif %},
+    speed: {{autoplay_speed}},
+    slidesPerView: {{ mobile_view }},
+    spaceBetween: 20,
+
+    pagination: {
+      el: ".slider-{{ block.id }} .swiper-pagination",
+      clickable: true,
+    },
+
+    navigation: {
+      nextEl: ".slider-{{ block.id }} .swiper-button-next",
+      prevEl: ".slider-{{ block.id }} .swiper-button-prev",
+    },
+
+    breakpoints: {
+      768: {
+        slidesPerView: {{ tablet_view }},
+        spaceBetween: 30,
+      },
+
+      1024: {
+        slidesPerView: {{ desktop_view }},
+        spaceBetween: 40,
+      }
+    }
+
+  });
+
+});
+</script>
+ 
+{% schema %}
+{
+  "name": "Custom Slider",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "content_position",
+      "label": "Content Vertical Position",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "content_vertical",
+      "label": "Content Vertical Position",
+      "default": "default",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "middle",
+          "label": "Middle"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "default",
+          "label": "Below Image"
+        }
+      ],
+      "visible_if": "{{ block.settings.content_position == true }}"
+    }, 
+    {
+      "type": "range",
+      "id": "overlay_spacing",
+      "label": "Overlay Spacing",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 10,
+       "visible_if": "{{ block.settings.content_position == true }}"
+    },
+    {
+      "type": "select",
+      "id": "content_horizontal",
+      "label": "Content Horizontal Position",
+      "default": "start",
+      "options": [
+        {
+          "value": "start",
+          "label": "Start"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "end",
+          "label": "End"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "image_overlay",
+      "label": "Image Overlay",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000",
+      "visible_if": "{{block.settings.image_overlay == true}}"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "label": "Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 0,
+      "visible_if": "{{block.settings.image_overlay == true}}"
+    },
+    {
+    "type": "header",
+    "content": "Responsive"
+    }, 
+    {
+      "type": "range",
+      "id": "desktop_slides",
+      "min": 1,
+      "max": 6,
+      "default": 4,
+      "label": "Desktop View",
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "tablet_slides",
+      "min": 1,
+      "max": 4,
+      "default": 2,
+      "label": "Tablet View",
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "mobile_slides",
+      "min": 1,
+      "max": 3,
+      "default": 1,
+      "label": "Mobile View",
+      "step": 1
+    },
+      {
+      "type": "checkbox",
+      "id": "partial_slider",
+      "label": "Enable Partial Slides",
+      "default": false
+    },
+      {
+      "type": "checkbox",
+      "id": "reverse_direction",
+      "label": "Reverse Slider Direction",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "desktop_partial_amount",
+      "label": "Desktop Partial Amount",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0,
+      "visible_if": "{{ block.settings.partial_slider }}"
+    },
+    {
+      "type": "range",
+      "id": "tablet_partial_amount",
+      "label": "Tablet Partial Amount",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0,
+      "visible_if": "{{ block.settings.partial_slider }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_partial_amount",
+      "label": "Mobile Partial Amount",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0,
+      "visible_if": "{{ block.settings.partial_slider }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "center_mode",
+      "label": "Enable Center Mode",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "center_scale",
+      "label": "Center Slide Scale",
+      "min": 100,
+      "max": 140,
+      "step": 5,
+      "default": 115,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "effect",
+      "label": "Transition Effect",
+      "default": "slide",
+      "options": [
+        {
+          "value": "slide",
+          "label": "Slide"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "cube",
+          "label": "Cube"
+        },
+        {
+          "value": "coverflow",
+          "label": "Coverflow"
+        },
+        {
+          "value": "flip",
+          "label": "Flip"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "slider_settings",
+      "label": "More Slider Settings",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Infinite Loop",
+      "default": true,
+      "visible_if": "{{ block.settings.slider_settings }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true,
+      "visible_if": "{{ block.settings.slider_settings }}"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay Speed",
+      "min": 1000,
+      "max": 9000,
+      "step": 100,
+      "default": 5000,
+      "unit": "ms",
+      "visible_if": "{{ block.settings.slider_settings and block.settings.autoplay}}"
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_on_interaction",
+      "label": "Keep autoplay after interaction",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on Hover",
+      "default": true,
+      "visible_if": "{{ block.settings.slider_settings }}"
+    },
+    
+     {
+      "type": "checkbox",
+      "id": "rewind",
+      "label": "Rewind",
+      "default": false,
+      "visible_if": "{{ block.settings.slider_settings }}",
+      "info": "Reached to last slider click next to re-start from first while looping off"
+    },
+    {
+      "type": "checkbox",
+      "id": "free_mode",
+      "label": "Free Mode",
+      "default": false,
+      "visible_if": "{{ block.settings.slider_settings }}",
+      "info": "Behaving like Smooth Scrolling in Swipe"
+    },
+    {
+      "type": "checkbox",
+      "id": "touch_swipe", 
+      "label": "Touch Swipe",
+      "default": true,
+      "visible_if": "{{ block.settings.slider_settings }}",
+      "info": "Touch devices allowed finger swipe"
+    },
+    {
+      "type": "checkbox",
+      "id": "keyboard",
+      "label": "Kayborar",
+      "default": true,
+      "visible_if": "{{ block.settings.slider_settings }}",
+      "info": "Keyborad Next & Prev Button for slider change"
+    },
+    {
+      "type": "checkbox",
+      "id": "mousewheel",
+      "label" : "Mousewheel",
+      "default": false,
+      "visible_if": "{{ block.settings.slider_settings }}",
+      "info": "Mousewheel Allowed for slider change"
+    },
+    {
+      "type": "checkbox",
+      "id": "grab_cursor",
+      "label": "Grab Cursor",
+      "default": true,
+      "visible_if": "{{ block.settings.slider_settings }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_height",
+      "label": "Auto Height",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Desktop Navigation",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "icon_type",
+      "label": "Navigation Icon Type",
+      "default": "theme_arrow",
+      "options": [
+        {
+          "value": "theme_arrow",
+          "label": "Theme Arrow"
+        },
+        {
+          "value": "image",
+          "label": "Custom Image"
+        },
+        {
+          "value": "svg_code",
+          "label": "Custom SVG"
+        }
+      ],
+      "visible_if": "{{ block.settings.show_navigation }}"
+    },
+    {
+      "type": "range",
+      "id": "stroke_width",
+      "label": "Arrow Stroke Width",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 2,
+      "visible_if": "{{ block.settings.show_navigation and block.settings.icon_type == 'theme_arrow' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "prev_icon",
+      "label": "Previous Icon",
+      "visible_if": "{{ block.settings.show_navigation and block.settings.icon_type == 'image' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "next_icon",
+      "label": "Next Icon",
+      "visible_if": "{{ block.settings.show_navigation and  block.settings.icon_type == 'image' }}"
+    },
+    {
+      "type": "textarea",
+      "id": "prev_svg",
+      "label": "Previous SVG",
+      "visible_if": "{{ block.settings.show_navigation and  block.settings.icon_type == 'svg_code' }}"
+    },
+    {
+      "type": "textarea",
+      "id": "next_svg",
+      "label": "Next SVG",
+      "visible_if": "{{ block.settings.show_navigation and  block.settings.icon_type == 'svg_code' }}"
+    },
+    {
+      "type": "header",
+      "content": "Navigation Style",
+      "visible_if": "{{ block.settings.show_navigation }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size",
+      "min": 12,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.show_navigation }}"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.show_navigation }}"
+    },
+    {
+      "type": "color",
+      "id": "hover_icon_color",
+      "label": "Hover Icon Color",
+      "default": "#ffffff",
+      "visible_if": "{{ block.settings.show_navigation }}"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff",
+      "visible_if": "{{ block.settings.show_navigation }}"
+    },
+    {
+      "type": "color",
+      "id": "hover_bg_color",
+      "label": "Hover Background",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.show_navigation }}"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 50,
+      "visible_if": "{{ block.settings.show_navigation }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation_mobile",
+      "label": "Mobile Navigation",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Navigation Position"
+    },
+    {
+      "type": "select",
+      "id": "nav_position",
+      "label": "Navigation Position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top Right"
+        },
+        {
+          "value": "center-inner",
+          "label": "Center Inside"
+        },
+        {
+          "value": "center-outer",
+          "label": "Center Outside"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "center-inner",
+      "visible_if": "{{ block.settings.show_navigation }}"
+    },
+    {
+      "type": "range",
+      "id": "nav_gap",
+      "label": "Nav Gap",
+      "min": 10,
+      "max": 200,
+      "step": 2,
+      "default": 50,
+      "unit": "px",
+      "visible_if": "{{ block.settings.show_navigation }}"
+    },
+    {
+      "type": "range",
+      "id": "nav_outside_offset",
+      "label": "Outside Navigation Offset",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 60,
+      "visible_if": "{{ block.settings.show_navigation }}"
+    }
+    
+  ],
+  "blocks": [
+    { "type": "_image-text" },
+    { "type": "group" }
+  ],
+  "presets": [{"name": "Custom Slider"}]
+}
+{% endschema %}

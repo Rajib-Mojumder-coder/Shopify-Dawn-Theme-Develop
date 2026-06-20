@@ -73,6 +73,7 @@
 position: relative;
 overflow: hidden;
 isolation: isolate;
+background: rgb(var(--color-background)) !important;
 padding-block:
     var(--padding-top, 0)
     var(--padding-bottom, 0);
@@ -221,8 +222,8 @@ padding-block:
   }
 </style>
 
-<div class="custom-section-main csl-{{ section.id }} color-{{ color_scheme }}" style="--section-min-height: {{ section_height | strip }}; --padding-top: {{ padding_top }}px;--padding-bottom: {{ padding_bottom }}px;">
-  <!-- BACKGROUND -->
+<div class="custom-section-main csl-{{ section.id }} color-{{ color_scheme }} gradient" style="--section-min-height: {{ section_height | strip }}; --padding-top: {{ padding_top }}px;--padding-bottom: {{ padding_bottom }}px;">
+  <!-- BACKGROUND --> 
    <div class="csl-bg">
       {% if background_media == 'image' and background_image != blank %}
       <img src="{{ background_image | image_url: width: 3500 }}" alt="" class="cbs-bg-image">

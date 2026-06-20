@@ -26,7 +26,10 @@
         {%  else %}
             auto;
     {% endcase %}
-      min-height: var(--section_height); 
+    min-height: var(--section_height); 
+    height: var(--section_height);
+    display: flex;
+    /* background: rgb(var(--gradient-background)); */
 
     .custom_section_bg-image,
     .custom_section_bg-video {
@@ -71,15 +74,19 @@
         border-color: {{section.settings.border_hover-color}};
     }
     .section_layout-container{
-        display: flex;
+        display:flex;
+        flex: 1;
         width: 100%;
         height: 100%;
+        flex-direction: var(--layout-direction);
+        justify-content: var(--content-justify);
+        align-items: var(--content-align);
     }
     
 }
     
 </style>
-<div class="custom_section-{{section.id}} custom_section-main color-{{ section.settings.color_scheme }} gradient" style="padding : var(--section_padding)" {{ section.shopify_attributes }}> 
+<div class="custom_section-{{section.id}} custom_section-main color-{{ section.settings.color_scheme }} gradient" style="padding : var(--section_padding); --layout-direction:{{section.settings.layout_direction}};  --content-justify: {{ section.settings.content_horizontal_align }}; --content-align: {{ section.settings.content_vertical_align }};" {{ section.shopify_attributes }}> 
 
                         <!-- BACKGROUND -->
     <div class="custom_section-bg">
@@ -118,6 +125,10 @@
         "groups": ["aside", "footer", "header"]
     },
     "settings": [
+        {
+            "type": "header",
+            "content": "Section"
+        },
         {
             "type": "color_scheme",
             "id": "color_scheme",
@@ -324,6 +335,74 @@
             "unit": "px",
             "default": 0,
             "visible_if": "{{ section.settings.custom_section-overlay }}"
+        },
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "select",
+            "id": "layout_direction",
+            "label": "Layout Direction",
+            "options": [
+                {
+                "value": "row",
+                "label": "Horizontal"
+                },
+                {
+                "value": "column",
+                "label": "Vertical"
+                }
+            ],
+            "default": "row"
+        },
+        {
+            "type": "header",
+            "content": "Content Alignment"
+            },
+            {
+            "type": "select",
+            "id": "content_horizontal_align",
+            "label": "Horizontal Alignment",
+            "options": [
+                {
+                "value": "flex-start",
+                "label": "Left"
+                },
+                {
+                "value": "center",
+                "label": "Center"
+                },
+                {
+                "value": "flex-end",
+                "label": "Right"
+                },
+                {
+                "value": "space-between",
+                "label": "Space Between"
+                }
+            ],
+            "default": "flex-start"
+            },
+            {
+            "type": "select",
+            "id": "content_vertical_align",
+            "label": "Vertical Alignment",
+            "options": [
+                {
+                "value": "flex-start",
+                "label": "Top"
+                },
+                {
+                "value": "center",
+                "label": "Center"
+                },
+                {
+                "value": "flex-end",
+                "label": "Bottom"
+                }
+            ],
+            "default": "center"
         },
         {
             "type": "header",
