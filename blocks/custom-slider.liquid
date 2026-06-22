@@ -3,6 +3,7 @@
    assign content_horizontal = block.settings.content_horizontal
    assign content_vertical = block.settings.content_vertical
    assign overlay_spacing = block.settings.overlay_spacing
+   assign image_radius = block.settings.image_radius
    assign image_overlay = block.settings.image_overlay
    assign overlay_color = block.settings.overlay_color
    assign image_overlay_opacity = block.settings.image_overlay_opacity
@@ -147,6 +148,9 @@
 .custom-slider .swiper-slide{
   height:auto;
 }
+.custom-slider .image-text-slider{
+   --image_radius: {{ image_radius }}px;
+}
 
 .custom-slider img,
 .custom-slider video{
@@ -156,6 +160,7 @@
   object-fit:cover;
   position: relative;
   z-index: 0;
+ border-radius: var( --image_radius);
 }
 {% if image_overlay %}
 .custom-slider .image-overlay{
@@ -163,8 +168,13 @@
   inset: 0;
   pointer-events: none;
   z-index: 2;
+  border-radius: var( --image_radius);
   opacity: {{image_overlay_opacity |  divided_by: 100.00}};
-  background: {{ overlay_color }};
+  {% if section.settings.overlay_style == 'solid' %}
+  background: {{block.settings.overlay_color}};
+      {% else %}
+  background: {{block.settings.overlay_gradient}};
+  {% endif %}
 }
 {% endif %}
   /* .swiper-slide {
@@ -428,6 +438,17 @@
     display: none;
   }
 }
+/*Slider Responsivenes*/
+@media screen and (max-width: 750px) {
+  .custom-slider .swiper-slide{
+    max-width: 300px;
+  } 
+}
+@media screen and (min-width: 751px) and (max-width: 1023px){
+  .custom-slider .swiper-slide{
+    max-width: 360px;
+  } 
+}
 
 /*====== Slider Centermode CSS ====*/
 {% if center_mode %}
@@ -495,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
 
     breakpoints: {
-      768: {
+      750: {
         slidesPerView: {{ tablet_view }},
         spaceBetween: 30,
       },
@@ -578,18 +599,46 @@ document.addEventListener('DOMContentLoaded', function () {
       ]
     },
     {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
       "type": "checkbox",
       "id": "image_overlay",
       "label": "Image Overlay",
       "default": false
     },
     {
+      "type": "select",
+      "id": "overlay_style",
+      "label": "Overlay Style",
+      "options": [
+      { "value": "solid", "label": "Solid" },
+      { "value": "gradient", "label": "Gradient" }
+      ],
+      "default": "solid",
+      "visible_if": "{{ block.settings.image_overlay }}"
+  },
+      {
       "type": "color",
       "id": "overlay_color",
       "label": "Overlay Color",
       "default": "#000000",
-      "visible_if": "{{block.settings.image_overlay == true}}"
+      "visible_if": "{{block.settings.image_overlay == true and block.settings.overlay_style == 'solid'}}"
     },
+    {
+      "type": "color_background",
+      "id": "overlay_gradient",
+      "label": "Gradient Overlay",
+      "default": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+      "visible_if": "{{ block.settings.image_overlay and block.settings.overlay_style == 'gradient' }}"
+  },
     {
       "type": "range",
       "id": "image_overlay_opacity",
@@ -637,6 +686,10 @@ document.addEventListener('DOMContentLoaded', function () {
       "id": "partial_slider",
       "label": "Enable Partial Slides",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
     },
       {
       "type": "checkbox",
@@ -688,7 +741,8 @@ document.addEventListener('DOMContentLoaded', function () {
       "max": 140,
       "step": 5,
       "default": 115,
-      "unit": "%"
+      "unit": "%",
+      "visible_if": "{{ block.settings.center_mode }}"
     },
     {
       "type": "select",
@@ -890,7 +944,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "max": 80,
       "step": 1,
       "unit": "px",
-      "default": 24,
+      "default": 44,
       "visible_if": "{{ block.settings.show_navigation }}"
     },
     {
@@ -990,7 +1044,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "min": 10,
       "max": 200,
       "step": 2,
-      "default": 50,
+      "default": 30,
       "unit": "px",
       "visible_if": "{{ block.settings.show_navigation }}"
     },

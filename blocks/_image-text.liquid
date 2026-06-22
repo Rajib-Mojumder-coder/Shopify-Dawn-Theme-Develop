@@ -1,3 +1,12 @@
+{% liquid  
+  assign subtitle_color = block.settings.subtitle_color
+  assign subtitle_mobilesize = block.settings.subtitle_mobilesize
+  assign subtitle_desktopsize = block.settings.subtitle_desktopsize
+
+  assign title_color = block.settings.title_color
+  assign title_mobilesize = block.settings.title_mobilesize
+  assign title_desktopsize = block.settings.title_desktopsize
+ %}
 
 <div class="image-text-slider">
   {% if block.settings.image_link != blank %}
@@ -65,7 +74,7 @@
   /* max-width: 300px; */
   display:block;
   object-fit:cover;
-  border-radius:{{ block.settings.image_radius }}px;
+  border-radius: var( --image_radius);
 }
 
 .image-text-slider__content{
@@ -74,20 +83,21 @@
 
 .image-text-slider__subtitle{
   display:block;
-  margin-bottom:0.5rem;
-  font-size:clamp(0.75rem,1vw,0.95rem);
-  line-height:1.4;
-  color:#666;
-  text-transform:uppercase;
-  letter-spacing:0.08em;
+  font-size: clamp({{ subtitle_mobilesize }}px,1vw,{{ subtitle_desktopsize }}px);
+  line-height: 1;
+  color: {{subtitle_color}};
+  text-transform: capitalize;
+  letter-spacing: normal;
+  margin: 0;
+  font-weight: 500;
 }
 
 .image-text-slider__title{
-  margin:0 0 0.75rem;
-  font-size:clamp(1.25rem,2.5vw,2rem);
-  line-height:1.2;
+  margin:0;
+  font-size: clamp({{ title_mobilesize }}px,2.5vw,{{ title_desktopsize }}px);
+  line-height:1;
   font-weight:700;
-  color: rgb(var(--color-foreground));
+  color: {{title_color}};
 }
 
 .image-text-slider__description{
@@ -100,11 +110,7 @@
   margin:0;
 }
 
-@media screen and (max-width:749px){
-  .image-text-slider__content{
-    padding:0.875rem 0;
-  }
-}
+
 </style>
 
 {% schema %}
@@ -129,27 +135,70 @@
       "default": "Featured Collection"
     },
     {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_mobilesize",
+      "label": "Subtitle Mobile Size",
+      "max": 34,
+      "min": 16,
+      "default": 24,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_desktopsize",
+      "label": "Subtitle Desktop Size",
+      "max": 40,
+      "min": 18,
+      "default": 26,
+      "step": 1,
+      "unit": "px"
+    },
+      {
       "type": "text",
       "id": "title",
       "label": "Title",
       "default": "Image Text Slider"
     },
     {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "id": "title_mobilesize",
+      "label": "Title Mobile Size",
+      "max": 48,
+      "min": 20,
+      "default": 44,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_desktopsize",
+      "label": "Title Desktop Size",
+      "max": 70,
+      "min": 40,
+      "default": 70,
+      "step": 1,
+      "unit": "px"
+    },
+    {
       "type": "richtext",
       "id": "description",
       "label": "Description",
       "default": "<p>Add a short description for this slide.</p>"
-    },
-    {
-      "type": "range",
-      "id": "image_radius",
-      "label": "Image Border Radius",
-      "min": 0,
-      "max": 50,
-      "step": 1,
-      "unit": "px",
-      "default": 0
     }
+    
   ],
   "presets": [
     {
