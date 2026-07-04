@@ -1,6 +1,7 @@
 {% liquid
   assign btn_style   = block.settings.custom_button_style
   assign width_mode  = block.settings.width_mode
+  assign content_height  = block.settings.content_height
   assign label       = block.settings.custom_button_label
   assign btn_url     = block.settings.custom_button_url
   assign custom_clr  = block.settings.enable_custom_colors
@@ -45,7 +46,7 @@
     
     /* ── Wrapper: width modes ──────────────────────────────────────── */
     .custom_button--{{ block.id }}{
-    height: 100%;
+    height: {{content_height}};
     display: flex;               /* keeps child <a> stretchable */
     align-items: stretch;
     } 
@@ -220,7 +221,7 @@
 </style>
 {%  schema  %} 
 {
-    "name": "Button block",
+    "name": "Custom Button",
     "tag": null,
     "settings": [
         { "type": "header", "content": "Width" },
@@ -233,6 +234,17 @@
                 { "value": "fit-content", "label": "Fit content"},
                 { "value": "full-width", "label": "Full width" },
                 { "value": "custom", "label": "Custom width" }]
+        },
+        {
+            "type": "select",
+            "id": "content_height",
+            "label": "Content Height",
+            "options": [
+                
+                { "value": "100%", "label": "Full" },
+                { "value": "fit-content", "label": "Fit Content" }
+            ],
+            "default": "fit-content"
         },
         {
             "type": "range",
@@ -447,7 +459,7 @@
         }  
     ],
     "presets": [
-        {"name": "Button block"}
+        {"name": "Custom Button"}
     ]
 }
 {% endschema %} 

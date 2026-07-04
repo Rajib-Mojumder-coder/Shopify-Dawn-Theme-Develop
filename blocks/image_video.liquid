@@ -2,9 +2,10 @@
     assign max_width = block.settings.max_width
     assign media_border_style = block.settings.media_border_style
     assign media_type = block.settings.media_type
-    assign radius = block.settings.radius
     assign image = block.settings.image
     assign video = block.settings.video
+    assign color_background = block.settings.color_background
+    assign background_color = block.settings.background_color
     assign media_height = block.settings.media_height
     assign background_fit = block.settings.background_fit
     assign background_position = block.settings.background_position
@@ -70,17 +71,27 @@
     --image_padding: {{padding_top}}px {{padding_right}}px {{padding_bottom}}px {{padding_left}}px;
     width: 100%;
     height: 100%;
-  }
+    {% if color_background == true %}
+    background: {{ background_color }} {% endif %};
 
+     --block-radius: {{ block.settings.top_left_radius }}px
+                  {{ block.settings.top_right_radius }}px
+                  {{ block.settings.bottom_right_radius }}px
+                  {{ block.settings.bottom_left_radius }}px;
+
+  border-radius: var(--block-radius);
+}
+    
+  
 .custom_media_block-{{ block.id }} .block_media{
   width: 100%;
   height: 100%;
   max-width: {{ max_width }}px;
-  border-radius: {{ radius }}px;
   display: block;
   object-fit: {{ background_fit }};
  object-position: {{ background_position }};
  aspect-ratio: {{ image_aspect_ratio }};
+  border-radius: var(--block-radius);
 }
 
 {% if media_border_style == 'solid' %}
@@ -122,6 +133,19 @@
       "id": "video",
       "label": "Video",
       "visible_if": "{{ block.settings.media_type == 'video'  }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "color_background",
+      "label": "Background Color",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Select Color",
+      "default": "#000",
+      "visible_if": "{{ block.settings.color_background }}"
     },
     {
       "type": "url",
@@ -275,15 +299,55 @@
       "visible_if": "{{block.settings.media_border_style == 'solid'}}"
     },
     {
-      "type": "range",
-      "id": "radius",
-      "min": 0,
-      "max": 100,
-      "step": 2,
-      "default": 0,
-      "label": "Radius"
+        "type": "checkbox",
+        "id": "Border_radius",
+        "label": "Border Radius",
+        "default": false
+    },
+    {
+        "type": "range",
+        "id": "top_left_radius",
+        "label": "Top Left Radius",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "default": 0,
+        "visible_if": "{{ block.settings.Border_radius }}"
+    },
+    {
+        "type": "range",
+        "id": "top_right_radius",
+        "label": "Top Right Radius",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "default": 0,
+        "visible_if": "{{ block.settings.Border_radius }}"
+    },
+    {
+        "type": "range",
+        "id": "bottom_left_radius",
+        "label": "Bottom Left Radius",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "default": 0,
+        "visible_if": "{{ block.settings.Border_radius }}"
+    },
+        {
+        "type": "range",
+        "id": "bottom_right_radius",
+        "label": "Bottom Right Radius",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "default": 0,
+        "visible_if": "{{ block.settings.Border_radius }}"
     }
-
   ],
 
   "presets": [

@@ -1,7 +1,10 @@
-
-<div class= "custom_text_block custom_text--{{ block.id }} color-{{ block.settings.color_scheme }} gradient
-{% if block.settings.block_border %} block_border {% endif %}" {{ block.shopify_attributes }}
-style="padding: var(--content_spacing)">
+{% liquid
+   assign inherit_color_scheme = block.settings.inherit_color_scheme 
+   assign color_scheme = block.settings.color_scheme 
+   assign block_border = block.settings.block_border
+   assign content_height = block.settings.content_height
+%}
+<div class= "custom_text_block custom_text--{{ block.id }} {%if inherit_color_scheme %}color-{{ color_scheme }} {% endif %} gradient {% if block_border %} block_border {% endif %}" {{ block.shopify_attributes }}style="padding: var(--content_spacing)">
 
     {{ block.settings.block_text }} 
 
@@ -12,7 +15,7 @@ style="padding: var(--content_spacing)">
         width: {{ block.settings.block_outer_width }};
         max-width: {{ block.settings.max_width }}px;
         --content_spacing: {{ block.settings.padding_top }}px {{ block.settings.padding_right }}px {{ block.settings.padding_bottom }}px {{ block.settings.padding_left }}px;
-        height: 100%;
+        height: {{content_height}};
     }
     .custom_text--{{ block.id }}.block_border{
        border: {{ block.settings.block_border-width }}px {{block.settings.block_border-style}} {{block.settings.block_border-color}};
@@ -41,6 +44,7 @@ style="padding: var(--content_spacing)">
         text-align: {{ block.settings.text_horizontal_alignment }};
         text-transform: {{ block.settings.text_transform }};
         white-space: {{ block.settings.white_space }};
+        max-width: {{ block.settings.text_maxwidth }}px;
     }
     
 </style>
@@ -55,11 +59,15 @@ style="padding: var(--content_spacing)">
             "label": "Block Size",
             "options": [
                 { "value": "100%", "label": "100%" },
+                { "value": "80%", "label": "80%" },
                 { "value": "75%", "label": "75%" },
                 { "value": "66.66%", "label": "66%" },
+                { "value": "60%", "label": "60%" },
                 { "value": "50%", "label": "50%" },
+                { "value": "40%", "label": "40%" },
                 { "value": "33.33%", "label": "33%" },
                 { "value": "25%", "label": "25%" },
+                { "value": "20%", "label": "20%" },
                 { "value": "fit-content", "label": "Fit Content" }
             ],
             "default": "100%"
@@ -67,7 +75,7 @@ style="padding: var(--content_spacing)">
         {
             "type": "range",
             "id": "max_width",
-            "label": "Max Width",
+            "label": "Block Max Width",
             "min": 200,
             "max": 2000,
             "step": 20,
@@ -75,10 +83,17 @@ style="padding: var(--content_spacing)">
             "default": 1200
         },
         {
+            "type": "checkbox",
+            "id": "inherit_color_scheme",
+            "label": "Inherit Color Scheme",
+            "default": false
+        },
+        {
             "type": "color_scheme",
             "id": "color_scheme",
             "label": "Color Scheme",
-            "default": "scheme-1"
+            "default": "scheme-1",
+            "visible_if": "{{ block.settings.inherit_color_scheme == true }}"
         },
          {
             "type": "richtext",
@@ -97,7 +112,37 @@ style="padding: var(--content_spacing)">
             ],
             "default": "fit-content"
         },
-       
+        {
+            "type": "select",
+            "id": "content_height",
+            "label": "Content Height",
+            "options": [
+                
+                { "value": "100%", "label": "Full" },
+                { "value": "fit-content", "label": "Fit Content" }
+            ],
+            "default": "fit-content"
+        },
+        {
+            "type": "range",
+            "id": "text_maxwidth",
+            "label": "Text Max Width",
+            "min": 300,
+            "max": 1200,
+            "unit": "px",
+            "step": 10,
+            "default": 1000
+        },
+       {
+            "type": "select",
+            "id": "white_space",
+            "label": "Text Wrap",
+            "options": [
+                { "value": "wrap", "label": "Wrap" },
+                { "value": "nowrap", "label": "No Wrap" }
+            ],
+            "default": "wrap"
+        },
         {
             "type": "checkbox",
             "id": "typography",
@@ -147,7 +192,7 @@ style="padding: var(--content_spacing)">
             "min": 0.8,
             "max": 3,
             "step": 0.1,
-            "default": 1.1,
+            "default": 1.2,
              "visible_if": "{{ block.settings.typography }}"
         },
         {
@@ -174,17 +219,7 @@ style="padding: var(--content_spacing)">
             "default": "none",
              "visible_if": "{{ block.settings.typography }}"
         },  
-        {
-            "type": "select",
-            "id": "white_space",
-            "label": "Text Wrap",
-            "options": [
-                { "value": "normal", "label": "Wrap" },
-                { "value": "nowrap", "label": "No Wrap" }
-            ],
-            "default": "nowrap",
-             "visible_if": "{{ block.settings.typography }}"
-        },
+        
         {
             "type": "select",
             "id": "text_horizontal_alignment",

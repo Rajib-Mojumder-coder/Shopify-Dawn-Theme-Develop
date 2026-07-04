@@ -2,10 +2,15 @@
     assign inherit_color_scheme = block.settings.inherit_color_scheme 
     assign color_scheme = block.settings.color_scheme 
     assign group_border_style = block.settings.group_border_style 
+    assign mobile_direction = block.settings.mobile_direction 
+    assign mobile_gap = block.settings.mobile_gap
+    assign desktop_direction = block.settings.desktop_direction 
+    assign desktop_gap = block.settings.desktop_gap
     assign custom_group_width = block.settings.custom_group_width 
     assign custom_group_height = block.settings.custom_group_height 
     assign group_block_url = block.settings.group_block_url
     assign block_link_newtab = block.settings.block_link_newtab
+    assign group_corner_radius = block.settings.group_corner_radius
     assign group_block_padding = block.settings.group_block_padding
     assign group_padding_top = block.settings.group_padding_top
     assign group_padding_bottom = block.settings.group_padding_bottom
@@ -13,11 +18,10 @@
     assign group_padding_left = block.settings.group_padding_left
 %}
 
-<div class="custom-block-group custom_block_group_{{ block.id }} {% if inherit_color_scheme == false %} color-{{ color_scheme }} gradient {% endif %} {% if group_border_style == 'solid' %} group_border_style {% endif %} width-{{ custom_group_width }} height-{{ custom_group_height }}" {{ block.shopify_attributes }} {% if group_block_padding %} style="padding: var(--group_block_padding)" {% endif %}>
-
+<div class="custom-block-group custom_block_group_{{ block.id }} {% if inherit_color_scheme == false %}color-{{ color_scheme }} gradient{% endif %}" {{ block.shopify_attributes }} >
 
     <!-- Group Block Link -->
-     {% if group_block_url != blank %}
+    {% if group_block_url != blank %}
       <a href="{{ group_block_url }}"
         class="group-block-link"
         aria-label="Group Block Link"
@@ -25,23 +29,22 @@
           target="_blank"
           rel="noopener noreferrer"
         {% endif %}
-      > &nbsp </a>
+      >&nbsp;</a>
     {% endif %}
 
     <!-- BACKGROUND -->
     <div class="custom_group-bg">
         {% if block.settings.background_media == 'image' and block.settings.image_picker != blank %}
-            {{ block.settings.image_picker |  image_url: width: 3600 | image_tag: loading: 'eager', fetchpriority: 'high', class: 'custom_group_imagebg' }}
-
-        {%  elsif block.settings.background_media == 'video' and block.settings.custom_video != blank %}
-            {{ block.settings.custom_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'custom_group_videobg'}}
+            {{ block.settings.image_picker | image_url: width: 3600 | image_tag: loading: 'eager', fetchpriority: 'high', class: 'custom_group_imagebg' }}
+        {% elsif block.settings.background_media == 'video' and block.settings.custom_video != blank %}
+            {{ block.settings.custom_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'custom_group_videobg' }}
         {% endif %}
     </div>
 
-    <!-- Group BACKGROUND Overlay-->
-        {% if block.settings.custom_group-overlay %}
-    <div class="custom_group-overlay"> &nbsp </div>
-        {% endif %}
+    <!-- Group BACKGROUND Overlay -->
+    {% if block.settings.custom_group-overlay %}
+      <div class="custom_group-overlay">&nbsp;</div>
+    {% endif %}
 
     <div class="group-inner">
         {% content_for 'blocks' %}
@@ -50,103 +53,130 @@
 </div>
 
 {% style %}
+  /* ── Base ── */
   .custom_block_group_{{ block.id }} {
-    display: flex;
-    height: 100%;
-    --group_block_padding: {{group_padding_top}}px {{group_padding_right}}px {{group_padding_bottom}}px {{group_padding_left}}px;
-  }
- 
-  /* Group Block Link*/
-  .group-block-link {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-  /*Group Background*/
- .custom-block-group{
+    width: 100%;
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    border-radius: {{block.settings.group_corner_radius}}px;
+    display: flex;
+    box-sizing: border-box;
+    border-radius: {{ group_corner_radius }}px;
+
+    {% if group_block_padding %}
+      padding: {{ group_padding_top }}px {{ group_padding_right }}px {{ group_padding_bottom }}px {{ group_padding_left }}px;
+    {% endif %}
+
+    {% if group_border_style == 'solid' %}
+      border: {{ block.settings.group_border_width }}px solid {{ block.settings.group_border_color }};
+    {% else %}
+      border: none;
+    {% endif %}
   }
-  .group_border_style{
-    border: {{block.settings.group_border_width}}px solid {{block.settings.group_border_color}};
-  }
-  .custom_group-bg {
+ 
+  /* ── Group Block Link ── */
+  .custom_block_group_{{ block.id }} > .group-block-link {
     position: absolute;
     inset: 0;
     z-index: 1;
-}
-  .custom_group_imagebg,
-    .custom_group_videobg {
-        width: 100%;
-        height: 100%;
-        object-fit: {{ block.settings.background_fit }};
-        object-position: {{ block.settings.background_position }};
   }
-  /*Group Overlay*/
-  .custom_group-overlay{
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        z-index: 2;
-      {% if block.settings.overlay_style == 'solid' %}
-      background: {{block.settings.overlay_color}};
-          {% else %}
-      background: {{block.settings.overlay_gradient}};
-      {% endif %}
 
-      opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+  /* ── Background ── */
+  .custom_block_group_{{ block.id }} > .custom_group-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
-    /*Group Width CSS*/
-    .custom_block_group_{{ block.id }}.width-fill {
-      flex: 1;
-      width: 100%;
-    }
 
-    .custom_block_group_{{ block.id }}.width-fit-content {
-      width: fit-content;
-      max-width: 100%;
-      flex: 0 0 auto;
-    }
+ .custom_block_group_{{ block.id }} > .custom_group-bg > .custom_group_imagebg,
+  .custom_block_group_{{ block.id }} > .custom_group-bg > .custom_group_videobg {
+    width: 100%;
+    height: 100%;
+    object-fit: {{ block.settings.background_fit }};
+    object-position: {{ block.settings.background_position }};
+    display: block;
+  }
 
-    .custom_block_group_{{ block.id }}.width-custom {
-      --group-width: {{ block.settings.group_custom_width }}%;
+  /* ── Overlay ── */
+  .custom_block_group_{{ block.id }} > .custom_group-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    {% if block.settings.overlay_style == 'solid' %}
+      background: {{ block.settings.overlay_color }};
+    {% else %}
+      background: {{ block.settings.overlay_gradient }};
+    {% endif %}
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+     /* ── WIDTH ── */
+  .custom_block_group_{{ block.id }}.width-fill {
+    flex: 1 1 0%;
+    width: 100%;
+  }
 
-      width: var(--group-width);
-      max-width: var(--group-width);
-      flex: 0 0 var(--group-width);
-    }
-    /* Group HEIGHT */
+  .custom_block_group_{{ block.id }}.width-fit-content {
+    width: fit-content;
+    max-width: 100%;
+    flex: 0 0 auto;
+  }
 
+  .custom_block_group_{{ block.id }}.width-custom {
+    width: {{ block.settings.group_custom_width }}%;
+    max-width: {{ block.settings.group_custom_width }}%;
+    flex: 0 0 {{ block.settings.group_custom_width }}%;
+  }
+
+  /* ── HEIGHT ── */
   .custom_block_group_{{ block.id }}.height-fit {
-    height: fit-content;
+    height: auto;
+    align-self: flex-start;
   }
 
   .custom_block_group_{{ block.id }}.height-fill {
-   height: 100%;
-    align-self:stretch;
-}
-  
-
-  .custom_block_group_{{ block.id }}.height-custom {
-    --group-height: {{ block.settings.group_custom_height }}px;
-
-    height: var(--group-height);
+    height: 100%;
+    align-self: stretch;
   }
 
-  /* Group INNER */
-    .group-inner{
-        position: relative;
-        z-index: 3;
-        display: flex;
-        flex-direction: {{ block.settings.direction }};
-        justify-content: {{ block.settings.justify }};
-        align-items: {{ block.settings.align }};
-        gap: {{ block.settings.gap }}px;
-        width: 100%;
-        height: 100%;
+  .custom_block_group_{{ block.id }}.height-custom {
+    height: {{ block.settings.group_custom_height }}px;
+    align-self: auto;
+  }
+
+  /* ── INNER — DIRECT CHILD ONLY ── */
+  /* This is the critical fix: > ensures we never bleed into nested groups */
+  .custom_block_group_{{ block.id }} > .group-inner {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: {{ desktop_direction }};
+    justify-content: {{ block.settings.justify }};
+    align-items: {{ block.settings.align }};
+    gap: {{ desktop_gap }}px;
+    width: 100%;
+    min-height: 0;
+    flex: 1 1 auto;
+  }
+
+  .custom_block_group_{{ block.id }}.height-fill > .group-inner {
+    height: 100%;
+  }
+
+  .custom_block_group_{{ block.id }}.height-custom > .group-inner {
+    height: 100%;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .custom_block_group_{{ block.id }} > .group-inner {
+      {% if mobile_direction %}
+        flex-direction: column;
+      {% endif %}
+      gap: {{ mobile_gap }}px;
     }
+  }
+
 {% endstyle %}
 
 {%  schema  %}  
@@ -160,7 +190,7 @@
 "settings": [
      {
       "type": "select",
-      "id": "direction",
+      "id": "desktop_direction",
       "label": "Direction",
       "options": [
         { "value": "row", "label": "Row" },
@@ -168,7 +198,12 @@
       ],
       "default": "column"
     },
-
+    {
+      "type": "checkbox",
+      "id": "mobile_direction",
+      "label": "Vertical On Mobile",
+      "default": false
+    },
     {
       "type": "select",
       "id": "justify",
@@ -194,12 +229,21 @@
     },
     {
       "type": "range",
-      "id": "gap",
+      "id": "desktop_gap",
       "min": 0,
       "max": 100,
       "step": 2,
-      "default": 0,
-      "label": "Gap"
+      "default": 50,
+      "label": "Desktop Gap"
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 18,
+      "label": "Mobile Gap"
     },
     {
       "type": "header",
@@ -214,7 +258,7 @@
         { "label": "Fill", "value": "fill" },
         { "label": "custom", "value": "custom" }
       ],
-      "default": "fill"
+      "default": "fit-content"
     },
     {
       "type": "range",

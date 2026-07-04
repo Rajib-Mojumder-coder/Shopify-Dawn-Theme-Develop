@@ -31,14 +31,14 @@
     display: flex;
     /* background: rgb(var(--gradient-background)); */
 
-    .custom_section_bg-image,
+   .custom_section-{{section.id}} .custom_section_bg-image,
     .custom_section_bg-video {
         width: 100%;
         height: 100%;
         object-fit: {{ section.settings.background_fit }};
         object-position: {{ section.settings.background_position }};
     }
-    .custom_section-overlay{
+   .custom_section-{{section.id}} .custom_section-overlay{
        
         {% if section.settings.overlay_style == 'solid' %}
         background: {{section.settings.overlay_color}};
@@ -51,18 +51,18 @@
         backdrop-filter: blur({{ section.settings.overlay_blur }}px);
         -webkit-backdrop-filter: blur({{ section.settings.overlay_blur }}px);
     }
-        .section_layout-full{
+     .custom_section-{{section.id}} .section_layout-full{
         max-width: 100%;
     }
-        .section_layout-custom{
+      .custom_section-{{section.id}} .section_layout-custom{
         max-width: {{section.settings.custom_layout-size}}px;
     }
         {% if section.settings.layout_padding %}
-    .section_layout_padding{
+   .custom_section-{{section.id}} .section_layout_padding{
         padding: var(--layout_padding_top) var(--layout_padding_right) var(--layout_padding_bottom) var(--layout_padding_left);
     }
         {% endif %}
-    .section_layout_border{
+   .custom_section-{{section.id}} .section_layout_border{
         border: {{ section.settings.layout_border-width }}px {{section.settings.layout_border-style}} {{section.settings.layout_border-color}};
         border-radius:  {{ section.settings.layout_border_top_left_radius }}px
                         {{ section.settings.layout_border_top_right_radius }}px
@@ -70,7 +70,7 @@
                         {{ section.settings.layout_border_bottom_left_radius }}px;
         opacity: {{ section.settings.layout_border-opacity }}%;
     }
-    .section_layout_border:hover{
+   .custom_section-{{section.id}} .section_layout_border:hover{
         border-color: {{section.settings.border_hover-color}};
     }
     .section_layout-container{
@@ -81,10 +81,19 @@
         flex-direction: var(--layout-direction);
         justify-content: var(--content-justify);
         align-items: var(--content-align);
+        gap: {{ section.settings.layout_desktop_gap }}px;
     }
     
 }
-    
+ /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .custom_section-{{section.id}} .section_layout-container {
+      {% if section.settings.layout_mobile_direction %}
+        flex-direction: column;
+      {% endif %}
+      gap: {{ section.settings.layout_mobile_gap }}px;
+    }
+  } 
 </style>
 <div class="custom_section-{{section.id}} custom_section-main color-{{ section.settings.color_scheme }} gradient" style="padding : var(--section_padding); --layout-direction:{{section.settings.layout_direction}};  --content-justify: {{ section.settings.content_horizontal_align }}; --content-align: {{ section.settings.content_vertical_align }};" {{ section.shopify_attributes }}> 
 
@@ -357,6 +366,12 @@
             "default": "row"
         },
         {
+            "type": "checkbox",
+            "id": "layout_mobile_direction",
+            "label": "Vertical On Mobile",
+            "default": false
+        },
+        {
             "type": "header",
             "content": "Content Alignment"
             },
@@ -584,6 +599,24 @@
             "unit": "px",
             "default": 0,
             "visible_if": "{{ section.settings.layout_border and section.settings.Layout_Border_radius }}"
+        },
+        {
+        "type": "range",
+        "id": "layout_desktop_gap",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "default": 50,
+        "label": "Desktop Gap"
+        },
+        {
+        "type": "range",
+        "id": "layout_mobile_gap",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "default": 18,
+        "label": "Mobile Gap"
         }
         
     ],

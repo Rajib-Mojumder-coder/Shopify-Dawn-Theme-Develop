@@ -3,9 +3,12 @@
     assign inherit_color_scheme = block.settings.inherit_color_scheme
     assign color_scheme = block.settings.color_scheme
     assign content_width = block.settings.content_width
+    assign content_height = block.settings.content_height
     assign content_alignment = block.settings.content_alignment
     assign heading_tag = block.settings.heading_tag
     assign custom_heading = block.settings.custom_heading
+    assign heading_top_spacing = block.settings.heading_top_spacing
+    assign heading_bottom_spacing = block.settings.heading_bottom_spacing
     assign subtitle_tag = block.settings.subtitle_tag
     assign top_subtitle = block.settings.top_subtitle
     assign bottom_subtitle = block.settings.bottom_subtitle
@@ -61,6 +64,9 @@
         height: 100%;
         --content_width: {{ content_width }};
         --content_alignment: {{ content_alignment }};
+         height: {{content_height}};
+         display: flex;
+        flex-direction: column;
     }
     /* BORDER */
     .custom_heading--{{ block.id }}.block_border{
@@ -79,7 +85,8 @@
 /* MAIN HEADING */
 
     .custom_heading--{{ block.id }} .custom_heading_text{
-        margin: 0;
+        margin-block: {{heading_top_spacing}}px {{heading_bottom_spacing}}px;
+        margin-inline: 0;
         font-size: clamp(
             {{ block.settings.mobile_min_fontsize }}px,
             calc( {{ block.settings.mobile_min_fontsize }}px + 
@@ -101,6 +108,7 @@
         {% if inherit_color_scheme == true %}
         color: {{ block.settings.heading_color }};
         {% endif %}
+        display: inline-block;
     }
     
     /* SUBTITLES */
@@ -122,21 +130,10 @@
         overflow-wrap: break-word;
         word-break: break-word;
 
-        {% if inherit_color_scheme == true %}
         color: {{ block.settings.subtitle_color }};
-        {% endif %}
+        display: inline-block;
     }
 
-    /* TOP SUBTITLE */
-
-    .custom_heading--{{ block.id }} .custom_subtitle_top{
-        margin-bottom: {{ block.settings.top_subtitle_spacing }}px;
-    }
-
-    /* BOTTOM SUBTITLE */
-    .custom_heading--{{ block.id }} .custom_subtitle_bottom{
-        margin-top: {{ block.settings.bottom_subtitle_spacing }}px;
-    }
 </style>
 
 {%  schema  %} 
@@ -156,11 +153,15 @@
             "label": "Block Size",
             "options": [
                 { "value": "100%", "label": "100%" },
+                { "value": "80%", "label": "80%" },
                 { "value": "75%", "label": "75%" },
                 { "value": "66.66%", "label": "66%" },
+                { "value": "60%", "label": "60%" },
                 { "value": "50%", "label": "50%" },
+                { "value": "40%", "label": "40%" },
                 { "value": "33.33%", "label": "33%" },
                 { "value": "25%", "label": "25%" },
+                { "value": "20%", "label": "20%" },
                 { "value": "fit-content", "label": "Fit Content" }
             ],
             "default": "100%",
@@ -360,6 +361,17 @@
             ],
             "default": "fit-content"
         },
+         {
+            "type": "select",
+            "id": "content_height",
+            "label": "Content Height",
+            "options": [
+                
+                { "value": "100%", "label": "Full" },
+                { "value": "fit-content", "label": "Fit Content" }
+            ],
+            "default": "fit-content"
+        },
         {
             "type": "select",
             "id": "content_alignment",
@@ -405,6 +417,36 @@
             "unit": "px",
             "step": 10,
             "default": 1000
+        },
+         {
+            "type": "select",
+            "id": "white_space",
+            "label": "Text Wrap",
+            "options": [
+                { "value": "wrap", "label": "Wrap" },
+                { "value": "nowrap", "label": "No Wrap" }
+            ],
+            "default": "wrap"
+        },
+        {
+            "type": "range",
+            "id": "heading_top_spacing",
+            "label": "Heading Top Spacing",
+            "min": 0,
+            "max": 50,
+            "step": 2,
+            "unit": "px",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "heading_bottom_spacing",
+            "label": "Heading Bottom Spacing",
+            "min": 0,
+            "max": 50,
+            "step": 2,
+            "unit": "px",
+            "default": 0
         },
         {
             "type": "checkbox",
@@ -491,17 +533,7 @@
             "default": "none",
              "visible_if": "{{ block.settings.typography }}"
         },  
-        {
-            "type": "select",
-            "id": "white_space",
-            "label": "Text Wrap",
-            "options": [
-                { "value": "normal", "label": "Wrap" },
-                { "value": "nowrap", "label": "No Wrap" }
-            ],
-            "default": "nowrap",
-             "visible_if": "{{ block.settings.typography }}"
-        },
+    
         {
             "type": "header",
             "content": "Subtitle Settings"
@@ -598,29 +630,8 @@
             "label": "Subtitle Color",
             "default": "#06123D",
             "visible_if": "{{ block.settings.subtitle_typography }}"
-        },
-        {
-            "type": "range",
-            "id": "top_subtitle_spacing",
-            "label": "Top Sub-Title Bottom Spacing",
-            "min": 0,
-            "max": 50,
-            "step": 2,
-            "unit": "px",
-            "default": 0,
-            "visible_if": "{{ block.settings.subtitle_typography }}"
-        },
-        {
-            "type": "range",
-            "id": "bottom_subtitle_spacing",
-            "label": "Bottom Sub-Title Top Spacing",
-            "min": 0,
-            "max": 50,
-            "step": 2,
-            "unit": "px",
-            "default": 0,
-            "visible_if": "{{ block.settings.subtitle_typography }}"
         }
+        
     ],
     
     "presets": [
