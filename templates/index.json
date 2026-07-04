@@ -189,7 +189,7 @@
             "custom_text_KQfGXJ"
           ]
         },
-        "group_pUgEFq": {
+        "group_KiXyKH": {
           "type": "group",
           "name": "Group Block",
           "settings": {
@@ -226,18 +226,7 @@
             "group_padding_right": 20
           },
           "blocks": {
-            "advisor_card_W3VqBN": {
-              "type": "advisor_card",
-              "name": "Advisor Card",
-              "settings": {
-                "advisor_card_bg": true,
-                "card_bg_color": "#071540",
-                "button_text": "ADVIESGESPREK",
-                "button_link": ""
-              },
-              "blocks": {}
-            },
-            "advisor_card_3RCAeW": {
+            "advisor_card_mYGnrE": {
               "type": "advisor_card",
               "name": "Advisor Card",
               "settings": {
@@ -248,17 +237,28 @@
                 "button_link": ""
               },
               "blocks": {}
+            },
+            "advisor_card_FC9E74": {
+              "type": "advisor_card",
+              "name": "Advisor Card",
+              "settings": {
+                "advisor_card_bg": true,
+                "card_bg_color": "#071540",
+                "button_text": "ADVIESGESPREK",
+                "button_link": ""
+              },
+              "blocks": {}
             }
           },
           "block_order": [
-            "advisor_card_W3VqBN",
-            "advisor_card_3RCAeW"
+            "advisor_card_mYGnrE",
+            "advisor_card_FC9E74"
           ]
         }
       },
       "block_order": [
         "group_exigcf",
-        "group_pUgEFq"
+        "group_KiXyKH"
       ],
       "name": "Shopify Custom Section",
       "settings": {
