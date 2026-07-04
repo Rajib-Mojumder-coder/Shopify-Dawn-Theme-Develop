@@ -188,10 +188,49 @@
             "custom_heading_AGQMic",
             "custom_text_KQfGXJ"
           ]
+        },
+        "group_pUgEFq": {
+          "type": "group",
+          "name": "Group Block",
+          "settings": {
+            "desktop_direction": "column",
+            "mobile_direction": false,
+            "justify": "flex-start",
+            "align": "flex-start",
+            "desktop_gap": 50,
+            "mobile_gap": 18,
+            "custom_group_width": "fit-content",
+            "group_custom_width": 50,
+            "custom_group_height": "fit",
+            "group_custom_height": 50,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "background_fit": "cover",
+            "background_position": "center center",
+            "custom_group-overlay": false,
+            "overlay_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+            "overlay_opacity": 40,
+            "group_border_style": "none",
+            "group_border_width": 1,
+            "group_border_color": "#000000",
+            "group_corner_radius": 0,
+            "group_block_url": "",
+            "block_link_newtab": false,
+            "group_block_padding": false,
+            "group_padding_top": 20,
+            "group_padding_bottom": 20,
+            "group_padding_left": 20,
+            "group_padding_right": 20
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "group_exigcf"
+        "group_exigcf",
+        "group_pUgEFq"
       ],
       "name": "Shopify Custom Section",
       "settings": {
@@ -214,7 +253,7 @@
         "overlay_blend": "normal",
         "overlay_blur": 0,
         "layout_direction": "row",
-        "layout_mobile_direction": false,
+        "layout_mobile_direction": true,
         "content_horizontal_align": "flex-start",
         "content_vertical_align": "center",
         "layout_type": "Default",
