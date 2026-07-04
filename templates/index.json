@@ -128,7 +128,7 @@
                 "desktop_max_fontsize": 68,
                 "font_weight": "700",
                 "line_height": 1,
-                "letter_spacing": 0,
+                "letter_spacing": -2,
                 "text_transform": "none",
                 "subtitle_tag": "span",
                 "top_subtitle": "EERLIJK ADVIES",
@@ -139,7 +139,7 @@
                 "subtitle_line_height": 1,
                 "subtitle_letter_spacing": 0,
                 "subtitle_transform": "none",
-                "subtitle_color": "#06123D"
+                "subtitle_color": "#06123d"
               },
               "blocks": {}
             },
@@ -147,7 +147,7 @@
               "type": "custom_text",
               "name": "Text Block",
               "settings": {
-                "block_outer_width": "100%",
+                "block_outer_width": "80%",
                 "max_width": 1200,
                 "inherit_color_scheme": false,
                 "color_scheme": "",
