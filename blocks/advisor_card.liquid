@@ -66,10 +66,10 @@
     height: 100%;
     max-width:100%;
     {% if advisor_card_bg == true%}
-    background: {{card_bg_color | color_modify: 'alpha', 0.3 }};
+    background: {{card_bg_color }};
     {% endif %}
-    backdrop-filter: blur(10px);
-   -webkit-backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px);
+   -webkit-backdrop-filter: blur(10px); */
     border-radius:24px;
     display:flex;
     flex-direction:column;
