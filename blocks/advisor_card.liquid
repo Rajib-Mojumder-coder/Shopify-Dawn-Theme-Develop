@@ -91,7 +91,7 @@
   inset: 0;
    /* clip-path: inset(0 round 0 0 200px 0); */
    {% if transparant_img_bg %}
-  background: {{transparant_img_bg_color}};
+  background: {{ block.settings.transparant_img_bg_color}};
   {% endif %}
   opacity: 30%;
   backdrop-filter: blur(10px);
