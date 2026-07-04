@@ -85,20 +85,21 @@
 }
  .advisor-card{{ block.id }} .advisor-image::before{
   content: "";
-  width:100%;
-  height: calc(100% - 20px);
   position: absolute;
   inset: 0;
-   /* clip-path: inset(0 round 0 0 200px 0); */
-   {% if transparant_img_bg %}
-  background: {{ block.settings.transparant_img_bg_color}};
+  width: 100%;
+  height: calc(100% - 20px);
+
+  {% if block.settings.transparant_img_bg %}
+    background: {{ block.settings.transparant_img_bg_color | color_modify: 'alpha', 0.3 }};
   {% endif %}
-  opacity: 30%;
-  backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px); /* Safari */
-  z-index: -1;
+
   border-radius: 24px 24px 200px 0;
-} 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: -1;
+}
+
 .advisor-card{{ block.id }} .advisor-img{
   width:100%;
   height: 100%;
