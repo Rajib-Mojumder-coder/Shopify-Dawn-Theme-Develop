@@ -107,7 +107,11 @@
   position: absolute;
   inset: 0;
   width: 100%;
-  height: calc(100% - 20px);
+  {% if enable_img_position %}
+    height:calc(100% - {{ advisor_img_y_offset | times: -1 }}px);
+  {% else %}
+    height:100%;
+  {% endif %}
 
   {% if transparant_img_bg %}
     background: {{ transparant_img_bg_color }};
