@@ -2,6 +2,8 @@
 {% liquid
   assign advisor_card_bg = block.settings.advisor_card_bg
   assign card_bg_color = block.settings.card_bg_color
+  assign transparant_img_bg = block.settings.transparant_img_bg
+  assign transparant_img_bg_color = block.settings.transparant_img_bg_color
 %}
 
 <div class="advisor-card advisor-card{{ block.id }}" {{ block.shopify_attributes }}>
@@ -88,7 +90,9 @@
   position: absolute;
   inset: 0;
    /* clip-path: inset(0 round 0 0 200px 0); */
-  background: #06123D;
+   {% if transparant_img_bg %}
+  background: {{transparant_img_bg_color}};
+  {% endif %}
   z-index: -1;
   border-radius: 24px 24px 200px 0;
 } 
@@ -200,7 +204,7 @@
       "type": "color",
       "id": "transparant_img_bg_color",
       "label": "Background Color",
-      "default": "#071540",
+      "default": "#06123D",
       "visible_if": "{{ block.settings.transparant_img_bg }}"
     },
     {
