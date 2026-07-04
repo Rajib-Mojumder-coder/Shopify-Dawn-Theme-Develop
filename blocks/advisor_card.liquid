@@ -93,6 +93,9 @@
    {% if transparant_img_bg %}
   background: {{transparant_img_bg_color}};
   {% endif %}
+  opacity: 30%;
+  backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px); /* Safari */
   z-index: -1;
   border-radius: 24px 24px 200px 0;
 } 
