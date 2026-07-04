@@ -92,9 +92,12 @@
               "type": "advisor_card",
               "name": "Advisor Card",
               "settings": {
-                "advisor_image": "shopify://shop_images/Mask_group_0988586f-87bc-4bd9-afec-36ba346bfc86.png",
+                "enable_img_position": true,
+                "advisor_img_y_offset": -20,
                 "advisor_card_bg": true,
                 "card_bg_color": "#071540",
+                "transparant_img_bg": false,
+                "transparant_img_bg_color": "#06123d",
                 "button_text": "ADVIESGESPREK",
                 "button_link": ""
               },
@@ -105,8 +108,12 @@
               "name": "Advisor Card",
               "settings": {
                 "advisor_image": "shopify://shop_images/dsdf_70f3d2b3-292e-411f-95de-08b936042ce6.png",
+                "enable_img_position": true,
+                "advisor_img_y_offset": -20,
                 "advisor_card_bg": true,
                 "card_bg_color": "#071540",
+                "transparant_img_bg": true,
+                "transparant_img_bg_color": "#06123d",
                 "button_text": "ADVIESGESPREK",
                 "button_link": ""
               },
