@@ -64,8 +64,10 @@
     height: 100%;
     max-width:100%;
     {% if advisor_card_bg == true%}
-    background: {{card_bg_color}};
+    background: {{card_bg_color | color_modify: 'alpha', 0.3 }};
     {% endif %}
+    backdrop-filter: blur(10px);
+   -webkit-backdrop-filter: blur(10px);
     border-radius:24px;
     display:flex;
     flex-direction:column;
@@ -83,6 +85,7 @@
   display: inline-block;
   z-index: 6;
 }
+
  .advisor-card{{ block.id }} .advisor-image::before{
   content: "";
   position: absolute;
@@ -90,13 +93,12 @@
   width: 100%;
   height: calc(100% - 20px);
 
-  {% if block.settings.transparant_img_bg %}
-    background: {{ block.settings.transparant_img_bg_color | color_modify: 'alpha', 0.3 }};
+  {% if transparant_img_bg %}
+    background: {{ transparant_img_bg_color }};
   {% endif %}
 
   border-radius: 24px 24px 200px 0;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  
   z-index: -1;
 }
 
