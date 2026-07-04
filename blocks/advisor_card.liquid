@@ -10,8 +10,9 @@
 
       <div class="image-icon-wrapper">
 
-        {% if block.settings.advisor_image != blank %}
+        
           <div class="advisor-image">
+            {% if block.settings.advisor_image != blank %}
               {{
                 block.settings.advisor_image
                 | image_url: width: 2000
@@ -19,9 +20,13 @@
                 loading: 'lazy',
                 class: 'advisor-img'
               }}
+
+              {%  else  %}
+       
+             {{ 'detailed-apparel-1' | placeholder_svg_tag: 'advisor-img' }}
           </div>
-        {%  else  %}
-         {{ 'detailed-apparel-1' | placeholder_svg_tag: 'advisor-img' }}
+        
+        
         {% endif %}
 
         {% if block.settings.advisor_icon != blank %}
