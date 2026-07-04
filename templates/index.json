@@ -55,7 +55,7 @@
           "type": "group",
           "name": "Group Block",
           "settings": {
-            "desktop_direction": "row",
+            "desktop_direction": "column",
             "mobile_direction": false,
             "justify": "flex-start",
             "align": "flex-start",
@@ -103,7 +103,6 @@
             "advisor_card_6krB6j": {
               "type": "advisor_card",
               "name": "Advisor Card",
-              "disabled": true,
               "settings": {
                 "advisor_image": "shopify://shop_images/dsdf_70f3d2b3-292e-411f-95de-08b936042ce6.png",
                 "advisor_card_bg": true,
