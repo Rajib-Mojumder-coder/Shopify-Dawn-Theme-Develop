@@ -59,7 +59,7 @@
             "mobile_direction": false,
             "justify": "flex-start",
             "align": "flex-start",
-            "desktop_gap": 50,
+            "desktop_gap": 30,
             "mobile_gap": 18,
             "custom_group_width": "fit-content",
             "group_custom_width": 50,
