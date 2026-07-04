@@ -17,7 +17,7 @@
           "settings": {
             "media": "shopify://shop_images/Peeters_Tweewielers_sRGB-18_2.png",
             "mobile_media": "shopify://shop_images/Peeters_Tweewielers_sRGB-18_1.png",
-            "slider_image_overlay": 0
+            "slider_image_overlay": false
           }
         }
       },
@@ -26,6 +26,9 @@
       ],
       "name": "Hero BAnner New",
       "settings": {
+        "layout_max_width": "1728",
+        "color_scheme": "",
+        "background_2": "#3f7280",
         "herosearch_top_spacing": 80,
         "herosearch_bottom_spacing": 80,
         "heading": "Wij houden van fietsen",
@@ -35,7 +38,7 @@
         "description_width": 400,
         "features_text_01": "Plan een advies gesprek",
         "features_text_02": "Plan een service gesprek",
-        "features_bg_color": "#52B099",
+        "features_bg_color": "#52b099",
         "features_icon_size": "14px",
         "radius_top_right": 400,
         "radius_bottom_right": 400,
@@ -44,9 +47,101 @@
         "appointment_text": "Make an appointment!",
         "appointment_btn_url": "shopify://pages/contact"
       }
+    },
+    "shopify_custom_section_Pt7ppY": {
+      "type": "shopify_custom_section",
+      "blocks": {
+        "group_exigcf": {
+          "type": "group",
+          "name": "Group Block",
+          "settings": {
+            "desktop_direction": "column",
+            "mobile_direction": false,
+            "justify": "flex-start",
+            "align": "flex-start",
+            "desktop_gap": 50,
+            "mobile_gap": 18,
+            "custom_group_width": "fit-content",
+            "group_custom_width": 50,
+            "custom_group_height": "fit",
+            "group_custom_height": 50,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "background_fit": "cover",
+            "background_position": "center center",
+            "custom_group-overlay": false,
+            "overlay_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+            "overlay_opacity": 40,
+            "group_border_style": "none",
+            "group_border_width": 1,
+            "group_border_color": "#000000",
+            "group_corner_radius": 0,
+            "group_block_url": "",
+            "block_link_newtab": false,
+            "group_block_padding": false,
+            "group_padding_top": 20,
+            "group_padding_bottom": 20,
+            "group_padding_left": 20,
+            "group_padding_right": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "group_exigcf"
+      ],
+      "name": "Shopify Custom Section",
+      "settings": {
+        "color_scheme": "scheme-5",
+        "section_height_type": "auto",
+        "preset_height": "medium",
+        "custom_min_height": 400,
+        "custom_viewport_height": 60,
+        "custom_max_height": 900,
+        "section_top_padding": 60,
+        "section_bottom_padding": 60,
+        "background_media": "none",
+        "background_fit": "cover",
+        "background_position": "center center",
+        "custom_section-overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+        "overlay_opacity": 40,
+        "overlay_blend": "normal",
+        "overlay_blur": 0,
+        "layout_direction": "row",
+        "layout_mobile_direction": false,
+        "content_horizontal_align": "flex-start",
+        "content_vertical_align": "center",
+        "layout_type": "Default",
+        "custom_layout-size": 1200,
+        "layout_padding": false,
+        "layout_padding-top": 20,
+        "layout_padding-bottom": 20,
+        "layout_padding-left": 20,
+        "layout_padding-right": 20,
+        "layout_border": false,
+        "layout_border-width": 5,
+        "layout_border-style": "solid",
+        "layout_border-color": "#000000",
+        "layout_border-opacity": 100,
+        "border_hover-color": "#ff0000",
+        "Layout_Border_radius": false,
+        "layout_border_top_left_radius": 0,
+        "layout_border_top_right_radius": 0,
+        "layout_border_bottom_left_radius": 0,
+        "layout_border_bottom_right_radius": 0,
+        "layout_desktop_gap": 50,
+        "layout_mobile_gap": 18
+      }
     }
   },
   "order": [
-    "custom_hero_banner_drDydw"
+    "custom_hero_banner_drDydw",
+    "shopify_custom_section_Pt7ppY"
   ]
 }
