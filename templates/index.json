@@ -103,7 +103,9 @@
             "advisor_card_6krB6j": {
               "type": "advisor_card",
               "name": "Advisor Card",
+              "disabled": true,
               "settings": {
+                "advisor_image": "shopify://shop_images/dsdf_70f3d2b3-292e-411f-95de-08b936042ce6.png",
                 "advisor_card_bg": true,
                 "card_bg_color": "#071540",
                 "button_text": "ADVIESGESPREK",
