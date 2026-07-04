@@ -20,6 +20,8 @@
                 class: 'advisor-img'
               }}
           </div>
+        {%  else  %}
+         {{ 'detailed-apparel-1' | placeholder_svg_tag: 'advisor-img' }}
         {% endif %}
 
         {% if block.settings.advisor_icon != blank %}
@@ -89,7 +91,7 @@
   z-index: -1;
   border-radius: 24px 24px 200px 0;
 } 
-.advisor-card{{ block.id }} .advisor-image img{
+.advisor-card{{ block.id }} .advisor-img{
   width:100%;
   height: 100%;
   object-fit: fill;
@@ -126,7 +128,7 @@
  .advisor-card{{ block.id }} .image-icon-wrapper{
   aspect-ratio: 10 / 5.5;
 }
-.advisor-card{{ block.id }} .advisor-image img{
+.advisor-card{{ block.id }} .advisor-img{
   border-bottom-right-radius: 190px;
 }
 .advisor-card{{ block.id }} .advisor-image::before{
@@ -138,10 +140,10 @@
 .advisor-card{{ block.id }} .image-icon-wrapper{
   aspect-ratio: 10 / 6;
 }
-.advisor-card{{ block.id }} .advisor-image img{
+.advisor-card{{ block.id }} .advisor-img{
   object-fit: cover;
 }
-.advisor-card{{ block.id }} .advisor-image img{
+.advisor-card{{ block.id }} .advisor-img{
   border-bottom-right-radius: 140px;
 }
 .advisor-card{{ block.id }} .advisor-image::before{
@@ -150,7 +152,7 @@
 }
 
 @media(max-width: 450px){
-.advisor-card{{ block.id }} .advisor-image img{
+.advisor-card{{ block.id }} .advisor-img{
   border-bottom-right-radius: 140px;
 }
 .advisor-card{{ block.id }} .advisor-image::before{
