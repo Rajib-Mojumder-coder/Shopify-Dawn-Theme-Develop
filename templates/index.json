@@ -225,7 +225,22 @@
             "group_padding_left": 20,
             "group_padding_right": 20
           },
-          "blocks": {}
+          "blocks": {
+            "advisor_card_3RCAeW": {
+              "type": "advisor_card",
+              "name": "Advisor Card",
+              "settings": {
+                "advisor_card_bg": true,
+                "card_bg_color": "#071540",
+                "button_text": "ADVIESGESPREK",
+                "button_link": ""
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "advisor_card_3RCAeW"
+          ]
         }
       },
       "block_order": [
@@ -252,7 +267,7 @@
         "overlay_opacity": 40,
         "overlay_blend": "normal",
         "overlay_blur": 0,
-        "layout_direction": "row",
+        "layout_direction": "column",
         "layout_mobile_direction": true,
         "content_horizontal_align": "flex-start",
         "content_vertical_align": "center",
