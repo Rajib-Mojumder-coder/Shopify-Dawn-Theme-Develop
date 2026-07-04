@@ -120,7 +120,7 @@
                 "custom_heading": "Plan je afspraak gemakkelijk online!",
                 "heading_maxwidth": 1000,
                 "white_space": "wrap",
-                "heading_top_spacing": 0,
+                "heading_top_spacing": 16,
                 "heading_bottom_spacing": 0,
                 "typography": true,
                 "heading_color": "#000000",
