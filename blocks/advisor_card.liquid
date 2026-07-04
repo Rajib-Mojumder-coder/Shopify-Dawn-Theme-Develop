@@ -191,6 +191,19 @@
       "visible_if": "{{ block.settings.advisor_card_bg }}"
     },
     {
+      "type": "checkbox",
+      "id": "transparant_img_bg",
+      "label": "Image Background",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "transparant_img_bg_color",
+      "label": "Background Color",
+      "default": "#071540",
+      "visible_if": "{{ block.settings.transparant_img_bg }}"
+    },
+    {
       "type": "image_picker",
       "id": "advisor_icon",
       "label": "Center Icon"
