@@ -1,5 +1,7 @@
-
-<div class="color-{{ section.settings.color_scheme }} gradient">Hello
+{%liquid
+  assign color_scheme = section.settings.color_scheme
+%}
+<div class="color-{{ color_scheme }} gradient">Hello
 
 </div>
 
