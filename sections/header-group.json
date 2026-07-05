@@ -37,6 +37,7 @@
     },
     "header": {
       "type": "header",
+      "disabled": true,
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "center",
@@ -54,10 +55,11 @@
         "padding_bottom": 20
       }
     },
-    "cusheader":{
+    "cusheader": {
       "type": "custom_header",
       "settings": {
-
+        "color_scheme": "",
+        "custom_menu": ""
       }
     }
   },
