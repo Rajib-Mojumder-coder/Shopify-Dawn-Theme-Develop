@@ -24,6 +24,7 @@
       "block_order": [
         "slide_nJfYiz"
       ],
+      "disabled": true,
       "name": "Hero BAnner New",
       "settings": {
         "layout_max_width": "1728",
@@ -98,7 +99,7 @@
                 "advisor_card_bg": true,
                 "card_bg_color": "#071540",
                 "transparant_img_bg": true,
-                "transparant_img_bg_color": "#06123D",
+                "transparant_img_bg_color": "#06123d",
                 "button_text": "ADVIESGESPREK",
                 "button_link": ""
               },
@@ -130,6 +131,7 @@
       "block_order": [
         "group_HKJmQ4"
       ],
+      "disabled": true,
       "name": "Shopify Custom Section",
       "settings": {
         "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2",
