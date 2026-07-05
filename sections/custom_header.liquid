@@ -1,4 +1,5 @@
-<div>Hello
+
+<div class="color-{{ section.settings.color_scheme }} gradient">Hello
 
 </div>
 
@@ -10,7 +11,12 @@
         "groups": ["footer", "aside"]
     },
     "settings": [
-
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color Scheme",
+        "default": "scheme-5"
+    }
     ]
 }
 {% endschema %}
