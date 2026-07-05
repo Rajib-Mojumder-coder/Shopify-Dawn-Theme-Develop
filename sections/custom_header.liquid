@@ -4,10 +4,24 @@
 %}
 <div class="color-{{ color_scheme }} gradient">
     <div class="page-width">
+        <div class="header_container">
+            <div class="header_container_wrapper">
 
+            </div>
+        </div>
     </div>
 </div>
+<style>
+.header_container{
+    width: 100%;
+    height: 100%;
+}
+.header_container_wrapper{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
 
+</style>
 {%  schema  %} 
 {
     "name": "Custom Header",
