@@ -56,7 +56,7 @@
           "name": "Group Block",
           "settings": {
             "desktop_direction": "row",
-            "mobile_direction": false,
+            "mobile_direction": true,
             "justify": "flex-start",
             "align": "flex-start",
             "desktop_gap": 50,
