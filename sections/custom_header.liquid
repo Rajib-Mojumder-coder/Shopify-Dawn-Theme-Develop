@@ -1,5 +1,6 @@
 {%liquid
   assign color_scheme = section.settings.color_scheme
+  assign header_menu = section.settings.header_menu
 %}
 <div class="color-{{ color_scheme }} gradient">Hello
 
@@ -18,6 +19,11 @@
         "id": "color_scheme",
         "label": "Color Scheme",
         "default": "scheme-5"
+    },
+    {
+        "type": "link_list",
+        "id": "header_menu",
+        "label": "Header Menu"
     }
     ]
 }
