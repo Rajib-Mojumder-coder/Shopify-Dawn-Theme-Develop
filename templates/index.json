@@ -92,7 +92,6 @@
               "type": "advisor_card",
               "name": "Advisor Card",
               "settings": {
-                "advisor_image": "shopify://shop_images/Mask_group_0988586f-87bc-4bd9-afec-36ba346bfc86.png",
                 "enable_img_position": true,
                 "advisor_img_y_offset": -20,
                 "advisor_card_bg": true,
