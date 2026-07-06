@@ -2,6 +2,8 @@
   assign color_scheme = section.settings.color_scheme
   assign custom_menu = section.settings.header_menu
   assign header_logo = section.settings.header_logo
+  assign header_logo_width = section.settings.header_logo_width
+  assign header_logo_height = section.settings.header_logo_height
 %}
 <header class="custom_header color-{{ color_scheme }} gradient">
     <div class="page-width custom_header_container">
@@ -62,6 +64,26 @@
             "type": "image_picker",
             "id": "header_logo",
             "label": "Header Logo"
+        },
+        {
+        "type": "range",
+        "id": "header_logo_width",
+        "label": "Logo Width",
+        "min": 80,
+        "max": 180,
+        "step": 1,
+        "default": 107,
+        "unit": "px"
+        },
+        {
+        "type": "range",
+        "id": "header_logo_height",
+        "label": "Logo Height",
+        "min": 30,
+        "max": 130,
+        "step": 1,
+        "default": 65,
+        "unit": "px"
         }
     ]
 }
