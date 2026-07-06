@@ -6,17 +6,21 @@
 <header class="custom_header color-{{ color_scheme }} gradient">
     <div class="page-width">
         <div class="custom_header_wrapper">
-            <div class="header_container_wrapper">
-                <div class="header_left_content">
+                <div class="header__branding">
+                    {% render 'header-logo' %}
+                </div>
 
+                <div class="header__navigation">
+                    {% render 'header-navigation' %}
                 </div>
-                <div class="header_middle_content">
 
+                <div class="header__actions">
+                    {% render 'header-actions' %}
                 </div>
-                <div class="header_right_content">
-...
+
+                <div class="header__mobile-actions">
+                    {% render 'header-mobile-actions' %}
                 </div>
-            </div>
         </div>
     </div>
 </header>
