@@ -1,3 +1,7 @@
+{%liquid
+  assign custom_menu = section.settings.header_menu
+%}
+
 <ul class="custom_header_navigation">
     
     {% for menu in custom_menu.links %}
