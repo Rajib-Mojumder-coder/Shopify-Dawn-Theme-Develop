@@ -4,7 +4,7 @@
   assign header_logo = section.settings.header_logo
 %}
 <header class="custom_header color-{{ color_scheme }} gradient">
-    <div class="page-width">
+    <div class="page-width header_container">
         <div class="custom_header_wrapper">
                 <div class="header_branding">
                     {% render 'header-logo' %}
@@ -37,21 +37,6 @@
     height: 100%;
 }
 
-.header_container_wrapper .header_left_content{
-    display: flex;
-    width: 100%;
-    height: 100%;
-}
-.header_container_wrapper .header_middle_content{
-    display: flex;
-    width: 100%;
-    height: 100%;
-}
-.header_container_wrapper .header_right_content{
-    display: flex;
-    width: 100%;
-    height: 100%;
-}
 
 </style>
 {%  schema  %} 
