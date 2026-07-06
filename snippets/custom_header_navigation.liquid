@@ -7,15 +7,15 @@
     
     {% for link in main_menu.links %}
         {% if link.levels == 0 %}
-            <li class="main_menu_list {{link.handle}}"> 
+            <li class="main_menu_item {{link.handle}}"> 
                 <a href="{{link.url}}" class="{{link.active}}"> {{link.title}} </a>
             </li>
         {%  elsif link.levels == 1 %}
-            <div class="dropdown_menu"> 
+            <div class="dropdown_menu main_menu_item"> 
                 <span> {{link.title}} </span>
             </div>
         {%  else link.levels == 2 %}
-            <div class="mega_menu"> 
+            <div class="mega_menu main_menu_item"> 
                 <span>  </span>
             </div>
         {% endif %}
