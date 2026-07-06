@@ -16,11 +16,11 @@
       | image_tag:
         widths: '107,160,214',
         loading: 'eager',
-        class: 'custom-header__logo-image',
+        class: 'custom-header_logo-image',
         alt: logo_alt
     }}
   {% else %}
-    <span class="custom-header__logo-text">
+    <span class="custom-header_logo-text">
       {{ shop.name }}
     </span>
   {% endif %}
@@ -45,5 +45,9 @@
         height:100%;
 
         text-decoration:none;
+    }
+    .custom-header_logo-image{
+        width:100%;
+        height:100%;
     }
 </style>
