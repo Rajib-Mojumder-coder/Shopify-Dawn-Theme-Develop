@@ -37,7 +37,6 @@
     },
     "header": {
       "type": "header",
-      "disabled": true,
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "center",
@@ -60,7 +59,9 @@
       "settings": {
         "color_scheme": "",
         "custom_menu": "",
-        "header_logo": "shopify://shop_images/logo-peeterstweewielers_1.svg"
+        "header_logo": "shopify://shop_images/logo-peeterstweewielers_1.svg",
+        "header_logo_width": 107,
+        "header_logo_height": 65
       }
     }
   },
