@@ -59,7 +59,8 @@
       "type": "custom_header",
       "settings": {
         "color_scheme": "",
-        "custom_menu": ""
+        "custom_menu": "",
+        "header_logo": "shopify://shop_images/logo-peeterstweewielers_1.svg"
       }
     }
   },
