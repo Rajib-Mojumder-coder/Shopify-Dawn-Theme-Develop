@@ -6,7 +6,13 @@
 <ul class="main_menu">
     
     {% for link in main_menu.links %}
-        <li> {{link.title}}</li>
+        <li class="main_menu_list"> {{link.title}}</li>
     {% endfor %}
 
 </ul>
+
+<style>
+    li{
+        list-style: none;
+    }
+</style>
