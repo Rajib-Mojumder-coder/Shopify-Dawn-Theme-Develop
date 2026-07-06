@@ -5,7 +5,9 @@
   assign header_logo_width = section.settings.header_logo_width
   assign header_logo_height = section.settings.header_logo_height
 %}
-<header class="custom_header color-{{ color_scheme }} gradient">
+<header class="custom_header color-{{ color_scheme }} gradient"
+ style="--header-logo-width: {{ header_logo_width }}px; --header-logo-height: {{ header_logo_height }}px;"
+>
     <div class="page-width custom_header_container">
         <div class="custom_header_wrapper">
                 <div class="custom_header_branding">
