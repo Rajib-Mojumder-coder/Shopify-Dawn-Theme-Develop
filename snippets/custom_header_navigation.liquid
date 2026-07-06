@@ -1,8 +1,10 @@
 
 
 <ul class="custom_header_navigation">
-    
-    {% for link in custom_menu.links %}
+    {%liquid
+        assign main_menu = section.settings.custom_menu
+    %}
+    {% for link in main_menu.links %}
         <li> {{link.title}}</li>
     {% endfor %}
 </ul>
