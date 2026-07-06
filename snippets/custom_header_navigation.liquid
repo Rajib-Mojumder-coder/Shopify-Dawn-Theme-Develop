@@ -3,7 +3,7 @@
     assign main_menu = section.settings.custom_menu
  %}
 
-<ul class="main_menu">
+<ul class="custom_main_menu">
     
     {% for link in main_menu.links %}
         <li class="main_menu_list"> {{link.title}}</li>
@@ -18,5 +18,8 @@
     }
    .custom_header_navigation li{
         list-style: none;
+    }
+    .custom_main_menu{
+        display: flex;
     }
 </style>
