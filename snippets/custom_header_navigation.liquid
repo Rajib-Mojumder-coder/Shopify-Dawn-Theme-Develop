@@ -6,10 +6,14 @@
 <ul class="custom_main_menu">
     
     {% for link in main_menu.links %}
-        {% if link.links != blank %}
+        {% if link.levels == 0 %}
             <li class="main_menu_list {{link.handle}}"> 
                 <a href="{{link.url}}" class="{{link.active}}"> {{link.title}} </a>
             </li>
+        {%  elsif link.levels == 1 %}
+            <div class="dropdown_menu"> </div>
+        {%  else link.levels == 2 %}
+            <div class="mega_menu"> </div>
         {% endif %}
     {% endfor %}
 
