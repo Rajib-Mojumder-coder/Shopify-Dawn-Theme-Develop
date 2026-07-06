@@ -6,7 +6,11 @@
 <ul class="custom_main_menu">
     
     {% for link in main_menu.links %}
-        
+        {% if link.links != blank %}
+            <li class="main_menu_list {{link.handle}}"> 
+                <a href="{{link.url}}" class="{{link.active}}"> {{link.title}} </a>
+            </li>
+        {% endif %}
     {% endfor %}
 
 </ul>
