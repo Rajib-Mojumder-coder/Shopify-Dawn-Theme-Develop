@@ -6,8 +6,8 @@
 <ul class="custom_main_menu">
     
     {% for link in main_menu.links %}
-        <li class="main_menu_list"> {{link.title}}
-            
+        <li class="main_menu_list {{link.handle}}"> 
+            <a href="{{}}"></a>
         </li>
     {% endfor %}
 
