@@ -7,11 +7,11 @@
     
     {% for parent in main_menu.links %}
         {% if parent.levels == 0 %}
-            <li class="main_menu_item {{link.handle}}"> 
-                <a href="{{parent.url}}" class="{% if parent.active %}active{% endif %}"> {{parent.title}} </a>
+            <li class="main_menu_item {{link.handle}} {% if parent.active %}active{% endif %}"> 
+                <a href="{{parent.url}}"> {{parent.title}} </a>
             </li>
         {%  elsif parent.levels == 1 %}
-            <li class="dropdown_menu main_menu_item"> 
+            <li class="dropdown_menu main_menu_item {% if parent.active %}active{% endif %}"> 
                 <span> {{parent.title}} </span>
                 <div class="dropdown_menu_main"> 
                     <div class="dropdown_menu_container">
@@ -27,7 +27,7 @@
                 </div>
             </li>
         {%  else parent.levels == 2 %}
-            <li class="mega_menu main_menu_item"> 
+            <li class="mega_menu main_menu_item {% if parent.active %}active{% endif %}"> 
                 <span>  </span>
             </li>
         {% endif %}
