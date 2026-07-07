@@ -16,10 +16,12 @@
                 <div class="dropdown_menu"> 
                     <div class="dropdown_menu-container">
 
-                        <div>
-                            
+                        <div class="dropdown_menu_items">
+                            {% for child in parent.links %}
+                            <a href="{{child.url}}" class="{% if child.active %}active{% endif %}"> {{child.title}} </a>
+                            {% endfor %}
                         </div>
-                        <div> </div>
+                        <div> Slider </div>
 
                     </div>
                 </div>
