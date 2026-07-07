@@ -11,16 +11,16 @@
                 <a href="{{link.url}}" class="{{link.active}}"> {{link.title}} </a>
             </li>
         {%  elsif link.levels == 1 %}
-            <div class="dropdown_menu main_menu_item"> 
+            <li class="dropdown_menu main_menu_item"> 
                 <span> {{link.title}} </span>
                 <div class="dropdown_menu_items"> 
-                    
+
                 </div>
-            </div>
+            </li>
         {%  else link.levels == 2 %}
-            <div class="mega_menu main_menu_item"> 
+            <li class="mega_menu main_menu_item"> 
                 <span>  </span>
-            </div>
+            </li>
         {% endif %}
     {% endfor %}
 
