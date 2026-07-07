@@ -5,19 +5,19 @@
 
 <ul class="custom_main_menu">
     
-    {% for link in main_menu.links %}
-        {% if link.levels == 0 %}
+    {% for parent in main_menu.links %}
+        {% if parent.levels == 0 %}
             <li class="main_menu_item {{link.handle}}"> 
-                <a href="{{link.url}}" class="{{link.active}}"> {{link.title}} </a>
+                <a href="{{parent.url}}" class="{{parent.active}}"> {{parent.title}} </a>
             </li>
-        {%  elsif link.levels == 1 %}
+        {%  elsif parent.levels == 1 %}
             <li class="dropdown_menu main_menu_item"> 
-                <span> {{link.title}} </span>
+                <span> {{parent.title}} </span>
                 <div class="dropdown_menu_items"> 
 
                 </div>
             </li>
-        {%  else link.levels == 2 %}
+        {%  else parent.levels == 2 %}
             <li class="mega_menu main_menu_item"> 
                 <span>  </span>
             </li>
