@@ -14,7 +14,9 @@
             <li class="dropdown_menu main_menu_item"> 
                 <span> {{parent.title}} </span>
                 <div class="dropdown_menu_items"> 
-
+                    {% for child in parent.links %}
+                        {{ child.title }}
+                    {% endfor %}
                 </div>
             </li>
         {%  else parent.levels == 2 %}
