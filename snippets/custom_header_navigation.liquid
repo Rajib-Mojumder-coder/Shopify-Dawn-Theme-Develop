@@ -36,9 +36,13 @@
 </ul>
 
 <style>
-    .custom_main_menu{
-       width: 100%;
-       height: 100%
+    .custom_header_navigation .custom_main_menu{
+        display: flex;
+        width: 100%;
+        height: 100%; 
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
     }
    .custom_header_navigation ul{
         margin: 0;
@@ -58,19 +62,12 @@
     .custom_header_navigation .main_menu_item a, span{
         color: #fff;
     }
-    .custom_header_navigation .custom_main_menu{
-        display: flex;
-        width: 100%;
-        height: 100%; 
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-    }
+    
     .custom_main_menu .dropdown_menu{
-        position: absolute;
+        /* position: absolute; */
         width: 100%;
         height: 100%;
-
+        max-width: 1200px;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
     }
