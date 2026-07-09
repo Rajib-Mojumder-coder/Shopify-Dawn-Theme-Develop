@@ -1,18 +1,32 @@
-{% liquid
-  assign block = block
-%}
-
 <div class="custom-mega-menu">
 
     <div class="custom-mega-menu__wrapper">
 
-        <h3>
-            {{ block.settings.heading }}
-        </h3>
+        <div class="custom-mega-menu__left">
 
-        <p>
-            Mega menu placeholder
-        </p>
+            {% if block.settings.heading != blank %}
+
+                <h3 class="custom-mega-menu__heading">
+
+                    {{ block.settings.heading }}
+
+                </h3>
+
+            {% endif %}
+
+            {% render 'custom_mega_menu_collections',
+                menu: block.settings.collection_menu
+            %}
+
+        </div>
+
+        <div class="custom-mega-menu__right">
+
+            {% render 'custom_mega_menu_slider',
+                block: block
+            %}
+
+        </div>
 
     </div>
 
