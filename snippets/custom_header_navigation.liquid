@@ -32,7 +32,14 @@
 
             {% if mega_block != blank %}
                 {% render 'custom_mega_menu',
-                    block: mega_block
+                    block: mega_block,
+                    menu_handle: menu_handle,
+                    heading: heading,
+                    collection_menu: collection_menu,
+                    promo_image: promo_image,
+                    promo_title: promo_title,
+                    button_text: button_text,
+                    button_link: button_link
                 %}
             {% endif %}
 
