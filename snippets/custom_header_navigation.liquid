@@ -6,31 +6,7 @@
 <ul class="custom_main_menu">
     
     {% for parent in main_menu.links %}
-        {% if parent.levels == 0 %}
-            <li class="main_menu_item {{link.handle}} {% if parent.active %}active{% endif %}"> 
-                <a href="{{parent.url}}"> {{parent.title}} </a>
-            </li>
-        {%  elsif parent.levels == 1 %}
-            <li class="dropdown_menu main_menu_item {% if parent.active %}active{% endif %}"> 
-                <span> {{parent.title}} </span>
-                <div class="dropdown_menu_main"> 
-                    <div class="dropdown_menu_container">
-
-                        <div class="dropdown_menu_items">
-                            {% for child in parent.links %}
-                            <a href="{{child.url}}" class="{% if child.active %}active{% endif %}"> {{child.title}} </a>
-                            {% endfor %}
-                        </div>
-                        <div> Slider </div>
-
-                    </div>
-                </div>
-            </li>
-        {%  else parent.levels == 2 %}
-            <li class="mega_menu main_menu_item {% if parent.active %}active{% endif %}"> 
-                <span>  </span>
-            </li>
-        {% endif %}
+        
     {% endfor %}
 
 </ul>
