@@ -36,6 +36,12 @@
                 {{ parent.title }}
             </a>
 
+            <p>
+Parent Title: {{ parent.title }} <br>
+Parent Handle: {{ parent.handle }} <br>
+Parent URL: {{ parent.url }} <br>
+Block Menu: {{ block.settings.menu_handle }}
+</p>
             {% if mega_block != blank %}
                 {% render 'custom_mega_menu',
                     block: mega_block
