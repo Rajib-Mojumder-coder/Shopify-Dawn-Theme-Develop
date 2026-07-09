@@ -1,0 +1,25 @@
+<div class="mega-menu">
+
+    <div class="mega-menu__left">
+
+        <h3>
+
+            {{ block.settings.heading }}
+
+        </h3>
+
+        {% render 'mega-menu-collections',
+            menu:block.settings.collection_menu
+        %}
+
+    </div>
+
+    <div class="mega-menu__right">
+
+        {% render 'mega-menu-slider',
+            block:block
+        %}
+
+    </div>
+
+</div>
