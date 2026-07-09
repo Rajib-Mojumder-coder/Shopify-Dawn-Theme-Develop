@@ -12,9 +12,8 @@
 
         {% for block in section.blocks %}
 
-            {% if block.type == 'custom_mega_menu'
-            and block.settings.menu_handle == parent.handle %}
-                {% render 'mega-menu', block:block %}
+            {% if block.type == 'custom_mega_menu' and block.settings.menu_handle == parent.handle %}
+                {% render 'custom_mega_menu', block:block %}
             {% endif %}
         {% endfor %}
 
