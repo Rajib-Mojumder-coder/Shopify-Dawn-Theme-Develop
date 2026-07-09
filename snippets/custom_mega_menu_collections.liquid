@@ -2,11 +2,11 @@
 assign menu_object = linklists[menu]
 %}
 
-{% if menu != blank %}
+{% if menu_object != blank %}
 
 <div class="mega-menu-collections">
 
-    {% for link in menu.links %}
+    {% for link in menu_object.links %}
 
         {% assign collection = link.object %}
 
