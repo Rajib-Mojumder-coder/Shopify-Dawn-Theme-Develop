@@ -5,6 +5,17 @@
 <ul class="custom-main-menu">
 
     {% for parent in main_menu.links %}
+        <li>
+
+Title: {{ parent.title }}<br>
+
+URL: {{ parent.url }}<br>
+
+Handle: {{ parent.handle }}<br>
+
+Object: {{ parent.object }}<br>
+
+</li>
 
         {% liquid
 
