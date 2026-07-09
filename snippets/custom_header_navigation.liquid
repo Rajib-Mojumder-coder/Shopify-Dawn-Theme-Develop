@@ -3,6 +3,9 @@
 %}
 
 <ul class="custom-main-menu">
+    {{ main_menu }}
+<br>
+Links: {{ main_menu.links.size }}
 
     {% for parent in main_menu.links %}
         
