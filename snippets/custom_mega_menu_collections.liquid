@@ -3,8 +3,17 @@
     {% assign collection = link.object %}
 
     {% if collection %}
+        <div>
+            {% if collection.metafields.custom.icon != blank %}
+            {{
+                collection.metafields.custom.icon
+                | image_url: width: 40
+                | image_tag
+            }}
+            {% endif %}
 
-        ...
+            {{ collection.title }}
+        </div>
     {% endif %}
 
 {% endfor %}
