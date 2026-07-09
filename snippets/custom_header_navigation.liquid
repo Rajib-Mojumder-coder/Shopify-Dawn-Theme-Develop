@@ -1,21 +1,40 @@
-
-{%liquid
+{% liquid
     assign main_menu = section.settings.custom_menu
- %}
+%}
 
-<ul class="custom_main_menu">
-    
+<ul class="custom-main-menu">
+
     {% for parent in main_menu.links %}
-        
-        <li class="main_menu_item">
-        <a href="{{ parent.url }}"> {{ parent.title }} </a>
 
-        {% for block in section.blocks %}
+        {% liquid
+            assign mega_block = blank
 
-            {% if block.type == 'custom_mega_menu' and block.settings.menu_handle == parent.handle %}
-                {% render 'custom_mega_menu', block:block %}
+            for block in section.blocks
+
+                if block.type == 'mega_menu'
+                    if block.settings.menu_handle == parent.handle
+                        assign mega_block = block
+                        break
+                    endif
+                endif
+
+            endfor
+        %}
+
+        <li class="custom-main-menu__item{% if mega_block != blank %} has-mega{% endif %}">
+
+            <a
+                href="{{ parent.url }}"
+                class="custom-main-menu__link {% if parent.active %}is-active{% endif %}"
+            >
+                {{ parent.title }}
+            </a>
+
+            {% if mega_block != blank %}
+                {% render 'custom_mega_menu',
+                    block: mega_block
+                %}
             {% endif %}
-        {% endfor %}
 
         </li>
 
