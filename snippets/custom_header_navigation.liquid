@@ -4,26 +4,17 @@
 
 <ul>
     {% for parent in main_menu.links %}
-        {% liquid
-
-            assign mega_block = blank
-
+          {% liquid assign mega_block = blank
+            assign parent_title = parent.title | downcase | strip
             for block in section.blocks
-
-                if block.type == 'custom_mega_menu'
-
-                    if block.settings.menu_handle | downcase == parent.title | downcase
-
-                        assign mega_block = block
-                        break
-
-                    endif
-
+            if block.type == 'custom_mega_menu'
+                assign block_menu = block.settings.menu_handle | downcase | strip
+                if block_menu == parent_title
+                assign mega_block = block
+                break
                 endif
-
-            endfor
-
-            %}
+            endif
+            endfor   %}
 
         <li class="custom-main-menu__item{% if mega_block != blank %} has-mega{% endif %}">
 
