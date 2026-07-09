@@ -2,7 +2,7 @@
     assign main_menu = section.settings.custom_menu
 %}
 
-<ul>
+<ul class="custom-main-menu">
     {% for parent in main_menu.links %}
           {% liquid assign mega_block = blank
             assign parent_title = parent.title | downcase | strip
