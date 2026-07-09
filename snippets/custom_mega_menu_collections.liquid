@@ -1,19 +1,50 @@
-{% for link in menu.links %}
+{% liquid
+    assign menu = menu
+%}
 
-    {% assign collection = link.object %}
+{% if menu != blank %}
 
-    {% if collection %}
-        <div>
-            {% if collection.metafields.custom.icon != blank %}
-            {{
-                collection.metafields.custom.icon
-                | image_url: width: 40
-                | image_tag
-            }}
-            {% endif %}
+<div class="mega-menu-collections">
 
-            {{ collection.title }}
-        </div>
-    {% endif %}
+    {% for link in menu.links %}
 
-{% endfor %}
+        {% assign collection = link.object %}
+
+        {% if collection %}
+
+            <a
+                href="{{ collection.url }}"
+                class="mega-menu-collection"
+            >
+
+                <div class="mega-menu-collection__icon">
+
+                    {% if collection.metafields.custom.icon != blank %}
+
+                        {{
+                            collection.metafields.custom.icon
+                            | image_url: width: 48
+                            | image_tag:
+                                loading: 'lazy',
+                                class: 'mega-menu-collection__image'
+                        }}
+
+                    {% endif %}
+
+                </div>
+
+                <span>
+
+                    {{ collection.title }}
+
+                </span>
+
+            </a>
+
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
