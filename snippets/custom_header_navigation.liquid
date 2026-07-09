@@ -1,0 +1,85 @@
+{% liquid
+    assign main_menu = section.settings.custom_menu
+%}
+
+<ul class="custom-main-menu">
+
+    {% for parent in main_menu.links %}
+
+        {% liquid
+
+            assign mega_block = blank
+
+            for block in section.blocks
+
+                if block.type == 'custom_mega_menu'
+
+                    if block.settings.menu_handle | downcase == parent.title | downcase
+
+                        assign mega_block = block
+                        break
+
+                    endif
+
+                endif
+
+            endfor
+
+            %}
+
+        <li class="custom-main-menu__item{% if mega_block != blank %} has-mega{% endif %}">
+
+            <a
+                href="{{ parent.url }}"
+                class="custom-main-menu__link {% if parent.active %}is-active{% endif %}"
+            >
+                {{ parent.title }}
+            </a>
+
+            {% if mega_block != blank %}
+                {% render 'custom_mega_menu',
+                    block: mega_block
+                %}
+            {% endif %}
+
+        </li>
+
+    {% endfor %}
+
+</ul>
+
+<style>
+   .custom-main-menu{
+    position:static;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:42px;
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.custom-main-menu__item{
+    position:relative;
+    flex:0 0 auto;
+}
+
+.custom-main-menu__link{
+    display:flex;
+    align-items:center;
+    height:90px;
+    color:#fff;
+    text-decoration:none;
+    font-weight:500;
+    transition:.25s;
+}
+
+.custom-main-menu__link:hover{
+    color:#58B7A5;
+}
+
+.custom-main-menu__link.is-active{
+    color:#58B7A5;
+}
+</style>
