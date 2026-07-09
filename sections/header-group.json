@@ -56,6 +56,25 @@
     },
     "cusheader": {
       "type": "custom_header",
+      "blocks": {
+        "custom_mega_menu_ciHUmy": {
+          "type": "custom_mega_menu",
+          "settings": {
+            "menu_handle": "fietsen",
+            "heading": "Hello Rajib",
+            "collection_menu": "custom-peeters-megamenu",
+            "promo_image": "shopify://shop_images/Mask_group_0988586f-87bc-4bd9-afec-36ba346bfc86.png",
+            "promo_title": "Rajib Mega Menu processing",
+            "button_text": "Click Now",
+            "button_link": "shopify://collections/all",
+            "button_color": "#58b7a5",
+            "featured_collection_handle": "Spiegels"
+          }
+        }
+      },
+      "block_order": [
+        "custom_mega_menu_ciHUmy"
+      ],
       "settings": {
         "color_scheme": "",
         "custom_menu": "custom-peeters-megamenu",
