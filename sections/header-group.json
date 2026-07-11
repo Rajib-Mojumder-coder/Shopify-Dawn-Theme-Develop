@@ -57,6 +57,18 @@
     "cusheader": {
       "type": "custom_header",
       "blocks": {
+        "custom_mega_menu_pArTQj": {
+          "type": "custom_mega_menu",
+          "settings": {
+            "menu_handle": "Onderdelen & accessoires",
+            "heading": "2nd heading",
+            "promo_title": "",
+            "button_text": "",
+            "button_link": "",
+            "button_color": "#58b7a5",
+            "featured_collection_handle": ""
+          }
+        },
         "custom_mega_menu_ciHUmy": {
           "type": "custom_mega_menu",
           "settings": {
@@ -72,6 +84,7 @@
         }
       },
       "block_order": [
+        "custom_mega_menu_pArTQj",
         "custom_mega_menu_ciHUmy"
       ],
       "settings": {
