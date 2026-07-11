@@ -1,5 +1,5 @@
 <div class="custom-mega-menu">
-
+<p>Parent: {{ parent.title }}</p>
     <div class="custom-mega-menu__wrapper">
 
         <div class="custom-mega-menu__left">
@@ -14,7 +14,8 @@
 
             {% endif %}
             
-            {% render 'custom_mega_menu_collections' %}
+            {% render 'custom_mega_menu_collections',
+                parent: parent %}
 
         </div>
 
