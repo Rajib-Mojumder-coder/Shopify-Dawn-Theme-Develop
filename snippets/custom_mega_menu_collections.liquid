@@ -2,13 +2,9 @@
 
 <div class="mega-menu-collections">
 
-    {% for link in parent.links %}
+    {% for child in parent.links %}
 
-        {% if collection %}
-
-            <a href="{{ collection.url }}"
-                class="mega-menu-collection"
-            >
+            <a href="{{ child.url }}" class="mega-menu-collection">
 
                 <div class="mega-menu-collection__icon">
 
@@ -26,17 +22,11 @@
 
                 </div>
 
-                <span>
-
-                    {{ collection.title }}
-
-                </span>
+                <span>   {{ child.title }}  </span>
 
             </a>
 
-        {% endif %}
-
-    {% endfor %}
+        {% endfor %}
 
 </div>
 
