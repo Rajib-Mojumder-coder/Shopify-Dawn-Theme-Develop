@@ -1,9 +1,5 @@
 <div class="mega-menu-items">
-{% comment %} Parent:
-{{ parent.title }}
 
-Children:
-{{ parent.links.size }} {% endcomment %}
 {% for child in parent.links %}
 
     {% assign collection = child.object %}
