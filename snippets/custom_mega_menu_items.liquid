@@ -24,8 +24,10 @@ Children:
 
         </div>
 
-        <span>{{ child.title }}</span>
-        <span class="btn-icon">  <img src="{{ 'Vector 1.svg' | asset_url }}" alt=""> </span>
+        <div class="mega-menu-item__titleicon">
+            <span>{{ child.title }}</span>
+            <span class="btn-icon">  <img src="{{ 'Vector 1.svg' | asset_url }}" alt=""> </span>
+        </div>
     </a>
 
 {% endfor %}
@@ -64,12 +66,16 @@ Children:
 }
 
 .mega-menu-item__icon > img{
-     width:100%;
+    width:100%;
     height:100%;
     object-fit: scale-down;
     max-width: 30px;
 }
-
+.mega-menu-item__titleicon{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
 /*HOVER*/
 .mega-menu-item{
     transition:.3s;
