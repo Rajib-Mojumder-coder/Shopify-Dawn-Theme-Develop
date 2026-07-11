@@ -27,7 +27,8 @@
 
             {% if mega_block != blank %}
                 {% render 'custom_mega_menu',
-                    block: mega_block
+                    block: mega_block,
+                    parent: parent
                 %}
             {% endif %}
 
