@@ -59,6 +59,7 @@
       "blocks": {
         "custom_mega_menu_pArTQj": {
           "type": "custom_mega_menu",
+          "disabled": true,
           "settings": {
             "menu_handle": "Onderdelen & accessoires",
             "heading": "2nd heading",
