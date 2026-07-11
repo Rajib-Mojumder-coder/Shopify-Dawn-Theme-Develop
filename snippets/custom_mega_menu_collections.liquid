@@ -3,11 +3,7 @@
 <div class="mega-menu-collections">
 
 {% for child in parent.links %}
-Parent:
-{{ parent.title }}
 
-Children:
-{{ parent.links.size }}
     {% assign collection = child.object %}
 
     <a href="{{ child.url }}" class="mega-menu-collection">
