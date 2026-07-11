@@ -71,6 +71,7 @@
         },
         "custom_mega_menu_ciHUmy": {
           "type": "custom_mega_menu",
+          "disabled": true,
           "settings": {
             "menu_handle": "Fietsen",
             "heading": "Hello rajib",
