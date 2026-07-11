@@ -14,10 +14,10 @@ Children:
 
         <div class="mega-menu-collection__icon">
 
-            {% if collection and collection.metafields.custom.icon %}
+            {% if collection and collection.metafields.custom.menu_icon %}
 
                 {{
-                    collection.metafields.custom.icon
+                    collection.metafields.custom.menu_icon
                     | image_url: width: 48
                     | image_tag
                 }}
