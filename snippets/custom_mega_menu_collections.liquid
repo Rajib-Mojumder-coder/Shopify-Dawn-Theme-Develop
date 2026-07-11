@@ -4,29 +4,29 @@
 
     {% for child in parent.links %}
 
-            <a href="{{ child.url }}" class="mega-menu-collection">
+    {% assign collection = child.object %}
 
-                <div class="mega-menu-collection__icon">
+    <a href="{{ child.url }}" class="mega-menu-collection">
 
-                    {% if collection.metafields.custom.icon != blank %}
+        <div class="mega-menu-collection__icon">
 
-                        {{
-                            collection.metafields.custom.icon
-                            | image_url: width: 48
-                            | image_tag:
-                                loading: 'lazy',
-                                class: 'mega-menu-collection__image'
-                        }}
+            {% if collection and collection.metafields.custom.icon %}
 
-                    {% endif %}
+                {{
+                    collection.metafields.custom.icon
+                    | image_url: width: 48
+                    | image_tag
+                }}
 
-                </div>
+            {% endif %}
 
-                <span>   {{ child.title }}  </span>
+        </div>
 
-            </a>
+        <span>{{ child.title }}</span>
 
-        {% endfor %}
+    </a>
+
+{% endfor %}
 
 </div>
 
