@@ -22,7 +22,7 @@
 
         <div class="mega-menu-item__content">
             <span class="mega-menu-item__title">{{ child.title }}</span>
-            <span class="hover-icon">  <img src="{{ 'forward-slash-icon.svg' | asset_url }}" alt=""> </span>
+            <span class="mega-menu-item__arrow">  <img src="{{ 'forward-slash-icon.svg' | asset_url }}" alt=""> </span>
         </div>
     </a>
 
@@ -83,7 +83,7 @@
     justify-content: space-around;
     gap: 10px;
 }
-span.hover-icon{
+span.mega-menu-item__arrow{
     display: flex;
     align-items: center;
     max-width: 100% ;
@@ -91,7 +91,7 @@ span.hover-icon{
     height: 100%;
     position: relative;
 }
-.hover-icon img{
+.mega-menu-item__arrow img{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -111,7 +111,7 @@ span.hover-icon{
 }
 
 .mega-menu-item:hover
-.hover-icon img{
+.mega-menu-item__arrow img{
     opacity: 1;
     visibility: visible;
     left: 0px;
