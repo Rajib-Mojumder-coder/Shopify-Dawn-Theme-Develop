@@ -1,7 +1,11 @@
 
 
 <div class="mega-menu-collections">
+Parent:
+{{ parent.title }}
 
+Children:
+{{ parent.links.size }}
 {% for child in parent.links %}
 
     {% assign collection = child.object %}
