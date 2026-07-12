@@ -74,8 +74,9 @@
           "settings": {
             "parent_handle": "fietsen",
             "enable_slide": true,
+            "image": "shopify://shop_images/Mask_group_0988586f-87bc-4bd9-afec-36ba346bfc86.png",
             "button_text": "Learn More",
-            "button_link": "",
+            "button_link": "shopify://pages/contact",
             "button_bg": "#58b7a5",
             "button_text_color": "#ffffff"
           }
