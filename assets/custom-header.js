@@ -3,13 +3,9 @@ document.querySelectorAll('.mega-slider').forEach((slider) => {
     new Swiper(slider,{
 
         slidesPerView:1,
-
         loop:true,
-
         speed:700,
-
         spaceBetween:20,
-
         autoplay:{
             delay:4000
         },
