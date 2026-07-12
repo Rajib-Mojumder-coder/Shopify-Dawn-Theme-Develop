@@ -68,10 +68,22 @@
             "button_color": "#58b7a5",
             "featured_collection_handle": ""
           }
+        },
+        "mega_menu_slide_3N4agF": {
+          "type": "mega_menu_slide",
+          "settings": {
+            "parent_handle": "fietsen",
+            "enable_slide": true,
+            "button_text": "Learn More",
+            "button_link": "",
+            "button_bg": "#58b7a5",
+            "button_text_color": "#ffffff"
+          }
         }
       },
       "block_order": [
-        "custom_mega_menu_XCXprB"
+        "custom_mega_menu_XCXprB",
+        "mega_menu_slide_3N4agF"
       ],
       "settings": {
         "color_scheme": "",
