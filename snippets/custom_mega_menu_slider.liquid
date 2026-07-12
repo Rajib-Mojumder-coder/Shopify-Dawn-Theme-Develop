@@ -1,0 +1,23 @@
+{% liquid
+  assign mega_block = mega_block
+%}
+
+<div class="mega-slider swiper">
+    <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+            {% if block.type == 'mega_menu_slide'
+                and block.settings.parent_handle == mega_block.settings.menu_handle
+                and block.settings.enable_slide
+            %}
+                {% render 'mega-menu-slide',
+                    block: block
+                %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+</div>
