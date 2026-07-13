@@ -81,11 +81,24 @@
             "button_bg": "#3f7280",
             "button_text_color": "#ffffff"
           }
+        },
+        "mega_menu_slide_TnmpKY": {
+          "type": "mega_menu_slide",
+          "settings": {
+            "parent_handle": "Fietsen",
+            "enable_slide": true,
+            "image": "shopify://shop_images/Mask_group_0988586f-87bc-4bd9-afec-36ba346bfc86.png",
+            "button_text": "Learn More",
+            "button_link": "shopify://pages/contact",
+            "button_bg": "#3f7280",
+            "button_text_color": "#ffffff"
+          }
         }
       },
       "block_order": [
         "custom_mega_menu_XCXprB",
-        "mega_menu_slide_3N4agF"
+        "mega_menu_slide_3N4agF",
+        "mega_menu_slide_TnmpKY"
       ],
       "settings": {
         "color_scheme": "",
