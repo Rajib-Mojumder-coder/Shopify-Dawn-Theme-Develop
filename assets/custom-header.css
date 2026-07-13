@@ -14,5 +14,7 @@
 }
 
 .custom-header .custom-header__branding{
-
+display: flex;
+width: var(--header_logo_width);
+height: var(--header_logo_height);
 }
