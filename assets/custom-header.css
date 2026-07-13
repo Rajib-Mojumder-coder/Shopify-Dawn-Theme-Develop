@@ -8,8 +8,8 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:42px;
-    min-height:90px;
+    gap: var(--header-gap)px;
+    min-height: var(--header-height);
     position:relative;
 }
 
