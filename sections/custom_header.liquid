@@ -6,7 +6,24 @@ assign color_scheme = section.settings.color_scheme
      <div class="page-width custom-page-width">
 
         <div class="custom-header__inner">
-            
+
+            <div class="custom-header__branding">
+                {% render 'custom_header_logo' %}
+            </div>
+
+            <nav class="custom-header__navigation">
+                {% render 'custom_header_navigation' %}
+            </nav>
+
+            <div class="custom-header__actions">
+                {% render 'custom_header_actions' %}
+            </div>
+
+            <div class="custom-header__mobile">
+                {% render 'custom_header_mobile_actions' %}
+            </div>
+
+
         </div>
 
      </div>
