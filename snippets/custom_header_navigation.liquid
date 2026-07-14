@@ -3,9 +3,11 @@ assign custom_menu = section.settings.custom_menu
 %}
 
 <nav class="custom-navigation" aria-label="Main Navigation">
-    <ul class="">
+
+    <ul class="custom-navigation__list">
         {% for parent in custom_menu.links %}
             <li> {{ parent.title }} </li>
         {% endfor %}
     </ul>
+    
 </nav>
