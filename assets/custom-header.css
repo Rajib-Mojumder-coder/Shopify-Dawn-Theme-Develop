@@ -66,6 +66,7 @@ height: var(--header_logo_height);
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px 20px;
     width: 80%;
+    margin: 0 auto;
 }
 span{
     color: #000;
