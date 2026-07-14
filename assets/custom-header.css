@@ -57,4 +57,9 @@ height: var(--header_logo_height);
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px 20px;
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    top: 100%;
+    left: 0;
 }
