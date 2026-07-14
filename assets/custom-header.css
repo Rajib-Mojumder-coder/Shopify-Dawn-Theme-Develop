@@ -38,6 +38,7 @@ height: var(--header_logo_height);
 .custom-header .custom-navigation__list{
     display:flex;
     align-items:center;
+    justify-content: center;
     gap:40px;
     margin:0;
     padding:0;
