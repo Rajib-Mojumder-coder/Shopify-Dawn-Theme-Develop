@@ -78,7 +78,7 @@ height: var(--header_logo_height);
     visibility: visible;
     opacity: 1;
     pointer-events:auto;
-
+    transform:translateY(0);
 }  
 .custom-header .mega_menu_container {
     display: grid;
