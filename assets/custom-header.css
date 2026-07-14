@@ -58,7 +58,7 @@ height: var(--header_logo_height);
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px 20px;
     position: absolute;
-    width: 80%;
+    width: 100%;
     height: 100%;
     top: 100%;
     left: 0;
