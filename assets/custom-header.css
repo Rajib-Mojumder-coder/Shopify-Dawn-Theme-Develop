@@ -8,7 +8,7 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap: var(--header-gap)px;
+    gap: var(--header-gap);
     min-height: var(--header-height);
     position:relative;
 }
