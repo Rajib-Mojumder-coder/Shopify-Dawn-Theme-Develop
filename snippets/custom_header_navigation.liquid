@@ -10,7 +10,11 @@
 
             {% for parent in custom_main_menu.links %}
                 {% if parent.levels > 0 %}
-                    <li class="mega_menu_item main_menu_item"> {{ parent.title }} </li>
+                    <li class="mega_menu_item main_menu_item"> {{ parent.title }} 
+                        {% for child in parent.links %}
+                            <span> {{ child.title }} </span>
+                        {% endfor %}
+                    </li>
                 {% else %}
                     <li class="simple_menu_item main_menu_item"> {{ parent.title }} </li>
                 {% endif %}
