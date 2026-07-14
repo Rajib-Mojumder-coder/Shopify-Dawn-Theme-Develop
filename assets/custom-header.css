@@ -61,7 +61,7 @@ height: var(--header_logo_height);
     display: flex;
     position: absolute;
     width: 100%;
-    top:calc(100% - 8px);
+    top:100%;
     left: 0;
     visibility: hidden;
     opacity: 0;
