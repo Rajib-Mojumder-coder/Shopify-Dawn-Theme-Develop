@@ -57,6 +57,9 @@ height: var(--header_logo_height);
 }
 
 /*Mega Menu*/
+.custom-header .main_menu_item{
+    padding-bottom: 20px;
+}
 .custom-header .mega_menu_wrapper {
     display: flex;
     position: absolute;
