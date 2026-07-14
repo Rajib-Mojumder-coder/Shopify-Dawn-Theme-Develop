@@ -35,6 +35,11 @@ height: var(--header_logo_height);
     display: none;
 }
 
+/*Menu Item CSS*/
+.custom-header ul{
+    padding: 0;
+    margin: 0;
+}
 .custom-header li{
     list-style: none;
 }
