@@ -20,7 +20,9 @@
                         </div>
                     </li>
                 {% else %}
-                    <li class="simple_menu_item main_menu_item"> {{ parent.title }} </li>
+                    <li class="simple_menu_item main_menu_item"> 
+                        <a href="{{ parent.url }}" class="simple_menu_item__link {% if parent.active %}is-active{% endif %}">   {{ parent.title }}  </a>
+                    </li>
                 {% endif %}
             {% endfor %}
 
