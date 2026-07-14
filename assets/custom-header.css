@@ -69,6 +69,7 @@ height: var(--header_logo_height);
 .custom-header .mega_menu_item:hover .mega_menu_wrapper{
     visibility: visible;
     opacity: 1;
+    cursor: pointer;
 }  
 .custom-header .mega_menu_container {
     display: grid;
