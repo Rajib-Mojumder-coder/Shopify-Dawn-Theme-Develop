@@ -63,3 +63,6 @@ height: var(--header_logo_height);
     top: 100%;
     left: 0;
 }
+span{
+    color: #000;
+}
