@@ -69,7 +69,6 @@ height: var(--header_logo_height);
     pointer-events:none;
     transition:opacity .25s ease;
     z-index:100;
-     transform:translateY(-10px);
 }
 .custom-header .mega_menu_item{
    position: static;
@@ -78,7 +77,6 @@ height: var(--header_logo_height);
     visibility: visible;
     opacity: 1;
     pointer-events:auto;
-    transform:translateY(0);
 }  
 .custom-header .mega_menu_container {
     display: grid;
