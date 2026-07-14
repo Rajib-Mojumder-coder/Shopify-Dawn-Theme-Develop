@@ -34,3 +34,7 @@ height: var(--header_logo_height);
 .custom-header .custom-header__mobile{
     display: none;
 }
+
+.custom-header li{
+    list-style: none;
+}
