@@ -2,8 +2,10 @@
 assign custom_menu = section.settings.custom_menu
 %}
 
-<ul class="">
-    {% for parent in custom_menu.links %}
-        <li> {{ parent.title }} </li>
-    {% endfor %}
-</ul>
+<nav>
+    <ul class="">
+        {% for parent in custom_menu.links %}
+            <li> {{ parent.title }} </li>
+        {% endfor %}
+    </ul>
+</nav>
