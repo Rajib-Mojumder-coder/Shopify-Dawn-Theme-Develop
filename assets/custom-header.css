@@ -68,6 +68,9 @@ height: var(--header_logo_height);
     opacity: 0;
     pointer-events:none;
 }
+.custom-header .mega_menu_item{
+   mega_menu_item
+}  
 .custom-header .mega_menu_item:hover .mega_menu_wrapper{
     visibility: visible;
     opacity: 1;
