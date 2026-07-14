@@ -8,9 +8,9 @@
 
         <ul class="custom-navigation__list">
             {% for parent in custom_main_menu.links %}
-                {% if parent.levels == 0 %}
+                {% if parent.levels > 0 %}
                         <li class="simple_menu_item main_menu_item"> {{ parent.title }} </li>
-                {% elsif parent.levels == 1 %}
+                {% else parent.levels == 1 %}
                     <div class="mega_menu_wrapper"> 
                         <li class="mega_menu_item main_menu_item"> {{ parent.title }} </li>
                     </div>
