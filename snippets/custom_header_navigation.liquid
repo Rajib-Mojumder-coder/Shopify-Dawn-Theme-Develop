@@ -10,7 +10,7 @@
 
             {% for parent in custom_main_menu.links %}
                 {% if parent.levels > 0 %}
-                    <li class="mega_menu_item main_menu_item"> {{ parent.title }} 
+                    <li class="mega_menu_item main_menu_item{% if parent.active %}is-active{% endif %}"> {{ parent.title }} 
                         <div class="mega_menu_wrapper">
                             <div class="mega_menu_container">
                                 {% for child in parent.links %}
