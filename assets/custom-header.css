@@ -60,6 +60,8 @@ height: var(--header_logo_height);
     height: 100%;
     top: 100%;
     left: 0;
+    visibility: hidden;
+    opacity: 0;
 }
 .custom-header .mega_menu_container {
     display: grid;
