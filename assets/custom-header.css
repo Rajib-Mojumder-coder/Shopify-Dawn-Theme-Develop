@@ -72,6 +72,7 @@ height: var(--header_logo_height);
 }
 .custom-header .mega_menu_item{
    position: static;
+   height: var(--header-height);
 }  
 .custom-header .mega_menu_item:hover .mega_menu_wrapper{
     visibility: visible;
