@@ -82,6 +82,3 @@ height: var(--header_logo_height);
 span{
     color: #000;
 }
-.custom-header .main_menu_item{
-     min-height: var(--header-height);
-}
