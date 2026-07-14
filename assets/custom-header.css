@@ -68,6 +68,7 @@ height: var(--header_logo_height);
     pointer-events:none;
     transition:opacity .25s ease;
     z-index:100;
+    background: #000;
 }
 .custom-header .mega_menu_item{
    position: static;
