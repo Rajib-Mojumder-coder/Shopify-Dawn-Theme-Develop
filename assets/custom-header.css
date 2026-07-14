@@ -51,3 +51,10 @@ height: var(--header_logo_height);
 .custom-header li{
     list-style: none;
 }
+
+/*Mega Menu*/
+.custom-header .mega_menu_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px 20px;
+}
