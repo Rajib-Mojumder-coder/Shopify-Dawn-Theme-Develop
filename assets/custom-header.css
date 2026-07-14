@@ -63,6 +63,10 @@ height: var(--header_logo_height);
     visibility: hidden;
     opacity: 0;
 }
+.custom-header .mega_menu_item:hover .mega_menu_wrapper{
+    visibility: visible;
+    opacity: 1;
+}  
 .custom-header .mega_menu_container {
     display: grid;
     grid-template-columns: 1fr 1fr;
