@@ -73,11 +73,11 @@ height: var(--header_logo_height);
 .custom-header .mega_menu_item{
    position: static;
 }  
-.custom-header .mega_menu_item:hover .mega_menu_wrapper{
+/* .custom-header .mega_menu_item:hover .mega_menu_wrapper{
     visibility: visible;
     opacity: 1;
     pointer-events:auto;
-}  
+}   */
 .custom-header .mega_menu_container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -87,4 +87,10 @@ height: var(--header_logo_height);
 }
 span{
     color: #fff;
+}
+.custom-header .mega_menu_item:hover .mega_menu_wrapper,
+.custom-header .mega_menu_wrapper:hover{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
 }
