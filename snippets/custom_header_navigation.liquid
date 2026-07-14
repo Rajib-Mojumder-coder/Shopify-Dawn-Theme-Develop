@@ -1,13 +1,17 @@
 {%  liquid  
-assign custom_menu = section.settings.custom_menu
+    assign custom_main_menu = section.settings.custom_main_menu
 %}
 
-<nav class="custom-navigation" aria-label="Main Navigation">
+{% if custom_main_menu != blank %}
 
-    <ul class="custom-navigation__list">
-        {% for parent in custom_menu.links %}
-            <li> {{ parent.title }} </li>
-        {% endfor %}
-    </ul>
-    
-</nav>
+    <nav class="custom-navigation" aria-label="Main Navigation">
+
+        <ul class="custom-navigation__list">
+            {% for parent in custom_main_menu.links %}
+                <li> {{ parent.title }} </li>
+            {% endfor %}
+        </ul>
+
+    </nav>
+
+{% endif %}
