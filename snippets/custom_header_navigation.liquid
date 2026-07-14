@@ -2,7 +2,7 @@
 assign custom_menu = section.settings.custom_menu
 %}
 
-<nav>
+<nav class="custom-navigation" aria-label="Main Navigation">
     <ul class="">
         {% for parent in custom_menu.links %}
             <li> {{ parent.title }} </li>
