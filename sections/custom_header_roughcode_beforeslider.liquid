@@ -235,18 +235,12 @@
 
         <li class="custom-main-menu__item{% if mega_block != blank %} has-mega{% endif %}">
 
-            <a
-                href="{{ parent.url }}"
-                class="custom-main-menu__link {% if parent.active %}is-active{% endif %}"
-            >
+            <a href="{{ parent.url }}" class="custom-main-menu__link {% if parent.active %}is-active{% endif %}">
                 {{ parent.title }}
             </a>
 
-            {% if mega_block != blank %}
-                {% render '__custom_mega_menu',
-                    block: mega_block,
-                    parent: parent
-                %}
+            {% if mega_block != blank %}  
+                {% render '__custom_mega_menu', block: mega_block, parent: parent %}
             {% endif %}
 
         </li>
