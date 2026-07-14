@@ -1,0 +1,9 @@
+{%  liquid  
+assign custom_menu = section.settings.custom_menu
+%}
+
+<ul>
+    {% for parent in custom_menu.links %}
+        <li> {{ parent.title }} </li>
+    {% endfor %}
+</ul>
