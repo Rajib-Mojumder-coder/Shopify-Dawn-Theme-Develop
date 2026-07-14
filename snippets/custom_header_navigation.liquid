@@ -12,9 +12,11 @@
                 {% if parent.levels > 0 %}
                     <li class="mega_menu_item main_menu_item"> {{ parent.title }} 
                         <div class="mega_menu_wrapper">
-                            {% for child in parent.links %}
+                            <div class="mega_menu_container">
+                                {% for child in parent.links %}
                                     <span> {{ child.title }} </span>
                             {% endfor %}
+                            </div>
                         </div>
                     </li>
                 {% else %}
