@@ -10,7 +10,6 @@
     justify-content:space-between;
     gap: var(--header-gap);
     min-height: var(--header-height);
-    position:relative;
 }
 
 .custom-header .custom-header__branding{
@@ -57,6 +56,10 @@ height: var(--header_logo_height);
 }
 
 /*Mega Menu*/
+.custom-header__inner{
+    position:relative;
+}
+
 .custom-header .main_menu_item{
     padding-bottom: var(--main_menu_bottom_spacing);
     cursor: pointer;
