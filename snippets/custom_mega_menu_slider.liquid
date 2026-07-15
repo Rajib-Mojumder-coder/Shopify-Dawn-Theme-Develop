@@ -1,3 +1,19 @@
-<div class="custom_mega_menu_slider">
-    <p> slider </p>
+<div class="mega-slider swiper">
+    <div class="swiper-wrapper">
+
+        {% for i in (1..4) %}
+
+            <div class="swiper-slide">
+                <img src="https://picsum.photos/450/450?random={{ i }}"  alt="" >
+
+                <h4>Slide {{ i }}</h4>
+                <p> Demo text for the mega menu. </p>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="swiper-pagination"></div>
+
 </div>
