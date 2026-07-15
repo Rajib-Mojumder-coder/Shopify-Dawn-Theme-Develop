@@ -9,7 +9,8 @@
         <ul class="custom-navigation__list">
 
             {% for parent in custom_main_menu.links %}
-                {%  assign has_mega = false %} 
+                {% assign has_mega = false %} 
+                {% assign mega_block = blank %} 
             {% endfor %}
 
             {% comment %} {% for parent in custom_main_menu.links %}
