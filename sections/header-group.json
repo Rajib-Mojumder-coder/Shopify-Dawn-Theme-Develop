@@ -56,6 +56,17 @@
     },
     "cusheader": {
       "type": "custom_header",
+      "blocks": {
+        "custom_mega_menu_9rD3CN": {
+          "type": "custom_mega_menu",
+          "settings": {
+            "menu_handle": "Fietsen"
+          }
+        }
+      },
+      "block_order": [
+        "custom_mega_menu_9rD3CN"
+      ],
       "settings": {
         "color_scheme": "",
         "custom_main_menu": "custom-peeters-megamenu",
