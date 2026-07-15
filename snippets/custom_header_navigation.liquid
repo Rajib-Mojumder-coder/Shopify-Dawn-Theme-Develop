@@ -12,13 +12,6 @@
                 {% assign has_mega = false %} 
                 {% assign mega_block = blank %}
 
-                {% for block in section.blocks %}  
-                    {% if block.settings.menu_handle == parent.handle %}
-                        {% assign has_mega = true %} 
-                        {% assign mega_block = block %}
-                    {% endif %}
-                {% endfor %}
-
                 {% if has_mega %}
                     <li class="mega_menu_item main_menu_item">
                         <a href="{{ parent.url }}"> {{ parent.title }} </a>
@@ -36,7 +29,16 @@
                     </li>
 
                 {% endif %}
-                    
+
+
+                {% for block in section.blocks %}  
+                    {% if block.settings.menu_handle == parent.handle %}
+                        {% assign has_mega = true %} 
+                        {% assign mega_block = block %}
+                    {% endif %}
+                {% endfor %}
+
+                                    
             {% endfor %}
 
             {% comment %} {% for parent in custom_main_menu.links %}
