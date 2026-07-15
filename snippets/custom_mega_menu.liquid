@@ -12,44 +12,11 @@
     <div class="custom-mega-menu__right">
 
         {% render 'custom_mega_menu_slider',
-            mega_block: mega_block
+            mega_block: mega_block,
+            section: section
         %}
 
     </div>
  
 </div>
 
-<style>
-
-.custom-main-menu__item:hover > .custom-mega-menu{
-    display:block;
-    opacity: 1;
-    visibility: visible;
-}
-
-.custom-mega-menu__wrapper{
-    display:grid;
-    grid-template-columns: 2fr 1fr;
-    gap:40px;
-    padding: 50px 35px;
-    border-radius:0 0 32px 32px;
-    background:#081C4A;
-}
-
-.custom-mega-menu__left{
-    width:100%;
-}
-
-.custom-mega-menu__heading{
-    color:#fff;
-    font-size:30px;
-    margin-bottom:40px;
-}
-
-/*Right Phase*/
-.custom-mega-menu__right{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-</style>
