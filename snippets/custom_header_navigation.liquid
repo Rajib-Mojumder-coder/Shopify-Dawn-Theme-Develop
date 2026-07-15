@@ -9,6 +9,10 @@
         <ul class="custom-navigation__list">
 
             {% for parent in custom_main_menu.links %}
+                
+            {% endfor %}
+
+            {% comment %} {% for parent in custom_main_menu.links %}
                 {% if parent.levels > 0 %}
                     <li class="mega_menu_item main_menu_item{% if parent.active %}is-active{% endif %}"> {{ parent.title }} 
                         <div class="mega_menu_wrapper">
@@ -24,7 +28,7 @@
                         <a href="{{ parent.url }}" class="simple_menu_item__link {% if parent.active %}is-active{% endif %}">   {{ parent.title }}  </a>
                     </li>
                 {% endif %}
-            {% endfor %}
+            {% endfor %} {% endcomment %}
 
         </ul>
 
