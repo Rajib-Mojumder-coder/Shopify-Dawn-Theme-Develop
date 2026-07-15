@@ -1,4 +1,45 @@
+<div class="mega-slider swiper">
 
+    <div class="swiper-wrapper">
+
+        {% assign current_handle = mega_block.settings.menu_handle | handleize %}
+
+        {% for block in section.blocks %}
+
+            {% if block.type == 'mega_menu_slide' %}
+
+                {% assign slide_handle = block.settings.menu_handle | handleize %}
+
+                {% if slide_handle == current_handle %}
+
+                    <div class="swiper-slide">
+
+                        {% if block.settings.image %}
+                            {{ block.settings.image | image_url: width:700 | image_tag }}
+                        {% endif %}
+
+                        <h3> {{ block.settings.heading }} </h3>
+                        <p> {{ block.settings.description }}  </p>
+
+                        {% if block.settings.button_link %}
+                            <a href="{{ block.settings.button_link }}" class="mega-slider-btn">
+                                {{ block.settings.button_text }}
+                            </a>
+                        {% endif %}
+
+                    </div>
+
+                {% endif %}
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+    <div class="swiper-pagination"></div>
+
+</div>
 
 
 
