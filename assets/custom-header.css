@@ -41,7 +41,7 @@ height: var(--header_logo_height);
     align-items:center;
     justify-content: center;
     gap:40px;
-    margin-bottom: calc();
+    margin-bottom: calc(var(----main_menu_bottom_spacing) * -1);
     padding:0;
 }
 
