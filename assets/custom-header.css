@@ -56,7 +56,7 @@ height: var(--header_logo_height);
 }
 
 /*Mega Menu*/
-.custom-header__inner{
+.custom-header .custom-header__inner{
     position:relative;
 }
 
