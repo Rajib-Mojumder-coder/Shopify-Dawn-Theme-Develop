@@ -41,7 +41,7 @@ height: var(--header_logo_height);
     align-items:center;
     justify-content: center;
     gap:40px;
-    margin-bottom: var(--main_menu_bottom_spacing);
+    margin-bottom: -30px;
     padding:0;
 }
 
@@ -58,7 +58,7 @@ height: var(--header_logo_height);
 
 /*Mega Menu*/
 .custom-header .main_menu_item{
-    padding-bottom: var(--main_menu_bottom_spacing);
+    padding-bottom: 30px;
     cursor: pointer;
 }
 .custom-header .mega_menu_wrapper {
