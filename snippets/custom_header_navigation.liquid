@@ -41,7 +41,14 @@
                                     
             {% endfor %}
 
-            {% comment %} {% for parent in custom_main_menu.links %}
+            
+        </ul>
+
+    </nav>
+
+{% endif %}
+
+{% comment %} {% for parent in custom_main_menu.links %}
                 {% if parent.levels > 0 %}
                     <li class="mega_menu_item main_menu_item{% if parent.active %}is-active{% endif %}"> {{ parent.title }} 
                         <div class="mega_menu_wrapper">
@@ -58,9 +65,3 @@
                     </li>
                 {% endif %}
             {% endfor %} {% endcomment %}
-
-        </ul>
-
-    </nav>
-
-{% endif %}
