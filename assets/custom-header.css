@@ -56,6 +56,23 @@ height: var(--header_logo_height);
 }
 
 /*Mega Menu CSS Start*/
+.custom-mega-menu__left{
+    width:100%;
+}
+
+.custom-mega-menu__heading{
+    color:#fff;
+    font-size:30px;
+    margin-bottom:40px;
+}
+
+/*Right Phase*/
+.custom-mega-menu__right{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+ 
 .custom-header .custom-header__inner{
     position:relative;
 }
