@@ -16,6 +16,7 @@
                 {% for block in section.blocks %}
                     
                     {% assign mega_block = blank %}
+                    
                     {% if block.settings.menu_handle | handleize == parent.handle %}
                         {% assign has_mega = true %}
                         {% assign mega_block = block %}
