@@ -57,6 +57,12 @@
     "cusheader": {
       "type": "custom_header",
       "blocks": {
+        "custom_mega_menu_mq489R": {
+          "type": "custom_mega_menu",
+          "settings": {
+            "menu_handle": "service"
+          }
+        },
         "custom_mega_menu_9rD3CN": {
           "type": "custom_mega_menu",
           "settings": {
@@ -65,6 +71,7 @@
         }
       },
       "block_order": [
+        "custom_mega_menu_mq489R",
         "custom_mega_menu_9rD3CN"
       ],
       "settings": {
