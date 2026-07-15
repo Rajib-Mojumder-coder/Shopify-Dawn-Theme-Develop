@@ -68,6 +68,17 @@
             "button_link": "shopify://collections/kilometertellers"
           }
         },
+        "mega_menu_slide_ECMYU8": {
+          "type": "mega_menu_slide",
+          "settings": {
+            "menu_handle": "fietsen",
+            "image": "shopify://shop_images/Mask_group_0988586f-87bc-4bd9-afec-36ba346bfc86.png",
+            "heading": "hello slide",
+            "description": "",
+            "button_text": "clickss",
+            "button_link": "shopify://collections/kilometertellers"
+          }
+        },
         "custom_mega_menu_mq489R": {
           "type": "custom_mega_menu",
           "settings": {
@@ -83,6 +94,7 @@
       },
       "block_order": [
         "mega_menu_slide_XAedfk",
+        "mega_menu_slide_ECMYU8",
         "custom_mega_menu_mq489R",
         "custom_mega_menu_9rD3CN"
       ],
