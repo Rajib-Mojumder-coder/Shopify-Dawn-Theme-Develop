@@ -16,7 +16,7 @@
                     {% if block.settings.menu_handle == parent.handle %}
                         {% assign has_mega = true %} 
                         {% assign mega_block = block %}
-                        
+
                         {% if has_mega %}
                             <li class="mega_menu_item main_menu_item">
                                 <a href="{{ parent.url }}"> {{ parent.title }} </a>
@@ -27,6 +27,11 @@
                                 </div>
                             </li>
                         {% else %}
+                            
+                            <li class="simple_menu_item main_menu_item">
+                                <a href="{{ parent.url }}" class="simple_menu_item__link {% if parent.active %}
+                                is-active{% endif %}"> {{ parent.title }} </a>
+                            </li>
 
                         {% endif %}
                     {% endif %}
