@@ -33,7 +33,7 @@
                         <div class="mega_menu_wrapper">
                             <div class="mega_menu_container">
 
-                                {{ mega_block.settings.menu_handle }}
+                                {%  render 'custom_mega_menu_items', parent: parent, mega_block: mega_block %}
 
                             </div>
                         </div>
