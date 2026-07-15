@@ -67,9 +67,9 @@ height: var(--header_logo_height);
 .custom-header .mega_menu_wrapper {
     display: flex;
     position: absolute;
-    width: 100%;
+    width: 80%;
     top:100%;
-    left: 0;
+    left: 50;
     visibility: hidden;
     opacity: 0;
     pointer-events:none;
@@ -89,8 +89,8 @@ height: var(--header_logo_height);
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px 20px;
-    width: 80%;
-    margin: 0 auto;
+    /* width: 80%;
+    margin: 0 auto; */
 }
 span{
     color: #fff;
