@@ -57,6 +57,16 @@
     "cusheader": {
       "type": "custom_header",
       "blocks": {
+        "mega_menu_slide_XAedfk": {
+          "type": "mega_menu_slide",
+          "settings": {
+            "menu_handle": "fietsen",
+            "heading": "",
+            "description": "",
+            "button_text": "",
+            "button_link": ""
+          }
+        },
         "custom_mega_menu_mq489R": {
           "type": "custom_mega_menu",
           "settings": {
@@ -71,6 +81,7 @@
         }
       },
       "block_order": [
+        "mega_menu_slide_XAedfk",
         "custom_mega_menu_mq489R",
         "custom_mega_menu_9rD3CN"
       ],
