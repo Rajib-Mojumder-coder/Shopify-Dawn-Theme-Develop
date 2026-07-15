@@ -16,7 +16,11 @@
                     {% if block.settings.menu_handle == parent.handle %}
                         {% assign has_mega = true %} 
                         {% assign mega_block = block %}
-                        
+                        {% if has_mega %}
+                            
+                        {% else %}
+
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
 
