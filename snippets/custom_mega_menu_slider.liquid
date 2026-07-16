@@ -14,7 +14,8 @@
 
                     <div class="swiper-slide">
 
-                        {% if block.settings.image %}
+                        <div class="mega_menu_slider_content">
+                            {% if block.settings.image %}
                             {{ block.settings.image | image_url: width:700 | image_tag }}
                         {% endif %}
 
@@ -26,6 +27,7 @@
                                 {{ block.settings.button_text }}
                             </a>
                         {% endif %}
+                        </div>
 
                     </div>
 
@@ -41,8 +43,13 @@
 
 </div>
 
+<style>
+.mega_menu_slider_content{
+display: flex;
+flex-direction: column;
+}
 
-
+</style>
 
 
 
