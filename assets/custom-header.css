@@ -89,6 +89,7 @@ height: var(--header_logo_height);
 }
 .custom-header .custom-mega-menu{
     width:100%;
+    height: auto;
     display:grid;
     grid-template-columns:2fr 1fr;
     background:#081C4A;
