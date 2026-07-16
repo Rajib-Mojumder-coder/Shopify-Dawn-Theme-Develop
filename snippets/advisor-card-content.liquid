@@ -1,0 +1,137 @@
+{{ 'advisor-card.css' | asset_url | stylesheet_tag }}{% liquid
+  assign enable_img_position = advisor_block.settings.enable_img_position
+  assign advisor_img_y_offset = advisor_block.settings.advisor_img_y_offset
+  assign advisor_card_bg = advisor_block.settings.advisor_card_bg
+  assign card_bg_color = advisor_block.settings.card_bg_color
+  assign transparant_img_bg = advisor_block.settings.transparant_img_bg
+  assign transparant_img_bg_color = advisor_block.settings.transparant_img_bg_color
+%}
+
+<div
+  class="advisor-card advisor-card--{{ advisor_block.id }}"
+  {% if advisor_block.shopify_attributes %}
+    {{ advisor_block.shopify_attributes }}
+  {% endif %}
+  style="
+    --advisor-bg:
+      {% if advisor_card_bg %}
+        {{ card_bg_color }}
+      {% else %}
+        transparent
+      {% endif %};
+
+    --advisor-image-bg:
+      {% if transparant_img_bg %}
+        {{ transparant_img_bg_color }}
+      {% else %}
+        transparent
+      {% endif %};
+
+    --advisor-image-offset: {{ advisor_img_y_offset }}px;
+  "
+>
+
+    <div class="advisor-card-container">
+
+        <div class="image-icon-wrapper">
+
+            {% if advisor_block.settings.advisor_image != blank %}
+
+                <div class="advisor-image">
+
+                    {{
+                        advisor_block.settings.advisor_image
+                        | image_url: width: 2000
+                        | image_tag:
+                        loading: 'lazy',
+                        class: 'advisor-img'
+                    }}
+
+                </div>
+
+            {% endif %}
+
+            {% if advisor_block.settings.advisor_icon != blank %}
+
+                <div class="advisor-icon">
+
+                    {{
+                        advisor_block.settings.advisor_icon
+                        | image_url: width: 150
+                        | image_tag:
+                        loading: 'lazy'
+                    }}
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="button-area">
+
+            {% render 'custom-global-button',
+                button_text: advisor_block.settings.button_text,
+                button_link: advisor_block.settings.button_link
+            %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+/*--------------------------------------------------
+Only block-specific dynamic styles
+Everything else lives in advisor-card.css
+---------------------------------------------------*/
+
+.advisor-card--{{ advisor_block.id }} .advisor-card-container{
+
+{% if advisor_card_bg %}
+
+background:
+radial-gradient(
+circle at 50% 30%,
+rgba(255,255,255,.30) 0%,
+rgba(255,255,255,.05) 40%,
+transparent 100%
+),
+var(--advisor-bg);
+
+{% endif %}
+
+}
+
+.advisor-card--{{ advisor_block.id }} .advisor-img{
+
+{% if enable_img_position %}
+
+position:absolute;
+inset:var(--advisor-image-offset) 0 0 0;
+
+{% endif %}
+
+}
+
+.advisor-card--{{ advisor_block.id }} .advisor-image::before{
+
+background:var(--advisor-image-bg);
+
+{% if enable_img_position %}
+
+height:calc(
+100% - (var(--advisor-image-offset) * -1)
+);
+
+{% else %}
+
+height:100%;
+
+{% endif %}
+
+}
+
+</style>

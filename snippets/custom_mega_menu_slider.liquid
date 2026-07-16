@@ -14,20 +14,9 @@
 
                     <div class="swiper-slide">
 
-                        <div class="mega_menu_slider_content">
-                            {% if block.settings.image %}
-                            {{ block.settings.image | image_url: width:400 | image_tag }}
-                        {% endif %}
-
-                        <h3> {{ block.settings.heading }} </h3>
-                        <p> {{ block.settings.description }} </p>
-
-                        {% if block.settings.button_link %}
-                            <a href="{{ block.settings.button_link }}" class="mega-slider-btn">
-                                {{ block.settings.button_text }}
-                            </a>
-                        {% endif %}
-                        </div>
+                        {% render 'advisor-card-content',
+                            advisor_block:block
+                        %}
 
                     </div>
 

@@ -1,128 +1,141 @@
-<style>
-.advisor-card{{ block.id }}{
+/*==================================================
+Advisor Card
+==================================================*/
+
+.advisor-card{
     width:100%;
-    height: 100%;
-    padding-top: 30px;
+    height:100%;
+    padding-top:30px;
 }
-.advisor-card{{ block.id }} > .advisor-card-container{
+
+.advisor-card > .advisor-card-container{
     width:100%;
-    height: 100%;
+    height:100%;
     max-width:100%;
-    {% if advisor_card_bg == true%}
-    background:
-    radial-gradient( circle at 50% 30%, rgba(255,255,255,.30) 0%,
-        rgba(255,255,255,.05) 40%, transparent 100% ), {{card_bg_color }};
-    {% endif %}
     border-radius:24px;
     display:flex;
     flex-direction:column;
 }
 
-.advisor-card{{ block.id }} .image-icon-wrapper{
-  position: relative;
-  width:100%;
-   aspect-ratio: 10 / 5.2;
-}
-.advisor-card{{ block.id }} .advisor-image{
-  width:100%;
-  height: 100%;
-  position: relative;
-  display: inline-block;
-  z-index: 6;
+/*==================================================
+Image Area
+==================================================*/
+
+.advisor-card .image-icon-wrapper{
+    position:relative;
+    width:100%;
+    aspect-ratio:10 / 5.2;
 }
 
-.advisor-card{{ block.id }} .advisor-img{
-  width:100%;
-  height:100%;
-  object-fit:fill;
-  object-position:top;
-  z-index:6;
-
-  {% if enable_img_position %}
-    position:absolute;
-    inset: {{ advisor_img_y_offset }}px 0 0 0;
-  {% endif %}
-
-  border-bottom-right-radius:200px;
-}
-.advisor-card{{ block.id }} .advisor-image::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  {% if enable_img_position %}
-    height:calc(100% - {{ advisor_img_y_offset | times: -1 }}px);
-  {% else %}
+.advisor-card .advisor-image{
+    position:relative;
+    width:100%;
     height:100%;
-  {% endif %}
-
-  {% if transparant_img_bg %}
-    background: {{ transparant_img_bg_color }};
-  {% endif %}
-
-  border-radius: 24px 24px 200px 0;
-  z-index: -1;
+    display:inline-block;
+    z-index:6;
 }
 
-.advisor-card{{ block.id }} .advisor-icon{
-  max-width: 49px;
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  transform: translate(-50%, -80%);
-  z-index: 8;
-}
-.advisor-card{{ block.id }} .advisor-icon img{
-  width:100%;
-  height: 100%;
-  object-fit: cover;
-}
-.advisor-card{{ block.id }} .button-area{
-  width: 100%;
-  height: 25%;
-  display:flex;
-  justify-content:center;
-  padding: 20px;
+.advisor-card .advisor-image::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    width:100%;
+    border-radius:24px 24px 200px 0;
+    z-index:-1;
 }
 
-@media(max-width: 1100px){
- .advisor-card{{ block.id }} .image-icon-wrapper{
-  aspect-ratio: 10 / 5.5;
-}
-.advisor-card{{ block.id }} .advisor-img{
-  border-bottom-right-radius: 190px;
-}
-.advisor-card{{ block.id }} .advisor-image::before{
-  border-radius: 24px 24px 190px 0;
-} 
+.advisor-card .advisor-img{
+    width:100%;
+    height:100%;
+    object-fit:fill;
+    object-position:top;
+    z-index:6;
+
+    border-bottom-right-radius:200px;
 }
 
-@media(min-width: 768px) and (max-width: 1023px){
-.advisor-card{{ block.id }} .image-icon-wrapper{
-  aspect-ratio: 10 / 6;
-}
-.advisor-card{{ block.id }} .advisor-img{
-  object-fit: cover;
-}
-.advisor-card{{ block.id }} .advisor-img{
-  border-bottom-right-radius: 140px;
-}
-.advisor-card{{ block.id }} .advisor-image::before{
-  border-radius: 24px 24px 140px 0;
-}
+/*==================================================
+Center Icon
+==================================================*/
+
+.advisor-card .advisor-icon{
+    max-width:49px;
+    position:absolute;
+    left:50%;
+    top:100%;
+    transform:translate(-50%,-80%);
+    z-index:8;
 }
 
-@media(max-width: 450px){
-.advisor-card{{ block.id }} .advisor-img{
-  border-bottom-right-radius: 140px;
-}
-.advisor-card{{ block.id }} .advisor-image::before{
-  border-radius: 24px 24px 140px 0;
-}
-.advisor-card{{ block.id }} .button-area{
-  padding: 14px;
-}
+.advisor-card .advisor-icon img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
 }
 
+/*==================================================
+Button
+==================================================*/
 
-</style>
+.advisor-card .button-area{
+    width:100%;
+    height:25%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+/*==================================================
+Responsive
+==================================================*/
+
+@media(max-width:1100px){
+
+    .advisor-card .image-icon-wrapper{
+        aspect-ratio:10 / 5.5;
+    }
+
+    .advisor-card .advisor-img{
+        border-bottom-right-radius:190px;
+    }
+
+    .advisor-card .advisor-image::before{
+        border-radius:24px 24px 190px 0;
+    }
+
+}
+
+@media(min-width:768px) and (max-width:1023px){
+
+    .advisor-card .image-icon-wrapper{
+        aspect-ratio:10 / 6;
+    }
+
+    .advisor-card .advisor-img{
+        object-fit:cover;
+        border-bottom-right-radius:140px;
+    }
+
+    .advisor-card .advisor-image::before{
+        border-radius:24px 24px 140px 0;
+    }
+
+}
+
+@media(max-width:450px){
+
+    .advisor-card .advisor-img{
+        border-bottom-right-radius:140px;
+    }
+
+    .advisor-card .advisor-image::before{
+        border-radius:24px 24px 140px 0;
+    }
+
+    .advisor-card .button-area{
+        padding:14px;
+    }
+
+}

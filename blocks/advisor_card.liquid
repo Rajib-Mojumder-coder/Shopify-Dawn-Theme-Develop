@@ -1,5 +1,91 @@
 {{ 'advisor-card.css' | asset_url | stylesheet_tag }}
 
+{% render 'advisor-card-content',
+    advisor_block: block
+%}
+
+
+{% schema %}
+{
+  "name": "Advisor Card",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "advisor_image",
+      "label": "Advisor Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_img_position",
+      "label": "Enable Custom Image Position",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "advisor_img_y_offset",
+      "label": "Image Position Y",
+      "min": -40,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": -20,
+      "visible_if": "{{ block.settings.enable_img_position }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "advisor_card_bg",
+      "label": "Card Custom Background",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Background Color",
+      "default": "#071540",
+      "visible_if": "{{ block.settings.advisor_card_bg }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparant_img_bg",
+      "label": "Image Background",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "transparant_img_bg_color",
+      "label": "Background Color",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.transparant_img_bg }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "advisor_icon",
+      "label": "Center Icon"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "ADVIESGESPREK"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advisor Card"
+    }
+  ]
+}
+{% endschema %}
+
+
+{% comment %} {{ 'advisor-card.css' | asset_url | stylesheet_tag }}
+
 {% liquid
   assign enable_img_position = block.settings.enable_img_position
   assign advisor_img_y_offset = block.settings.advisor_img_y_offset
@@ -55,7 +141,134 @@
     </div>
 
 </div>
+<style>
+.advisor-card{{ block.id }}{
+    width:100%;
+    height: 100%;
+    padding-top: 30px;
+}
+.advisor-card{{ block.id }} > .advisor-card-container{
+    width:100%;
+    height: 100%;
+    max-width:100%;
+    {% if advisor_card_bg == true%}
+    background:
+    radial-gradient( circle at 50% 30%, rgba(255,255,255,.30) 0%,
+        rgba(255,255,255,.05) 40%, transparent 100% ), {{card_bg_color }};
+    {% endif %}
+    border-radius:24px;
+    display:flex;
+    flex-direction:column;
+}
 
+.advisor-card{{ block.id }} .image-icon-wrapper{
+  position: relative;
+  width:100%;
+   aspect-ratio: 10 / 5.2;
+}
+.advisor-card{{ block.id }} .advisor-image{
+  width:100%;
+  height: 100%;
+  position: relative;
+  display: inline-block;
+  z-index: 6;
+}
+
+.advisor-card{{ block.id }} .advisor-img{
+  width:100%;
+  height:100%;
+  object-fit:fill;
+  object-position:top;
+  z-index:6;
+
+  {% if enable_img_position %}
+    position:absolute;
+    inset: {{ advisor_img_y_offset }}px 0 0 0;
+  {% endif %}
+
+  border-bottom-right-radius:200px;
+}
+.advisor-card{{ block.id }} .advisor-image::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  {% if enable_img_position %}
+    height:calc(100% - {{ advisor_img_y_offset | times: -1 }}px);
+  {% else %}
+    height:100%;
+  {% endif %}
+
+  {% if transparant_img_bg %}
+    background: {{ transparant_img_bg_color }};
+  {% endif %}
+
+  border-radius: 24px 24px 200px 0;
+  z-index: -1;
+}
+
+.advisor-card{{ block.id }} .advisor-icon{
+  max-width: 49px;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -80%);
+  z-index: 8;
+}
+.advisor-card{{ block.id }} .advisor-icon img{
+  width:100%;
+  height: 100%;
+  object-fit: cover;
+}
+.advisor-card{{ block.id }} .button-area{
+  width: 100%;
+  height: 25%;
+  display:flex;
+  justify-content:center;
+  padding: 20px;
+}
+
+@media(max-width: 1100px){
+ .advisor-card{{ block.id }} .image-icon-wrapper{
+  aspect-ratio: 10 / 5.5;
+}
+.advisor-card{{ block.id }} .advisor-img{
+  border-bottom-right-radius: 190px;
+}
+.advisor-card{{ block.id }} .advisor-image::before{
+  border-radius: 24px 24px 190px 0;
+} 
+}
+
+@media(min-width: 768px) and (max-width: 1023px){
+.advisor-card{{ block.id }} .image-icon-wrapper{
+  aspect-ratio: 10 / 6;
+}
+.advisor-card{{ block.id }} .advisor-img{
+  object-fit: cover;
+}
+.advisor-card{{ block.id }} .advisor-img{
+  border-bottom-right-radius: 140px;
+}
+.advisor-card{{ block.id }} .advisor-image::before{
+  border-radius: 24px 24px 140px 0;
+}
+}
+
+@media(max-width: 450px){
+.advisor-card{{ block.id }} .advisor-img{
+  border-bottom-right-radius: 140px;
+}
+.advisor-card{{ block.id }} .advisor-image::before{
+  border-radius: 24px 24px 140px 0;
+}
+.advisor-card{{ block.id }} .button-area{
+  padding: 14px;
+}
+}
+
+
+</style>
 
 
 {% schema %}
@@ -134,7 +347,7 @@
     }
   ]
 }
-{% endschema %}
+{% endschema %} {% endcomment %}
 {%  comment  %} 
 claude:
 <style>
