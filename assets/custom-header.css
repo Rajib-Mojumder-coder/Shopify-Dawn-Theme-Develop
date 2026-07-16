@@ -114,7 +114,15 @@ height: var(--header_logo_height);
     justify-content:center;
     align-items:center;
     width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1 / .9;
 }
+
+.mega_menu_slider_content{
+display: flex;
+flex-direction: column;
+}
+
 span{
     color: #fff;
 }
