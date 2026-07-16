@@ -88,24 +88,24 @@ style="--header_logo_width: {{header_logo_width}}px; --header_logo_height: {{hea
             "label": "Header Logo"
         },
         {
-        "type": "range",
-        "id": "header_logo_width",
-        "label": "Logo Width",
-        "min": 80,
-        "max": 180,
-        "step": 1,
-        "default": 107,
-        "unit": "px"
+          "type": "range",
+          "id": "header_logo_width",
+          "label": "Logo Width",
+          "min": 80,
+          "max": 180,
+          "step": 1,
+          "default": 107,
+          "unit": "px"
         },
         {
-        "type": "range",
-        "id": "header_logo_height",
-        "label": "Logo Height",
-        "min": 30,
-        "max": 130,
-        "step": 1,
-        "default": 65,
-        "unit": "px"
+          "type": "range",
+          "id": "header_logo_height",
+          "label": "Logo Height",
+          "min": 30,
+          "max": 130,
+          "step": 1,
+          "default": 65,
+          "unit": "px"
         }
     ],
     "blocks": [
@@ -120,43 +120,77 @@ style="--header_logo_width: {{header_logo_width}}px; --header_logo_height: {{hea
                 }
             ]
         },
-        {
+       {
         "type": "mega_menu_slide",
-        "name": "Mega Menu Slide",
+        "name": "Mega Menu Advisor Slide",
         "settings": [
-            {
+          {
             "type": "text",
             "id": "menu_handle",
-            "label": "Mega Menu Handle",
-            "info": "Example: products"
-            },
-            {
+            "label": "Mega Menu Handle"
+          },
+          {
             "type": "image_picker",
-            "id": "image",
-            "label": "Slide Image"
-            },
-            {
-            "type": "text",
-            "id": "heading",
-            "label": "Heading"
-            },
-            {
-            "type": "textarea",
-            "id": "description",
-            "label": "Description"
-            },
-            {
+            "id": "advisor_image",
+            "label": "Advisor Image"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_img_position",
+            "label": "Enable Custom Image Position",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "advisor_img_y_offset",
+            "label": "Image Position Y",
+            "min": -40,
+            "max": 50,
+            "step": 1,
+            "default": -20
+          },
+          {
+            "type": "checkbox",
+            "id": "advisor_card_bg",
+            "label": "Card Background",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "card_bg_color",
+            "label": "Card Background Color",
+            "default": "#071540"
+          },
+          {
+            "type": "checkbox",
+            "id": "transparant_img_bg",
+            "label": "Transparant Image Background",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "transparant_img_bg_color",
+            "label": "Transparant Image Background",
+            "default": "#06123D"
+          },
+          {
+            "type": "image_picker",
+            "id": "advisor_icon",
+            "label": "Advisor Icon"
+          },
+          {
             "type": "text",
             "id": "button_text",
-            "label": "Button Text"
-            },
-            {
+            "label": "Button Text",
+            "default": "ADVIESGESPREK"
+          },
+          {
             "type": "url",
-            "id": "button_link",
-            "label": "Button Link"
-            }
+            "label": "Button URL",
+            "id": "button_link"
+          }
         ]
-        }
+      }
     ]
 }
 {% endschema %}
