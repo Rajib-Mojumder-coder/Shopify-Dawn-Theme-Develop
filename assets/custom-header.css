@@ -72,7 +72,6 @@ height: var(--header_logo_height);
     justify-content:center;
     align-items:center;
     width: 100%;
-    max-width: 450px;
 }
  
 .custom-header .custom-header__inner{
