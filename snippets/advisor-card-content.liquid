@@ -1,4 +1,7 @@
-{{ 'advisor-card.css' | asset_url | stylesheet_tag }}{% liquid
+{{ 'advisor-card.css' | asset_url | stylesheet_tag }}
+
+
+{% liquid
   assign enable_img_position = advisor_block.settings.enable_img_position
   assign advisor_img_y_offset = advisor_block.settings.advisor_img_y_offset
   assign advisor_card_bg = advisor_block.settings.advisor_card_bg
