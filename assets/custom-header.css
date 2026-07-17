@@ -141,7 +141,7 @@ span{
   transform: translateX(8px); /* arrow appears smoothly */
 }
 
-/*Swiper navigation & Pagination*/
+/*Header slider*/
 .custom-header .swiper_nav_pag{
     display: flex;
     width: 100%;
