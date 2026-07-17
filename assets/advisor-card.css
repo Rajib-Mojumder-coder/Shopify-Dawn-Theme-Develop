@@ -47,7 +47,7 @@ Image Area
 .advisor-card .advisor-img{
     width:100%;
     height:100%;
-    object-fit:fill;
+    object-fit:cover;
     object-position:top;
     z-index:6;
 
