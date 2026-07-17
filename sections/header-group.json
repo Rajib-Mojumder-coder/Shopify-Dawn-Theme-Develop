@@ -76,6 +76,7 @@
           "type": "mega_menu_slide",
           "settings": {
             "menu_handle": "Fietsen",
+            "advisor_image": "shopify://shop_images/menu_slider_img01_61c0bd8c-9636-47c3-9eac-7ef4bbe9dbc8.png",
             "enable_img_position": true,
             "advisor_img_y_offset": -20,
             "advisor_card_bg": true,
