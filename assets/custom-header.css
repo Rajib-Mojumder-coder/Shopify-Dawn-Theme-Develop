@@ -174,10 +174,10 @@ span{
 }
 
 /*swiper navigation*/
-/* .mega-slider .swiper-button-prev::after,
+.mega-slider .swiper-button-prev::after,
 .mega-slider .swiper-button-next::after {
     display: none;
-} */
+} 
 
 .mega-slider .swiper-button-prev,
 .mega-slider .swiper-button-next {
