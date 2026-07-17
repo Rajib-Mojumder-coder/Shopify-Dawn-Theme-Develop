@@ -131,3 +131,8 @@ object-fit: cover;
 span{
     color: #fff;
 }
+
+.advisor-card .advisor-img {
+    object-fit: cover !important;
+    border-bottom-right-radius: 180px !;
+}
