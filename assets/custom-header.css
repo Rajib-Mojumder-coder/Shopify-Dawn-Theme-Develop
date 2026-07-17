@@ -179,6 +179,10 @@ span{
     content: none !important;
     display: none !important;
 }
+.mega-slider .swiper-button-prev::after,
+.mega-slider .swiper-button-next::after {
+    content: "" !important;
+}
 .mega-slider .swiper-button-prev,
 .mega-slider .swiper-button-next {
     position: static;
