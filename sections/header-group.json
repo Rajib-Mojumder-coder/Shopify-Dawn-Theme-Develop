@@ -61,9 +61,12 @@
           "type": "mega_menu_slide",
           "settings": {
             "menu_handle": "Fietsen",
-            "image": "shopify://shop_images/menu_slider_img01_61c0bd8c-9636-47c3-9eac-7ef4bbe9dbc8.png",
-            "heading": "hello slide 2",
-            "description": "",
+            "enable_img_position": true,
+            "advisor_img_y_offset": -20,
+            "advisor_card_bg": true,
+            "card_bg_color": "#071540",
+            "transparant_img_bg": true,
+            "transparant_img_bg_color": "#06123d",
             "button_text": "clickss",
             "button_link": "shopify://collections/kilometertellers"
           }
@@ -72,9 +75,12 @@
           "type": "mega_menu_slide",
           "settings": {
             "menu_handle": "Fietsen",
-            "image": "shopify://shop_images/menu_slider_img03.png",
-            "heading": "hello slide",
-            "description": "",
+            "enable_img_position": true,
+            "advisor_img_y_offset": -20,
+            "advisor_card_bg": true,
+            "card_bg_color": "#071540",
+            "transparant_img_bg": true,
+            "transparant_img_bg_color": "#06123d",
             "button_text": "clickss",
             "button_link": "shopify://collections/kilometertellers"
           }
@@ -98,6 +104,7 @@
         "custom_mega_menu_mq489R",
         "custom_mega_menu_9rD3CN"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-4",
         "custom_main_menu": "custom-peeters-megamenu",
