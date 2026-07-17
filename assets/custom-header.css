@@ -141,7 +141,10 @@ span{
   transform: translateX(8px); /* arrow appears smoothly */
 }
 
-/*Swiper Pagination*/
+/*Swiper navigation & Pagination*/
+.swiper_nav_pag{
+    display: flex;
+}
 .swiper-pagination {
     margin-top: 10px;
 }
