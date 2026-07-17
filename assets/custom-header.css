@@ -142,6 +142,10 @@ span{
 }
 
 /*Swiper Pagination*/
+.swiper-pagination {
+    margin-top: 10px;
+}
+
 .swiper-pagination-bullet{
    background: #fff;
     opacity: 25%; 
