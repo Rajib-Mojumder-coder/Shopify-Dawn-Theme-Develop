@@ -182,8 +182,8 @@ span{
 .mega-slider .swiper-button-prev,
 .mega-slider .swiper-button-next {
     position: static;
-    width: 34px;
-    height: 34px;
+    width: 24px;
+    height: 24px;
     margin: 0;
     flex-shrink: 0;
 
