@@ -192,3 +192,11 @@ span{
     opacity: .25;
     transition: opacity .3s ease;
 }
+
+.mega-slider .swiper-button-prev {
+    transform: rotate(180deg);
+}
+
+.mega-slider .swiper-button-next {
+    transform: none;
+}
