@@ -176,7 +176,7 @@ span{
 /*swiper navigation*/
 .mega-slider .swiper-button-prev::after,
 .mega-slider .swiper-button-next::after {
-    display: none;
+    display: none !important;
 } 
 
 .mega-slider .swiper-button-prev,
