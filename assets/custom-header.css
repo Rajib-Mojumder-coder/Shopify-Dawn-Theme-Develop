@@ -177,7 +177,8 @@ span{
 .mega-slider .swiper-button-prev,
 .mega-slider .swiper-button-next {
     position: static;
-    
+    max-width: 24px;
+    width: 100%;
     margin: 0;
     flex-shrink: 0;
     opacity: .25;
