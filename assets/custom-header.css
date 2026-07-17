@@ -155,7 +155,15 @@ span{
     gap:18px;
     margin-top:12px;
 }
+/* Pagination */
 
+.mega-slider .swiper-pagination{
+    position:static;
+    width:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 .custom-header .swiper-pagination-bullet{
    background: #fff;
     opacity: 25%; 
