@@ -178,3 +178,17 @@ span{
 .mega-slider .swiper-button-next::after {
     display: none;
 }
+
+.mega-slider .swiper-button-prev,
+.mega-slider .swiper-button-next {
+    position: static;
+    width: 34px;
+    height: 34px;
+    margin: 0;
+    flex-shrink: 0;
+
+    background: url('{{ "forward-slash-icon.svg" | asset_url }}') center center / contain no-repeat;
+
+    opacity: .25;
+    transition: opacity .3s ease;
+}
