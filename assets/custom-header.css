@@ -172,3 +172,9 @@ span{
     background: #fff;
     opacity: 50%;
 }
+
+/*swiper navigation*/
+.mega-slider .swiper-button-prev::after,
+.mega-slider .swiper-button-next::after {
+    display: none;
+}
