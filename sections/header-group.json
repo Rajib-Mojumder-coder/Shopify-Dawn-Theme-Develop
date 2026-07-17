@@ -105,6 +105,7 @@
         "custom_mega_menu_mq489R",
         "custom_mega_menu_9rD3CN"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-4",
         "custom_main_menu": "custom-peeters-megamenu",
