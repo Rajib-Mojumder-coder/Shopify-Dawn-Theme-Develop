@@ -142,6 +142,9 @@ span{
 }
 
 /*Swiper Pagination*/
+.swiper-pagination-bullet{
+    
+}
 .swiper-pagination-bullet-active{
     background: #fff;
     opacity: 50%;
