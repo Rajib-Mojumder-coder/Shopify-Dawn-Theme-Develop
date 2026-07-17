@@ -174,10 +174,10 @@ span{
 }
 
 /*swiper navigation*/
-.mega-slider .swiper-button-prev::after,
+/* .mega-slider .swiper-button-prev::after,
 .mega-slider .swiper-button-next::after {
     display: none;
-}
+} */
 
 .mega-slider .swiper-button-prev,
 .mega-slider .swiper-button-next {
@@ -187,7 +187,7 @@ span{
     margin: 0;
     flex-shrink: 0;
 
-    background: url('{{ "forward-slash-icon-white.svg" | asset_url }}') center center / contain no-repeat;
+    /* background: url('{{ "forward-slash-icon-white.svg" | asset_url }}') center center / contain no-repeat; */
 
     opacity: .25;
     transition: opacity .3s ease;
