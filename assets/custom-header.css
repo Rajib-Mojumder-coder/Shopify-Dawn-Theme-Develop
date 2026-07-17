@@ -200,3 +200,9 @@ span{
 .mega-slider .swiper-button-next .swiper-navigation-icon{
     display:none !important;
 }
+
+/* Disabled arrow */
+.mega-slider .swiper-button-disabled {
+    opacity: .25 !important;
+    pointer-events: none;
+}
