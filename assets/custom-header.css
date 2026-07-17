@@ -200,3 +200,10 @@ span{
 .mega-slider .swiper-button-next {
     transform: none;
 }
+/* Active/Hover */
+.mega-slider .swiper-button-prev:hover,
+.mega-slider .swiper-button-next:hover,
+.mega-slider .swiper-button-prev:focus,
+.mega-slider .swiper-button-next:focus {
+    opacity: 1;
+}
