@@ -124,7 +124,7 @@ Responsive
 
 }
 
-@media(max-width:450px){
+@media(min-width:360px) and (max-width:767px){
 
     .advisor-card .advisor-img{
         border-bottom-right-radius:140px;
@@ -138,4 +138,10 @@ Responsive
         padding:14px;
     }
 
+}
+
+@media(max-width:359px){
+    .advisor-card .advisor-img{
+        border-bottom-right-radius:120px;
+    }
 }
