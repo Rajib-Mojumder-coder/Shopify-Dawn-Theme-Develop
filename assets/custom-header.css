@@ -74,7 +74,7 @@ height: var(--header_logo_height);
 } 
 
 .custom-header .menu-caret svg {
-    transition: transform .4s ease;
+    transition: transform .5s ease;
 }
 
 /* Rotate when hovering the menu item */
