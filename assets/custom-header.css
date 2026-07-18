@@ -66,6 +66,20 @@ height: var(--header_logo_height);
     cursor: pointer;
 }
 
+/*Main menu SVG Caret*/
+.menu-caret {
+    display: inline-flex;
+    margin-left: 6px;
+}
+
+.menu-caret svg {
+    transition: transform .3s ease;
+}
+
+/* Rotate when hovering the menu item */
+.mega_menu_item:hover .menu-caret svg {
+    transform: rotate(180deg);
+}
 /*Mega Menu CSS Start*/
 
 
