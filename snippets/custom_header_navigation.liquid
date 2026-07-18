@@ -41,7 +41,9 @@
                 {% if has_mega %}
 
                     <li class="mega_menu_item main_menu_item">
-                        <a href="{{ parent.url }}">{{ parent.title }}</a>
+                    <a href="{{ parent.url }}">{{ parent.title }}
+                     {% if has_mega %} <span class="menu-caret"> {{ 'icon-caret.svg' | inline_asset_content }} </span> {% endif %}
+                    </a>
                         <div class="mega_menu_wrapper">
                             
                                 {% render 'custom_mega_menu', 
