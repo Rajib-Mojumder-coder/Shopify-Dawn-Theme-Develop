@@ -67,17 +67,17 @@ height: var(--header_logo_height);
 }
 
 /*Main menu SVG Caret*/
-.menu-caret {
+.custom-header .menu-caret {
     display: inline-flex;
     margin-left: 6px;
 }
 
-.menu-caret svg {
+.custom-header .menu-caret svg {
     transition: transform .3s ease;
 }
 
 /* Rotate when hovering the menu item */
-.mega_menu_item:hover .menu-caret svg {
+.custom-header .mega_menu_item:hover .menu-caret svg {
     transform: rotate(180deg);
 }
 /*Mega Menu CSS Start*/
