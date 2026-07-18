@@ -90,13 +90,15 @@
         "custom_mega_menu_mq489R": {
           "type": "custom_mega_menu",
           "settings": {
-            "menu_handle": ""
+            "menu_handle": "Onderdelen & accessoires",
+            "mega_heading": "Waar kunnen we je mee helpen?"
           }
         },
         "custom_mega_menu_9rD3CN": {
           "type": "custom_mega_menu",
           "settings": {
-            "menu_handle": "fietsen"
+            "menu_handle": "fietsen",
+            "mega_heading": "Waar kunnen we je mee helpen?"
           }
         }
       },
