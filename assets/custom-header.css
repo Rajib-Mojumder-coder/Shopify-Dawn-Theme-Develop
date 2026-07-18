@@ -149,9 +149,9 @@ object-fit: cover;
 span{
     color: #fff;
 }
-
+/*Advisor Card*/
 .advisor-card .advisor-img {
-    border-bottom-right-radius: 180px !important;
+    border-bottom-right-radius: 150px !important;
 }
 
 .custom-global-button:hover .btn-icon {
