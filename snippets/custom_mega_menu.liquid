@@ -1,11 +1,12 @@
-{% liquid
-assign mega_heading = mega_block.settings.mega_heading
-%}
 
 <div class="custom-mega-menu">
     
     <div class="custom-mega-menu__left">
         <p class="mega_title">{{ mega_heading }}</p>
+
+        {% if block.settings.mega_heading != blank %}
+            <h3 class="mega_title"> {{ block.settings.mega_heading }}  </h3>
+        {% endif %}
 
         {% render 'custom_mega_menu_items',
             parent: parent,
