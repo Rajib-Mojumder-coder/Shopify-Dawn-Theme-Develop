@@ -54,6 +54,7 @@ height: var(--header_logo_height);
 .custom-header a{
     text-decoration: none;
     color: rgb(var(--color-foreground));;
+     line-height: 90%;
 }
 
 .custom-header .custom-header__inner{
