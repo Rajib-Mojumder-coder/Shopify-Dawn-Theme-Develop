@@ -70,8 +70,8 @@ height: var(--header_logo_height);
 .custom-header .menu-caret {
     display: inline-flex;
     margin-left: 6px;
-    
-}
+    width: 12px;
+} 
 
 .custom-header .menu-caret svg {
     transition: transform .3s ease;
