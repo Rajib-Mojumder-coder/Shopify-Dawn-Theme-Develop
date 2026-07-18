@@ -69,10 +69,10 @@ height: var(--header_logo_height);
 /*Mega Menu CSS Start*/
 
 
-.custom-mega-menu__heading{
+.custom-header .mega_title{
     color:#fff;
-    font-size:30px;
-    margin-bottom:40px;
+    font-size: var(--font-subtitle-small);
+    margin-bottom:20px;
 }
 
 .custom-header .mega_menu_wrapper {
