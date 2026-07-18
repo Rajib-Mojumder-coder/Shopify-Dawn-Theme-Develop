@@ -73,6 +73,7 @@ height: var(--header_logo_height);
     color:#fff;
     font-size: var(--font-subtitle-small);
     margin-bottom:20px;
+    line-height: 90%;
 }
 
 .custom-header .mega_menu_wrapper {
