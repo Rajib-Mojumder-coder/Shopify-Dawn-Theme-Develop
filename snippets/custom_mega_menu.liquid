@@ -3,9 +3,10 @@ assign mega_heading = section.settings.heading
 %}
 
 <div class="custom-mega-menu">
-    <p class="mega_title"> {{ mega_heading }}</p>
+    
     <div class="custom-mega-menu__left">
-
+        <p class="mega_title"> {{ mega_heading }}</p>
+        
         {% render 'custom_mega_menu_items',
             parent: parent,
             mega_block: mega_block
