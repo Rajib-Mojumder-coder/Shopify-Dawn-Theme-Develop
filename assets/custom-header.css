@@ -156,7 +156,9 @@ span{
 .advisor-card .advisor-img {
     border-bottom-right-radius: 180px !important;
 }
-
+.advisor-card .advisor-image:before {
+    content: none;
+}
 .custom-global-button:hover .btn-icon {
   opacity: 1;
   transform: translateX(8px); /* arrow appears smoothly */
