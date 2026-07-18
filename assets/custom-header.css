@@ -74,12 +74,12 @@ height: var(--header_logo_height);
 } 
 
 .custom-header .menu-caret svg {
-    transition: transform .3s ease;
+    transition: transform .4s ease;
 }
 
 /* Rotate when hovering the menu item */
 .custom-header .mega_menu_item:hover .menu-caret svg {
-    transform: rotate(180deg);
+    transform: rotate(-180deg);
 }
 /*Mega Menu CSS Start*/
 
