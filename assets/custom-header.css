@@ -69,7 +69,7 @@ height: var(--header_logo_height);
 /*Main menu SVG Caret*/
 .custom-header .menu-caret {
     display: inline-flex;
-    margin-left: 6px;
+    margin-left: 4px;
     width: 12px;
 } 
 
