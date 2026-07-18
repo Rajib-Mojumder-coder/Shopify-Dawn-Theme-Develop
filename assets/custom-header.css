@@ -167,9 +167,8 @@ span{
     background: #FFFFFF;
     outline: 2px solid #52B099;
 }
-.custom-header .custom-global-button{
-    background: #FFFFFF;
-    outline: 2px solid #52B099;
+.custom-header .btn-text {
+    color: #52B099;
 }
 /*Header slider*/
 .custom-header .mega-slider{
