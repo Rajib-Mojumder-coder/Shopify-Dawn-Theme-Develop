@@ -95,7 +95,7 @@ height: var(--header_logo_height);
 .custom-header .mega_menu_wrapper {
     display: flex;
     position: absolute;
-    width: 90%;
+    width: 96%;
     /* max-width: 1190px; */
     top:100%;
     left: 50%;
