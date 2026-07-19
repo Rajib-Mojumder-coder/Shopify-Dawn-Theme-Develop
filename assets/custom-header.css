@@ -21,6 +21,7 @@ height: var(--header_logo_height);
 .custom-header .custom-header__navigation{
     flex: 1 1 auto;
     min-width: 0;
+    max-width: 1240px;
 }
 .custom-header .custom-header__actions{
     flex: 0 0 auto;
@@ -95,8 +96,8 @@ height: var(--header_logo_height);
 .custom-header .mega_menu_wrapper {
     display: flex;
     position: absolute;
-    width: 96%;
-    /* max-width: 1190px; */
+    width: 100%;
+    max-width: 1200px; 
     top:100%;
     left: 50%;
     transform:translateX(-50%);
