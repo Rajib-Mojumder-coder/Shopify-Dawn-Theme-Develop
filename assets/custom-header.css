@@ -157,6 +157,9 @@ span{
     background: #3F7280 !important;
     aspect-ratio: 1 / .9;
 }
+.custom-header .advisor-card .image-icon-wrapper {
+    aspect-ratio: 10 / 6.8 !important;
+}
 .custom-header .advisor-card .advisor-img {
     border-bottom-right-radius: 180px !important;
 }
