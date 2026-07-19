@@ -43,11 +43,13 @@
                 <div class="advisor-image">
 
                     {{
-                        advisor_block.settings.advisor_image
-                        | image_url: width: 2000
-                        | image_tag:
+                      advisor_block.settings.advisor_image
+                      | image_url: width: 2000
+                      | image_tag:
                         loading: 'lazy',
-                        class: 'advisor-img'
+                        class: 'advisor-img',
+                        widths: '375,550,750,1100,1500,2000',
+                        sizes: '(max-width: 749px) 100vw, (max-width: 1200px) 50vw, 600px'
                     }}
 
                 </div>
