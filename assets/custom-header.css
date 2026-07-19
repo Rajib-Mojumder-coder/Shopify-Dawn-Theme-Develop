@@ -129,9 +129,9 @@ height: var(--header_logo_height);
     border-radius:0 0 32px 32px;
     padding: 35px;
 }
-/* .custom-header .mega_menu_item{
-   position: static;
-}   */
+.custom-header .mega_menu_item{
+   text-align: left;
+}  
 .custom-header .mega_menu_item:hover .mega_menu_wrapper{
     visibility: visible;
     opacity: 1;
