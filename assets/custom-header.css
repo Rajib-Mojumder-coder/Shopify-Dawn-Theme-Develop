@@ -115,7 +115,7 @@ height: var(--header_logo_height);
     grid-template-columns:2fr 1fr;
     background:#081C4A;
     border-radius:0 0 32px 32px;
-    padding:40px 35px;
+    padding: 35px;
 }
 /* .custom-header .mega_menu_item{
    position: static;
