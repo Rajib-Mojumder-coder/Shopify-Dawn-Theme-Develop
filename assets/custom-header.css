@@ -89,13 +89,13 @@ height: var(--header_logo_height);
 .custom-header .mega_title{
     color:#fff;
     font-size: var(--font-subtitle-small);
-    margin-bottom:30px;
     line-height: 90%;
     font-weight: 600;
 }
 .custom-header hr{
     padding: 0;
-    margin: 0;
+    margin: 20px 0;
+    width: 95%;
 }
 .custom-header .mega_menu_wrapper {
     display: flex;
