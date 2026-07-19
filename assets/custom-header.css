@@ -38,7 +38,6 @@ height: var(--header_logo_height);
 }
 .custom-header .custom-navigation__list{
     display:flex;
-    flex-wrap: wrap;
     align-items:center;
     justify-content: center;
     gap: clamp(16px, 2vw, 36px);
