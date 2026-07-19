@@ -39,8 +39,8 @@ height: var(--header_logo_height);
 .custom-header .custom-navigation__list{
     display:flex;
     align-items:center;
-    justify-content: space-between;
-    gap:20px;
+    justify-content: center;
+    gap: clamp(16px, 2vw, 36px);
     margin-bottom: calc(var(--main_menu_bottom_spacing) * -1);
     padding:0;
 }
