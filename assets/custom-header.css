@@ -170,7 +170,7 @@ span{
 .custom-header .custom-global-button .btn-text {
     color: #52B099;
 }
-.custom-header .btn-icon {
+.custom-header .btn-icon path{
     color: #52B099;
 }
 /*Header slider*/
