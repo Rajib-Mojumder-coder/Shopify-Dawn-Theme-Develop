@@ -150,28 +150,28 @@ span{
     color: #fff;
 }
 /*Advisor Card*/
-.advisor-card>.advisor-card-container {
-    background: #52B099;
+.custom-header .advisor-card>.advisor-card-container {
+    background: #52B099 !important;
 }
-.advisor-card .advisor-img {
+.custom-header .advisor-card .advisor-img {
     border-bottom-right-radius: 180px !important;
 }
-.advisor-card .advisor-image:before {
-    content: none;
+.custom-header .advisor-card .advisor-image:before {
+    content: none !important;
 }
-.custom-global-button:hover .btn-icon {
+.custom-header .custom-global-button:hover .btn-icon {
   opacity: 1;
   transform: translateX(8px); /* arrow appears smoothly */
 }
 .custom-header .custom-global-button{
-    background: #FFFFFF;
-    outline: 2px solid #52B099;
+    background: #FFFFFF !important;
+    outline: 2px solid #52B099 !important;
 }
 .custom-header .custom-global-button .btn-text {
-    color: #52B099;
+    color: #52B099 !important;
 }
 .custom-header .btn-icon path{
-    fill: #52B099;
+    fill: #52B099 !important;
 }
 /*Header slider*/
 .custom-header .mega-slider{
