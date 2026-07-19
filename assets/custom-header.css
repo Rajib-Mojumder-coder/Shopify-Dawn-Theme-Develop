@@ -255,3 +255,8 @@ object-fit: cover;
     opacity: .25 !important;
     pointer-events: none;
 }
+@media (max-width: 1100px){
+    .custom-mega-menu__right{
+        max-width: 350px;
+    }
+}
