@@ -66,6 +66,9 @@ height: var(--header_logo_height);
 .custom-header .main_menu_item{
     padding-bottom: var(--main_menu_bottom_spacing);
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*Main menu SVG Caret*/
