@@ -98,6 +98,7 @@ height: var(--header_logo_height);
     font-size: var(--font-subtitle-small);
     line-height: 90%;
     font-weight: 600;
+    text-align: left;
 }
 .custom-header hr{
     padding: 0;
