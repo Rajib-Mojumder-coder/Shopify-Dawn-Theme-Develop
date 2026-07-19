@@ -26,6 +26,7 @@ height: var(--header_logo_height);
 .custom-header .custom-header__actions{
     flex: 0 0 auto;
 }
+
 .custom-header .custom-header__mobile{
     display: none;
 }
@@ -262,3 +263,8 @@ object-fit: cover;
     }
 } 
 
+/*Custom Header Right Sides Action */
+.custom-header .header_actions_wrapper{
+ display: flex;
+ width: 100%;   
+}

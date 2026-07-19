@@ -1,4 +1,5 @@
-<div class="desktop-localization-wrapper">
+<div class="header_actions_wrapper">
+    <div class="desktop-localization-wrapper">
         {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
           <localization-form class="small-hide medium-hide" data-prevent-hide>
             {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form' -%}
@@ -52,3 +53,4 @@
           </span>
         </a>
       {%- endif -%}
+</div>
