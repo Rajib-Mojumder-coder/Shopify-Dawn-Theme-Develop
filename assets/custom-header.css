@@ -57,6 +57,9 @@ height: var(--header_logo_height);
     color: rgb(var(--color-foreground));;
     line-height: 100%;
     font-size: clamp(15px, 0.8vw + 13px, 17px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .custom-header .custom-header__inner{
