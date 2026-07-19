@@ -150,9 +150,9 @@ span{
     color: #fff;
 }
 /*Advisor Card*/
-.custom-header .advisor-card {
+/* .custom-header .advisor-card {
     aspect-ratio: 1;
-}
+} */
 .custom-header .advisor-card>.advisor-card-container {
     background: #3F7280 !important;
     aspect-ratio: 1 / .9;
