@@ -93,7 +93,10 @@ height: var(--header_logo_height);
     line-height: 90%;
     font-weight: 600;
 }
-
+.custom-header hr{
+    padding: 0;
+    margin: 0;
+}
 .custom-header .mega_menu_wrapper {
     display: flex;
     position: absolute;
