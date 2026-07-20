@@ -11,9 +11,12 @@
                 {{- 'icon-close.svg' | inline_asset_content -}}
                 </span>
               </summary>
-              
+
         </div>
     </button>
 
+    <div class="search-wrapper mobile-search">
+        {% render 'header-search', input_id: 'Search-In-Modal' %}
+    </div>
 
 </div>
