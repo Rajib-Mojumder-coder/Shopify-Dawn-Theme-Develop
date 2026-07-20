@@ -305,4 +305,8 @@ object-fit: cover;
     .custom-header .custom-mobile-header__right{
         justify-content:flex-end;
     }
+    svg.icon.icon-cart-bubble {
+    width: 2.5rem;
+    height: 2.5rem;
+}
 }
