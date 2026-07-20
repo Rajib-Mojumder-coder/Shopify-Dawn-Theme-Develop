@@ -1,21 +1,24 @@
 <div class="custom-header__mobile-wrapper"> 
 
-    <div class="mobile-header__toggle" type="button" aria-label="Open menu">
-        <div class="hamburger" id="hamburger-menu">
-              <summary
-                class="header__icon header__icon--menu header__icon--summary link focus-inset"
-                aria-label="{{ 'sections.header.menu' | t }}"
-              >
-                <span>
-                {{- 'icon-hamburger.svg' | inline_asset_content -}}
-                {{- 'icon-close.svg' | inline_asset_content -}}
-                </span>
-              </summary>
+    <div class="custom-mobile-header__left">
+        <div class="mobile-header__toggle" type="button" aria-label="Open menu">
+            <div class="hamburger" id="hamburger-menu">
+                <summary
+                    class="header__icon header__icon--menu header__icon--summary link focus-inset"
+                    aria-label="{{ 'sections.header.menu' | t }}"
+                >
+                    <span>
+                    {{- 'icon-hamburger.svg' | inline_asset_content -}}
+                    {{- 'icon-close.svg' | inline_asset_content -}}
+                    </span>
+                </summary>
 
+            </div>
         </div>
-    </div>
 
-    {% render 'custom-header-search' %}
+        {% render 'custom-header-search' %}
+    </div>
+   
     
      <div class="custom-mobile-header__center">
         {% render 'custom_header_logo' %}
