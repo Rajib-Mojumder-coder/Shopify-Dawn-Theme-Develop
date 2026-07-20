@@ -275,5 +275,6 @@ object-fit: cover;
 @media(max-width: 1000px){
    .custom-header .custom-header__mobile {
     display: block;
+    width: 100%;
     } 
 }
