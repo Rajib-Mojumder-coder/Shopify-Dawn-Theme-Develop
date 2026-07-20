@@ -271,7 +271,7 @@ object-fit: cover;
 
 /*Mobile Header Menu Sets*/
 @media(max-width: 768px){
-   .custom-header__branding{
-    order: 2;
-   } 
+   .custom-header .custom-header__mobile {
+    display: block;
+    } 
 }
