@@ -274,6 +274,9 @@ display:flex;
 align-items:center;
 justify-content:center;
 position:relative;
+height: 4.4rem;
+    width: 4.4rem;
+    padding: 0;
 }
 /*Mobile Header Menu Sets*/
 @media(max-width: 990px){
