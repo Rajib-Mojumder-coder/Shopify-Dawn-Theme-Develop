@@ -1,5 +1,13 @@
 <div class="header_actions_wrapper">
-    <div class="desktop-localization-wrapper">
+
+   {% render 'custom-header-localization' %}
+
+  {% render 'custom-header-search' %}
+
+  {% render 'custom-header-account' %}
+
+  {% render 'custom-header-cart' %}
+    {% comment %} <div class="desktop-localization-wrapper">
         {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
           <localization-form class="small-hide medium-hide" data-prevent-hide>
             {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form' -%}
@@ -70,5 +78,5 @@
                 <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
                 </div>
             {%- endif -%}
-        </a>
+        </a> {% endcomment %}
 </div>
