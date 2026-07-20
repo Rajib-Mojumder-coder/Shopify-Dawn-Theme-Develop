@@ -268,11 +268,13 @@ object-fit: cover;
  display: flex;
  width: 100%;   
 }
-.custom-header__branding, .custom-header__navigation, .custom-header__actions{
-    display: none;
-}
+
 /*Mobile Header Menu Sets*/
 @media(max-width: 1000px){
+    .custom-header__branding, .custom-header__navigation, .custom-header__actions{
+    display: none;
+    }
+    
    .custom-header .custom-header__mobile {
     display: block;
     width: 100%;
