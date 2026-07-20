@@ -281,12 +281,13 @@ object-fit: cover;
     } 
 
     .custom-header .custom-header__mobile-wrapper {
-     display:flex;
+    display:flex;
     align-items:center;
     justify-content:space-between;
     min-height: 65px;
+    padding-block: 12px;
     }
-    
+
    .custom-header .custom-mobile-header__left,
     .custom-mobile-header__right{
         display:flex;
