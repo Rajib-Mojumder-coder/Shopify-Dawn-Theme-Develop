@@ -17,8 +17,12 @@
 
     {% render 'custom-header-search' %}
     
-    {% render 'custom_header_logo' %}
-    
-    {%  render 'custom-header-cart' %}
+     <div class="custom-mobile-header__center">
+        {% render 'custom_header_logo' %}
+    </div>
+
+    <div class="custom-mobile-header__right">
+        {% render 'custom-header-cart' %}
+    </div>
 
 </div>
