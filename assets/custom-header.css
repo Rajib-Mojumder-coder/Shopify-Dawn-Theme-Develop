@@ -270,7 +270,7 @@ object-fit: cover;
 }
 
 /*Mobile Header Menu Sets*/
-@media(max-width: 1000px){
+@media(max-width: 990px){
     .custom-header__branding, .custom-header__navigation, .custom-header__actions{
     display: none;
     }
@@ -304,9 +304,5 @@ object-fit: cover;
 
     .custom-header .custom-mobile-header__right{
         justify-content:flex-end;
-    }
-    .custom-header .icon-cart-bubble {
-    width: 2.5rem;
-    height: 2.5rem;
     }
 }
