@@ -1,7 +1,9 @@
 <div class="custom-header__mobile-wrapper"> 
 
     <div class="custom-mobile-header__left">
-       {% render 'header-drawer' %} 
+       <button class="custom-mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+            {% render 'icon-hamburger' %}
+        </button> 
         
         {% render 'custom-header-search' %}
     </div>
