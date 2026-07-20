@@ -286,4 +286,22 @@ object-fit: cover;
     justify-content:space-between;
     min-height: 65px;
     }
+    
+   .custom-header .custom-mobile-header__left,
+    .custom-mobile-header__right{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        flex:1;
+    }
+
+    .custom-header .custom-mobile-header__center{
+        flex:0 0 auto;
+        display:flex;
+        justify-content:center;
+    }
+
+    .custom-header .custom-mobile-header__right{
+        justify-content:flex-end;
+    }
 }
