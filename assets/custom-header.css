@@ -264,7 +264,7 @@ object-fit: cover;
 } 
 
 /*Custom Header Right Sides Action */
-.custom-header .header_actions_wrapper{
+.custom-header .custom-header__actions-wrapper{
  display: flex;
  width: 100%;   
 }

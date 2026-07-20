@@ -28,11 +28,7 @@ style="--header_logo_width: {{header_logo_width}}px; --header_logo_height: {{hea
             </div>
 
             <div class="custom-header__mobile">
-                {% render 'custom_header_actions',
-                  enable_country_selector: section.settings.enable_country_selector,
-                  enable_language_selector: section.settings.enable_language_selector,
-                  enable_customer_avatar: section.settings.enable_customer_avatar
-                %}
+                {% render 'custom_header_mobile_actions'%}
             </div>
 
 
