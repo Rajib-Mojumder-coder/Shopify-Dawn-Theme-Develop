@@ -53,7 +53,7 @@ height: var(--header_logo_height);
 .custom-header li{
     list-style: none;
 }
-.custom-header a{
+.custom-header li> a{
     text-decoration: none;
     color: rgb(var(--color-foreground));;
     line-height: 100%;
@@ -274,7 +274,7 @@ object-fit: cover;
     .custom-header__branding, .custom-header__navigation, .custom-header__actions{
     display: none;
     }
-    
+
    .custom-header .custom-header__mobile {
     display: block;
     width: 100%;
