@@ -270,7 +270,7 @@ object-fit: cover;
 }
 
 /*Mobile Header Menu Sets*/
-@media(max-width: 768px){
+@media(max-width: 1000px){
    .custom-header .custom-header__mobile {
     display: block;
     } 
