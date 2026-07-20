@@ -280,7 +280,7 @@ object-fit: cover;
     width: 100%;
     } 
 
-    .custom-header .custom_mobile_header {
+    .custom-header .custom-header__mobile-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
