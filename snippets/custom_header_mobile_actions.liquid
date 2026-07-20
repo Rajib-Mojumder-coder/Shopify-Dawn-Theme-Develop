@@ -1,7 +1,17 @@
 <div class="custom_mobile_header">
+    
     <button class="mobile-header__toggle" type="button" aria-label="Open menu">
-        {% render 'icon-hamburger' %}
+        <div class="hamburger" id="hamburger-menu">
+              <summary
+                class="header__icon header__icon--menu header__icon--summary link focus-inset"
+                aria-label="{{ 'sections.header.menu' | t }}"
+              >
+              <span>
+                {{- 'icon-hamburger.svg' | inline_asset_content -}}
+              </span>
+              </summary>
+        </div>
     </button>
 
-    
+
 </div>
