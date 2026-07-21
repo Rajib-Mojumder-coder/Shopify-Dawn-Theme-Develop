@@ -41,5 +41,18 @@ visibility:visible;
 pointer-events:auto;
 }
 
+/*Overlay*/
+.custom-mobile-drawer__overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.45);
+opacity:0;
+transition:.3s;
+}
+
+.custom-mobile-drawer.is-open
+.custom-mobile-drawer__overlay{
+opacity:1;
+}
 
 </style>
