@@ -306,7 +306,7 @@ color: rgb(var(--color-foreground));
         flex:1;
     }
 
-    .custom-header .custom-mobile-header__center{
+    .custom-header .custom-header-mobile__center{
         flex:0 0 auto;
         display:flex;
         justify-content:center;
