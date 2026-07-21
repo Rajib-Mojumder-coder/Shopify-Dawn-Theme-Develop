@@ -7,8 +7,15 @@
         {% render 'custom_mobile_drawer_header' %}
 
         <div class="custom-mobile-drawer__content">
-          <div class="custom-mobile-drawer__main"> {% render 'custom_mobile_menu', menu: section.settings.custom_main_menu %} </div>
-          <div class="custom-mobile-drawer__submenu" id="mobile-submenu-panel"> &nbsp; </div>
+
+                <section class="custom-mobile-drawer__main" data-panel="main">
+                    {% render 'custom_mobile_menu', menu: section.settings.custom_main_menu %}
+                </section>
+
+                <section class="custom-mobile-drawer__submenu" data-panel="submenu">
+                    {% render 'custom_mobile_submenu_panel' %}
+                </section>
+
         </div>
 
     </aside>
@@ -90,11 +97,8 @@ transform:translateX(-100%);
 
 .custom-mobile-drawer.show-submenu
 .custom-mobile-drawer__submenu{
-
 transform:translateX(0);
-
 }
-
 
 .custom-mobile-drawer.is-open
 .custom-mobile-drawer__panel{
