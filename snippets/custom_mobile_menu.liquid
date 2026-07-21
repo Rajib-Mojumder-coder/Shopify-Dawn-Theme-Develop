@@ -3,13 +3,9 @@
 {% if mobile_menu != blank %}
 
 <nav class="custom-mobile-menu">
-
     <ul class="custom-mobile-menu__list">
-
         {% for parent in mobile_menu.links %}
-
             {% assign has_children = false %}
-
             {% if parent.links.size > 0 %}
                 {% assign has_children = true %}
             {% endif %}
@@ -32,9 +28,52 @@
             </li>
 
         {% endfor %}
-
     </ul>
-
 </nav>
 
 {% endif %}
+
+<style>
+.custom-mobile-menu{
+width:100%;
+}
+
+.custom-mobile-menu__list{
+margin:0;
+padding:0;
+list-style:none;
+}
+
+.custom-mobile-menu__item{
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.custom-mobile-menu__link,
+.custom-mobile-menu__button{
+display:flex;
+justify-content:space-between;
+align-items:center;
+width:100%;
+padding:18px 20px;
+background:none;
+border:none;
+color:#fff;
+font-size:16px;
+font-weight:500;
+text-decoration:none;
+cursor:pointer;
+}
+
+.custom-mobile-menu__arrow{
+display:flex;
+align-items:center;
+justify-content:center;
+width:18px;
+height:18px;
+}
+
+.custom-mobile-menu__arrow svg{
+width:16px;
+height:16px;
+}
+</style>
