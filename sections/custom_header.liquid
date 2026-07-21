@@ -1,4 +1,5 @@
 {{ 'custom-header.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-header.js' | asset_url }}" defer></script>
 
 {%  liquid  
 assign color_scheme = section.settings.color_scheme
@@ -53,7 +54,7 @@ style="--header_logo_width: {{header_logo_width}}px; --header_logo_height: {{hea
 }
 
 </style>
-<script>
+{% comment %} <script>
    document.querySelectorAll(".mega-slider").forEach(slider=>{
     new Swiper(slider,{
         loop:false,
@@ -71,7 +72,7 @@ style="--header_logo_width: {{header_logo_width}}px; --header_logo_height: {{hea
     });
 
 });
-</script>
+</script> {% endcomment %}
 
 {%  schema  %}  
 {
