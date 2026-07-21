@@ -1,0 +1,29 @@
+<div
+  id="mobile-drawer"
+  class="custom-mobile-drawer"
+  aria-hidden="true"
+>
+
+  <div
+    class="custom-mobile-drawer__overlay"
+    data-drawer-close
+  ></div>
+
+  <aside
+    class="custom-mobile-drawer__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobile Navigation"
+  >
+
+    {% render 'custom_mobile_drawer_header' %}
+
+    <div class="custom-mobile-drawer__body">
+
+      {% render 'custom_mobile_menu' %}
+
+    </div>
+
+  </aside>
+
+</div>
