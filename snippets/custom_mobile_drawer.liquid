@@ -1,15 +1,18 @@
 <div id="mobile-drawer" class="custom-mobile-drawer" aria-hidden="true">
 
-  <div class="custom-mobile-drawer__overlay" data-drawer-close> &nbsp;</div>
-    <aside class="custom-mobile-drawer__panel" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div class="custom-mobile-drawer__overlay" data-drawer-close> &nbsp; </div>
+
+    <aside class="custom-mobile-drawer__panel">
 
         {% render 'custom_mobile_drawer_header' %}
 
-        <div class="custom-mobile-drawer__body">
-            {% render 'custom_mobile_menu', menu: section.settings.custom_main_menu %}
+        <div class="custom-mobile-drawer__content">
+          <div class="custom-mobile-drawer__main"> {% render 'custom_mobile_menu', menu: section.settings.custom_main_menu %} </div>
+          <div class="custom-mobile-drawer__submenu" id="mobile-submenu-panel"> </div>
         </div>
 
-    </aside> 
+    </aside>
+
 </div>
 
 <style>
