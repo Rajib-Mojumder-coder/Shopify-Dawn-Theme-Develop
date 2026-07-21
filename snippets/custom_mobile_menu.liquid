@@ -1,0 +1,40 @@
+{% liquid assign mobile_menu = menu %}
+
+{% if mobile_menu != blank %}
+
+<nav class="custom-mobile-menu">
+
+    <ul class="custom-mobile-menu__list">
+
+        {% for parent in mobile_menu.links %}
+
+            {% assign has_children = false %}
+
+            {% if parent.links.size > 0 %}
+                {% assign has_children = true %}
+            {% endif %}
+
+            <li class="custom-mobile-menu__item {% if has_children %} has-submenu {% endif %}">
+                {% if has_children %}
+
+                    <button type="button" class="custom-mobile-menu__button" data-mobile-submenu="{{ parent.handle }}">
+                        <span> {{ parent.title }} </span>
+                        <span class="custom-mobile-menu__arrow"> {{ 'icon-chevron-right.svg' | inline_asset_content }} </span>
+                    </button>
+
+                    {% render 'custom_mobile_submenu', parent: parent %}
+
+                {% else %}
+
+                    <a href="{{ parent.url }}" class="custom-mobile-menu__link"> {{ parent.title }} </a>
+
+                {% endif %}
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+</nav>
+
+{% endif %}
