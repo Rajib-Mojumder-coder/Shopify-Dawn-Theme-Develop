@@ -1,0 +1,22 @@
+<div class="custom-mobile-submenu" data-submenu="{{ parent.handle }}">
+
+    <div class="custom-mobile-submenu__header">
+
+        <button type="button" class="custom-mobile-submenu__back">
+            {{ 'icon-arrow-left.svg' | inline_asset_content }}
+            <span> Back </span>
+        </button>
+
+        <h3> {{ parent.title }} </h3>
+
+    </div>
+
+    <ul class="custom-mobile-submenu__list">
+
+        {% for child in parent.links %}
+            <li> <a href="{{ child.url }}"> {{ child.title }} </a> </li>
+        {% endfor %}
+
+    </ul>
+
+</div>
