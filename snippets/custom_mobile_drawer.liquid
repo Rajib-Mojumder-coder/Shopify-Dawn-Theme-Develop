@@ -75,12 +75,25 @@ background:#081C4A;
 transition:transform .35s ease;
 }
 
+/*Initially*/
 .custom-mobile-drawer__main{
 transform:translateX(0);
 }
+.custom-mobile-drawer__submenu{
+transform:translateX(100%);
+}
+/*When Open*/
+.custom-mobile-drawer.show-submenu
+.custom-mobile-drawer__main{
+transform:translateX(-100%);
+}
 
+.custom-mobile-drawer.show-submenu
+.custom-mobile-drawer__submenu{
 
+transform:translateX(0);
 
+}
 
 
 .custom-mobile-drawer.is-open
