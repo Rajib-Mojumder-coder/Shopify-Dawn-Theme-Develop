@@ -1,0 +1,34 @@
+<div class="custom-mobile-drawer__header">
+
+    <div class="custom-mobile-drawer__logo">
+
+        {% render 'custom_header_logo' %}
+
+    </div>
+
+    <div class="custom-mobile-drawer__actions">
+
+        <a
+            href="/pages/contact"
+            class="custom-mobile-drawer__contact"
+            aria-label="Contact"
+        >
+
+            {{ 'icon-contact.svg' | inline_asset_content }}
+
+        </a>
+
+        <button
+            type="button"
+            class="custom-mobile-drawer__close"
+            data-drawer-close
+            aria-label="Close Menu"
+        >
+
+            {{ 'icon-close.svg' | inline_asset_content }}
+
+        </button>
+
+    </div>
+
+</div>
