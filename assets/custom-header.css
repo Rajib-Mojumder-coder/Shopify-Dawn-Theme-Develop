@@ -311,7 +311,7 @@ touch-action:none;
         display:flex;
         align-items:center;
         gap:12px;
-        flex:1;
+        flex:0;
     }
 
     .custom-header .custom-header-mobile__center{
@@ -322,6 +322,7 @@ touch-action:none;
 
     .custom-header .custom-header-mobile__right{
         justify-content:flex-end;
+        flex:0;
     }
 
     
