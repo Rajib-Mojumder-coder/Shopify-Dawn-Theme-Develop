@@ -279,6 +279,13 @@ width: 4.4rem;
 padding: 0;
 color: rgb(var(--color-foreground));
 }
+
+
+body.overflow-hidden{
+overflow:hidden;
+touch-action:none;
+}
+
 /*Mobile Header Menu Sets*/
 @media(max-width: 990px){
     .custom-header__branding, .custom-header__navigation, .custom-header__actions{
@@ -316,4 +323,6 @@ color: rgb(var(--color-foreground));
     .custom-header .custom-header-mobile__right{
         justify-content:flex-end;
     }
+
+    
 }
