@@ -299,7 +299,7 @@ color: rgb(var(--color-foreground));
     }
 
    .custom-header .custom-header-mobile__left,
-    .custom-mobile-header__right{
+    .custom-header-mobile__right{
         display:flex;
         align-items:center;
         gap:12px;
@@ -312,7 +312,7 @@ color: rgb(var(--color-foreground));
         justify-content:center;
     }
 
-    .custom-header .custom-mobile-header__right{
+    .custom-header .custom-header-mobile__right{
         justify-content:flex-end;
     }
 }
