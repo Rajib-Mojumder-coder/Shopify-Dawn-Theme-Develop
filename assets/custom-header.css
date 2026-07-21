@@ -298,7 +298,7 @@ color: rgb(var(--color-foreground));
     padding-block: 12px;
     }
 
-   .custom-header .custom-mobile-header__left,
+   .custom-header .custom-header-mobile__left,
     .custom-mobile-header__right{
         display:flex;
         align-items:center;
