@@ -1,4 +1,4 @@
-/* Desktop Inside megamenu slider js */
+// Desktop Inside megamenu slider js
 document.querySelectorAll('.mega-slider').forEach((slider) => {
 
     new Swiper(slider,{
@@ -24,7 +24,7 @@ document.querySelectorAll('.mega-slider').forEach((slider) => {
 
 });
 
-/* Mobile cart drawer js */
+//Mobile cart drawer js 
 const drawer = document.getElementById('mobile-drawer');
 const openButton = document.querySelector('[data-drawer-toggle]');
 const closeButtons = document.querySelectorAll('[data-drawer-close]');
@@ -52,3 +52,38 @@ closeButtons.forEach(button=>{
 });
 
 // Drawer Submenu Controller
+document.addEventListener("DOMContentLoaded", () => {
+
+  const drawer = document.getElementById("mobile-drawer");
+  if (!drawer) return;
+
+  const triggers = drawer.querySelectorAll("[data-mobile-trigger]");
+  const submenuPanel = drawer.querySelector("[data-panel='submenu']");
+  const submenuList = drawer.querySelector("#mobile-submenu-list");
+  const submenuTitle = drawer.querySelector(".custom-mobile-submenu-panel__title");
+  const backButton = drawer.querySelector("[data-mobile-back]");
+
+  triggers.forEach(trigger => {
+    trigger.addEventListener("click", () => {
+      const menuItem = trigger.closest("[data-menu-item]");
+      const template = menuItem.querySelector(".custom-mobile-menu-template");
+      if (!template) return;
+
+      submenuList.innerHTML = template.innerHTML;
+      submenuTitle.textContent = trigger.dataset.menuTitle;
+
+      drawer.classList.add("show-submenu");
+      trigger.setAttribute("aria-expanded", "true");
+    });
+  });
+
+  backButton.addEventListener("click", () => {
+
+    drawer.classList.remove("show-submenu");
+    submenuList.innerHTML = "";
+    submenuTitle.textContent = "";
+    triggers.forEach(trigger => {
+      trigger.setAttribute("aria-expanded", "false");
+    });
+  });
+});
