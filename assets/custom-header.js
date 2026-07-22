@@ -25,82 +25,100 @@ document.querySelectorAll('.mega-slider').forEach((slider) => {
 });
 
 //Mobile cart drawer js 
-const drawer = document.getElementById('mobile-drawer');
-const openButton = document.querySelector('[data-drawer-toggle]');
-const closeButtons = document.querySelectorAll('[data-drawer-close]');
 
-if(drawer && openButton){
 
-    openButton.addEventListener('click',()=>{
-        drawer.classList.add('is-open');
-        document.body.classList.add('overflow-hidden');
-        openButton.setAttribute('aria-expanded','true');
-        drawer.setAttribute('aria-hidden','false');
-    });
 
-}
 
-closeButtons.forEach(button=>{
 
-    button.addEventListener('click',()=>{
-        drawer.classList.remove('is-open');
-        document.body.classList.remove('overflow-hidden');
-        openButton.setAttribute('aria-expanded','false');
-        drawer.setAttribute('aria-hidden','true');
-    });
+//old code
+// const drawer = document.getElementById('mobile-drawer');
+// const openButton = document.querySelector('[data-drawer-toggle]');
+// const closeButtons = document.querySelectorAll('[data-drawer-close]');
 
-});
+// if(drawer && openButton){
 
-// Drawer Submenu Controller
-document.addEventListener("DOMContentLoaded", () => {
+//     openButton.addEventListener('click',()=>{
+//         drawer.classList.add('is-open');
+//         document.body.classList.add('overflow-hidden');
+//         openButton.setAttribute('aria-expanded','true');
+//         drawer.setAttribute('aria-hidden','false');
+//     });
 
-  const drawer = document.getElementById("mobile-drawer");
-  if (!drawer) return;
+// }
 
-  const triggers = drawer.querySelectorAll("[data-mobile-trigger]");
-  const submenuPanel = drawer.querySelector("[data-panel='submenu']");
-  const submenuList = drawer.querySelector("#mobile-submenu-list");
-  const submenuTitle = drawer.querySelector(".custom-mobile-submenu-panel__title");
-  const backButton = drawer.querySelector("[data-mobile-back]");
+// closeButtons.forEach(button=>{
 
-  let activeTrigger = null;
-  triggers.forEach(trigger => {
+//     button.addEventListener("click", () => {
 
-  trigger.addEventListener("click", () => {
+//     drawer.classList.remove("is-open");
+//     drawer.classList.remove("show-submenu");
 
-    const menuItem = trigger.closest("[data-menu-item]");
-    const template = menuItem.querySelector(".custom-mobile-menu-template");
+//     document.body.classList.remove("overflow-hidden");
 
-    if (!template) return;
+//     openButton.setAttribute("aria-expanded", "false");
+//     drawer.setAttribute("aria-hidden", "true");
 
-    activeTrigger = trigger;
+//     submenuList.innerHTML = "";
+//     submenuTitle.textContent = "";
 
-    submenuList.innerHTML = template.innerHTML;
-    submenuTitle.textContent = trigger.dataset.menuTitle;
+//     if (activeTrigger) {
+//         activeTrigger.setAttribute("aria-expanded", "false");
+//         activeTrigger = null;
+//     }
 
-    drawer.classList.add("show-submenu");
+//     });
+// });
 
-    activeTrigger.setAttribute("aria-expanded", "true");
+// // Drawer Submenu Controller
+// document.addEventListener("DOMContentLoaded", () => {
 
-  });
+//   const drawer = document.getElementById("mobile-drawer");
+//   if (!drawer) return;
 
-});
+//   const triggers = drawer.querySelectorAll("[data-mobile-trigger]");
+//   const submenuPanel = drawer.querySelector("[data-panel='submenu']");
+//   const submenuList = drawer.querySelector("#mobile-submenu-list");
+//   const submenuTitle = drawer.querySelector(".custom-mobile-submenu-panel__title");
+//   const backButton = drawer.querySelector("[data-mobile-back]");
 
-    backButton.addEventListener("click", () => {
+//   let activeTrigger = null;
+//   triggers.forEach(trigger => {
 
-  drawer.classList.remove("show-submenu");
+//   trigger.addEventListener("click", () => {
 
-  submenuList.innerHTML = "";
-  submenuTitle.textContent = "";
+//     const menuItem = trigger.closest("[data-menu-item]");
+//     const template = menuItem.querySelector(".custom-mobile-menu-template");
 
-  if (activeTrigger) {
+//     if (!template) return;
 
-    activeTrigger.setAttribute("aria-expanded", "false");
+//     activeTrigger = trigger;
 
-    activeTrigger.focus();
+//     submenuList.innerHTML = template.innerHTML;
+//     submenuTitle.textContent = trigger.dataset.menuTitle;
 
-    activeTrigger = null;
+//     drawer.classList.add("show-submenu");
 
-  }
+//     activeTrigger.setAttribute("aria-expanded", "true");
 
-});
+//   });
+
+// });
+
+//     backButton.addEventListener("click", () => {
+
+//   drawer.classList.remove("show-submenu");
+
+//   submenuList.innerHTML = "";
+//   submenuTitle.textContent = "";
+
+//   if (activeTrigger) {
+
+//     activeTrigger.setAttribute("aria-expanded", "false");
+
+//     activeTrigger.focus();
+
+//     activeTrigger = null;
+
+//   }
+
+// });
