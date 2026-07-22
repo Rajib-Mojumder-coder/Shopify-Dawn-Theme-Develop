@@ -1,3 +1,4 @@
+/* Desktop Inside megamenu slider js */
 document.querySelectorAll('.mega-slider').forEach((slider) => {
 
     new Swiper(slider,{
