@@ -19,6 +19,12 @@
                         <span class="custom-mobile-menu__arrow"> {{ 'icon-chevron-right.svg' | inline_asset_content }} </span>
                     </button>
 
+                    <template class="custom-mobile-menu-template">
+                        {% for child in parent.links %}
+                            <li>  <a href="{{ child.url }}"> {{ child.title }} </a> </li>
+                        {% endfor %}
+                    </template>
+
                 {% else %}
 
                     <a href="{{ parent.url }}" class="custom-mobile-menu__link"> {{ parent.title }} </a>
