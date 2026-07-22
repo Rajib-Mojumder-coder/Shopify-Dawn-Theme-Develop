@@ -65,18 +65,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let activeTrigger = null;
   triggers.forEach(trigger => {
-    trigger.addEventListener("click", () => {
-      const menuItem = trigger.closest("[data-menu-item]");
-      const template = menuItem.querySelector(".custom-mobile-menu-template");
-      if (!template) return;
 
-      submenuList.innerHTML = template.innerHTML;
-      submenuTitle.textContent = trigger.dataset.menuTitle;
+  trigger.addEventListener("click", () => {
 
-      drawer.classList.add("show-submenu");
-      trigger.setAttribute("aria-expanded", "true");
-    });
+    const menuItem = trigger.closest("[data-menu-item]");
+    const template = menuItem.querySelector(".custom-mobile-menu-template");
+
+    if (!template) return;
+
+    activeTrigger = trigger;
+
+    submenuList.innerHTML = template.innerHTML;
+    submenuTitle.textContent = trigger.dataset.menuTitle;
+
+    drawer.classList.add("show-submenu");
+
+    activeTrigger.setAttribute("aria-expanded", "true");
+
   });
+
+});
 
   backButton.addEventListener("click", () => {
 
