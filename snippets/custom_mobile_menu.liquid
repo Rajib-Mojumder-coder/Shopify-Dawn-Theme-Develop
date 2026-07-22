@@ -10,7 +10,7 @@
                 {% assign has_children = true %}
             {% endif %}
 
-            <li class="custom-mobile-menu__item {% if has_children %} has-submenu {% endif %}">
+            <li class="custom-mobile-menu__item data-menu-item{% if has_children %} has-submenu {% endif %}">
                 {% if has_children %}
 
                    <button type="button" class="custom-mobile-menu__button" data-mobile-trigger data-menu-title="{{ parent.title }}"
@@ -18,8 +18,6 @@
                         <span> {{ parent.title }} </span>
                         <span class="custom-mobile-menu__arrow"> {{ 'icon-chevron-right.svg' | inline_asset_content }} </span>
                     </button>
-
-        
 
                 {% else %}
 
