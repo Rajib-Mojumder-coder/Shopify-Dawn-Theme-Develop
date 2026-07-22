@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const submenuTitle = drawer.querySelector(".custom-mobile-submenu-panel__title");
   const backButton = drawer.querySelector("[data-mobile-back]");
 
+  let activeTrigger = null;
   triggers.forEach(trigger => {
     trigger.addEventListener("click", () => {
       const menuItem = trigger.closest("[data-menu-item]");
