@@ -86,13 +86,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-  backButton.addEventListener("click", () => {
+    backButton.addEventListener("click", () => {
 
     drawer.classList.remove("show-submenu");
+
     submenuList.innerHTML = "";
     submenuTitle.textContent = "";
-    triggers.forEach(trigger => {
-      trigger.setAttribute("aria-expanded", "false");
-    });
-  });
+
+    if (activeTrigger) {
+        activeTrigger.setAttribute("aria-expanded", "false");
+        activeTrigger.focus();
+        activeTrigger = null;
+  }
+
 });
