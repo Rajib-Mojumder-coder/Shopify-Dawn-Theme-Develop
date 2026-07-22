@@ -99,4 +99,5 @@ document.addEventListener("DOMContentLoaded", () => {
         activeTrigger = null;
   }
 
-});
+})
+;
