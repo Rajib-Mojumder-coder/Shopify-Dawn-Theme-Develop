@@ -13,7 +13,8 @@
             <li class="custom-mobile-menu__item {% if has_children %} has-submenu {% endif %}">
                 {% if has_children %}
 
-                   <button class="custom-mobile-menu__button" data-menu-title="{{ parent.title }}" data-menu-handle="{{ parent.handle }}"aria-expanded="false">
+                   <button type="button" class="custom-mobile-menu__button" data-mobile-trigger data-menu-title="{{ parent.title }}"
+                        data-menu-handle="{{ parent.handle }}"baria-expanded="false">
                         <span> {{ parent.title }} </span>
                         <span class="custom-mobile-menu__arrow"> {{ 'icon-chevron-right.svg' | inline_asset_content }} </span>
                     </button>
