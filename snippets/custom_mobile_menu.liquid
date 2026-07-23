@@ -21,7 +21,7 @@
 
                     <template class="custom-mobile-menu-template">
                         {% for child in parent.links %}
-                            <li>  <a href="{{ child.url }}"> {{ child.title }} </a> </li>
+                            <li>  <a href="{{ child.url }}"> <span>{{ child.title }}</span> </a> </li>
                         {% endfor %}
                     </template>
 
