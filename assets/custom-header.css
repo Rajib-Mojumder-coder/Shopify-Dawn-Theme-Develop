@@ -310,7 +310,7 @@ touch-action:none;
     .custom-header-mobile__right{
         display:flex;
         align-items:center;
-        gap:12px;
+        gap:6px;
         flex:0;
     }
 
