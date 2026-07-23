@@ -117,5 +117,38 @@
 {% endif %}
 
 <style>
-    
+    .custom-mobile-social{
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:28px 20px 36px;
+    margin-top:auto;
+}
+
+.custom-mobile-social__item{
+    width:44px;
+    height:44px;
+
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.15);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:#fff;
+    transition:.30s;
+}
+
+.custom-mobile-social__item svg{
+    width:18px;
+    height:18px;
+}
+
+.custom-mobile-social__item:hover{
+    background:#52B099;
+    border-color:#52B099;
+    transform:translateY(-2px);
+}
 </style>
