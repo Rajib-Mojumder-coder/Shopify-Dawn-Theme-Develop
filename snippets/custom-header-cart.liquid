@@ -1,8 +1,8 @@
         <a href="{{ routes.cart_url }}" class="custom-cart link focus-inset" id="cart-icon-bubble">
             {% if cart == empty %}
-                <span class="svg-wrapper" style="">{{ 'icon-cart-2.svg' | inline_asset_content }}</span>
+                <span class="svg-wrapper">{{ 'icon-cart-2.svg' | inline_asset_content }}</span>
             {% else %}
-                <span class="svg-wrapper" style="width: 3.2rem; height: 3.2rem;">{{ 'icon-cart-2.svg' | inline_asset_content }}</span>
+                <span class="svg-wrapper">{{ 'icon-cart-2.svg' | inline_asset_content }}</span>
             {% endif %}
             <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
             {%- if cart != empty -%}
