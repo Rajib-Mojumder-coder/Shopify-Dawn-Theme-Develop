@@ -15,19 +15,19 @@
 
                    <button type="button" class="custom-mobile-menu__button" data-mobile-trigger data-menu-title="{{ parent.title }}"
                         data-menu-handle="{{ parent.handle }}"aria-expanded="false">
-                        <span> {{ parent.title }} </span>
+                        <span class="mobile-menu-font"> {{ parent.title }} </span>
                         <span class="custom-mobile-menu__arrow"> {{ 'icon-chevron-right.svg' | inline_asset_content }} </span>
                     </button>
 
                     <template class="custom-mobile-menu-template">
                         {% for child in parent.links %}
-                            <li>  <a href="{{ child.url }}"> <span>{{ child.title }}</span> </a> </li>
+                            <li>  <a href="{{ child.url }}"> <span class="mobile-menu-font">{{ child.title }}</span> </a> </li>
                         {% endfor %}
                     </template>
 
                 {% else %}
 
-                    <a href="{{ parent.url }}" class="custom-mobile-menu__link"> <span>{{ parent.title }}</span> </a>
+                    <a href="{{ parent.url }}" class="custom-mobile-menu__link"> <span class="mobile-menu-font">{{ parent.title }}</span> </a>
 
                 {% endif %}
             </li>
@@ -67,12 +67,13 @@ padding:18px 20px;
 background:none;
 border:none;
 color:#fff;
-font-size:16px;
-font-weight:500;
 text-decoration:none;
 cursor:pointer;
 }
-
+.custom-mobile-menu .mobile-menu-font{
+    font-size: clamp(20px, 8vw, 25px) !important;
+    font-weight:400 !important;
+}
 .custom-mobile-menu__arrow{
 display:flex;
 align-items:center;
