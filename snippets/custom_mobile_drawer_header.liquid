@@ -43,7 +43,12 @@
     justify-content: center;
     align-items: center;
 }
-.custom-mobile-drawer__contact,
+.custom-mobile-drawer__contact {
+    width: clamp(40px, 8vw, 50px);
+    height: clamp(40px, 8vw, 50px);
+    flex-shrink: 1;
+}
+
 .custom-mobile-drawer__close {
     width: clamp(30px, 8vw, 50px);
     height: clamp(30px, 8vw, 50px);
