@@ -1,0 +1,89 @@
+<div class="custom-mobile-submenu-panel">
+
+    <div class="custom-mobile-submenu-panel__header">
+
+        <button type="button" class="custom-mobile-submenu-panel__back" data-mobile-back>
+            <span class="custom-mobile-submenu__backarrow"> {{ 'icon-caret.svg' | inline_asset_content }} </span>
+            {% comment %} <span>Back</span> {% endcomment %}
+        </button>
+
+        <h3 class="custom-mobile-submenu-panel__title">    </h3>
+
+    </div>
+
+    <ul class="custom-mobile-submenu-panel__list" id="mobile-submenu-list">     </ul>
+
+</div>
+
+<style>
+.custom-mobile-submenu-panel{
+height:100%;
+display:flex;
+flex-direction:column;
+padding-inline: 3rem;
+}
+
+.custom-mobile-submenu-panel__header{
+display:flex;
+align-items:center;
+gap:16px;
+padding: 20px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.custom-mobile-submenu-panel__back{
+display:flex;
+align-items:center;
+gap:10px;
+background:none;
+border:0;
+color:#fff;
+cursor:pointer;
+padding:0;
+}
+
+.custom-mobile-submenu-panel__title{
+margin:0;
+font-size:18px;
+font-weight:600;
+color:#fff;
+text-align: center;
+width: 100%;
+}
+
+.custom-mobile-submenu-panel__list{
+margin:0;
+padding:0;
+list-style:none;
+}
+
+/* .custom-mobile-submenu-panel__list li{
+border-bottom:1px solid rgba(255,255,255,.08);
+} */
+
+.custom-mobile-submenu-panel__list a{
+display:flex;
+justify-content: flex-start !important;
+padding:18px 20px;
+text-decoration:none;
+color:#fff;
+}
+.custom-mobile-submenu__backarrow{
+display:flex;
+align-items:center;
+justify-content:center;
+width:18px;
+height:18px;
+rotate: 90deg;
+}
+
+.custom-mobile-drawer__content::after{
+content: "";
+position: absolute;
+bottom: 0px;
+left: 0px;
+width: 100%;
+height: 137px;
+background: linear-gradient(rgba(10, 26, 66, 0) 0%, rgb(10, 26, 66) 66.67%);
+}
+</style>

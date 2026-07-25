@@ -1,0 +1,200 @@
+{{ 'custom-header.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-header.js' | asset_url }}" defer></script>
+
+{%  liquid  
+assign color_scheme = section.settings.color_scheme
+assign header_logo_width = section.settings.header_logo_width
+assign header_logo_height = section.settings.header_logo_height
+%}
+
+<header class="custom-header color-{{ color_scheme }} gradient"
+style="--header_logo_width: {{header_logo_width}}px; --header_logo_height: {{header_logo_height}}px">
+     <div class="page-width custom-page-width">
+
+        <div class="custom-header__inner">
+
+            <div class="custom-header__branding">
+                {% render 'custom_header_logo' %}
+            </div>
+
+            <div class="custom-header__navigation">
+                {% render 'custom_header_navigation' %}
+            </div>
+
+            <div class="custom-header__actions">
+                {% render 'custom_header_actions',
+                  enable_country_selector: section.settings.enable_country_selector,
+                  enable_language_selector: section.settings.enable_language_selector,
+                  enable_customer_avatar: section.settings.enable_customer_avatar
+                %}
+            </div>
+
+
+            <div class="custom-header__mobile">
+                {% render 'custom_header_mobile_actions'%}
+            </div>
+
+
+        </div>
+
+     </div>
+</header>
+
+<style>
+
+:root{
+    --header-height:90px;
+    --header-gap:42px;
+    --header-radius:32px;
+    --mega-width:1240px;
+    --mega-padding:50px;
+    --mega-bg:#081C4A;
+    --primary:#52B099;
+    --main_menu_bottom_spacing: 30px;
+}
+
+</style>
+
+
+{%  schema  %}  
+{
+    "name": "Custom Header",
+    "class": "custom_header",
+    "disabled_on": {
+        "groups": ["footer", "aside"]
+    },
+    "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "Color Scheme",
+            "default": "scheme-5"
+        },
+        {
+            "type": "link_list",
+            "id": "custom_main_menu",
+            "label": "Header Menu"
+        },
+        {
+            "type": "link_list",
+            "id": "custom_main_menu_mobile",
+            "label": "Mobile Menu"
+        },
+        {
+            "type": "image_picker",
+            "id": "header_logo",
+            "label": "Header Logo"
+        },
+        {
+          "type": "range",
+          "id": "header_logo_width",
+          "label": "Logo Width",
+          "min": 80,
+          "max": 180,
+          "step": 1,
+          "default": 107,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "header_logo_height",
+          "label": "Logo Height",
+          "min": 30,
+          "max": 130,
+          "step": 1,
+          "default": 65,
+          "unit": "px"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "custom_mega_menu",
+            "name": "Custom Mega Menu",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "menu_handle",
+                    "label": "Menu Handle"
+                },
+                 {
+                "type": "text",
+                "id": "mega_heading",
+                "label": "Heading",
+                "default": "Waar kunnen we je mee helpen?"
+                }
+            ]
+        },
+       {
+        "type": "mega_menu_slide",
+        "name": "Mega Menu Advisor Slide",
+        "settings": [
+          {
+            "type": "text",
+            "id": "menu_handle",
+            "label": "Mega Menu Handle"
+          },
+          {
+            "type": "image_picker",
+            "id": "advisor_image",
+            "label": "Advisor Image"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_img_position",
+            "label": "Enable Custom Image Position",
+            "default": true
+          },
+          {
+            "type": "range",
+            "id": "advisor_img_y_offset",
+            "label": "Image Position Y",
+            "min": -40,
+            "max": 50,
+            "step": 1,
+            "default": -20
+          },
+          {
+            "type": "checkbox",
+            "id": "advisor_card_bg",
+            "label": "Card Background",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "card_bg_color",
+            "label": "Card Background Color",
+            "default": "#071540"
+          },
+          {
+            "type": "checkbox",
+            "id": "transparant_img_bg",
+            "label": "Transparant Image Background",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "transparant_img_bg_color",
+            "label": "Transparant Image Background",
+            "default": "#06123D"
+          },
+          {
+            "type": "image_picker",
+            "id": "advisor_icon",
+            "label": "Advisor Icon"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text",
+            "default": "ADVIESGESPREK"
+          },
+          {
+            "type": "url",
+            "label": "Button URL",
+            "id": "button_link"
+          }
+        ]
+      }
+    ]
+}
+{% endschema %}

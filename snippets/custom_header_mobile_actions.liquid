@@ -1,0 +1,29 @@
+<div class="custom-header__mobile-wrapper"> 
+
+    <div class="custom-header-mobile__left">
+        {% render 'custom_header_drawer' %}
+        {% render 'custom-header-search' %}
+    </div>
+   
+    
+     <div class="custom-header-mobile__center">
+        {% render 'custom_header_logo' %}
+    </div>
+
+    <div class="custom-header-mobile__right">
+        {% render 'custom-header-cart' %}
+    </div>
+
+</div>
+
+{% render 'custom_mobile_drawer' %}
+
+<style>
+    .custom-header .custom-header-mobile__left .header__icon .icon {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+    .custom-header .custom-header-mobile__left .header__icon path {
+  transform: scale(1.15);
+}
+</style>

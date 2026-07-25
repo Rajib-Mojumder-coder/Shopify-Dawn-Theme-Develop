@@ -1,0 +1,129 @@
+{% liquid assign mobile_menu = menu %}
+
+{% if mobile_menu != blank %}
+
+<nav class="custom-mobile-menu">
+    <ul class="custom-mobile-menu__list">
+        {% for parent in mobile_menu.links %}
+            {% assign has_children = false %}
+            {% if parent.links.size > 0 %}
+                {% assign has_children = true %}
+            {% endif %}
+
+            <li class="custom-mobile-menu__item{% if has_children %} has-submenu{% endif %}" data-menu-item>
+                {% if has_children %}
+
+                   <button type="button" class="custom-mobile-menu__button" data-mobile-trigger data-menu-title="{{ parent.title }}"
+                        data-menu-handle="{{ parent.handle }}"aria-expanded="false">
+                        <span class="mobile-menu-font"> {{ parent.title }} </span>
+                       
+                        <span class="custom-mobile-menu__arrow"> {{ 'icon-caret.svg' | inline_asset_content }} </span>
+                    </button>
+
+                    <template class="custom-mobile-menu-template">
+                        {% for child in parent.links %}
+                            {% assign collection = child.object %}
+                            <li>  
+                                <a href="{{ child.url }}" class="custom-mobile-submenu-link"> 
+                                    {% if collection and collection.metafields.custom.menu_icon %}
+                                    <span class="custom-mobile-submenu-icon mega-menu-item__icon">
+                                        {{ collection.metafields.custom.menu_icon | image_url: width: 40 | image_tag: loading: 'lazy', alt: child.title }} </span>
+                                    {% endif %}
+                                        <div class="custom-mobile-submenu-content">
+                                            <span class="mobile-menu-font">{{ child.title }}</span>
+                                        <span class="mega-menu-item__arrow">  <img src="{{ 'forward-slash-icon.svg' | asset_url }}" alt="forward-slash"> &nbsp;</span>
+                                        </div> 
+                                </a> 
+                            </li>
+                        {% endfor %}
+                    </template>
+
+                {% else %}
+
+                    <a href="{{ parent.url }}" class="custom-mobile-menu__link"> <span class="mobile-menu-font">{{ parent.title }}</span> </a>
+
+                {% endif %}
+            </li>
+
+        {% endfor %}
+    </ul>
+</nav>
+
+{% endif %}
+
+<style>
+.custom-mobile-menu-template{
+display:none;
+}
+
+.custom-mobile-menu{
+width:100%;
+}
+
+.custom-mobile-menu__list{
+margin:0;
+padding:0;
+list-style:none;
+}
+
+.custom-mobile-menu__item{
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.custom-mobile-menu__link,
+.custom-mobile-menu__button{
+display:flex;
+justify-content: space-between !important;
+align-items:center;
+width:100%;
+padding:18px 20px;
+background:none;
+border:none;
+color:#fff;
+text-decoration:none;
+cursor:pointer;
+}
+.custom-mobile-menu .mobile-menu-font{
+    font-size: clamp(20px, 8vw, 23px) !important;
+    font-weight:400 !important;
+    text-align: start;
+}
+.custom-mobile-menu__arrow{
+display:flex;
+align-items:center;
+justify-content:center;
+width:18px;
+height:18px;
+rotate: -90deg;
+}
+
+.custom-mobile-menu__arrow svg{
+width:16px;
+height:16px;
+}
+
+.custom-mobile-submenu-link {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease;
+    border-radius: 999px;
+    background: transparent;
+}
+.custom-mobile-submenu-content{
+    display: flex;
+    justify-content: space-between !important;
+    max-width: 260px;
+    width: 100%;
+    align-items: center;
+}
+.custom-mobile-submenu-link:hover {
+    background: #020922;
+
+}
+.custom-mobile-submenu-link:hover .mega-menu-item__arrow img {
+    transform: translateX(0);
+    opacity: 1;
+}
+</style>

@@ -1,0 +1,27 @@
+
+<div class="custom-mega-menu">
+    
+    <div class="custom-mega-menu__left">
+        
+        {% if mega_block.settings.mega_heading != blank %}
+            <h3 class="mega_title"> {{ mega_block.settings.mega_heading }}  </h3>
+        {% endif %}
+        <hr>
+        {% render 'custom_mega_menu_items',
+            parent: parent,
+            mega_block: mega_block
+        %}
+
+    </div>
+
+    <div class="custom-mega-menu__right">
+
+        {% render 'custom_mega_menu_slider',
+            mega_block: mega_block,
+            section: section
+        %}
+
+    </div>
+ 
+</div>
+

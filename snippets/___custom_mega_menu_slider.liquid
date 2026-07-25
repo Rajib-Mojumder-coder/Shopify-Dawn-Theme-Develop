@@ -1,0 +1,40 @@
+{% liquid
+assign mega_block = mega_block
+%}
+
+<div class="mega-slider swiper">
+
+    <div class="swiper-wrapper">
+
+        {% for slide in section.blocks %}
+
+            {% if slide.type == 'mega_menu_slide'
+            and slide.settings.parent_handle == mega_block.settings.menu_handle
+            and slide.settings.enable_slide %}
+
+                {% render '____mega-menu-slide',
+                    block: slide
+                %}
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+</div>
+
+
+<style>
+    .mega-slider{
+    width:100%;
+}
+.mega-slider .swiper-pagination{
+    position:relative;
+    margin-top:15px;
+}
+</style>

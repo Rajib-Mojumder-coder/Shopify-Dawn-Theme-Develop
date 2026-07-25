@@ -5,7 +5,8 @@
 >
   <span class="btn-text">{{ button_text }}</span>
   <span class="btn-icon">
-    <img src="{{ 'Vector 1.svg' | asset_url }}" alt="">
+    {% comment %} <img src="{{ 'Vector 1.svg' | asset_url }}" alt=""> {% endcomment %}
+     {{ 'Vector 1.svg' | inline_asset_content }}
   </span>
 </a>
 {% endif %}

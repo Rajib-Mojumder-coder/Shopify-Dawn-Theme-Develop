@@ -1,0 +1,90 @@
+{%  liquid  
+    assign custom_main_menu = section.settings.custom_main_menu
+%}
+
+{% if custom_main_menu.links.size > 0 %}
+
+    <nav class="custom-navigation" aria-label="Main Navigation">
+
+        <ul class="custom-navigation__list">
+
+            {% for parent in custom_main_menu.links %}
+
+                {% assign has_mega = false %}
+                {% assign mega_block = blank %}
+
+                {% comment %} {% for block in section.blocks %}
+                    
+                    {% assign block_handle = block.settings.menu_handle | handleize %}
+
+                    {% if block_handle == parent.handle %}
+                        {% assign has_mega = true %}
+                        {% assign mega_block = block %}
+                        {% break %}
+                    {% endif %}
+
+                {% endfor %} {% endcomment %}
+                {% for block in section.blocks %}
+                    {% if block.type == 'custom_mega_menu' %}
+
+                        {% assign block_handle = block.settings.menu_handle | handleize %}
+
+                        {% if block_handle == parent.handle %}
+                        {% assign has_mega = true %}
+                        {% assign mega_block = block %}
+                        {% break %}
+                        {% endif %}
+
+                    {% endif %}
+                    {% endfor %}
+
+                {% if has_mega %}
+
+                    <li class="mega_menu_item main_menu_item">
+                    <a href="{{ parent.url }}">{{ parent.title }}
+                     {% if has_mega %} <span class="menu-caret"> {{ 'icon-caret.svg' | inline_asset_content }} </span> {% endif %}
+                    </a>
+                        <div class="mega_menu_wrapper">
+                            
+                                {% render 'custom_mega_menu', 
+                                parent: parent, mega_block: mega_block, section: section %}
+                           
+                        </div>
+                    </li>
+
+                {% else %}
+
+                    <li class="simple_menu_item main_menu_item">
+                        <a href="{{ parent.url }}" class="simple_menu_item__link {% if parent.active %}is-active{% endif %}">
+                            {{ parent.title }}
+                        </a>
+                    </li>
+
+                {% endif %}
+
+            {% endfor %}
+
+            
+        </ul>
+
+    </nav>
+
+{% endif %}
+
+{% comment %} {% for parent in custom_main_menu.links %}
+                {% if parent.levels > 0 %}
+                    <li class="mega_menu_item main_menu_item{% if parent.active %}is-active{% endif %}"> {{ parent.title }} 
+                        <div class="mega_menu_wrapper">
+                            <div class="mega_menu_container">
+                                {% for child in parent.links %}
+                                    <span> {{ child.title }} </span>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="simple_menu_item main_menu_item"> 
+                        <a href="{{ parent.url }}" class="simple_menu_item__link {% if parent.active %}is-active{% endif %}">   {{ parent.title }}  </a>
+                    </li>
+                {% endif %}
+            {% endfor %} {% endcomment %}
