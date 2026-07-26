@@ -2,14 +2,20 @@
 
     <div class="custom-mobile-drawer__overlay" data-drawer-close> &nbsp; </div>
 
-    <aside class="custom-mobile-drawer__panel">
+    <aside class="custom-mobile-drawer__panel" aria-label="Mobile navigation">
 
         {% render 'custom_mobile_drawer_header' %}
 
         <div class="custom-mobile-drawer__content">
 
                 <section class="custom-mobile-drawer__main" data-panel="main">
-                    {% render 'custom_mobile_menu', menu: section.settings.custom_main_menu %}
+                    {% liquid
+                      assign mobile_menu = section.settings.custom_main_menu_mobile
+                      if mobile_menu == blank
+                      assign mobile_menu = section.settings.custom_main_menu
+                      endif
+                    %}
+                    {%  render 'custom_mobile_menu', menu: mobile_menu %}
                     {%  render 'custom_mobile_social' %}
                 </section>
 
