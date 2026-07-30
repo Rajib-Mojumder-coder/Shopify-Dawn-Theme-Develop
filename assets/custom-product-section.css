@@ -39,7 +39,14 @@
     width: 100%;
     height: 100%; 
 }
-
+.productMediaSliderThumbs .thumbs-media{
+  /* width: 100%;
+  height: 100%; */
+}
+.productMediaSliderThumbs .thumbs-media img{
+  width: 100%;
+  height: 100%;
+}
 /* Product media breadcumb*/
 .custom-product-section .custom-product-breadcrumb{
   display: flex;

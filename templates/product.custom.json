@@ -23,8 +23,13 @@
           "type": "title",
           "settings": {}
         },
+        "custom_price_qwTpiT": {
+          "type": "custom_price",
+          "settings": {}
+        },
         "price": {
           "type": "price",
+          "disabled": true,
           "settings": {}
         },
         "variant_picker": {
@@ -59,6 +64,7 @@
       "block_order": [
         "vendor",
         "title",
+        "custom_price_qwTpiT",
         "price",
         "variant_picker",
         "quantity_selector",
@@ -90,7 +96,7 @@
         "stroke_width": 2,
         "bg_color": "#ffffff",
         "icon_color": "#000000",
-        "hover_bg_color": "#FFFFFF",
+        "hover_bg_color": "#ffffff",
         "hover_icon_color": "#000000",
         "border_radius": 50,
         "nav_gap": 10,
@@ -99,6 +105,8 @@
         "pagination_color": "#cccccc",
         "pagination_active_color": "#000000",
         "pagination_opacity": 0.5,
+        "product-slider-thumbnail": false,
+        "slider-thumbnail-perview": 4,
         "padding_top": 100,
         "padding_bottom": 12
       }

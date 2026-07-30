@@ -1,5 +1,6 @@
 {% liquid
     assign product_media_logo = section.settings.product_media_logo
+    assign slider-thumbnail-perview = section.settings.slider-thumbnail-perview
    %}
 
 <div class="custom-product-media-main">
@@ -46,19 +47,24 @@
                 
         </div>
 
+        {% if section.settings.product-slider-thumbnail %}
         <div thumbsSlider="" class="swiper mySwiper productMediaSliderThumbs">
     
             <div class="swiper-wrapper">
                 {% for media in product.media %}
-                <div class="swiper-slide">
+                <div class="swiper-slide thumbs-media">
                   {% if media.media_type == 'image' %}
-                            {{ media | image_url: width: 100 | image_tag }}
+                            {{ media | image_url: width: 500 | image_tag }}
                  {% endif %}
                 </div>
                 {% endfor %}
             </div>
 
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
         </div>
+        {% endif %}
 
         <div class="product-logo-bestseller-wrapper">
             <div class="product-logo-container">
@@ -71,7 +77,7 @@
                 <p class="custom-product-bestseller-text"> {{ product.metafields.custom.bestseller }} </p>
             </div>
         </div>
-
+ 
     </div>
 
 </div>
@@ -83,9 +89,13 @@
         var swiper = new Swiper('.productMediaSliderThumbs', {
         loop: true,
         spaceBetween: 10,
-        slidesPerView: 4,
+        slidesPerView: {{slider-thumbnail-perview}},
         freeMode: true,
         watchSlidesProgress: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
       });
 
 

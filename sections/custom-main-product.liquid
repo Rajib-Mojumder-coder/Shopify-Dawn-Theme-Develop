@@ -109,6 +109,15 @@
                     </h2>
                   </a>
                 </div>
+              {%- when 'custom_price' -%}
+                <div id="custom_price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                   {%- render 'custom_price',
+                    product: product,
+                    use_variant: true,
+                    show_badges: true,
+                    price_class: 'custom_price'
+                  -%}
+                </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                   {%- render 'price',
@@ -792,6 +801,14 @@
       "type": "price",
       "name": "t:sections.main-product.blocks.price.name",
       "limit": 1
+    },
+    {
+      "type": "custom_price",
+      "name": "CUstom Price",
+      "limit": 1,
+      "settings": [
+       
+      ]
     },
     {
       "type": "sku",
@@ -2285,7 +2302,8 @@
     },
     {
       "type": "header",
-      "content": "Navigation Style"
+      "content": "Navigation Style",
+      "visible_if": "{{section.settings.show_navigation_desktop or section.settings.show_navigation_mobile}}"
     },
     {
       "type": "select",
@@ -2306,7 +2324,7 @@
           "label": "Custom SVG"
         }
       ],
-      "visible_if": "{{ section.settings.navigation_pagination_settings == true }}"
+       "visible_if": "{{section.settings.show_navigation_desktop or section.settings.show_navigation_mobile}}"
     },
     {
       "type": "image_picker",
@@ -2424,8 +2442,6 @@
       "default": false,
       "visible_if": "{{ section.settings.navigation_pagination_settings == true }}"
     },
-
-
     {
       "type": "header",
       "content": "Pagination Style"
@@ -2452,6 +2468,22 @@
       "max": 1,
       "step": 0.1,
       "default": 0.5
+    },
+    {
+      "type": "checkbox",
+      "id": "product-slider-thumbnail",
+      "label": "Slider Thumbs",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "slider-thumbnail-perview",
+      "label": "Thumbnail Per View",
+      "min": 2,
+      "max": 5,
+      "default": 4,
+      "step": 1,
+      "visible_if": "{{ section.settings.product-slider-thumbnail == true }}"
     },
     {
       "type": "header",
