@@ -1,0 +1,187 @@
+{% liquid
+    assign product_media_logo = section.settings.product_media_logo
+   %}
+
+<div class="custom-product-media-main">
+
+     <div class="custom-product-breadcrumb-area">
+                
+            {%  assign product_collection = product.collections.first %}
+        
+            {% if product_collection %}
+                <!-- Breadcrumb -->
+                <div class="custom-product-breadcrumb"> 
+                
+                    <a href="{{product_collection.url}}"> {{ product_collection.title }} </a>
+                        <span class="breadcrumb-separator">&raquo;</span>
+                        <span> {{ product.title }} </span>
+                </div>
+            {% endif %}   
+                  
+        </div>
+    
+
+    <div class="media-container-wrapper">
+
+        <div class="swiper productMediaSlider mySwiper2">
+            <div class="swiper-wrapper media-container-bg media-container-radius">
+
+                {% for media in product.media %}
+                    <div class="swiper-slide">
+                    <div class="custom-product-media-content">
+                        {% if media.media_type == 'image' %}
+                            {{ media | image_url: width: 1000 | image_tag }}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+                
+            <div class="custom-slider-controls"> 
+                {% render 'custom-slider-navigation-prev' %}
+                {% render 'custom-slider-pagination' %}
+                {% render 'custom-slider-navigation-next' %}
+            </div>
+                
+        </div>
+
+        <div thumbsSlider="" class="swiper mySwiper productMediaSliderThumbs">
+    
+            <div class="swiper-wrapper">
+                {% for media in product.media %}
+                <div class="swiper-slide">
+                  {% if media.media_type == 'image' %}
+                            {{ media | image_url: width: 100 | image_tag }}
+                 {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="product-logo-bestseller-wrapper">
+            <div class="product-logo-container">
+                {% if product_media_logo != blank%}
+                    {{ product_media_logo | image_url: width: 300 | image_tag: class: 'product_media_logo', loading: 'lazy'}}
+                {% endif %}
+            </div>
+            
+            <div class="custom-product-bestseller">
+                <p class="custom-product-bestseller-text"> {{ product.metafields.custom.bestseller }} </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+ 
+    <!-- Initialize Swiper -->
+    <script defer>
+    document.addEventListener('DOMContentLoaded', function () {
+        var swiper = new Swiper('.productMediaSliderThumbs', {
+        loop: true,
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+      });
+
+
+
+      var swiper = new Swiper('.productMediaSlider', {
+        cssMode: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        thumbs: {
+          swiper: swiper,
+        },
+        mousewheel: true,
+        keyboard: true,
+      })
+});
+    </script>
+
+<style>
+
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-product-media-image{
+    width:100%;
+    height:auto;
+    display:block;
+}
+.custom-slider-controls {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    justify-self: center;
+    max-width: 270px;
+    width: 100%;
+}
+
+.custom-slider-controls .swiper-button-prev {
+    grid-column: 1;
+    position: static;
+    margin-top: auto;
+}
+
+.custom-slider-controls .swiper-pagination {
+    grid-column: 2;
+    position: static;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-slider-controls .swiper-button-next {
+    grid-column: 3;
+    position: static;
+    margin-top: auto;
+}
+.slider-pagination-wrapper {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+</style>
+
+{% comment %} <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+      class="swiper mySwiper2">
+
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="https://swiperjs.com/demos/images/abstract-1.jpg" />
+        </div>        
+      </div>
+
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+
+</div>
+
+<div thumbsSlider="" class="swiper mySwiper">
+    
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+        <img src="https://swiperjs.com/demos/images/abstract-1.jpg" />
+        </div>
+    </div>
+
+</div> {% endcomment %}

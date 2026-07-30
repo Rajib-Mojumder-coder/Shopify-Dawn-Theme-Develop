@@ -1,0 +1,398 @@
+{% liquid
+   
+    assign show_navigation_desktop = section.settings.show_navigation_desktop
+    assign show_navigation_mobile = section.settings.show_navigation_mobile
+    assign icon_type = section.settings.icon_type
+    assign prev_icon = section.settings.prev_icon
+    assign next_icon = section.settings.next_icon
+   %}
+
+
+
+{% if show_navigation_desktop or show_navigation_mobile %}
+
+<div class="slider-navigation slider-navigation-{{ section.id }}
+    {% unless show_navigation_desktop %}nav-hide-desktop{% endunless %}
+    {% unless show_navigation_mobile %}nav-hide-mobile{% endunless %}">
+
+
+    <div class="swiper-button-next slider-next-{{ section.id }}">
+
+        {% case icon_type %}
+
+                  {% when 'theme_arrow' %}
+                    <svg class="nav-icon" viewBox="0 0 24 24"  fill="none" stroke="currentColor"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 18L15 12L9 6"/>
+                    </svg>
+
+                  {% when 'image' %}
+                    {% if next_icon != blank %}
+                      {{ next_icon | image_url: width: 100 | image_tag: class: 'nav-image', loading: 'lazy'}}
+                    {% endif %}
+
+                  {% when 'svg_code' %}
+                    <div class="nav-svg">
+                      {{ section.settings.next_svg }}
+                    </div>
+
+                {% endcase %}
+
+    </div>
+
+</div>
+
+{% endif %}
+
+<style>
+
+/* ================================
+   CUSTOM NAVIGATION WRAPPER
+================================ */
+
+.slider-navigation-{{ section.id }} {
+
+    display:flex;
+    align-items:center;
+    gap: {{ section.settings.nav_gap }}px;
+
+    z-index:20;
+
+}
+
+
+/* ================================
+   SWIPER DEFAULT ARROW REMOVE
+================================ */
+
+.slider-prev-{{ section.id }}::after,
+.slider-next-{{ section.id }}::after {
+
+    display:none;
+
+}
+
+
+/* ================================
+   NAVIGATION BUTTON
+================================ */
+
+.slider-prev-{{ section.id }},
+.slider-next-{{ section.id }} {
+
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+
+    padding:6px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    /* background:{{ section.settings.bg_color }};
+    color:{{ section.settings.icon_color }}; */
+
+    border-radius:{{ section.settings.border_radius }}px;
+
+    transition:all .3s ease;
+
+}
+
+
+/* ================================
+   HOVER
+================================ */
+
+.slider-prev-{{ section.id }}:hover,
+.slider-next-{{ section.id }}:hover {
+
+    background:{{ section.settings.hover_bg_color }};
+    color:{{ section.settings.hover_icon_color }};
+
+}
+
+
+/* ================================
+   THEME ARROW SVG
+================================ */
+
+.slider-prev-{{ section.id }} .nav-icon,
+.slider-next-{{ section.id }} .nav-icon {
+
+    width:{{ section.settings.icon_size }}px;
+    height:{{ section.settings.icon_size }}px;
+
+    stroke-width:{{ section.settings.stroke_width }};
+
+}
+
+
+/* ================================
+   CUSTOM SVG
+================================ */
+
+.slider-prev-{{ section.id }} .nav-svg svg,
+.slider-next-{{ section.id }} .nav-svg svg {
+
+    width:{{ section.settings.icon_size }}px;
+    height:{{ section.settings.icon_size }}px;
+
+    fill:{{ section.settings.bg_color }};
+    stroke: {{ section.settings.icon_color }};
+
+}
+
+
+.slider-prev-{{ section.id }} .nav-svg svg {
+
+    rotate:180deg;
+
+} 
+
+
+/* ================================
+   IMAGE ICON
+================================ */
+
+.slider-prev-{{ section.id }} .nav-image,
+.slider-next-{{ section.id }} .nav-image {
+
+    width:{{ section.settings.icon_size }}px;
+    height:{{ section.settings.icon_size }}px;
+
+    object-fit:contain;
+
+}
+
+
+/* ================================
+   DESKTOP / MOBILE CONTROL
+================================ */
+
+
+@media(min-width:750px){
+
+    .nav-hide-desktop {
+
+        display:none !important;
+
+    }
+
+}
+
+
+@media(max-width:749px){
+
+    .nav-hide-mobile {
+
+        display:none !important;
+
+    }
+
+}
+
+
+</style>
+
+
+{%  comment  %}  
+/* schema for navigation & pagiantion settings*/
+{
+      "type": "header",
+      "content": "Navigation & Pagination Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "navigation_pagination_settings",
+      "label": "Enable Navigation & Pagination Settings",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Navigation Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation_desktop",
+      "label": "Show Navigation Desktop",
+      "default": false,
+      "visible_if": "{{ navigation_pagination_setting }}"
+    },
+        {
+      "type": "checkbox",
+      "id": "show_navigation_mobile",
+      "label": "Show Navigation Mobile",
+      "default": false,
+      "visible_if": "{{ navigation_pagination_settings }}"
+    },
+    {
+      "type": "header",
+      "content": "Navigation Style"
+    },
+    {
+      "type": "select",
+      "id": "icon_type",
+      "label": "Navigation Icon Type",
+      "default": "theme_arrow",
+      "options": [
+        {
+          "value": "theme_arrow",
+          "label": "Theme Arrow"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "svg_code",
+          "label": "Custom SVG"
+        }
+      ],
+      "visible_if": "{{ navigation_pagination_settings }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "prev_icon",
+      "label": "Previous Icon Image",
+      "visible_if": "{{ icon_type }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "next_icon",
+      "label": "Next Icon Image",
+      "visible_if": "{{ icon_type }}"
+    },
+
+    {
+      "type": "html",
+      "id": "prev_svg",
+      "label": "Previous SVG Code",
+      "visible_if": "{{ icon_type  }}"
+    },
+    {
+      "type": "html",
+      "id": "next_svg",
+      "label": "Next SVG Code",
+      "visible_if": "{{ icon_type == }}"
+    },
+
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Navigation Icon Size",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+
+    {
+      "type": "range",
+      "id": "stroke_width",
+      "label": "Arrow Stroke Width",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "default": 2
+    },
+
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Navigation Background Color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Navigation Icon Color",
+      "default": "#000000"
+    },
+
+    {
+      "type": "color",
+      "id": "hover_bg_color",
+      "label": "Navigation Hover Background Color",
+      "default": "#000000"
+    },
+
+    {
+      "type": "color",
+      "id": "hover_icon_color",
+      "label": "Navigation Hover Icon Color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Navigation Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 50
+    },
+
+    {
+      "type": "range",
+      "id": "nav_gap",
+      "label": "Navigation Gap",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+
+
+    {
+      "type": "header",
+      "content": "Pagination Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination_desktop",
+      "label": "Show Pagination Desktop",
+      "default": false,
+      "visible_if": "{{ navigation_pagination_settings }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination_mobile",
+      "label": "Show Pagination Mobile",
+      "default": false,
+      "visible_if": "{{ navigation_pagination_settings}}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Pagination Style"
+    },
+    {
+      "type": "color",
+      "id": "pagination_color",
+      "label": "Pagination Color",
+      "default": "#cccccc"
+    },
+
+    {
+      "type": "color",
+      "id": "pagination_active_color",
+      "label": "Pagination Active Color",
+      "default": "#000000"
+    },
+
+    {
+      "type": "range",
+      "id": "pagination_opacity",
+      "label": "Pagination Opacity",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.5
+    },
+{% endcomment %} 

@@ -78,25 +78,9 @@
   <div class="page-width"> 
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
-         
-          <div class="custom-product-media-area">
-            
-              {%  assign current_collections = product.collections.first %}
-              {% if current_collections.size > 0  %}
-                
-                 <!-- Breadcrumb -->
-                <div class="custom-product-breadcrumb"> 
-                  {% if current_collections %}
-                    <a href="{{current_collection.url}}"> {{current_collection.title}} </a>
-                     <span aria-hidden="true"></span>
-                  {% endif %}
-                </div>
-
-              {% endif %}
-            
-          </div>
-
-        {% render 'product-media-gallery', variant_images: variant_images %}
+           
+        {% comment %} {% render 'product-media-gallery', variant_images: variant_images %} {% endcomment %}
+        {% render 'custom-product-media-gallery', variant_images: variant_images %}
       </div>
 
       {%  comment  %} Right sides of product content start {% endcomment %}
@@ -2115,6 +2099,7 @@
       "default": true,
       "label": "t:sections.main-product.settings.enable_sticky_info.label"
     },
+    
     {
       "type": "color_scheme",
       "id": "color_scheme",
@@ -2144,6 +2129,17 @@
       ],
       "default": "large",
       "label": "t:sections.main-product.settings.media_size.label"
+    },
+    {
+      "type": "color",
+      "id": "media-container-bg",
+      "label": "Media Container Background",
+      "default": "#fff"
+    },
+    {
+    "type": "image_picker",
+    "id": "product_media_logo",
+    "label": "Product Media Logo"
     },
     {
       "type": "checkbox",
@@ -2258,6 +2254,204 @@
       "id": "enable_video_looping",
       "default": false,
       "label": "t:sections.main-product.settings.enable_video_looping.label"
+    },
+    {
+      "type": "header",
+      "content": "Navigation & Pagination Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "navigation_pagination_settings",
+      "label": "Enable Navigation & Pagination Settings",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Navigation Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation_desktop",
+      "label": "Show Navigation Desktop",
+      "default": false,
+      "visible_if": "{{ section.settings.navigation_pagination_settings == true }}"
+    },
+        {
+      "type": "checkbox",
+      "id": "show_navigation_mobile",
+      "label": "Show Navigation Mobile",
+      "default": false,
+      "visible_if": "{{ section.settings.navigation_pagination_settings == true }}"
+    },
+    {
+      "type": "header",
+      "content": "Navigation Style"
+    },
+    {
+      "type": "select",
+      "id": "icon_type",
+      "label": "Navigation Icon Type",
+      "default": "theme_arrow",
+      "options": [
+        {
+          "value": "theme_arrow",
+          "label": "Theme Arrow"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "svg_code",
+          "label": "Custom SVG"
+        }
+      ],
+      "visible_if": "{{ section.settings.navigation_pagination_settings == true }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "prev_icon",
+      "label": "Previous Icon Image",
+      "visible_if": "{{ section.settings.icon_type == 'image' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "next_icon",
+      "label": "Next Icon Image",
+      "visible_if": "{{ section.settings.icon_type == 'image' }}"
+    },
+
+    {
+      "type": "html",
+      "id": "prev_svg",
+      "label": "Previous SVG Code",
+      "visible_if": "{{ section.settings.icon_type == 'svg_code' }}"
+    },
+    {
+      "type": "html",
+      "id": "next_svg",
+      "label": "Next SVG Code",
+      "visible_if": "{{ section.settings.icon_type == 'svg_code' }}"
+    },
+
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Navigation Icon Size",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+
+    {
+      "type": "range",
+      "id": "stroke_width",
+      "label": "Arrow Stroke Width",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "default": 2
+    },
+
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Navigation Background Color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Navigation Icon Color",
+      "default": "#000000"
+    },
+
+    {
+      "type": "color",
+      "id": "hover_bg_color",
+      "label": "Navigation Hover Background Color",
+      "default": "#000000"
+    },
+
+    {
+      "type": "color",
+      "id": "hover_icon_color",
+      "label": "Navigation Hover Icon Color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Navigation Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 50
+    },
+
+    {
+      "type": "range",
+      "id": "nav_gap",
+      "label": "Navigation Gap",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+
+
+    {
+      "type": "header",
+      "content": "Pagination Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination_desktop",
+      "label": "Show Pagination Desktop",
+      "default": false,
+      "visible_if": "{{ section.settings.navigation_pagination_settings == true }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination_mobile",
+      "label": "Show Pagination Mobile",
+      "default": false,
+      "visible_if": "{{ section.settings.navigation_pagination_settings == true }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Pagination Style"
+    },
+    {
+      "type": "color",
+      "id": "pagination_color",
+      "label": "Pagination Color",
+      "default": "#cccccc"
+    },
+
+    {
+      "type": "color",
+      "id": "pagination_active_color",
+      "label": "Pagination Active Color",
+      "default": "#000000"
+    },
+
+    {
+      "type": "range",
+      "id": "pagination_opacity",
+      "label": "Pagination Opacity",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.5
     },
     {
       "type": "header",

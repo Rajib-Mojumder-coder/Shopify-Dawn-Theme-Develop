@@ -103,7 +103,7 @@
 
                   {% when 'image' %}
                     {% if next_icon != blank %}
-                      {{ next_icon | image_url: width: 100 | image_tag: class: 'nav-image',                       loading: 'lazy'}}
+                      {{ next_icon | image_url: width: 100 | image_tag: class: 'nav-image', loading: 'lazy'}}
                     {% endif %}
 
                   {% when 'svg_code' %}
