@@ -817,6 +817,13 @@
         "default": true
        },
        {
+        "type": "checkbox",
+        "id": "large_price",
+        "label": "Large price",
+        "default": false,
+        "visible_if": "{{ block.settings.show_price == true }}"
+       },
+       {
         "type": "select",
         "id": "price_format",
         "label": "Price Format",
@@ -843,13 +850,7 @@
         "default": true,
         "visible_if": "{{ block.settings.show_price == true }}"
        },
-       {
-        "type": "checkbox",
-        "id": "large_price",
-        "label": "Large price",
-        "default": false,
-        "visible_if": "{{ block.settings.show_price == true }}"
-       },
+       
        {
         "type": "header",
         "content": "Compare-at Price"
