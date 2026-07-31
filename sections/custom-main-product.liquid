@@ -821,7 +821,7 @@
         "id": "large_price",
         "label": "Large price",
         "default": false,
-        "visible_if": "{{ block.settings.show_price == true }}"
+        "visible_if": "{{ block.settings.show_current_price == true }}"
        },
        {
         "type": "select",
@@ -834,14 +834,14 @@
           { "label": "Money Without Currency", "value": "money_without_currency" },
           { "label": "Money without trailing zeros", "value": "money_without_trailing_zeros" }
         ],
-        "visible_if": "{{ block.settings.show_price == true }}"
+        "visible_if": "{{ block.settings.show_current_price == true }}"
        },
        {
         "type": "checkbox",
         "id": "round_price",
         "label": "Round Price",
         "default": false,
-        "visible_if": "{{ block.settings.show_price == true }}"
+        "visible_if": "{{ block.settings.show_current_price == true }}"
        },
        {
         "type": "header",
