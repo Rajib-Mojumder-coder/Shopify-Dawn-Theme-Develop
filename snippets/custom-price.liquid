@@ -29,7 +29,9 @@
   <span class="custom-price__current {% if large_price %}custom-price__current--large{% endif %}">
 
   {%  case price_format %} 
-    {%  when '' %}
+    {%  when 'money_with_currency' %}
+    {%  when 'money_without_currency' %}
+    {%  when 'money_without_trailing_zeros' %}
   {% endcase %}
 
   </span>
