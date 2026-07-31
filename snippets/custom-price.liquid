@@ -58,7 +58,7 @@
             {%  when 'money_without_trailing_zeros' %}
                 {{ compare_price |  money_without_trailing_zeros }}
             {%  else %}
-                {{ money |  money }}
+                {{ compare_price |  money }}
           {% endcase %}
        </span>
 
