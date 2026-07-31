@@ -26,6 +26,8 @@
 %}
 
 {% capture current_price_html %} 
+
+{% if show_price %}
  <span class="custom-price__current {% if large_price %}custom-price__current--large{% endif %}">
     {%  case price_format %} 
       {%  when 'money_with_currency' %}
@@ -38,6 +40,7 @@
           {{ money |  money }}
     {% endcase %}
   </span>
+{% endif %}
 {% endcapture %}
 
 {%  capture compare_price_html %} 
