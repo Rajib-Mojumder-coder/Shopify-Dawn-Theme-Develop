@@ -7,7 +7,7 @@
 
   if block.settings.round_price == true
     assign current_price = current_price | divided_by: 100.0 | round | times: 100
-    assign  compare_price =  compare_price | divided_by: 100.0 | round | times: 100
+    assign compare_price =  compare_price | divided_by: 100.0 | round | times: 100
   endif
 
     assign on_sale = false
@@ -50,7 +50,16 @@
      {% if on_sale or hide_compare_without_discount == false %}
 
        <span class="custom-price__compare">
-        
+          {%  case price_format %} 
+            {%  when 'money_with_currency' %}
+                {{ compare_price |  money_with_currency }}
+            {%  when 'money_without_currency' %}
+                {{ compare_price |  money_without_currency }}
+            {%  when 'money_without_trailing_zeros' %}
+                {{ compare_price |  money_without_trailing_zeros }}
+            {%  else %}
+                {{ money |  money }}
+          {% endcase %}
        </span>
 
      {% endif %}
