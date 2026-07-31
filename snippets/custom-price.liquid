@@ -54,35 +54,6 @@
 
 
 
-<div class="custom-price custom-price--{{ compare_position }}">
-{% if show_price %}
-    <div class="current-price {%if large_price%}custom-price-large{% endif %}">
-        <span class="custom-price-value"> 
-            {%  case price_format %}  
-              {%  when "money_with_currency" %}
-                {{ target.price |  money_with_currency }}
-
-              {%  when "money_without_currency" %}
-                {{ target.price |  money_without_currency }}
-
-              {%  when "money_without_trailing_zeros" %}
-                {{ target.price |  money_without_trailing_zeros }}
-
-              {% else %}
-                {{ current_price | money }}
-
-            {% endcase %}
-        </span>
-    </div>
-{% endif %}
-
-{% if show_compare_price %}
-  <div class="compare-price"> 
-    {{ compare_price |  money}}
-  </div>
-{% endif %}
-
-</div>
 <style>
     .custom-price {
         display: inline-flex;
