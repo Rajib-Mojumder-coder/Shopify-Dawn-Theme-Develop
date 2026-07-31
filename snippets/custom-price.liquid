@@ -1,6 +1,6 @@
 {% liquid
 
-  assign target = product.selected_or_first_available_variant
+  assign variant = product.selected_or_first_available_variant
 
   assign current_price = target.price
   assign compare_price = target.compare_at_price
