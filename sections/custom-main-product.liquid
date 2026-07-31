@@ -110,12 +110,11 @@
                   </a>
                 </div>
               {%- when 'custom_price' -%}
-                <div id="custom_price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                   {%- render 'custom_price',
+                <div id="custom-price-{{ block.id }}" class="custom-price-block" role="status" {{ block.shopify_attributes }}>
+                   {%- render 'custom-price',
                     product: product,
-                    use_variant: true,
-                    show_badges: true,
-                    price_class: 'custom_price'
+                    block: block,
+                    section: section
                   -%}
                 </div>
               {%- when 'price' -%}
@@ -804,10 +803,107 @@
     },
     {
       "type": "custom_price",
-      "name": "CUstom Price",
+      "name": "Custom Price",
       "limit": 1,
       "settings": [
-       
+       {
+        "type": "header",
+        "content": "Price"
+       },
+       {
+        "type": "checkbox",
+        "id": "show_price",
+        "label": "Show Pirce",
+        "default": true
+       },
+       {
+        "type": "select",
+        "id": "price_format",
+        "label": "Price Format",
+        "default": "money",
+        "options": [
+          { "label": "Money", "value": "money" },
+          { "label": "Money With Currency", "value": "money_with_currency" },
+          { "label": "Money Without Currency", "value": "money_without_currency" },
+          { "label": "Money without trailing zeros", "value": "money_without_trailing_zeros" }
+        ],
+        "visible_if": "{{ block.settings.show_price == true }}"
+       },
+       {
+        "type": "checkbox",
+        "id": "round_price",
+        "label": "Round Price",
+        "default": false,
+        "visible_if": "{{ block.settings.show_price == true }}"
+       },
+       {
+        "type": "checkbox",
+        "id": "show_decimals",
+        "label": "Show Decimals",
+        "default": true,
+        "visible_if": "{{ block.settings.show_price == true }}"
+       },
+       {
+        "type": "checkbox",
+        "id": "large_price",
+        "label": "Large price",
+        "default": false,
+        "visible_if": "{{ block.settings.show_price == true }}"
+       },
+       {
+        "type": "header",
+        "content": "Compare-at Price"
+       },
+       {
+        "type": "checkbox",
+        "id": "show_compare_price",
+        "label": "Show Compare Price",
+        "default": true
+       },
+       {
+        "type": "checkbox",
+        "id": "hide_compare_when_equal",
+        "label": "Hide when equal to price",
+        "default": true,
+        "visible_if": "{{ block.settings.show_compare_price == true }}"
+      },
+      {
+        "type": "checkbox",
+        "id": "hide_compare_without_discount",
+        "label": "Hide when no discount",
+        "default": true,
+        "visible_if": "{{ block.settings.show_compare_price == true }}"
+      },
+      {
+        "type": "select",
+        "id": "compare_position",
+        "label": "Compare-at price position",
+        "default": "right",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "above",
+            "label": "Above"
+          },
+          {
+            "value": "below",
+            "label": "Below"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "compare_full_width",
+        "label": "Full width",
+        "default": false
+      }
       ]
     },
     {

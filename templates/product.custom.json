@@ -25,7 +25,13 @@
         },
         "custom_price_qwTpiT": {
           "type": "custom_price",
-          "settings": {}
+          "settings": {
+            "show_price": true,
+            "price_format": "money_without_trailing_zeros",
+            "round_price": false,
+            "show_decimals": true,
+            "large_price": false
+          }
         },
         "price": {
           "type": "price",

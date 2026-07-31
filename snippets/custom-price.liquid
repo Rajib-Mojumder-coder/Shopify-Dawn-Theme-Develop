@@ -1,0 +1,65 @@
+{% liquid
+
+  assign target = product.selected_or_first_available_variant
+
+  assign current_price = target.price
+  assign compare_price = target.compare_at_price
+
+  assign show_price = block.settings.show_price
+  assign price_format = block.settings.price_format
+  assign round_price = block.settings.round_price
+  assign show_decimals = block.settings.show_decimals
+  assign large_price = block.settings.large_price
+
+  assign show_compare_price = block.settings.show_compare_price
+  assign hide_compare_when_equal = block.settings.hide_compare_when_equal
+  assign hide_compare_without_discount = block.settings.hide_compare_without_discount
+  assign compare_position = block.settings.compare_position
+  assign compare_full_width = block.settings.compare_full_width
+ 
+%}
+
+<div class="custom-price">
+{% if show_price %}
+    <div class="current-price {%if large_price%}custom-price-large{% endif %}">
+        <span class="custom-price-value"> 
+            {%  case price_format %}  
+              {%  when "money_with_currency" %}
+                {{ target.price |  money_with_currency }}
+
+              {%  when "money_without_currency" %}
+                {{ target.price |  money_without_currency }}
+
+              {%  when "money_without_trailing_zeros" %}
+                {{ target.price |  money_without_trailing_zeros }}
+
+              {% else %}
+                {{ current_price | money }}
+
+            {% endcase %}
+        </span>
+    </div>
+{% endif %}
+
+{% if show_compare_price %}
+  <div class="compare-price"> 
+    {{ compare_price }}
+  </div>
+{% endif %}
+
+</div>
+<style>
+    .custom-price {
+        display: inline-flex;
+        align-items: center;
+    }
+    .custom-price__value {
+        font-size: 2.8rem;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    .custom-price-large .custom-price-value {
+        font-size: 3.8rem;
+    }
+</style>
