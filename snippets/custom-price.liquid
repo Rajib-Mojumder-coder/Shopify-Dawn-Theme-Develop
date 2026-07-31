@@ -5,7 +5,10 @@
   assign current_price = variant.price
   assign compare_price = variant.compare_at_price
 
-  
+    assign on_sale = false
+  if compare_price > current_price
+    assign on_sale = true 
+  endif
   
   
   assign show_price = block.settings.show_price
