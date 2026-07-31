@@ -5,13 +5,17 @@
   assign current_price = variant.price
   assign compare_price = variant.compare_at_price
 
+  if block.settings.round_price == true
+    assign current_price = current_price | divided_by: 100.0 | 
+  endif
+
     assign on_sale = false
   if compare_price > current_price
     assign on_sale = true 
   endif
   
   
-  
+
   assign show_price = block.settings.show_price
   assign price_format = block.settings.price_format
   assign round_price = block.settings.round_price
