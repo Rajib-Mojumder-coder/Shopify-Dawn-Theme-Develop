@@ -47,7 +47,11 @@
 {% capture compare_price_html %} 
 
   {% if show_compare_price %}
-    
+     {% if on_sale or hide_compare_without_discount == false %}
+
+      
+
+     {% endif %}
   {% endif %}
 
 {% endcapture %}
