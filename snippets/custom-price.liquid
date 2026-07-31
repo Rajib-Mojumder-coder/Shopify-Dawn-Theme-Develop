@@ -27,7 +27,11 @@
 
 {% capture current_price_html %}  
   <span class="custom-price__current {% if large_price %}custom-price__current--large{% endif %}">
+
+  {%  case price_format %} 
     
+  {% endcase %}
+
   </span>
 {% endcapture %}
 
