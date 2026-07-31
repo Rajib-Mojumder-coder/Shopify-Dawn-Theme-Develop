@@ -30,12 +30,13 @@
 
   {%  case price_format %} 
     {%  when 'money_with_currency' %}
-
+        {{ current_price |  money_with_currency }}
     {%  when 'money_without_currency' %}
-      
+        {{ current_price |  money_without_currency }}
     {%  when 'money_without_trailing_zeros' %}
-    
+        {{ current_price |  money_without_trailing_zeros }}
     {%  else %}
+        {{ money |  money }}
   {% endcase %}
 
   </span>
