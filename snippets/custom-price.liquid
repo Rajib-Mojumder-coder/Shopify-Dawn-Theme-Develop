@@ -70,26 +70,55 @@
 
 <div class="custom-price custom-price--{{ compare_position }}">
 
-       {{ current_price_html }}
+      {{ current_price_html }}
     
       {{ compare_price_html }}
-      
+
 </div>
 
 
 
 <style>
-    .custom-price {
-        display: inline-flex;
-        align-items: center;
-    }
-    .custom-price__value {
-        font-size: 2.8rem;
-        font-weight: 700;
-        line-height: 1.1;
-    }
 
-    .custom-price-large .custom-price-value {
-        font-size: 3.8rem;
-    }
+    .custom-price{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+    flex-wrap:wrap;
+}
+
+.custom-price--left,
+.custom-price--right{
+    flex-direction:row;
+}
+
+.custom-price--above{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:.2rem;
+}
+
+.custom-price--below{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:.2rem;
+}
+
+.custom-price__current{
+    font-size:2.8rem;
+    font-weight:700;
+    line-height:1.1;
+    color:rgb(var(--color-foreground));
+}
+
+.custom-price__current--large{
+    font-size:3.8rem;
+}
+
+.custom-price__compare{
+    font-size:1.6rem;
+    color:rgba(var(--color-foreground),0.55);
+    text-decoration:line-through;
+}
+
 </style>
