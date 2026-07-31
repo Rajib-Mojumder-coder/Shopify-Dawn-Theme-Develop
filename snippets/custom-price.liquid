@@ -15,7 +15,7 @@
     assign on_sale = true 
   endif
   
-  assign show_price = block.settings.show_price
+  assign show_current_price = block.settings.show_current_price
   assign show_compare_price = block.settings.show_compare_price
   assign hide_compare_without_discount = block.settings.hide_compare_without_discount
   assign compare_position = block.settings.compare_position
@@ -27,7 +27,7 @@
 
 {% capture current_price_html %} 
 
-{% if show_price %}
+{% if show_current_price %}
  <span class="custom-price__current {% if large_price %}custom-price__current--large{% endif %}">
     {%  case price_format %} 
       {%  when 'money_with_currency' %}
