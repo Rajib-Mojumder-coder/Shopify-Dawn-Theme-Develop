@@ -95,18 +95,19 @@ document.addEventListener("DOMContentLoaded", function () {
     if (thumbsElement) {
 
         window.thumbsSwiper = new Swiper(".productMediaSliderThumbs", {
-            const thumbsSwiper = window.thumbsSwiper;
-            loop: true,
-            spaceBetween: 10,
-            slidesPerView: {{ slider_thumbnail_perview }},
-            freeMode: true,
-            watchSlidesProgress: true,
 
-            navigation: {
-                nextEl: ".thumb-next",
-                prevEl: ".thumb-prev"
-            }
-        });
+    loop: true,
+    spaceBetween: 10,
+    slidesPerView: {{ slider_thumbnail_perview }},
+    freeMode: true,
+    watchSlidesProgress: true,
+
+    navigation: {
+        nextEl: ".thumb-next",
+        prevEl: ".thumb-prev"
+    }
+
+});
 
     }
 
