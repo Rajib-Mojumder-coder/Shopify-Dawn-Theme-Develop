@@ -24,7 +24,7 @@
 
     <div class="media-container-wrapper">
 
-        <div class="swiper productSwiper mySwiper2">
+        <div class="swiper productMediaSlider mySwiper2">
             <div class="swiper-wrapper media-container-bg media-container-radius">
 
                 {% for media in product.media %}
@@ -48,7 +48,7 @@
         </div>  
 
         {% if section.settings.product-slider-thumbnail %}
-        <div thumbsSlider="" class="swiper mySwiper thumbsSwiper">
+        <div thumbsSlider="" class="swiper mySwiper productMediaSliderThumbs">
     
             <div class="swiper-wrapper">
                 {% for media in product.media %}
@@ -86,7 +86,7 @@
     <!-- Initialize Swiper -->
     <script defer>
     document.addEventListener('DOMContentLoaded', function () {
-        var swiper = new Swiper('.thumbsSwiper', {
+        var swiper = new Swiper('.productMediaSliderThumbs', {
         loop: true,
         spaceBetween: 10,
         slidesPerView: {{slider_thumbnail_perview}},
@@ -100,7 +100,7 @@
 
 
 
-      var swiper = new Swiper('.productSwiper', {
+      var swiper = new Swiper('.productMediaSlider', {
         cssMode: true,
         navigation: {
           nextEl: '.main-next',
@@ -116,8 +116,7 @@
         mousewheel: true,
         keyboard: true,
       })
-      
-    });
+});
     </script>
 
 <style>
