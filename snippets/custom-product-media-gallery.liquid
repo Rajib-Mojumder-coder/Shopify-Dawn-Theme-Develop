@@ -45,10 +45,10 @@
                 {% render 'custom-slider-navigation-next' %}
             </div>
                 
-        </div>
+        </div>  
 
         {% if section.settings.product-slider-thumbnail %}
-        <div thumbsSlider="" class="swiper mySwiper productMediaSliderThumbs">
+        <div thumbsSlider="" class="swiper mySwiper thumbsSwiper">
     
             <div class="swiper-wrapper">
                 {% for media in product.media %}
@@ -86,7 +86,7 @@
     <!-- Initialize Swiper -->
     <script defer>
     document.addEventListener('DOMContentLoaded', function () {
-        var swiper = new Swiper('.productMediaSliderThumbs', {
+        var swiper = new Swiper('.thumbsSwiper', {
         loop: true,
         spaceBetween: 10,
         slidesPerView: {{slider_thumbnail_perview}},
