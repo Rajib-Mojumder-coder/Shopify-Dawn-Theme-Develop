@@ -39,10 +39,20 @@
 
             </div>
                 
-            <div class="custom-slider-controls"> 
-                {% render 'custom-slider-navigation-prev' %}
-                {% render 'custom-slider-pagination' %}
-                {% render 'custom-slider-navigation-next' %}
+            <div class="custom-slider-controls">
+
+                <div class="swiper-button-prev main-prev">
+                    {% render 'custom-slider-navigation-prev' %}
+                </div>
+
+                <div class="swiper-pagination main-pagination">
+                    {% render 'custom-slider-pagination' %}
+                </div>
+
+                <div class="swiper-button-next main-next">
+                    {% render 'custom-slider-navigation-next' %}
+                </div>
+
             </div>
                 
         </div>  
