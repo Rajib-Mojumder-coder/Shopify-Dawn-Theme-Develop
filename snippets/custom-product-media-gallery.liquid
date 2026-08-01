@@ -84,8 +84,8 @@
 
  
     <!-- Initialize Swiper -->
-    <script defer>
-    document.addEventListener("DOMContentLoaded", function () {
+   <script defer>
+document.addEventListener("DOMContentLoaded", function () {
 
     let thumbsSwiper = null;
 
@@ -129,7 +129,7 @@
 
     };
 
-    // Link thumbnails only when they exist
+    // Connect thumbnail slider if it exists
     if (thumbsSwiper) {
         productOptions.thumbs = {
             swiper: thumbsSwiper
@@ -139,8 +139,43 @@
     // Initialize main slider
     const productSwiper = new Swiper(".productMediaSlider", productOptions);
 
+    // Save globally so we can access it later
+    window.productSwiper = productSwiper;
+
+    // Listen for Shopify variant changes
+    if (typeof subscribe !== "undefined") {
+
+        subscribe(PUB_SUB_EVENTS.variantChange, ({ data }) => {
+
+            if (!data.variant) return;
+            if (!data.variant.featured_media) return;
+
+            const mediaId = String(data.variant.featured_media.id);
+
+            const slides = document.querySelectorAll(
+                ".productMediaSlider .swiper-slide"
+            );
+
+            slides.forEach((slide, index) => {
+
+                if (slide.dataset.mediaId === mediaId) {
+
+                    productSwiper.slideTo(index);
+
+                    if (thumbsSwiper) {
+                        thumbsSwiper.slideTo(index);
+                    }
+
+                }
+
+            });
+
+        });
+
+    }
+
 });
-    </script>
+</script>
 
 <style>
 
