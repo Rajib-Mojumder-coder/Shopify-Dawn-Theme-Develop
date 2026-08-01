@@ -24,7 +24,7 @@
 
     <div class="media-container-wrapper">
 
-        <div class="swiper productMediaSlider mySwiper2">
+        <div class="swiper productSwiper mySwiper2">
             <div class="swiper-wrapper media-container-bg media-container-radius">
 
                 {% for media in product.media %}
@@ -100,7 +100,7 @@
 
 
 
-      var swiper = new Swiper('.productMediaSlider', {
+      var swiper = new Swiper('.productSwiper', {
         cssMode: true,
         navigation: {
           nextEl: '.main-next',
