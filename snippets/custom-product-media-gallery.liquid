@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Main product slider options
     const productOptions = {
 
-        cssMode: true,
+        cssMode: false,
 
         navigation: {
             nextEl: ".slider-next-{{ section.id }}",
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Initialize main slider
-    const productSwiper = new Swiper(".productMediaSlider", productOptions);
+    window.productSwiper = new Swiper(".productMediaSlider", productOptions);
 
     // Save globally so we can access it later
     window.productSwiper = productSwiper;
