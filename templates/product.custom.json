@@ -32,7 +32,7 @@
             "round_price": true,
             "show_compare_price": true,
             "hide_compare_without_discount": true,
-            "compare_position": "left",
+            "compare_position": true,
             "compare_full_width": false
           }
         },
