@@ -95,6 +95,8 @@
         "image_zoom": "lightbox",
         "hide_variants": true,
         "enable_video_looping": false,
+        "product-slider-thumbnail": false,
+        "slider-thumbnail-perview": 4,
         "navigation_pagination_settings": true,
         "show_navigation_desktop": false,
         "show_navigation_mobile": true,
@@ -114,8 +116,6 @@
         "pagination_color": "#cccccc",
         "pagination_active_color": "#000000",
         "pagination_opacity": 0.5,
-        "product-slider-thumbnail": true,
-        "slider-thumbnail-perview": 4,
         "padding_top": 100,
         "padding_bottom": 12
       }
