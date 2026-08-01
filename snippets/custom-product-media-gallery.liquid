@@ -1,6 +1,6 @@
 {% liquid
     assign product_media_logo = section.settings.product_media_logo
-    assign slider-thumbnail-perview = section.settings.slider-thumbnail-perview
+    assign slider_thumbnail_perview = section.settings.slider-thumbnail-perview
    %}
 
 <div class="custom-product-media-main">
@@ -89,7 +89,7 @@
         var swiper = new Swiper('.productMediaSliderThumbs', {
         loop: true,
         spaceBetween: 10,
-        slidesPerView: {{slider-thumbnail-perview}},
+        slidesPerView: {{slider_thumbnail_perview}},
         freeMode: true,
         watchSlidesProgress: true,
         navigation: {
