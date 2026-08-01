@@ -93,8 +93,8 @@
         freeMode: true,
         watchSlidesProgress: true,
         navigation: {
-          nextEl: '.thumb-next',
-          prevEl: '.thumb-prev',
+            nextEl: ".slider-next-{{ section.id }}",
+            prevEl: ".slider-prev-{{ section.id }}"
         },
       });
 
@@ -103,8 +103,8 @@
       var swiper = new Swiper('.productMediaSlider', {
         cssMode: true,
         navigation: {
-          nextEl: '.main-next',
-          prevEl: '.main-prev',
+            nextEl: ".slider-next-{{ section.id }}",
+            prevEl: ".slider-prev-{{ section.id }}"
         },
         pagination: {
           el: '.main-pagination',
