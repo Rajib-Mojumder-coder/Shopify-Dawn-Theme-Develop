@@ -2337,6 +2337,22 @@
       "label": "t:sections.main-product.settings.enable_video_looping.label"
     },
     {
+      "type": "checkbox",
+      "id": "product-slider-thumbnail",
+      "label": "Slider Thumbs",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "slider-thumbnail-perview",
+      "label": "Thumbnail Per View",
+      "min": 2,
+      "max": 5,
+      "default": 4,
+      "step": 1,
+      "visible_if": "{{ section.settings.product-slider-thumbnail == true }}"
+    },
+    {
       "type": "header",
       "content": "Navigation & Pagination Settings"
     },
@@ -2533,22 +2549,7 @@
       "step": 0.1,
       "default": 0.5
     },
-    {
-      "type": "checkbox",
-      "id": "product-slider-thumbnail",
-      "label": "Slider Thumbs",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "slider-thumbnail-perview",
-      "label": "Thumbnail Per View",
-      "min": 2,
-      "max": 5,
-      "default": 4,
-      "step": 1,
-      "visible_if": "{{ section.settings.product-slider-thumbnail == true }}"
-    },
+    
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
