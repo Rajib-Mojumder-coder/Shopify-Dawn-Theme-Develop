@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (thumbsElement) {
 
-        thumbsSwiper = new Swiper(".productMediaSliderThumbs", {
+        window.thumbsSwiper = new Swiper(".productMediaSliderThumbs", {
             loop: true,
             spaceBetween: 10,
             slidesPerView: {{ slider_thumbnail_perview }},
