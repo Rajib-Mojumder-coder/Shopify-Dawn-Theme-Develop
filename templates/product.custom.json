@@ -95,7 +95,7 @@
         "image_zoom": "lightbox",
         "hide_variants": true,
         "enable_video_looping": false,
-        "product-slider-thumbnail": false,
+        "product-slider-thumbnail": true,
         "slider-thumbnail-perview": 4,
         "navigation_pagination_settings": true,
         "show_navigation_desktop": true,
