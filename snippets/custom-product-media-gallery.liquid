@@ -85,37 +85,60 @@
  
     <!-- Initialize Swiper -->
     <script defer>
-    document.addEventListener('DOMContentLoaded', function () {
-        var swiper = new Swiper('.productMediaSliderThumbs', {
-        loop: true,
-        spaceBetween: 10,
-        slidesPerView: {{slider_thumbnail_perview}},
-        freeMode: true,
-        watchSlidesProgress: true,
-        navigation: {
-            nextEl: ".thumb-next",
-            prevEl: ".thumb-prev"
-        },
-      });
+    document.addEventListener("DOMContentLoaded", function () {
 
+    let thumbsSwiper = null;
 
+    // Initialize thumbnail slider only if it exists
+    const thumbsElement = document.querySelector(".productMediaSliderThumbs");
 
-      var swiper = new Swiper('.productMediaSlider', {
+    if (thumbsElement) {
+
+        thumbsSwiper = new Swiper(".productMediaSliderThumbs", {
+            loop: true,
+            spaceBetween: 10,
+            slidesPerView: {{ slider_thumbnail_perview }},
+            freeMode: true,
+            watchSlidesProgress: true,
+
+            navigation: {
+                nextEl: ".thumb-next",
+                prevEl: ".thumb-prev"
+            }
+        });
+
+    }
+
+    // Main product slider options
+    const productOptions = {
+
         cssMode: true,
+
         navigation: {
             nextEl: ".slider-next-{{ section.id }}",
             prevEl: ".slider-prev-{{ section.id }}"
         },
+
         pagination: {
             el: ".slider-pagination-{{ section.id }}",
             clickable: true
         },
-        thumbs: {
-          swiper: swiper,
-        },
+
         mousewheel: true,
-        keyboard: true,
-      })
+        keyboard: true
+
+    };
+
+    // Link thumbnails only when they exist
+    if (thumbsSwiper) {
+        productOptions.thumbs = {
+            swiper: thumbsSwiper
+        };
+    }
+
+    // Initialize main slider
+    const productSwiper = new Swiper(".productMediaSlider", productOptions);
+
 });
     </script>
 
