@@ -74,7 +74,7 @@
    position: absolute;
     left: 35px;
     top: 35px;
-    z-index: 100;
+    z-index: 10;
 }
 
 .custom-product-section .product-logo-container img {
@@ -88,7 +88,7 @@
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 100;
+  z-index: 10;
   padding: 16px 8px;
   background: #00C8FF;
   max-width: 240px;
