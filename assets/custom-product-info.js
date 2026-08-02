@@ -201,6 +201,16 @@ if (!customElements.get('product-info')) {
             window.variantStrings.soldOut
           );
 
+if (typeof initProductGallery === "function") {
+
+    requestAnimationFrame(() => {
+
+        initProductGallery();
+
+    });
+
+}
+
           publish(PUB_SUB_EVENTS.variantChange, {
             data: {
               sectionId: this.sectionId,
@@ -318,7 +328,7 @@ gallery?.setActiveMedia(
     true
 );
 // End Extra code
- 
+
       setQuantityBoundries() {
         const data = {
           cartQuantity: this.quantityInput.dataset.cartQuantity ? parseInt(this.quantityInput.dataset.cartQuantity) : 0,
