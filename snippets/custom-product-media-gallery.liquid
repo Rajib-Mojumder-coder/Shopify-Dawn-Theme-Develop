@@ -28,7 +28,7 @@
     <div class="media-container-wrapper">
 
         <div class="swiper productMediaSlider mySwiper2">
-            <div class="swiper-wrapper media-container-bg media-container-radius">
+            <ul class="swiper-wrapper media-container-bg media-container-radius" role="list">
 
                 {% for media in product.media %}
                 <div class="swiper-slide" data-media-id="{{ media.id }}">
@@ -40,7 +40,7 @@
                 </div>
                 {% endfor %}
 
-            </div>
+            </ul>
                 
             <div class="custom-slider-controls"> 
                 {% render 'custom-slider-navigation-prev' %}
