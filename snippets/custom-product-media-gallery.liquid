@@ -137,7 +137,11 @@ const productSwiper = new Swiper(".productMediaSlider",{
 window.productSwiper = productSwiper;
     
 
-});
+}
+
+document.addEventListener("DOMContentLoaded", initProductGallery);
+
+document.addEventListener("shopify:section:load", initProductGallery);
 </script>
 
 <style>
