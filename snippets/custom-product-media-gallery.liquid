@@ -85,32 +85,28 @@
  
     <!-- Initialize Swiper -->
    <script defer>
-    
+
 document.addEventListener("DOMContentLoaded", function () {
 
     let thumbsSwiper = null;
 
     // Initialize thumbnail slider only if it exists
-    const thumbsElement = document.querySelector(".productMediaSliderThumbs");
+    thumbsSwiper = new Swiper(".productMediaSliderThumbs", {
 
-    if (thumbsElement) {
+    loop:false,
+    spaceBetween:10,
+    slidesPerView:{{ slider_thumbnail_perview }},
+    watchSlidesProgress:true,
+    watchSlidesVisibility:true,
 
-        window.thumbsSwiper = new Swiper(".productMediaSliderThumbs", {
-
-    loop: true,
-    spaceBetween: 10,
-    slidesPerView: {{ slider_thumbnail_perview }},
-    freeMode: true,
-    watchSlidesProgress: true,
-
-    navigation: {
-    nextEl: ".productMediaSliderThumbs .thumb-next",
-    prevEl: ".productMediaSliderThumbs .thumb-prev",
+    navigation:{
+        nextEl:".productMediaSliderThumbs .thumb-next",
+        prevEl:".productMediaSliderThumbs .thumb-prev"
     }
 
 });
 
-    }
+window.thumbsSwiper = thumbsSwiper;
 
     // Main product slider options
     const productOptions = {
