@@ -308,6 +308,8 @@ if (!customElements.get('product-info')) {
         const modalContent = this.productModal?.querySelector(`.product-media-modal__content`);
         const newModalContent = html.querySelector(`product-modal .product-media-modal__content`);
         if (modalContent && newModalContent) modalContent.innerHTML = newModalContent.innerHTML;
+        
+        //Extra code 
 
 const gallery = this.querySelector("media-gallery");
 
@@ -315,7 +317,8 @@ gallery?.setActiveMedia(
     `${this.dataset.section}-${variantFeaturedMediaId}`,
     true
 );
-
+// End Extra code
+ 
       setQuantityBoundries() {
         const data = {
           cartQuantity: this.quantityInput.dataset.cartQuantity ? parseInt(this.quantityInput.dataset.cartQuantity) : 0,
