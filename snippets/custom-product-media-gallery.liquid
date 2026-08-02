@@ -223,7 +223,9 @@ document.addEventListener("shopify:section:load", initProductGallery);
     justify-content: center;
     align-items: center;
 }
-
+.productMediaSlider .product__media-item:not(.is-active) {
+    display: block !important;
+}
 /*Thumbnail Slider Prev & Next CSS*/
 .productMediaSliderThumbs {
     position: relative;
