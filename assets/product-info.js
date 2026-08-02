@@ -308,36 +308,6 @@ if (!customElements.get('product-info')) {
         const modalContent = this.productModal?.querySelector(`.product-media-modal__content`);
         const newModalContent = html.querySelector(`product-modal .product-media-modal__content`);
         if (modalContent && newModalContent) modalContent.innerHTML = newModalContent.innerHTML;
-
-        // =========================
-// Custom Swiper Gallery Sync
-// =========================
-
-if (window.productSwiper && variantFeaturedMediaId) {
-
-  const slides = document.querySelectorAll(
-    ".productMediaSlider .swiper-slide[data-media-id]"
-  );
-
-  let slideIndex = -1;
-
-  slides.forEach((slide, index) => {
-    if (String(slide.dataset.mediaId) === String(variantFeaturedMediaId)) {
-      slideIndex = index;
-    }
-  });
-
-  if (slideIndex > -1) {
-
-    window.productSwiper.slideTo(slideIndex);
-
-    if (window.thumbsSwiper) {
-      window.thumbsSwiper.slideTo(slideIndex);
-    }
-
-  }
-
-}
       }
 
       setQuantityBoundries() {
