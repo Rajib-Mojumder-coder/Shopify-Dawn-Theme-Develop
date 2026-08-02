@@ -309,7 +309,12 @@ if (!customElements.get('product-info')) {
         const newModalContent = html.querySelector(`product-modal .product-media-modal__content`);
         if (modalContent && newModalContent) modalContent.innerHTML = newModalContent.innerHTML;
 
+const gallery = this.querySelector("media-gallery");
 
+gallery?.setActiveMedia(
+    `${this.dataset.section}-${variantFeaturedMediaId}`,
+    true
+);
 
       setQuantityBoundries() {
         const data = {
