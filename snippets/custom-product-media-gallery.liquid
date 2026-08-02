@@ -135,7 +135,32 @@ const productSwiper = new Swiper(".productMediaSlider",{
 });
 
 window.productSwiper = productSwiper;
-    
+
+const gallery = document.querySelector("media-gallery");
+
+if (gallery) {
+
+    gallery.setActiveMedia = function(mediaId) {
+
+        const slides = [...document.querySelectorAll(".productMediaSlider .swiper-slide")];
+
+        const index = slides.findIndex(slide =>
+
+            slide.dataset.mediaId === mediaId
+
+        );
+
+        if(index >= 0){
+
+            productSwiper.slideTo(index);
+
+            thumbsSwiper?.slideTo(index);
+
+        }
+
+    };
+
+}
 
 }
 
