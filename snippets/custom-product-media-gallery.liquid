@@ -90,89 +90,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let thumbsSwiper = null;
 
-    // Initialize thumbnail slider only if it exists
-    thumbsSwiper = new Swiper(".productMediaSliderThumbs", {
+const thumbsElement = document.querySelector(".productMediaSliderThumbs");
+
+if (thumbsElement) {
+
+    thumbsSwiper = new Swiper(".productMediaSliderThumbs",{
+
+        loop:false,
+        slidesPerView:{{ slider_thumbnail_perview }},
+        spaceBetween:10,
+        watchSlidesProgress:true,
+
+        navigation:{
+            nextEl:".productMediaSliderThumbs .thumb-next",
+            prevEl:".productMediaSliderThumbs .thumb-prev"
+        }
+
+    });
+
+    window.thumbsSwiper = thumbsSwiper;
+}
+
+const productSwiper = new Swiper(".productMediaSlider",{
 
     loop:false,
-    spaceBetween:10,
-    slidesPerView:{{ slider_thumbnail_perview }},
-    watchSlidesProgress:true,
-    watchSlidesVisibility:true,
 
     navigation:{
-        nextEl:".productMediaSliderThumbs .thumb-next",
-        prevEl:".productMediaSliderThumbs .thumb-prev"
-    }
+        nextEl:".slider-next-{{ section.id }}",
+        prevEl:".slider-prev-{{ section.id }}"
+    },
+
+    pagination:{
+        el:".slider-pagination-{{ section.id }}",
+        clickable:true
+    },
+
+    thumbs: thumbsSwiper ? { swiper: thumbsSwiper } : undefined
 
 });
 
-window.thumbsSwiper = thumbsSwiper;
-
-
-    // Main product slider options
-    const productOptions = {
-
-        cssMode: false,
-
-        navigation: {
-            nextEl: ".slider-next-{{ section.id }}",
-            prevEl: ".slider-prev-{{ section.id }}"
-        },
-
-        pagination: {
-            el: ".slider-pagination-{{ section.id }}",
-            clickable: true
-        },
-
-        mousewheel: true,
-        keyboard: true
-
-    };
-
-    // Connect thumbnail slider if it exists
-    if (thumbsSwiper) {
-        productOptions.thumbs = {
-            swiper: thumbsSwiper
-        };
-    }
-
-    // Initialize main slider
-    window.productSwiper = new Swiper(".productMediaSlider", productOptions);
-
-    // Save globally so we can access it later
-    window.productSwiper = productSwiper;
-
-    // Listen for Shopify variant changes
-    if (typeof subscribe !== "undefined") {
-
-        subscribe(PUB_SUB_EVENTS.variantChange, ({ data }) => {
-
-            if (!data.variant) return;
-            if (!data.variant.featured_media) return;
-
-            const mediaId = String(data.variant.featured_media.id);
-
-            const slides = document.querySelectorAll(
-                ".productMediaSlider .swiper-slide"
-            );
-
-            slides.forEach((slide, index) => {
-
-                if (slide.dataset.mediaId === mediaId) {
-
-                    productSwiper.slideTo(index);
-
-                    if (thumbsSwiper) {
-                        thumbsSwiper.slideTo(index);
-                    }
-
-                }
-
-            });
-
-        });
-
-    }
+window.productSwiper = productSwiper;
+    
 
 });
 </script>
