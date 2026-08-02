@@ -234,6 +234,23 @@ document.addEventListener("DOMContentLoaded", function () {
     align-items: center;
 }
 
+/*Thumbnail Slider Prev & Next CSS*/
+.productMediaSliderThumbs {
+    position: relative;
+}
+
+.productMediaSliderThumbs .thumb-prev,
+.productMediaSliderThumbs .thumb-next{
+    color:#000;
+    width:32px;
+    height:32px;
+}
+
+.productMediaSliderThumbs .thumb-prev:after,
+.productMediaSliderThumbs .thumb-next:after{
+    font-size:18px;
+    font-weight:bold;
+}
 </style>
 
 {% comment %} <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
