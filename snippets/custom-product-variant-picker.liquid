@@ -24,7 +24,7 @@
                <div class="custom-product-variant__dropdown">
                  <select class="custom-product-variant__select" name="options[{{option.name |  escape}}]">
                       {% for value in option.values %}
-                        <option>
+                        <option value="{{value.name}}">
                           {{ value }} 
                         </option>
                       {% endfor %}
