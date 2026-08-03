@@ -31,9 +31,17 @@
                  </select>
                </div>
              
-            {% comment %} {%  else %} {% endcomment %}
+          {%  else %} 
+                
+                      <div class="button">
+                          {% for value in option.values %}
+                       
+                          {{ value }}
+                      
+                      {% endfor %}
+                      </div>
 
-            {% endif %}
+          {% endif %}
 
       </fieldset>
 
