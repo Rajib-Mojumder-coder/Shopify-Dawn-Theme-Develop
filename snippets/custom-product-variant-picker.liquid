@@ -37,10 +37,10 @@
                     {% for value in option.values %}
                   
                       <input type="radio" name="[{{option.name |  escape}}]" value="{{ value |  escape }}" 
-                      {% if option.selected_value %} checked {% endif %}> 
-                          <label> {{ value }} </label>
+                        {% if option.selected_value %} checked {% endif %}> 
+                          <span class="custom-product-variant__button-text">  {{ value }} </span>
                 
-                  {% endfor %}
+                    {% endfor %}
                 </div>
 
           {% endif %}
