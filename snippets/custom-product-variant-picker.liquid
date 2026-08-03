@@ -17,12 +17,11 @@
         <legend class="custom-product-variant__label">
             {{ option.name }}
             <span class="custom-product-variant__selected-value" data-selected-value> {{ option.selected_value }} </span>
-
-                {% for value in option.values %}
-                 <h3> {{ value }}</h3>
-                {% endfor %}
-
         </legend>
+
+              {% for value in option.values %}
+                 <h3> {{ value }}</h3>
+              {% endfor %}
 
       </fieldset>
 
