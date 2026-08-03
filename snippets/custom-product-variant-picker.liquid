@@ -1,10 +1,11 @@
 {% liquid
   assign current_variant = product.selected_or_first_available_variant
   assign custom_variant_style = block.settings.custom_variant_style
-  assign custom_swatches = block.settings.custom_swatches
-  assign custom_swatches_style = block.settings.custom_swatches_style
+  
 %}
 
-<div class="custom-product-variant-picker">
+{%  unless product.has_only_default_variant %} {%  comment  %}  {% endcomment %} 
+  <div class="custom-product-variant-picker">
 
-</div>
+  </div>
+{% endunless %}
