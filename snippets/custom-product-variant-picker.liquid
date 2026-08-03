@@ -23,9 +23,11 @@
 
                <div class="custom-product-variant__dropdown">
                  <select>
-                    <option>
-                      
-                    </option>
+                      {% for value in option.values %}
+                        <option>
+                          {{ value }}
+                        </option>
+                      {% endfor %}
                  </select>
                </div>
              
