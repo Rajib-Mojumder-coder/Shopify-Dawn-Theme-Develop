@@ -36,7 +36,7 @@
              
           {%  else %} 
                 
-                <div class="custom-product-variant__button">
+                <div class="custom-product-variant__values">
                     {% for value in option.values %}
                   
                       <input type="radio" name="options[{{option.name |  escape}}]" value="{{ value |  escape }}" 
