@@ -90,15 +90,13 @@
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
     {%  comment  %}Start Custom Product Form from product form addition aided {% endcomment %}
-                <product-form class="custom-product-form" data-section-id="{{ section.id }}" data-hide-errors="false">
-                  {%- form 'product',
-                    product, id: product_form_id,
-                    class: 'custom-product-form__form',
-                    novalidate: 'novalidate',
-                    data-type: 'add-to-cart-form'
-                  -%}
-                  {%- endform -%}
-                </product-form>
+          <product-form class="product-form custom-product-form" data-section-id="{{ section.id }}" data-hide-errors="false">
+            {%- form 'product', product, id: product_form_id,
+              class: 'form custom-product-form__form',
+              novalidate: 'novalidate',
+              data-type: 'add-to-cart-form'
+            -%}
+                  
       {%  comment  %} End Custom Product Form addition aided {% endcomment %}
 
           {%- for block in section.blocks -%}
@@ -707,6 +705,10 @@
                 {% render 'icon-with-text', block: block %}
             {%- endcase -%}
           {%- endfor -%}
+{%  comment  %}Start closing tag Custom Product Form from product form addition aided {% endcomment %}
+          {%- endform -%}
+        </product-form>
+{%  comment  %} End Custom Product closing tag {% endcomment %}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
             {{ 'products.product.view_full_details' | t }}
             {{- 'icon-arrow.svg' | inline_asset_content -}}
