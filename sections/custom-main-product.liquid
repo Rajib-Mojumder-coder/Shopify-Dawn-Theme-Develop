@@ -488,6 +488,8 @@
                 %}
 
               {%- when 'variant_picker' -%}
+                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+              {%- when 'custom_variant_picker' -%}
                 {% render 'custom-product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
@@ -989,6 +991,25 @@
             }
           ],
           "default": "circle"
+        }
+      ]
+    },
+    {
+      "type": "custom_variant_picker",
+      "name": "Custom Variant Picker",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Custom Variant Picker"
+        },
+        {
+          "type": "select",
+          "id": "custom_variant_style",
+          "label": "Variant Style",
+          "options": [
+            { "label": "Dropdown", "value": "dropdown"  },
+            { "label": "Buttons", "value": "Button"  }
+          ]
         }
       ]
     },
