@@ -201,16 +201,6 @@ if (!customElements.get('product-info')) {
             window.variantStrings.soldOut
           );
 
-if (typeof initProductGallery === "function") {
-
-    requestAnimationFrame(() => {
-
-        initProductGallery();
-
-    });
-
-}
-
           publish(PUB_SUB_EVENTS.variantChange, {
             data: {
               sectionId: this.sectionId,
@@ -318,16 +308,7 @@ if (typeof initProductGallery === "function") {
         const modalContent = this.productModal?.querySelector(`.product-media-modal__content`);
         const newModalContent = html.querySelector(`product-modal .product-media-modal__content`);
         if (modalContent && newModalContent) modalContent.innerHTML = newModalContent.innerHTML;
-        
-        //Extra code 
-
-const gallery = this.querySelector("media-gallery");
-
-gallery?.setActiveMedia(
-    `${this.dataset.section}-${variantFeaturedMediaId}`,
-    true
-);
-// End Extra code
+      }
 
       setQuantityBoundries() {
         const data = {
