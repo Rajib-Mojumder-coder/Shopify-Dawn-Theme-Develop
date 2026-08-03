@@ -12,8 +12,8 @@
 
     {% for options in product.options_with_values %}
 
-      <fieldset class="custom-product-variant__option">
-        
+      <fieldset class="custom-product-variant__option" data-option-position="{{ option.position }}>
+
       </fieldset>
 
     {% endfor %} 
