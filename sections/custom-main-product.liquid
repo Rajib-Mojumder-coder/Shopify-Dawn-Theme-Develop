@@ -89,9 +89,23 @@
           class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}">
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
+          <product-form
+  class="custom-product-form"
+  data-section-id="{{ section.id }}"
+  data-hide-errors="false"
+>
 
+  {%- form 'product',
+    product,
+    id: product_form_id,
+    class: 'custom-product-form__form',
+    novalidate: 'novalidate',
+    data-type: 'add-to-cart-form'
+  -%}
+  {%- endform -%}
 
-          
+</product-form>
+
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when '@app' -%}
