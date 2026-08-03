@@ -36,7 +36,7 @@
              
           {%  else %} 
                 
-                <div class="custom-product-variant__values" role="radiogroup">
+                <div class="custom-product-variant__values" role="radiogroup" aria-label="{{option.name}}">
                     {% for value in option.values %}
                   
                       <input type="radio" name="options[{{option.name |  escape}}]" value="{{ value |  escape }}" 
