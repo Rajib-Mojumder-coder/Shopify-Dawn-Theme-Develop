@@ -36,7 +36,8 @@
                 <div class="custom-product-variant__button">
                     {% for value in option.values %}
                   
-                      <input type="radio" name="[{{option.name |  escape}}]" value=""> <label> {{ value }} </label>
+                      <input type="radio" name="[{{option.name |  escape}}]" value="{{ value |  escape }}"> 
+                          <label> {{ value }} </label>
                 
                   {% endfor %}
                 </div>
