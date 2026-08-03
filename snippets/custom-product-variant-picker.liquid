@@ -20,12 +20,17 @@
         </legend>
 
             {% if custom_variant_style == dropdown %}
-              {% for value in option.values %}
-                 <h3> {{ value }}</h3>
-              {% endfor %}
+
+               <div class="custom-product-variant__dropdown">
+                  {% for value in option.values %}
+                    <h3> {{ value }}</h3>
+                  {% endfor %}
+               </div>
+             
             {%  else %}
 
             {% endif %}
+            
       </fieldset>
 
     {% endfor %} 
