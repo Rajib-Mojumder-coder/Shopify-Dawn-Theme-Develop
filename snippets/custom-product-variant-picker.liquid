@@ -9,12 +9,14 @@
   <div class="custom-product-variant-picker" id="CustomVariantPicker-{{ section.id }}"
   data-section-id="{{ section.id }}" data-product-id = "{{ product.id }}">
 
-    {% for options in product.options_with_values %}
 
-      
+  {{ product.options_with_values | json }}
+    {% comment %} {% for options in product.options_with_values %}
 
 
-    {% endfor %}
+
+
+    {% endfor %} {% endcomment %}
     
   </div>
 
