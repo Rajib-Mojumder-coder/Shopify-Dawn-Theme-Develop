@@ -19,10 +19,13 @@
             <span class="custom-product-variant__selected-value" data-selected-value> {{ option.selected_value }} </span>
         </legend>
 
+            {% if custom_variant_style == dropdown %}
               {% for value in option.values %}
                  <h3> {{ value }}</h3>
               {% endfor %}
+            {%  else %}
 
+            {% endif %}
       </fieldset>
 
     {% endfor %} 
