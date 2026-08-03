@@ -90,7 +90,28 @@
  
     <!-- Initialize Swiper -->
    <script defer>
-
+ var swiper = new Swiper('.mySwiper', {
+        loop: true,
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+        navigation:{
+            nextEl:".productMediaSliderThumbs .thumb-next",
+            prevEl:".productMediaSliderThumbs .thumb-prev",
+       }
+      });
+      var swiper2 = new Swiper('.mySwiper2', {
+        loop: true,
+        spaceBetween: 10,
+        navigation: {
+          nextEl:".slider-next-{{ section.id }}",
+          prevEl:".slider-prev-{{ section.id }}",
+        },
+        thumbs: {
+          swiper: swiper,
+        },
+      });
 
 
 // function initProductGallery() {
