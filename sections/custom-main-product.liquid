@@ -89,7 +89,7 @@
           class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}">
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
-    {%  comment  %}Start Custom Product Form addition aided {% endcomment %}
+    {%  comment  %}Start Custom Product Form from product form addition aided {% endcomment %}
                 <product-form class="custom-product-form" data-section-id="{{ section.id }}" data-hide-errors="false">
                   {%- form 'product',
                     product, id: product_form_id,
