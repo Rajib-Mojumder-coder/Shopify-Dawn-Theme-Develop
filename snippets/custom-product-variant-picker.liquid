@@ -43,7 +43,8 @@
                       <input id="{{ input_id }}" class="custom-product-variant__radio visually-hidden"  form="{{ product_form_id }}" 
                       type="radio" name="options[{{option.name |  escape}}]" value="{{ value |  escape }}" 
                         {% if option.selected_value == value %} checked {% endif %}> 
-                          <span class="custom-product-variant__button-text">  {{ value }} </span>
+                          <label class="custom-product-variant__button" for="{{ input_id }}">
+                            <span class="custom-product-variant__button-text">  {{ value }} </span>
                 
                     {% endfor %}
                 </div>
