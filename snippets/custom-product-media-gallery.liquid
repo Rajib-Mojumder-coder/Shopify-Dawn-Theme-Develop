@@ -91,82 +91,61 @@
     <!-- Initialize Swiper -->
    <script defer>
 
-function initProductGallery() {
 
-    let thumbsSwiper = null;
 
-const thumbsElement = document.querySelector(".productMediaSliderThumbs");
+// function initProductGallery() {
+//     let thumbsSwiper = null;
+// const thumbsElement = document.querySelector(".productMediaSliderThumbs");
 
-if (thumbsElement) {
+// if (thumbsElement) {
 
-    thumbsSwiper = new Swiper(".productMediaSliderThumbs",{
+//     thumbsSwiper = new Swiper(".productMediaSliderThumbs",{
 
-        loop:false,
-        slidesPerView:{{ slider_thumbnail_perview }},
-        spaceBetween:10,
-        watchSlidesProgress:true,
+//         loop:false,
+//         slidesPerView:{{ slider_thumbnail_perview }},
+//         spaceBetween:10,
+//         watchSlidesProgress:true,
+//         navigation:{
+//             nextEl:".productMediaSliderThumbs .thumb-next",
+//             prevEl:".productMediaSliderThumbs .thumb-prev"
+//         }
 
-        navigation:{
-            nextEl:".productMediaSliderThumbs .thumb-next",
-            prevEl:".productMediaSliderThumbs .thumb-prev"
-        }
+//     });
+//     window.thumbsSwiper = thumbsSwiper;
+// }
 
-    });
+// const productSwiper = new Swiper(".productMediaSlider",{
+//     loop:false,
+//     navigation:{
+//         nextEl:".slider-next-{{ section.id }}",
+//         prevEl:".slider-prev-{{ section.id }}"
+//     },
+//     pagination:{
+//         el:".slider-pagination-{{ section.id }}",
+//         clickable:true
+//     },
+//     thumbs: thumbsSwiper ? { swiper: thumbsSwiper } : undefined
 
-    window.thumbsSwiper = thumbsSwiper;
-}
+// });
 
-const productSwiper = new Swiper(".productMediaSlider",{
+// window.productSwiper = productSwiper;
+// const gallery = document.querySelector("media-gallery");
+// if (gallery) {
+//     gallery.setActiveMedia = function(mediaId) {
+//         const slides = [...document.querySelectorAll(".productMediaSlider .swiper-slide")];
+//         const index = slides.findIndex(slide =>
+//             slide.dataset.mediaId === mediaId
+//         );
+//         if(index >= 0){
+//             productSwiper.slideTo(index);
+//             thumbsSwiper?.slideTo(index);
+//         }
+//     };
+// }
+// }
+// document.addEventListener("DOMContentLoaded", initProductGallery);
+// document.addEventListener("shopify:section:load", initProductGallery);
 
-    loop:false,
-
-    navigation:{
-        nextEl:".slider-next-{{ section.id }}",
-        prevEl:".slider-prev-{{ section.id }}"
-    },
-
-    pagination:{
-        el:".slider-pagination-{{ section.id }}",
-        clickable:true
-    },
-
-    thumbs: thumbsSwiper ? { swiper: thumbsSwiper } : undefined
-
-});
-
-window.productSwiper = productSwiper;
-
-const gallery = document.querySelector("media-gallery");
-
-if (gallery) {
-
-    gallery.setActiveMedia = function(mediaId) {
-
-        const slides = [...document.querySelectorAll(".productMediaSlider .swiper-slide")];
-
-        const index = slides.findIndex(slide =>
-
-            slide.dataset.mediaId === mediaId
-
-        );
-
-        if(index >= 0){
-
-            productSwiper.slideTo(index);
-
-            thumbsSwiper?.slideTo(index);
-
-        }
-
-    };
-
-}
-
-}
-
-document.addEventListener("DOMContentLoaded", initProductGallery);
-
-document.addEventListener("shopify:section:load", initProductGallery);
 </script>
 
 <style>
