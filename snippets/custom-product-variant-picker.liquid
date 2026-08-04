@@ -25,7 +25,8 @@
 
             {% if custom_variant_style == 'dropdown' %}
 
-               <div class="custom-product-variant__dropdown">
+               {% comment %} 
+              <div class="custom-product-variant__dropdown">
                  <select class="custom-product-variant__select" name="options[{{option.name |  escape}}]" form="{{ product_form_id }}">
                       {% for value in option.values %}
                       <option value="{{value |  escape}}" {% if option.selected_value == value %} selected {% endif %}>
@@ -33,7 +34,7 @@
                         </option>
                       {% endfor %}
                  </select>
-               </div>
+               </div> {% endcomment %}
              
           {%  else %} 
                 
