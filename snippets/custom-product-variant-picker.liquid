@@ -25,7 +25,8 @@
 
             {% if custom_variant_style == 'dropdown' %}
 
-               {% comment %} 
+               {% comment %} This is actually not a CSS problem—it's a browser limitation. The <select> dropdown and the list of <option> elements are rendered by the operating system, not by your webpage.
+                
               <div class="custom-product-variant__dropdown">
                  <select class="custom-product-variant__select" name="options[{{option.name |  escape}}]" form="{{ product_form_id }}">
                       {% for value in option.values %}
