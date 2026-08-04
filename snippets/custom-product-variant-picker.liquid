@@ -104,12 +104,14 @@
   align-items: center;
   justify-content: center;
   padding: .8rem 1.4rem;
-  border: 2px var(--color-primary) solid;
+  border: 2px rgba(var(--color-primary).5) solid;
   border-radius: 100px;
   background: rgb(var(--color-offwhite));
   color: var(--color-primary);
   cursor: pointer;
   transition:  background .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
 }
-
+.custom-product-variant__button:hover{
+  border-color: rgba(var(--color-primary) 1);
+}
 </style> 
