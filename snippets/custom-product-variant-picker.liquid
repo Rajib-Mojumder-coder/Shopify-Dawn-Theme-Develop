@@ -42,6 +42,12 @@
                      <span class="custom-product-variant__dropdown-value"> {{ option.selected_value }} </span>
                      <span class="custom-product-variant__dropdown-icon"> ▼ </span>
                   </button>
+
+                  <ul>
+                    {% for value in option.values  %}  
+                      <li>  </li>
+                    {% endfor %}
+                  </ul>
                </div>
 
           {%  else %} 
