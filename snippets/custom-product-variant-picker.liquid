@@ -44,9 +44,11 @@
                   </button>
 
                   <ul class="custom-product-variant__dropdown-menu" role="listbox">
+
                     {% for value in option.values  %}  
-                      <li class="custom-product-variant__dropdown-item">  </li>
+                      <li class="custom-product-variant__dropdown-item"> {{ value }} </li>
                     {% endfor %}
+                    
                   </ul>
                </div>
 
