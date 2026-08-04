@@ -46,7 +46,9 @@
                   <ul class="custom-product-variant__dropdown-menu" role="listbox">
 
                     {% for value in option.values  %}  
-                    <li class="custom-product-variant__dropdown-item" {% if option.selected_value == value %}selected{%endif%}> {{ value }} </li>
+                    <li class="custom-product-variant__dropdown-item {% if option.selected_value = value %}selected{% endif %}"> 
+                      {{ value }} 
+                      </li> 
                     {% endfor %}
 
                   </ul>
