@@ -58,6 +58,7 @@ h1,h2,h3,h5,h6, p{
 
   /* Colors */
   --color-white: #ffffff;
+  --color-offwhite: #EFEEEE;
   --color-primary: #06123D;  /* Used for dark text */
   --color-button: #fff;
   --color-overlay: #000000;
