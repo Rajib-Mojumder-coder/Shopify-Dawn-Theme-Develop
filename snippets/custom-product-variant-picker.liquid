@@ -53,7 +53,8 @@
         
                   </ul>
 
-                  <input type="hidden" class="custom-product-variant__hidden-input" name="">
+                  <input type="hidden" class="custom-product-variant__hidden-input" 
+                        name="options[{{option.name |  escape}}]" value="{{option.selected_value}}">
                       {% comment %} Without the hidden input, the browser submits nothing because a <button> and <li> do not send form data. Why not read the button text? Because browsers only submit values from form controls like: <input> <select> <textarea> {% endcomment %}
 
                </div>
