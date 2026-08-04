@@ -128,4 +128,13 @@
   color: var(--color-offwhite);
   border-color: color-mix(in srgb, var(--color-primary) 100%, transparent);
 } 
+
+/* ============= Keyboard Accessibility custom variant-এর জন্য যদি radio input hidden থাকে:================= */
+
+.custom-product-variant__radio:focus-visible
++ .custom-product-variant__button {
+
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
 </style> 
