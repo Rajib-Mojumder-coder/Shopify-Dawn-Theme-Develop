@@ -18,7 +18,8 @@
       <fieldset class="custom-product-variant__option" data-option-position="{{ option.position }}">
 
         <legend class="custom-product-variant__label">
-            <span class="custom-product-variant__label-title"> {{ option.name }} </span>
+            <span class="custom-product-variant__label-title"> {{ option.name }} 
+              {% if option.selected_value != blank %}:{% endif %} </span>
             <span class="custom-product-variant__selected-value" data-selected-value> {{ option.selected_value }} </span>
         </legend>
 
