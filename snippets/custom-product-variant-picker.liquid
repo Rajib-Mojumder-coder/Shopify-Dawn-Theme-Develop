@@ -50,8 +50,11 @@
                         {{ value }} 
                       </li> 
                     {% endfor %}
-                    lal 
+        
                   </ul>
+
+                      {% comment %} Without the hidden input, the browser submits nothing because a <button> and <li> do not send form data. {% endcomment %}
+
                </div>
 
           {%  else %} 
