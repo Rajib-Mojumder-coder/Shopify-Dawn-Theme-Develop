@@ -108,7 +108,7 @@ const dropdowns = document.querySelectorAll(".custom-product-variant__dropdown")
     const item = e.target.closest(".custom-product-variant__dropdown-item") //Find clicked item
     if( item && dropdown.contains(item)){         //Duita condition, item ache? and  Ei dropdown-er item? Tahole kaj kor.
       value.textContent = item.dataset.value; // Change visible text
-      input.value = item.dataset.value; // update hidden 
+      input.value = item.dataset.value; // update hidden input
     }
 });
 
