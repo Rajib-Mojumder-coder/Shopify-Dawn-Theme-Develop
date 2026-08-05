@@ -87,47 +87,98 @@
 
 <script>
 
-document.addEventListener("click", function(e){
+document.addEventListener("click", function (e) {
 
-const dropdowns = document.querySelectorAll(".custom-product-variant__dropdown"); //Website-e if 3ta optn thke er mde dropdown sav hbe.
+  // Website-e joto dropdown ache, sobgulo select koro
+  const dropdowns = document.querySelectorAll(".custom-product-variant__dropdown");
 
-    dropdowns.forEach(function(dropdown){ //Loop every dropdown,  Current dropdown-er vitore
-      const button = document.querySelector(".custom-product-variant__dropdown-toggle"); //button khuje ber kor
-      const menu = document.querySelector(".custom-product-variant__dropdown-menu"); //menu khuje ber kor
-      const value = document.querySelector(".custom-product-variant__dropdown-value"); //selected text khuje ber kor
-      const input = document.querySelector(".custom-product-variant__hidden-input"); //hidden input khuje ber kor
-    })
+  // Prottek dropdown-er upor alada kore kaj korbo
+  dropdowns.forEach(function (dropdown) {
 
-    // open or close
-    if(button.contains(e.target)){   // Check korche User ki button-er upor click korse? jodi yes hoi then....
-      dropdown.classList.toggle("is-open"); // open hole close close hole open.
+    // Current dropdown-er button
+    const button = dropdown.querySelector(".custom-product-variant__dropdown-toggle");
+
+    // Current dropdown-er selected text
+    const value = dropdown.querySelector(".custom-product-variant__dropdown-value");
+
+    // Current dropdown-er hidden input
+    // Form submit hole ei value Shopify receive korbe
+    const input = dropdown.querySelector(".custom-product-variant__hidden-input");
+
+
+    /*===========  1. OPEN / CLOSE DROPDOWN=======*/
+
+    // User ki current dropdown-er button-e click korse?
+    if (button.contains(e.target)) {
+
+      // Jodi close thake open hobe
+      // Jodi open thake close hobe
+      dropdown.classList.toggle("is-open");
+
+      // Nicher code ar execute hobe na
       return;
     }
 
-    const item = e.target.closest(".custom-product-variant__dropdown-item") //Find clicked item
-    if( item && dropdown.contains(item)){         //Duita condition, item ache? and  Ei dropdown-er item? Tahole kaj kor.
-      value.textContent = item.dataset.value; // Change visible text
-      input.value = item.dataset.value; // update hidden input
 
-      dropdown.querySelectorAll(".custom-product-variant__dropdown-item") //Remove old selected class
-      .forEach(function(i){
+    /*===========. OPTION SELECT=======*/
 
-       i.classList.remove("is-selected");
+    // User kono option item-e click korse kina dekho
+    const item = e.target.closest(".custom-product-variant__dropdown-item");
 
-      });
+    // Item paoa gelo?
+    // Ebong oi item current dropdown-er vitorei ache?
+    if (item && dropdown.contains(item)) {
 
-      item.classList.add("is-selected"); // Add selected class
-      dropdown.classList.remove("is-open"); // Close dropdown
+      // Button-er text update koro
+      value.textContent = item.dataset.value;
 
-      input.dispatchEvent( // Tell Shopify: Hidden input-er value change korle browser nije theke change event fire kore na. 
-        new Event("change",{bubbles:true}) // Tai manually bolte hoy "Input change hoye geche." Shopify ei event sune variant change kore.
+      // Hidden input-er value update koro
+      // Shopify Form submit hole eta pathabe
+      input.value = item.dataset.value;
+
+
+      // Sob option theke selected class remove koro
+      dropdown
+        .querySelectorAll(".custom-product-variant__dropdown-item")
+        .forEach(function (i) {
+
+          i.classList.remove("selected");
+
+        });
+
+
+      // Current clicked option-ke selected koro
+      item.classList.add("selected");
+
+
+      // Option select hole dropdown close hoye jabe
+      dropdown.classList.remove("is-open");
+
+
+      // Browser nije theke hidden input-er change event fire kore na
+      // Tai manually Shopify-ke boli value change hoyeche
+      input.dispatchEvent(
+
+        new Event("change", {
+          bubbles: true
+        })
+
       );
+
     }
 
-    // Click Outside
-        if(!dropdown.contains(e.target)){
-            dropdown.classList.remove("is-open");
-        }
+
+    /*============== 3. CLICK OUTSIDE========*/
+
+    // User jodi dropdown-er baire click kore
+    if (!dropdown.contains(e.target)) {
+
+      // Dropdown close kore dao
+      dropdown.classList.remove("is-open");
+
+    }
+
+  });
 
 });
 
