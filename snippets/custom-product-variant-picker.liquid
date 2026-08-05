@@ -124,7 +124,12 @@ const dropdowns = document.querySelectorAll(".custom-product-variant__dropdown")
         new Event("change",{bubbles:true}) // Tai manually bolte hoy "Input change hoye geche." Shopify ei event sune variant change kore.
       );
     }
-    
+
+    // Click Outside
+        if(!dropdown.contains(e.target)){
+            dropdown.classList.remove("is-open");
+        }
+
 });
 
 </script>
