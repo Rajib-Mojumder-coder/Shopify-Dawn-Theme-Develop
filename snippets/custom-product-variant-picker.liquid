@@ -120,6 +120,10 @@ const dropdowns = document.querySelectorAll(".custom-product-variant__dropdown")
       item.classList.add("is-selected"); // Add selected class
       dropdown.classList.remove("is-open"); // Close dropdown
 
+      input.dispatchEvent(
+        new Event("change",{bubbles:true}) // 
+      );
+
     }
 });
 
