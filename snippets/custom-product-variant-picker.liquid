@@ -101,6 +101,10 @@ document.addEventListener("click", function (e) {
     // Current dropdown-er selected text
     const value = dropdown.querySelector(".custom-product-variant__dropdown-value");
 
+    // Current option-er legend er selected value
+    const labelSelectedValue = dropdown
+    .closest(".custom-product-variant__option")
+    .querySelector("[data-selected-value]");
     // Current dropdown-er hidden input
     // Form submit hole ei value Shopify receive korbe
     const input = dropdown.querySelector(".custom-product-variant__hidden-input");
