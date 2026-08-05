@@ -120,8 +120,8 @@ const dropdowns = document.querySelectorAll(".custom-product-variant__dropdown")
       item.classList.add("is-selected"); // Add selected class
       dropdown.classList.remove("is-open"); // Close dropdown
 
-      input.dispatchEvent(
-        new Event("change",{bubbles:true}) // Tell Shopify: Hidden input-er value change korle browser nije theke 
+      input.dispatchEvent( // Tell Shopify: Hidden input-er value change korle browser nije theke change event fire kore na. 
+        new Event("change",{bubbles:true}) 
       );
 
     }
