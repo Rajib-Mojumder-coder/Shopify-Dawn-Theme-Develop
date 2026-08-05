@@ -110,12 +110,13 @@ const dropdowns = document.querySelectorAll(".custom-product-variant__dropdown")
       value.textContent = item.dataset.value; // Change visible text
       input.value = item.dataset.value; // update hidden input
 
-      dropdown.querySelectorAll(".custom-product-variant__dropdown-item") 
+      dropdown.querySelectorAll(".custom-product-variant__dropdown-item") //Remove old selected class
       .forEach(function(i){
 
-      i.classList.remove("is-selected");
+       i.classList.remove("is-selected");
 
-});
+      });
+      
     }
 });
 
