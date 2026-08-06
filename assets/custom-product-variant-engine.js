@@ -33,48 +33,101 @@ class CustomVariantEngine {
 
   bindEvents() {
 
-  this.form
-    .querySelectorAll('[name^="options["]')
-    .forEach((input) => {
-      input.addEventListener("change", () => {
-        this.onOptionChange();
+    this.form
+      .querySelectorAll('[name^="options["]')
+      .forEach((input) => {
+
+        input.addEventListener("change", () => {
+
+          this.onOptionChange();
+
+        });
+
       });
+
+  }
+
+
+  onOptionChange() {
+
+    const selectedOptions = this.getSelectedOptions();
+
+    const variant = this.findVariant(selectedOptions);
+
+    if (!variant) return;
+
+    this.updateVariantId(variant);
+
+  }
+
+
+  getSelectedOptions() {
+
+    const values = [];
+
+    this.form
+      .querySelectorAll('[name^="options["]')
+      .forEach((input) => {
+
+        values.push(input.value);
+
+      });
+
+    return values;
+
+  }
+
+
+  findVariant(selectedOptions) {
+
+    return this.variantData.find((variant) => {
+
+      return variant.options.every((option, index) => {
+
+        return option === selectedOptions[index];
+
+      });
+
     });
-}
 
-onOptionChange() {
-  const selectedOptions = this.getSelectedOptions();
-  const variant = this.findVariant(selectedOptions);
-  if (!variant) return;
-  this.updateVariantId(variant);
-}
+  }
 
-findVariant(selectedOptions) {
-  return this.variantData.find((variant) => {
-    return variant.options.every((option, index) => {
-      return option === selectedOptions[index];
-    });
-  });
-}
 
-getSelectedOptions() {
-  const values = [];
-  this.form
-    .querySelectorAll('[name^="options["]')
-    .forEach((input) => {
-      values.push(input.value);
-    });
-  return values;
-}
+  updateVariantId(variant) {
 
-updateVariantId(variant) {
-  // Update hidden variant id
-  this.variantIdInput.value = variant.id;
-  // Notify the rest of the product page
-  this.dispatchVariantChange(variant);
-}
+    // Update hidden variant id
+    this.variantIdInput.value = variant.id;
 
-}
+    // Notify rest of product page
+    this.dispatchVariantChange(variant);
+
+  }
+
+
+  dispatchVariantChange(variant) {
+
+    document.dispatchEvent(
+
+      new CustomEvent("variant:change", {
+
+        detail: {
+
+          variant: variant,
+
+          productForm: this.form,
+
+          picker: this.wrapper
+
+        }
+
+      })
+
+    );
+
+  }
+
+} // ← Class ends here
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -88,25 +141,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
-
-dispatchVariantChange(variant) {
-
-  document.dispatchEvent(
-
-    new CustomEvent("variant:change", {
-
-      detail: {
-
-        variant: variant,
-
-        productForm: this.form,
-
-        picker: this.wrapper
-
-      }
-
-    })
-
-  );
-
-}
