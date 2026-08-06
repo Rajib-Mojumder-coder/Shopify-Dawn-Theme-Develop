@@ -79,9 +79,9 @@ this.variantData = productData.variants;
   }
 
 
-  findVariant(selectedOptions) {
+findVariant(selectedOptions) {
 
-  return this.variantData.variants.find((variant) => {
+  return this.variantData.find((variant) => {
 
     return variant.options.every((option, index) => {
 
@@ -92,6 +92,7 @@ this.variantData = productData.variants;
   });
 
 }
+
 
 
   updateVariantId(variant) {
