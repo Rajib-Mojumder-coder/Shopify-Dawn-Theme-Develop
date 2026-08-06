@@ -73,11 +73,13 @@
                         </span>
                     {% endif %}
 
-                    {% if show_compare_price and (on_sale or hide_compare_without_discount == false) %}
-                        <span class="custom-price__compare{% if compare_full_width %} compare_full_width{% endif %}"
-                        data-compare-price>
-                        {{ compare_price_html }}
-                        </span>
+                    {% if show_compare_price %} 
+                        {% if on_sale or hide_compare_without_discount == false %}
+                            <span class="custom-price__compare{% if compare_full_width %} compare_full_width{% endif %}"
+                            data-compare-price>
+                            {{ compare_price_html }}
+                            </span>
+                        {% endif %}
                     {% endif %}
 
                     </div>
