@@ -82,3 +82,40 @@ document.addEventListener("click", function (e) {
     }
   });
 });
+
+
+{% comment %} Tumi jodi JavaScript bhalo vabe shikhte chao, tahole short code likhar cheshta ekhon korba na. Borong ei order-e practice koro:
+
+DOM Selectors (querySelector, querySelectorAll)
+Events (click, change)
+Loop (forEach)
+Class Manipulation (add, remove, toggle)
+Dataset (data-value)
+contains() & closest()
+Custom Events (dispatchEvent)
+
+
+class CustomVariantDropdown {
+
+    constructor(dropdown){
+
+        ...
+
+    }
+
+    open(){
+
+    }
+
+    close(){
+
+    }
+
+    select(){
+
+    }
+
+}
+ {% endcomment %}
+
+
