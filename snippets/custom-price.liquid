@@ -65,11 +65,9 @@
                 <div class="custom-price">
 
                     {% if show_current_price %}
-                        <span
-                        class="custom-price__current{% if large_price %} custom-price__current--large{% endif %}"
-                        data-product-price
-                        >
-                        {{ current_price_html }}
+                        <span class="custom-price__current{% if large_price %} custom-price__current--large{% endif %}"
+                        data-product-price>
+                            {{ current_price_html }}
                         </span>
                     {% endif %}
 
@@ -77,12 +75,12 @@
                         {% if on_sale or hide_compare_without_discount == false %}
                             <span class="custom-price__compare{% if compare_full_width %} compare_full_width{% endif %}"
                             data-compare-price>
-                            {{ compare_price_html }}
+                                {{ compare_price_html }}
                             </span>
                         {% endif %}
                     {% endif %}
 
-                    </div>
+                </div>
 
 
 <style>
