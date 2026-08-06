@@ -51,16 +51,19 @@ this.variantData = productData.variants;
 
   onOptionChange() {
 
-    const selectedOptions = this.getSelectedOptions();
+  const selectedOptions = this.getSelectedOptions();
 
-    const variant = this.findVariant(selectedOptions);
- console.log("Matched Variant:", variant);
+  console.log("Selected Options:", selectedOptions);
 
-    if (!variant) return;
+  const variant = this.findVariant(selectedOptions);
 
-    this.updateVariantId(variant);
+  console.log("Matched Variant:", variant);
 
-  }
+  if (!variant) return;
+
+  this.updateVariantId(variant);
+
+}
 
 
   getSelectedOptions() {
