@@ -44,9 +44,10 @@ if (comparePriceElement) {
     if (variant.compare_at_price > variant.price) {
 
         comparePriceElement.textContent =
-            CustomProductUtils.formatMoney(
-                    variant.compare_at_price
-                )
+            Shopify.formatMoney(
+                variant.compare_at_price,
+                window.Shopify.money_format
+            );
 
         comparePriceElement.style.display = "";
 
