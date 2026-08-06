@@ -9,10 +9,11 @@ class CustomVariantEngine {
     this.form = wrapper.closest("form");
 
     // Variant JSON
-    this.variantData = JSON.parse(
+    const productData = JSON.parse(
       wrapper.querySelector(".custom-product-variant__json").textContent
     );
-   
+
+this.variantData = productData.variants;
     // Hidden Variant ID Input
     this.variantIdInput = this.form.querySelector(
       ".custom-product-variant__variant-id"
