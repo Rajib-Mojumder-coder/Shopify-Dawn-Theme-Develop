@@ -37,6 +37,26 @@ function updateAddToCartButton(button, variant) {
 
   if (!buttonText) return;
 
+/*=========================================================
+  Update Browser URL
+=========================================================*/
+
+function updateBrowserUrl(variant) {
+
+  // If no variant exists, do nothing
+  if (!variant) return;
+
+  // Current page URL
+  const url = new URL(window.location.href);
+
+  // Update variant parameter
+  url.searchParams.set("variant", variant.id);
+
+  // Replace URL without page reload
+  window.history.replaceState({}, "", url);
+
+}
+
   /*---------------------------------------
       Variant doesn't exist
   ---------------------------------------*/
