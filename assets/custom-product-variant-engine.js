@@ -80,17 +80,17 @@ class CustomVariantEngine {
 
   findVariant(selectedOptions) {
 
-    return this.variantData.find((variant) => {
+  return this.variantData.variants.find((variant) => {
 
-      return variant.options.every((option, index) => {
+    return variant.options.every((option, index) => {
 
-        return option === selectedOptions[index];
-
-      });
+      return option === selectedOptions[index];
 
     });
 
-  }
+  });
+
+}
 
 
   updateVariantId(variant) {
