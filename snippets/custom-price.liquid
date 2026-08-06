@@ -48,41 +48,33 @@
 
 {% capture compare_price_html %} 
 
-  {% if show_compare_price %}
-     {% if on_sale or hide_compare_without_discount == false %}
-
-       <span class="custom-price__compare {% if compare_full_width %} compare_full_width {% endif %}">
-          {%  case price_format %} 
-            {%  when 'money_with_currency' %}
-                {{ compare_price |  money_with_currency }}
-            {%  when 'money_without_currency' %}
-                {{ compare_price |  money_without_currency }}
-            {%  when 'money_without_trailing_zeros' %}
-                {{ compare_price |  money_without_trailing_zeros }}
-            {%  else %}
-                {{ compare_price |  money }}
-          {% endcase %}
-       </span>
-
-     {% endif %}
-  {% endif %}
-
+    {%  case price_format %} 
+    {%  when 'money_with_currency' %}
+        {{ compare_price |  money_with_currency }}
+    {%  when 'money_without_currency' %}
+        {{ compare_price |  money_without_currency }}
+    {%  when 'money_without_trailing_zeros' %}
+        {{ compare_price |  money_without_trailing_zeros }}
+    {%  else %}
+        {{ compare_price |  money }}
+    {% endcase %}
+       
 {% endcapture %}
 
 
-<div class="custom-price">
+                <div class="custom-price">
 
-  <span class="custom-price__sale" data-product-price>  {{ current_variant.price | money }} </span>
+                <span class="custom-price__sale" data-product-price>  {{ current_variant.price | money }} </span>
 
-  <span class="custom-price__compare" data-compare-price>
+                <span class="custom-price__compare" data-compare-price>
 
-      {% if current_variant.compare_at_price > current_variant.price %}   
-        {{ current_variant.compare_at_price | money }}
-      {% endif %}
+                    {% if current_variant.compare_at_price > current_variant.price %}   
+                        {{ current_variant.compare_at_price | money }}
+                    {% endif %}
 
-  </span>
+                </span>
 
-</div>
+                </div>
 
 
 <style>
