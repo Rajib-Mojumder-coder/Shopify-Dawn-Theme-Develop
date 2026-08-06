@@ -25,24 +25,26 @@
  
 %}
 
-{% capture current_price_html %} 
+{% capture current_price_html %}
 
-{% if show_current_price %}
- <span class="custom-price__current {% if large_price %}custom-price__current--large{% endif %}">
-    {%  case price_format %} 
-      {%  when 'money_with_currency' %}
-          {{ current_price |  money_with_currency }}
-      {%  when 'money_without_currency' %}
-          {{ current_price |  money_without_currency }}
-      {%  when 'money_without_trailing_zeros' %}
-          {{ current_price |  money_without_trailing_zeros }}
-      {%  else %}
-          {{ current_price |  money }}
-    {% endcase %}
-  </span>
-{% endif %}
+{% case price_format %}
+
+  {% when 'money_with_currency' %}
+    {{ current_price | money_with_currency }}
+
+  {% when 'money_without_currency' %}
+    {{ current_price | money_without_currency }}
+
+  {% when 'money_without_trailing_zeros' %}
+    {{ current_price | money_without_trailing_zeros }}
+
+  {% else %}
+    {{ current_price | money }}
+
+{% endcase %}
 
 {% endcapture %}
+
 
 {% capture compare_price_html %} 
 
