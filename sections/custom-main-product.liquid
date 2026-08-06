@@ -18,6 +18,9 @@
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
 
+  {{ 'custom-product-variant-picker.css' | asset_url | stylesheet_tag }}
+
+
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
     {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
@@ -40,6 +43,9 @@
       }
     }
   {%- endstyle -%}
+
+<script src="{{ 'custom-product-variant-picker.js' | asset_url }}" defer></script>
+<script src="{{ 'custom-product-variant-engine.js' | asset_url }}" defer></script>
 
   <script src="{{ 'custom-product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
