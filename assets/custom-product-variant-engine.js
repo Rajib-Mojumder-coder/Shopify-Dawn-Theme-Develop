@@ -33,7 +33,19 @@ class CustomVariantEngine {
 
   bindEvents() {
 
-  }
+  this.form
+    .querySelectorAll('[name^="options["]')
+    .forEach((input) => {
+
+      input.addEventListener("change", () => {
+
+        this.onOptionChange();
+
+      });
+
+    });
+
+}
 
 }
 
