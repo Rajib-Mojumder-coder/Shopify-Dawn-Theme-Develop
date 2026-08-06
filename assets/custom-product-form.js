@@ -22,6 +22,7 @@ document.addEventListener("variant:change", function (event) {
   if (!addButton) return;
 
   updateAddToCartButton(addButton, variant);
+    updateBrowserUrl(variant);
 
 });
 
