@@ -42,10 +42,11 @@ class CustomVariantEngine {
     });
 }
 
-  onOptionChange() {
+onOptionChange() {
   const selectedOptions = this.getSelectedOptions();
   const variant = this.findVariant(selectedOptions);
-  console.log(variant);
+  if (!variant) return;
+  this.updateVariantId(variant);
 }
 
 findVariant(selectedOptions) {
