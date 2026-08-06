@@ -47,12 +47,11 @@ class CustomVariantEngine {
 
 }
 
-    onOptionChange() {
+  onOptionChange() {
 
-  // Read all selected option values
   const selectedOptions = this.getSelectedOptions();
-
-  console.log(selectedOptions);
+  const variant = this.findVariant(selectedOptions);
+  console.log(variant);
 
 }
 
