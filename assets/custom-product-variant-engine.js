@@ -67,6 +67,9 @@ getSelectedOptions() {
   return values;
 }
 
+updateVariantId(variant) {
+  this.variantIdInput.value = variant.id;
+}
 
 }
 
