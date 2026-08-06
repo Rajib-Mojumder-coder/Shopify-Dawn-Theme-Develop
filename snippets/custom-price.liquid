@@ -70,12 +70,17 @@
 
 <div class="custom-price">
 
-      {{ current_price_html }}
-    
-      {{ compare_price_html }}
+  <span class="custom-price__sale" data-product-price>  {{ current_variant.price | money }} </span>
+
+  <span class="custom-price__compare" data-compare-price>
+
+      {% if current_variant.compare_at_price > current_variant.price %}   
+        {{ current_variant.compare_at_price | money }}
+      {% endif %}
+
+  </span>
 
 </div>
-
 
 
 <style>
