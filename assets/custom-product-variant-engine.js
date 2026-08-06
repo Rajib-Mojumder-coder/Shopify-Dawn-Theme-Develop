@@ -12,7 +12,7 @@ class CustomVariantEngine {
     this.variantData = JSON.parse(
       wrapper.querySelector(".custom-product-variant__json").textContent
     );
-    console.log(this.variantData);
+   
     // Hidden Variant ID Input
     this.variantIdInput = this.form.querySelector(
       ".custom-product-variant__variant-id"
@@ -105,9 +105,7 @@ class CustomVariantEngine {
 
 
   dispatchVariantChange(variant) {
-     console.log("Selected Variant:", variant);
-
-
+   
     document.dispatchEvent(
 
       new CustomEvent("variant:change", {
