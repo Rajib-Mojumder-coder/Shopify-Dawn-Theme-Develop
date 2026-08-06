@@ -27,10 +27,9 @@ document.addEventListener("variant:change", function (event) {
 
   if (priceElement) {
 
-    priceElement.textContent = Shopify.formatMoney(
-      variant.price,
-      window.Shopify.money_format
-    );
+    priceElement.textContent = CustomProductUtils.formatMoney(
+    variant.price
+        )
 
   }
 
