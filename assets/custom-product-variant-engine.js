@@ -105,19 +105,17 @@ class CustomVariantEngine {
 
 
   dispatchVariantChange(variant) {
+     console.log("Selected Variant:", variant);
+
 
     document.dispatchEvent(
 
       new CustomEvent("variant:change", {
 
         detail: {
-
           variant: variant,
-
           productForm: this.form,
-
           picker: this.wrapper
-
         }
 
       })
