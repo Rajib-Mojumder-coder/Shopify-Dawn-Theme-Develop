@@ -36,28 +36,28 @@ document.addEventListener("variant:change", function (event) {
 
 
 
-  /*------------------------------------
+ /*------------------------------------
       Update Compare Price
-  -------------------------------------*/
+-------------------------------------*/
 
-  if (comparePriceElement) {
+if (comparePriceElement) {
 
     if (variant.compare_at_price > variant.price) {
 
-      comparePriceElement.textContent =
-        Shopify.formatMoney(
-          variant.compare_at_price,
-          window.Shopify.money_format
-        );
+        comparePriceElement.textContent =
+            Shopify.formatMoney(
+                variant.compare_at_price,
+                window.Shopify.money_format
+            );
 
-      comparePriceElement.hidden = false;
+        comparePriceElement.style.display = "";
 
     } else {
 
-      comparePriceElement.hidden = true;
+        comparePriceElement.style.display = "none";
 
     }
 
-  }
+}
 
 });
