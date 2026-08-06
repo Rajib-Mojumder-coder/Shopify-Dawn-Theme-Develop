@@ -4,8 +4,11 @@ document.addEventListener("variant:change", function (event) {
 
   const productForm = event.detail.productForm;
 
-  const priceElement =
-    productForm.closest(".product")
-      ?.querySelector("[data-product-price]");
+  if (priceElement) {
+        priceElement.textContent = Shopify.formatMoney(
+            variant.price,
+            window.Shopify.money_format
+        );
+    }
 
 });
