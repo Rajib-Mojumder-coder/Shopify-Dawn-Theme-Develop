@@ -36,39 +36,34 @@ class CustomVariantEngine {
   this.form
     .querySelectorAll('[name^="options["]')
     .forEach((input) => {
-
       input.addEventListener("change", () => {
-
         this.onOptionChange();
-
       });
-
     });
-
 }
 
   onOptionChange() {
-
   const selectedOptions = this.getSelectedOptions();
   const variant = this.findVariant(selectedOptions);
   console.log(variant);
-
 }
 
-    getSelectedOptions() {
+findVariant(selectedOptions) {
+  return this.variantData.find((variant) => {
+    return variant.options.every((option, index) => {
+      return option === selectedOptions[index];
+    });
+  });
+}
 
+getSelectedOptions() {
   const values = [];
-
   this.form
     .querySelectorAll('[name^="options["]')
     .forEach((input) => {
-
       values.push(input.value);
-
     });
-
   return values;
-
 }
 
 
