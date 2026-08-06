@@ -97,7 +97,9 @@
               novalidate: 'novalidate',
               data-type: 'add-to-cart-form'
             -%}
-                  
+               <!-- Module 2 : Hidden Variant ID -->
+            <input type="hidden" name="id" class="custom-product-variant__variant-id"
+             value="{{ product.selected_or_first_available_variant.id }}">   
       {%  comment  %} End Custom Product Form addition aided {% endcomment %}
 
           {%- for block in section.blocks -%}
