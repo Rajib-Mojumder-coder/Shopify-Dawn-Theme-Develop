@@ -68,7 +68,10 @@ getSelectedOptions() {
 }
 
 updateVariantId(variant) {
+  // Update hidden variant id
   this.variantIdInput.value = variant.id;
+  // Notify the rest of the product page
+  this.dispatchVariantChange(variant);
 }
 
 }
@@ -85,3 +88,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+dispatchVariantChange(variant) {
+
+  document.dispatchEvent(
+
+    new CustomEvent("variant:change", {
+
+      detail: {
+
+        variant: variant,
+
+        productForm: this.form,
+
+        picker: this.wrapper
+
+      }
+
+    })
+
+  );
+
+}
