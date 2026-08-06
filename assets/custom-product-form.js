@@ -1,131 +1,150 @@
+/*=========================================================
+  Custom Product Form
+  ---------------------------------------------------------
+  Listens for the custom "variant:change" event dispatched
+  by the Variant Engine.
+=========================================================*/
+
 document.addEventListener("variant:change", function (event) {
 
+  // Current selected variant
   const variant = event.detail.variant;
 
-  updateVariantId(event.detail.productForm, variant);
+  // Current product form
+  const productForm = event.detail.productForm;
+
+  // Current product wrapper
+  const product = productForm.closest(".product");
+
+  if (!product) return;
+
+  // Add To Cart button
+  const addButton = product.querySelector('[name="add"]');
+
+
+
+  /*-------------------------------------------------------
+    1. Update Hidden Variant ID
+  -------------------------------------------------------*/
+
+  updateVariantId(productForm, variant);
+
+
+
+  /*-------------------------------------------------------
+    2. Update Browser URL
+  -------------------------------------------------------*/
 
   updateBrowserUrl(variant);
+
+
+
+  /*-------------------------------------------------------
+    3. Update Add To Cart Button
+  -------------------------------------------------------*/
+
+  if (addButton) {
+
+    updateAddToCartButton(addButton, variant);
+
+  }
 
 });
 
 
 
+/*=========================================================
+  Update Hidden Variant ID
+=========================================================*/
+
 function updateVariantId(form, variant) {
 
+  // Find hidden variant input
   const input = form.querySelector(".product-variant-id");
 
-  if (!input) return;
+  // Safety check
+  if (!input || !variant) return;
 
+  // Update variant id
   input.value = variant.id;
 
 }
 
 
 
+/*=========================================================
+  Update Browser URL
+=========================================================*/
+
 function updateBrowserUrl(variant) {
 
-  const url = new URL(window.location);
+  // No variant selected
+  if (!variant) return;
 
+  // Current page URL
+  const url = new URL(window.location.href);
+
+  // Replace variant parameter
   url.searchParams.set("variant", variant.id);
 
+  // Update URL without page reload
   window.history.replaceState({}, "", url);
 
 }
 
-// /*=========================================================
-//   Custom Product Form
-// =========================================================*/
 
-// document.addEventListener("variant:change", function (event) {
 
-//   // Selected Variant
-//   const variant = event.detail.variant;
+/*=========================================================
+  Update Add To Cart Button
+=========================================================*/
 
-//   // Current Product Form
-//   const productForm = event.detail.productForm;
+function updateAddToCartButton(button, variant) {
 
-//   // Current Product Wrapper
-//   const product = productForm.closest(".product");
+  // Button text
+  const buttonText = button.querySelector("span");
 
-//   if (!product) return;
+  if (!buttonText) return;
 
-//   // Add to Cart Button
-//   const addButton =
-//     product.querySelector('[name="add"]');
 
-//   if (!addButton) return;
 
-//   updateAddToCartButton(addButton, variant);
-//     updateBrowserUrl(variant);
+  /*-------------------------------------------------------
+    Variant Not Found
+  -------------------------------------------------------*/
 
-// });
+  if (!variant) {
 
-// /*=========================================================
-//   Update Add To Cart Button
-// =========================================================*/
+    button.disabled = true;
 
-// function updateAddToCartButton(button, variant) {
+    buttonText.textContent = "Unavailable";
 
-//   // Button Text
-//   const buttonText =
-//     button.querySelector("span");
+    return;
 
-//   if (!buttonText) return;
+  }
 
-// /*=========================================================
-//   Update Browser URL
-// =========================================================*/
 
-// function updateBrowserUrl(variant) {
 
-//   // If no variant exists, do nothing
-//   if (!variant) return;
+  /*-------------------------------------------------------
+    Sold Out
+  -------------------------------------------------------*/
 
-//   // Current page URL
-//   const url = new URL(window.location.href);
+  if (!variant.available) {
 
-//   // Update variant parameter
-//   url.searchParams.set("variant", variant.id);
+    button.disabled = true;
 
-//   // Replace URL without page reload
-//   window.history.replaceState({}, "", url);
+    buttonText.textContent = "Sold Out";
 
-// }
+    return;
 
-//   /*---------------------------------------
-//       Variant doesn't exist
-//   ---------------------------------------*/
+  }
 
-//   if (!variant) {
 
-//     button.disabled = true;
 
-//     buttonText.textContent = "Unavailable";
+  /*-------------------------------------------------------
+    Available
+  -------------------------------------------------------*/
 
-//     return;
+  button.disabled = false;
 
-//   }
+  buttonText.textContent = "Add to cart";
 
-//   /*---------------------------------------
-//       Sold Out
-//   ---------------------------------------*/
-
-//   if (!variant.available) {
-
-//     button.disabled = true;
-
-//     buttonText.textContent = "Sold Out";
-
-//     return;
-
-//   }
-
-//   /*---------------------------------------
-//       Available
-//   ---------------------------------------*/
-
-//   button.disabled = false;
-
-//   buttonText.textContent = "Add to cart";
-
-// }
+}
