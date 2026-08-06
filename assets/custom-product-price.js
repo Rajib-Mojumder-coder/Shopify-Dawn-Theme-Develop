@@ -1,5 +1,5 @@
 document.addEventListener("variant:change", function (event) {
-
+  console.log("variant:change fired");
   // Current selected variant
   const variant = event.detail.variant;
 
