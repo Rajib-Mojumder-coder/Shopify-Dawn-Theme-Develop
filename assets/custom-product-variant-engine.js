@@ -56,6 +56,23 @@ class CustomVariantEngine {
 
 }
 
+    getSelectedOptions() {
+
+  const values = [];
+
+  this.form
+    .querySelectorAll('[name^="options["]')
+    .forEach((input) => {
+
+      values.push(input.value);
+
+    });
+
+  return values;
+
+}
+
+
 }
 
 
