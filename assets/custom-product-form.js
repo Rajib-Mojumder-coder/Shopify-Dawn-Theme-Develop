@@ -132,3 +132,51 @@ function updateAddToCartButton(button, variant) {
 }
 
 
+/*=========================================================
+  4. Update Featured Media
+=========================================================*/
+
+function updateFeaturedMedia(product, variant) {
+
+    // Safety checks
+    if (!product || !variant || !variant.featured_media) return;
+
+    // Swiper must exist
+    if (!window.productMainSwiper) {
+        console.warn("Main Swiper not found");
+        return;
+    }
+
+    const mediaId = String(variant.featured_media.id);
+
+    // Find slide index
+    const slides = product.querySelectorAll(
+        ".productMediaSlider .swiper-slide"
+    );
+
+    let slideIndex = -1;
+
+    slides.forEach((slide, index) => {
+
+        const currentId =
+            slide.dataset.mediaId.split("-").pop();
+
+        if (currentId === mediaId) {
+            slideIndex = index;
+        }
+
+    });
+
+    console.log("Target Media ID:", mediaId);
+    console.log("Slide Index:", slideIndex);
+
+    if (slideIndex >= 0) {
+
+        window.productMainSwiper.slideToLoop(
+            slideIndex,
+            500
+        );
+
+    }
+
+}
