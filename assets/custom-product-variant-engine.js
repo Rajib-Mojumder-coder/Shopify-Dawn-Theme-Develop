@@ -100,7 +100,7 @@ findVariant(selectedOptions) {
 
 
   updateVariantId(variant) {
- console.log("Updating Variant ID:", variant.id);
+//  console.log("Updating Variant ID:", variant.id);
     // Update hidden variant id
     this.variantIdInput.value = variant.id;
 
