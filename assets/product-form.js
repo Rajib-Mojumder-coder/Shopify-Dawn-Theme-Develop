@@ -2,17 +2,14 @@ if (!customElements.get('product-form')) {
   customElements.define(
     'product-form',
     class ProductForm extends HTMLElement {
-      constructor() {
-        super();
-
-        // this.form = this.querySelector('form'); These two lines are old main code update with new below one
+      
+      
+      // constructor() { this constructor fucntion are old main code update with new below one
+      //   super();
+        // this.form = this.querySelector('form'); 
         // this.variantIdInput.disabled = false;
 
-        this.form = this.querySelector('form');
-
-        if (this.variantIdInput) {
-          this.variantIdInput.disabled = false;
-        }
+        
 
 
         this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
