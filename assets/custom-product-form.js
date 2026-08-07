@@ -204,6 +204,30 @@ function isCurrentVariantAvailable() {
     return window.currentVariant.available;
 
 }
+
+/*=========================================================
+  Current Variant Media
+=========================================================*/
+
+function getCurrentVariantMedia() {
+
+    if (!window.currentVariant) return null;
+
+    return window.currentVariant.featured_media;
+
+}
+
+/*=========================================================
+  Current Variant Price
+=========================================================*/
+
+function getCurrentVariantPrice() {
+
+    if (!window.currentVariant) return 0;
+
+    return window.currentVariant.price;
+
+}
 /*=========================================================
   4. Update Featured Media
 =========================================================*/
