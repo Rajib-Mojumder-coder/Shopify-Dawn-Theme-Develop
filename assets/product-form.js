@@ -202,17 +202,9 @@ if (!customElements.get('product-form')) {
         }
       }
 
-      get variantIdInput() {
-
-          // Product form not found
-          if (!this.form) {
-            return null;
-          }
-
-          // Hidden variant id input
-          return this.form.querySelector('[name="id"]');
-
-        }
+      get variantIdInput() { 
+        return this.form.querySelector('[name=id]');
+      }
 
      
     }

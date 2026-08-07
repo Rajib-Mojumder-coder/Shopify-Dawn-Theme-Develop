@@ -16,6 +16,11 @@ document.addEventListener("variant:change", function (event) {
   // Current product wrapper
   const product = productForm.closest(".product");
 
+  console.log("Product Wrapper:", product);
+console.log("Variant:", variant);
+
+updateFeaturedMedia(product, variant);
+
   if (!product) return;
 
   // Add To Cart button
