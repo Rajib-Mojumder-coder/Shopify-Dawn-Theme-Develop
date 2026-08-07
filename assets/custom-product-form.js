@@ -32,6 +32,8 @@ document.addEventListener("variant:change", function (event) {
 
 window.currentVariant = variant;
 
+console.log("Current Variant:", window.currentVariant);
+
   // Current product form
   const productForm = event.detail.productForm;
 
