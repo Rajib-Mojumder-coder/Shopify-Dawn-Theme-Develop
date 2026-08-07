@@ -1,4 +1,20 @@
 /*=========================================================
+  Variant State
+=========================================================*/
+
+/*
+|--------------------------------------------------------------------------
+| Stores the currently selected variant.
+|--------------------------------------------------------------------------
+|
+| Every synchronization module (Price, Media, SKU, Inventory, etc.)
+| reads this object instead of passing the variant around repeatedly.
+|
+*/
+
+window.currentVariant = null;
+
+/*=========================================================
   Custom Product Form
   ---------------------------------------------------------
   Listens for the custom "variant:change" event dispatched
