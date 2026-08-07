@@ -1,4 +1,4 @@
-/*==============  Custom Product Media ======================*/
+/*==============Listen for Variant Change:  Custom Product Media ======================*/
 
 document.addEventListener("variant:change", function (event) {
 
