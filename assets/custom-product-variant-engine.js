@@ -171,6 +171,59 @@ updateOptionAvailability() {
 }
 
 
+/*=========== Update Button Availability ===============*/
+
+updateButtonAvailability() {
+
+    const fieldsets =
+        this.wrapper.querySelectorAll(
+            ".custom-product-variant__option"
+        );
+
+    fieldsets.forEach((fieldset, optionIndex) => {
+
+        const selectedOptions =
+            this.getSelectedOptions();
+
+        const labels =
+            fieldset.querySelectorAll(
+                ".custom-product-variant__button"
+            );
+
+        labels.forEach((label) => {
+
+            const radio =
+                document.getElementById(
+                    label.getAttribute("for")
+                );
+
+            if (!radio) return;
+
+            const testOptions = [...selectedOptions];
+
+            testOptions[optionIndex] = radio.value;
+
+            const available =
+                this.isOptionAvailable(
+                    testOptions,
+                    optionIndex
+                );
+
+            label.classList.toggle(
+                "is-unavailable",
+                !available
+            );
+
+            radio.disabled = !available;
+
+        });
+
+    });
+
+}
+
+
+
 
 } // ← Class ends here
 
