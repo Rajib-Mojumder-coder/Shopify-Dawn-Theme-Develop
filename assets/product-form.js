@@ -2,13 +2,15 @@ if (!customElements.get('product-form')) {
   customElements.define(
     'product-form',
     class ProductForm extends HTMLElement {
-      
-      constructor() {
-        super();
 
-        this.form = this.querySelector('form'); 
-        this.variantIdInput.disabled = false;
-        this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
+      // constructor() { these comment line are old original  code of dawn theme replace with the below chat gpt
+      //   super();
+      //   this.form = this.querySelector('form'); 
+      //   this.variantIdInput.disabled = false;
+      //   this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
+
+
+
         this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
         this.submitButton = this.querySelector('[type="submit"]');
         this.submitButtonText = this.submitButton.querySelector('span');
