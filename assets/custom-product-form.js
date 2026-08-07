@@ -228,6 +228,18 @@ function getCurrentVariantPrice() {
     return window.currentVariant.price;
 
 }
+
+/*=========================================================
+  Current Variant Compare Price
+=========================================================*/
+
+function getCurrentVariantComparePrice() {
+
+    if (!window.currentVariant) return 0;
+
+    return window.currentVariant.compare_at_price;
+
+}
 /*=========================================================
   4. Update Featured Media
 =========================================================*/
