@@ -8,7 +8,51 @@ if (!customElements.get('product-form')) {
       //   this.form = this.querySelector('form'); 
       //   this.variantIdInput.disabled = false;
       //   this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
+        constructor() {
+    super();
 
+    // Product Form
+    this.form = this.querySelector("form");
+
+    // Safety:
+    // Some ProductForm instances (Quick Add, Cards, etc.)
+    // don't contain a product form.
+    if (!this.form) {
+        console.warn("ProductForm: form not found.");
+        return;
+    }
+
+    // Enable hidden variant id input
+    if (this.variantIdInput) {
+        this.variantIdInput.disabled = false;
+    }
+
+    // Dawn original code
+    this.form.addEventListener(
+        "submit",
+        this.onSubmitHandler.bind(this)
+    );
+
+    this.cart =
+        document.querySelector("cart-notification") ||
+        document.querySelector("cart-drawer");
+
+    this.submitButton =
+        this.querySelector('[type="submit"]');
+
+    this.submitButtonText =
+        this.submitButton.querySelector("span");
+
+    if (document.querySelector("cart-drawer")) {
+        this.submitButton.setAttribute(
+            "aria-haspopup",
+            "dialog"
+        );
+    }
+
+        this.hideErrors =
+            this.dataset.hideErrors === "true";
+    } // till this line replace with 
 
 
         this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
