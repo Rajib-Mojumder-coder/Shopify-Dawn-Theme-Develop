@@ -3,22 +3,87 @@ if (!customElements.get('product-form')) {
     'product-form',
     class ProductForm extends HTMLElement {
 
-      constructor() { 
-        super();
-        this.form = this.querySelector('form'); 
-        this.variantIdInput.disabled = false;
-        this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
-       
+      constructor() {
+
+          super();
+
+          /*===============    Product Form ==================*/
+
+          // Find the form inside <product-form>
+          this.form = this.querySelector('form');
+
+          // Safety:
+          // Some ProductForm instances don't contain a form.
+          // Stop here instead of throwing an error.
+          if (!this.form) {
+            console.warn('ProductForm: form not found.');
+            return;
+          }
 
 
-        this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
-        this.submitButton = this.querySelector('[type="submit"]');
-        this.submitButtonText = this.submitButton.querySelector('span');
+          /*=========================================================
+            Hidden Variant ID
+          =========================================================*/
 
-        if (document.querySelector('cart-drawer')) this.submitButton.setAttribute('aria-haspopup', 'dialog');
+          // Enable the hidden variant id input if it exists
+          if (this.variantIdInput) {
+            this.variantIdInput.disabled = false;
+          }
 
-        this.hideErrors = this.dataset.hideErrors === 'true';
-      }
+
+          /*=========================================================
+            Submit Event
+          =========================================================*/
+
+          this.form.addEventListener(
+            'submit',
+            this.onSubmitHandler.bind(this)
+          );
+
+
+          /*=========================================================
+            Cart
+          =========================================================*/
+
+          this.cart =
+            document.querySelector('cart-notification') ||
+            document.querySelector('cart-drawer');
+
+
+          /*=========================================================
+            Add To Cart Button
+          =========================================================*/
+
+          this.submitButton =
+            this.querySelector('[type="submit"]');
+
+          this.submitButtonText =
+            this.submitButton.querySelector('span');
+
+
+          /*=========================================================
+            Cart Drawer Accessibility
+          =========================================================*/
+
+          if (document.querySelector('cart-drawer')) {
+            this.submitButton.setAttribute(
+              'aria-haspopup',
+              'dialog'
+            );
+          }
+
+
+          /*=========================================================
+            Hide Errors
+          =========================================================*/
+
+          this.hideErrors =
+            this.dataset.hideErrors === 'true';
+
+        }
+
+
+
 
       onSubmitHandler(evt) {
         evt.preventDefault();
