@@ -222,6 +222,57 @@ updateButtonAvailability() {
 
 }
 
+/*===============  Update Dropdown Availability===================*/
+
+updateDropdownAvailability() {
+
+    const fieldsets =
+        this.wrapper.querySelectorAll(
+            ".custom-product-variant__option"
+        );
+
+    fieldsets.forEach((fieldset, optionIndex) => {
+
+        const selectedOptions =
+            this.getSelectedOptions();
+
+        const items =
+            fieldset.querySelectorAll(
+                ".custom-product-variant__dropdown-item"
+            );
+
+        items.forEach((item) => {
+
+            const testOptions = [...selectedOptions];
+
+            testOptions[optionIndex] =
+                item.dataset.value;
+
+            const available =
+                this.isOptionAvailable(
+                    testOptions,
+                    optionIndex
+                );
+
+            item.classList.toggle(
+                "is-unavailable",
+                !available
+            );
+
+            item.setAttribute(
+                "aria-disabled",
+                !available
+            );
+
+        });
+
+    });
+
+}
+
+
+
+
 
 
 
