@@ -17,3 +17,17 @@ document.addEventListener("variant:change", function (event) {
     updateFeaturedMedia(product, variant);
 
 });
+
+/*=============== Update Featured Media: Create updateFeaturedMedia()===============*/
+
+function updateFeaturedMedia(product, variant) {
+
+    // Variant has no media
+    if (!variant.featured_media) return;
+
+    // Current media id
+    const mediaId = variant.featured_media.id;
+
+    console.log("Media ID:", mediaId);
+
+}
