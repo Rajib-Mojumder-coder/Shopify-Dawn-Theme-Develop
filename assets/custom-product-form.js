@@ -39,8 +39,8 @@ console.log("Current Variant:", window.currentVariant);
 
   // Current product wrapper
   const product = productForm.closest(".product");
-  updateFeaturedMedia(product, variant);
-  if (!product) return;
+if (!product) return;
+updateFeaturedMedia(product, variant);
 
   // Add To Cart button
   const addButton = product.querySelector('[name="add"]');
