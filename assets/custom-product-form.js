@@ -167,8 +167,8 @@ function updateFeaturedMedia(product, variant) {
 
     });
 
-    console.log("Target Media ID:", mediaId);
-    console.log("Slide Index:", slideIndex);
+    // console.log("Target Media ID:", mediaId);
+    // console.log("Slide Index:", slideIndex);
 
     if (slideIndex >= 0) {
 
