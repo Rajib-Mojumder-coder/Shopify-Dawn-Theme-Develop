@@ -79,6 +79,30 @@ getAvailableVariants(selectedOptions) {
 }
 
 
+/*============= Find Matching Variants =================*/
+
+findMatchingVariants(selectedOptions, optionIndex) {
+
+    return this.variantData.filter((variant) => {
+
+        if (!variant.available) return false;
+
+        return selectedOptions.every((selectedValue, index) => {
+
+            if (index === optionIndex)
+                return true;
+
+            if (!selectedValue)
+                return true;
+
+            return variant.options[index] === selectedValue;
+
+        });
+
+    });
+
+}
+
 
   getSelectedOptions() {
 
