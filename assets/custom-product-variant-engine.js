@@ -62,6 +62,7 @@ this.variantData = productData.variants;
   if (!variant) return;
 
   this.updateVariantId(variant);
+  this.updateOptionAvailability();
 
 }
 
