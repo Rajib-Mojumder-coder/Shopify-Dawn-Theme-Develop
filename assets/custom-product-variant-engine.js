@@ -163,10 +163,10 @@ findVariant(selectedOptions) {
 
 
 /*================ Update Option Availability ===========*/
-
 updateOptionAvailability() {
 
-    console.log("Availability Engine");
+    this.updateButtonAvailability();
+    this.updateDropdownAvailability();
 
 }
 
