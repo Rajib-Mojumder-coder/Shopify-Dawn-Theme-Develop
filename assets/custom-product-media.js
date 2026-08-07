@@ -22,12 +22,13 @@ document.addEventListener("variant:change", function (event) {
 
 function updateFeaturedMedia(product, variant) {
 
-    // Variant has no media
     if (!variant.featured_media) return;
 
-    // Current media id
-    const mediaId = variant.featured_media.id;
+    const mediaId = String(variant.featured_media.id);
 
-    console.log("Media ID:", mediaId);
+    const mediaItems =
+        product.querySelectorAll("[data-media-id]");
+
+    console.log(mediaItems); 
 
 }
