@@ -53,9 +53,11 @@ this.variantData = productData.variants;
 
   const selectedOptions = this.getSelectedOptions();
 
+  // console.log("Selected Options:", selectedOptions);
+
   const variant = this.findVariant(selectedOptions);
 
-  console.log("Matched Variant:", variant);
+  // console.log("Matched Variant:", variant);
 
   if (!variant) return;
 
@@ -98,7 +100,7 @@ findVariant(selectedOptions) {
 
 
   updateVariantId(variant) {
- console.log("Updating Variant ID:", variant.id);
+//  console.log("Updating Variant ID:", variant.id);
     // Update hidden variant id
     this.variantIdInput.value = variant.id;
 
