@@ -101,7 +101,7 @@ findMatchingVariants(selectedOptions, optionIndex) {
 
     });
 
-}
+  }
 
 
   getSelectedOptions() {
@@ -149,21 +149,15 @@ findVariant(selectedOptions) {
 
 
   dispatchVariantChange(variant) {
-   
     document.dispatchEvent(
-
       new CustomEvent("variant:change", {
-
         detail: {
           variant: variant,
           productForm: this.form,
           picker: this.wrapper
         }
-
       })
-
     );
-
   }
 
 } // ← Class ends here
