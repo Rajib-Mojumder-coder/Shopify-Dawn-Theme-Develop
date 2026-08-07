@@ -153,3 +153,14 @@ function updateAddToCartButton(button, variant) {
   buttonText.textContent = "Add to cart";
 
 }
+
+
+function updateFeaturedMedia(product, variant) {
+
+    console.log("===== MEDIA DEBUG =====");
+
+    console.log("Product:", product);
+
+    console.log("Featured Media:", variant.featured_media);
+
+}
