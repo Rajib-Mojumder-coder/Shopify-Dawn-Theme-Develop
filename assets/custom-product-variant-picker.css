@@ -164,3 +164,23 @@
   background:#111;
   color:#fff;
 }
+
+/*==============Unavailable Button=================*/
+
+.custom-product-variant__button.is-unavailable{
+
+    opacity:.35;
+    cursor:not-allowed;
+    pointer-events:none;
+
+}
+
+
+/*============Unavailable Dropdown===========*/
+
+.custom-product-variant__dropdown-item.is-unavailable{
+
+    opacity:.35;
+    pointer-events:none;
+
+}
