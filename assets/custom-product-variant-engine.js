@@ -66,6 +66,20 @@ this.variantData = productData.variants;
 }
 
 
+/*================ Get Available Variants =============*/
+
+getAvailableVariants(selectedOptions) {
+
+    return this.variantData.filter((variant) => {
+
+        return variant.available;
+
+    });
+
+}
+
+
+
   getSelectedOptions() {
 
     const values = [];
