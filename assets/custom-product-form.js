@@ -155,12 +155,3 @@ function updateAddToCartButton(button, variant) {
 }
 
 
-function updateFeaturedMedia(product, variant) {
-
-    console.log("===== MEDIA DEBUG =====");
-
-    console.log("Product:", product);
-
-    console.log("Featured Media:", variant.featured_media);
-
-}
