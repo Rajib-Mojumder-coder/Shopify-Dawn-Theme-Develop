@@ -66,7 +66,6 @@ function updateVariantId(form, variant) {
 }
 
 
-
 /*==================  Update Browser URL====================*/
 
 function updateBrowserUrl(variant) {
