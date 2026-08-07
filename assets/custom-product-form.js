@@ -240,6 +240,30 @@ function getCurrentVariantComparePrice() {
     return window.currentVariant.compare_at_price;
 
 }
+
+/*=========================================================
+  Current Variant SKU
+=========================================================*/
+
+function getCurrentVariantSku() {
+
+    if (!window.currentVariant) return "";
+
+    return window.currentVariant.sku;
+
+}
+
+/*=========================================================
+  Current Variant Inventory
+=========================================================*/
+
+function getCurrentVariantInventory() {
+
+    if (!window.currentVariant) return 0;
+
+    return window.currentVariant.inventory_quantity;
+
+}
 /*=========================================================
   4. Update Featured Media
 =========================================================*/
