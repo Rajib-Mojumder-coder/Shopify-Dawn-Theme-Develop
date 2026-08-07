@@ -134,9 +134,22 @@ if (!customElements.get('product-form')) {
         }
       }
 
+      // get variantIdInput() { old main code
+      //   return this.form.querySelector('[name=id]');
+      // }
+
       get variantIdInput() {
-        return this.form.querySelector('[name=id]');
+
+        // Product form not found
+        if (!this.form) return null;
+
+        return this.form.querySelector('[name="id"]');
+
       }
+
+
+
+
     }
   );
 }
