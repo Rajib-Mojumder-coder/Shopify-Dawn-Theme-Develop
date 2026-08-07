@@ -7,10 +7,6 @@ if (!customElements.get('product-form')) {
 
         this.form = this.querySelector('form'); 
         this.variantIdInput.disabled = false;
-
-        
-
-
         this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
         this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
         this.submitButton = this.querySelector('[type="submit"]');
