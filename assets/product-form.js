@@ -5,8 +5,12 @@ if (!customElements.get('product-form')) {
       constructor() {
         super();
 
-        this.form = this.querySelector('form');
-        this.variantIdInput.disabled = false;
+        // this.form = this.querySelector('form'); These two lines are old main code update with new below one
+        // this.variantIdInput.disabled = false;
+
+
+
+
         this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
         this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
         this.submitButton = this.querySelector('[type="submit"]');
