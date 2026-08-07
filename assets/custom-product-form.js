@@ -26,25 +26,19 @@ updateFeaturedMedia(product, variant);
 
 
 
-  /*-------------------------------------------------------
-    1. Update Hidden Variant ID
-  -------------------------------------------------------*/
+  /*----------------    1. Update Hidden Variant ID  -------------------------*/
 
   updateVariantId(productForm, variant);
 
 
 
-  /*-------------------------------------------------------
-    2. Update Browser URL
-  -------------------------------------------------------*/
+  /*------------------ 2. Update Browser URL------------------------*/
 
   updateBrowserUrl(variant);
 
 
 
-  /*-------------------------------------------------------
-    3. Update Add To Cart Button
-  -------------------------------------------------------*/
+  /*-----------------------  3. Update Add To Cart Button------------------------*/
 
   if (addButton) {
 
@@ -56,9 +50,7 @@ updateFeaturedMedia(product, variant);
 
 
 
-/*=========================================================
-  Update Hidden Variant ID
-=========================================================*/
+/*====================pdate Hidden Variant ID==================*/
 
 function updateVariantId(form, variant) {
 
@@ -75,9 +67,7 @@ function updateVariantId(form, variant) {
 
 
 
-/*=========================================================
-  Update Browser URL
-=========================================================*/
+/*==================  Update Browser URL====================*/
 
 function updateBrowserUrl(variant) {
 
@@ -97,9 +87,7 @@ function updateBrowserUrl(variant) {
 
 
 
-/*=========================================================
-  Update Add To Cart Button
-=========================================================*/
+/*==================  Update Add To Cart Button================*/
 
 function updateAddToCartButton(button, variant) {
 
@@ -110,9 +98,7 @@ function updateAddToCartButton(button, variant) {
 
 
 
-  /*-------------------------------------------------------
-    Variant Not Found
-  -------------------------------------------------------*/
+  /*-------------------    Variant Not Found  -----------------*/
 
   if (!variant) {
 
@@ -124,11 +110,7 @@ function updateAddToCartButton(button, variant) {
 
   }
 
-
-
-  /*-------------------------------------------------------
-    Sold Out
-  -------------------------------------------------------*/
+  /*--------------  Sold Out---------------------*/
 
   if (!variant.available) {
 
@@ -142,9 +124,7 @@ function updateAddToCartButton(button, variant) {
 
 
 
-  /*-------------------------------------------------------
-    Available
-  -------------------------------------------------------*/
+  /*----------------- Available---------------------------*/
 
   button.disabled = false;
 
