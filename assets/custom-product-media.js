@@ -31,6 +31,6 @@ function updateFeaturedMedia(product, variant) {
     const mediaItems =
         product.querySelectorAll("[data-media-id]");
 
-    console.log(mediaItems);
+    console.log(variant);
 
 }
