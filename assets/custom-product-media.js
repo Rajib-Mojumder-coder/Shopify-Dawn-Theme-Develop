@@ -20,8 +20,6 @@ document.addEventListener("variant:change", function (event) {
 
 /*=============== Update Featured Media: Create updateFeaturedMedia()===============*/
 
-
-
 function updateFeaturedMedia(product, variant) {
 
     // Variant has no media
