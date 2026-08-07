@@ -170,6 +170,16 @@ function getCurrentVariant() {
     return window.currentVariant;
 
 }
+
+/*=========================================================
+  Has Current Variant
+=========================================================*/
+
+function hasCurrentVariant() {
+
+    return window.currentVariant !== null;
+
+}
 /*=========================================================
   4. Update Featured Media
 =========================================================*/
