@@ -180,6 +180,30 @@ function hasCurrentVariant() {
     return window.currentVariant !== null;
 
 }
+
+/*=========================================================
+  Current Variant ID
+=========================================================*/
+
+function getCurrentVariantId() {
+
+    if (!window.currentVariant) return null;
+
+    return window.currentVariant.id;
+
+}
+
+/*=========================================================
+  Current Variant Availability
+=========================================================*/
+
+function isCurrentVariantAvailable() {
+
+    if (!window.currentVariant) return false;
+
+    return window.currentVariant.available;
+
+}
 /*=========================================================
   4. Update Featured Media
 =========================================================*/
