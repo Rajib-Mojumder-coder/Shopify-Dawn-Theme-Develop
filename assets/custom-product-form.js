@@ -26,6 +26,12 @@ document.addEventListener("variant:change", function (event) {
   // Current selected variant
   const variant = event.detail.variant;
 
+  /*---------------------------------------------------------
+  Save Current Variant
+---------------------------------------------------------*/
+
+window.currentVariant = variant;
+
   // Current product form
   const productForm = event.detail.productForm;
 
