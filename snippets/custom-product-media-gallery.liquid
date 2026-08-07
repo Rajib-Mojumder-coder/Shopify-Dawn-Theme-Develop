@@ -91,8 +91,7 @@
     <!-- Initialize Swiper -->
    <script defer>
 
-window.productThumbSwiper = 
-new Swiper('.productMediaSliderThumbs', {
+ var swiper = new Swiper('.productMediaSliderThumbs', {
         loop: true,
         spaceBetween: 10,
         slidesPerView: 4,
@@ -104,8 +103,7 @@ new Swiper('.productMediaSliderThumbs', {
        }
       });
       
-      window.productMainSwiper =
-       new Swiper('.productMediaSlider', {
+      var swiper2 = new Swiper('.productMediaSlider', {
         loop: true,
         spaceBetween: 10,
         navigation: {
