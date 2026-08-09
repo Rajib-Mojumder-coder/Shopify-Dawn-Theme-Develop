@@ -271,7 +271,32 @@ updateDropdownAvailability() {
 }
 
 
+/*=================Is Option Available=================*/
 
+isOptionAvailable(testOptions, optionIndex) {
+
+    return this.variantData.some((variant) => {
+
+        if (!variant.available)
+            return false;
+
+        return variant.options.every(
+            (option, index) => {
+
+                if (index === optionIndex)
+                    return option === testOptions[index];
+
+                if (!testOptions[index])
+                    return true;
+
+                return option === testOptions[index];
+
+            }
+        );
+
+    });
+
+}
 
 
 
