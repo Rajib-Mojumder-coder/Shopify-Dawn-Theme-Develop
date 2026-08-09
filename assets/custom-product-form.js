@@ -53,9 +53,7 @@ updateFeaturedMedia(product, variant);
 
   updateBrowserUrl(variant);
 
-
-
-  /*-----------------------  3. Update Add To Cart Button------------------------*/
+  /*------------- 3. Update Add To Cart Button--------------*/
 
   if (addButton) {
     updateAddToCartButton(addButton, variant);
