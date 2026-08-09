@@ -45,7 +45,6 @@ updateFeaturedMedia(product, variant);
   const addButton = product.querySelector('[name="add"]');
 
 
-
   /*----------------    1. Update Hidden Variant ID  -------------------------*/
 
   updateVariantId(productForm, variant);
