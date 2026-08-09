@@ -99,7 +99,7 @@
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
     {%  comment  %}Start Custom Product Form from product form addition aided {% endcomment %}
-          <product-form class="product-form custom-product-form" data-section-id="{{ section.id }}" data-hide-errors="false"
+        <product-form class="product-form custom-product-form" data-section-id="{{ section.id }}" data-hide-errors="false"
           style="--product-content-spacing: {{ section.settings.product_content_spacing }}px;">
             {%- form 'product', product, id: product_form_id,
               class: 'form custom-product-form__form',
@@ -114,7 +114,7 @@
               value="{{ product.selected_or_first_available_variant.id }}"
             >
       {%  comment  %} End Custom Product Form addition aided {% endcomment %}
-      
+
             {% render 'custom-product-info' %}
 
           {%- for block in section.blocks -%}
