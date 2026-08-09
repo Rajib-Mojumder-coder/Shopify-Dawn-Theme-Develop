@@ -37,6 +37,8 @@ console.log("Current Variant:", window.currentVariant);
   // Current product wrapper
   const product = productForm.closest(".product");
 if (!product) return;
+
+ /*----------Update Featured Media------------------*/
 updateFeaturedMedia(product, variant);
 
   // Add To Cart button
