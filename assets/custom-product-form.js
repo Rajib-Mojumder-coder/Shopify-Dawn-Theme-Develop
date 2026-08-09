@@ -152,6 +152,44 @@ function updateAddToCartButton(button, variant) {
 
 }
 
+
+/*=============*Update Product SKU===================*/
+
+function updateProductSku(product) {
+
+    if (!product) return;
+
+    const skuWrapper = product.querySelector(
+        "[data-product-sku]"
+    );
+
+    const skuValue = product.querySelector(
+        "[data-product-sku-value]"
+    );
+
+    if (!skuWrapper || !skuValue) return;
+
+    const variant = getCurrentVariant();
+
+    if (!variant) {
+        skuWrapper.hidden = true;
+        skuValue.textContent = "";
+        return;
+    }
+
+    const sku = variant.sku;
+
+    if (!sku) {
+        skuWrapper.hidden = true;
+        skuValue.textContent = "";
+        return;
+    }
+
+    skuValue.textContent = sku;
+
+    skuWrapper.hidden = false;
+}
+
 /*=============== Get Current Variant========================*/
 
 /*
