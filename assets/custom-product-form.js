@@ -14,12 +14,9 @@
 
 window.currentVariant = null;
 
-/*=========================================================
-  Custom Product Form
-  ---------------------------------------------------------
-  Listens for the custom "variant:change" event dispatched
-  by the Variant Engine.
-=========================================================*/
+/*=============== Custom Product Form==================*/
+
+/*=============* Variant Change====================*/
 
 document.addEventListener("variant:change", function (event) {
 
