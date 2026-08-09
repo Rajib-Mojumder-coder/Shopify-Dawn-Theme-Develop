@@ -62,11 +62,11 @@ updateFeaturedMedia(product, variant);
   /*-----------------------  3. Update Add To Cart Button------------------------*/
 
   if (addButton) {
-
     updateAddToCartButton(addButton, variant);
-
   }
 
+/*-------------4. Update SKU--------------------*/
+    updateProductSku(product);
 });
 
 
