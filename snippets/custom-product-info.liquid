@@ -1,14 +1,14 @@
 <div class="custom-product-info">
 
-  <div class="custom-product-info__sku" data-product-sku
-    {% if product.selected_or_first_available_variant.sku == blank %} hidden {% endif %}>
+  <div class="custom-product-info__sku"
+    data-product-sku {% unless product.selected_or_first_available_variant.sku != blank %} hidden {% endunless %}>
+    <span class="custom-product-info__sku-label">
+      SKU:
+    </span>
 
-    <span class="custom-product-info__sku-label">  SKU: </span>
-
-    <span class="custom-product-info__sku-value" data-product-sku-value>
+    <span class="custom-product-info__sku-value">
       {{ product.selected_or_first_available_variant.sku }}
     </span>
-    
   </div>
 
 </div>
