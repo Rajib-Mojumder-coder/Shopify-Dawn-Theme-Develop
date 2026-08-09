@@ -116,7 +116,7 @@
             >
       {%  comment  %} End Custom Product Form addition aided {% endcomment %}
 
-           
+           {% render 'custom-product-info' %}
 
           {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -728,8 +728,6 @@
 {%  comment  %}Start closing tag Custom Product Form from product form addition aided {% endcomment %}
           {%- endform -%}
 
-           {% render 'custom-product-info' %}
-           
         </product-form>
         
 {%  comment  %} End Custom Product closing tag {% endcomment %}
