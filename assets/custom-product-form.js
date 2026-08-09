@@ -49,8 +49,6 @@ updateFeaturedMedia(product, variant);
 
   updateVariantId(productForm, variant);
 
-
-
   /*------------------ 2. Update Browser URL------------------------*/
 
   updateBrowserUrl(variant);
