@@ -114,6 +114,8 @@
               value="{{ product.selected_or_first_available_variant.id }}"
             >
       {%  comment  %} End Custom Product Form addition aided {% endcomment %}
+      
+            {% render 'custom-product-info' %}
 
           {%- for block in section.blocks -%}
             {%- case block.type -%}
