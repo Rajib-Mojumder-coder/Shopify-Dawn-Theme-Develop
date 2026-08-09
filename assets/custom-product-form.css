@@ -1,0 +1,19 @@
+.custom-product-info {
+  margin-top: 10px;
+}
+
+.custom-product-info__sku {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.custom-product-info__sku-label {
+  font-weight: 600;
+}
+
+.custom-product-info__sku-value {
+  font-weight: 400;
+}
