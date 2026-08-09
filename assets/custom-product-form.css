@@ -1,13 +1,17 @@
 .custom-product-info {
-  margin-top: 10px;
+  display: block;
 }
 
 .custom-product-info__sku {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  margin-top: 10px;
   font-size: 14px;
-  line-height: 1.4;
+}
+
+.custom-product-info__sku[hidden] {
+  display: none;
 }
 
 .custom-product-info__sku-label {
