@@ -65,7 +65,7 @@ updateFeaturedMedia(product, variant);
 
 
 
-/*====================pdate Hidden Variant ID==================*/
+/*====================Update Hidden Variant ID==================*/
 
 function updateVariantId(form, variant) {
 
@@ -163,21 +163,27 @@ function updateProductSku(product) {
 
     if (!skuWrapper || !skuValue) return;
 
-    const variant = getCurrentVariant();
+    /*---------------------------------------------------------*
+    * Get Current Variant SKU
+    *---------------------------------------------------------*/
 
-    if (!variant) {
-        skuWrapper.hidden = true;
-        skuValue.textContent = "";
-        return;
-    }
+    const sku = getCurrentVariantSku();
 
-    const sku = variant.sku;
+    /*---------------------------------------------------------*
+    * Hide if SKU is empty
+    *---------------------------------------------------------*/
 
     if (!sku) {
+
         skuWrapper.hidden = true;
         skuValue.textContent = "";
+
         return;
     }
+
+    /*---------------------------------------------------------*
+    * Update SKU
+    *---------------------------------------------------------*/
 
     skuValue.textContent = sku;
 
