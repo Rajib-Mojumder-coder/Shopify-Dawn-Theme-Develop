@@ -1,19 +1,15 @@
-<!-- =========================================================
-     Product SKU
-========================================================= -->
+<div class="custom-product-info">
 
-<div class="custom-product-sku">
+  <div class="custom-product-info__sku" data-product-sku
+    {% if product.selected_or_first_available_variant.sku == blank %} hidden {% endif %}>
 
-    <span class="custom-product-sku__label">
-        SKU:
+    <span class="custom-product-info__sku-label">  SKU: </span>
+
+    <span class="custom-product-info__sku-value" data-product-sku-value>
+      {{ product.selected_or_first_available_variant.sku }}
     </span>
-
-    <span class="custom-product-sku__value"
-          data-product-sku>
-
-        {{ product.selected_or_first_available_variant.sku }}
-
-    </span>
+    
+  </div>
 
 </div>
 
