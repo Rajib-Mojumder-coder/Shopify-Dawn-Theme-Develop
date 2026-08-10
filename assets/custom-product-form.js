@@ -257,170 +257,201 @@ function updateProductSku(product) {
 }
 
 /*=========================================================*
-  5. Update Product Inventory
-  Module 2.2.8
-*=========================================================*/
+ * 5. UPDATE PRODUCT INVENTORY
+ * Module 2.2.8
+ *
+ * Updates:
+ * - In stock
+ * - Low stock
+ * - Out of stock
+ * - Unavailable
+ * - Inventory quantity
+ *=========================================================*/
 
 function updateProductInventory(product) {
 
-  if (!product) return;
+    if (!product) return;
 
-  /*---------------------------------------------------------*
-    Find Inventory Elements
-  *---------------------------------------------------------*/
 
-  const inventoryWrapper = product.querySelector(
-    "[data-product-inventory]"
-  );
+    /*---------------------------------------------------------*
+     * Find Inventory Elements
+     *---------------------------------------------------------*/
 
-  const inventoryBadge = product.querySelector(
-    "[data-inventory-badge]"
-  );
-
-  const inventoryText = product.querySelector(
-    "[data-inventory-text]"
-  );
-
-  /*---------------------------------------------------------*
-    Safety Check
-  *---------------------------------------------------------*/
-
-  if (
-    !inventoryWrapper ||
-    !inventoryBadge ||
-    !inventoryText
-  ) {
-    return;
-  }
-
-  /*---------------------------------------------------------*
-    Get Current Variant
-  *---------------------------------------------------------*/
-
-  const variant = getCurrentVariant();
-
-  /*---------------------------------------------------------*
-    Reset State
-  *---------------------------------------------------------*/
-
-  inventoryWrapper.hidden = true;
-
-  inventoryWrapper.classList.remove(
-    "is-in-stock",
-    "is-low-stock",
-    "is-out-of-stock",
-    "is-unavailable"
-  );
-
-  inventoryText.textContent = "";
-
-  /*---------------------------------------------------------*
-    No Variant
-  *---------------------------------------------------------*/
-
-  if (!variant) {
-    return;
-  }
-
-  /*---------------------------------------------------------*
-    Check Availability
-  *---------------------------------------------------------*/
-
-  if (!variant.available) {
-
-    inventoryWrapper.classList.add(
-      "is-out-of-stock"
+    const inventoryWrapper = product.querySelector(
+        "[data-product-inventory]"
     );
 
-    inventoryText.textContent = "Out of stock";
+    const inventoryBadge = product.querySelector(
+        "[data-inventory-badge]"
+    );
 
-    inventoryWrapper.hidden = false;
+    const inventoryText = product.querySelector(
+        "[data-inventory-text]"
+    );
 
-    return;
-  }
 
-  /*---------------------------------------------------------*
-    Get Inventory Quantity
-  *---------------------------------------------------------*/
+    /*---------------------------------------------------------*
+     * Safety Check
+     *---------------------------------------------------------*/
 
-  const quantity = getCurrentVariantInventory();
+    if (
+        !inventoryWrapper ||
+        !inventoryBadge ||
+        !inventoryText
+    ) {
+        return;
+    }
 
-  /*---------------------------------------------------------*
-    Inventory Quantity Unavailable
-  *---------------------------------------------------------*/
 
-  if (
-    quantity === null ||
-    quantity === undefined ||
-    quantity < 0
-  ) {
+    /*---------------------------------------------------------*
+     * Get Current Variant
+     *
+     * IMPORTANT:
+     * We use the central Variant State.
+     *=========================================================*/
+
+    const variant = getCurrentVariant();
+
+
+    /*---------------------------------------------------------*
+     * Reset Inventory State
+     *=========================================================*/
+
+    inventoryWrapper.hidden = true;
+
+    inventoryWrapper.classList.remove(
+        "is-in-stock",
+        "is-low-stock",
+        "is-out-of-stock",
+        "is-unavailable"
+    );
+
+    inventoryText.textContent = "";
+
+
+    /*---------------------------------------------------------*
+     * No Variant
+     *=========================================================*/
+
+    if (!variant) {
+        return;
+    }
+
+
+    /*---------------------------------------------------------*
+     * Variant Unavailable
+     *=========================================================*/
+
+    if (!variant.available) {
+
+        inventoryWrapper.classList.add(
+            "is-unavailable"
+        );
+
+        inventoryText.textContent = "Unavailable";
+
+        inventoryWrapper.hidden = false;
+
+        return;
+    }
+
+
+    /*---------------------------------------------------------*
+     * Get Inventory Quantity
+     *
+     * IMPORTANT:
+     * Use the helper instead of directly accessing
+     * variant.inventory_quantity.
+     *=========================================================*/
+
+    const quantity = getCurrentVariantInventory();
+
+
+    /*---------------------------------------------------------*
+     * Inventory Quantity Not Available
+     *
+     * Example:
+     * inventory_quantity = null
+     *
+     * In this situation we know the variant is available,
+     * but we do not have a usable quantity.
+     *=========================================================*/
+
+    if (
+        quantity === null ||
+        quantity === undefined
+    ) {
+
+        inventoryWrapper.classList.add(
+            "is-in-stock"
+        );
+
+        inventoryText.textContent = "In stock";
+
+        inventoryWrapper.hidden = false;
+
+        return;
+    }
+
+
+    /*---------------------------------------------------------*
+     * Out Of Stock
+     *=========================================================*/
+
+    if (quantity <= 0) {
+
+        inventoryWrapper.classList.add(
+            "is-out-of-stock"
+        );
+
+        inventoryText.textContent = "Out of stock";
+
+        inventoryWrapper.hidden = false;
+
+        return;
+    }
+
+
+    /*---------------------------------------------------------*
+     * Low Stock Threshold
+     *
+     * Example:
+     * 5 = show low-stock message when quantity <= 5
+     *=========================================================*/
+
+    const lowStockThreshold = 5;
+
+
+    /*---------------------------------------------------------*
+     * Low Stock
+     *=========================================================*/
+
+    if (quantity <= lowStockThreshold) {
+
+        inventoryWrapper.classList.add(
+            "is-low-stock"
+        );
+
+        inventoryText.textContent =
+            `Only ${quantity} left in stock`;
+
+        inventoryWrapper.hidden = false;
+
+        return;
+    }
+
+
+    /*---------------------------------------------------------*
+     * Normal Stock
+     *=========================================================*/
+
     inventoryWrapper.classList.add(
-      "is-in-stock"
+        "is-in-stock"
     );
 
     inventoryText.textContent = "In stock";
 
     inventoryWrapper.hidden = false;
-
-    return;
-  }
-
-  /*---------------------------------------------------------*
-    Out Of Stock
-  *---------------------------------------------------------*/
-
-  if (quantity <= 0) {
-
-    inventoryWrapper.classList.add(
-      "is-out-of-stock"
-    );
-
-    inventoryText.textContent = "Out of stock";
-
-    inventoryWrapper.hidden = false;
-
-    return;
-  }
-
-  /*---------------------------------------------------------*
-    Low Stock Threshold
-  *
-  * Change this number if required.
-  * Example:
-  * 5 = show "Only X left" when quantity <= 5
-  *---------------------------------------------------------*/
-
-  const lowStockThreshold = 5;
-
-  /*---------------------------------------------------------*
-    Low Stock
-  *---------------------------------------------------------*/
-
-  if (quantity <= lowStockThreshold) {
-
-    inventoryWrapper.classList.add(
-      "is-low-stock"
-    );
-
-    inventoryText.textContent =
-      `Only ${quantity} left in stock`;
-
-    inventoryWrapper.hidden = false;
-
-    return;
-  }
-
-  /*---------------------------------------------------------*
-    Normal Stock
-  *---------------------------------------------------------*/
-
-  inventoryWrapper.classList.add(
-    "is-in-stock"
-  );
-
-  inventoryText.textContent = "In stock";
-
-  inventoryWrapper.hidden = false;
 }
 
 /*================* VARIANT HELPERS===============*
