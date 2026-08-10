@@ -118,12 +118,7 @@ document.addEventListener("variant:change", function (event) {
      * - Unavailable========*/
 
     if (addButton) {
-
-        updateAddToCartButton(
-            addButton,
-            variant
-        );
-
+        updateAddToCartButton( addButton, variant );
     }
     /*======   * MODULE 2.2.7 — SKU SYNCHRONIZATION========*
      * Updates the product SKU whenever the selected
