@@ -57,6 +57,14 @@
             "custom_swatches_style": "circle"
           }
         },
+        "inventory_Rtf9Uh": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": true
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -86,6 +94,7 @@
         "price",
         "variant_picker",
         "custom_product_variant_XdfJbL",
+        "inventory_Rtf9Uh",
         "quantity_selector",
         "buy_buttons",
         "description",
