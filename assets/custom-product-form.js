@@ -338,107 +338,60 @@ function getCurrentVariantInventory() {
 }
 /*============= * MODULE — UPDATE FEATURED MEDIA======*
  * Changes the main Swiper media according to:
- *
- *     variant.featured_media.id
- *
- *=========================================================*/
+ *     variant.featured_media.id==================*/
 
 function updateFeaturedMedia(product, variant) {
-
-
-    /*---------------------------------------------------------*
-     * Safety Checks
-     *---------------------------------------------------------*/
-
+    /*-----------------* Safety Checks----------------*/
     if (
         !product ||
         !variant ||
         !variant.featured_media
     ) {
-
         return;
-
     }
-
-
     /*----------  * Check Main Swiper---------------------*/
 
     if (!window.productMainSwiper) {
-
         console.warn(
             "Main Swiper not found"
         );
-
         return;
-
     }
-
-
-    /*---------------------------------------------------------*
-     * Get Variant Media ID
-     *---------------------------------------------------------*/
-
+    /*------------  * Get Variant Media ID---------------*/
     const mediaId =
         String(
             variant.featured_media.id
         );
-
-
-    /*---------------------------------------------------------*
-     * Find Main Slider Slides
-     *---------------------------------------------------------*/
-
+    /*---------------- Find Main Slider Slides--------------*/
     const slides =
         product.querySelectorAll(
             ".productMediaSlider .swiper-slide"
         );
-
-
     let slideIndex = -1;
-
-
-    /*---------------------------------------------------------*
-     * Find Matching Media Slide
-     *---------------------------------------------------------*/
+    /*-------------------- Find Matching Media Slide-------*/
 
     slides.forEach(
         (slide, index) => {
-
             const mediaData =
                 slide.dataset.mediaId;
-
             if (!mediaData) return;
-
-
             const currentId =
                 mediaData
                     .split("-")
                     .pop();
-
-
             if (
                 currentId === mediaId
             ) {
-
                 slideIndex = index;
-
             }
-
         }
     );
-
-
-    /*---------------------------------------------------------*
-     * Navigate Main Swiper
-     *---------------------------------------------------------*/
+    /*-------------------- * Navigate Main Swiper------------*/
 
     if (slideIndex >= 0) {
-
         window.productMainSwiper.slideToLoop(
             slideIndex,
             500
         );
-
     }
-
 } 
