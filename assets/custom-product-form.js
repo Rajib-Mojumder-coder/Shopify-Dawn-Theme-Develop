@@ -124,9 +124,10 @@ document.addEventListener("variant:change", function (event) {
      * Updates the product SKU whenever the selected
      * variant changes.===========*/
 
-    updateProductSku(
-        product
-    );
+    updateProductSku(product);
+    
+    /*---------------- 5. Update Inventory ----------------*/
+    updateProductInventory(product);
 
 });
 
