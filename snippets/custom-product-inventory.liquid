@@ -21,3 +21,83 @@
   </span>
 
 </div>
+
+<style>
+
+/*=========================================================*
+  Module 2.2.8 — Inventory / Stock Badge
+*=========================================================*/
+
+.custom-product-inventory {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+/*-------------- Badge--------------*/
+
+.custom-product-inventory__badge {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 9px;
+}
+
+/*------------  Text---------------------*/
+
+.custom-product-inventory__text {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/*--------------------  In Stock--------------------*/
+
+.custom-product-inventory.is-in-stock
+  .custom-product-inventory__badge {
+  background-color: #16a34a;
+}
+
+.custom-product-inventory.is-in-stock
+  .custom-product-inventory__text {
+  color: #166534;
+}
+
+/*---------------------  Low Stock---------------------*/
+
+.custom-product-inventory.is-low-stock
+  .custom-product-inventory__badge {
+  background-color: #f59e0b;
+}
+
+.custom-product-inventory.is-low-stock
+  .custom-product-inventory__text {
+  color: #92400e;
+}
+
+/*---------------- Out of Stock----------------------*/
+
+.custom-product-inventory.is-out-of-stock
+  .custom-product-inventory__badge {
+  background-color: #dc2626;
+}
+
+.custom-product-inventory.is-out-of-stock
+  .custom-product-inventory__text {
+  color: #991b1b;
+}
+
+/*-----------------  Unavailable----------------------*/
+
+.custom-product-inventory.is-unavailable
+  .custom-product-inventory__badge {
+  background-color: #6b7280;
+}
+
+.custom-product-inventory.is-unavailable
+  .custom-product-inventory__text {
+  color: #4b5563;
+}
+
+</style>
