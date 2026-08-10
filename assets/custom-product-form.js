@@ -125,7 +125,7 @@ document.addEventListener("variant:change", function (event) {
      * variant changes.===========*/
 
     updateProductSku(product);
-    
+
     /*---------------- 5. Update Inventory ----------------*/
     updateProductInventory(product);
 
@@ -327,8 +327,7 @@ function getCurrentVariantSku() {
 /*============= * CURRENT VARIANT INVENTORY============*/
 
 function getCurrentVariantInventory() {
-    const variant =
-        getCurrentVariant();
+    const variant =  getCurrentVariant();
     if (!variant) return 0;
     return variant.inventory_quantity || 0;
 }
