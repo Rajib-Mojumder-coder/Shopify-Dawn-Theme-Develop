@@ -637,9 +637,7 @@ function updateFeaturedMedia(product, variant) {
     }
 
 
-    /*---------------------------------------------------------*
-     * Check Main Swiper
-     *---------------------------------------------------------*/
+    /*----------  * Check Main Swiper---------------------*/
 
     if (!window.productMainSwiper) {
 
