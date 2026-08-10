@@ -256,6 +256,172 @@ function updateProductSku(product) {
     skuWrapper.hidden = false;
 }
 
+/*=========================================================*
+  5. Update Product Inventory
+  Module 2.2.8
+*=========================================================*/
+
+function updateProductInventory(product) {
+
+  if (!product) return;
+
+  /*---------------------------------------------------------*
+    Find Inventory Elements
+  *---------------------------------------------------------*/
+
+  const inventoryWrapper = product.querySelector(
+    "[data-product-inventory]"
+  );
+
+  const inventoryBadge = product.querySelector(
+    "[data-inventory-badge]"
+  );
+
+  const inventoryText = product.querySelector(
+    "[data-inventory-text]"
+  );
+
+  /*---------------------------------------------------------*
+    Safety Check
+  *---------------------------------------------------------*/
+
+  if (
+    !inventoryWrapper ||
+    !inventoryBadge ||
+    !inventoryText
+  ) {
+    return;
+  }
+
+  /*---------------------------------------------------------*
+    Get Current Variant
+  *---------------------------------------------------------*/
+
+  const variant = getCurrentVariant();
+
+  /*---------------------------------------------------------*
+    Reset State
+  *---------------------------------------------------------*/
+
+  inventoryWrapper.hidden = true;
+
+  inventoryWrapper.classList.remove(
+    "is-in-stock",
+    "is-low-stock",
+    "is-out-of-stock",
+    "is-unavailable"
+  );
+
+  inventoryText.textContent = "";
+
+  /*---------------------------------------------------------*
+    No Variant
+  *---------------------------------------------------------*/
+
+  if (!variant) {
+    return;
+  }
+
+  /*---------------------------------------------------------*
+    Check Availability
+  *---------------------------------------------------------*/
+
+  if (!variant.available) {
+
+    inventoryWrapper.classList.add(
+      "is-out-of-stock"
+    );
+
+    inventoryText.textContent = "Out of stock";
+
+    inventoryWrapper.hidden = false;
+
+    return;
+  }
+
+  /*---------------------------------------------------------*
+    Get Inventory Quantity
+  *---------------------------------------------------------*/
+
+  const quantity = getCurrentVariantInventory();
+
+  /*---------------------------------------------------------*
+    Inventory Quantity Unavailable
+  *---------------------------------------------------------*/
+
+  if (
+    quantity === null ||
+    quantity === undefined ||
+    quantity < 0
+  ) {
+    inventoryWrapper.classList.add(
+      "is-in-stock"
+    );
+
+    inventoryText.textContent = "In stock";
+
+    inventoryWrapper.hidden = false;
+
+    return;
+  }
+
+  /*---------------------------------------------------------*
+    Out Of Stock
+  *---------------------------------------------------------*/
+
+  if (quantity <= 0) {
+
+    inventoryWrapper.classList.add(
+      "is-out-of-stock"
+    );
+
+    inventoryText.textContent = "Out of stock";
+
+    inventoryWrapper.hidden = false;
+
+    return;
+  }
+
+  /*---------------------------------------------------------*
+    Low Stock Threshold
+  *
+  * Change this number if required.
+  * Example:
+  * 5 = show "Only X left" when quantity <= 5
+  *---------------------------------------------------------*/
+
+  const lowStockThreshold = 5;
+
+  /*---------------------------------------------------------*
+    Low Stock
+  *---------------------------------------------------------*/
+
+  if (quantity <= lowStockThreshold) {
+
+    inventoryWrapper.classList.add(
+      "is-low-stock"
+    );
+
+    inventoryText.textContent =
+      `Only ${quantity} left in stock`;
+
+    inventoryWrapper.hidden = false;
+
+    return;
+  }
+
+  /*---------------------------------------------------------*
+    Normal Stock
+  *---------------------------------------------------------*/
+
+  inventoryWrapper.classList.add(
+    "is-in-stock"
+  );
+
+  inventoryText.textContent = "In stock";
+
+  inventoryWrapper.hidden = false;
+}
 
 /*================* VARIANT HELPERS===============*
  * These helpers provide a single reusable API for all
