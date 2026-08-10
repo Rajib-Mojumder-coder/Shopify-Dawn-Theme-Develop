@@ -719,4 +719,4 @@ function updateFeaturedMedia(product, variant) {
 
     }
 
-}
+} 
