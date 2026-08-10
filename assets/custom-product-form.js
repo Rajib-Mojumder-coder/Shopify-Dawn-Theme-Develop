@@ -47,133 +47,75 @@
 window.currentVariant = null;
 
 
-/*=========================================================*
- * VARIANT CHANGE EVENT
- *=========================================================*
+/*================ * VARIANT CHANGE EVENT ============*
  *
  * The Custom Variant Engine dispatches:
- *
- *     "variant:change"
- *
- * whenever the selected variant changes.
- *
- * This is the central synchronization point for the
- * custom product system.
- *
- *=========================================================*/
+ *   "variant:change"
+ ** whenever the selected variant changes.
+ ** This is the central synchronization point for the
+ * custom product system.=*/
 
 document.addEventListener("variant:change", function (event) {
-
-
-    /*---------------------------------------------------------*
-     * 1. Get Selected Variant
-     *---------------------------------------------------------*/
+    /*------------- 1. Get Selected Variant---------------*/
 
     const variant = event.detail.variant;
-
-
-    /*---------------------------------------------------------*
-     * 2. Save Current Variant
-     *---------------------------------------------------------*
-     *
+    /*------------ 2. Save Current Variant-----------------*
      * Store the variant globally so all synchronization
      * modules can access it through the helper functions.
      *
      *---------------------------------------------------------*/
 
     window.currentVariant = variant;
-
     console.log(
         "Current Variant:",
         window.currentVariant
     );
-
-
-    /*---------------------------------------------------------*
-     * 3. Get Product Form
-     *---------------------------------------------------------*/
+    /*-----------  3. Get Product Form--------------------*/
 
     const productForm = event.detail.productForm;
-
     if (!productForm) return;
 
-
-    /*---------------------------------------------------------*
-     * 4. Get Product Wrapper
-     *---------------------------------------------------------*/
+    /*------------- 4. Get Product Wrapper------------------*/
 
     const product = productForm.closest(".product");
-
     if (!product) return;
 
-
-    /*=========================================================*
-     * MODULE: MEDIA SYNCHRONIZATION
-     *=========================================================*
-     *
+    /*=========== MODULE: MEDIA SYNCHRONIZATION============*
      * Change the main product media according to the
      * selected variant's featured_media.
-     *
-     *=========================================================*/
+     */
 
     updateFeaturedMedia(product, variant);
 
-
-    /*---------------------------------------------------------*
-     * Get Add To Cart Button
-     *---------------------------------------------------------*/
+    /*--------- * Get Add To Cart Button---------*/
 
     const addButton = product.querySelector(
         '[name="add"]'
     );
 
 
-    /*=========================================================*
-     * MODULE 1 — HIDDEN VARIANT ID
-     *=========================================================*
-     *
-     * Updates:
-     *
-     *     <input name="id">
-     *
-     * so Shopify receives the currently selected variant.
-     *
-     *=========================================================*/
+    /*=========== MODULE 1 — HIDDEN VARIANT ID===========*
+     * Updates:  <input name="id">
+     * so Shopify receives the currently selected variant.=*/
 
     updateVariantId(
         productForm,
         variant
     );
-
-
-    /*=========================================================*
-     * MODULE 2 — BROWSER URL
-     *=========================================================*
-     *
-     * Updates:
-     *
-     *     ?variant=VARIANT_ID
-     *
-     * without reloading the page.
-     *
-     *=========================================================*/
+    /*====== MODULE 2 — BROWSER URL=============*
+     * Updates: ?variant=VARIANT_ID
+     * without reloading the page.============*/
 
     updateBrowserUrl(
         variant
     );
 
 
-    /*=========================================================*
-     * MODULE 3 — ADD TO CART
-     *=========================================================*
-     *
-     * Updates:
-     *
+    /*============* MODULE 3 — ADD TO CART=============*
+       * Updates:
      * - Add to cart
      * - Sold out
-     * - Unavailable
-     *
-     *=========================================================*/
+     * - Unavailable========*/
 
     if (addButton) {
 
@@ -183,436 +125,218 @@ document.addEventListener("variant:change", function (event) {
         );
 
     }
-
-
-    /*=========================================================*
-     * MODULE 2.2.7 — SKU SYNCHRONIZATION
-     *=========================================================*
-     *
+    /*======   * MODULE 2.2.7 — SKU SYNCHRONIZATION========*
      * Updates the product SKU whenever the selected
-     * variant changes.
-     *
-     *=========================================================*/
+     * variant changes.===========*/
 
     updateProductSku(
         product
     );
 
-
 });
 
 
-/*=========================================================*
- * UPDATE HIDDEN VARIANT ID
- *=========================================================*/
+/*============ UPDATE HIDDEN VARIANT ID========*/
 
 function updateVariantId(form, variant) {
 
-
-    /*---------------------------------------------------------*
-     * Find hidden variant input
-     *---------------------------------------------------------*/
+    /*-------- Find hidden variant input---------*/
 
     const input = form.querySelector(
         ".product-variant-id"
     );
 
-
-    /*---------------------------------------------------------*
-     * Safety Check
-     *---------------------------------------------------------*/
-
+   /*------------ Safety Check---------------*/
     if (!input || !variant) return;
 
-
-    /*---------------------------------------------------------*
-     * Update Variant ID
-     *---------------------------------------------------------*/
-
+    /*-------------- Update Variant ID--------------*/
     input.value = variant.id;
 
 }
-
-
-/*=========================================================*
- * UPDATE BROWSER URL
- *=========================================================*/
+/*================* UPDATE BROWSER URL==============*/
 
 function updateBrowserUrl(variant) {
-
-
-    /*---------------------------------------------------------*
-     * No Variant
-     *---------------------------------------------------------*/
-
+    /*---------- * No Variant--------------*/
     if (!variant) return;
-
-
-    /*---------------------------------------------------------*
-     * Get Current URL
-     *---------------------------------------------------------*/
+    /*------------------------- Get Current URL----------*/
 
     const url = new URL(
         window.location.href
     );
-
-
-    /*---------------------------------------------------------*
-     * Update Variant Parameter
-     *---------------------------------------------------------*/
-
+    /*--------------* Update Variant Parameter---------------*/
     url.searchParams.set(
         "variant",
         variant.id
     );
-
-
-    /*---------------------------------------------------------*
-     * Update URL Without Page Reload
-     *---------------------------------------------------------*/
-
+    /*---------------- Update URL Without Page Reload-------*/
     window.history.replaceState(
         {},
         "",
         url
     );
-
 }
 
 
-/*=========================================================*
- * UPDATE ADD TO CART BUTTON
- *=========================================================*/
+/*=============UPDATE ADD TO CART BUTTON============*/
 
 function updateAddToCartButton(button, variant) {
 
-
-    /*---------------------------------------------------------*
-     * Button Text Element
-     *---------------------------------------------------------*/
-
+   /*-------------* Button Text Element-------------*/
     const buttonText = button.querySelector(
         "span"
     );
 
     if (!buttonText) return;
-
-
-    /*---------------------------------------------------------*
-     * VARIANT NOT FOUND
-     *---------------------------------------------------------*/
+    /*------------- VARIANT NOT FOUND-------------*/
 
     if (!variant) {
-
         button.disabled = true;
-
         buttonText.textContent =
             "Unavailable";
-
         return;
-
     }
-
-
-    /*---------------------------------------------------------*
-     * SOLD OUT
-     *---------------------------------------------------------*/
+    /*-----------------* SOLD OUT--------------*/
 
     if (!variant.available) {
-
         button.disabled = true;
-
         buttonText.textContent =
             "Sold Out";
-
         return;
-
     }
-
-
-    /*---------------------------------------------------------*
-     * AVAILABLE
-     *---------------------------------------------------------*/
-
+   /*----------------- AVAILABLE------------------*/
     button.disabled = false;
-
     buttonText.textContent =
         "Add to cart";
-
 }
 
 
-/*=========================================================*
- * MODULE 2.2.7 — UPDATE PRODUCT SKU
- *=========================================================*
- *
+/*=====* MODULE 2.2.7 — UPDATE PRODUCT SKU===========*
  * Finds the SKU elements inside the current product
  * wrapper and synchronizes them with the selected variant.
- *
  * HTML expected from:
- *
- *     snippets/custom-product-info.liquid
- *
+ * snippets/custom-product-info.liquid
  * Example:
- *
  *     <div data-product-sku>
  *         <span data-product-sku-value></span>
- *     </div>
- *
- *=========================================================*/
+ *     </div>============*/
 
 function updateProductSku(product) {
-
-
-    /*---------------------------------------------------------*
-     * Safety Check
-     *---------------------------------------------------------*/
-
+    /*------------* Safety Check--------------------------*/
     if (!product) return;
-
-
-    /*---------------------------------------------------------*
-     * Find SKU Wrapper
-     *---------------------------------------------------------*/
-
+    /*-------------- * Find SKU Wrapper------------------*/
     const skuWrapper = product.querySelector(
         "[data-product-sku]"
     );
-
-
-    /*---------------------------------------------------------*
-     * Find SKU Value
-     *---------------------------------------------------------*/
-
+    /*----------------- Find SKU Value-------------------*/
     const skuValue = product.querySelector(
         "[data-product-sku-value]"
     );
-
-
-    /*---------------------------------------------------------*
-     * Required Elements Not Found
-     *---------------------------------------------------------*/
-
+    /*-------------* Required Elements Not Found-----------*/
     if (!skuWrapper || !skuValue) return;
-
-
-    /*---------------------------------------------------------*
-     * Get Current Variant SKU
-     *---------------------------------------------------------*
-     *
+    /*------------ Get Current Variant SKU---------------*
      * IMPORTANT:
-     *
      * We do NOT use:
-     *
-     *     variant.sku
-     *
+     *  variant.sku
      * here.
-     *
      * Instead we use the centralized helper:
-     *
-     *     getCurrentVariantSku()
-     *
+     * getCurrentVariantSku()
      * This keeps the synchronization architecture
-     * reusable for future modules.
-     *
-     *---------------------------------------------------------*/
+     * reusable for future modules.------------------*/
 
     const sku = getCurrentVariantSku();
-
-
-    /*---------------------------------------------------------*
-     * SKU EMPTY
-     *---------------------------------------------------------*
-     *
+   /*------------------ * SKU EMPTY-------------*
      * If the selected variant does not have a SKU:
-     *
      * - Clear the old SKU
-     * - Hide the SKU wrapper
-     *
-     *---------------------------------------------------------*/
+     * - Hide the SKU wrapper--------------------------*/
 
     if (!sku) {
-
         skuValue.textContent = "";
-
         skuWrapper.hidden = true;
-
         return;
-
     }
-
-
-    /*---------------------------------------------------------*
-     * SKU AVAILABLE
-     *---------------------------------------------------------*
-     *
-     * Display the new SKU.
-     *
-     *---------------------------------------------------------*/
-
+    /*----------- * SKU AVAILABLE-------------------*
+     * Display the new SKU.-----------------*/
     skuValue.textContent = sku;
-
     skuWrapper.hidden = false;
-
 }
 
 
-/*=========================================================*
- * VARIANT HELPERS
- *=========================================================*
- *
+/*================* VARIANT HELPERS===============*
  * These helpers provide a single reusable API for all
- * future synchronization modules.
- *
- *=========================================================*/
-
-
-/*=========================================================*
- * GET CURRENT VARIANT
- *=========================================================*
- *
- * Returns the currently selected variant.
- *
- *=========================================================*/
+ * future synchronization modules.================*/
+/*================* GET CURRENT VARIANT===========*
+ * Returns the currently selected variant.============*/
 
 function getCurrentVariant() {
-
     return window.currentVariant;
-
 }
-
-
-/*=========================================================*
- * HAS CURRENT VARIANT
- *=========================================================*
- *
- * Returns true when a variant is currently selected.
- *
- *=========================================================*/
+/*============ HAS CURRENT VARIANT=====
+ * Returns true when a variant is currently selected.======*/
 
 function hasCurrentVariant() {
-
     return window.currentVariant !== null;
-
 }
 
-
-/*=========================================================*
- * CURRENT VARIANT ID
- *=========================================================*/
+/*================= * CURRENT VARIANT ID===========*/
 
 function getCurrentVariantId() {
-
     const variant =
         getCurrentVariant();
-
     if (!variant) return null;
-
     return variant.id;
-
 }
-
-
-/*=========================================================*
- * CURRENT VARIANT AVAILABILITY
- *=========================================================*/
+/*========== * CURRENT VARIANT AVAILABILITY==============*/
 
 function isCurrentVariantAvailable() {
-
     const variant =
         getCurrentVariant();
 
     if (!variant) return false;
-
     return variant.available;
-
 }
-
-
-/*=========================================================*
- * CURRENT VARIANT MEDIA
- *=========================================================*/
+/*=============== * CURRENT VARIANT MEDIA============*/
 
 function getCurrentVariantMedia() {
-
     const variant =
         getCurrentVariant();
 
     if (!variant) return null;
-
     return variant.featured_media;
-
 }
-
-
-/*=========================================================*
- * CURRENT VARIANT PRICE
- *=========================================================*/
+/*==============* CURRENT VARIANT PRICE===============*/
 
 function getCurrentVariantPrice() {
-
     const variant =
         getCurrentVariant();
-
     if (!variant) return 0;
-
     return variant.price;
-
 }
-
-
-/*=========================================================*
- * CURRENT VARIANT COMPARE-AT PRICE
- *=========================================================*/
+/*============= CURRENT VARIANT COMPARE-AT PRICE=========*/
 
 function getCurrentVariantComparePrice() {
-
     const variant =
         getCurrentVariant();
 
     if (!variant) return 0;
-
     return variant.compare_at_price;
-
 }
-
-
-/*=========================================================*
- * CURRENT VARIANT SKU
- *=========================================================*/
+/*=============== * CURRENT VARIANT SKU===========*/
 
 function getCurrentVariantSku() {
-
     const variant =
         getCurrentVariant();
-
     if (!variant) return "";
-
     return variant.sku || "";
-
 }
-
-
-/*=========================================================*
- * CURRENT VARIANT INVENTORY
- *=========================================================*/
+/*============= * CURRENT VARIANT INVENTORY============*/
 
 function getCurrentVariantInventory() {
-
     const variant =
         getCurrentVariant();
-
     if (!variant) return 0;
-
     return variant.inventory_quantity || 0;
-
 }
-
-
-/*=========================================================*
- * MODULE — UPDATE FEATURED MEDIA
- *=========================================================*
- *
+/*============= * MODULE — UPDATE FEATURED MEDIA======*
  * Changes the main Swiper media according to:
  *
  *     variant.featured_media.id
