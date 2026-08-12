@@ -525,8 +525,10 @@ function getCurrentVariantSku() {
 
 function getCurrentVariantInventory() {
     const variant = getCurrentVariant();
-    if (!variant) return null;
-    return variant.inventory_quantity;
+
+    if (!variant) return 0;
+
+    return variant.inventory_quantity || 0;
 }
 /*============= * MODULE — UPDATE FEATURED MEDIA======*
  * Changes the main Swiper media according to:
