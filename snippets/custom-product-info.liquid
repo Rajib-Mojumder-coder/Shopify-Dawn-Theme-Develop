@@ -1,15 +1,71 @@
-<div class="custom-product-info">
+{% comment %}
+=========================================================
+MODULE 2.2.9
+COMPARE-AT PRICE & SAVINGS
+=========================================================
+{% endcomment %}
 
-  <div class="custom-product-info__sku"
-    data-product-sku {% unless product.selected_or_first_available_variant.sku != blank %} hidden {% endunless %}>
-    <span class="custom-product-info__sku-label">
-      SKU:
-    </span>
+<div class="custom-product-compare-price" data-product-compare-price hidden>
 
-    <span class="custom-product-info__sku-value">
-      {{ product.selected_or_first_available_variant.sku }}
-    </span>
-  </div>
+  <span class="custom-product-compare-price__compare" data-compare-price>
+    &nbsp;
+  </span>
+
+  <span class="custom-product-compare-price__savings" data-savings> 
+    &nbsp;
+  </span>
+
+  <span class="custom-product-compare-price__percentage" data-savings-percentage> 
+    &nbsp; 
+  </span>
 
 </div>
 
+
+{% comment %}
+=========================================================
+MODULE 2.2.7
+SKU
+=========================================================
+{% endcomment %}
+
+<div
+  class="custom-product-sku"
+  data-product-sku
+  hidden
+>
+  <span class="custom-product-sku__label">
+    SKU:
+  </span>
+
+  <span
+    class="custom-product-sku__value"
+    data-product-sku-value
+  ></span>
+</div>
+
+
+{% comment %}
+=========================================================
+MODULE 2.2.8
+INVENTORY
+=========================================================
+{% endcomment %}
+
+<div
+  class="custom-product-inventory"
+  data-product-inventory
+  hidden
+>
+
+  <span
+    class="custom-product-inventory__badge"
+    data-inventory-badge
+  ></span>
+
+  <span
+    class="custom-product-inventory__text"
+    data-inventory-text
+  ></span>
+
+</div>
