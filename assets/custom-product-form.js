@@ -131,6 +131,11 @@ document.addEventListener("variant:change", function (event) {
 
     updateProductInventory(product);
 
+    /*====== MODULE 2.2.9 — COMPARE PRICE & SAVINGS ======*
+    * Updates:  - Compare-at price - Savings amount - Savings percentage ====*/
+
+    updateProductComparePrice(product);
+
 });
 
 
