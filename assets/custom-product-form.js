@@ -126,7 +126,9 @@ document.addEventListener("variant:change", function (event) {
 
     updateProductSku(product);
 
-    /*---------------- 5. Update Inventory ----------------*/
+    /*====== MODULE 2.2.8 — INVENTORY SYNCHRONIZATION ======*
+    * Updates: * - Stock status * - Inventory quantity * - Low stock message =========*/
+
     updateProductInventory(product);
 
 });
