@@ -32,7 +32,6 @@
   margin-top: 8px;
 }
 
-
 /*---------------- Compare-at Price-----------------*/
 
 .custom-product-compare-price__compare {
@@ -41,7 +40,6 @@
   font-size: 14px;
 }
 
-
 /*----------------- Savings Amount--------------------*/
 
 .custom-product-compare-price__savings {
@@ -49,7 +47,6 @@
   font-size: 14px;
   font-weight: 600;
 }
-
 
 /*----------------- Savings Percentage -----------------*/
 
@@ -61,7 +58,6 @@
   font-size: 12px;
   font-weight: 600;
 }
-
 
 /*-------------- Hidden State ---------------*/
 
