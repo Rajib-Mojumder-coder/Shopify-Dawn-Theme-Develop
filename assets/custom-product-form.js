@@ -347,11 +347,8 @@ function updateProductInventory(product) {
         inventoryWrapper.classList.add(
             "is-unavailable"
         );
-
         inventoryText.textContent = "Unavailable";
-
         inventoryWrapper.hidden = false;
-
         return;
     }
 
@@ -366,13 +363,10 @@ function updateProductInventory(product) {
 
     const quantity = getCurrentVariantInventory();
 
-
     /*---------------------------------------------------------*
      * Inventory Quantity Not Available
-     *
      * Example:
      * inventory_quantity = null
-     *
      * In this situation we know the variant is available,
      * but we do not have a usable quantity.
      *=========================================================*/
@@ -387,9 +381,7 @@ function updateProductInventory(product) {
         );
 
         inventoryText.textContent = "In stock";
-
         inventoryWrapper.hidden = false;
-
         return;
     }
 
