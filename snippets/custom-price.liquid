@@ -62,7 +62,7 @@
 {% endcapture %}
 
 
-                <div class="custom-price">
+            <div class="custom-price" data-product-price-scope data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
 
                     {% if show_current_price %}
                         <span class="custom-price__current{% if large_price %} custom-price__current--large{% endif %}"
