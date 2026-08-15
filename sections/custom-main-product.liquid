@@ -116,8 +116,8 @@
             >
       {%  comment  %} End Custom Product Form addition aided {% endcomment %}
 
-           {% render 'custom-product-info' %}
-           {% render 'custom-product-inventory' %}
+           {% comment %} {% render 'custom-product-info' %}
+           {% render 'custom-product-inventory' %} {% endcomment %}
 
           {%- for block in section.blocks -%}
             {%- case block.type -%}
