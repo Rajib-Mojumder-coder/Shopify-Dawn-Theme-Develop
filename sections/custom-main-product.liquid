@@ -113,7 +113,7 @@
 
            {% comment %} {% render 'custom-product-info' %}
            {% render 'custom-product-inventory' %} {% endcomment %}
-           
+
 
           {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -135,6 +135,7 @@
                     </h2>
                   </a>
                 </div>
+
               {%- when 'custom_price' -%}
                 <div id="custom-price-{{ block.id }}" class="custom-price-block" role="status" {{ block.shopify_attributes }}>
                    {%- render 'custom-price',
@@ -143,6 +144,7 @@
                     section: section
                   -%}
                 </div>
+                
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                   {%- render 'price',
