@@ -1,59 +1,5 @@
-/*=========================================================*
- * CUSTOM PRODUCT FORM
- *
- * Responsibilities:
- *
- * 1. Store current variant
- * 2. Synchronize variant ID
- * 3. Synchronize browser URL
- * 4. Synchronize Add to Cart button
- * 5. Synchronize product media
- * 6. Synchronize SKU
- *
- * Future modules:
- *
- * 7. Inventory
- * 8. Compare-at price / savings
- * 9. Other variant-dependent information
- *
- * All synchronization modules use the shared
- * window.currentVariant state.
- *=========================================================*/
-
-
-/*=========================================================*
- * VARIANT STATE
- *=========================================================*
- *
- * Stores the currently selected variant.
- *
- * Every synchronization module:
- *
- * - Price
- * - Media
- * - SKU
- * - Inventory
- * - Compare-at price
- * - Availability
- *
- * can access the current variant through:
- *
- *     getCurrentVariant()
- *
- * instead of repeatedly passing variant data around.
- *
- *=========================================================*/
 
 window.currentVariant = null;
-
-
-/*================ * VARIANT CHANGE EVENT ============*
- *
- * The Custom Variant Engine dispatches:
- *   "variant:change"
- ** whenever the selected variant changes.
- ** This is the central synchronization point for the
- * custom product system.=*/
 
 document.addEventListener("variant:change", function (event) {
     /*------------- 1. Get Selected Variant---------------*/
@@ -112,72 +58,14 @@ document.addEventListener("variant:change", function (event) {
 
 
     /*============* MODULE 3 — ADD TO CART=============*
-       * Updates:
-     * - Add to cart
-     * - Sold out
-     * - Unavailable========*/
+       * Updates:   * - Add to cart   * - Sold out   * - Unavailable========*/
 
     if (addButton) {
         updateAddToCartButton( addButton, variant );
     }
-    /*======   * MODULE 2.2.7 — SKU SYNCHRONIZATION========*
-     * Updates the product SKU whenever the selected
-     * variant changes.===========*/
-
-    updateProductSku(product);
-
-    /*====== MODULE 2.2.8 — INVENTORY SYNCHRONIZATION ======*
-    * Updates: * - Stock status * - Inventory quantity * - Low stock message =========*/
-
-    updateProductInventory(product);
-
-    /*====== MODULE 2.2.9 — COMPARE PRICE & SAVINGS ======*
-    * Updates:  - Compare-at price - Savings amount - Savings percentage ====*/
-
-    updateProductComparePrice(product);
-
+   
 });
 
-
-/*============ UPDATE HIDDEN VARIANT ID========*/
-
-function updateVariantId(form, variant) {
-
-    /*-------- Find hidden variant input---------*/
-
-    const input = form.querySelector(
-        ".product-variant-id"
-    );
-
-   /*------------ Safety Check---------------*/
-    if (!input || !variant) return;
-
-    /*-------------- Update Variant ID--------------*/
-    input.value = variant.id;
-
-}
-/*================* UPDATE BROWSER URL==============*/
-
-function updateBrowserUrl(variant) {
-    /*---------- * No Variant--------------*/
-    if (!variant) return;
-    /*------------------------- Get Current URL----------*/
-
-    const url = new URL(
-        window.location.href
-    );
-    /*--------------* Update Variant Parameter---------------*/
-    url.searchParams.set(
-        "variant",
-        variant.id
-    );
-    /*---------------- Update URL Without Page Reload-------*/
-    window.history.replaceState(
-        {},
-        "",
-        url
-    );
-}
 
 
 /*=============UPDATE ADD TO CART BUTTON============*/
@@ -212,56 +100,6 @@ function updateAddToCartButton(button, variant) {
         "Add to cart";
 }
 
-
-/*=====* MODULE 2.2.7 — UPDATE PRODUCT SKU===========*
- * Finds the SKU elements inside the current product
- * wrapper and synchronizes them with the selected variant.
- * HTML expected from:
- * snippets/custom-product-info.liquid
- * Example:
- *     <div data-product-sku>
- *         <span data-product-sku-value></span>
- *     </div>============*/
-
-function updateProductSku(product) {
-    /*------------* Safety Check--------------------------*/
-    if (!product) return;
-    /*-------------- * Find SKU Wrapper------------------*/
-    const skuWrapper = product.querySelector(
-        "[data-product-sku]"
-    );
-    /*----------------- Find SKU Value-------------------*/
-    const skuValue = product.querySelector(
-        "[data-product-sku-value]"
-    );
-    /*-------------* Required Elements Not Found-----------*/
-    if (!skuWrapper || !skuValue) return;
-    /*------------ Get Current Variant SKU---------------*
-     * IMPORTANT:
-     * We do NOT use:
-     *  variant.sku
-     * here.
-     * Instead we use the centralized helper:
-     * getCurrentVariantSku()
-     * This keeps the synchronization architecture
-     * reusable for future modules.------------------*/
-
-    const sku = getCurrentVariantSku();
-   /*------------------ * SKU EMPTY-------------*
-     * If the selected variant does not have a SKU:
-     * - Clear the old SKU
-     * - Hide the SKU wrapper--------------------------*/
-
-    if (!sku) {
-        skuValue.textContent = "";
-        skuWrapper.hidden = true;
-        return;
-    }
-    /*----------- * SKU AVAILABLE-------------------*
-     * Display the new SKU.-----------------*/
-    skuValue.textContent = sku;
-    skuWrapper.hidden = false;
-}
 
 /*=========================================================*
  * 5. UPDATE PRODUCT INVENTORY
