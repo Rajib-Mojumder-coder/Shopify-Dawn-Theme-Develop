@@ -2,9 +2,8 @@
 
   assign variant = product.selected_or_first_available_variant
 
-  assign current_price = variant.price | default: 0
-  assign compare_price = variant.compare_at_price | default: 0
-
+  assign current_price = variant.price 
+  assign compare_price = variant.compare_at_price 
   assign show_current_price = block.settings.show_current_price
   assign show_compare_price = block.settings.show_compare_price
   assign hide_compare_without_discount = block.settings.hide_compare_without_discount
