@@ -125,7 +125,8 @@ assign savings_percentage = 0
 
                     {% endif %}
 
-                    {% comment %}======SAVINGS AMOUNT======== {% endcomment %}
+                    <div class="saving_container">
+                        {% comment %}======SAVINGS AMOUNT======== {% endcomment %}
                      {% if on_sale %}
 
                         <span class="custom-price__savings" data-savings-amount>
@@ -142,6 +143,7 @@ assign savings_percentage = 0
                         </span>
 
                     {% endif %}
+                    </div>
 
             </div>
 
@@ -226,7 +228,9 @@ assign savings_percentage = 0
     color: rgba(var(--color-foreground),0.55);
     text-decoration: line-through;
 }
-
+.saving_container{
+    display: flex;
+}
 .custom-price__savings {
     font-size: 1.4rem;
     font-weight: 600;
