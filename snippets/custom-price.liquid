@@ -138,14 +138,14 @@ assign savings_percentage = 0
                     
 
                     {% comment %}======SAVINGS PERCENTAGE======== {% endcomment %}
-                    {% if on_sale %}
-
+                   
                         <span class="custom-price__savings-percentage" data-savings-percentage>
+                         {% if on_sale %}
                             {{ savings_percentage }}% OFF
+                         {% endif %}
                         </span>
 
-                    {% endif %}
-                    </div>
+                     </div>
 
             </div>
 
