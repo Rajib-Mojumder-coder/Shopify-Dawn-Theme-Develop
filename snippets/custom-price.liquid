@@ -31,19 +31,6 @@
         assign on_sale = true
     endif
   
-
-  assign savings_amount = 0
-  
-  if on_sale
-    assign savings_amount = compare_price | minus: current_price
-  endif
- 
-assign savings_percentage = 0
-
-  if on_sale and compare_price > 0
-    assign savings_percentage = savings_amount | times: 100  | divided_by: compare_price | round
-  endif
-
 %}
 
 {% capture current_price_html %}
