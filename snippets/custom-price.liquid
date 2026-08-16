@@ -128,7 +128,7 @@
                    
                         <span class="custom-price__savings-percentage" data-savings-percentage {% unless on_sale %}hidden{% endunless %}>
                          {% if on_sale %}
-                            {{ savings_percentage }}% OFF
+                            {{ compare_price | minus: current_price | times: 100.0 | divided_by: compare_price | round }}% OFF
                          {% endif %}
                         </span>
 
