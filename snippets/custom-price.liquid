@@ -103,7 +103,8 @@ assign savings_percentage = 0
 
             <div class="custom-price"
                 data-product-price-scope data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}"
-                data-round-price="{{ round_price }}" data-price-format="{{ price_format }}" data-hide-compare-without-discount="{{ hide_compare_without_discount }}" data-on-sale="{{ on_sale }}" data-money-format="{{ shop.money_format }}">
+                data-round-price="{{ round_price }}" data-price-format="{{ price_format }}" data-hide-compare-without-discount="{{ hide_compare_without_discount }}" data-on-sale="{{ on_sale }}" data-money-format="{{ shop.money_format }}"
+                data-show-compare="{{ show_compare_price }}">
 
                     {% if show_current_price %}
                         <span class="custom-price__current{% if large_price %} custom-price__current--large{% endif %}"
