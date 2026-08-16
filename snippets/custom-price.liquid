@@ -23,18 +23,13 @@
     if compare_price > 0
       assign compare_price = compare_price | divided_by: 100.0 | round | times: 100
     endif
-    
+
   endif
 
-  if block.settings.round_price == true
-    assign current_price = current_price | divided_by: 100.0 | round | times: 100
-    assign compare_price =  compare_price | divided_by: 100.0 | round | times: 100
-  endif
-
-    assign on_sale = false
-  if compare_price > current_price
-    assign on_sale = true 
-  endif
+  assign on_sale = false
+    if compare_price > current_price
+        assign on_sale = true 
+    endif
   
 
   assign savings_amount = 0
