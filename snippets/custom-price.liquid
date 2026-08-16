@@ -33,8 +33,7 @@
   
 
   assign savings_amount = 0
-  assign savings_percentage = 0
-
+  
   if on_sale
     assign savings_amount = compare_price | minus: current_price
 
