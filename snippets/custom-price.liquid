@@ -28,7 +28,7 @@
     endif
   endif
 
-  
+
   assign show_current_price = block.settings.show_current_price
   assign show_compare_price = block.settings.show_compare_price
   assign hide_compare_without_discount = block.settings.hide_compare_without_discount
@@ -76,7 +76,11 @@
 {% endcapture %}
 
 
-            <div class="custom-price" data-product-price-scope data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}">
+           <div class="custom-price"
+                data-product-price-scope data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}"
+                data-round-price="{{ block.settings.round_price }}" data-price-format="{{ price_format }}"
+                data-show-current-price="{{ show_current_price }}" data-show-compare-price="{{ show_compare_price }}"
+                data-hide-compare-without-discount="{{ hide_compare_without_discount }}">
 
                     {% if show_current_price %}
                         <span class="custom-price__current{% if large_price %} custom-price__current--large{% endif %}"
