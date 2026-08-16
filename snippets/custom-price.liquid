@@ -17,8 +17,15 @@
   assign compare_full_width = block.settings.compare_full_width
 
 
+  if round_price
+    assign current_price = current_price | divided_by: 100.0 | round | times: 100
 
-  
+    if compare_price > 0
+      assign compare_price = compare_price | divided_by: 100.0 | round | times: 100
+    endif
+    
+  endif
+
   if block.settings.round_price == true
     assign current_price = current_price | divided_by: 100.0 | round | times: 100
     assign compare_price =  compare_price | divided_by: 100.0 | round | times: 100
