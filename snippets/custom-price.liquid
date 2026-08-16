@@ -16,6 +16,19 @@
     assign on_sale = true 
   endif
   
+
+  assign savings_amount = 0
+  assign savings_percentage = 0
+
+  if on_sale
+    assign savings_amount = compare_price | minus: current_price
+
+    if compare_price > 0
+      assign savings_percentage = savings_amount | times: 100.0 | divided_by: compare_price | round
+    endif
+  endif
+
+  
   assign show_current_price = block.settings.show_current_price
   assign show_compare_price = block.settings.show_compare_price
   assign hide_compare_without_discount = block.settings.hide_compare_without_discount
