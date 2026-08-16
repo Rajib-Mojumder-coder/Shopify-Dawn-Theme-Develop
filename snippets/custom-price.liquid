@@ -139,7 +139,7 @@ assign savings_percentage = 0
 
                     {% comment %}======SAVINGS PERCENTAGE======== {% endcomment %}
                    
-                        <span class="custom-price__savings-percentage" data-savings-percentage>
+                        <span class="custom-price__savings-percentage" data-savings-percentage {% unless on_sale %}hidden{% endunless %}>
                          {% if on_sale %}
                             {{ savings_percentage }}% OFF
                          {% endif %}
