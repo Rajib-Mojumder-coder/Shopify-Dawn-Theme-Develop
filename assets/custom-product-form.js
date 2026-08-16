@@ -138,10 +138,7 @@ document.addEventListener("variant:change", function (event) {
      * MODULE 2.2.9 — PRICE
      *=====================================================*/
 
-    updateProductPrice(
-        product,
-        variant
-    );
+    updateProductPrice(product);
 
 });
 
