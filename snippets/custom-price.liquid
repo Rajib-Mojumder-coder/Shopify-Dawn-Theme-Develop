@@ -4,7 +4,7 @@
 
   assign current_price = variant.price 
   assign compare_price = variant.compare_at_price 
-  
+
   assign show_current_price = block.settings.show_current_price
   assign show_compare_price = block.settings.show_compare_price
   assign hide_compare_without_discount = block.settings.hide_compare_without_discount
@@ -83,7 +83,7 @@ assign savings_percentage = 0
 {% endcapture %}
     
 {%  capture savings-amount %} 
-{% case price_format %}
+    {% case price_format %}
 
         {% when 'money_with_currency' %}
           {{ savings_amount | money_with_currency }}
