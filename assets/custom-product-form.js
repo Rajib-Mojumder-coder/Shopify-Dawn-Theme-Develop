@@ -1,187 +1,413 @@
+/*=========================================================*
+ * CUSTOM PRODUCT FORM
+ * Variant Synchronization Engine
+ *=========================================================*
+ *
+ * Central event:
+ *     variant:change
+ *
+ * Modules:
+ *     1. Variant ID
+ *     2. Browser URL
+ *     3. Add to Cart
+ *     4. Product Media
+ *     5. Product Price
+ *     6. SKU
+ *     7. Inventory
+ *
+ * Architecture:
+ *     Variant Engine
+ *          ↓
+ *     variant:change
+ *          ↓
+ *     Current Product Scope
+ *          ↓
+ *     Synchronization Modules
+ *
+ *=========================================================*/
+
+
+/*=========================================================*
+ * VARIANT STATE
+ *=========================================================*/
 
 window.currentVariant = null;
 
+
+/*=========================================================*
+ * VARIANT CHANGE EVENT
+ *=========================================================*/
+
 document.addEventListener("variant:change", function (event) {
-    /*------------- 1. Get Selected Variant---------------*/
+
+    /*-----------------------------------------------------*
+     * 1. Get selected variant
+     *-----------------------------------------------------*/
 
     const variant = event.detail.variant;
-    /*------------ 2. Save Current Variant-----------------*
-     * Store the variant globally so all synchronization
-     * modules can access it through the helper functions.
-     *
-     *---------------------------------------------------------*/
+
+    /*-----------------------------------------------------*
+     * 2. Save current variant
+     *-----------------------------------------------------*/
 
     window.currentVariant = variant;
-    console.log(
-        "Current Variant:",
-        window.currentVariant
-    );
-    /*-----------  3. Get Product Form--------------------*/
+
+    /*-----------------------------------------------------*
+     * 3. Get current product form
+     *-----------------------------------------------------*/
 
     const productForm = event.detail.productForm;
+
     if (!productForm) return;
 
-    /*------------- 4. Get Product Wrapper------------------*/
+    /*-----------------------------------------------------*
+     * 4. Get current product scope
+     *-----------------------------------------------------*/
 
     const product = productForm.closest(".product");
+
     if (!product) return;
 
-    /*=========== MODULE: MEDIA SYNCHRONIZATION============*
-     * Change the main product media according to the
-     * selected variant's featured_media.
-     */
 
-    updateFeaturedMedia(product, variant);
-
-    /*--------- * Get Add To Cart Button---------*/
-
-    const addButton = product.querySelector(
-        '[name="add"]'
-    );
-
-
-    /*=========== MODULE 1 — HIDDEN VARIANT ID===========*
-     * Updates:  <input name="id">
-     * so Shopify receives the currently selected variant.=*/
+    /*=====================================================*
+     * MODULE 1 — VARIANT ID
+     *=====================================================*/
 
     updateVariantId(
         productForm,
         variant
     );
-    /*====== MODULE 2 — BROWSER URL=============*
-     * Updates: ?variant=VARIANT_ID
-     * without reloading the page.============*/
+
+
+    /*=====================================================*
+     * MODULE 2 — BROWSER URL
+     *=====================================================*/
 
     updateBrowserUrl(
         variant
     );
 
 
-    /*============* MODULE 3 — ADD TO CART=============*
-       * Updates:   * - Add to cart   * - Sold out   * - Unavailable========*/
+    /*=====================================================*
+     * MODULE 3 — ADD TO CART
+     *=====================================================*/
+
+    const addButton = product.querySelector(
+        '[name="add"]'
+    );
 
     if (addButton) {
-        updateAddToCartButton( addButton, variant );
+
+        updateAddToCartButton(
+            addButton,
+            variant
+        );
+
     }
-   
+
+
+    /*=====================================================*
+     * MODULE 2.2.6 — MEDIA
+     *=====================================================*/
+
+    updateFeaturedMedia(
+        product,
+        variant
+    );
+
+
+    /*=====================================================*
+     * MODULE 2.2.7 — SKU
+     *=====================================================*/
+
+    updateProductSku(
+        product
+    );
+
+
+    /*=====================================================*
+     * MODULE 2.2.8 — INVENTORY
+     *=====================================================*/
+
+    updateProductInventory(
+        product
+    );
+
+
+    /*=====================================================*
+     * MODULE 2.2.9 — PRICE
+     *=====================================================*/
+
+    updateProductPrice(
+        product,
+        variant
+    );
+
 });
 
 
+/*=========================================================*
+ * MODULE 1
+ * UPDATE HIDDEN VARIANT ID
+ *=========================================================*/
 
-/*=============UPDATE ADD TO CART BUTTON============*/
+function updateVariantId(form, variant) {
 
-function updateAddToCartButton(button, variant) {
+    if (!form || !variant) return;
 
-   /*-------------* Button Text Element-------------*/
-    const buttonText = button.querySelector(
-        "span"
+    const input = form.querySelector(
+        ".product-variant-id"
     );
 
+    if (!input) return;
+
+    input.value = variant.id;
+
+}
+
+
+/*=========================================================*
+ * MODULE 2
+ * UPDATE BROWSER URL
+ *=========================================================*/
+
+function updateBrowserUrl(variant) {
+
+    if (!variant) return;
+
+    const url = new URL(
+        window.location.href
+    );
+
+    url.searchParams.set(
+        "variant",
+        variant.id
+    );
+
+    window.history.replaceState(
+        {},
+        "",
+        url
+    );
+
+}
+
+
+/*=========================================================*
+ * MODULE 3
+ * UPDATE ADD TO CART
+ *=========================================================*/
+
+function updateAddToCartButton(
+    button,
+    variant
+) {
+
+    if (!button) return;
+
+    const buttonText =
+        button.querySelector("span");
+
     if (!buttonText) return;
-    /*------------- VARIANT NOT FOUND-------------*/
+
+
+    /*-----------------------------------------------------*
+     * Variant unavailable
+     *-----------------------------------------------------*/
 
     if (!variant) {
+
         button.disabled = true;
+
         buttonText.textContent =
             "Unavailable";
+
         return;
+
     }
-    /*-----------------* SOLD OUT--------------*/
+
+
+    /*-----------------------------------------------------*
+     * Variant sold out
+     *-----------------------------------------------------*/
 
     if (!variant.available) {
+
         button.disabled = true;
+
         buttonText.textContent =
             "Sold Out";
+
         return;
+
     }
-   /*----------------- AVAILABLE------------------*/
+
+
+    /*-----------------------------------------------------*
+     * Variant available
+     *-----------------------------------------------------*/
+
     button.disabled = false;
+
     buttonText.textContent =
         "Add to cart";
+
 }
 
 
+/*=========================================================*
+ * VARIANT HELPERS
+ *=========================================================*/
 
-/*================* VARIANT HELPERS===============*
- * These helpers provide a single reusable API for all
- * future synchronization modules.================*/
-/*================* GET CURRENT VARIANT===========*
- * Returns the currently selected variant.============*/
+
+/*---------------------------------------------------------*
+ * Get current variant
+ *---------------------------------------------------------*/
 
 function getCurrentVariant() {
+
     return window.currentVariant;
+
 }
-/*============ HAS CURRENT VARIANT=====
- * Returns true when a variant is currently selected.======*/
+
+
+/*---------------------------------------------------------*
+ * Check current variant
+ *---------------------------------------------------------*/
 
 function hasCurrentVariant() {
+
     return window.currentVariant !== null;
+
 }
 
-/*================= * CURRENT VARIANT ID===========*/
+
+/*---------------------------------------------------------*
+ * Current variant ID
+ *---------------------------------------------------------*/
 
 function getCurrentVariantId() {
+
     const variant =
         getCurrentVariant();
+
     if (!variant) return null;
+
     return variant.id;
+
 }
-/*========== * CURRENT VARIANT AVAILABILITY==============*/
+
+
+/*---------------------------------------------------------*
+ * Current variant availability
+ *---------------------------------------------------------*/
 
 function isCurrentVariantAvailable() {
+
     const variant =
         getCurrentVariant();
 
     if (!variant) return false;
+
     return variant.available;
+
 }
-/*=============== * CURRENT VARIANT MEDIA============*/
+
+
+/*---------------------------------------------------------*
+ * Current variant media
+ *---------------------------------------------------------*/
 
 function getCurrentVariantMedia() {
+
     const variant =
         getCurrentVariant();
 
     if (!variant) return null;
+
     return variant.featured_media;
+
 }
-/*==============* CURRENT VARIANT PRICE===============*/
+
+
+/*---------------------------------------------------------*
+ * Current variant price
+ *---------------------------------------------------------*/
 
 function getCurrentVariantPrice() {
+
     const variant =
         getCurrentVariant();
+
     if (!variant) return 0;
+
     return variant.price;
+
 }
-/*============= CURRENT VARIANT COMPARE-AT PRICE=========*/
+
+
+/*---------------------------------------------------------*
+ * Current variant compare-at price
+ *---------------------------------------------------------*/
 
 function getCurrentVariantComparePrice() {
+
     const variant =
         getCurrentVariant();
 
     if (!variant) return 0;
+
     return variant.compare_at_price;
+
 }
-/*=============== * CURRENT VARIANT SKU===========*/
+
+
+/*---------------------------------------------------------*
+ * Current variant SKU
+ *---------------------------------------------------------*/
 
 function getCurrentVariantSku() {
+
     const variant =
         getCurrentVariant();
+
     if (!variant) return "";
+
     return variant.sku || "";
+
 }
-/*============= * CURRENT VARIANT INVENTORY============*/
+
+
+/*---------------------------------------------------------*
+ * Current variant inventory
+ *---------------------------------------------------------*/
 
 function getCurrentVariantInventory() {
-    const variant = getCurrentVariant();
-    if (!variant) return null;
-    return variant.inventory_quantity;
-}
-/*============= * MODULE — UPDATE FEATURED MEDIA======*
- * Changes the main Swiper media according to:
- *     variant.featured_media.id==================*/
 
-function updateFeaturedMedia(product, variant) {
-    /*-----------------* Safety Checks----------------*/
+    const variant =
+        getCurrentVariant();
+
+    if (!variant) return null;
+
+    return variant.inventory_quantity;
+
+}
+
+
+/*=========================================================*
+ * MODULE 2.2.6
+ * UPDATE FEATURED MEDIA
+ *=========================================================*/
+
+function updateFeaturedMedia(
+    product,
+    variant
+) {
+
+    /*-----------------------------------------------------*
+     * Safety check
+     *-----------------------------------------------------*/
+
     if (
         !product ||
         !variant ||
@@ -189,52 +415,630 @@ function updateFeaturedMedia(product, variant) {
     ) {
         return;
     }
-    /*----------  * Check Main Swiper---------------------*/
+
+
+    /*-----------------------------------------------------*
+     * Check Swiper
+     *-----------------------------------------------------*/
 
     if (!window.productMainSwiper) {
+
         console.warn(
             "Main Swiper not found"
         );
+
         return;
+
     }
-    /*------------  * Get Variant Media ID---------------*/
+
+
+    /*-----------------------------------------------------*
+     * Variant media ID
+     *-----------------------------------------------------*/
+
     const mediaId =
         String(
             variant.featured_media.id
         );
-    /*---------------- Find Main Slider Slides--------------*/
+
+
+    /*-----------------------------------------------------*
+     * Find slides
+     *-----------------------------------------------------*/
+
     const slides =
         product.querySelectorAll(
             ".productMediaSlider .swiper-slide"
         );
+
+
     let slideIndex = -1;
-    /*-------------------- Find Matching Media Slide-------*/
+
+
+    /*-----------------------------------------------------*
+     * Find matching slide
+     *-----------------------------------------------------*/
 
     slides.forEach(
         (slide, index) => {
+
             const mediaData =
                 slide.dataset.mediaId;
+
             if (!mediaData) return;
+
             const currentId =
                 mediaData
                     .split("-")
                     .pop();
+
             if (
                 currentId === mediaId
             ) {
+
                 slideIndex = index;
+
             }
+
         }
     );
-    /*-------------------- * Navigate Main Swiper------------*/
+
+
+    /*-----------------------------------------------------*
+     * Navigate slider
+     *-----------------------------------------------------*/
 
     if (slideIndex >= 0) {
+
         window.productMainSwiper.slideToLoop(
             slideIndex,
             500
         );
+
     }
-} 
+
+}
+
+
+/*=========================================================*
+ * MODULE 2.2.7
+ * UPDATE PRODUCT SKU
+ *=========================================================*/
+
+function updateProductSku(product) {
+
+    if (!product) return;
+
+
+    const skuWrapper =
+        product.querySelector(
+            "[data-product-sku]"
+        );
+
+    const skuValue =
+        product.querySelector(
+            "[data-product-sku-value]"
+        );
+
+    if (
+        !skuWrapper ||
+        !skuValue
+    ) {
+        return;
+    }
+
+
+    const sku =
+        getCurrentVariantSku();
+
+
+    /*-----------------------------------------------------*
+     * Hide empty SKU
+     *-----------------------------------------------------*/
+
+    if (!sku) {
+
+        skuWrapper.hidden = true;
+
+        skuValue.textContent = "";
+
+        return;
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Display SKU
+     *-----------------------------------------------------*/
+
+    skuValue.textContent =
+        sku;
+
+    skuWrapper.hidden = false;
+
+}
+
+
+/*=========================================================*
+ * MODULE 2.2.8
+ * UPDATE PRODUCT INVENTORY
+ *=========================================================*/
+
+function updateProductInventory(product) {
+
+    if (!product) return;
+
+
+    /*-----------------------------------------------------*
+     * Find inventory elements
+     *-----------------------------------------------------*/
+
+    const inventoryWrapper =
+        product.querySelector(
+            "[data-product-inventory]"
+        );
+
+    const inventoryBadge =
+        product.querySelector(
+            "[data-inventory-badge]"
+        );
+
+    const inventoryText =
+        product.querySelector(
+            "[data-inventory-text]"
+        );
+
+
+    if (
+        !inventoryWrapper ||
+        !inventoryBadge ||
+        !inventoryText
+    ) {
+        return;
+    }
+
+
+    /*-----------------------------------------------------*
+     * Get current variant
+     *-----------------------------------------------------*/
+
+    const variant =
+        getCurrentVariant();
+
+
+    /*-----------------------------------------------------*
+     * Reset state
+     *-----------------------------------------------------*/
+
+    inventoryWrapper.hidden = true;
+
+    inventoryWrapper.classList.remove(
+        "is-in-stock",
+        "is-low-stock",
+        "is-out-of-stock",
+        "is-unavailable"
+    );
+
+    inventoryText.textContent = "";
+
+
+    /*-----------------------------------------------------*
+     * No variant
+     *-----------------------------------------------------*/
+
+    if (!variant) return;
+
+
+    /*-----------------------------------------------------*
+     * Variant unavailable
+     *-----------------------------------------------------*/
+
+    if (!variant.available) {
+
+        inventoryWrapper.classList.add(
+            "is-out-of-stock"
+        );
+
+        inventoryText.textContent =
+            "Out of stock";
+
+        inventoryWrapper.hidden = false;
+
+        return;
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Get inventory quantity
+     *-----------------------------------------------------*/
+
+    const quantity =
+        getCurrentVariantInventory();
+
+
+    /*-----------------------------------------------------*
+     * Inventory quantity unavailable
+     *-----------------------------------------------------*/
+
+    if (
+        quantity === null ||
+        quantity === undefined ||
+        quantity < 0
+    ) {
+
+        inventoryWrapper.classList.add(
+            "is-in-stock"
+        );
+
+        inventoryText.textContent =
+            "In stock";
+
+        inventoryWrapper.hidden = false;
+
+        return;
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Out of stock
+     *-----------------------------------------------------*/
+
+    if (quantity <= 0) {
+
+        inventoryWrapper.classList.add(
+            "is-out-of-stock"
+        );
+
+        inventoryText.textContent =
+            "Out of stock";
+
+        inventoryWrapper.hidden = false;
+
+        return;
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Low stock threshold
+     *-----------------------------------------------------*/
+
+    const lowStockThreshold = 5;
+
+
+    /*-----------------------------------------------------*
+     * Low stock
+     *-----------------------------------------------------*/
+
+    if (
+        quantity <= lowStockThreshold
+    ) {
+
+        inventoryWrapper.classList.add(
+            "is-low-stock"
+        );
+
+        inventoryText.textContent =
+            `Only ${quantity} left in stock`;
+
+        inventoryWrapper.hidden = false;
+
+        return;
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Normal stock
+     *-----------------------------------------------------*/
+
+    inventoryWrapper.classList.add(
+        "is-in-stock"
+    );
+
+    inventoryText.textContent =
+        "In stock";
+
+    inventoryWrapper.hidden = false;
+
+}
+
+
+/*=========================================================*
+ * MODULE 2.2.9
+ * UPDATE PRODUCT PRICE
+ *=========================================================*
+ *
+ * Important:
+ *
+ * Liquid handles the initial rendering.
+ *
+ * JavaScript only synchronizes the values
+ * after a variant changes.
+ *
+ *=========================================================*/
+
+function updateProductPrice(
+    product,
+    variant
+) {
+
+    if (
+        !product ||
+        !variant
+    ) {
+        return;
+    }
+
+
+    /*-----------------------------------------------------*
+     * Find price scope
+     *-----------------------------------------------------*/
+
+    const priceScope =
+        product.querySelector(
+            "[data-product-price-scope]"
+        );
+
+    if (!priceScope) return;
+
+
+    /*-----------------------------------------------------*
+     * Find price elements
+     *-----------------------------------------------------*/
+
+    const currentPriceElement =
+        priceScope.querySelector(
+            "[data-product-price]"
+        );
+
+    const comparePriceElement =
+        priceScope.querySelector(
+            "[data-compare-price]"
+        );
+
+    const savingsAmountElement =
+        priceScope.querySelector(
+            "[data-savings-amount]"
+        );
+
+    const savingsPercentageElement =
+        priceScope.querySelector(
+            "[data-savings-percentage]"
+        );
+
+
+    /*-----------------------------------------------------*
+     * Update variant ID
+     *-----------------------------------------------------*/
+
+    priceScope.dataset.variantId =
+        String(variant.id);
+
+
+    /*-----------------------------------------------------*
+     * Read price
+     *-----------------------------------------------------*/
+
+    const currentPrice =
+        Number(
+            variant.price || 0
+        );
+
+    const comparePrice =
+        Number(
+            variant.compare_at_price || 0
+        );
+
+
+    /*-----------------------------------------------------*
+     * Sale detection
+     *-----------------------------------------------------*/
+
+    const onSale =
+        comparePrice > currentPrice;
+
+
+    /*-----------------------------------------------------*
+     * Savings calculation
+     *-----------------------------------------------------*/
+
+    let savingsAmount = 0;
+    let savingsPercentage = 0;
+
+
+    if (onSale) {
+
+        savingsAmount =
+            comparePrice -
+            currentPrice;
+
+
+        savingsPercentage =
+            Math.round(
+                (
+                    savingsAmount /
+                    comparePrice
+                ) * 100
+            );
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Current price
+     *-----------------------------------------------------*/
+
+    if (currentPriceElement) {
+
+        currentPriceElement.textContent =
+            formatProductMoney(
+                currentPrice,
+                priceScope
+            );
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Compare-at price
+     *-----------------------------------------------------*/
+
+    if (comparePriceElement) {
+
+        const hideCompare =
+            priceScope.dataset
+                .hideCompareWithoutDiscount ===
+                "true";
+
+
+        if (
+            comparePrice <= 0 ||
+            (
+                hideCompare &&
+                !onSale
+            )
+        ) {
+
+            comparePriceElement.hidden =
+                true;
+
+        }
+        else {
+
+            comparePriceElement.textContent =
+                formatProductMoney(
+                    comparePrice,
+                    priceScope
+                );
+
+            comparePriceElement.hidden =
+                false;
+
+        }
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Savings amount
+     *-----------------------------------------------------*/
+
+    if (savingsAmountElement) {
+
+        if (onSale) {
+
+            savingsAmountElement.textContent =
+                "Save " +
+                formatProductMoney(
+                    savingsAmount,
+                    priceScope
+                );
+
+            savingsAmountElement.hidden =
+                false;
+
+        }
+        else {
+
+            savingsAmountElement.textContent =
+                "";
+
+            savingsAmountElement.hidden =
+                true;
+
+        }
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Savings percentage
+     *-----------------------------------------------------*/
+
+    if (
+        savingsPercentageElement
+    ) {
+
+        if (onSale) {
+
+            savingsPercentageElement.textContent =
+                savingsPercentage +
+                "% OFF";
+
+            savingsPercentageElement.hidden =
+                false;
+
+        }
+        else {
+
+            savingsPercentageElement.textContent =
+                "";
+
+            savingsPercentageElement.hidden =
+                true;
+
+        }
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Store sale state
+     *-----------------------------------------------------*/
+
+    priceScope.dataset.onSale =
+        String(onSale);
+
+}
+
+
+/*=========================================================*
+ * PRICE FORMATTER
+ *=========================================================*
+ *
+ * Shopify's global formatMoney() is used.
+ *
+ * Liquid provides the shop money format
+ * through data attributes.
+ *
+ *=========================================================*/
+
+function formatProductMoney(
+    amount,
+    priceScope
+) {
+
+    if (
+        window.Shopify &&
+        typeof Shopify.formatMoney ===
+        "function"
+    ) {
+
+        const moneyFormat =
+            priceScope.dataset.moneyFormat ||
+            "{{ shop.money_format }}";
+
+
+        return Shopify.formatMoney(
+            amount,
+            moneyFormat
+        );
+
+    }
+
+
+    /*-----------------------------------------------------*
+     * Fallback
+     *-----------------------------------------------------*/
+
+    return (
+        amount / 100
+    ).toFixed(2);
+
+}
 
 
 // // Main code of custom product form:
