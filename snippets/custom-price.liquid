@@ -115,14 +115,14 @@ assign savings_percentage = 0
 
                     {% if show_compare_price %} 
                         
-                        {% if on_sale or hide_compare_without_discount == false %}
+                        {% comment %} {% if on_sale or hide_compare_without_discount == false %} {% endcomment %}
 
                             <span class="custom-price__compare{% if compare_full_width %} compare_full_width{% endif %}"
                             data-compare-price hidden>
                                 {{ compare_price_html }}
                             </span>
             
-                        {% endif %}
+                        {% comment %} {% endif %} {% endcomment %}
 
                     {% endif %}
 
