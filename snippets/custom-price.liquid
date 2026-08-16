@@ -128,13 +128,14 @@ assign savings_percentage = 0
 
                     <div class="saving_container">
                         {% comment %}======SAVINGS AMOUNT======== {% endcomment %}
-                     {% if on_sale %}
-
+                        
                         <span class="custom-price__savings" data-savings-amount>
-                            Save {{ savings-amount }}
+                            {% if on_sale %}
+                                Save {{ savings-amount }}
+                            {% endif %}
                         </span>
 
-                    {% endif %}
+                    
 
                     {% comment %}======SAVINGS PERCENTAGE======== {% endcomment %}
                     {% if on_sale %}
