@@ -3,7 +3,7 @@
   assign variant = product.selected_or_first_available_variant
 
   assign current_price = variant.price | default: 0
-  assign compare_price = variant.compare_at_price
+  assign compare_price = variant.compare_at_price | default: 0
 
   if block.settings.round_price == true
     assign current_price = current_price | divided_by: 100.0 | round | times: 100
