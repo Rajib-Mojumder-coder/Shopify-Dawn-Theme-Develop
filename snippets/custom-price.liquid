@@ -19,7 +19,7 @@
   if round_price
     assign current_price = current_price | divided_by: 100.0 | round | times: 100
 
-    if compare_price > 0
+    if compare_price
       assign compare_price = compare_price | divided_by: 100.0 | round | times: 100
     endif
 
