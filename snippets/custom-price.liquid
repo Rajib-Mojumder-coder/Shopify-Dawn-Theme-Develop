@@ -82,7 +82,7 @@ assign savings_percentage = 0
        
 {% endcapture %}
     
-{%  capture savings-amount %} 
+{%  capture savings_amount %} 
     {% case price_format %}
 
         {% when 'money_with_currency' %}
@@ -131,7 +131,7 @@ assign savings_percentage = 0
                         
                         <span class="custom-price__savings" data-savings-amount {% unless on_sale %}hidden{% endunless %}>
                             {% if on_sale %}
-                                Save {{ savings-amount }}
+                                Save {{ savings_amount }}
                             {% endif %}
                         </span>
 
