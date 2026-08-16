@@ -81,7 +81,11 @@ assign savings_percentage = 0
     {% endcase %}
        
 {% endcapture %}
+    
+{%  capture savings-amount %} 
 
+
+{% endcapture %}
 
             <div class="custom-price"
                 data-product-price-scope data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}"
@@ -110,10 +114,10 @@ assign savings_percentage = 0
                     {% comment %}======SAVINGS AMOUNT======== {% endcomment %}
                      {% if on_sale %}
 
-                        <span class="custom-price__savings" data-savings-amount {% unless on_sale %} hidden {% endunless %}>
+                        <span class="custom-price__savings" data-savings-amount>
                             Save {{ savings_amount | money }}
                         </span>
-                        
+
                     {% endif %}
 
                     {% comment %}======SAVINGS PERCENTAGE======== {% endcomment %}
