@@ -99,7 +99,11 @@
                     {% endif %}
 
                     {% comment %}======SAVINGS AMOUNT======== {% endcomment %}
-                        
+                        <span class="custom-price__savings" data-savings-amount {% unless on_sale %} hidden {% endunless %}>
+                            {% if on_sale %}
+                                Save {{ savings_amount | money }}
+                            {% endif %}
+                        </span>
 
 
                 </div>
