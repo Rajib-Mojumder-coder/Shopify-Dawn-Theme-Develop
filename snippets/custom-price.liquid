@@ -26,8 +26,8 @@
   endif
 
   assign on_sale = false
-    if compare_price > current_price
-        assign on_sale = true 
+    if compare_price and compare_price > current_price
+        assign on_sale = true
     endif
   
 
