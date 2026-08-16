@@ -143,14 +143,14 @@ assign savings_percentage = 0
 
                     {% endif %}
 
-                    {% comment %}==== VARIANT DATA This JSON belongs ONLY to this product.
+            </div>
+
+            {% comment %}==== VARIANT DATA This JSON belongs ONLY to this product.
                         JavaScript can therefore find the correct variant without touching another product. {% endcomment %}
 
-                    {% comment %} <script type="application/json" data-product-variants>
+                     <script type="application/json" data-product-variants>
                         {{ product.variants | json }}
-                    </script> {% endcomment %}
-
-            </div>
+                    </script>
 
 
 <style>
