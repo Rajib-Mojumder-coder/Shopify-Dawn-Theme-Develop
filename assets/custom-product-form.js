@@ -744,47 +744,50 @@ function updateProductInventory(product) {
 
 
 /*=========================================================*
- * MODULE 2.2.9
- * UPDATE PRODUCT PRICE
- *=========================================================*
- *
- * Important:
- *
- * Liquid handles the initial rendering.
- *
- * JavaScript only synchronizes the values
- * after a variant changes.
- *
+ * MODULE 2.2.9 — PRICE SYNCHRONIZATION
  *=========================================================*/
 
-function updateProductPrice(
-    product,
-    variant
-) {
+function updateProductPrice(product) {
+
+    /*========== Safety ==========*/
+
+    if (!product) return;
+
+
+    /*========== Price Scope ==========*/
+
+    const priceScope = product.querySelector(
+        "[data-product-price-scope]"
+    );
+
+    if (!priceScope) return;
+
+
+    /*========== Current Variant ==========*/
+
+    const variant = getCurrentVariant();
+
+    if (!variant) return;
+
+
+    /*========== Product Scope Check ==========*/
+
+    const scopeProductId =
+        String(priceScope.dataset.productId || "");
+
+    const productId =
+        String(product.dataset.productId || "");
 
     if (
-        !product ||
-        !variant
+        productId &&
+        scopeProductId &&
+        productId !== scopeProductId
     ) {
         return;
     }
 
 
-    /*-----------------------------------------------------*
-     * Find price scope
-     *-----------------------------------------------------*/
-
-    const priceScope =
-        product.querySelector(
-            "[data-product-price-scope]"
-        );
-
-    if (!priceScope) return;
-
-
-    /*-----------------------------------------------------*
-     * Find price elements
-     *-----------------------------------------------------*/
+    /*========== Elements ==========*/
 
     const currentPriceElement =
         priceScope.querySelector(
@@ -807,121 +810,203 @@ function updateProductPrice(
         );
 
 
-    /*-----------------------------------------------------*
-     * Update variant ID
-     *-----------------------------------------------------*/
+    /*========== Variant ID ==========*/
 
     priceScope.dataset.variantId =
         String(variant.id);
 
 
-    /*-----------------------------------------------------*
-     * Read price
-     *-----------------------------------------------------*/
+    /*========== Prices ==========*/
 
-    const currentPrice =
-        Number(
-            variant.price || 0
-        );
+    let currentPrice =
+        Number(variant.price || 0);
 
-    const comparePrice =
-        Number(
-            variant.compare_at_price || 0
-        );
+    let comparePrice =
+        Number(variant.compare_at_price || 0);
 
 
-    /*-----------------------------------------------------*
-     * Sale detection
-     *-----------------------------------------------------*/
+    /*========== Round Price ==========*/
+
+    if (
+        priceScope.dataset.roundPrice === "true"
+    ) {
+
+        currentPrice =
+            Math.round(
+                currentPrice / 100
+            ) * 100;
+
+        if (comparePrice > 0) {
+
+            comparePrice =
+                Math.round(
+                    comparePrice / 100
+                ) * 100;
+
+        }
+
+    }
+
+
+    /*========== Sale Detection ==========*/
 
     const onSale =
         comparePrice > currentPrice;
 
 
-    /*-----------------------------------------------------*
-     * Savings calculation
-     *-----------------------------------------------------*/
+    /*========== Savings ==========*/
 
     let savingsAmount = 0;
     let savingsPercentage = 0;
 
-
     if (onSale) {
 
         savingsAmount =
-            comparePrice -
-            currentPrice;
-
+            comparePrice - currentPrice;
 
         savingsPercentage =
             Math.round(
-                (
-                    savingsAmount /
-                    comparePrice
-                ) * 100
+                (savingsAmount / comparePrice) * 100
             );
 
     }
 
 
-    /*-----------------------------------------------------*
-     * Current price
-     *-----------------------------------------------------*/
+    /*=========================================================*
+     * MONEY FORMATTER
+     *=========================================================*/
+
+    function formatMoney(amount) {
+
+        if (
+            window.Shopify &&
+            typeof Shopify.formatMoney === "function"
+        ) {
+
+            const priceFormat =
+                priceScope.dataset.priceFormat || "money";
+
+
+            let moneyFormat =
+                priceScope.dataset.moneyFormat;
+
+
+            if (
+                priceFormat ===
+                "money_with_currency"
+            ) {
+
+                moneyFormat =
+                    priceScope.dataset
+                        .moneyWithCurrencyFormat;
+
+            }
+
+
+            let formatted =
+                Shopify.formatMoney(
+                    amount,
+                    moneyFormat
+                );
+
+
+            /*========== Remove trailing zeros ==========*/
+
+            if (
+                priceFormat ===
+                "money_without_trailing_zeros"
+            ) {
+
+                formatted =
+                    formatted.replace(
+                        /([.,]00)(?!\d)/,
+                        ""
+                    );
+
+            }
+
+
+            /*========== Remove currency ==========*/
+
+            if (
+                priceFormat ===
+                "money_without_currency"
+            ) {
+
+                formatted =
+                    formatted
+                        .replace(
+                            /[^\d\s.,-]+/g,
+                            ""
+                        )
+                        .trim();
+
+            }
+
+
+            return formatted;
+
+        }
+
+
+        /*========== Fallback ==========*/
+
+        return (
+            amount / 100
+        ).toFixed(2);
+
+    }
+
+
+    /*=========================================================*
+     * CURRENT PRICE
+     *=========================================================*/
 
     if (currentPriceElement) {
 
         currentPriceElement.textContent =
-            formatProductMoney(
-                currentPrice,
-                priceScope
-            );
+            formatMoney(currentPrice);
 
     }
 
 
-    /*-----------------------------------------------------*
-     * Compare-at price
-     *-----------------------------------------------------*/
+    /*=========================================================*
+     * COMPARE-AT PRICE
+     *=========================================================*/
 
     if (comparePriceElement) {
 
-        const hideCompare =
+        const hideWithoutDiscount =
             priceScope.dataset
-                .hideCompareWithoutDiscount ===
-                "true";
+                .hideCompareWithoutDiscount === "true";
 
 
         if (
             comparePrice <= 0 ||
             (
-                hideCompare &&
+                hideWithoutDiscount &&
                 !onSale
             )
         ) {
 
-            comparePriceElement.hidden =
-                true;
+            comparePriceElement.hidden = true;
+            comparePriceElement.textContent = "";
 
-        }
-        else {
+        } else {
 
             comparePriceElement.textContent =
-                formatProductMoney(
-                    comparePrice,
-                    priceScope
-                );
+                formatMoney(comparePrice);
 
-            comparePriceElement.hidden =
-                false;
+            comparePriceElement.hidden = false;
 
         }
 
     }
 
 
-    /*-----------------------------------------------------*
-     * Savings amount
-     *-----------------------------------------------------*/
+    /*=========================================================*
+     * SAVINGS AMOUNT
+     *=========================================================*/
 
     if (savingsAmountElement) {
 
@@ -929,65 +1014,53 @@ function updateProductPrice(
 
             savingsAmountElement.textContent =
                 "Save " +
-                formatProductMoney(
-                    savingsAmount,
-                    priceScope
-                );
+                formatMoney(savingsAmount);
 
-            savingsAmountElement.hidden =
-                false;
+            savingsAmountElement.hidden = false;
 
-        }
-        else {
+        } else {
 
-            savingsAmountElement.textContent =
-                "";
-
-            savingsAmountElement.hidden =
-                true;
+            savingsAmountElement.textContent = "";
+            savingsAmountElement.hidden = true;
 
         }
 
     }
 
 
-    /*-----------------------------------------------------*
-     * Savings percentage
-     *-----------------------------------------------------*/
+    /*=========================================================*
+     * SAVINGS PERCENTAGE
+     *=========================================================*/
 
-    if (
-        savingsPercentageElement
-    ) {
+    if (savingsPercentageElement) {
 
         if (onSale) {
 
             savingsPercentageElement.textContent =
-                savingsPercentage +
-                "% OFF";
+                `${savingsPercentage}% OFF`;
 
-            savingsPercentageElement.hidden =
-                false;
+            savingsPercentageElement.hidden = false;
 
-        }
-        else {
+        } else {
 
-            savingsPercentageElement.textContent =
-                "";
-
-            savingsPercentageElement.hidden =
-                true;
+            savingsPercentageElement.textContent = "";
+            savingsPercentageElement.hidden = true;
 
         }
 
     }
 
 
-    /*-----------------------------------------------------*
-     * Store sale state
-     *-----------------------------------------------------*/
+    /*========== State ==========*/
 
     priceScope.dataset.onSale =
         String(onSale);
+
+    priceScope.dataset.savingsAmount =
+        String(savingsAmount);
+
+    priceScope.dataset.savingsPercentage =
+        String(savingsPercentage);
 
 }
 
