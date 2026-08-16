@@ -33,7 +33,7 @@
             "show_compare_price": true,
             "hide_compare_without_discount": true,
             "compare_position": false,
-            "compare_full_width": true
+            "compare_full_width": false
           }
         },
         "price": {
