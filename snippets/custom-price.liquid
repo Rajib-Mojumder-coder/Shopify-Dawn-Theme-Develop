@@ -43,7 +43,7 @@ assign savings_percentage = 0
   if on_sale and compare_price > 0
     assign savings_percentage = savings_amount | times: 100  | divided_by: compare_price | round
   endif
-  
+
 %}
 
 {% capture current_price_html %}
@@ -83,11 +83,9 @@ assign savings_percentage = 0
 {% endcapture %}
 
 
-           <div class="custom-price"
+            <div class="custom-price"
                 data-product-price-scope data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}"
-                data-round-price="{{ block.settings.round_price }}" data-price-format="{{ price_format }}"
-                data-show-current-price="{{ show_current_price }}" data-show-compare-price="{{ show_compare_price }}"
-                data-hide-compare-without-discount="{{ hide_compare_without_discount }}">
+                data-round-price="{{ round_price }}" data-price-format="{{ price_format }}" data-hide-compare-without-discount="{{ hide_compare_without_discount }}" data-on-sale="{{ on_sale }}">
 
                     {% if show_current_price %}
                         <span class="custom-price__current{% if large_price %} custom-price__current--large{% endif %}"
