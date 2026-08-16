@@ -113,6 +113,13 @@
                                 {% endif %}
                         </span>
 
+                    {% comment %}==== VARIANT DATA This JSON belongs ONLY to this product.
+                        JavaScript can therefore find the correct variant without touching another product. {% endcomment %}
+
+                    <script type="application/json" data-product-variants>
+                        {{ product.variants | json }}
+                    </script>
+
                 </div>
 
 
