@@ -173,14 +173,6 @@ assign savings_percentage = 0
     font-size: 3.8rem;
 }
 
-{% if compare_position %}
-.custom-price{
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-}
-{% endif %}
-
-
 .custom-price__compare{
     font-size: 1.6rem;
     color: rgba(var(--color-foreground),0.55);
@@ -201,4 +193,16 @@ assign savings_percentage = 0
     width: 100%;
 }
 
+{% if compare_position %}
+.custom-price{
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+{% endif %}
+
+
+[data-product-price-scope][data-on-sale="false"] [data-savings-amount],
+[data-product-price-scope][data-on-sale="false"] [data-savings-percentage] {
+  display: none;
+}
 </style>
