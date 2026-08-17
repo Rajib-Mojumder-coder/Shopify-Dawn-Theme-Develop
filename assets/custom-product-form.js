@@ -743,7 +743,134 @@ function updateProductInventory(product) {
 }
 
 
+/*=========================================================*
+ * MODULE 2.2.9 — PRICE SYNCHRONIZATION
+ *=========================================================*
+ *
+ * Liquid is responsible for:
+ *
+ * - Current price
+ * - Compare-at price
+ * - Sale detection
+ * - Savings amount
+ * - Savings percentage
+ * - Money formatting
+ * - Currency formatting
+ * - Round price
+ *
+ * JavaScript is responsible ONLY for:
+ *
+ * - Detecting the selected variant
+ * - Finding that variant's pre-rendered Liquid HTML
+ * - Replacing the visible price HTML
+ *
+ *=========================================================*/
 
+function updateProductPrice(product) {
+
+    /*---------------------------------------------------------*
+     * 1. Safety check
+     *---------------------------------------------------------*/
+
+    if (!product) return;
+
+
+    /*---------------------------------------------------------*
+     * 2. Find price scope
+     *---------------------------------------------------------*/
+
+    const priceScope =
+        product.querySelector(
+            "[data-product-price-scope]"
+        );
+
+    if (!priceScope) return;
+
+
+    /*---------------------------------------------------------*
+     * 3. Get current variant
+     *---------------------------------------------------------*/
+
+    const variant =
+        getCurrentVariant();
+
+    if (!variant) return;
+
+
+    /*---------------------------------------------------------*
+     * 4. Product scope protection
+     *
+     * Prevent Product A from updating Product B.
+     *---------------------------------------------------------*/
+
+    const scopeProductId =
+        String(
+            priceScope.dataset.productId || ""
+        );
+
+    const currentProductId =
+        String(
+            product.dataset.productId || ""
+        );
+
+    if (
+        scopeProductId &&
+        currentProductId &&
+        scopeProductId !== currentProductId
+    ) {
+        return;
+    }
+
+
+    /*---------------------------------------------------------*
+     * 5. Find matching Liquid template
+     *---------------------------------------------------------*/
+
+    const template =
+        priceScope.querySelector(
+            `[data-variant-price-template="${variant.id}"]`
+        );
+
+    if (!template) {
+
+        console.warn(
+            "Price template not found for variant:",
+            variant.id
+        );
+
+        return;
+    }
+
+
+    /*---------------------------------------------------------*
+     * 6. Find visible price container
+     *---------------------------------------------------------*/
+
+    const display =
+        priceScope.querySelector(
+            "[data-price-display]"
+        );
+
+    if (!display) return;
+
+
+    /*---------------------------------------------------------*
+     * 7. Copy pre-rendered Liquid HTML
+     *---------------------------------------------------------*/
+
+    display.replaceChildren(
+        template.content.cloneNode(true)
+    );
+
+
+    /*---------------------------------------------------------*
+     * 8. Update current variant ID
+     *---------------------------------------------------------*/
+
+    priceScope.dataset.variantId =
+        String(variant.id);
+
+}
 
 
 /*=========================================================*
