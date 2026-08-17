@@ -998,7 +998,7 @@ function updateProductPrice(product) {
 
         } else {
 
-            comparePriceElement.textContent =
+            comparePriceElement.innerHTML =
                 formatMoney(comparePrice);
 
             comparePriceElement.hidden = false;
