@@ -319,42 +319,43 @@
 
 
           {% comment %}
-          SAVINGS AMOUNT
-          {% endcomment %}
+  =========================================================
+  SAVINGS AMOUNT
+  =========================================================
+{% endcomment %}
 
-          {% if variant_on_sale %}
+{% if variant_on_sale and variant_compare_price > variant_price %}
 
-            {% assign variant_savings =
-              variant_compare_price
-              | minus: variant_price
-            %}
+  {% assign variant_savings = variant_compare_price | minus: variant_price %}
 
-            <span
-              class="custom-price__savings"
-              data-savings-amount
-            >
+  {% capture variant_savings_formatted %}
 
-              Save
+    {% case price_format %}
 
-              {% case block.settings.price_format %}
+      {% when 'money_with_currency' %}
+        {{ variant_savings | money_with_currency }}
 
-                {% when 'money_with_currency' %}
-                  {{ variant_savings | money_with_currency }}
+      {% when 'money_without_currency' %}
+        {{ variant_savings | money_without_currency }}
 
-                {% when 'money_without_currency' %}
-                  {{ variant_savings | money_without_currency }}
+      {% when 'money_without_trailing_zeros' %}
+        {{ variant_savings | money_without_trailing_zeros }}
 
-                {% when 'money_without_trailing_zeros' %}
-                  {{ variant_savings | money_without_trailing_zeros }}
+      {% else %}
+        {{ variant_savings | money }}
 
-                {% else %}
-                  {{ variant_savings | money }}
+    {% endcase %}
 
-              {% endcase %}
+    {% endcapture %}
 
-            </span>
+    <span
+        class="custom-price__savings"
+        data-savings-amount
+    >
+        Save {{ variant_savings_formatted | strip }}
+    </span>
 
-          {% endif %}
+    {% endif %}
 
 
           {% comment %}
