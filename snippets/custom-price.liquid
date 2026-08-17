@@ -152,14 +152,36 @@
 
     {% if on_sale %}
 
-      {% assign savings_amount = compare_price | minus: current_price %}
+  {% assign savings_amount = compare_price | minus: current_price %}
 
-      <span class="custom-price__savings" data-savings-amount>
-        Save
-                {{ savings_amount }}
-      </span>
+  {% capture savings_amount_html %}
 
-    {% endif %}
+    {% case price_format %}
+
+      {% when 'money_with_currency' %}
+        {{ savings_amount | money_with_currency }}
+
+      {% when 'money_without_currency' %}
+        {{ savings_amount | money_without_currency }}
+
+      {% when 'money_without_trailing_zeros' %}
+        {{ savings_amount | money_without_trailing_zeros }}
+
+      {% else %}
+        {{ savings_amount | money }}
+
+    {% endcase %}
+
+  {% endcapture %}
+
+  <span
+    class="custom-price__savings"
+    data-savings-amount
+  >
+    Save {{ savings_amount_html | strip }}
+  </span>
+
+{% endif %}
 
 
     {% comment %}
