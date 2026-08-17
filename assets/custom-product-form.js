@@ -968,7 +968,7 @@ function updateProductPrice(product) {
 
     if (currentPriceElement) {
 
-        currentPriceElement.textContent =
+        currentPriceElement.innerHTML =
             formatMoney(currentPrice);
 
     }
