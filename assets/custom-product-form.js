@@ -747,6 +747,10 @@ function updateProductInventory(product) {
  * MODULE 2.2.9 — PRICE SYNCHRONIZATION
  *=========================================================*/
 
+/*=========================================================*
+ * MODULE 2.2.9 — PRICE SYNCHRONIZATION
+ *=========================================================*/
+
 function updateProductPrice(product) {
 
     /*========== Safety ==========*/
