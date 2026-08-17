@@ -88,57 +88,358 @@
 
 {% endcapture %}
 
-            <div id="custom-price-{{ block.id }}" class="custom-price" data-product-price-scope
-            data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}" data-round-price="{{ block.settings.round_price }}"
-            data-price-format="{{ block.settings.price_format }}" data-hide-compare-without-discount="{{ block.settings.hide_compare_without_discount }}">
+           
+<div
+  id="custom-price-{{ block.id }}"
+  class="custom-price"
+  data-product-price-scope
+  data-product-id="{{ product.id }}"
+  data-variant-id="{{ variant.id }}"
+  data-round-price="{{ block.settings.round_price }}"
+  data-price-format="{{ block.settings.price_format }}"
+  data-hide-compare-without-discount="{{ block.settings.hide_compare_without_discount }}"
+>
 
-                    {% if show_current_price %}
-                        <span class="custom-price__current{% if large_price %} custom-price__current--large{% endif %}"
-                        data-product-price>
-                            {{ current_price_html }}
-                        </span>
-                    {% endif %}
 
-                    {% if show_compare_price %} 
-                        
-                        {% comment %} {% if on_sale or hide_compare_without_discount == false %} {% endcomment %}
+  {% comment %}
+  =========================================================
+  VISIBLE PRICE
+  =========================================================
+  This is the price initially rendered by Liquid.
+  =========================================================
+  {% endcomment %}
 
-                            <span class="custom-price__compare{% if compare_full_width %} compare_full_width{% endif %}"
-                            data-compare-price {% unless on_sale or hide_compare_without_discount == false %}hidden{% endunless %}>
-                                {{ compare_price_html }}
-                            </span>
-            
-                        {% comment %} {% endif %} {% endcomment %}
+  <div class="custom-price__display" data-price-display>
 
-                    {% endif %}
+    {% if show_current_price %}
 
-                    <div class="saving_container">
-                        {% comment %}======SAVINGS AMOUNT======== {% endcomment %}
-                        
-                        <span class="custom-price__savings" data-savings-amount {% unless on_sale %}hidden{% endunless %}>
-                            {% if on_sale %}
-                                Save {{ savings_amount }}
-                            {% endif %}
-                        </span>
+      <span class="custom-price__current{% if block.settings.large_price %} custom-price__current--large{% endif %}"
+        data-product-price>
 
-                    
+        {{ current_price_html }}
 
-                    {% comment %}======SAVINGS PERCENTAGE======== {% endcomment %}
-                   
-                        <span class="custom-price__savings-percentage" data-savings-percentage {% unless on_sale %}hidden{% endunless %}>
-                         {% if on_sale %}
-                            {{ compare_price | minus: current_price | times: 100.0 | divided_by: compare_price | round }}% OFF
-                         {% endif %}
-                        </span>
+      </span> 
 
-                     </div>
+    {% endif %}
 
-            </div>
+
+    {% if block.settings.show_compare_price %}
+
+      {% if on_sale or block.settings.hide_compare_without_discount == false %}
+
+        <span
+          class="custom-price__compare{% if block.settings.compare_full_width %} custom-price__compare--full-width{% endif %}"
+          data-compare-price
+          {% unless on_sale %}
+            hidden
+          {% endunless %}
+        >
+
+          {{ compare_price_html }}
+
+        </span>
+
+      {% endif %}
+
+    {% endif %}
+
+
+    {% comment %}
+    =========================================================
+    SAVINGS AMOUNT
+    =========================================================
+    {% endcomment %}
+
+    {% if on_sale %}
+
+      {% assign savings_amount = compare_price | minus: current_price %}
+
+      <span class="custom-price__savings" data-savings-amount>
+        Save
+                {{ savings_amount }}
+      </span>
+
+    {% endif %}
+
+
+    {% comment %}
+    =========================================================
+    SAVINGS PERCENTAGE
+    =========================================================
+    {% endcomment %}
+
+    {% if on_sale and compare_price > 0 %}
+
+      {% assign savings_percentage =
+        compare_price
+        | minus: current_price
+        | times: 100
+        | divided_by: compare_price
+        | round
+      %}
+
+      <span
+        class="custom-price__percentage"
+        data-savings-percentage
+      >
+        {{ savings_percentage }}% OFF
+      </span>
+
+    {% endif %}
+
+  </div>
+
+
+  {% comment %}
+  =========================================================
+  PRE-RENDERED VARIANT PRICE DATA
+  =========================================================
+
+  IMPORTANT:
+
+  Liquid renders every variant's price.
+
+  JavaScript does NOT calculate or format money.
+
+  =========================================================
+  {% endcomment %}
+
+  <div
+    class="custom-price__variant-data"
+    hidden
+    aria-hidden="true"
+  >
+
+    {% for product_variant in product.variants %}
+
+      {% liquid
+
+        assign variant_price = product_variant.price
+        assign variant_compare_price = product_variant.compare_at_price
+
+        if block.settings.round_price
+
+         assign variant_price = variant_price | divided_by: 100.0 | round | times: 100
+
+          if variant_compare_price
+            assign variant_compare_price = variant_compare_price | divided_by: 100.0 | round | times: 100
+         endif
+
+        endif
+
+        assign variant_on_sale = false
+
+        if variant_compare_price > variant_price
+          assign variant_on_sale = true
+        endif
+
+      %}
+
+
+      <template
+        data-variant-price-template="{{ product_variant.id }}"
+      >
+
+        <div class="custom-price__display">
+
+
+          {% comment %}
+          CURRENT PRICE
+          {% endcomment %}
+
+          {% if block.settings.show_current_price %}
+
+            <span
+              class="custom-price__current{% if block.settings.large_price %} custom-price__current--large{% endif %}"
+              data-product-price
+            >
+
+              {% case block.settings.price_format %}
+
+                {% when 'money_with_currency' %}
+                  {{ variant_price | money_with_currency }}
+
+                {% when 'money_without_currency' %}
+                  {{ variant_price | money_without_currency }}
+
+                {% when 'money_without_trailing_zeros' %}
+                  {{ variant_price | money_without_trailing_zeros }}
+
+                {% else %}
+                  {{ variant_price | money }}
+
+              {% endcase %}
+
+            </span>
+
+          {% endif %}
+
+
+          {% comment %}
+          COMPARE PRICE
+          {% endcomment %}
+
+          {% if block.settings.show_compare_price %}
+
+            {% if variant_on_sale or block.settings.hide_compare_without_discount == false %}
+
+              <span
+                class="custom-price__compare{% if block.settings.compare_full_width %} custom-price__compare--full-width{% endif %}"
+                data-compare-price
+                {% unless variant_on_sale %}
+                  hidden
+                {% endunless %}
+              >
+
+                {% if variant_compare_price %}
+
+                  {% case block.settings.price_format %}
+
+                    {% when 'money_with_currency' %}
+                      {{ variant_compare_price | money_with_currency }}
+
+                    {% when 'money_without_currency' %}
+                      {{ variant_compare_price | money_without_currency }}
+
+                    {% when 'money_without_trailing_zeros' %}
+                      {{ variant_compare_price | money_without_trailing_zeros }}
+
+                    {% else %}
+                      {{ variant_compare_price | money }}
+
+                  {% endcase %}
+
+                {% endif %}
+
+              </span>
+
+            {% endif %}
+
+          {% endif %}
+
+
+          {% comment %}
+          SAVINGS AMOUNT
+          {% endcomment %}
+
+          {% if variant_on_sale %}
+
+            {% assign variant_savings =
+              variant_compare_price
+              | minus: variant_price
+            %}
+
+            <span
+              class="custom-price__savings"
+              data-savings-amount
+            >
+
+              Save
+
+              {% case block.settings.price_format %}
+
+                {% when 'money_with_currency' %}
+                  {{ variant_savings | money_with_currency }}
+
+                {% when 'money_without_currency' %}
+                  {{ variant_savings | money_without_currency }}
+
+                {% when 'money_without_trailing_zeros' %}
+                  {{ variant_savings | money_without_trailing_zeros }}
+
+                {% else %}
+                  {{ variant_savings | money }}
+
+              {% endcase %}
+
+            </span>
+
+          {% endif %}
+
+
+          {% comment %}
+            SAVINGS PERCENTAGE
+            {% endcomment %}
+
+            {% if variant_on_sale and variant_compare_price > variant_price %}
+
+            {% assign variant_savings = variant_compare_price | minus: variant_price %}
+
+            {% assign variant_savings_percentage = variant_savings | times: 100 | divided_by: variant_compare_price | round %}
+
+            <span
+                class="custom-price__percentage"
+                data-savings-percentage
+            >
+                {{ variant_savings_percentage }}% OFF
+            </span>
+
+            {% endif %}
+
+        </div>
+
+      </template>
+
+    {% endfor %}
+
+  </div>
+
+</div>
+
+
+<style>
+
+.custom-price {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.custom-price__display {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.custom-price__current {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: rgb(var(--color-foreground));
+}
+
+.custom-price__current--large {
+  font-size: 3.8rem;
+}
+
+.custom-price__compare {
+  font-size: 1.6rem;
+  color: rgba(var(--color-foreground), 0.55);
+  text-decoration: line-through;
+}
+
+.custom-price__compare--full-width {
+  width: 100%;
+}
+
+.custom-price__savings {
+  font-size: 1.4rem;
+}
+
+.custom-price__percentage {
+  font-size: 1.4rem;
+}
+
+</style>
+
+
 
             {% comment %}==== VARIANT DATA This JSON belongs ONLY to this product.
                         JavaScript can therefore find the correct variant without touching another product. {% endcomment %}
 
-        <script type="application/json" data-product-variants>
+        {% comment %} <script type="application/json" data-product-variants>
          {
                 {% for variant in product.variants %}
 
@@ -188,10 +489,10 @@
 
                 {% endfor %}
             }
-        </script>
+        </script> {% endcomment %}
 
 
-<style>
+{% comment %} <style>
 
 .custom-price{
     display: flex;
@@ -247,4 +548,4 @@
 [data-product-price-scope][data-on-sale="false"] [data-savings-percentage] {
   display: none;
 }
-</style>
+</style> {% endcomment %}
