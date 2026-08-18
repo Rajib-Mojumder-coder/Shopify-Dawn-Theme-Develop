@@ -59,7 +59,7 @@
 
                </div>
 
-          {%  else %} 
+          {%  elsif custom_variant_style == 'buttons' %} 
                 
                 <div class="custom-product-variant__values" role="radiogroup" aria-label="{{option.name}}">
                     {% for value in option.values %}
@@ -75,6 +75,8 @@
                            
                     {% endfor %}
                 </div>
+
+          
 
           {% endif %}
 
