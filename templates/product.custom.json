@@ -28,7 +28,7 @@
           "settings": {
             "show_current_price": true,
             "large_price": false,
-            "price_format": "money",
+            "price_format": "money_without_trailing_zeros",
             "round_price": true,
             "show_compare_price": true,
             "hide_compare_without_discount": true,
@@ -52,7 +52,7 @@
         "custom_product_variant_XdfJbL": {
           "type": "custom-product-variant",
           "settings": {
-            "custom_variant_style": "dropdown",
+            "custom_variant_style": "buttons",
             "custom_swatches": true,
             "custom_swatches_style": "circle"
           }
