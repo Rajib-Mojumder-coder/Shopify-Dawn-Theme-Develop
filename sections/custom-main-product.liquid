@@ -1054,6 +1054,23 @@
           "default": "buttons"
         },
         {
+          "type": "select",
+          "id": "custom_swatch_type",
+          "label": "Swatch Type",
+          "options": [
+            {
+              "label": "Color",
+              "value": "color"
+            },
+            {
+              "label": "Image",
+              "value": "image"
+            }
+          ],
+          "default": "color",
+          "visible_if": "{{ block.settings.custom_swatches == true }}"
+        },
+        {
           "type": "checkbox",
           "id": "custom_swatches",
           "label": "Swatches",
