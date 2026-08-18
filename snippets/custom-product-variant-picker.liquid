@@ -78,10 +78,12 @@
 
            {% elsif custom_variant_style == 'swatches' %}     {%- comment -%} SWATCHES  {%- endcomment -%}
 
-              <div>
+              <div class="custom-product-variant__swatches custom-product-variant__swatches--{{ custom_swatches_style }}"
+                role="radiogroup" aria-label="{{ option.name }}">
 
+                
               </div>
-              
+
           {% endif %}
 
       </fieldset>
