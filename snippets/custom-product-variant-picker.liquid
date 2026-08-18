@@ -1,5 +1,6 @@
 {% liquid
   assign custom_variant_style = block.settings.custom_variant_style
+  assign custom_swatches_style = block.settings.custom_swatches_style
 %}
 
 {%  unless product.has_only_default_variant %} {%  comment  %} {% if product.has_only_default_variant == false %} {% endcomment %} 
