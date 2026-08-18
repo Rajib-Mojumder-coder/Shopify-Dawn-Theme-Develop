@@ -1,318 +1,615 @@
+/*=========================================================*
+ * CUSTOM VARIANT ENGINE
+ *=========================================================*
+ *
+ * Supports:
+ *
+ * - Dropdown
+ * - Buttons / Radio
+ * - Future Swatches
+ *
+ * All controls use the same variant engine.
+ *
+ * Control
+ *   ↓
+ * Option Change
+ *   ↓
+ * Selected Options
+ *   ↓
+ * Matching Variant
+ *   ↓
+ * Hidden Variant ID
+ *   ↓
+ * variant:change
+ *   ↓
+ * Price / Media / SKU / Inventory / Compare Price
+ *
+ *=========================================================*/
+
 class CustomVariantEngine {
+
+  /*=========================================================*
+   * 1. INITIALIZATION
+   *=========================================================*/
 
   constructor(wrapper) {
 
-    // Current Variant Picker Wrapper
+    // Current product variant-picker wrapper
     this.wrapper = wrapper;
 
-    // Current Product Form
+    // Current product form
     this.form = wrapper.closest("form");
 
-    // Variant JSON
-    const productData = JSON.parse(
-      wrapper.querySelector(".custom-product-variant__json").textContent
-    );
+    // Safety check
+    if (!this.form) {
+      console.warn(
+        "CustomVariantEngine: Product form not found."
+      );
+      return;
+    }
 
-this.variantData = productData.variants;
-    // Hidden Variant ID Input
-    this.variantIdInput = this.form.querySelector(
-      ".custom-product-variant__variant-id"
-    );
+    // Product variant JSON
+    const jsonElement =
+      wrapper.querySelector(
+        ".custom-product-variant__json"
+      );
 
-    // Initialize
+    if (!jsonElement) {
+      console.warn(
+        "CustomVariantEngine: Variant JSON not found."
+      );
+      return;
+    }
+
+    const productData =
+      JSON.parse(
+        jsonElement.textContent
+      );
+
+    // Store all product variants
+    this.variantData =
+      productData.variants || [];
+
+    // Product ID
+    this.productId =
+      productData.productId;
+
+    // Hidden Shopify variant ID input
+    this.variantIdInput =
+      this.form.querySelector(
+        ".custom-product-variant__variant-id"
+      );
+
+    // Start engine
     this.init();
-
   }
 
+
+  /*=========================================================*
+   * 2. INITIALIZE ENGINE
+   *=========================================================*/
 
   init() {
 
     this.bindEvents();
 
+    /*
+     * Synchronize availability on initial page load.
+     *
+     * This does NOT change the selected variant.
+     */
+    this.updateOptionAvailability();
   }
 
+
+  /*=========================================================*
+   * 3. BIND ALL VARIANT CONTROL EVENTS
+   *=========================================================*
+   *
+   * Dropdown:
+   *   hidden input → change event
+   *
+   * Buttons:
+   *   radio input → change event
+   *
+   * Future swatches:
+   *   should also update an input and dispatch
+   *   a change event.
+   *
+   * Therefore the engine does not care whether the
+   * visual control is dropdown, button or swatch.
+   *=========================================================*/
 
   bindEvents() {
 
-    this.form
-      .querySelectorAll('[name^="options["]')
-      .forEach((input) => {
+    const optionInputs =
+      this.form.querySelectorAll(
+        '[name^="options["]'
+      );
 
-        input.addEventListener("change", () => {
+    optionInputs.forEach((input) => {
+
+      input.addEventListener(
+        "change",
+        () => {
 
           this.onOptionChange();
 
-        });
+        }
+      );
 
-      });
-
+    });
   }
 
+
+  /*=========================================================*
+   * 4. OPTION CHANGE
+   *=========================================================*/
 
   onOptionChange() {
 
-  const selectedOptions = this.getSelectedOptions();
+    /*
+     * Get the current selected option values.
+     *
+     * Example:
+     *
+     * [
+     *   "Black",
+     *   "Large"
+     * ]
+     */
+    const selectedOptions =
+      this.getSelectedOptions();
 
-  // console.log("Selected Options:", selectedOptions);
+    // Find matching Shopify variant
+    const variant =
+      this.findVariant(
+        selectedOptions
+      );
 
-  const variant = this.findVariant(selectedOptions);
+    /*
+     * No matching variant.
+     *
+     * Do not dispatch variant:change.
+     */
+    if (!variant) {
 
-  // console.log("Matched Variant:", variant);
+      console.warn(
+        "CustomVariantEngine: Matching variant not found.",
+        selectedOptions
+      );
 
-  if (!variant) return;
-
-  this.updateVariantId(variant);
-  this.updateOptionAvailability();
-
-}
-
-
-/*================ Get Available Variants =============*/
-
-getAvailableVariants(selectedOptions) {
-
-    return this.variantData.filter((variant) => {
-
-        return variant.available;
-
-    });
-
-}
+      return;
+    }
 
 
-/*============= Find Matching Variants =================*/
+    /*
+     * Update Shopify hidden variant ID
+     * and dispatch the central event.
+     */
+    this.updateVariantId(
+      variant
+    );
 
-findMatchingVariants(selectedOptions, optionIndex) {
 
-    return this.variantData.filter((variant) => {
-
-        if (!variant.available) return false;
-
-        return selectedOptions.every((selectedValue, index) => {
-
-            if (index === optionIndex)
-                return true;
-
-            if (!selectedValue)
-                return true;
-
-            return variant.options[index] === selectedValue;
-
-        });
-
-    });
-
+    /*
+     * Update availability of all
+     * variant controls.
+     */
+    this.updateOptionAvailability();
   }
 
+
+  /*=========================================================*
+   * 5. GET SELECTED OPTIONS
+   *=========================================================*
+   *
+   * IMPORTANT:
+   *
+   * We read only the currently selected value
+   * for each option position.
+   *
+   * This makes the engine work correctly with:
+   *
+   * - Radio buttons
+   * - Dropdown hidden inputs
+   * - Future swatches
+   *
+   * Example:
+   *
+   * Option 1 = Black
+   * Option 2 = Large
+   *
+   * Result:
+   *
+   * ["Black", "Large"]
+   *
+   *=========================================================*/
 
   getSelectedOptions() {
 
     const values = [];
 
-    this.form
-      .querySelectorAll('[name^="options["]')
-      .forEach((input) => {
+    const fieldsets =
+      this.wrapper.querySelectorAll(
+        ".custom-product-variant__option"
+      );
 
-        values.push(input.value);
+    fieldsets.forEach((fieldset) => {
 
-      });
+      /*
+       * Find checked radio.
+       *
+       * Used by Buttons / future swatches.
+       */
+      const checkedInput =
+        fieldset.querySelector(
+          '[name^="options["]:checked'
+        );
 
-    return values;
+      if (checkedInput) {
 
-  }
+        values.push(
+          checkedInput.value
+        );
+
+        return;
+      }
 
 
-findVariant(selectedOptions) {
+      /*
+       * Find hidden dropdown input.
+       */
+      const hiddenInput =
+        fieldset.querySelector(
+          ".custom-product-variant__hidden-input"
+        );
 
-  return this.variantData.find((variant) => {
+      if (hiddenInput) {
 
-    return variant.options.every((option, index) => {
+        values.push(
+          hiddenInput.value
+        );
 
-      return option === selectedOptions[index];
+        return;
+      }
+
+
+      /*
+       * Fallback:
+       *
+       * Find any option input.
+       */
+      const input =
+        fieldset.querySelector(
+          '[name^="options["]'
+        );
+
+      values.push(
+        input ? input.value : ""
+      );
 
     });
 
-  });
-
-}
-
-
-
-  updateVariantId(variant) {
-//  console.log("Updating Variant ID:", variant.id);
-    // Update hidden variant id
-    this.variantIdInput.value = variant.id;
-
-    // Notify rest of product page
-    this.dispatchVariantChange(variant);
-
+    return values;
   }
 
 
-  dispatchVariantChange(variant) {
-    document.dispatchEvent(
-      new CustomEvent("variant:change", {
-        detail: {
-          variant: variant,
-          productForm: this.form,
-          picker: this.wrapper
-        }
-      })
+  /*=========================================================*
+   * 6. FIND MATCHING VARIANT
+   *=========================================================*/
+
+  findVariant(selectedOptions) {
+
+    return this.variantData.find(
+      (variant) => {
+
+        return variant.options.every(
+          (optionValue, index) => {
+
+            return (
+              optionValue ===
+              selectedOptions[index]
+            );
+
+          }
+        );
+
+      }
     );
   }
 
 
-/*================ Update Option Availability ===========*/
-updateOptionAvailability() {
+  /*=========================================================*
+   * 7. UPDATE HIDDEN VARIANT ID
+   *=========================================================*/
+
+  updateVariantId(variant) {
+
+    if (!this.variantIdInput) {
+      console.warn(
+        "CustomVariantEngine: Hidden variant ID input not found."
+      );
+      return;
+    }
+
+    /*
+     * Update:
+     *
+     * <input name="id">
+     *
+     * Shopify will therefore know which
+     * variant should be added to cart.
+     */
+    this.variantIdInput.value =
+      variant.id;
+
+
+    /*
+     * Notify all other product modules.
+     *
+     * Price
+     * Media
+     * SKU
+     * Inventory
+     * Compare Price
+     *
+     * all listen to this event.
+     */
+    this.dispatchVariantChange(
+      variant
+    );
+  }
+
+
+  /*=========================================================*
+   * 8. CENTRAL VARIANT CHANGE EVENT
+   *=========================================================*/
+
+  dispatchVariantChange(variant) {
+
+    document.dispatchEvent(
+      new CustomEvent(
+        "variant:change",
+        {
+          detail: {
+
+            variant: variant,
+
+            productForm: this.form,
+
+            picker: this.wrapper,
+
+            productId: this.productId
+
+          }
+        }
+      )
+    );
+  }
+
+
+  /*=========================================================*
+   * 9. UPDATE OPTION AVAILABILITY
+   *=========================================================*/
+
+  updateOptionAvailability() {
 
     this.updateButtonAvailability();
+
     this.updateDropdownAvailability();
 
-}
+    /*
+     * Future:
+     *
+     * this.updateSwatchAvailability();
+     *
+     * can be added here later.
+     */
+  }
 
 
-/*=========== Update Button Availability ===============*/
+  /*=========================================================*
+   * 10. BUTTON AVAILABILITY
+   *=========================================================*/
 
-updateButtonAvailability() {
+  updateButtonAvailability() {
 
     const fieldsets =
-        this.wrapper.querySelectorAll(
-            ".custom-product-variant__option"
-        );
+      this.wrapper.querySelectorAll(
+        ".custom-product-variant__option"
+      );
 
-    fieldsets.forEach((fieldset, optionIndex) => {
+    fieldsets.forEach(
+      (fieldset, optionIndex) => {
 
         const selectedOptions =
-            this.getSelectedOptions();
+          this.getSelectedOptions();
 
         const labels =
-            fieldset.querySelectorAll(
-                ".custom-product-variant__button"
-            );
+          fieldset.querySelectorAll(
+            ".custom-product-variant__button"
+          );
 
         labels.forEach((label) => {
 
-            const radio =
-                document.getElementById(
-                    label.getAttribute("for")
-                );
-
-            if (!radio) return;
-
-            const testOptions = [...selectedOptions];
-
-            testOptions[optionIndex] = radio.value;
-
-            const available =
-                this.isOptionAvailable(
-                    testOptions,
-                    optionIndex
-                );
-
-            label.classList.toggle(
-                "is-unavailable",
-                !available
+          const radio =
+            document.getElementById(
+              label.getAttribute("for")
             );
 
-            radio.disabled = !available;
+          if (!radio) return;
+
+          const testOptions =
+            [...selectedOptions];
+
+          /*
+           * Test this button's value
+           * against the other selected options.
+           */
+          testOptions[optionIndex] =
+            radio.value;
+
+          const available =
+            this.isOptionAvailable(
+              testOptions,
+              optionIndex
+            );
+
+          label.classList.toggle(
+            "is-unavailable",
+            !available
+          );
+
+          radio.disabled =
+            !available;
 
         });
 
-    });
+      }
+    );
+  }
 
-}
 
-/*===============  Update Dropdown Availability===================*/
+  /*=========================================================*
+   * 11. DROPDOWN AVAILABILITY
+   *=========================================================*/
 
-updateDropdownAvailability() {
+  updateDropdownAvailability() {
 
     const fieldsets =
-        this.wrapper.querySelectorAll(
-            ".custom-product-variant__option"
-        );
+      this.wrapper.querySelectorAll(
+        ".custom-product-variant__option"
+      );
 
-    fieldsets.forEach((fieldset, optionIndex) => {
+    fieldsets.forEach(
+      (fieldset, optionIndex) => {
 
         const selectedOptions =
-            this.getSelectedOptions();
+          this.getSelectedOptions();
 
         const items =
-            fieldset.querySelectorAll(
-                ".custom-product-variant__dropdown-item"
-            );
+          fieldset.querySelectorAll(
+            ".custom-product-variant__dropdown-item"
+          );
 
         items.forEach((item) => {
 
-            const testOptions = [...selectedOptions];
+          const testOptions =
+            [...selectedOptions];
 
-            testOptions[optionIndex] =
-                item.dataset.value;
+          testOptions[optionIndex] =
+            item.dataset.value;
 
-            const available =
-                this.isOptionAvailable(
-                    testOptions,
-                    optionIndex
-                );
-
-            item.classList.toggle(
-                "is-unavailable",
-                !available
+          const available =
+            this.isOptionAvailable(
+              testOptions,
+              optionIndex
             );
 
-            item.setAttribute(
-                "aria-disabled",
-                !available
-            );
+          item.classList.toggle(
+            "is-unavailable",
+            !available
+          );
+
+          item.setAttribute(
+            "aria-disabled",
+            String(!available)
+          );
 
         });
 
-    });
+      }
+    );
+  }
 
-}
 
+  /*=========================================================*
+   * 12. CHECK OPTION AVAILABILITY
+   *=========================================================*/
 
-/*=================Is Option Available=================*/
+  isOptionAvailable(
+    testOptions,
+    optionIndex
+  ) {
 
-isOptionAvailable(testOptions, optionIndex) {
+    return this.variantData.some(
+      (variant) => {
 
-    return this.variantData.some((variant) => {
-
-        if (!variant.available)
-            return false;
+        /*
+         * Ignore unavailable variants.
+         */
+        if (!variant.available) {
+          return false;
+        }
 
         return variant.options.every(
-            (option, index) => {
+          (optionValue, index) => {
 
-                if (index === optionIndex)
-                    return option === testOptions[index];
+            /*
+             * Test the option currently
+             * being checked.
+             */
+            if (
+              index === optionIndex
+            ) {
 
-                if (!testOptions[index])
-                    return true;
-
-                return option === testOptions[index];
-
+              return (
+                optionValue ===
+                testOptions[index]
+              );
             }
+
+
+            /*
+             * Ignore an unselected option.
+             */
+            if (
+              !testOptions[index]
+            ) {
+
+              return true;
+            }
+
+
+            /*
+             * Other selected options
+             * must match.
+             */
+            return (
+              optionValue ===
+              testOptions[index]
+            );
+
+          }
         );
 
-    });
+      }
+    );
+  }
 
 }
 
 
+/*=========================================================*
+ * INITIALIZE ALL PRODUCT VARIANT PICKERS
+ *=========================================================*/
 
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-} // ← Class ends here
+    document
+      .querySelectorAll(
+        ".custom-product-variant-picker"
+      )
+      .forEach((picker) => {
 
+        new CustomVariantEngine(
+          picker
+        );
 
+      });
 
-document.addEventListener("DOMContentLoaded", () => {
-
-  document
-    .querySelectorAll(".custom-product-variant-picker")
-    .forEach((picker) => {
-
-      new CustomVariantEngine(picker);
-
-    });
-
-});
+  }
+);
