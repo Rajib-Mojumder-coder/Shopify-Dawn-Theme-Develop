@@ -61,7 +61,7 @@
     color: var(--custom-variant-text);
     padding-inline: 1.5rem;
     min-height: 4rem;
-     background: #F7F9FD;
+    background: var(--custom-variant-bg);
     /* line-height: 90%; */
 }
 .custom-product-variant__selected-value {
