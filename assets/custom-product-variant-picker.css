@@ -142,9 +142,11 @@
   align-items: center;
   padding-inline: 1.5rem;
   border: 1px solid var(--custom-variant-border);
+  background: var(--custom-variant-bg);
+  color: var(--custom-variant-text);
   border-radius: 8px;
   cursor: pointer;
-  background: inherit;
+  /* background: inherit; */
 }
 .custom-product-variant__dropdown-item{
   line-height: 1.2;
