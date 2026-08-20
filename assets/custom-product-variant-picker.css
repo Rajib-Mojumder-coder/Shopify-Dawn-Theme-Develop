@@ -131,7 +131,7 @@
 .custom-product-variant__dropdown {
   width: 100%;
   position: relative;
-  background: #F7F9FD;
+  background: var(--custom-variant-bg);
 }
 
 .custom-product-variant__dropdown-toggle {
