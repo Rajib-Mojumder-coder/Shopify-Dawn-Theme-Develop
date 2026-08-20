@@ -68,6 +68,7 @@
     font-weight: 500;
     color: rgba(var(--color-foreground), .65);
 }
+
 /* ==============   Buttons ================= */
 .custom-product-variant__values {
   display: flex;
