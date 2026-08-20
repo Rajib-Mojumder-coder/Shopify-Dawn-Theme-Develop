@@ -1068,13 +1068,19 @@
             }
           ],
           "default": "color",
-          "visible_if": "{{ block.settings.custom_swatches == true }}"
+          "visible_if": "{{ block.settings.custom_variant_style == 'swatches' }}" 
         },
         {
           "type": "checkbox",
-          "id": "custom_swatches",
-          "label": "Swatches",
-          "default": true
+          "id": "button_custom_color_scheme",
+          "label": "Button Color Scheme"
+        },
+        {
+          "type": "color_scheme",
+          "id": "variant_button_color_scheme",
+          "label": "Button Color Scheme",
+          "default": "true",
+          "visible_if": "{{ block.settings.button_custom_color_scheme == true }}"
         },
         {
           "type": "select",
@@ -1086,7 +1092,7 @@
             { "label": "None", "value": "none" }
           ],
           "default": "circle",
-          "visible_if": "{{block.settings.custom_swatches == true}}"
+          "visible_if": "{{ block.settings.custom_variant_style == 'swatches' }}"
         }
       ]
     },
