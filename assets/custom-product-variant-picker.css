@@ -174,7 +174,7 @@
   margin: 0;
   padding: 0;
   background:  var(--custom-variant-bg);;
-  border: 1px solid #f7f9fd;
+  border: 1px solid var(--custom-variant-border);
   border-radius: 8px;
   z-index: 20;
   box-shadow:0 8px 30px rgba(0,0,0,.08);
