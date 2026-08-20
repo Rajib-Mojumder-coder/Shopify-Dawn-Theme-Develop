@@ -1094,7 +1094,21 @@
           "type": "color",
           "id": "button_background_custom_color",
           "label": "Button Font Custom Color",
+          "default": "#ECEEF2",
+           "visible_if": "{{ block.settings.custom_variant_style == 'buttons' and block.settings.button_custom_color_scheme == false }}"
+        },
+        {
+          "type": "color",
+          "id": "button_font_active_color",
+          "label": "Button Font Custom Color",
           "default": "#06123D",
+           "visible_if": "{{ block.settings.custom_variant_style == 'buttons' and block.settings.button_custom_color_scheme == false }}"
+        },
+        {
+          "type": "color",
+          "id": "button_background_active_color",
+          "label": "Button Font Custom Color",
+          "default": "#ECEEF2",
            "visible_if": "{{ block.settings.custom_variant_style == 'buttons' and block.settings.button_custom_color_scheme == false }}"
         },
         {
