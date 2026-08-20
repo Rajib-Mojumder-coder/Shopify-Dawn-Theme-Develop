@@ -201,8 +201,10 @@
 }
 
 .custom-product-variant__dropdown-item.selected{
-  background:#111;
-  color:#fff;
+  /* background:#111;
+  color:#fff; */
+  background: var(--custom-variant-active-bg);
+  color: var(--custom-variant-active-text);
 }
 
 /*==============Unavailable Button=================*/
