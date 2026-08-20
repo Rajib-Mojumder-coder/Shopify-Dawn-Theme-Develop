@@ -1073,7 +1073,8 @@
         {
           "type": "checkbox",
           "id": "button_custom_color_scheme",
-          "label": "Button Color Scheme"
+          "label": "Button Color Scheme",
+          "visible_if": "{{ block.settings.custom_variant_style == 'buttons' }}"
         },
         {
           "type": "color_scheme",
