@@ -1,186 +1,306 @@
-/* ===== Shared Typography (Button + Dropdown) ===== */
+/*=========================================================
+  CUSTOM PRODUCT VARIANT PICKER
+=========================================================*/
 
-.custom-product-variant__button,
-.custom-product-variant__dropdown-toggle,
-.custom-product-variant__dropdown-value,
-.custom-product-variant__dropdown-item {
-    font-family: inherit;
-    font-size: var(--font-body);
-    font-weight: 400;
-    line-height: .9;
-}
-
-/* ========== Custom Product Variant Picker============== */
 .custom-product-variant-picker {
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  gap: 1.75rem;
 }
-/* =============   Option ============= */
+
+
+/*=========================================================
+  OPTION GROUP
+=========================================================*/
+
 .custom-product-variant__option {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    min-width: 0;
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
 }
+
+
+/*=========================================================
+  OPTION LABEL
+=========================================================*/
 
 .custom-product-variant__label {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: .65rem;
-    font-size: var(--font-body);
-    font-family: inherit;
-    font-weight: 600;
-    color: #3F7280;
-    padding-inline: 1.5rem;
-    min-height: 4rem;
-     background: #F7F9FD;
-    /* line-height: 90%; */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  margin-bottom: 10px;
+
+  font-size: 14px;
+  line-height: 1.4;
 }
+
+
+.custom-product-variant__label-title {
+  font-weight: 600;
+}
+
+
 .custom-product-variant__selected-value {
-    font-weight: 500;
-    color: rgba(var(--color-foreground), .65);
+  font-weight: 400;
 }
-/* ==============   Buttons ================= */
+
+
+/*=========================================================
+  BUTTON VALUES
+=========================================================*/
+
 .custom-product-variant__values {
   display: flex;
   flex-wrap: wrap;
-  gap: .75rem;
+  gap: 8px;
 }
+
+
+/*=========================================================
+  BUTTON
+=========================================================*/
 
 .custom-product-variant__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: .8rem 1.4rem;
-  border: 2px solid color-mix(in srgb, var(--color-primary) 50%, transparent);
-  border-radius: 100px;
-  background: var(--color-offwhite);
-  color: var(--color-primary);
+
+  min-width: 44px;
+  min-height: 40px;
+
+  padding: 8px 14px;
+
+  color: var(--custom-variant-text, rgb(var(--color-foreground)));
+  background: var(--custom-variant-bg, transparent);
+
+  border: 1px solid
+    var(--custom-variant-border, rgba(var(--color-foreground), 0.2));
+
   cursor: pointer;
-  transition:  background .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
 }
 
-.custom-product-variant__button:hover{
-  border-color: color-mix(in srgb, var(--color-primary) 100%, transparent);
-}
-.custom-product-variant__button:active {
-  transform: scale(.97);
-}
-.custom-product-variant__radio:checked + .custom-product-variant__button{
-  background: var(--color-primary);
-  color: var(--color-offwhite);
-  border-color: color-mix(in srgb, var(--color-primary) 100%, transparent);
-} 
 
-/* ============= Keyboard Accessibility custom variant-এর জন্য যদি radio input hidden থাকে: তাহলে এই focus-visible CSS রাখা উচিত, কারণ নাহলে keyboard user বুঝতে পারবে না কোন variant বর্তমানে focus-এ আছে।================= */
+/*=========================================================
+  BUTTON ACTIVE
+=========================================================*/
 
-.custom-product-variant__radio:focus-visible
+.custom-product-variant__radio:checked
 + .custom-product-variant__button {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
+
+  color:
+    var(--custom-variant-active-text, rgb(var(--color-background)));
+
+  background:
+    var(--custom-variant-active-bg, rgb(var(--color-foreground)));
+
+  border-color:
+    var(--custom-variant-active-border, rgb(var(--color-foreground)));
 }
 
-/* ===========   Disabled (Future)==================== */
 
-.custom-product-variant__button--disabled {
-  opacity: .45;
-  pointer-events: none;
+/*=========================================================
+  BUTTON HOVER
+=========================================================*/
+
+.custom-product-variant__button:hover {
+  border-color:
+    var(--custom-variant-active-border, rgb(var(--color-foreground)));
 }
 
-/* ================   Dropdown ===================== */
+
+/*=========================================================
+  UNAVAILABLE BUTTON
+=========================================================*/
+
+.custom-product-variant__button.is-unavailable {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+/*=========================================================
+  DROPDOWN
+=========================================================*/
 
 .custom-product-variant__dropdown {
-  width: 100%;
   position: relative;
-  background: #F7F9FD;
+  width: 100%;
 }
 
+
 .custom-product-variant__dropdown-toggle {
-  width: 100%;
-  min-height: 4rem;
-  justify-content: space-between;
   display: flex;
   align-items: center;
-  padding-inline: 1.5rem;
-  border: 1px solid #DDDFE3;
-  border-radius: 8px;
+  justify-content: space-between;
+
+  width: 100%;
+  min-height: 44px;
+
+  padding: 10px 14px;
+
+  color:
+    var(--custom-variant-text, rgb(var(--color-foreground)));
+
+  background:
+    var(--custom-variant-bg, transparent);
+
+  border: 1px solid
+    var(--custom-variant-border, rgba(var(--color-foreground), 0.2));
+
   cursor: pointer;
-  background: inherit;
 }
-.custom-product-variant__dropdown-item{
-  line-height: 1.2;
-}
-/* text-overflow: ellipsis; লিখলেই কাজ করবে না। Browser-এর জন্য এই ৩টা condition দরকার।*/
-.custom-product-variant__dropdown-value{
-    overflow:hidden; /*যে content container-এর বাইরে চলে যায়, সেটা লুকিয়ে (hide) দেয়। */
-    white-space:nowrap; /* এটা browser-কে বলে: "Text-কে নতুন লাইনে ভেঙো না।" */
-    text-overflow:ellipsis; /* যদি text পুরোটা দেখানো না যায়, তাহলে শেষে... */
-}
-.custom-product-variant__dropdown-icon{
-    transition:.3s;
-}
-.custom-product-variant__dropdown.is-open
-.custom-product-variant__dropdown-icon{
-    transform:rotate(180deg);
-}
+
+
+/*=========================================================
+  DROPDOWN MENU
+=========================================================*/
 
 .custom-product-variant__dropdown-menu {
   position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  background: #f7f9fd;
-  border: 1px solid #f7f9fd;
-  border-radius: 8px;
   z-index: 20;
-  box-shadow:0 8px 30px rgba(0,0,0,.08);
-  max-height:260px;
-  overflow-y:auto;
-  display: none;
-}
 
-.custom-product-variant__dropdown.is-open
-.custom-product-variant__dropdown-menu{
-  display:block;
-}
+  top: calc(100% + 4px);
+  left: 0;
 
-.custom-product-variant__dropdown-item{
-  padding:12px 18px;
-  cursor:pointer;
-  transition:.25s;
-}
+  width: 100%;
 
-.custom-product-variant__dropdown-item:hover{
-  background:#f6f6f6;
-}
+  margin: 0;
+  padding: 5px 0;
 
-.custom-product-variant__dropdown-item.selected{
-  background:#111;
-  color:#fff;
-}
+  background: rgb(var(--color-background));
 
-/*==============Unavailable Button=================*/
+  border: 1px solid
+    var(--custom-variant-border, rgba(var(--color-foreground), 0.2));
 
-.custom-product-variant__button.is-unavailable{
-
-    opacity:.35;
-    cursor:not-allowed;
-    pointer-events:none;
-
+  list-style: none;
 }
 
 
-/*============Unavailable Dropdown===========*/
+/*=========================================================
+  DROPDOWN ITEM
+=========================================================*/
 
-.custom-product-variant__dropdown-item.is-unavailable{
+.custom-product-variant__dropdown-item {
+  padding: 10px 14px;
 
-    opacity:.35;
-    pointer-events:none;
+  cursor: pointer;
+}
 
+
+.custom-product-variant__dropdown-item:hover,
+.custom-product-variant__dropdown-item.selected {
+  color:
+    var(--custom-variant-active-text, rgb(var(--color-background)));
+
+  background:
+    var(--custom-variant-active-bg, rgb(var(--color-foreground)));
+}
+
+
+/*=========================================================
+  DROPDOWN UNAVAILABLE
+=========================================================*/
+
+.custom-product-variant__dropdown-item.is-unavailable {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+/*=========================================================
+  SWATCH FOUNDATION
+=========================================================*/
+
+.custom-product-variant__values--swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+.custom-product-variant__swatch {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  padding: 3px;
+
+  border: 1px solid
+    var(--custom-variant-border, rgba(var(--color-foreground), 0.2));
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/*=========================================================
+  SWATCH CIRCLE
+=========================================================*/
+
+.custom-product-variant__swatch--circle {
+  border-radius: 50%;
+}
+
+
+/*=========================================================
+  SWATCH SQUARE
+=========================================================*/
+
+.custom-product-variant__swatch--square {
+  border-radius: 4px;
+}
+
+
+/*=========================================================
+  SWATCH ACTIVE
+=========================================================*/
+
+.custom-product-variant__radio:checked
++ .custom-product-variant__swatch {
+
+  border-color:
+    var(--custom-variant-active-border, rgb(var(--color-foreground)));
+
+  transform: scale(1.04);
+}
+
+
+/*=========================================================
+  SWATCH UNAVAILABLE
+=========================================================*/
+
+.custom-product-variant__swatch.is-unavailable {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+
+/*=========================================================
+  HIDDEN SWATCH LABEL
+=========================================================*/
+
+.custom-product-variant__swatch-label {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  overflow: hidden;
+
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
