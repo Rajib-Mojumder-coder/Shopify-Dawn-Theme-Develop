@@ -55,7 +55,7 @@
             "custom_variant_style": "buttons",
             "custom_swatch_type": "color",
             "custom_swatches_style": "circle",
-            "custom_variant_color_scheme": true,
+            "custom_variant_color_scheme": false,
             "variant_color_scheme": "scheme-4",
             "variant_text_color": "#06123d",
             "variant_background_color": "#eceef2",
