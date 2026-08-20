@@ -141,7 +141,7 @@
   display: flex;
   align-items: center;
   padding-inline: 1.5rem;
-  border: 1px solid #DDDFE3;
+  border: 1px solid var(--custom-variant-border);
   border-radius: 8px;
   cursor: pointer;
   background: inherit;
