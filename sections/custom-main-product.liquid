@@ -1084,6 +1084,13 @@
           "visible_if": "{{ block.settings.button_custom_color_scheme == true }}"
         },
         {
+          "type": "color",
+          "id": "button-font_custom_color",
+          "label": "Button Font Custom Color",
+          "default": "#06123D",
+           "visible_if": "{{ block.settings.custom_variant_style == 'buttons' }}"
+        },
+        {
           "type": "select",
           "id": "custom_swatches_style",
           "label": "Swatches Style",
