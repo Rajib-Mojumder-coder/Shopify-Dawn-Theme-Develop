@@ -92,7 +92,8 @@
 }
 
 .custom-product-variant__button:hover{
-  border-color: color-mix(in srgb, var(--color-primary) 100%, transparent);
+  border-color: var(--custom-variant-active-border);
+  /* border-color: color-mix(in srgb, var(--color-primary) 100%, transparent); */
 }
 .custom-product-variant__button:active {
   transform: scale(.97);
