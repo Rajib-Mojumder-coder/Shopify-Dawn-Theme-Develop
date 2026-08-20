@@ -52,9 +52,17 @@
         "custom_product_variant_XdfJbL": {
           "type": "custom-product-variant",
           "settings": {
-            "custom_variant_style": "buttons",
+            "custom_variant_style": "dropdown",
             "custom_swatch_type": "color",
-            "custom_swatches_style": "circle"
+            "custom_swatches_style": "circle",
+            "custom_variant_color_scheme": false,
+            "variant_color_scheme": "",
+            "variant_text_color": "#06123d",
+            "variant_background_color": "#eceef2",
+            "variant_active_text_color": "#eceef2",
+            "variant_active_background_color": "#E51616",
+            "variant_border_color": "#d9dde3",
+            "variant_active_border_color": "#06123d"
           }
         },
         "inventory_Rtf9Uh": {
