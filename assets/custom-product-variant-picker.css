@@ -98,11 +98,18 @@
 .custom-product-variant__button:active {
   transform: scale(.97);
 }
-.custom-product-variant__radio:checked + .custom-product-variant__button{
+
+.custom-product-variant__radio:checked
++ .custom-product-variant__button {
+  background: var(--custom-variant-active-bg);
+  color: var(--custom-variant-active-text);
+  border-color: var(--custom-variant-active-border);
+}
+/* .custom-product-variant__radio:checked + .custom-product-variant__button{
   background: var(--color-primary);
   color: var(--color-offwhite);
   border-color: color-mix(in srgb, var(--color-primary) 100%, transparent);
-} 
+}  */
 
 /* ============= Keyboard Accessibility custom variant-এর জন্য যদি radio input hidden থাকে: তাহলে এই focus-visible CSS রাখা উচিত, কারণ নাহলে keyboard user বুঝতে পারবে না কোন variant বর্তমানে focus-এ আছে।================= */
 
