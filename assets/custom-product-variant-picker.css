@@ -23,6 +23,10 @@
   --custom-variant-active-border:
     rgb(var(--color-foreground));
 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.75rem;
 }
 
 /* ===== Shared Typography (Button + Dropdown) ===== */
@@ -37,13 +41,7 @@
     line-height: .9;
 }
 
-/* ========== Custom Product Variant Picker============== */
-.custom-product-variant-picker {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 1.75rem;
-}
+
 /* =============   Option ============= */
 .custom-product-variant__option {
     margin: 0;
