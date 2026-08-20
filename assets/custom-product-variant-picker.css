@@ -1,3 +1,30 @@
+/* =========================================================
+   CUSTOM PRODUCT VARIANT PICKER
+   GLOBAL APPEARANCE VARIABLES
+   ========================================================= */
+
+.custom-product-variant-picker {
+
+  --custom-variant-text:
+    rgb(var(--color-foreground));
+
+  --custom-variant-bg:
+    rgb(var(--color-background));
+
+  --custom-variant-active-text:
+    rgb(var(--color-background));
+
+  --custom-variant-active-bg:
+    rgb(var(--color-foreground));
+
+  --custom-variant-border:
+    rgba(var(--color-foreground), .25);
+
+  --custom-variant-active-border:
+    rgb(var(--color-foreground));
+
+}
+
 /* ===== Shared Typography (Button + Dropdown) ===== */
 
 .custom-product-variant__button,
