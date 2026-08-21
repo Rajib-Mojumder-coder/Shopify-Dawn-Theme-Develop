@@ -98,10 +98,10 @@
 
                 {% for value in option.values %}
                   {%  assign input_id = section.id |  append: '-swatch-' |  append: 'option.position' |  append: '-' |  append: 'foorloop.index' %} 
-                  
+
                   {% assign swatch_color = value | downcase %}
 
-
+                  <input>
 
                 {% endfor %}
               </div>
