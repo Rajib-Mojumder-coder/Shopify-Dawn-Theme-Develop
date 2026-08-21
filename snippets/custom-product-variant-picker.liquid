@@ -97,7 +97,7 @@
                 role="radiogroup" aria-label="{{ option.name }}">
 
                 {% for value in option.values %}
-                  {%  assign input_id = section.id |  append: '-swatch-' |  append: 'option.position' |  append: ''%} 
+                  {%  assign input_id = section.id |  append: '-swatch-' |  append: 'option.position' |  append: '-' |  append: '' %} 
                 {% endfor %}
               </div>
 
