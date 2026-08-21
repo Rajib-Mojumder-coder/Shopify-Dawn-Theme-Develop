@@ -92,12 +92,12 @@
                 </div>
 
            {% elsif custom_variant_style == 'swatches' %}    
-            
+
               <div class="custom-product-variant__swatches custom-product-variant__swatches--{{ custom_swatches_style }}"
                 role="radiogroup" aria-label="{{ option.name }}">
 
                 {% for value in option.values %}
-                  {%  assign input_id = section.id |  append: '-swatch-' |  append: 'option.position' |  append: '-' |  append: 'foorloop.index' %} 
+            {% assign input_id = section.id | append: '-swatch-' | append: option.position | append: '-' | append: forloop.index %}
 
                   {% assign swatch_color = value | downcase %}
 
