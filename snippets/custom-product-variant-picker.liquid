@@ -107,7 +107,11 @@
 
                   <label for="{{input_id}}" class="custom-product-variant__swatch custom-product-variant__swatch--{{ custom_swatch_type }}"  title="{{ value | escape }}" aria-label="{{ value | escape }}">
 
-                    
+                    {%  if custom_swatch_type == 'color' %} 
+
+                    {%  elsif custom_swatch_type == 'image' %}
+                      
+                    {% endif %}
 
                   </label>
 
