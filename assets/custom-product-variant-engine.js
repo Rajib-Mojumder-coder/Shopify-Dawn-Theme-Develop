@@ -393,20 +393,15 @@ class CustomVariantEngine {
    * 9. UPDATE OPTION AVAILABILITY
    *=========================================================*/
 
-  updateOptionAvailability() {
+ updateOptionAvailability() {
 
-    this.updateButtonAvailability();
+  this.updateButtonAvailability();
 
-    this.updateDropdownAvailability();
+  this.updateDropdownAvailability();
 
-    /*
-     * Future:
-     *
-     * this.updateSwatchAvailability();
-     *
-     * can be added here later.
-     */
-  }
+  this.updateSwatchAvailability();
+
+}
 
 
   /*=========================================================*
