@@ -227,3 +227,172 @@
 
 }
 
+/* =============== SWATCH CONTAINER =============== */
+
+.custom-product-variant__swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+
+
+/* =========================================================
+   SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch {
+  --swatch-size: 4rem;
+
+  position: relative;
+
+  display: inline-flex;
+
+  width: var(--swatch-size);
+  height: var(--swatch-size);
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 2px;
+
+  border: 2px solid var(--custom-variant-border, #D9DDE3);
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease,
+    transform .2s ease;
+}
+
+
+/* =========================================================
+   CIRCLE
+   ========================================================= */
+
+.custom-product-variant__swatches--circle
+.custom-product-variant__swatch {
+  border-radius: 50%;
+}
+
+
+/* =========================================================
+   SQUARE
+   ========================================================= */
+
+.custom-product-variant__swatches--square
+.custom-product-variant__swatch {
+  border-radius: 6px;
+}
+
+
+/* =========================================================
+   COLOR SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch-color {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--custom-swatch-color);
+
+  border-radius: inherit;
+}
+
+
+/* =========================================================
+   ACTIVE SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch-input:checked
++ .custom-product-variant__swatch {
+
+  border-color:
+    var(--custom-variant-active-border, #06123D);
+
+  box-shadow:
+    0 0 0 1px
+    var(--custom-variant-active-border, #06123D);
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.custom-product-variant__swatch:hover {
+
+  border-color:
+    var(--custom-variant-active-border, #06123D);
+}
+
+
+/* =========================================================
+   KEYBOARD FOCUS
+   ========================================================= */
+
+.custom-product-variant__swatch-input:focus-visible
++ .custom-product-variant__swatch {
+
+  outline: 2px solid
+    var(--custom-variant-active-border, #06123D);
+
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   UNAVAILABLE SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch-input:disabled
++ .custom-product-variant__swatch {
+
+  opacity: .35;
+
+  cursor: not-allowed;
+
+  position: relative;
+}
+
+
+/* Diagonal unavailable indicator */
+
+.custom-product-variant__swatch-input:disabled
++ .custom-product-variant__swatch::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 100%;
+  height: 2px;
+
+  background: currentColor;
+
+  transform: rotate(-45deg);
+
+  opacity: .7;
+}
+
+
+/* =========================================================
+   IMAGE SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch-image {
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  background-size: cover;
+  background-position: center;
+
+  border-radius: inherit;
+}
