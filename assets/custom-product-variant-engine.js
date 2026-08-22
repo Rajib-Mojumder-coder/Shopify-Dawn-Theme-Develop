@@ -518,9 +518,65 @@ class CustomVariantEngine {
     );
   }
 
+  /*=========================================================
+ * 12. SWATCH AVAILABILITY
+ *=========================================================*/
+
+updateSwatchAvailability() {
+
+  const fieldsets =
+    this.wrapper.querySelectorAll(
+      ".custom-product-variant__option"
+    );
+
+  fieldsets.forEach(
+    (fieldset, optionIndex) => {
+
+      const selectedOptions =
+        this.getSelectedOptions();
+
+      const swatches =
+        fieldset.querySelectorAll(
+          ".custom-product-variant__swatch"
+        );
+
+      swatches.forEach((swatch) => {
+
+        const input =
+          document.getElementById(
+            swatch.getAttribute("for")
+          );
+
+        if (!input) return;
+
+        const testOptions =
+          [...selectedOptions];
+
+        testOptions[optionIndex] =
+          input.value;
+
+        const available =
+          this.isOptionAvailable(
+            testOptions,
+            optionIndex
+          );
+
+        swatch.classList.toggle(
+          "is-unavailable",
+          !available
+        );
+
+        input.disabled =
+          !available;
+
+      });
+
+    }
+  );
+}
 
   /*=========================================================*
-   * 12. CHECK OPTION AVAILABILITY
+   * 13. CHECK OPTION AVAILABILITY
    *=========================================================*/
 
   isOptionAvailable(
