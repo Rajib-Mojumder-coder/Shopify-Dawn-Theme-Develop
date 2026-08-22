@@ -495,8 +495,12 @@
 
 .custom-product-variant__swatch-input:disabled
 + .custom-product-variant__swatch--image {
-
   opacity: .35;
   cursor: not-allowed;
+}
 
+.custom-product-variant__swatch.is-unavailable {
+  opacity: .35;
+  cursor: not-allowed;
+  pointer-events: none;
 }
