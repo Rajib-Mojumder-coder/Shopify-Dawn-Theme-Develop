@@ -346,3 +346,69 @@
   background-position: center;
   border-radius: inherit;
 }
+
+.custom-product-variant__swatch--image {
+  overflow: hidden;
+}
+
+
+/* Image */
+
+.custom-product-variant__swatch-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: inherit;
+}
+
+
+/* =========================================================
+   IMAGE SWATCH FALLBACK
+   ========================================================= */
+
+.custom-product-variant__swatch-image--fallback {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: var(--custom-variant-bg, #ECEEF2);
+
+  color: var(--custom-variant-text, #06123D);
+
+  font-size: 1.2rem;
+}
+
+
+/* =========================================================
+   ACTIVE IMAGE SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch-input:checked
++ .custom-product-variant__swatch--image {
+
+  border-color:
+    var(--custom-variant-active-border, #06123D);
+
+  box-shadow:
+    0 0 0 1px
+    var(--custom-variant-active-border, #06123D);
+}
+
+
+/* =========================================================
+   DISABLED IMAGE SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch-input:disabled
++ .custom-product-variant__swatch--image {
+
+  opacity: .35;
+
+  cursor: not-allowed;
+}
