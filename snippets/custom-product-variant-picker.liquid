@@ -97,14 +97,14 @@
                 role="radiogroup" aria-label="{{ option.name }}">
 
                 {% for value in option.values %}
-            {% assign input_id = section.id | append: '-swatch-' | append: option.position | append: '-' | append: forloop.index %}
+                {% assign input_id = section.id | append: '-swatch-' | append: option.position | append: '-' | append: forloop.index %}
 
-                  {%  if custom_swatch_type == 'color' %} 
+                  {% if custom_swatch_type == 'color' %} 
 
                         {%  capture swatch_color %} 
                           {%  render 'custom-variant-swatch-color', swatch_value: value %}
                         {% endcapture %}
-                        
+
                   {% endif %}
 
                   <input id="{{ input_id }}" class="custom-product-variant__swatch-input visually-hidden"
