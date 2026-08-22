@@ -101,13 +101,7 @@
 
                   {% assign swatch_color = value | downcase %}
 
-                  <input id="{{ input_id }}" class="custom-product-variant__swatch-input visually-hidden"
-                  type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}"
-                  form="{{ product_form_id }}" {% if option.selected_value == value %} checked {% endif %}>
-
-                  <label for="{{input_id}}" class="custom-product-variant__swatch custom-product-variant__swatch--{{ custom_swatch_type }}"  title="{{ value | escape }}" aria-label="{{ value | escape }}">
-
-                    {%  if custom_swatch_type == 'color' %} 
+                  {%  if custom_swatch_type == 'color' %} 
 
                         {%  capture swatch_color %} 
                           {%  render 'custom-variant-swatch-color', swatch_value: value %}
