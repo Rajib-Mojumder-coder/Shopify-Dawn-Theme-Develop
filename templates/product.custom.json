@@ -53,7 +53,7 @@
           "type": "custom-product-variant",
           "settings": {
             "custom_variant_style": "swatches",
-            "custom_swatch_type": "color",
+            "custom_swatch_type": "image",
             "custom_swatches_style": "circle",
             "custom_variant_color_scheme": false,
             "variant_color_scheme": "scheme-4",
