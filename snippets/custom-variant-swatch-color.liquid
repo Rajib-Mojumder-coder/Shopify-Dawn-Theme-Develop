@@ -1,5 +1,128 @@
 {% liquid
+
   assign swatch_color = swatch_value | downcase | strip
 
-  
+  case swatch_color
+
+    when 'black'
+      assign swatch_color = '#000000'
+
+    when 'white'
+      assign swatch_color = '#ffffff'
+
+    when 'red'
+      assign swatch_color = '#ff0000'
+
+    when 'blue'
+      assign swatch_color = '#0000ff'
+
+    when 'green'
+      assign swatch_color = '#008000'
+
+    when 'yellow'
+      assign swatch_color = '#ffff00'
+
+    when 'orange'
+      assign swatch_color = '#ffa500'
+
+    when 'purple'
+      assign swatch_color = '#800080'
+
+    when 'pink'
+      assign swatch_color = '#ffc0cb'
+
+    when 'gray', 'grey'
+      assign swatch_color = '#808080'
+
+    when 'brown'
+      assign swatch_color = '#8b4513'
+
+    when 'navy'
+      assign swatch_color = '#000080'
+
+    when 'beige'
+      assign swatch_color = '#f5f5dc'
+
+    when 'gold'
+      assign swatch_color = '#ffd700'
+
+    when 'silver'
+      assign swatch_color = '#c0c0c0'
+
+    when 'maroon'
+      assign swatch_color = '#800000'
+
+    when 'olive'
+      assign swatch_color = '#808000'
+
+    when 'lime'
+      assign swatch_color = '#00ff00'
+
+    when 'teal'
+      assign swatch_color = '#008080'
+
+    when 'cyan'
+      assign swatch_color = '#00ffff'
+
+    when 'aqua'
+      assign swatch_color = '#00ffff'
+
+    when 'magenta'
+      assign swatch_color = '#ff00ff'
+
+    when 'violet'
+      assign swatch_color = '#ee82ee'
+
+    when 'indigo'
+      assign swatch_color = '#4b0082'
+
+    when 'coral'
+      assign swatch_color = '#ff7f50'
+
+    when 'cream'
+      assign swatch_color = '#fffdd0'
+
+    when 'ivory'
+      assign swatch_color = '#fffff0'
+
+    when 'khaki'
+      assign swatch_color = '#f0e68c'
+
+    when 'tan'
+      assign swatch_color = '#d2b48c'
+
+    when 'mustard'
+      assign swatch_color = '#ffdb58'
+
+    when 'rose'
+      assign swatch_color = '#ff007f'
+
+    when 'burgundy'
+      assign swatch_color = '#800020'
+
+    when 'wine'
+      assign swatch_color = '#722f37'
+
+    when 'charcoal'
+      assign swatch_color = '#36454f'
+
+    when 'turquoise'
+      assign swatch_color = '#40e0d0'
+
+    when 'mint'
+      assign swatch_color = '#98ff98'
+
+    when 'peach'
+      assign swatch_color = '#ffdab9'
+
+    when 'lavender'
+      assign swatch_color = '#e6e6fa'
+
+    else
+
+    assign swatch_color = swatch_value
+
+  endcase
+
 %}
+{{ swatch_color }}
