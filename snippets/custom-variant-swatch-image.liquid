@@ -27,21 +27,13 @@
   {% if swatch_image %}
 
     {{
-      swatch_image
-      | image_url: width: 120
-      | image_tag:
-        loading: 'lazy',
-        widths: '60, 90, 120',
-        sizes: '60px',
-        class: 'custom-product-variant__swatch-image'
+      swatch_image | image_url: width: 120
+      | image_tag: loading: 'lazy', widths: '60, 90, 120', sizes: '60px', class: 'custom-product-variant__swatch-image'
     }}
 
   {% else %}
 
-    <span
-      class="custom-product-variant__swatch-image custom-product-variant__swatch-image--fallback"
-      aria-hidden="true"
-    >
+    <span class="custom-product-variant__swatch-image custom-product-variant__swatch-image--fallback" aria-hidden="true">
       {{ swatch_value | slice: 0 }}
     </span>
 
