@@ -93,6 +93,110 @@
 
            {% elsif custom_variant_style == 'swatches' %}
 
+            <div
+              class="custom-product-variant__swatches custom-product-variant__swatches--{{ custom_swatches_style }}"
+              role="radiogroup"
+              aria-label="{{ option.name }}"
+            >
+
+              {% for value in option.values %}
+
+                {% assign input_id =
+                  section.id
+                  | append: '-swatch-'
+                  | append: option.position
+                  | append: '-'
+                  | append: forloop.index
+                %}
+
+                {%- comment -%}
+                  =====================================================
+                  PREPARE SWATCH CONTENT
+                  =====================================================
+                {%- endcomment -%}
+
+                {% if custom_swatch_type == 'color' %}
+
+                  {% capture swatch_color %}
+                    {% render 'custom-variant-swatch-color',
+                      swatch_value: value
+                    %}
+                  {% endcapture %}
+
+                {% elsif custom_swatch_type == 'image' %}
+
+                  {% capture swatch_image %}
+                    {% render 'custom-variant-swatch-image',
+                      product: product,
+                      swatch_value: value
+                    %}
+                  {% endcapture %}
+
+                {% endif %}
+
+
+                {%- comment -%}
+                  =====================================================
+                  RADIO INPUT
+                  =====================================================
+                {%- endcomment -%}
+
+                <input
+                  id="{{ input_id }}"
+                  class="custom-product-variant__swatch-input visually-hidden"
+                  type="radio"
+                  name="options[{{ option.name | escape }}]"
+                  value="{{ value | escape }}"
+                  form="{{ product_form_id }}"
+                  {% if option.selected_value == value %}
+                    checked
+                  {% endif %}
+                >
+
+
+                {%- comment -%}
+                  =====================================================
+                  SINGLE LABEL
+                  =====================================================
+                  IMPORTANT:
+                  The snippets MUST NOT create another label.
+                {%- endcomment -%}
+
+                <label
+                  for="{{ input_id }}"
+                  class="
+                    custom-product-variant__swatch
+                    custom-product-variant__swatch--{{ custom_swatch_type }}
+                    custom-product-variant__swatch--{{ custom_swatches_style }}
+                  "
+                  title="{{ value | escape }}"
+                  aria-label="{{ value | escape }}"
+                >
+
+                  {% if custom_swatch_type == 'color' %}
+
+                    <span
+                      class="custom-product-variant__swatch-color"
+                      style="--custom-swatch-color: {{ swatch_color | strip }};"
+                      aria-hidden="true"
+                    ></span>
+
+                  {% elsif custom_swatch_type == 'image' %}
+
+                    {{ swatch_image }}
+
+                  {% endif %}
+
+                  <span class="visually-hidden">
+                    {{ value }}
+                  </span>
+
+                </label>
+
+              {% endfor %}
+
+            </div>
+
             
           {% endif %}
 
