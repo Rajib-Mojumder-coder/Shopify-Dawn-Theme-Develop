@@ -225,74 +225,73 @@ class CustomVariantEngine {
    * ["Black", "Large"]
    *
    *=========================================================*/
+getSelectedOptions() {
 
-  getSelectedOptions() {
+  const values = [];
 
-    const values = [];
+  const fieldsets =
+    this.wrapper.querySelectorAll(
+      ".custom-product-variant__option"
+    );
 
-    const fieldsets =
-      this.wrapper.querySelectorAll(
-        ".custom-product-variant__option"
+  fieldsets.forEach((fieldset, index) => {
+
+    /*
+     * RADIO BASED PICKERS
+     * Buttons + Swatches
+     */
+    const checked =
+      fieldset.querySelector(
+        'input[type="radio"][name^="options["]:checked'
       );
 
-    fieldsets.forEach((fieldset) => {
+    if (checked) {
 
-      /*
-       * Find checked radio.
-       *
-       * Used by Buttons / future swatches.
-       */
-      const checkedInput =
-        fieldset.querySelector(
-          '[name^="options["]:checked'
-        );
+      values[index] = checked.value;
 
-      if (checkedInput) {
+      return;
 
-        values.push(
-          checkedInput.value
-        );
-
-        return;
-      }
+    }
 
 
-      /*
-       * Find hidden dropdown input.
-       */
-      const hiddenInput =
-        fieldset.querySelector(
-          ".custom-product-variant__hidden-input"
-        );
-
-      if (hiddenInput) {
-
-        values.push(
-          hiddenInput.value
-        );
-
-        return;
-      }
-
-
-      /*
-       * Fallback:
-       *
-       * Find any option input.
-       */
-      const input =
-        fieldset.querySelector(
-          '[name^="options["]'
-        );
-
-      values.push(
-        input ? input.value : ""
+    /*
+     * DROPDOWN
+     * Hidden input stores the selected value.
+     */
+    const hiddenInput =
+      fieldset.querySelector(
+        'input[type="hidden"][name^="options["]'
       );
 
-    });
+    if (hiddenInput) {
 
-    return values;
-  }
+      values[index] = hiddenInput.value;
+
+      return;
+
+    }
+
+
+    /*
+     * FINAL FALLBACK
+     */
+    const selectedItem =
+      fieldset.querySelector(
+        ".custom-product-variant__dropdown-item.selected"
+      );
+
+    if (selectedItem) {
+
+      values[index] =
+        selectedItem.dataset.value;
+
+    }
+
+  });
+
+  return values;
+
+}
 
 
   /*=========================================================*
