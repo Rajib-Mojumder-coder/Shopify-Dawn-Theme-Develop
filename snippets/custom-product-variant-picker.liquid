@@ -119,10 +119,9 @@
                         <span class="custom-product-variant__swatch-color" aria-hidden="true"></span>
 
                     {%  elsif custom_swatch_type == 'image' %}
-                      {%  assign swatch_image = blank  %}
-                      {%  for Variant in product.variants %}  
-                      
-                      {% endfor %}
+
+                        <span class="custom-product-variant__swatch-image" aria-hidden="true"></span>
+
                     {% endif %}
 
                   </label>
