@@ -1,128 +1,86 @@
-{% liquid
+{% assign swatch_color = value | downcase | strip %}
 
-  assign swatch_color = swatch_value | downcase | strip
+{% case swatch_color %}
 
-  case swatch_color
+  {% when 'black', 'schwarz', 'nero', 'negro', 'zwart', 'noir' %}
+    {% assign swatch_color = '#000000' %}
 
-    when 'black'
-      assign swatch_color = '#000000'
+  {% when 'white', 'weiss', 'weiß', 'bianco', 'blanco', 'wit', 'blanc' %}
+    {% assign swatch_color = '#ffffff' %}
 
-    when 'white'
-      assign swatch_color = '#ffffff'
+  {% when 'red', 'rot', 'rosso', 'rojo', 'rood', 'rouge' %}
+    {% assign swatch_color = '#ff0000' %}
 
-    when 'red'
-      assign swatch_color = '#ff0000'
+  {% when 'blue', 'blau', 'blu', 'azul', 'blauw', 'bleu' %}
+    {% assign swatch_color = '#0000ff' %}
 
-    when 'blue'
-      assign swatch_color = '#0000ff'
+  {% when 'green', 'grün', 'gruen', 'verde', 'groen', 'vert' %}
+    {% assign swatch_color = '#008000' %}
 
-    when 'green'
-      assign swatch_color = '#008000'
+  {% when 'yellow', 'gelb', 'giallo', 'amarillo', 'geel', 'jaune' %}
+    {% assign swatch_color = '#ffff00' %}
 
-    when 'yellow'
-      assign swatch_color = '#ffff00'
+  {% when 'orange', 'orange', 'arancione', 'naranja' %}
+    {% assign swatch_color = '#ffa500' %}
 
-    when 'orange'
-      assign swatch_color = '#ffa500'
+  {% when 'purple', 'violett', 'lila', 'viola', 'morado', 'paars', 'violet' %}
+    {% assign swatch_color = '#800080' %}
 
-    when 'purple'
-      assign swatch_color = '#800080'
+  {% when 'pink', 'rosa', 'rosé', 'roze', 'rose' %}
+    {% assign swatch_color = '#ffc0cb' %}
 
-    when 'pink'
-      assign swatch_color = '#ffc0cb'
+  {% when 'gray', 'grey', 'grau', 'grigio', 'gris', 'grijs', 'gris' %}
+    {% assign swatch_color = '#808080' %}
 
-    when 'gray', 'grey'
-      assign swatch_color = '#808080'
+  {% when 'brown', 'braun', 'marrone', 'marrón', 'bruin', 'marron' %}
+    {% assign swatch_color = '#8b4513' %}
 
-    when 'brown'
-      assign swatch_color = '#8b4513'
+  {% when 'navy', 'marine', 'navy blue' %}
+    {% assign swatch_color = '#000080' %}
 
-    when 'navy'
-      assign swatch_color = '#000080'
+  {% when 'beige', 'beige' %}
+    {% assign swatch_color = '#f5f5dc' %}
 
-    when 'beige'
-      assign swatch_color = '#f5f5dc'
+  {% when 'gold', 'golden', 'oro', 'dorado', 'goud' %}
+    {% assign swatch_color = '#ffd700' %}
 
-    when 'gold'
-      assign swatch_color = '#ffd700'
+  {% when 'silver', 'silber', 'argento', 'plata', 'zilver' %}
+    {% assign swatch_color = '#c0c0c0' %}
 
-    when 'silver'
-      assign swatch_color = '#c0c0c0'
+  {% else %}
 
-    when 'maroon'
-      assign swatch_color = '#800000'
+    {% assign swatch_color = '#cccccc' %}
 
-    when 'olive'
-      assign swatch_color = '#808000'
+{% endcase %}
 
-    when 'lime'
-      assign swatch_color = '#00ff00'
 
-    when 'teal'
-      assign swatch_color = '#008080'
+<input
+  id="{{ input_id }}"
+  class="custom-product-variant__swatch-input visually-hidden"
+  type="radio"
+  name="options[{{ option.name | escape }}]"
+  value="{{ value | escape }}"
+  form="{{ product_form_id }}"
+  {% if option.selected_value == value %}
+    checked
+  {% endif %}
+>
 
-    when 'cyan'
-      assign swatch_color = '#00ffff'
+<label
+  for="{{ input_id }}"
+  class="custom-product-variant__swatch custom-product-variant__swatch--color custom-product-variant__swatch--{{ swatch_shape }}"
+  title="{{ value | escape }}"
+  aria-label="{{ value | escape }}"
+  style="--swatch-color: {{ swatch_color }};"
+>
 
-    when 'aqua'
-      assign swatch_color = '#00ffff'
+  <span
+    class="custom-product-variant__swatch-color"
+    aria-hidden="true"
+  ></span>
 
-    when 'magenta'
-      assign swatch_color = '#ff00ff'
+  <span class="visually-hidden">
+    {{ value }}
+  </span>
 
-    when 'violet'
-      assign swatch_color = '#ee82ee'
-
-    when 'indigo'
-      assign swatch_color = '#4b0082'
-
-    when 'coral'
-      assign swatch_color = '#ff7f50'
-
-    when 'cream'
-      assign swatch_color = '#fffdd0'
-
-    when 'ivory'
-      assign swatch_color = '#fffff0'
-
-    when 'khaki'
-      assign swatch_color = '#f0e68c'
-
-    when 'tan'
-      assign swatch_color = '#d2b48c'
-
-    when 'mustard'
-      assign swatch_color = '#ffdb58'
-
-    when 'rose'
-      assign swatch_color = '#ff007f'
-
-    when 'burgundy'
-      assign swatch_color = '#800020'
-
-    when 'wine'
-      assign swatch_color = '#722f37'
-
-    when 'charcoal'
-      assign swatch_color = '#36454f'
-
-    when 'turquoise'
-      assign swatch_color = '#40e0d0'
-
-    when 'mint'
-      assign swatch_color = '#98ff98'
-
-    when 'peach'
-      assign swatch_color = '#ffdab9'
-
-    when 'lavender'
-      assign swatch_color = '#e6e6fa'
-
-    else
-
-    assign swatch_color = swatch_value
-
-  endcase
-
-%}
-{{ swatch_color }}
+</label>
