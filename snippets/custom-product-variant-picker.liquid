@@ -120,12 +120,12 @@
 
                     {%  elsif custom_swatch_type == 'image' %}
 
-                        <span class="custom-product-variant__swatch-image" aria-hidden="true"></span>
+                        {% render 'custom-variant-swatch-image', product: product, swatch_value: value, input_id: input_id %}
 
                     {% endif %}
 
                     <span class="visually-hidden"> {{ value }} </span>
-                    
+
                   </label>
 
                 {% endfor %}
