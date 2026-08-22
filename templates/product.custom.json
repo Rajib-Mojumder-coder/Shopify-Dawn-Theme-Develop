@@ -54,7 +54,7 @@
           "settings": {
             "custom_variant_style": "swatches",
             "custom_swatch_type": "color",
-            "custom_swatches_style": "square",
+            "custom_swatches_style": "circle",
             "custom_variant_color_scheme": false,
             "variant_color_scheme": "scheme-4",
             "variant_text_color": "#06123d",
