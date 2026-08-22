@@ -1,47 +1,41 @@
 {% liquid
-
   assign swatch_image = blank
-
   assign normalized_value = swatch_value | downcase | strip
 
   for media in product.media
 
-    assign media_alt = media.alt | default: ''| downcase | strip
+    assign media_alt = media.alt | default: '' | downcase | strip
 
     if media_alt == normalized_value
 
       assign swatch_image = media.preview_image
-
       break
 
     endif
 
   endfor
-
 %}
 
+{% if swatch_image %}
 
-<label for="{{ input_id }}" class=" custom-product-variant__swatch custom-product-variant__swatch--image"
-  title="{{ swatch_value | escape }}" aria-label="{{ swatch_value | escape }}">
+  {{
+    swatch_image
+    | image_url: width: 120
+    | image_tag:
+      loading: 'lazy',
+      widths: '60, 90, 120',
+      sizes: '60px',
+      class: 'custom-product-variant__swatch-image',
+      alt: swatch_value
+  }}
 
-  {% if swatch_image %}
+{% else %}
 
-    {{
-      swatch_image | image_url: width: 120
-      | image_tag: loading: 'lazy', widths: '60, 90, 120', sizes: '60px', class: 'custom-product-variant__swatch-image'
-    }}
-
-  {% else %}
-
-    <span class="custom-product-variant__swatch-image custom-product-variant__swatch-image--fallback" aria-hidden="true">
-      {{ swatch_value | slice: 0 }}
-    </span>
-
-  {% endif %}
-
-
-  <span class="visually-hidden">
-    {{ swatch_value }}
+  <span
+    class="custom-product-variant__swatch-image custom-product-variant__swatch-image--fallback"
+    aria-hidden="true"
+  >
+    {{ swatch_value | slice: 0 }}
   </span>
 
-</label>
+{% endif %}
