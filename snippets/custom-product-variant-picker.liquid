@@ -110,7 +110,7 @@
                     {%  if custom_swatch_type == 'color' %} 
 
                         {%  capture swatch_color %} 
-                          {%  render 'custom-variant-swatch-color', value: value %}
+                          {%  render 'custom-variant-swatch-color', swatch_value: value %}
                         {% endcapture %}
 
 
