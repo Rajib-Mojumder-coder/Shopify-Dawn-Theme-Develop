@@ -100,13 +100,7 @@
 
                 {% for value in option.values %}
 
-                  {% assign input_id =
-                    section.id
-                    | append: '-swatch-'
-                    | append: option.position
-                    | append: '-'
-                    | append: forloop.index
-                  %}
+                  {% assign input_id = section.id | append: '-swatch-' | append: option.position | append: '-' | append: forloop.index %}
 
 
                   {%- comment -%}
