@@ -53,34 +53,3 @@
 
 {% endcase %}
 
-
-<input
-  id="{{ input_id }}"
-  class="custom-product-variant__swatch-input visually-hidden"
-  type="radio"
-  name="options[{{ option.name | escape }}]"
-  value="{{ value | escape }}"
-  form="{{ product_form_id }}"
-  {% if option.selected_value == value %}
-    checked
-  {% endif %}
->
-
-<label
-  for="{{ input_id }}"
-  class="custom-product-variant__swatch custom-product-variant__swatch--color custom-product-variant__swatch--{{ swatch_shape }}"
-  title="{{ value | escape }}"
-  aria-label="{{ value | escape }}"
-  style="--swatch-color: {{ swatch_color }};"
->
-
-  <span
-    class="custom-product-variant__swatch-color"
-    aria-hidden="true"
-  ></span>
-
-  <span class="visually-hidden">
-    {{ value }}
-  </span>
-
-</label>
