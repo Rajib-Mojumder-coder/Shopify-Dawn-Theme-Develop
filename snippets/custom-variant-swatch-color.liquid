@@ -1,55 +1,71 @@
-{% assign swatch_color = value | downcase | strip %}
+{% liquid
 
-{% case swatch_color %}
+  assign swatch_color = swatch_value | downcase | strip
 
-  {% when 'black', 'schwarz', 'nero', 'negro', 'zwart', 'noir' %}
-    {% assign swatch_color = '#000000' %}
+  case swatch_color
 
-  {% when 'white', 'weiss', 'weiß', 'bianco', 'blanco', 'wit', 'blanc' %}
-    {% assign swatch_color = '#ffffff' %}
+      when 'black', 'schwarz', 'nero', 'negro', 'zwart', 'noir'
+      assign swatch_color = '#000000'
 
-  {% when 'red', 'rot', 'rosso', 'rojo', 'rood', 'rouge' %}
-    {% assign swatch_color = '#ff0000' %}
 
-  {% when 'blue', 'blau', 'blu', 'azul', 'blauw', 'bleu' %}
-    {% assign swatch_color = '#0000ff' %}
+    
 
-  {% when 'green', 'grün', 'gruen', 'verde', 'groen', 'vert' %}
-    {% assign swatch_color = '#008000' %}
+    when 'white', 'weiss', 'weiß', 'bianco', 'blanco', 'wit', 'blanc'
+      assign swatch_color = '#ffffff'
 
-  {% when 'yellow', 'gelb', 'giallo', 'amarillo', 'geel', 'jaune' %}
-    {% assign swatch_color = '#ffff00' %}
+    when 'red', 'rot', 'rosso', 'rojo', 'rood', 'rouge'
+      assign swatch_color = '#ff0000'
 
-  {% when 'orange', 'orange', 'arancione', 'naranja' %}
-    {% assign swatch_color = '#ffa500' %}
 
-  {% when 'purple', 'violett', 'lila', 'viola', 'morado', 'paars', 'violet' %}
-    {% assign swatch_color = '#800080' %}
+    when 'blue', 'blau', 'blu', 'azul', 'blauw', 'bleu'
+      assign swatch_color = '#0000ff'
 
-  {% when 'pink', 'rosa', 'rosé', 'roze', 'rose' %}
-    {% assign swatch_color = '#ffc0cb' %}
+    when 'green', 'grün', 'gruen', 'verde', 'groen', 'vert'
+      assign swatch_color = '#008000'
 
-  {% when 'gray', 'grey', 'grau', 'grigio', 'gris', 'grijs', 'gris' %}
-    {% assign swatch_color = '#808080' %}
 
-  {% when 'brown', 'braun', 'marrone', 'marrón', 'bruin', 'marron' %}
-    {% assign swatch_color = '#8b4513' %}
+    when 'yellow', 'gelb', 'giallo', 'amarillo', 'geel', 'jaune'
+      assign swatch_color = '#ffff00'
 
-  {% when 'navy', 'marine', 'navy blue' %}
-    {% assign swatch_color = '#000080' %}
 
-  {% when 'beige', 'beige' %}
-    {% assign swatch_color = '#f5f5dc' %}
+    when 'orange', 'arancione', 'naranja'
+      assign swatch_color = '#ffa500'
 
-  {% when 'gold', 'golden', 'oro', 'dorado', 'goud' %}
-    {% assign swatch_color = '#ffd700' %}
 
-  {% when 'silver', 'silber', 'argento', 'plata', 'zilver' %}
-    {% assign swatch_color = '#c0c0c0' %}
+    when 'purple', 'violett', 'lila', 'viola', 'morado', 'paars', 'violet'
+      assign swatch_color = '#800080'
 
-  {% else %}
 
-    {% assign swatch_color = '#cccccc' %}
+    when 'pink', 'rosa', 'rosé', 'roze', 'rose'
+      assign swatch_color = '#ffc0cb'
 
-{% endcase %}
+    when 'gray', 'grey', 'grau', 'grigio', 'gris', 'grijs'
+      assign swatch_color = '#808080'
 
+
+    when 'brown', 'braun', 'marrone', 'marrón', 'bruin', 'marron'
+      assign swatch_color = '#8b4513'
+
+
+    when 'navy', 'marine', 'navy blue'
+      assign swatch_color = '#000080'
+
+
+    when 'beige'
+      assign swatch_color = '#f5f5dc'
+
+
+    when 'gold', 'golden', 'oro', 'dorado', 'goud'
+      assign swatch_color = '#ffd700'
+
+
+    when 'silver', 'silber', 'argento', 'plata', 'zilver'
+      assign swatch_color = '#c0c0c0'
+
+
+    else
+      assign swatch_color = '#cccccc'
+
+  endcase
+
+%}{{ swatch_color }}
