@@ -1,225 +1,64 @@
-{% assign swatch_value_normalized = swatch_value | downcase | strip %}
+{% assign swatch_color = swatch_value | downcase | strip %}
 
-{% case swatch_value_normalized %}
+{% case swatch_color %}
 
-  {%- comment -%}
-    BASIC COLORS
-  {%- endcomment -%}
+  {% when 'black', 'schwarz', 'nero', 'negro', 'zwart', 'noir', 'asphalt black' %}
+    {% assign swatch_color = '#4D4D4D' %}
 
-  {% when 'black',
-    'schwarz',
-    'nero',
-    'negro',
-    'zwart',
-    'noir' %}
-    #000000
+  {% when 'white', 'weiss', 'weiß', 'bianco', 'blanco', 'wit', 'blanc' %}
+    {% assign swatch_color = '#FFFFFF' %}
 
+  {% when 'red', 'rot', 'rosso', 'rojo', 'rood', 'rouge' %}
+    {% assign swatch_color = '#FF0000' %}
 
-  {% when 'white',
-    'weiss',
-    'weiß',
-    'bianco',
-    'blanco',
-    'wit',
-    'blanc' %}
-    #ffffff
+  {% when 'blue', 'blau', 'blu', 'azul', 'blauw', 'bleu' %}
+    {% assign swatch_color = '#0000FF' %}
 
+  {% when 'green', 'grün', 'gruen', 'verde', 'groen', 'vert' %}
+    {% assign swatch_color = '#008000' %}
 
-  {% when 'red',
-    'rot',
-    'rosso',
-    'rojo',
-    'rood',
-    'rouge' %}
-    #ff0000
+  {% when 'yellow', 'gelb', 'giallo', 'amarillo', 'geel', 'jaune' %}
+    {% assign swatch_color = '#FFFF00' %}
 
+  {% when 'orange', 'arancione', 'naranja' %}
+    {% assign swatch_color = '#FFA500' %}
 
-  {% when 'blue',
-    'blau',
-    'blu',
-    'azul',
-    'blauw',
-    'bleu' %}
-    #0000ff
+  {% when 'purple', 'violett', 'lila', 'viola', 'morado', 'paars', 'violet' %}
+    {% assign swatch_color = '#800080' %}
 
+  {% when 'pink', 'rosa', 'rosé', 'roze', 'rose' %}
+    {% assign swatch_color = '#FFC0CB' %}
 
-  {% when 'green',
-    'grün',
-    'gruen',
-    'verde',
-    'groen',
-    'vert' %}
-    #008000
+  {% when 'gray', 'grey', 'grau', 'grigio', 'gris', 'grijs' %}
+    {% assign swatch_color = '#808080' %}
 
+  {% when 'brown', 'braun', 'marrone', 'marrón', 'bruin', 'marron' %}
+    {% assign swatch_color = '#8B4513' %}
 
-  {% when 'yellow',
-    'gelb',
-    'giallo',
-    'amarillo',
-    'geel',
-    'jaune' %}
-    #ffff00
-
-
-  {% when 'orange',
-    'arancione',
-    'naranja' %}
-    #ffa500
-
-
-  {% when 'purple',
-    'violett',
-    'lila',
-    'viola',
-    'morado',
-    'paars',
-    'violet' %}
-    #800080
-
-
-  {% when 'pink',
-    'rosa',
-    'rosé',
-    'roze',
-    'rose' %}
-    #ffc0cb
-
-
-  {% when 'gray',
-    'grey',
-    'grau',
-    'grigio',
-    'gris',
-    'grijs' %}
-    #808080
-
-
-  {% when 'brown',
-    'braun',
-    'marrone',
-    'marrón',
-    'bruin',
-    'marron' %}
-    #8b4513
-
-
-  {% when 'navy',
-    'navy blue',
-    'marine' %}
-    #000080
-
+  {% when 'navy', 'marine', 'navy blue' %}
+    {% assign swatch_color = '#000080' %}
 
   {% when 'beige' %}
-    #f5f5dc
+    {% assign swatch_color = '#F5F5DC' %}
 
+  {% when 'gold', 'golden', 'oro', 'dorado', 'goud' %}
+    {% assign swatch_color = '#FFD700' %}
 
-  {% when 'gold',
-    'golden',
-    'oro',
-    'dorado',
-    'goud' %}
-    #ffd700
-
-
-  {% when 'silver',
-    'silber',
-    'argento',
-    'plata',
-    'zilver' %}
-    #c0c0c0
-
-
-  {%- comment -%}
-    PRODUCT-SPECIFIC COMMON COLORS
-  {%- endcomment -%}
+  {% when 'silver', 'silber', 'argento', 'plata', 'zilver' %}
+    {% assign swatch_color = '#C0C0C0' %}
 
   {% when 'pebble green' %}
-    #8A9A8A
-
+    {% assign swatch_color = '#598F9B' %}
 
   {% when 'asphalt black' %}
-    #252525
+    {% assign swatch_color = '#4D4D4D' %}
 
-
-  {% when 'forest green' %}
-    #228B22
-
-
-  {% when 'olive green' %}
-    #808000
-
-
-  {% when 'lime green' %}
-    #32CD32
-
-
-  {% when 'sky blue' %}
-    #87CEEB
-
-
-  {% when 'light blue' %}
-    #ADD8E6
-
-
-  {% when 'dark blue' %}
-    #00008B
-
-
-  {% when 'light gray',
-    'light grey' %}
-    #D3D3D3
-
-
-  {% when 'dark gray',
-    'dark grey' %}
-    #555555
-
-
-  {% when 'cream' %}
-    #FFFDD0
-
-
-  {% when 'ivory' %}
-    #FFFFF0
-
-
-  {% when 'charcoal' %}
-    #36454F
-
-
-  {% when 'teal' %}
-    #008080
-
-
-  {% when 'turquoise' %}
-    #40E0D0
-
-
-  {% when 'coral' %}
-    #FF7F50
-
-
-  {% when 'maroon' %}
-    #800000
-
-
-  {% when 'burgundy' %}
-    #800020
-
-
-  {% when 'magenta' %}
-    #FF00FF
-
-
-  {% when 'lavender' %}
-    #E6E6FA
-
-
-  {% when 'rose gold' %}
-    #B76E79
-
+  {% when 'slate blue' %}
+    {% assign swatch_color = '#3C5358' %}
 
   {% else %}
-    #cccccc
+    {% assign swatch_color = '#CCCCCC' %}
 
 {% endcase %}
+
+{{ swatch_color }}
