@@ -4,9 +4,7 @@
   assign custom_swatches_style = block.settings.custom_swatches_style
   assign use_color_scheme = block.settings.custom_variant_color_scheme
 
-  assign swatch_option_names = block.settings.custom_swatch_option_names
-  assign swatch_option_names_normalized = swatch_option_names | downcase | replace: ', ', ',' | replace: ' ,', ','
-  assign swatch_option_names_array = swatch_option_names_normalized | split: ','
+  assign configured_option_name = block.settings.custom_variant_option_name | strip
 %}
 
 {%  unless product.has_only_default_variant %} {%  comment  %} {% if product.has_only_default_variant == false %} {% endcomment %} 
