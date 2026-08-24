@@ -1,138 +1,197 @@
 {% liquid
-  assign custom_variant_style = block.settings.custom_variant_style
-  assign custom_swatch_type = block.settings.custom_swatch_type
-  assign custom_swatches_style = block.settings.custom_swatches_style
-  assign use_color_scheme = block.settings.custom_variant_color_scheme
+assign custom_variant_style = block.settings.custom_variant_style
+assign custom_swatch_type = block.settings.custom_swatch_type
+assign custom_swatches_style = block.settings.custom_swatches_style
+assign use_color_scheme = block.settings.custom_variant_color_scheme
 
-  assign swatch_option_names = block.settings.custom_swatch_option_names
-  assign swatch_option_names_normalized = swatch_option_names | downcase | replace: ', ', ',' | replace: ' ,', ','
-  assign swatch_option_names_array = swatch_option_names_normalized | split: ','
+assign swatch_option_names = block.settings.custom_swatch_option_names
+assign swatch_option_names_normalized = swatch_option_names | downcase | replace: ', ', ',' | replace: ' ,', ','
+assign swatch_option_names_array = swatch_option_names_normalized | split: ','
 %}
 
-{%  unless product.has_only_default_variant %} {%  comment  %} {% if product.has_only_default_variant == false %} {% endcomment %} 
+{%  unless product.has_only_default_variant %} {%  comment  %} {% if product.has_only_default_variant == false %} {% endcomment %}
 
   <div
   class="custom-product-variant-picker custom-product-variant-picker--{{ custom_variant_style }}"
   id="CustomVariantPicker-{{ section.id }}" data-section-id="{{ section.id }}" data-product-id="{{ product.id }}"
 
-  {% unless use_color_scheme %}
-    style="
-      --custom-variant-text: {{ block.settings.variant_text_color }};
-      --custom-variant-bg: {{ block.settings.variant_background_color }};
-      --custom-variant-active-text: {{ block.settings.variant_active_text_color }};
-      --custom-variant-active-bg: {{ block.settings.variant_active_background_color }};
-      --custom-variant-border: {{ block.settings.variant_border_color }};
-      --custom-variant-active-border: {{ block.settings.variant_active_border_color }};
-    "
-  {% endunless %}
->
+{% unless use_color_scheme %}
+style="
+--custom-variant-text: {{ block.settings.variant_text_color }};
+--custom-variant-bg: {{ block.settings.variant_background_color }};
+--custom-variant-active-text: {{ block.settings.variant_active_text_color }};
+--custom-variant-active-bg: {{ block.settings.variant_active_background_color }};
+--custom-variant-border: {{ block.settings.variant_border_color }};
+--custom-variant-active-border: {{ block.settings.variant_active_border_color }};
+"
+{% endunless %}
+  ></div>
+
 
   <script type="application/json" class="custom-product-variant__json">
       { "productId": {{ product.id }}, "variants": {{ product.variants | json }} }
   </script>
 
-    {% for option in product.options_with_values %}
-      {% liquid
-        assign option_name_normalized = option.name | downcase | strip
-        assign is_swatch_option = false
+{% for option in product.options_with_values %}
+  {% liquid
+    assign option_name_normalized = option.name | downcase | strip
+    assign is_swatch_option = false
 
-        for swatch_option_name in swatch_option_names_array
-          assign swatch_name_normalized = swatch_option_name | downcase | strip
+    for swatch_option_name in swatch_option_names_array
+      assign swatch_name_normalized = swatch_option_name | downcase | strip
 
-          if option_name_normalized == swatch_name_normalized
-            assign is_swatch_option = true
-            break
-          endif
-        endfor
-      %}
+      if option_name_normalized == swatch_name_normalized
+        assign is_swatch_option = true
+        break
+      endif
+    endfor
+  %}
 
-      <fieldset class="custom-product-variant__option" data-option-position="{{ option.position }}">
+  <fieldset class="custom-product-variant__option" data-option-position="{{ option.position }}">
 
-        <legend class="custom-product-variant__label">
-            <span class="custom-product-variant__label-title"> {{ option.name }} 
-              {% if option.selected_value != blank %}:{% endif %} </span>
-            <span class="custom-product-variant__selected-value" data-selected-value> {{ option.selected_value }} </span>
-        </legend>
+    <legend class="custom-product-variant__label">
+        <span class="custom-product-variant__label-title"> {{ option.name }} 
+          {% if option.selected_value != blank %}:{% endif %} </span>
+        <span class="custom-product-variant__selected-value" data-selected-value> {{ option.selected_value }} </span>
+    </legend>
 
-            {% if custom_variant_style == 'dropdown' %}
+        {% if custom_variant_style == 'dropdown' %}
 
-               {% comment %} This is actually not a CSS problem—it's a browser limitation. The <select> dropdown and the list of <option> elements are rendered by the operating system, not by your webpage.
+           {% comment %} This is actually not a CSS problem—it's a browser limitation. The <select> dropdown and the list of <option> elements are rendered by the operating system, not by your webpage.
 
-              <div class="custom-product-variant__dropdown">
-                 <select class="custom-product-variant__select" name="options[{{option.name |  escape}}]" form="{{ product_form_id }}">
-                      {% for value in option.values %}
-                      <option value="{{value |  escape}}" {% if option.selected_value == value %} selected {% endif %}>
-                          {{ value }} 
-                        </option>
-                      {% endfor %}
-                 </select>
-               </div> {% endcomment %}
-             
-               <div class="custom-product-variant__dropdown">
-                  <button type="button"  class="custom-product-variant__dropdown-toggle" aria-expanded="false" aria-haspopup="listbox">
-                     <span class="custom-product-variant__dropdown-value"> {{ option.selected_value }} </span>
-                     <span class="custom-product-variant__dropdown-icon"> ▼ </span>
-                  </button>
+          <div class="custom-product-variant__dropdown">
+             <select class="custom-product-variant__select" name="options[{{option.name |  escape}}]" form="{{ product_form_id }}">
+                  {% for value in option.values %}
+                  <option value="{{value |  escape}}" {% if option.selected_value == value %} selected {% endif %}>
+                      {{ value }} 
+                    </option>
+                  {% endfor %}
+             </select>
+           </div> {% endcomment %}
+         
+           <div class="custom-product-variant__dropdown">
+              <button type="button"  class="custom-product-variant__dropdown-toggle" aria-expanded="false" aria-haspopup="listbox">
+                 <span class="custom-product-variant__dropdown-value"> {{ option.selected_value }} </span>
+                 <span class="custom-product-variant__dropdown-icon"> ▼ </span>
+              </button>
 
-                  <ul class="custom-product-variant__dropdown-menu" role="listbox">
+              <ul class="custom-product-variant__dropdown-menu" role="listbox">
 
-                    {% for value in option.values  %}  
-                    <li class="custom-product-variant__dropdown-item{% if option.selected_value == value %} selected{% endif %}"
-                      data-value="{{ value | escape }}">
-                        {{ value }} 
-                      </li> 
-                    {% endfor %}
-        
-                  </ul>
+                {% for value in option.values  %}  
+                <li class="custom-product-variant__dropdown-item{% if option.selected_value == value %} selected{% endif %}"
+                  data-value="{{ value | escape }}">
+                    {{ value }} 
+                  </li> 
+                {% endfor %}
+    
+              </ul>
 
-                  <input type="hidden" class="custom-product-variant__hidden-input" 
-                        name="options[{{option.name |  escape}}]" value="{{option.selected_value}}" form="{{product_form_id}}">
-                      {% comment %} Without the hidden input, the browser submits nothing because a <button> and <li> do not send form data. Why not read the button text? Because browsers only submit values from form controls like: <input> <select> <textarea> {% endcomment %}
+              <input type="hidden" class="custom-product-variant__hidden-input" 
+                    name="options[{{option.name |  escape}}]" value="{{option.selected_value}}" form="{{product_form_id}}">
+                  {% comment %} Without the hidden input, the browser submits nothing because a <button> and <li> do not send form data. Why not read the button text? Because browsers only submit values from form controls like: <input> <select> <textarea> {% endcomment %}
 
-               </div>
+           </div>
 
-          {%  elsif custom_variant_style == 'buttons' %} 
-                
-                <div class="custom-product-variant__values" role="radiogroup" aria-label="{{option.name}}">
-                    {% for value in option.values %}
-                      {% assign input_id = section.id | append: '-' | append: option.position | append: '-' | append: forloop.index %}
+      {%  elsif custom_variant_style == 'buttons' %} 
+            
+            <div class="custom-product-variant__values" role="radiogroup" aria-label="{{option.name}}">
+                {% for value in option.values %}
+                  {% assign input_id = section.id | append: '-' | append: option.position | append: '-' | append: forloop.index %}
 
-                      <input id="{{ input_id }}" class="custom-product-variant__radio visually-hidden"  form="{{ product_form_id }}" 
-                      type="radio" name="options[{{option.name |  escape}}]" value="{{ value |  escape }}" 
-                        {% if option.selected_value == value %} checked {% endif %}> 
+                  <input id="{{ input_id }}" class="custom-product-variant__radio visually-hidden"  form="{{ product_form_id }}" 
+                  type="radio" name="options[{{option.name |  escape}}]" value="{{ value |  escape }}" 
+                    {% if option.selected_value == value %} checked {% endif %}> 
 
-                          <label class="custom-product-variant__button" for="{{ input_id }}">
-                            <span class="custom-product-variant__button-text">  {{ value }} </span>
-                           </label>
-                           
-                    {% endfor %}
-                </div>
+                      <label class="custom-product-variant__button" for="{{ input_id }}">
+                        <span class="custom-product-variant__button-text">  {{ value }} </span>
+                       </label>
+                       
+                {% endfor %}
+            </div>
 
-           {% elsif custom_variant_style == 'swatches' %}
+       {% elsif custom_variant_style == 'swatches' %}
 
-            <div
-              class="custom-product-variant__swatches custom-product-variant__swatches--{{ custom_swatches_style }}"
-              role="radiogroup"
-              aria-label="{{ option.name }}"
+        <div
+          class="custom-product-variant__swatches custom-product-variant__swatches--{{ custom_swatches_style }}"
+          role="radiogroup"
+          aria-label="{{ option.name }}"
+        >
+
+          {% for value in option.values %}
+
+            {% assign input_id =
+              section.id
+              | append: '-swatch-'
+              | append: option.position
+              | append: '-'
+              | append: forloop.index
+            %}
+
+            {%- comment -%}
+              =====================================================
+              PREPARE SWATCH CONTENT
+              =====================================================
+            {%- endcomment -%}
+
+            {% if custom_swatch_type == 'color' %}
+
+              {% capture swatch_color %}
+                {% render 'custom-variant-swatch-color',
+                  swatch_value: value
+                %}
+              {% endcapture %}
+
+            {% elsif custom_swatch_type == 'image' %}
+
+              {% capture swatch_image %}
+                {% render 'custom-variant-swatch-image',
+                  product: product,
+                  swatch_value: value
+                %}
+              {% endcapture %}
+
+            {% endif %}
+
+
+            {%- comment -%}
+              =====================================================
+              RADIO INPUT
+              =====================================================
+            {%- endcomment -%}
+
+            <input
+              id="{{ input_id }}"
+              class="custom-product-variant__swatch-input visually-hidden"
+              type="radio"
+              name="options[{{ option.name | escape }}]"
+              value="{{ value | escape }}"
+              form="{{ product_form_id }}"
+              {% if option.selected_value == value %}
+                checked
+              {% endif %}
             >
 
-              {% for value in option.values %}
 
-                {% assign input_id =
-                  section.id
-                  | append: '-swatch-'
-                  | append: option.position
-                  | append: '-'
-                  | append: forloop.index
-                %}
+            {%- comment -%}
+              =====================================================
+              SINGLE LABEL
+              =====================================================
+              IMPORTANT:
+              The snippets MUST NOT create another label.
+            {%- endcomment -%}
 
-                {%- comment -%}
-                  =====================================================
-                  PREPARE SWATCH CONTENT
-                  =====================================================
-                {%- endcomment -%}
+            <label
+              for="{{ input_id }}"
+              class="
+                custom-product-variant__swatch
+                custom-product-variant__swatch--{{ custom_swatch_type }}
+                custom-product-variant__swatch--{{ custom_swatches_style }}
+              "
+              title="{{ value | escape }}"
+              aria-label="{{ value | escape }}"
+            >
 
-                {% if custom_swatch_type == 'color' %}
+              {% if custom_swatch_type == 'color' %}
 
                   {% capture swatch_color %}
                     {% render 'custom-variant-swatch-color',
@@ -140,100 +199,42 @@
                     %}
                   {% endcapture %}
 
-                {% elsif custom_swatch_type == 'image' %}
-
-                  {% capture swatch_image %}
-                    {% render 'custom-variant-swatch-image',
-                      product: product,
-                      swatch_value: value
-                    %}
-                  {% endcapture %}
+                  <span
+                    class="custom-product-variant__swatch-color"
+                    style="--custom-swatch-color: {{ swatch_color | strip }};"
+                    aria-hidden="true"
+                  ></span>
 
                 {% endif %}
 
+              {% if custom_swatch_type == 'image' %}
 
-                {%- comment -%}
-                  =====================================================
-                  RADIO INPUT
-                  =====================================================
-                {%- endcomment -%}
+                {% render 'custom-variant-swatch-image',
+                  product: product,
+                  swatch_value: value
+                %}
 
-                <input
-                  id="{{ input_id }}"
-                  class="custom-product-variant__swatch-input visually-hidden"
-                  type="radio"
-                  name="options[{{ option.name | escape }}]"
-                  value="{{ value | escape }}"
-                  form="{{ product_form_id }}"
-                  {% if option.selected_value == value %}
-                    checked
-                  {% endif %}
-                >
+              {% endif %}
 
+              <span class="visually-hidden">
+                {{ value }}
+              </span>
 
-                {%- comment -%}
-                  =====================================================
-                  SINGLE LABEL
-                  =====================================================
-                  IMPORTANT:
-                  The snippets MUST NOT create another label.
-                {%- endcomment -%}
+            </label>
 
-                <label
-                  for="{{ input_id }}"
-                  class="
-                    custom-product-variant__swatch
-                    custom-product-variant__swatch--{{ custom_swatch_type }}
-                    custom-product-variant__swatch--{{ custom_swatches_style }}
-                  "
-                  title="{{ value | escape }}"
-                  aria-label="{{ value | escape }}"
-                >
+          {% endfor %}
 
-                  {% if custom_swatch_type == 'color' %}
+        </div>
 
-                      {% capture swatch_color %}
-                        {% render 'custom-variant-swatch-color',
-                          swatch_value: value
-                        %}
-                      {% endcapture %}
+        
+      {% endif %}
 
-                      <span
-                        class="custom-product-variant__swatch-color"
-                        style="--custom-swatch-color: {{ swatch_color | strip }};"
-                        aria-hidden="true"
-                      ></span>
+  </fieldset>
 
-                    {% endif %}
+{% endfor %} 
+  
 
-                  {% if custom_swatch_type == 'image' %}
-
-              {% render 'custom-variant-swatch-image',
-                product: product,
-                swatch_value: value
-              %}
-
-            {% endif %}
-
-                  <span class="visually-hidden">
-                    {{ value }}
-                  </span>
-
-                </label>
-
-              {% endfor %}
-
-            </div>
-
-            
-          {% endif %}
-
-      </fieldset>
-
-    {% endfor %} 
-      
   </div>
 
 {% endunless %}
-
 
