@@ -52,6 +52,7 @@
         "custom_product_variant_XdfJbL": {
           "type": "custom-product-variant",
           "settings": {
+            "custom_variant_option_name": "Color",
             "custom_variant_style": "swatches",
             "custom_swatch_type": "color",
             "custom_swatches_style": "circle",
