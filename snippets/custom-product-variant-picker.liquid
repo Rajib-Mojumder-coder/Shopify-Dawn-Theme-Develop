@@ -192,15 +192,26 @@
 
                   {% if custom_swatch_type == 'color' %}
 
-                    <span
-                      class="custom-product-variant__swatch-color"
-                      style="--custom-swatch-color: {{ swatch_color | strip }};"
-                      aria-hidden="true"
-                    ></span>
+                      {% capture swatch_color %}
+                        {% render 'custom-variant-swatch-color',
+                          swatch_value: value
+                        %}
+                      {% endcapture %}
 
-                  {% elsif custom_swatch_type == 'image' %}
+                      <span
+                        class="custom-product-variant__swatch-color"
+                        style="--custom-swatch-color: {{ swatch_color | strip }};"
+                        aria-hidden="true"
+                      ></span>
 
-                    {{ swatch_image }}
+                    {% endif %}
+
+                  {% if custom_swatch_type == 'image' %}
+
+                    {% render 'custom-variant-swatch-image',
+                      product: product,
+                      swatch_value: value
+                    %}
 
                   {% endif %}
 
