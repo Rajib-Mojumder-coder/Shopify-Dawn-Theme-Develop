@@ -1080,6 +1080,14 @@
       "visible_if": "{{ block.settings.custom_variant_style == 'swatches' }}"
     },
     {
+      "type": "text",
+      "id": "custom_swatch_option_names",
+      "label": "Swatch option names",
+      "info": "Enter option names that should use swatches, separated by commas. Example: Color, Colour, Farbe, Kleur",
+      "default": "Color, Colour, Coler, Couleur, Farbe, Kleur",
+      "visible_if": "{{ block.settings.custom_variant_style == 'swatches' }}"
+    },
+    {
       "type": "select",
       "id": "custom_swatches_style",
       "label": "Swatch Shape",
