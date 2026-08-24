@@ -89,17 +89,15 @@ class CustomVariantEngine {
    * 2. INITIALIZE ENGINE
    *=========================================================*/
 
-  init() {
+init() {
 
-    this.bindEvents();
+  this.bindEvents();
 
-    /*
-     * Synchronize availability on initial page load.
-     *
-     * This does NOT change the selected variant.
-     */
-    this.updateOptionAvailability();
-  }
+  this.updateSelectedValues();
+
+  this.updateOptionAvailability();
+
+}
 
 
   /*=========================================================*
