@@ -272,6 +272,39 @@ getSelectedOptions() {
 
 }
 
+/*=========================================================
+ * UPDATE SELECTED OPTION VALUES
+ *=========================================================*/
+
+updateSelectedValues() {
+
+  const fieldsets =
+    this.wrapper.querySelectorAll(
+      ".custom-product-variant__option"
+    );
+
+  fieldsets.forEach((fieldset) => {
+
+    const selectedInput =
+      fieldset.querySelector(
+        'input[name^="options["]:checked'
+      );
+
+    const selectedValue =
+      fieldset.querySelector(
+        "[data-selected-value]"
+      );
+
+    if (!selectedInput || !selectedValue) {
+      return;
+    }
+
+    selectedValue.textContent =
+      selectedInput.value;
+
+  });
+
+}
 
   /*=========================================================*
    * 6. FIND MATCHING VARIANT
