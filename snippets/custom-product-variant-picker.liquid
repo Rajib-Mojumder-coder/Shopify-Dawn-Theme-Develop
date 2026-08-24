@@ -32,6 +32,19 @@
   </script>
 
     {% for option in product.options_with_values %}
+      {% liquid
+        assign option_name_normalized = option.name | downcase | strip
+        assign is_swatch_option = false
+
+        for swatch_option_name in swatch_option_names_array
+          assign swatch_name_normalized = swatch_option_name | downcase | strip
+
+          if option_name_normalized == swatch_name_normalized
+            assign is_swatch_option = true
+            break
+          endif
+        endfor
+      %}
 
       <fieldset class="custom-product-variant__option" data-option-position="{{ option.position }}">
 
