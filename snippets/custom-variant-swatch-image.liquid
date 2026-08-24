@@ -1,35 +1,18 @@
 {% liquid
-
   assign swatch_image = blank
-  assign normalized_swatch_value = swatch_value | downcase | strip
+  assign normalized_value = swatch_value | downcase | strip
 
-  for variant in product.variants
+  for media in product.media
+    assign media_alt = media.alt | default: '' | downcase | strip
 
-    for variant_option in variant.options
-
-      assign normalized_variant_option = variant_option | downcase | strip
-
-      if normalized_variant_option == normalized_swatch_value
-
-        if variant.featured_media
-          assign swatch_image = variant.featured_media.preview_image
-          break
-        endif
-
-      endif
-
-    endfor
-
-    if swatch_image
+    if media_alt == normalized_value
+      assign swatch_image = media.preview_image
       break
     endif
-
   endfor
-
 %}
 
 {% if swatch_image %}
-
   {{
     swatch_image
     | image_url: width: 120
@@ -40,14 +23,11 @@
       class: 'custom-product-variant__swatch-image',
       alt: swatch_value
   }}
-
 {% else %}
-
   <span
     class="custom-product-variant__swatch-image custom-product-variant__swatch-image--fallback"
     aria-hidden="true"
   >
     {{ swatch_value | slice: 0 }}
   </span>
-
 {% endif %}
