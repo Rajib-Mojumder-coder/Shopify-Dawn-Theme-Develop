@@ -148,56 +148,35 @@ class CustomVariantEngine {
 
   onOptionChange() {
 
-    /*
-     * Get the current selected option values.
-     *
-     * Example:
-     *
-     * [
-     *   "Black",
-     *   "Large"
-     * ]
-     */
-    const selectedOptions =
-      this.getSelectedOptions();
+  const selectedOptions = this.getSelectedOptions();
 
-    // Find matching Shopify variant
-    const variant =
-      this.findVariant(
-        selectedOptions
-      );
+  const variant = this.findVariant(selectedOptions);
 
-    /*
-     * No matching variant.
-     *
-     * Do not dispatch variant:change.
-     */
-    if (!variant) {
+  if (!variant) {
 
-      console.warn(
-        "CustomVariantEngine: Matching variant not found.",
-        selectedOptions
-      );
-
-      return;
-    }
-
-
-    /*
-     * Update Shopify hidden variant ID
-     * and dispatch the central event.
-     */
-    this.updateVariantId(
-      variant
+    console.warn(
+      "CustomVariantEngine: Matching variant not found.",
+      selectedOptions
     );
 
-
-    /*
-     * Update availability of all
-     * variant controls.
-     */
-    this.updateOptionAvailability();
+    return;
   }
+
+  /*
+   * Update the visible selected option text
+   */
+  this.updateSelectedValues();
+
+  /*
+   * Update Shopify variant ID
+   * + dispatch variant:change
+   */
+  this.updateVariantId(variant);
+
+  /* Update availability   */
+  this.updateOptionAvailability();
+
+}
 
 
   /*=========================================================*
