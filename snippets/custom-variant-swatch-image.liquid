@@ -1,19 +1,31 @@
 {% liquid
+
   assign swatch_image = blank
-  assign normalized_value = swatch_value | downcase | strip
+  assign normalized_swatch_value = swatch_value | downcase | strip
 
-  for media in product.media
+  for variant in product.variants
 
-    assign media_alt = media.alt | default: '' | downcase | strip
+    for variant_option in variant.options
 
-    if media_alt == normalized_value
+      assign normalized_variant_option = variant_option | downcase | strip
 
-      assign swatch_image = media.preview_image
+      if normalized_variant_option == normalized_swatch_value
+
+        if variant.featured_media
+          assign swatch_image = variant.featured_media.preview_image
+          break
+        endif
+
+      endif
+
+    endfor
+
+    if swatch_image
       break
-
     endif
 
   endfor
+
 %}
 
 {% if swatch_image %}
