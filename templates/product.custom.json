@@ -51,6 +51,7 @@
         },
         "custom_product_variant_XdfJbL": {
           "type": "custom-product-variant",
+          "disabled": true,
           "settings": {
             "custom_variant_style": "buttons",
             "custom_swatch_type": "color",
