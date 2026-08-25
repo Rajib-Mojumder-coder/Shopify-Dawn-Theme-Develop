@@ -1,0 +1,523 @@
+/* =========================================================
+   CUSTOM PRODUCT VARIANT PICKER
+   GLOBAL APPEARANCE
+   ========================================================= */
+
+.custom-product-variant-picker {
+  --custom-variant-text: rgb(var(--color-foreground));
+  --custom-variant-bg: rgb(var(--color-background));
+  --custom-variant-active-text: rgb(var(--color-background));
+  --custom-variant-active-bg: rgb(var(--color-foreground));
+  --custom-variant-border: rgba(var(--color-foreground), 0.25);
+  --custom-variant-active-border: rgb(var(--color-foreground));
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.75rem;
+}
+
+
+/* =========================================================
+   SHARED TYPOGRAPHY
+   ========================================================= */
+
+.custom-product-variant__button,
+.custom-product-variant__dropdown-toggle,
+.custom-product-variant__dropdown-value,
+.custom-product-variant__dropdown-item {
+  font-family: inherit;
+  font-size: var(--font-body);
+  font-weight: 400;
+  line-height: 0.9;
+}
+
+
+/* =========================================================
+   OPTION
+   ========================================================= */
+
+.custom-product-variant__option {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.custom-product-variant__label {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+
+  min-height: 4rem;
+  padding-inline: 1.5rem;
+
+  font-size: var(--font-body);
+  font-family: inherit;
+  font-weight: 600;
+
+  color: var(--custom-variant-text);
+  background: var(--custom-variant-bg);
+}
+
+.custom-product-variant__selected-value {
+  font-weight: 500;
+  color: color-mix(
+    in srgb,
+    var(--custom-variant-text) 65%,
+    transparent
+  );
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.custom-product-variant__values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.custom-product-variant__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.8rem 1.4rem;
+
+  border: 2px solid var(--custom-variant-border);
+  border-radius: 100px;
+
+  background: var(--custom-variant-bg);
+  color: var(--custom-variant-text);
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.custom-product-variant__button:hover {
+  border-color: var(--custom-variant-active-border);
+}
+
+.custom-product-variant__button:active {
+  transform: scale(0.97);
+}
+
+
+/* Active button */
+
+.custom-product-variant__radio:checked
++ .custom-product-variant__button {
+  background: var(--custom-variant-active-bg);
+  color: var(--custom-variant-active-text);
+  border-color: var(--custom-variant-active-border);
+}
+
+
+/* Keyboard focus */
+
+.custom-product-variant__radio:focus-visible
++ .custom-product-variant__button {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+
+/* Unavailable button */
+
+.custom-product-variant__button.is-unavailable {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   DROPDOWN
+   ========================================================= */
+
+.custom-product-variant__dropdown {
+  width: 100%;
+  position: relative;
+  background: var(--custom-variant-bg);
+}
+
+.custom-product-variant__dropdown-toggle {
+  width: 100%;
+  min-height: 4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-inline: 1.5rem;
+
+  border: 1px solid var(--custom-variant-border);
+  border-radius: 8px;
+
+  background: var(--custom-variant-bg);
+  color: var(--custom-variant-text);
+
+  cursor: pointer;
+}
+
+.custom-product-variant__dropdown-value {
+  min-width: 0;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.custom-product-variant__dropdown-icon {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.custom-product-variant__dropdown.is-open
+.custom-product-variant__dropdown-icon {
+  transform: rotate(180deg);
+}
+
+
+/* Dropdown menu */
+
+.custom-product-variant__dropdown-menu {
+  position: absolute;
+
+  top: 100%;
+  left: 0;
+
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  background: var(--custom-variant-bg);
+
+  border: 1px solid var(--custom-variant-border);
+  border-radius: 8px;
+
+  z-index: 20;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+
+  max-height: 260px;
+  overflow-y: auto;
+
+  display: none;
+}
+
+.custom-product-variant__dropdown.is-open
+.custom-product-variant__dropdown-menu {
+  display: block;
+}
+
+
+/* Dropdown item */
+
+.custom-product-variant__dropdown-item {
+  padding: 12px 18px;
+
+  cursor: pointer;
+
+  line-height: 1.2;
+
+  color: var(--custom-variant-text);
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.custom-product-variant__dropdown-item:hover {
+  background: color-mix(
+    in srgb,
+    var(--custom-variant-active-bg) 8%,
+    transparent
+  );
+}
+
+
+/* Selected dropdown item */
+
+.custom-product-variant__dropdown-item.selected {
+  background: var(--custom-variant-active-bg);
+  color: var(--custom-variant-active-text);
+}
+
+
+/* Unavailable dropdown item */
+
+.custom-product-variant__dropdown-item.is-unavailable {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   SWATCHES
+   ========================================================= */
+
+.custom-product-variant__swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+
+/* Swatch base */
+
+.custom-product-variant__swatch {
+  --swatch-size: 4rem;
+
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--swatch-size);
+  height: var(--swatch-size);
+
+  padding: 2px;
+
+  border: 2px solid var(--custom-variant-border, #D9DDE3);
+  border-radius: 50%;
+
+  background: transparent;
+
+  cursor: pointer;
+  overflow: hidden;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* Circle */
+
+.custom-product-variant__swatches--circle
+.custom-product-variant__swatch {
+  border-radius: 50%;
+}
+
+
+/* Square */
+
+.custom-product-variant__swatches--square
+.custom-product-variant__swatch {
+  border-radius: 6px;
+}
+
+
+/* =========================================================
+   COLOR SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch-color {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--custom-swatch-color, #CCCCCC);
+
+  border-radius: inherit;
+}
+
+
+/* =========================================================
+   ACTIVE SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch-input:checked
++ .custom-product-variant__swatch {
+  border-color: var(
+    --custom-variant-active-border,
+    #06123D
+  );
+
+  box-shadow:
+    0 0 0 1px
+    var(
+      --custom-variant-active-border,
+      #06123D
+    );
+}
+
+
+/* Hover */
+
+.custom-product-variant__swatch:hover {
+  border-color: var(
+    --custom-variant-active-border,
+    #06123D
+  );
+}
+
+
+/* Active hover */
+
+.custom-product-variant__swatch-input:checked
++ .custom-product-variant__swatch:hover {
+  transform: scale(1.03);
+}
+
+
+/* Keyboard focus */
+
+.custom-product-variant__swatch-input:focus-visible
++ .custom-product-variant__swatch {
+  outline: 2px solid var(
+    --custom-variant-active-border,
+    #06123D
+  );
+
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   UNAVAILABLE SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch-input:disabled
++ .custom-product-variant__swatch {
+  opacity: 0.35;
+  cursor: not-allowed;
+  position: relative;
+  pointer-events: none;
+}
+
+
+/* Diagonal unavailable indicator */
+
+.custom-product-variant__swatch-input:disabled
++ .custom-product-variant__swatch::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 120%;
+  height: 2px;
+
+  background: currentColor;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-45deg);
+
+  opacity: 0.7;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   IMAGE SWATCH
+   ========================================================= */
+
+.custom-product-variant__swatch--image {
+  overflow: hidden;
+
+  background: var(
+    --custom-variant-bg,
+    #ECEEF2
+  );
+}
+
+
+/* Image */
+
+.custom-product-variant__swatch-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: inherit;
+}
+
+
+/* Image fallback */
+
+.custom-product-variant__swatch-image--fallback {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  background: var(
+    --custom-variant-bg,
+    #ECEEF2
+  );
+
+  color: var(
+    --custom-variant-text,
+    #06123D
+  );
+
+  font-size: 1.2rem;
+
+  border-radius: inherit;
+}
+
+
+/* Active image */
+
+.custom-product-variant__swatch-input:checked
++ .custom-product-variant__swatch--image {
+  border-color: var(
+    --custom-variant-active-border,
+    #06123D
+  );
+
+  box-shadow:
+    0 0 0 1px
+    var(
+      --custom-variant-active-border,
+      #06123D
+    );
+}
+
+
+/* Disabled image */
+
+.custom-product-variant__swatch-input:disabled
++ .custom-product-variant__swatch--image {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   GENERAL UNAVAILABLE STATE
+   ========================================================= */
+
+.custom-product-variant__swatch.is-unavailable {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
