@@ -5,3 +5,262 @@
   assign option_2_name = block.settings.variant_option_2_name | strip | downcase
   assign option_3_name = block.settings.variant_option_3_name | strip | downcase
 %}
+
+{% unless product.has_only_default_variant %}
+
+  <div
+    class="custom-product-variant-picker"
+    id="CustomVariantPicker-{{ section.id }}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+
+    {% unless use_color_scheme %}
+      style="
+        --custom-variant-text: {{ block.settings.variant_text_color }};
+        --custom-variant-bg: {{ block.settings.variant_background_color }};
+        --custom-variant-active-text: {{ block.settings.variant_active_text_color }};
+        --custom-variant-active-bg: {{ block.settings.variant_active_background_color }};
+        --custom-variant-border: {{ block.settings.variant_border_color }};
+        --custom-variant-active-border: {{ block.settings.variant_active_border_color }};
+      "
+    {% endunless %}
+  >
+
+    <script type="application/json" class="custom-product-variant__json">
+      {
+        "productId": {{ product.id }},
+        "variants": {{ product.variants | json }}
+      }
+    </script>
+
+    {% for option in product.options_with_values %}
+
+      {% liquid
+        assign option_name_normalized = option.name | downcase | strip
+
+        assign option_style = 'buttons'
+        assign custom_swatch_type = 'color'
+        assign custom_swatches_style = 'circle'
+
+        if option_name_normalized == option_1_name
+
+          assign option_style = block.settings.variant_option_1_style
+          assign custom_swatch_type = block.settings.variant_option_1_swatch_type
+          assign custom_swatches_style = block.settings.variant_option_1_swatches_style
+
+        elsif option_name_normalized == option_2_name
+
+          assign option_style = block.settings.variant_option_2_style
+          assign custom_swatch_type = block.settings.variant_option_2_swatch_type
+          assign custom_swatches_style = block.settings.variant_option_2_swatches_style
+
+        elsif option_name_normalized == option_3_name
+
+          assign option_style = block.settings.variant_option_3_style
+          assign custom_swatch_type = block.settings.variant_option_3_swatch_type
+          assign custom_swatches_style = block.settings.variant_option_3_swatches_style
+
+        endif
+      %}
+
+      <fieldset
+        class="custom-product-variant__option"
+        data-option-position="{{ option.position }}"
+      >
+
+        <legend class="custom-product-variant__label">
+
+          <span class="custom-product-variant__label-title">
+            {{ option.name }}
+
+            {% if option.selected_value != blank %}
+              :
+            {% endif %}
+          </span>
+
+          <span
+            class="custom-product-variant__selected-value"
+            data-selected-value
+          >
+            {{ option.selected_value }}
+          </span>
+
+        </legend>
+
+
+        {% if option_style == 'dropdown' %}
+
+          <div class="custom-product-variant__dropdown">
+
+            <button
+              type="button"
+              class="custom-product-variant__dropdown-toggle"
+              aria-expanded="false"
+              aria-haspopup="listbox"
+            >
+              <span class="custom-product-variant__dropdown-value">
+                {{ option.selected_value }}
+              </span>
+
+              <span class="custom-product-variant__dropdown-icon">
+                ▼
+              </span>
+            </button>
+
+            <ul
+              class="custom-product-variant__dropdown-menu"
+              role="listbox"
+            >
+
+              {% for value in option.values %}
+
+                <li
+                  class="custom-product-variant__dropdown-item{% if option.selected_value == value %} selected{% endif %}"
+                  data-value="{{ value | escape }}"
+                >
+                  {{ value }}
+                </li>
+
+              {% endfor %}
+
+            </ul>
+
+            <input
+              type="hidden"
+              class="custom-product-variant__hidden-input"
+              name="options[{{ option.name | escape }}]"
+              value="{{ option.selected_value }}"
+              form="{{ product_form_id }}"
+            >
+
+          </div>
+
+
+        {% elsif option_style == 'buttons' %}
+
+          <div
+            class="custom-product-variant__values"
+            role="radiogroup"
+            aria-label="{{ option.name }}"
+          >
+
+            {% for value in option.values %}
+
+              {% assign input_id = section.id
+                | append: '-'
+                | append: option.position
+                | append: '-'
+                | append: forloop.index
+              %}
+
+              <input
+                id="{{ input_id }}"
+                class="custom-product-variant__radio visually-hidden"
+                form="{{ product_form_id }}"
+                type="radio"
+                name="options[{{ option.name | escape }}]"
+                value="{{ value | escape }}"
+                {% if option.selected_value == value %}
+                  checked
+                {% endif %}
+              >
+
+              <label
+                class="custom-product-variant__button"
+                for="{{ input_id }}"
+              >
+                <span class="custom-product-variant__button-text">
+                  {{ value }}
+                </span>
+              </label>
+
+            {% endfor %}
+
+          </div>
+
+
+        {% elsif option_style == 'swatches' %}
+
+          <div
+            class="custom-product-variant__swatches custom-product-variant__swatches--{{ custom_swatches_style }}"
+            role="radiogroup"
+            aria-label="{{ option.name }}"
+          >
+
+            {% for value in option.values %}
+
+              {% assign input_id = section.id
+                | append: '-swatch-'
+                | append: option.position
+                | append: '-'
+                | append: forloop.index
+              %}
+
+              <input
+                id="{{ input_id }}"
+                class="custom-product-variant__swatch-input visually-hidden"
+                type="radio"
+                name="options[{{ option.name | escape }}]"
+                value="{{ value | escape }}"
+                form="{{ product_form_id }}"
+                {% if option.selected_value == value %}
+                  checked
+                {% endif %}
+              >
+
+              <label
+                for="{{ input_id }}"
+                class="
+                  custom-product-variant__swatch
+                  custom-product-variant__swatch--{{ custom_swatch_type }}
+                  custom-product-variant__swatch--{{ custom_swatches_style }}
+                "
+                title="{{ value | escape }}"
+                aria-label="{{ value | escape }}"
+              >
+
+                {% if custom_swatch_type == 'color' %}
+
+                  {% capture swatch_color %}
+                    {% render 'custom-variant-swatch-color',
+                      swatch_value: value
+                    %}
+                  {% endcapture %}
+
+                  <span
+                    class="custom-product-variant__swatch-color"
+                    style="--custom-swatch-color: {{ swatch_color | strip }};"
+                    aria-hidden="true"
+                  ></span>
+
+                {% endif %}
+
+
+                {% if custom_swatch_type == 'image' %}
+
+                  {% render 'custom-variant-swatch-image',
+                    product: product,
+                    swatch_value: value
+                  %}
+
+                {% endif %}
+
+                <span class="visually-hidden">
+                  {{ value }}
+                </span>
+
+              </label>
+
+            {% endfor %}
+
+          </div>
+
+        {% endif %}
+
+      </fieldset>
+
+    {% endfor %}
+
+  </div>
+
+{% endunless %}
