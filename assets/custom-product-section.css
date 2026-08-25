@@ -17,7 +17,10 @@
     padding-block: 40px;
 } */
  .custom-product-media-main{
-    width: 100%;
+  width: 100%;
+}
+ .custom-product-media-main .media-container-bg{
+  align-items: center;
 }
  .media-container-wrapper{
   position: relative;
