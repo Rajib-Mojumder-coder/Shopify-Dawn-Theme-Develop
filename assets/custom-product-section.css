@@ -74,7 +74,7 @@
    position: absolute;
     left: 35px;
     top: 35px;
-    z-index: 10;
+    z-index: 2;
 }
 
 .custom-product-section .product-logo-container img {
