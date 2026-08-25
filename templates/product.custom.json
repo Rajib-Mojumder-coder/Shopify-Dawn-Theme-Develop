@@ -67,6 +67,31 @@
             "variant_active_border_color": "#06123d"
           }
         },
+        "custom_variant_picker_CCLrie": {
+          "type": "custom-variant-picker",
+          "settings": {
+            "variant_option_1_name": "Color",
+            "variant_option_1_style": "swatches",
+            "variant_option_1_swatch_type": "color",
+            "variant_option_1_swatch_shape": "circle",
+            "variant_option_2_name": "Size",
+            "variant_option_2_style": "buttons",
+            "variant_option_2_swatch_type": "color",
+            "variant_option_2_swatch_shape": "circle",
+            "variant_option_3_name": "Material",
+            "variant_option_3_style": "dropdown",
+            "variant_option_3_swatch_type": "color",
+            "variant_option_3_swatch_shape": "circle",
+            "custom_variant_color_scheme": true,
+            "variant_color_scheme": "scheme-1",
+            "variant_text_color": "#06123d",
+            "variant_background_color": "#eceef2",
+            "variant_active_text_color": "#eceef2",
+            "variant_active_background_color": "#06123d",
+            "variant_border_color": "#d9dde3",
+            "variant_active_border_color": "#06123d"
+          }
+        },
         "inventory_Rtf9Uh": {
           "type": "inventory",
           "settings": {
@@ -104,6 +129,7 @@
         "price",
         "variant_picker",
         "custom_product_variant_XdfJbL",
+        "custom_variant_picker_CCLrie",
         "inventory_Rtf9Uh",
         "quantity_selector",
         "buy_buttons",
