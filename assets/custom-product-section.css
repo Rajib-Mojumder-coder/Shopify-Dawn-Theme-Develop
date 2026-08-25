@@ -125,6 +125,9 @@
 .custom-product-section .product-logo-container {
     left: 28px;
 }
+.custom-product-section .product-logo-container img {
+    max-width: 140px;
+}
 }
 /*Slider Navigation & Pagination*/
 /* @media(min-width: 750px){
