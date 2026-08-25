@@ -1,0 +1,7 @@
+{% liquid
+  assign use_color_scheme = block.settings.custom_variant_color_scheme
+
+  assign option_1_name = block.settings.variant_option_1_name | strip | downcase
+  assign option_2_name = block.settings.variant_option_2_name | strip | downcase
+  assign option_3_name = block.settings.variant_option_3_name | strip | downcase
+%}
