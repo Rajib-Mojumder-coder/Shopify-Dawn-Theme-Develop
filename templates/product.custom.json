@@ -82,7 +82,7 @@
             "variant_option_3_style": "buttons",
             "variant_option_3_swatch_type": "color",
             "variant_option_3_swatch_shape": "circle",
-            "custom_variant_color_scheme": true,
+            "custom_variant_color_scheme": false,
             "variant_color_scheme": "scheme-1",
             "variant_text_color": "#06123d",
             "variant_background_color": "#eceef2",
