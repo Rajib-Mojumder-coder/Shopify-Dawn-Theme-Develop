@@ -37,7 +37,7 @@
             "show_custom_sale_badge": true,
             "sale_badge_type": "amount",
             "sale_badge_position": "inline",
-            "sale_badge_bg_color": "#E51616",
+            "sale_badge_bg_color": "#e51616",
             "sale_badge_text_color": "#ffffff"
           }
         },
@@ -77,7 +77,7 @@
           "settings": {
             "variant_option_1_name": "Color",
             "variant_option_1_style": "swatches",
-            "variant_option_1_swatch_type": "color",
+            "variant_option_1_swatch_type": "image",
             "variant_option_1_swatch_shape": "circle",
             "variant_option_2_name": "Size",
             "variant_option_2_style": "buttons",
