@@ -213,6 +213,7 @@
                   {% comment %} {% render 'custom-variant-swatch-image', product: product, swatch_value: value %} {% endcomment %}
                  {% for variant in product.variants %}
                   {{ variant.featured_media.preview_image |  image_url: 100 }}
+                  {% break %}
                  {% endfor %}
                 {% endif %}
 
