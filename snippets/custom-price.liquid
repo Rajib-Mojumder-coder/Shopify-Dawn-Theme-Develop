@@ -352,9 +352,7 @@
           {% comment %}  SAVINGS PERCENTAGE  {% endcomment %}
 
             {% if variant_on_sale and variant_compare_price > variant_price %}
-
             {% assign variant_savings = variant_compare_price | minus: variant_price %}
-
             {% assign variant_savings_percentage = variant_savings | times: 100 | divided_by: variant_compare_price | round %}
 
             <span
