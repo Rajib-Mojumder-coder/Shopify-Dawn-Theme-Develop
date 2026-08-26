@@ -325,6 +325,28 @@
 
           {% endif %}
 
+            {% comment %} ========== VARIANT SALE BADGE ========== {% endcomment %}
+          {% if block.settings.show_custom_sale_badge and variant_on_sale %}
+            {% assign variant_savings_amount = variant_compare_price | minus: variant_price %}
+            {% assign variant_savings_percentage = variant_savings_amount | times: 100 | divided_by: variant_compare_price | round %}
+            
+            <span class="custom-price__badge sale-badge" 
+                  data-sale-badge
+                  data-position="{{ block.settings.sale_badge_position | default: 'inline' }}"
+                  style="background-color: {{ block.settings.sale_badge_bg_color | default: '#FF0000' }}; 
+                        color: {{ block.settings.sale_badge_text_color | default: '#FFFFFF' }};">
+              
+              {% case block.settings.sale_badge_type %}
+                {% when 'percentage' %}
+                  {{ variant_savings_percentage }}% OFF
+                {% when 'amount' %}
+                  Save {{ variant_savings_amount | money }}
+                {% else %}
+                  SALE
+              {% endcase %}
+              
+            </span>
+          {% endif %}
 
           {% comment %} SAVINGS AMOUNT {% endcomment %}
 
