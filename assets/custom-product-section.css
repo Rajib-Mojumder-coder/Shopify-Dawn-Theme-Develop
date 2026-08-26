@@ -125,6 +125,7 @@
 }
 .custom-product-section .product-logo-container {
     left: 28px;
+    top: 25px;
 }
 .custom-product-section .product-logo-container img {
     max-width: 140px;
