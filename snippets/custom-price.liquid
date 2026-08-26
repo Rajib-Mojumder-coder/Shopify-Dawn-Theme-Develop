@@ -1,4 +1,192 @@
 
+{% liquid
+  assign variant = product.selected_or_first_available_variant
+  assign current_price = variant.price 
+  assign compare_price = variant.compare_at_price 
+  
+  assign show_current_price = block.settings.show_current_price
+  assign show_compare_price = block.settings.show_compare_price
+  assign hide_compare_without_discount = block.settings.hide_compare_without_discount
+  assign large_price = block.settings.large_price
+  assign price_format = block.settings.price_format
+  assign round_price = block.settings.round_price
+  assign compare_position = block.settings.compare_position
+  assign compare_full_width = block.settings.compare_full_width
+  
+  if round_price
+    assign current_price = current_price | divided_by: 100.0 | round | times: 100
+    if compare_price
+      assign compare_price = compare_price | divided_by: 100.0 | round | times: 100
+    endif
+  endif
+  
+  assign on_sale = false
+  if compare_price > current_price
+    assign on_sale = true
+  endif
+%}
+
+{% comment %} ============================================
+  PRICE FORMAT CAPTURES
+============================================ {% endcomment %}
+
+{% capture current_price_html %}
+  {% case price_format %}
+    {% when 'money_with_currency' %}{{ current_price | money_with_currency }}
+    {% when 'money_without_currency' %}{{ current_price | money_without_currency }}
+    {% when 'money_without_trailing_zeros' %}{{ current_price | money_without_trailing_zeros }}
+    {% else %}{{ current_price | money }}
+  {% endcase %}
+{% endcapture %}
+
+{% capture compare_price_html %}
+  {% case price_format %}
+    {% when 'money_with_currency' %}{{ compare_price | money_with_currency }}
+    {% when 'money_without_currency' %}{{ compare_price | money_without_currency }}
+    {% when 'money_without_trailing_zeros' %}{{ compare_price | money_without_trailing_zeros }}
+    {% else %}{{ compare_price | money }}
+  {% endcase %}
+{% endcapture %}
+
+{% comment %} ============================================
+  MAIN PRICE DISPLAY
+============================================ {% endcomment %}
+
+<div id="custom-price-{{ block.id }}" 
+     class="custom-price" 
+     data-product-price-scope
+     data-product-id="{{ product.id }}" 
+     data-variant-id="{{ variant.id }}"
+     data-round-price="{{ block.settings.round_price }}" 
+     data-price-format="{{ block.settings.price_format }}"
+     data-hide-compare-without-discount="{{ block.settings.hide_compare_without_discount }}">
+  
+  <div class="custom-price__display" data-price-display>
+    
+    {% comment %} CURRENT PRICE {% endcomment %}
+    {% if show_current_price %}
+      <span class="custom-price__current{% if large_price %} custom-price__current--large{% endif %}" 
+            data-product-price>
+        {{ current_price_html }}
+      </span>
+    {% endif %}
+    
+    {% comment %} COMPARE PRICE {% endcomment %}
+    {% if show_compare_price and on_sale or hide_compare_without_discount == false %}
+      <span class="custom-price__compare{% if compare_full_width %} custom-price__compare--full-width{% endif %}" 
+            data-compare-price 
+            {% unless on_sale %}hidden{% endunless %}>
+        {{ compare_price_html }}
+      </span>
+    {% endif %}
+    
+    {% comment %} SALE BADGE {% endcomment %}
+    {% if block.settings.show_custom_sale_badge and on_sale %}
+      {% assign savings_amount = compare_price | minus: current_price %}
+      {% assign savings_percentage = savings_amount | times: 100 | divided_by: compare_price | round %}
+      
+      {% capture savings_display %}
+        {% case block.settings.sale_badge_type %}
+          {% when 'percentage' %}{{ savings_percentage }}% OFF
+          {% when 'amount' %}Save {{ savings_amount | money }}
+          {% else %}SALE
+        {% endcase %}
+      {% endcapture %}
+      
+      <span class="custom-price__badge sale-badge" 
+            data-sale-badge
+            data-position="{{ block.settings.sale_badge_position | default: 'inline' }}"
+            style="background-color: {{ block.settings.sale_badge_bg_color | default: '#FF0000' }}; 
+                   color: {{ block.settings.sale_badge_text_color | default: '#FFFFFF' }};">
+        {{ savings_display }}
+      </span>
+    {% endif %}
+    
+  </div>
+  
+  {% comment %} ============================================
+    PRE-RENDERED VARIANT DATA
+  ============================================ {% endcomment %}
+  
+  <div class="custom-price__variant-data" hidden aria-hidden="true">
+    {% for product_variant in product.variants %}
+      {% liquid
+        assign variant_price = product_variant.price
+        assign variant_compare_price = product_variant.compare_at_price
+        
+        if round_price
+          assign variant_price = variant_price | divided_by: 100.0 | round | times: 100
+          if variant_compare_price
+            assign variant_compare_price = variant_compare_price | divided_by: 100.0 | round | times: 100
+          endif
+        endif
+        
+        assign variant_on_sale = false
+        if variant_compare_price > variant_price
+          assign variant_on_sale = true
+        endif
+      %}
+      
+      <template data-variant-price-template="{{ product_variant.id }}">
+        <div class="custom-price__display">
+          
+          {% comment %} VARIANT CURRENT PRICE {% endcomment %}
+          {% if show_current_price %}
+            <span class="custom-price__current{% if large_price %} custom-price__current--large{% endif %}" 
+                  data-product-price>
+              {% case price_format %}
+                {% when 'money_with_currency' %}{{ variant_price | money_with_currency }}
+                {% when 'money_without_currency' %}{{ variant_price | money_without_currency }}
+                {% when 'money_without_trailing_zeros' %}{{ variant_price | money_without_trailing_zeros }}
+                {% else %}{{ variant_price | money }}
+              {% endcase %}
+            </span>
+          {% endif %}
+          
+          {% comment %} VARIANT COMPARE PRICE {% endcomment %}
+          {% if show_compare_price and variant_on_sale or hide_compare_without_discount == false %}
+            <span class="custom-price__compare{% if compare_full_width %} custom-price__compare--full-width{% endif %}" 
+                  data-compare-price 
+                  {% unless variant_on_sale %}hidden{% endunless %}>
+              {% if variant_compare_price %}
+                {% case price_format %}
+                  {% when 'money_with_currency' %}{{ variant_compare_price | money_with_currency }}
+                  {% when 'money_without_currency' %}{{ variant_compare_price | money_without_currency }}
+                  {% when 'money_without_trailing_zeros' %}{{ variant_compare_price | money_without_trailing_zeros }}
+                  {% else %}{{ variant_compare_price | money }}
+                {% endcase %}
+              {% endif %}
+            </span>
+          {% endif %}
+          
+          {% comment %} VARIANT SALE BADGE {% endcomment %}
+          {% if block.settings.show_custom_sale_badge and variant_on_sale %}
+            {% assign variant_savings_amount = variant_compare_price | minus: variant_price %}
+            {% assign variant_savings_percentage = variant_savings_amount | times: 100 | divided_by: variant_compare_price | round %}
+            
+            {% capture variant_savings_display %}
+              {% case block.settings.sale_badge_type %}
+                {% when 'percentage' %}{{ variant_savings_percentage }}% OFF
+                {% when 'amount' %}Save {{ variant_savings_amount | money }}
+                {% else %}SALE
+              {% endcase %}
+            {% endcapture %}
+            
+            <span class="custom-price__badge sale-badge" 
+                  data-sale-badge
+                  data-position="{{ block.settings.sale_badge_position | default: 'inline' }}"
+                  style="background-color: {{ block.settings.sale_badge_bg_color | default: '#FF0000' }}; 
+                         color: {{ block.settings.sale_badge_text_color | default: '#FFFFFF' }};">
+              {{ variant_savings_display }}
+            </span>
+          {% endif %}
+          
+        </div>
+      </template>
+    {% endfor %}
+  </div>
+  
+</div>
 
 <style>
 
