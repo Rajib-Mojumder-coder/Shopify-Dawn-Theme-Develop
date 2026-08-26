@@ -98,26 +98,18 @@
   <div class="custom-price__display" data-price-display>
 
     {% if show_current_price %}
-
       <span class="custom-price__current{% if block.settings.large_price %} custom-price__current--large{% endif %}"
         data-product-price>
-
         {{ current_price_html }}
-
       </span> 
-
     {% endif %}
 
 
     {% if block.settings.show_compare_price %}
-
       {% if on_sale or block.settings.hide_compare_without_discount == false %}
-
-        <span
-          class="custom-price__compare{% if block.settings.compare_full_width %} custom-price__compare--full-width{% endif %}"
+        <span class="custom-price__compare{% if block.settings.compare_full_width %} custom-price__compare--full-width{% endif %}"
           data-compare-price {% unless on_sale %} hidden {% endunless %}>
           {{ compare_price_html }}
-
         </span>
       {% endif %}
     {% endif %}
