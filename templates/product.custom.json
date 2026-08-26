@@ -28,7 +28,7 @@
           "settings": {
             "show_current_price": true,
             "large_price": false,
-            "price_format": "money",
+            "price_format": "money_with_currency",
             "round_price": true,
             "show_compare_price": true,
             "hide_compare_without_discount": true,
