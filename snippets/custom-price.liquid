@@ -144,11 +144,7 @@
     {% endif %}
 
 
-    {% comment %}
-    =========================================================
-    SAVINGS AMOUNT
-    =========================================================
-    {% endcomment %}
+    {% comment %}    SAVINGS AMOUNT {% endcomment %}
 
     {% if on_sale %}
 
@@ -184,11 +180,7 @@
 {% endif %}
 
 
-    {% comment %}
-    =========================================================
-    SAVINGS PERCENTAGE
-    =========================================================
-    {% endcomment %}
+    {% comment %}  SAVINGS PERCENTAGE  {% endcomment %}
 
     {% if on_sale and compare_price > 0 %}
 
@@ -212,19 +204,11 @@
   </div>
 
 
-  {% comment %}
-  =========================================================
-  PRE-RENDERED VARIANT PRICE DATA
-  =========================================================
-
-  IMPORTANT:
-
+  {% comment %}  PRE-RENDERED VARIANT PRICE DATA
+    IMPORTANT:
   Liquid renders every variant's price.
-
   JavaScript does NOT calculate or format money.
-
-  =========================================================
-  {% endcomment %}
+   {% endcomment %}
 
   <div
     class="custom-price__variant-data"
@@ -257,17 +241,12 @@
 
       %}
 
-
-      <template
-        data-variant-price-template="{{ product_variant.id }}"
-      >
+      <template data-variant-price-template="{{ product_variant.id }}">
 
         <div class="custom-price__display">
 
 
-          {% comment %}
-          CURRENT PRICE
-          {% endcomment %}
+          {% comment %}  CURRENT PRICE  {% endcomment %}
 
           {% if block.settings.show_current_price %}
 
@@ -340,11 +319,7 @@
           {% endif %}
 
 
-          {% comment %}
-  =========================================================
-  SAVINGS AMOUNT
-  =========================================================
-{% endcomment %}
+          {% comment %} SAVINGS AMOUNT {% endcomment %}
 
 {% if variant_on_sale and variant_compare_price > variant_price %}
 
@@ -380,9 +355,7 @@
     {% endif %}
 
 
-          {% comment %}
-            SAVINGS PERCENTAGE
-            {% endcomment %}
+          {% comment %}  SAVINGS PERCENTAGE  {% endcomment %}
 
             {% if variant_on_sale and variant_compare_price > variant_price %}
 
