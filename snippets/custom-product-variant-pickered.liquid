@@ -210,7 +210,8 @@
                 {% endif %}
 
                 {% if custom_swatch_type == 'image' %}
-                  {% render 'custom-variant-swatch-image', product: product, swatch_value: value %}
+                  {% comment %} {% render 'custom-variant-swatch-image', product: product, swatch_value: value %} {% endcomment %}
+                   {{  }}
                 {% endif %}
 
                 <span class="visually-hidden"> {{ value }}  </span>
