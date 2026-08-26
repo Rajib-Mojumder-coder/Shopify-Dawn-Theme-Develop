@@ -179,12 +179,10 @@
 
   {% endcapture %}
 
-  <span
-    class="custom-price__savings"
-    data-savings-amount
-  >
+  {% comment %} <span class="custom-price__savings"
+    data-savings-amount>
     Save {{ savings_amount_html | strip }}
-  </span>
+  </span> {% endcomment %}
 
 {% endif %}
 
@@ -201,12 +199,12 @@
         | round
       %}
 
-      <span
+      {% comment %} <span
         class="custom-price__percentage"
         data-savings-percentage
       >
         {{ savings_percentage }}% OFF
-      </span>
+      </span> {% endcomment %}
 
     {% endif %}
 
