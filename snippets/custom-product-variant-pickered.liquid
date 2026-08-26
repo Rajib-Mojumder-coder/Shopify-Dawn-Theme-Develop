@@ -211,10 +211,19 @@
 
                 {% if custom_swatch_type == 'image' %}
                   {% comment %} {% render 'custom-variant-swatch-image', product: product, swatch_value: value %} {% endcomment %}
-                 {% for variant in product.variants %}
+                 {% comment %} {% for variant in product.variants %}
                   {{ variant.featured_media.preview_image |  image_url: 100 }}
                   {% break %}
-                 {% endfor %}
+                 {% endfor %} {% endcomment %}
+                                  {% liquid
+                    assign swatch_image = blank
+                    for variant in product.variants
+                      if variant.featured_media and variant.options contains swatch_value
+                        assign swatch_image = variant.featured_media.preview_image
+                        break
+                      endif
+                    endfor
+                  %}
                 {% endif %}
 
                 <span class="visually-hidden"> {{ value }}  </span>
