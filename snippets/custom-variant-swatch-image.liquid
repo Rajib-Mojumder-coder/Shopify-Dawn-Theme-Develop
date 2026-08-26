@@ -1,37 +1,9 @@
-{% comment %}
-  ============================================
-  CUSTOM VARIANT SWATCH IMAGE
-  ============================================
-  Renders an image swatch for product variants
-  Supports both product media and theme assets
-  ============================================
-{% endcomment %}
-
 {% liquid
   assign swatch_image = blank
-  assign normalized_value = swatch_value | downcase | strip
-  assign found_media = false
-
-  comment
-    METHOD 1: Match by media alt text
-    This works when you set alt text on product images
-    matching the variant option value (e.g., "Black", "Red")
-  endcomment
-
-  for media in product.media
-    if media.alt
-      assign media_alt = media.alt | downcase | strip
-      
-      comment
-        Check if media alt matches exactly or contains the swatch value
-        Example: "Black - front view" matches "black"
-      endcomment
-      
-      if media_alt == normalized_value or media_alt contains normalized_value
-        assign swatch_image = media.preview_image
-        assign found_media = true
-        break
-      endif
+  for variant in product.variants
+    if variant.featured_media and variant.options contains swatch_value
+      assign swatch_image = variant.featured_media.preview_image
+      break
     endif
   endfor
-  %}
+%}
