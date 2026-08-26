@@ -211,7 +211,7 @@
 
                 {% if custom_swatch_type == 'image' %}
                   {% comment %} {% render 'custom-variant-swatch-image', product: product, swatch_value: value %} {% endcomment %}
-                   {{  }}
+                   {{ variant.featured_media.preview_image |  image_url: 100 }}
                 {% endif %}
 
                 <span class="visually-hidden"> {{ value }}  </span>
