@@ -211,10 +211,34 @@
 
                 {% if custom_swatch_type == 'image' %}
                   {% comment %} {% render 'custom-variant-swatch-image', product: product, swatch_value: value %} {% endcomment %}
-                  {% for variant in product.variants %}
-                  {{ variant.featured_media.preview_image |  image_url: 100 }}
-                  {% break %}
-                 {% endfor %} 
+                  {% liquid
+  assign swatch_image = blank
+  for variant in product.variants
+    if variant.featured_media and variant.options contains swatch_value
+      assign swatch_image = variant.featured_media.preview_image
+      break
+    endif
+  endfor
+%}
+{% if swatch_image %}
+  {{
+    swatch_image
+    | image_url: width: 120
+    | image_tag:
+      loading: 'lazy',
+      widths: '60, 90, 120',
+      sizes: '60px',
+      class: 'custom-product-variant__swatch-image',
+      alt: swatch_value
+  }}
+{% else %}
+  <span
+    class="custom-product-variant__swatch-image custom-product-variant__swatch-image--fallback"
+    aria-hidden="true"
+  >
+    {{ swatch_value | slice: 0 }}
+  </span>
+{% endif %}
  
                 {% endif %}
 
