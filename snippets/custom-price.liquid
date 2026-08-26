@@ -119,8 +119,7 @@
         {% assign savings_amount = compare_price | minus: current_price %}
         {% assign savings_percentage = compare_price | minus: current_price | times: 100 | divided_by: compare_price | round %}
         
-        <span class="custom-price__badge sale-badge" 
-              data-sale-badge
+        <span class="custom-price__badge sale-badge" data-sale-badge
               data-position="{{ block.settings.sale_badge_position | default: 'inline' }}"
               style="background-color: {{ block.settings.sale_badge_bg_color | default: '#FF0000' }}; 
                     color: {{ block.settings.sale_badge_text_color | default: '#FFFFFF' }};">
