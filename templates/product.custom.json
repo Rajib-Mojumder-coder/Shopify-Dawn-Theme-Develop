@@ -35,7 +35,7 @@
             "compare_position": false,
             "compare_full_width": false,
             "show_custom_sale_badge": true,
-            "sale_badge_type": "percentage",
+            "sale_badge_type": "amount",
             "sale_badge_position": "inline",
             "sale_badge_bg_color": "#ff0000",
             "sale_badge_text_color": "#ffffff"
