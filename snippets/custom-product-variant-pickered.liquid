@@ -181,43 +181,19 @@
 
         {% elsif option_style == 'swatches' %}
 
-          <div
-            class="custom-product-variant__swatches custom-product-variant__swatches--{{ custom_swatches_style }}"
-            role="radiogroup"
-            aria-label="{{ option.name }}"
-          >
+          <div class="custom-product-variant__swatches custom-product-variant__swatches--{{ custom_swatches_style }}"
+            role="radiogroup" aria-label="{{ option.name }}">
 
             {% for value in option.values %}
 
-              {% assign input_id = section.id
-                | append: '-swatch-'
-                | append: option.position
-                | append: '-'
-                | append: forloop.index
-              %}
+            {% assign input_id = section.id | append: '-swatch-' | append: option.position | append: '-'| append: forloop.index  %}
 
-              <input
-                id="{{ input_id }}"
-                class="custom-product-variant__swatch-input visually-hidden"
-                type="radio"
-                name="options[{{ option.name | escape }}]"
-                value="{{ value | escape }}"
-                form="{{ product_form_id }}"
-                {% if option.selected_value == value %}
-                  checked
-                {% endif %}
-              >
+              <input id="{{ input_id }}" class="custom-product-variant__swatch-input visually-hidden"
+                type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" form="{{ product_form_id }}"
+                {% if option.selected_value == value %}  checked {% endif %}>
 
-              <label
-                for="{{ input_id }}"
-                class="
-                  custom-product-variant__swatch
-                  custom-product-variant__swatch--{{ custom_swatch_type }}
-                  custom-product-variant__swatch--{{ custom_swatches_style }}
-                "
-                title="{{ value | escape }}"
-                aria-label="{{ value | escape }}"
-              >
+              <label for="{{ input_id }}" class="custom-product-variant__swatch
+                  custom-product-variant__swatch--{{ custom_swatch_type }} custom-product-variant__swatch--{{ custom_swatches_style }}" title="{{ value | escape }}" aria-label="{{ value | escape }}">
 
                 {% if custom_swatch_type == 'color' %}
 
@@ -227,27 +203,17 @@
                     %}
                   {% endcapture %}
 
-                  <span
-                    class="custom-product-variant__swatch-color"
-                    style="--custom-swatch-color: {{ swatch_color | strip }};"
-                    aria-hidden="true"
+                  <span class="custom-product-variant__swatch-color"
+                    style="--custom-swatch-color: {{ swatch_color | strip }};" aria-hidden="true"
                   ></span>
 
                 {% endif %}
 
-
                 {% if custom_swatch_type == 'image' %}
-
-                  {% render 'custom-variant-swatch-image',
-                    product: product,
-                    swatch_value: value
-                  %}
-
+                  {% render 'custom-variant-swatch-image', product: product, swatch_value: value %}
                 {% endif %}
 
-                <span class="visually-hidden">
-                  {{ value }}
-                </span>
+                <span class="visually-hidden"> {{ value }}  </span>
 
               </label>
 
