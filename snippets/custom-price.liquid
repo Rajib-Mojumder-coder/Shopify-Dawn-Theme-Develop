@@ -93,10 +93,7 @@
         {% endcase %}
       {% endcapture %}
       
-      <span class="custom-price__badge sale-badge" 
-            data-sale-badge
-            data-position="{{ block.settings.sale_badge_position | default: 'inline' }}"
-            style="background-color: {{ block.settings.sale_badge_bg_color | default: '#FF0000' }}; 
+      <span class="custom-price__badge sale-badge" data-sale-badge data-position="{{ block.settings.sale_badge_position | default: 'inline' }}" style="background-color: {{ block.settings.sale_badge_bg_color | default: '#FF0000' }}; 
                    color: {{ block.settings.sale_badge_text_color | default: '#FFFFFF' }};">
         {{ savings_display }}
       </span>
