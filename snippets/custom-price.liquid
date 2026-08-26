@@ -88,8 +88,17 @@
       {% capture savings_display %}
         {% case block.settings.sale_badge_type %}
           {% when 'percentage' %}{{ savings_percentage }}% OFF
-          {% when 'amount' %}Save {{ savings_amount | money }}
-          {% else %}SALE
+
+          {% when 'amount' %} Save
+            {% case price_format %}
+              {% when 'money_with_currency' %}{{ savings_amount | money_with_currency }}
+              {% when 'money_without_currency' %}{{ savings_amount | money_without_currency }}
+              {% when 'money_without_trailing_zeros' %}{{ savings_amount | money_without_trailing_zeros }}
+              {% else %}{{ savings_amount | money }}
+            {% endcase %}
+
+          {% else %}
+          SALE
         {% endcase %}
       {% endcapture %}
       
