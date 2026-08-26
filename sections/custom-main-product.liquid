@@ -925,10 +925,66 @@
         "default": false
       },
       {
+        "type": "header",
+        "content": "Sale Badge Settings"
+      },
+      {
         "type": "checkbox",
         "id": "show_custom_sale_badge",
         "label": "Show Sale Badge",
-        "default": false
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "sale_badge_type",
+        "label": "Badge Display Type",
+        "options": [
+          {
+            "value": "text",
+            "label": "Text (SALE)"
+          },
+          {
+            "value": "percentage",
+            "label": "Percentage (33% OFF)"
+          },
+          {
+            "value": "amount",
+            "label": "Amount (Save $100)"
+          }
+        ],
+        "default": "percentage"
+      },
+      {
+        "type": "select",
+        "id": "sale_badge_position",
+        "label": "Badge Position",
+        "options": [
+          {
+            "value": "inline",
+            "label": "Inline with Price"
+          },
+          {
+            "value": "top-right",
+            "label": "Top Right Corner"
+          },
+          {
+            "value": "top-left",
+            "label": "Top Left Corner"
+          }
+        ],
+        "default": "inline"
+      },
+      {
+        "type": "color",
+        "id": "sale_badge_bg_color",
+        "label": "Badge Background Color",
+        "default": "#FF0000"
+      },
+      {
+        "type": "color",
+        "id": "sale_badge_text_color",
+        "label": "Badge Text Color",
+        "default": "#FFFFFF"
       }
       ]
     },
