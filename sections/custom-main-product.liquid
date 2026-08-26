@@ -1396,62 +1396,9 @@
       "label": "Active border color",
       "default": "#06123D",
       "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
-    }
-  ]
-},
-    {   "type": "custom-product-variant",   
-    "name": "Custom Product Picker",   
-    "settings": [     
-      {       
-      "type": "header",       
-      "content": "Variant Picker"     
-      },
-      {  
-        "type": "select",       
-        "id": "custom_variant_style",       
-        "label": "Variant Style",       
-        "options": [         
-          {           
-            "label": "Dropdown",           
-            "value": "dropdown"         
-            },         
-            {           
-              "label": "Buttons",           
-              "value": "buttons"         
-              },         
-            {           
-              "label": "Swatches",           
-              "value": "swatches"        
-            }       
-            ],      
-            "default": "buttons"     
-          },
-          {       
-            "type": "select",       
-            "id": "custom_swatch_type",       
-            "label": "Swatch Type",       
-            "options": [         
-              {           
-                "label": "Color",           
-                "value": "color"         
-                },         
-                {           
-                  "label": "Image",           
-                  "value": "image"        
-                }       
-                ],       
-                "default": "color",       
-                "visible_if": "{{ block.settings.custom_variant_style == 'swatches' }}"     
-              },
-              {       
-                "type": "text",       
-                "id": "custom_swatch_option_names",       
-                "label": "Swatch option names",       
-                "info": "Enter option names that should use swatches, separated by commas. Example: Color, Colour, Farbe, Kleur",       
-                "default": "Color, Colour, Coler, Couleur, Farbe, Kleur",       
-                "visible_if": "{{ block.settings.custom_variant_style == 'swatches' }}"    
-              },
-              {       "type": "select",       "id": "custom_swatches_style",       "label": "Swatch Shape",       "options": [         {           "label": "Circle",           "value": "circle"         },         {           "label": "Square",           "value": "square"         }       ],       "default": "circle",       "visible_if": "{{ block.settings.custom_variant_style == 'swatches' }}"     },     {       "type": "header",       "content": "Appearance"     },     {       "type": "checkbox",       "id": "custom_variant_color_scheme",       "label": "Use theme color scheme",       "default": true     },     {       "type": "color_scheme",       "id": "variant_color_scheme",       "label": "Color scheme",       "default": "scheme-1",       "visible_if": "{{ block.settings.custom_variant_color_scheme == true }}"     },     {       "type": "color",       "id": "variant_text_color",       "label": "Text color",       "default": "#06123D",       "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"     },     {       "type": "color",       "id": "variant_background_color",       "label": "Background color",       "default": "#ECEEF2",       "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"     },     {       "type": "color",       "id": "variant_active_text_color",       "label": "Active text color",       "default": "#ECEEF2",       "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"     },     {       "type": "color",       "id": "variant_active_background_color",       "label": "Active background color",       "default": "#06123D",       "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"     },     {       "type": "color",       "id": "variant_border_color",       "label": "Border color",       "default": "#D9DDE3",       "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"     },     {       "type": "color",       "id": "variant_active_border_color",       "label": "Active border color",       "default": "#06123D",       "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"     }   ]   },
+      }
+    ]
+    },
     {
       "type": "buy_buttons",
       "name": "t:sections.main-product.blocks.buy_buttons.name",
