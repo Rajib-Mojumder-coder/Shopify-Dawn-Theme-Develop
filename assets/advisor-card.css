@@ -186,7 +186,7 @@ Responsive
 
 @media(max-width:359px){
     .advisor-card .advisor-img{
-        border-bottom-right-radius:120px;
+        border-bottom-right-radius:110px;
     }
 }
 
