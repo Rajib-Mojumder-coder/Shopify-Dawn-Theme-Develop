@@ -15,8 +15,7 @@
   assign transparant_img_bg_color = advisor_block.settings.transparant_img_bg_color
 %}
 
-<div class="advisor-card advisor-card--{{ advisor_block.id }} advisor-card-width-{{ Advisor_block_width }}
-  {% if enable_color_scheme %} color-{{ color_scheme }} {% endif %}"
+<div class="advisor-card advisor-card--{{ advisor_block.id }} advisor-card-width-{{ Advisor_block_width }}"
   {% if advisor_block.shopify_attributes %} {{ advisor_block.shopify_attributes }} {% endif %}
   style="
     --advisor-bg:
@@ -37,7 +36,7 @@
   "
 >
 
-    <div class="advisor-card-container">
+    <div class="advisor-card-container {% if enable_color_scheme %} color-{{ color_scheme }} {% endif %}">
 
         <div class="image-icon-wrapper">
 
