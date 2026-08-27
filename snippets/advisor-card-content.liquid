@@ -17,8 +17,7 @@
   assign transparant_img_bg_color = advisor_block.settings.transparant_img_bg_color
 %}
 
-<div class="advisor-card advisor-card--{{ advisor_block.id }} advisor-card-width-{{ Advisor_block_width }} advisor-card--button-{{ button_width }}"
-  {% if advisor_block.shopify_attributes %} {{ advisor_block.shopify_attributes }} {% endif %}
+<div class="advisor-card advisor-card--{{ advisor_block.id }} advisor-card-width-{{ Advisor_block_width }} advisor-card--button-{{ button_width }}" {% if advisor_block.shopify_attributes %} {{ advisor_block.shopify_attributes }} {% endif %}
   style=" --advisor-heading-max-width: {{ heading_max_width }}px; --advisor-button-width: {{ advisor_button_width }};
     --advisor-bg: {% if advisor_card_bg %} {{ card_bg_color }} {% else %} transparent {% endif %};
     --advisor-image-bg: {% if transparant_img_bg %} {{ transparant_img_bg_color }} {% else %} transparent {% endif %};
