@@ -192,3 +192,17 @@ Responsive
         border-bottom-right-radius:120px;
     }
 }
+
+/*============Responsive Block Width========*/
+
+@media (max-width: 767px) {
+
+    .advisor-card-width-75,
+    .advisor-card-width-66,
+    .advisor-card-width-50,
+    .advisor-card-width-33,
+    .advisor-card-width-25 {
+        width: 100%;
+    }
+
+}
