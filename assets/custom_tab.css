@@ -90,12 +90,29 @@
   border-radius: 25px 25px 0 0;
 }
 
-.custom-tab .tabs label:hover {
-  background: #73378f;
+/* ==========================================
+   HOVER - TAB 1
+   ========================================== */
+
+.custom-tab .tabs label[for^="tab1"]:hover {
+  background: #fff;
+  color: #3F7280;
+
+  /* Same shape as Tab 1 when active */
+  border-radius: 25px 25px 0 0;
 }
 
-.custom-tab .tabs input[type="radio"]:checked + label {
-  background: #73378f;
+
+/* ==========================================
+   HOVER - TAB 2
+   ========================================== */
+
+.custom-tab .tabs label[for^="tab2"]:hover {
+  background: #fff;
+  color: #3F7280;
+
+  /* Same shape as Tab 2 when active */
+  border-radius: 25px 25px 0 0;
 }
 
 
