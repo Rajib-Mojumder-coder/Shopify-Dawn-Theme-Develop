@@ -37,14 +37,13 @@
   width: 50%;
   flex: 0 0 50%;
   box-sizing: border-box;
-
   padding: 14px 21px;
+  background: #3F7280;
   color: #fff;
-
   font-size: 18px;
   line-height: 1.2;
+  text-align: center;
   cursor: pointer;
-
   transition: all 0.2s ease;
 }
 
