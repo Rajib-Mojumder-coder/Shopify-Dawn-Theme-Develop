@@ -164,6 +164,7 @@
     },
     "related-products": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
@@ -235,7 +236,9 @@
                 "transparant_img_bg": true,
                 "transparant_img_bg_color": "#06123d",
                 "advisor_heading": "We geven je graag persoonlijk advies!",
+                "heading_max_width": 350,
                 "advisor_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+                "advisor_button_width": "full",
                 "button_text": "PLAN EEN ADVIESGESPREK",
                 "button_link": "shopify://collections/e-bikes"
               },
