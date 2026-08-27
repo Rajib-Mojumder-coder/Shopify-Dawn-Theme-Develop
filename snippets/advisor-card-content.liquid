@@ -79,13 +79,13 @@
       {% if advisor_heading != blank or advisor_description != blank %}
         <div class="advisor-content">
 
-          {% if advisor_block.settings.heading != blank %}
+          {% if advisor_heading != blank %}
             <h2 class="advisor-content__heading">
               {{ advisor_heading }}
             </h2>
           {% endif %}
 
-          {% if advisor_block.settings.description != blank %}
+          {% if advisor_description != blank %}
             <div class="advisor-content__description">
               {{ advisor_description }}
             </div>
