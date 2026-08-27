@@ -18,27 +18,27 @@ Advisor Card
 }
 
 /*===========Advisor Card Width=================*/
-.advisor-card--width-100 {
+.advisor-card-width-100 {
     width: 100%;
 }
 
-.advisor-card--width-75 {
+.advisor-card-width-75 {
     width: 75%;
 }
 
-.advisor-card--width-66 {
+.advisor-card-width-66 {
     width: 66.6667%;
 }
 
-.advisor-card--width-50 {
+.advisor-card-width-50 {
     width: 50%;
 }
 
-.advisor-card--width-33 {
+.advisor-card-width-33 {
     width: 33.3333%;
 }
 
-.advisor-card--width-25 {
+.advisor-card-width-25 {
     width: 25%;
 }
 
