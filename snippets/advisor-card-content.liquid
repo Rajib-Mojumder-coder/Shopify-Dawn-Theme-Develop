@@ -6,6 +6,8 @@
   assign advisor_img_y_offset = advisor_block.settings.advisor_img_y_offset
   assign advisor_card_bg = advisor_block.settings.advisor_card_bg
   assign card_bg_color = advisor_block.settings.card_bg_color
+  assign advisor_heading = advisor_block.settings.advisor_heading
+  assign advisor_description = advisor_block.settings.advisor_description
   assign transparant_img_bg = advisor_block.settings.transparant_img_bg
   assign transparant_img_bg_color = advisor_block.settings.transparant_img_bg_color
 %}
@@ -73,9 +75,26 @@
 
         </div>
         
+       
+      {% if advisor_heading != blank or advisor_description != blank %}
         <div class="advisor-content">
-            
+
+          {% if advisor_block.settings.heading != blank %}
+            <h2 class="advisor-content__heading">
+              {{ advisor_heading }}
+            </h2>
+          {% endif %}
+
+          {% if advisor_block.settings.description != blank %}
+            <div class="advisor-content__description">
+              {{ advisor_description }}
+            </div>
+          {% endif %}
+
         </div>
+      {% endif %}
+
+
 
         <div class="button-area">
 
