@@ -5,10 +5,7 @@
   overflow: hidden;
 }
 
-/* =========================
-   TAB NAVIGATION
-   ========================= */
-
+/* Tab container */
 .custom-tab .tabs {
   width: 100%;
   max-width: 100%;
@@ -17,7 +14,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border-radius: 25px;
+  overflow: hidden;
 }
+
 
 .custom-tab .tabs input[type="radio"] {
   position: absolute;
