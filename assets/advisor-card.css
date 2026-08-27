@@ -131,7 +131,7 @@ max-width: var(--advisor-heading-max-width);
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:20px;
+    padding: clamp(14px, 2.5vw, 20px);
 }
 
 /*==================================================
