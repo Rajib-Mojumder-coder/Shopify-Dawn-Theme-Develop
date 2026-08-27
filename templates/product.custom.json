@@ -227,7 +227,12 @@
               "settings": {
                 "enable_color_scheme": false,
                 "color_scheme": "",
-                "custom_tab_width": "100"
+                "custom_tab_width": "100",
+                "tab_1_title": "Description",
+                "tab_1_heading": "Product description",
+                "tab_1_description": "",
+                "tab_2_title": "Specification",
+                "tab_2_heading": "Product specifications"
               },
               "blocks": {}
             },
@@ -266,7 +271,7 @@
       ],
       "name": "Custom Block Section",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "section_height_mode": "auto",
         "preset_height": "medium",
         "custom_min_height": 400,
