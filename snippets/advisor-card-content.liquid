@@ -2,8 +2,8 @@
 
 
 {% liquid
-  assign enable_color_scheme = advisor_block.settings.enable_color_scheme
-  assign color_scheme = advisor_block.settings.color_scheme
+  assign enable_color_scheme = block.settings.enable_color_scheme
+  assign color_scheme = block.settings.color_scheme
   assign Advisor_block_width = block.settings.Advisor_block_width
   assign enable_img_position = advisor_block.settings.enable_img_position
   assign advisor_img_y_offset = advisor_block.settings.advisor_img_y_offset
@@ -15,8 +15,8 @@
   assign transparant_img_bg_color = advisor_block.settings.transparant_img_bg_color
 %}
 
-<div
-  class="advisor-card advisor-card--{{ advisor_block.id }} advisor-card-width-{{Advisor_block_width}}"
+<div class="advisor-card advisor-card--{{ advisor_block.id }} advisor-card-width-{{Advisor_block_width}}
+  {% if enable_color_scheme %} color-{{ color_scheme }} {% endif %}"
   {% if advisor_block.shopify_attributes %} {{ advisor_block.shopify_attributes }} {% endif %}
   style="
     --advisor-bg:
