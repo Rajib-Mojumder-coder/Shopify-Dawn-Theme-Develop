@@ -18,33 +18,16 @@
 
 <div class="advisor-card advisor-card--{{ advisor_block.id }} advisor-card-width-{{ Advisor_block_width }}"
   {% if advisor_block.shopify_attributes %} {{ advisor_block.shopify_attributes }} {% endif %}
-  style="
-    --advisor-bg:
-      {% if advisor_card_bg %}
-        {{ card_bg_color }}
-      {% else %}
-        transparent
-      {% endif %};
-
-    --advisor-image-bg:
-      {% if transparant_img_bg %}
-        {{ transparant_img_bg_color }}
-      {% else %}
-        transparent
-      {% endif %};
-
-    --advisor-image-offset: {{ advisor_img_y_offset }}px;
-  "
->
+  style=" --advisor-heading-max-width: {{ heading_max_width }}px;
+    --advisor-bg: {% if advisor_card_bg %} {{ card_bg_color }} {% else %} transparent {% endif %};
+    --advisor-image-bg: {% if transparant_img_bg %} {{ transparant_img_bg_color }} {% else %} transparent {% endif %};
+    --advisor-image-offset: {{ advisor_img_y_offset }}px;">
 
     <div class="advisor-card-container {% if enable_color_scheme %} color-{{ color_scheme }} {% endif %}">
-
         <div class="image-icon-wrapper">
 
             {% if advisor_block.settings.advisor_image != blank %}
-
                 <div class="advisor-image">
-
                     {{
                       advisor_block.settings.advisor_image
                       | image_url: width: 2000
@@ -54,9 +37,7 @@
                         widths: '375,550,750,1100,1500,2000',
                         sizes: '(max-width: 749px) 100vw, (max-width: 1200px) 50vw, 600px'
                     }}
-
                 </div>
-
             {% endif %}
 
             {% if advisor_block.settings.advisor_icon != blank %}
