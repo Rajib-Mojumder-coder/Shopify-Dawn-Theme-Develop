@@ -25,16 +25,19 @@
   pointer-events: none;
 }
 
+/* Both tabs - default */
 .custom-tab .tabs label {
   display: block;
   padding: 14px 21px;
-  background: #8e44ad;
+
+  background: #3F7280;
   color: #fff;
+
   font-size: 18px;
   line-height: 1.2;
   cursor: pointer;
-  border-radius: 2px 2px 0 0;
-  transition: background 0.2s ease;
+
+  transition: all 0.2s ease;
 }
 
 .custom-tab .tabs label:hover {
