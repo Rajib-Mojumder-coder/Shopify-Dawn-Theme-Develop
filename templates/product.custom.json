@@ -224,7 +224,7 @@
               "type": "advisor_card",
               "name": "Advisor Card",
               "settings": {
-                "enable_color_schema": false,
+                "enable_color_scheme": true,
                 "Advisor_block_width": "50",
                 "advisor_image": "shopify://shop_images/dsdf_70f3d2b3-292e-411f-95de-08b936042ce6.png",
                 "enable_img_position": true,
