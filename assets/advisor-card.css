@@ -15,6 +15,7 @@ Advisor Card
     border-radius:24px;
     display:flex;
     flex-direction:column;
+    padding-bottom: 20px;
 }
 
 /*===========Advisor Card Width=================*/
