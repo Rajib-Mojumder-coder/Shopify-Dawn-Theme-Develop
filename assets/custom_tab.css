@@ -40,6 +40,19 @@
   transition: all 0.2s ease;
 }
 
+/* TAB 1 - default */
+.custom-tab .tabs label[for^="tab1"] {
+  border-radius: 25px 0 0 25px;
+}
+
+
+/* TAB 2 - default */
+.custom-tab .tabs label[for^="tab2"] {
+  border-radius: 0 25px 25px 0;
+}
+
+
+
 .custom-tab .tabs label:hover {
   background: #73378f;
 }
