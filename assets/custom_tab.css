@@ -80,14 +80,6 @@
 
 
 /* Switch tabs */
-.custom-tab:has(#tab2-{{ custom_tab_block.id }}:checked) .tab-content-1 {
-  display: none;
-}
-
-.custom-tab:has(#tab2-{{ custom_tab_block.id }}:checked) .tab-content-2 {
-  display: block;
-}
-
 
 /* =========================
    TAB HEADINGS
