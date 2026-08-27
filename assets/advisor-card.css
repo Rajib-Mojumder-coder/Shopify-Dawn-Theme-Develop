@@ -75,6 +75,28 @@ Center Icon
 }
 
 /*==================================================
+Advisor Content
+==================================================*/
+.advisor-content {
+  width: 100%;
+}
+
+.advisor-content__heading {
+  margin: 0;
+  font-family: inherit;
+  font-size: clamp(26px, 3vw, 35px);
+  line-height: 110%;
+  font-weight: 600;
+}
+
+.advisor-content__description {
+  margin: 12px 0 0;
+  font-family: inherit;
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 150%;
+  font-weight: 400;
+}
+/*==================================================
 Button
 ==================================================*/
 
