@@ -1,0 +1,67 @@
+{{ 'advisor-card.css' | asset_url | stylesheet_tag }}
+
+{% render 'advisor-card-content',
+    advisor_block: block
+%}
+
+
+{% schema %}
+{
+  "name": "Custom Tab",
+  "tag": null,
+  "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_color_scheme",
+        "label": "Enable Custom Color Schema",
+        "default": false
+      },
+      {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-5",
+      "visible_if": "{{ block.settings.enable_color_scheme }}"
+    },
+      {
+        "type": "select",
+        "id": "custom_tab_width",
+        "label": "Tab Width",
+        "default": "100",
+        "options": [
+          {
+            "value": "100",
+            "label": "100%"
+          },
+          {
+            "value": "75",
+            "label": "75%"
+          },
+          {
+            "value": "66",
+            "label": "66.66%"
+          },
+          {
+            "value": "50",
+            "label": "50%"
+          },
+          {
+            "value": "33",
+            "label": "33.33%"
+          },
+          {
+            "value": "25",
+            "label": "25%"
+          }
+        ]
+    }
+    
+  ],
+  "presets": [
+    {
+      "name": "Custom Tab"
+    }
+  ]
+}
+{% endschema %}
+
