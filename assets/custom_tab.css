@@ -84,20 +84,3 @@ h1 {
     display: block;
   }
 }
-/* p.link {
-  clear: both;
-  margin: 380px 0 0 15px;
-  a {
-    text-transform: uppercase;
-    text-decoration: none;
-    display: inline-block;
-    color: #fff;
-    padding: 5px 10px;
-    margin: 0 5px;
-    background-color: darken($tabs-base-color, 15);
-    @include transition(all 0.2s ease-in);
-    &:hover {
-      background-color: darken($tabs-base-color, 20);
-    }
-  }
-}  */
