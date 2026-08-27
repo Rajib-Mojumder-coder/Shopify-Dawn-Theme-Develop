@@ -1,0 +1,14 @@
+{%  liquid 
+    assign enable_color_scheme = custom_tab_block.settings.enable_color_scheme
+    assign color_scheme = custom_tab_block.settings.color_scheme
+    assign custom_tab_width = custom_tab_block.settings.custom_tab_width
+%}
+
+
+<div class="advisor-card advisor-card--{{ advisor_block.id }} advisor-card-width-{{ Advisor_block_width }} advisor-card--button-{{advisor_button_width }}" {% if advisor_block.shopify_attributes %} {{ advisor_block.shopify_attributes }} {% endif %}
+  style=" --advisor-heading-max-width: {{ heading_max_width }}px; --advisor-button-width: {{ advisor_button_width }};
+    --advisor-bg: {% if advisor_card_bg %} {{ card_bg_color }} {% else %} transparent {% endif %};
+    --advisor-image-bg: {% if transparant_img_bg %} {{ transparant_img_bg_color }} {% else %} transparent {% endif %};
+    --advisor-image-offset: {{ advisor_img_y_offset }}px;">
+
+</div>
