@@ -54,24 +54,6 @@
             "swatch_shape": "square"
           }
         },
-        "custom_product_variant_XdfJbL": {
-          "type": "custom-product-variant",
-          "disabled": true,
-          "settings": {
-            "custom_variant_style": "buttons",
-            "custom_swatch_type": "color",
-            "custom_swatch_option_names": "Color, Colour, Coler, Couleur, Farbe, Kleur",
-            "custom_swatches_style": "circle",
-            "custom_variant_color_scheme": false,
-            "variant_color_scheme": "scheme-4",
-            "variant_text_color": "#06123d",
-            "variant_background_color": "#eceef2",
-            "variant_active_text_color": "#eceef2",
-            "variant_active_background_color": "#06123d",
-            "variant_border_color": "#d9dde3",
-            "variant_active_border_color": "#06123d"
-          }
-        },
         "custom_variant_picker_CCLrie": {
           "type": "custom-variant-picker",
           "settings": {
@@ -133,7 +115,6 @@
         "custom_price_qwTpiT",
         "price",
         "variant_picker",
-        "custom_product_variant_XdfJbL",
         "custom_variant_picker_CCLrie",
         "inventory_Rtf9Uh",
         "quantity_selector",
@@ -198,10 +179,131 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "custom_section_layout_PTHCwP": {
+      "type": "custom_section_layout",
+      "blocks": {
+        "group_3em9YH": {
+          "type": "group",
+          "name": "Group Block",
+          "settings": {
+            "desktop_direction": "column",
+            "mobile_direction": false,
+            "justify": "flex-start",
+            "align": "flex-start",
+            "desktop_gap": 50,
+            "mobile_gap": 18,
+            "custom_group_width": "fit-content",
+            "group_custom_width": 50,
+            "custom_group_height": "fit",
+            "group_custom_height": 50,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "background_fit": "cover",
+            "background_position": "center center",
+            "custom_group-overlay": false,
+            "overlay_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+            "overlay_opacity": 40,
+            "group_border_style": "none",
+            "group_border_width": 1,
+            "group_border_color": "#000000",
+            "group_corner_radius": 0,
+            "group_block_url": "",
+            "block_link_newtab": false,
+            "group_block_padding": false,
+            "group_padding_top": 20,
+            "group_padding_bottom": 20,
+            "group_padding_left": 20,
+            "group_padding_right": 20
+          },
+          "blocks": {
+            "advisor_card_x9Ptir": {
+              "type": "advisor_card",
+              "name": "Advisor Card",
+              "settings": {
+                "advisor_image": "shopify://shop_images/dsdf_70f3d2b3-292e-411f-95de-08b936042ce6.png",
+                "enable_img_position": true,
+                "advisor_img_y_offset": -20,
+                "advisor_card_bg": true,
+                "card_bg_color": "#071540",
+                "transparant_img_bg": true,
+                "transparant_img_bg_color": "#06123D",
+                "button_text": "PLAN EEN ADVIESGESPREK",
+                "button_link": "shopify://collections/e-bikes"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "advisor_card_x9Ptir"
+          ]
+        }
+      },
+      "block_order": [
+        "group_3em9YH"
+      ],
+      "name": "Custom Block Section",
+      "settings": {
+        "color_scheme": "",
+        "section_height_mode": "auto",
+        "preset_height": "medium",
+        "custom_min_height": 400,
+        "custom_viewport_height": 60,
+        "custom_max_height": 900,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_fit": "cover",
+        "background_object_position": "center center",
+        "background_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+        "overlay_opacity": 40,
+        "overlay_blend": "normal",
+        "overlay_blur": 0,
+        "layout_type": "full",
+        "layout_max_width": "1728px",
+        "surface_min_height": 120,
+        "layout_background": "transparant",
+        "layout_solid_bg": "#000000",
+        "layout_gradient_bg": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+        "enable_border": false,
+        "border_style": "solid",
+        "border_width": 1,
+        "border_radius": 0,
+        "border_color": "#000000",
+        "border_opacity": 100,
+        "border_hover_color": "#ff0000",
+        "layout_padding_top": 20,
+        "layout_padding_bottom": 20,
+        "layout_padding_left": 20,
+        "layout_padding_right": 20,
+        "layout_options": "desktop_layout",
+        "desktop_layout": "flex",
+        "desktop_direction": "row",
+        "desktop_wrap": "wrap",
+        "desktop_columns": 3,
+        "desktop_justify": "flex-start",
+        "desktop_align": "stretch",
+        "desktop_gap": 24,
+        "mobile_layout": "flex",
+        "mobile_direction": "column",
+        "mobile_wrap": "wrap",
+        "mobile_columns": 1,
+        "mobile_justify": "flex-start",
+        "mobile_align": "stretch",
+        "mobile_gap": 16
+      }
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related-products",
+    "custom_section_layout_PTHCwP"
   ]
 }
