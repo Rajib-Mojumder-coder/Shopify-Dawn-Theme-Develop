@@ -221,6 +221,16 @@
             "group_padding_right": 20
           },
           "blocks": {
+            "custom_tab_B6VUA8": {
+              "type": "custom-tab",
+              "name": "Custom Tab",
+              "settings": {
+                "enable_color_scheme": false,
+                "color_scheme": "",
+                "custom_tab_width": "100"
+              },
+              "blocks": {}
+            },
             "advisor_card_x9Ptir": {
               "type": "advisor_card",
               "name": "Advisor Card",
@@ -246,6 +256,7 @@
             }
           },
           "block_order": [
+            "custom_tab_B6VUA8",
             "advisor_card_x9Ptir"
           ]
         }
