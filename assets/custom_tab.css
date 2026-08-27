@@ -51,7 +51,44 @@
   border-radius: 0 25px 25px 0;
 }
 
+/* ==========================================
+   TAB 1 SELECTED
+   ========================================== */
 
+.custom-tab .tabs input[type="radio"]:nth-of-type(1):checked + label {
+  background: #fff;
+  color: #3F7280;
+
+  /* top-left + top-right */
+  border-radius: 25px 25px 0 0;
+}
+
+
+/* When TAB 1 is selected,
+   make TAB 2 have right-side rounding */
+.custom-tab .tabs input[type="radio"]:nth-of-type(1):checked ~ label[for^="tab2"] {
+  border-radius: 0 25px 25px 0;
+}
+
+
+/* ==========================================
+   TAB 2 SELECTED
+   ========================================== */
+
+.custom-tab .tabs input[type="radio"]:nth-of-type(2):checked + label {
+  background: #fff;
+  color: #3F7280;
+
+  /* top-left, top-right, bottom-left */
+  border-radius: 25px 25px 25px 0;
+}
+
+
+/* When TAB 2 is selected,
+   TAB 1 gets top-left + bottom-right rounding */
+.custom-tab .tabs input[type="radio"]:nth-of-type(2):checked ~ label[for^="tab1"] {
+  border-radius: 25px 0 25px 25px;
+}
 
 .custom-tab .tabs label:hover {
   background: #73378f;
