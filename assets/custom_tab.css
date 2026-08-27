@@ -80,6 +80,15 @@
 
 
 /* Switch tabs */
+/* Hide Description when Specification is selected */
+.custom-tab:has(.tabs input[type="radio"]:nth-of-type(2):checked) .tab-content-1 {
+  display: none;
+}
+
+/* Show Specification when Specification is selected */
+.custom-tab:has(.tabs input[type="radio"]:nth-of-type(2):checked) .tab-content-2 {
+  display: block;
+}
 
 /* =========================
    TAB HEADINGS
