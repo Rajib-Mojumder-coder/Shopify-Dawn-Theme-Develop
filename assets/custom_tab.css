@@ -19,14 +19,12 @@
   box-sizing: border-box;
 }
 
-/* Hide radio buttons */
 .custom-tab .tabs input[type="radio"] {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
 
-/* Tab titles */
 .custom-tab .tabs label {
   display: block;
   padding: 14px 21px;
@@ -39,12 +37,10 @@
   transition: background 0.2s ease;
 }
 
-/* Hover */
 .custom-tab .tabs label:hover {
   background: #73378f;
 }
 
-/* Active tab */
 .custom-tab .tabs input[type="radio"]:checked + label {
   background: #73378f;
 }
@@ -68,48 +64,51 @@
   word-break: break-word;
 }
 
-/* Description tab */
+
+/* Description is visible initially */
 .custom-tab .tab-content-1 {
   display: block;
 }
 
-/* Specification tab hidden initially */
+
+/* Specification is hidden initially */
 .custom-tab .tab-content-2 {
   display: none;
 }
 
 
-/* Switch tabs */
-/* Hide Description when Specification is selected */
-.custom-tab:has(.tabs input[type="radio"]:nth-of-type(2):checked) .tab-content-1 {
+/* =========================
+   TAB SWITCHING
+   ========================= */
+
+/* When SECOND radio is checked:
+   hide Description */
+.custom-tab:has(
+  .tabs input[type="radio"]:nth-of-type(2):checked
+) .tab-content-1 {
   display: none;
 }
 
-/* Show Specification when Specification is selected */
-.custom-tab:has(.tabs input[type="radio"]:nth-of-type(2):checked) .tab-content-2 {
+
+/* When SECOND radio is checked:
+   show Specification */
+.custom-tab:has(
+  .tabs input[type="radio"]:nth-of-type(2):checked
+) .tab-content-2 {
   display: block;
 }
 
+
 /* =========================
-   TAB HEADINGS
+   HEADINGS
    ========================= */
 
 .custom-tab .custom-tab-heading {
   margin: 0 0 20px;
   padding: 0;
-
   font-size: 24px;
   line-height: 1.3;
   color: inherit;
-}
-
-/* Full width specification heading */
-.custom-tab .custom-tab-spec-heading {
-  width: 100%;
-  padding-bottom: 20px;
-  margin-bottom: 25px;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 
@@ -128,7 +127,7 @@
 
 
 /* =========================
-   PRODUCT SPECIFICATIONS
+   SPECIFICATIONS
    ========================= */
 
 .custom-tab .product-specifications {
@@ -145,12 +144,9 @@
   min-width: 0;
 }
 
-
-/* Individual specification row */
 .custom-tab .product-spec-row {
   display: grid;
   grid-template-columns: minmax(140px, 45%) minmax(0, 1fr);
-
   gap: 15px;
 
   padding: 12px 0;
@@ -158,18 +154,13 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-
-/* Label */
 .custom-tab .product-spec-label {
   font-weight: 600;
   min-width: 0;
 }
 
-
-/* Value */
 .custom-tab .product-spec-value {
   min-width: 0;
-
   overflow-wrap: anywhere;
   word-break: break-word;
 }
