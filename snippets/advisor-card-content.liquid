@@ -166,19 +166,8 @@ height:100%;
   
 .advisor-card--{{ advisor_block.id }} .advisor-card-container{
 
-  {% if advisor_card_bg %}
-
-  background:
-  radial-gradient(
-  circle at 50% 30%,
-  rgba(255,255,255,.30) 0%,
-  rgba(255,255,255,.05) 40%,
-  transparent 100%
-  ),
-  var(--advisor-bg);
-
-  {% endif %}
-
+  .advisor-card--{{ advisor_block.id }} .advisor-card-container {
+    background: none;
   }
   
 }
