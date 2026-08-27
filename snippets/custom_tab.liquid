@@ -1,48 +1,203 @@
-{%  liquid 
-    assign enable_color_scheme = custom_tab_block.settings.enable_color_scheme
-    assign color_scheme = custom_tab_block.settings.color_scheme
-    assign custom_tab_width = custom_tab_block.settings.custom_tab_width
+{% liquid
+  assign enable_color_scheme = custom_tab_block.settings.enable_color_scheme
+  assign color_scheme = custom_tab_block.settings.color_scheme
+  assign custom_tab_width = custom_tab_block.settings.custom_tab_width
+
+  assign tab_1_title = custom_tab_block.settings.tab_1_title
+  assign tab_1_heading = custom_tab_block.settings.tab_1_heading
+  assign tab_1_description = custom_tab_block.settings.tab_1_description
+
+  assign tab_2_title = custom_tab_block.settings.tab_2_title
+  assign tab_2_heading = custom_tab_block.settings.tab_2_heading
 %}
 
+<div
+  class="custom-tab custom-tab-{{ custom_tab_block.id }} custom-tab-{{ custom_tab_width }} color-{{ color_scheme }}"
+  {% if custom_tab_block.shopify_attributes %}
+    {{ custom_tab_block.shopify_attributes }}
+  {% endif %}
+>
 
-<div class="custom-tab custom-tab-{{ custom_tab_block.id }} custom-tab-{{ custom_tab_width }} color-{{color_scheme}}" 
-{% if custom_tab_block.shopify_attributes %} {{ custom_tab_block.shopify_attributes }} {% endif %}> 
+  <!-- Tab Navigation -->
+  <div class="tabs" role="tablist">
 
-<ul class="tabs" role="tablist">
-    <li>
-        <input type="radio" name="tabs" id="tab1" checked />
-        <label for="tab1" 
-               role="tab" 
-               aria-selected="true" 
-               aria-controls="panel1" 
-               tabindex="0">Description</label>
-        <div id="tab-content1" 
-             class="tab-content" 
-             role="tabpanel" 
-             aria-labelledby="description" 
-             aria-hidden="false">
-          <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "</p>
+    <input
+      type="radio"
+      name="custom-tabs-{{ custom_tab_block.id }}"
+      id="tab1-{{ custom_tab_block.id }}"
+      checked
+    >
+
+    <label
+      for="tab1-{{ custom_tab_block.id }}"
+      role="tab"
+      aria-selected="true"
+      aria-controls="tab-content1-{{ custom_tab_block.id }}"
+    >
+      {{ tab_1_title }}
+    </label>
+
+
+    <input
+      type="radio"
+      name="custom-tabs-{{ custom_tab_block.id }}"
+      id="tab2-{{ custom_tab_block.id }}"
+    >
+
+    <label
+      for="tab2-{{ custom_tab_block.id }}"
+      role="tab"
+      aria-selected="false"
+      aria-controls="tab-content2-{{ custom_tab_block.id }}"
+    >
+      {{ tab_2_title }}
+    </label>
+
+  </div>
+
+
+  <!-- ==========================================
+       TAB 1 - DESCRIPTION
+       ========================================== -->
+
+  <div
+    id="tab-content1-{{ custom_tab_block.id }}"
+    class="tab-content tab-content-1"
+    role="tabpanel"
+  >
+
+    {% if tab_1_heading != blank %}
+      <h2 class="custom-tab-heading">
+        {{ tab_1_heading }}
+      </h2>
+    {% endif %}
+
+    {% if tab_1_description != blank %}
+      <div class="custom-tab-description rte">
+        {{ tab_1_description }}
+      </div>
+    {% endif %}
+
+  </div>
+
+
+  <!-- ==========================================
+       TAB 2 - SPECIFICATIONS
+       ========================================== -->
+
+  <div
+    id="tab-content2-{{ custom_tab_block.id }}"
+    class="tab-content tab-content-2"
+    role="tabpanel"
+  >
+
+    {% if tab_2_heading != blank %}
+      <h2 class="custom-tab-heading custom-tab-spec-heading">
+        {{ tab_2_heading }}
+      </h2>
+    {% endif %}
+
+
+    <div class="product-specifications">
+
+      <!-- LEFT COLUMN -->
+      <div class="product-spec-column">
+
+        <div class="product-spec-row">
+          <span class="product-spec-label">Productnummer:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.productnummer | default: product.id }}
+          </span>
         </div>
-    </li>
-  
-    <li>
-        <input type="radio" name="tabs" id="tab2" />
-        <label for="tab2"
-               role="tab" 
-               aria-selected="false" 
-               aria-controls="panel2" 
-               tabindex="0">Specification</label>
-        <div id="tab-content2" 
-             class="tab-content"
-             role="tabpanel" 
-             aria-labelledby="specification" 
-             aria-hidden="true">
-          <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
+
+        <div class="product-spec-row">
+          <span class="product-spec-label">Type:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.type }}
+          </span>
         </div>
-    </li>
-</ul>
 
-{% comment %} <br style="clear: both;" /> {% endcomment %}
+        <div class="product-spec-row">
+          <span class="product-spec-label">Merk:</span>
+          <span class="product-spec-value">
+            {{ product.vendor }}
+          </span>
+        </div>
 
+        <div class="product-spec-row">
+          <span class="product-spec-label">Maat:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.maat }}
+          </span>
+        </div>
+
+        <div class="product-spec-row">
+          <span class="product-spec-label">Accucapaciteit:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.accucapaciteit }}
+          </span>
+        </div>
+
+        <div class="product-spec-row">
+          <span class="product-spec-label">Kleur:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.kleur }}
+          </span>
+        </div>
+
+
+      </div>
+
+
+      <!-- RIGHT COLUMN -->
+      <div class="product-spec-column">
+
+        <div class="product-spec-row">
+          <span class="product-spec-label">Versnellingen:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.versnellingen }}
+          </span>
+        </div>
+
+        <div class="product-spec-row">
+          <span class="product-spec-label">Model versnellingsysteem:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.model_versnellingsysteem }}
+          </span>
+        </div>
+
+        <div class="product-spec-row">
+          <span class="product-spec-label">Frame materiaal:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.frame_materiaal }}
+          </span>
+        </div>
+
+        <div class="product-spec-row">
+          <span class="product-spec-label">Gewicht:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.gewicht }}
+          </span>
+        </div>
+
+        <div class="product-spec-row">
+          <span class="product-spec-label">Modeljaar / Seizoen:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.modeljaar_seizoen }}
+          </span>
+        </div>
+
+        <div class="product-spec-row">
+          <span class="product-spec-label">Wielmaat:</span>
+          <span class="product-spec-value">
+            {{ product.metafields.custom.wielmaat }}
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </div>
