@@ -84,7 +84,7 @@ h1 {
     display: block;
   }
 }
-p.link {
+/* p.link {
   clear: both;
   margin: 380px 0 0 15px;
   a {
@@ -100,4 +100,4 @@ p.link {
       background-color: darken($tabs-base-color, 20);
     }
   }
-} 
+}  */
