@@ -107,6 +107,8 @@ Center Icon
 }
 
 .advisor-content__heading {
+width: 100%;
+max-width: var(--advisor-heading-max-width);
   margin: 0;
   font-family: inherit;
   font-size: clamp(26px, 3vw, 35px);
