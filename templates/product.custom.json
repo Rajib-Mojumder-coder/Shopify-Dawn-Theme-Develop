@@ -230,7 +230,9 @@
                 "advisor_card_bg": true,
                 "card_bg_color": "#071540",
                 "transparant_img_bg": true,
-                "transparant_img_bg_color": "#06123D",
+                "transparant_img_bg_color": "#06123d",
+                "advisor_heading": "We geven je graag persoonlijk advies!",
+                "advisor_description": "",
                 "button_text": "PLAN EEN ADVIESGESPREK",
                 "button_link": "shopify://collections/e-bikes"
               },
