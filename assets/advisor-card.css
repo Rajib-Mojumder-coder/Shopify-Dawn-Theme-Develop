@@ -143,20 +143,11 @@ Advisor Button Width
     max-width: 350px;
 }
 
-
-/* 300px */
-.advisor-card--button-300 .custom-global-button {
-    width: 100%;
-    max-width: 300px;
-}
-
-
 /* 350px */
 .advisor-card--button-350 .custom-global-button {
     width: 100%;
     max-width: 350px;
 }
-
 
 /* Full Width */
 .advisor-card--button-full .custom-global-button {
