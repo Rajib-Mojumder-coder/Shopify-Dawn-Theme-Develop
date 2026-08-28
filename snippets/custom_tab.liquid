@@ -1,15 +1,4 @@
-{% liquid
-  assign enable_color_scheme = custom_tab_block.settings.enable_color_scheme
-  assign color_scheme = custom_tab_block.settings.color_scheme
-  assign custom_tab_width = custom_tab_block.settings.custom_tab_width
 
-  assign tab_1_title = custom_tab_block.settings.tab_1_title
-  assign tab_1_heading = custom_tab_block.settings.tab_1_heading
-  assign tab_1_description = custom_tab_block.settings.tab_1_description
-
-  assign tab_2_title = custom_tab_block.settings.tab_2_title
-  assign tab_2_heading = custom_tab_block.settings.tab_2_heading
-%}
 
 <div
   class="custom-tab custom-tab-{{ custom_tab_block.id }} custom-tab-{{ custom_tab_width }} color-{{ color_scheme }}"
