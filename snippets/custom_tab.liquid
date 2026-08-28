@@ -142,6 +142,13 @@
   endfor
 %}
 
+<pre style="color:red; background:#fff; padding:10px;">
+Productnummer: [{{ product.metafields.custom.productnummer }}]
+Type: [{{ product.metafields.custom.type }}]
+Maat metafield (if any): [{{ product.metafields.custom.maat }}]
+All custom metafields: {{ product.metafields.custom | json }}
+</pre>
+
 <div class="product-specifications">
 
   <div class="product-spec-column">
