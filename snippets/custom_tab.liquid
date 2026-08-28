@@ -111,17 +111,7 @@
       {% endif %}
     
 
-    
-             {{ product.metafields.custom.frame_material }}
-             {{ product.metafields.custom.modeljaar }}
-             {{ product.metafields.custom.merk }}
-
-            {% for variant in product.variants %}
-                {{ variant.name }}
-                {{ variant.value }}
-            {% endfor %}
-
-{% liquid
+    {% liquid
   assign current_variant = product.selected_or_first_available_variant
 
   assign maat_value = blank
@@ -141,8 +131,6 @@
     endcase
   endfor
 %}
-
-
 
 <div class="product-specifications">
 
@@ -220,11 +208,11 @@
       </div>
     {% endif %}
 
-    {% if product.metafields.custom.frame_materiaal != blank %}
+    {% if product.metafields.custom.frame_material != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Frame materiaal</span>
         <span class="product-spec-value">
-          {{ product.metafields.custom.frame_materiaal }}
+          {{ product.metafields.custom.frame_material }}
         </span>
       </div>
     {% endif %}
@@ -238,11 +226,11 @@
       </div>
     {% endif %}
 
-    {% if product.metafields.custom.modeljaar_seizoen != blank %}
+    {% if product.metafields.custom.modeljaar != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Modeljaar / Seizoen</span>
         <span class="product-spec-value">
-          {{ product.metafields.custom.modeljaar_seizoen }}
+          {{ product.metafields.custom.modeljaar }}
         </span>
       </div>
     {% endif %}
@@ -256,30 +244,10 @@
       </div>
     {% endif %}
 
-
-
-
-    {% if product.metafields.custom.frame_material != blank %}
-  <div class="product-spec-row">
-    <span class="product-spec-label">Frame materiaal</span>
-    <span class="product-spec-value">
-      {{ product.metafields.custom.frame_material }}
-    </span>
-  </div>
-{% endif %}
-
-{% if product.metafields.custom.modeljaar != blank %}
-  <div class="product-spec-row">
-    <span class="product-spec-label">Modeljaar / Seizoen</span>
-    <span class="product-spec-value">
-      {{ product.metafields.custom.modeljaar }}
-    </span>
-  </div>
-{% endif %}
-
   </div>
 
 </div>
+
 
 
 
