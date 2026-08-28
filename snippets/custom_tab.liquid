@@ -125,7 +125,8 @@
           <div class="product-spec-row">
             <span class="product-spec-label">Type</span>
             <span class="product-spec-value">
-              {{ product.metafields.custom.type }}
+              {% comment %} {{ product.metafields.custom.type }} {% endcomment %}
+              {{ product.type }}
             </span>
           </div>
 
