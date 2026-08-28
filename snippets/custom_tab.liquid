@@ -111,97 +111,123 @@
       {% endif %}
     
 
-      <div class="product-specifications">
+        <div class="product-specifications">
 
-        <div class="product-spec-column">
+          <div class="product-spec-column">
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Productnummer</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.productnummer | default: product.id }}
-            </span>
-          </div>
+            {% if product.metafields.custom.productnummer != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Productnummer</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.productnummer }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Type</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.type }}
-            </span>
-          </div>
+            {% if product.metafields.custom.type != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Type</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.type }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Merk</span>
-            <span class="product-spec-value">
-              {{ product.vendor }}
-            </span>
-          </div>
+            {% if product.vendor != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Merk</span>
+                <span class="product-spec-value">
+                  {{ product.vendor }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Maat</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.maat }}
-            </span>
-          </div>
+            {% if product.metafields.custom.maat != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Maat</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.maat }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Accucapaciteit</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.accucapaciteit }}
-            </span>
-          </div>
+            {% if product.metafields.custom.accucapaciteit != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Accucapaciteit</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.accucapaciteit }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Kleur</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.kleur }}
-            </span>
-          </div>
+            {% if product.metafields.custom.kleur != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Kleur</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.kleur }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Versnellingen</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.versnellingen }}
-            </span>
-          </div>
+            {% if product.metafields.custom.versnellingen != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Versnellingen</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.versnellingen }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Model versnellingsysteem</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.model_versnellingsysteem }}
-            </span>
-          </div>
+            {% if product.metafields.custom.model_versnellingsysteem != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Model versnellingsysteem</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.model_versnellingsysteem }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Frame materiaal</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.frame_materiaal }}
-            </span>
-          </div>
+            {% if product.metafields.custom.frame_materiaal != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Frame materiaal</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.frame_materiaal }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Gewicht</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.gewicht }}
-            </span>
-          </div>
+            {% if product.metafields.custom.gewicht != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Gewicht</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.gewicht }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Modeljaar / Seizoen</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.modeljaar_seizoen }}
-            </span>
-          </div>
+            {% if product.metafields.custom.modeljaar_seizoen != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Modeljaar / Seizoen</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.modeljaar_seizoen }}
+                </span>
+              </div>
+            {% endif %}
 
-          <div class="product-spec-row">
-            <span class="product-spec-label">Wielmaat</span>
-            <span class="product-spec-value">
-              {{ product.metafields.custom.wielmaat }}
-            </span>
+            {% if product.metafields.custom.wielmaat != blank %}
+              <div class="product-spec-row">
+                <span class="product-spec-label">Wielmaat</span>
+                <span class="product-spec-value">
+                  {{ product.metafields.custom.wielmaat }}
+                </span>
+              </div>
+            {% endif %}
+
           </div>
 
         </div>
 
-      </div>
+
 
   </div>
 
