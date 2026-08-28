@@ -66,29 +66,27 @@
     role="tabpanel"
   >
 
-    {% if product.title != blank %}
-      <h2 class="custom-tab-heading">
-        {{ product.title }}
-      </h2>
-    {% endif %}
+      {% if product.title != blank %}
+        <h2 class="custom-tab-heading">
+          {{ product.title }}
+        </h2>
+      {% elsif tab_1_heading != blank %}
+        <h2 class="custom-tab-heading">
+          {{ tab_1_heading }}
+        </h2>
+      {% endif %}
 
-    {% if product.description != blank %}
-      <div class="custom-tab-description rte">
-        {{ product.description }}
-      </div>
-    {% endif %}
 
-    {% comment %} {% if tab_1_heading != blank %}
-      <h2 class="custom-tab-heading">
-        {{ tab_1_heading }}
-      </h2>
-    {% endif %}
+      {% if product.description != blank %}
+        <div class="custom-tab-description rte">
+          {{ product.description }}
+        </div>
+      {% elsif tab_1_description != blank %}
+        <div class="custom-tab-description rte">
+          {{ tab_1_description }}
+        </div>
+      {% endif %}
 
-    {% if tab_1_description != blank %}
-      <div class="custom-tab-description rte">
-        {{ tab_1_description }}
-      </div>
-    {% endif %} {% endcomment %}
 
   </div>
 
