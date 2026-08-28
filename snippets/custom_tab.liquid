@@ -115,7 +115,10 @@
              {{ product.metafields.custom.frame_material }}
              {{ product.metafields.custom.modeljaar }}
              {{ product.metafields.custom.merk }}
-            
+
+            {% for option_name in product.options %}
+                
+            {% endfor %}
 
 {% comment %} <div class="product-specifications">
 
