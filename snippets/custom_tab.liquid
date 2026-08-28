@@ -1,28 +1,25 @@
+{% liquid 
 
+assign enable_color_scheme = custom_tab_block.settings.enable_color_scheme 
+assign color_scheme = custom_tab_block.settings.color_scheme 
+assign custom_tab_width = custom_tab_block.settings.custom_tab_width 
+assign product_title = product.title 
+assign product_description = product.description 
 
-<div
-  class="custom-tab custom-tab-{{ custom_tab_block.id }} custom-tab-{{ custom_tab_width }} color-{{ color_scheme }}"
-  {% if custom_tab_block.shopify_attributes %}
-    {{ custom_tab_block.shopify_attributes }}
-  {% endif %}
->
+%}
+
+<div class="custom-tab custom-tab-{{ custom_tab_block.id }} custom-tab-{{ custom_tab_width }} 
+  {% if enable_color_scheme %}color-{{ color_scheme }} {% endif %}"
+  {% if custom_tab_block.shopify_attributes %} {{ custom_tab_block.shopify_attributes }} {% endif %}>
 
   <!-- Tab Navigation -->
   <div class="tabs" role="tablist">
 
-    <input
-        type="radio"
-        name="custom-tabs-{{ custom_tab_block.id }}"
-        id="tab1-{{ custom_tab_block.id }}"
-        checked
-        >
+    <input type="radio" name="custom-tabs-{{ custom_tab_block.id }}"
+        id="tab1-{{ custom_tab_block.id }}" checked>
 
-    <label
-      for="tab1-{{ custom_tab_block.id }}"
-      role="tab"
-      aria-selected="true"
-      aria-controls="tab-content1-{{ custom_tab_block.id }}"
-    >
+    <label for="tab1-{{ custom_tab_block.id }}" role="tab" aria-selected="true"
+      aria-controls="tab-content1-{{ custom_tab_block.id }}">
       {{ tab_1_title }}
     </label>
 
