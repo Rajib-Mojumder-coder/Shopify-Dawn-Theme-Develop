@@ -113,6 +113,7 @@
 
   /* Same shape as Tab 2 when active */
   border-radius: 25px 25px 0 0;
+  border: 1px solid #3F7280;
 }
 
 
