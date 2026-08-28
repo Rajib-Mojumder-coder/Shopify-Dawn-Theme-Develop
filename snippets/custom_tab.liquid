@@ -110,105 +110,98 @@
         </h2>
       {% endif %}
     
-    <div class="product-specifications">
 
-      <!-- LEFT COLUMN -->
-      <div class="product-spec-column">
+      <div class="product-specifications">
 
-        <div class="product-spec-row">
-          <span class="product-spec-label">Productnummer:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.productnummer | default: product.id }}
-          </span>
-        </div>
+        <div class="product-spec-column">
 
-        <div class="product-spec-row">
-          <span class="product-spec-label">Type:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.type }}
-          </span>
-        </div>
+          <div class="product-spec-row">
+            <span class="product-spec-label">Productnummer</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.productnummer | default: product.id }}
+            </span>
+          </div>
 
-        <div class="product-spec-row">
-          <span class="product-spec-label">Merk:</span>
-          <span class="product-spec-value">
-            {{ product.vendor }}
-          </span>
-        </div>
+          <div class="product-spec-row">
+            <span class="product-spec-label">Type</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.type }}
+            </span>
+          </div>
 
-        <div class="product-spec-row">
-          <span class="product-spec-label">Maat:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.maat }}
-          </span>
-        </div>
+          <div class="product-spec-row">
+            <span class="product-spec-label">Merk</span>
+            <span class="product-spec-value">
+              {{ product.vendor }}
+            </span>
+          </div>
 
-        <div class="product-spec-row">
-          <span class="product-spec-label">Accucapaciteit:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.accucapaciteit }}
-          </span>
-        </div>
+          <div class="product-spec-row">
+            <span class="product-spec-label">Maat</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.maat }}
+            </span>
+          </div>
 
-        <div class="product-spec-row">
-          <span class="product-spec-label">Kleur:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.kleur }}
-          </span>
-        </div>
+          <div class="product-spec-row">
+            <span class="product-spec-label">Accucapaciteit</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.accucapaciteit }}
+            </span>
+          </div>
 
+          <div class="product-spec-row">
+            <span class="product-spec-label">Kleur</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.kleur }}
+            </span>
+          </div>
 
-      </div>
+          <div class="product-spec-row">
+            <span class="product-spec-label">Versnellingen</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.versnellingen }}
+            </span>
+          </div>
 
+          <div class="product-spec-row">
+            <span class="product-spec-label">Model versnellingsysteem</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.model_versnellingsysteem }}
+            </span>
+          </div>
 
-      <!-- RIGHT COLUMN -->
-      <div class="product-spec-column">
+          <div class="product-spec-row">
+            <span class="product-spec-label">Frame materiaal</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.frame_materiaal }}
+            </span>
+          </div>
 
-        <div class="product-spec-row">
-          <span class="product-spec-label">Versnellingen:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.versnellingen }}
-          </span>
-        </div>
+          <div class="product-spec-row">
+            <span class="product-spec-label">Gewicht</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.gewicht }}
+            </span>
+          </div>
 
-        <div class="product-spec-row">
-          <span class="product-spec-label">Model versnellingsysteem:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.model_versnellingsysteem }}
-          </span>
-        </div>
+          <div class="product-spec-row">
+            <span class="product-spec-label">Modeljaar / Seizoen</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.modeljaar_seizoen }}
+            </span>
+          </div>
 
-        <div class="product-spec-row">
-          <span class="product-spec-label">Frame materiaal:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.frame_materiaal }}
-          </span>
-        </div>
+          <div class="product-spec-row">
+            <span class="product-spec-label">Wielmaat</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.wielmaat }}
+            </span>
+          </div>
 
-        <div class="product-spec-row">
-          <span class="product-spec-label">Gewicht:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.gewicht }}
-          </span>
-        </div>
-
-        <div class="product-spec-row">
-          <span class="product-spec-label">Modeljaar / Seizoen:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.modeljaar_seizoen }}
-          </span>
-        </div>
-
-        <div class="product-spec-row">
-          <span class="product-spec-label">Wielmaat:</span>
-          <span class="product-spec-value">
-            {{ product.metafields.custom.wielmaat }}
-          </span>
         </div>
 
       </div>
-
-    </div>
 
   </div>
 
