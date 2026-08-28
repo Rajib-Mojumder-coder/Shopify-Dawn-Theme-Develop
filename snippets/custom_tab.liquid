@@ -24,20 +24,12 @@ assign product_description = product.description
       {{ product_title }}
     </label>
 
+<!-- TAB 2 -->
+    <input type="radio" name="custom-tabs-{{ custom_tab_block.id }}" id="tab2-{{ custom_tab_block.id }}">
 
-    <input
-        type="radio"
-        name="custom-tabs-{{ custom_tab_block.id }}"
-        id="tab2-{{ custom_tab_block.id }}"
-    >
-
-    <label
-      for="tab2-{{ custom_tab_block.id }}"
-      role="tab"
-      aria-selected="false"
-      aria-controls="tab-content2-{{ custom_tab_block.id }}"
-    >
-      {{ tab_2_title }}
+    <label for="tab2-{{ custom_tab_block.id }}" role="tab"
+      aria-selected="false" aria-controls="tab-content2-{{ custom_tab_block.id }}">
+      {{ product_title }}
     </label>
 
   </div>
