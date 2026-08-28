@@ -221,7 +221,7 @@
             "group_padding_right": 20
           },
           "blocks": {
-            "custom_tab_dmJAG4": {
+            "custom_tab_BJncBL": {
               "type": "custom-tab",
               "name": "Custom Tab",
               "settings": {
@@ -261,7 +261,7 @@
             }
           },
           "block_order": [
-            "custom_tab_dmJAG4",
+            "custom_tab_BJncBL",
             "advisor_card_x9Ptir"
           ]
         }
