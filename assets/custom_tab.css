@@ -224,9 +224,14 @@
   border-bottom: none;
 }
 
-.custom-tab .product-spec-label {
-  font-weight: 600;
-  min-width: 0;
+.custom-tab .product-spec-label { 
+  font-family: inherit; 
+  font-size: 17px; 
+  font-weight: 600; 
+  line-height: 225%; 
+  letter-spacing: 0.05em; 
+  color: #06123D; 
+  min-width: 0; 
 }
 
 .custom-tab .product-spec-value {
