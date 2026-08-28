@@ -1,35 +1,56 @@
-{% liquid 
+{% liquid
+  assign enable_color_scheme = custom_tab_block.settings.enable_color_scheme
+  assign color_scheme = custom_tab_block.settings.color_scheme
+  assign custom_tab_width = custom_tab_block.settings.custom_tab_width
 
-assign enable_color_scheme = custom_tab_block.settings.enable_color_scheme 
-assign color_scheme = custom_tab_block.settings.color_scheme 
-assign custom_tab_width = custom_tab_block.settings.custom_tab_width 
-assign product_title = product.title 
-assign product_description = product.description 
+  assign tab_1_title = custom_tab_block.settings.tab_1_title
+  assign tab_1_heading = custom_tab_block.settings.tab_1_heading
+  assign tab_1_description = custom_tab_block.settings.tab_1_description
 
+  assign tab_2_title = custom_tab_block.settings.tab_2_title
+  assign tab_2_heading = custom_tab_block.settings.tab_2_heading
 %}
 
-<div class="custom-tab custom-tab-{{ custom_tab_block.id }} custom-tab-{{ custom_tab_width }} 
-  {% if enable_color_scheme %}color-{{ color_scheme }} {% endif %}"
-  {% if custom_tab_block.shopify_attributes %} {{ custom_tab_block.shopify_attributes }} {% endif %}>
+<div
+  class="custom-tab custom-tab-{{ custom_tab_block.id }} custom-tab-{{ custom_tab_width }} color-{{ color_scheme }}"
+  {% if custom_tab_block.shopify_attributes %}
+    {{ custom_tab_block.shopify_attributes }}
+  {% endif %}
+>
 
   <!-- Tab Navigation -->
   <div class="tabs" role="tablist">
 
-  <!-- Tab 1 -->
-    <input type="radio" name="custom-tabs-{{ custom_tab_block.id }}"
-        id="tab1-{{ custom_tab_block.id }}" checked>
+    <input
+        type="radio"
+        name="custom-tabs-{{ custom_tab_block.id }}"
+        id="tab1-{{ custom_tab_block.id }}"
+        checked
+        >
 
-    <label for="tab1-{{ custom_tab_block.id }}" role="tab" aria-selected="true"
-      aria-controls="tab-content1-{{ custom_tab_block.id }}">
-      {{ product_title }}
+    <label
+      for="tab1-{{ custom_tab_block.id }}"
+      role="tab"
+      aria-selected="true"
+      aria-controls="tab-content1-{{ custom_tab_block.id }}"
+    >
+      {{ tab_1_title }}
     </label>
 
-<!-- TAB 2 -->
-    <input type="radio" name="custom-tabs-{{ custom_tab_block.id }}" id="tab2-{{ custom_tab_block.id }}">
 
-    <label for="tab2-{{ custom_tab_block.id }}" role="tab"
-      aria-selected="false" aria-controls="tab-content2-{{ custom_tab_block.id }}">
-      {{ product_title }}
+    <input
+        type="radio"
+        name="custom-tabs-{{ custom_tab_block.id }}"
+        id="tab2-{{ custom_tab_block.id }}"
+    >
+
+    <label
+      for="tab2-{{ custom_tab_block.id }}"
+      role="tab"
+      aria-selected="false"
+      aria-controls="tab-content2-{{ custom_tab_block.id }}"
+    >
+      {{ tab_2_title }}
     </label>
 
   </div>
