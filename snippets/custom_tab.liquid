@@ -113,35 +113,11 @@
 
     
              
-```liquid
-{% assign current_variant = product.selected_or_first_available_variant %}
-
-{% assign maat_index = blank %}
-{% assign accu_index = blank %}
-{% assign kleur_index = blank %}
-
-{% for option_name in product.options %}
-  {% assign option_name_downcase = option_name | downcase %}
-
-  {% if option_name_downcase == 'maat' or option_name_downcase == 'size' %}
-    {% assign maat_index = forloop.index0 %}
-  {% endif %}
-
-  {% if option_name_downcase == 'accucapaciteit' %}
-    {% assign accu_index = forloop.index0 %}
-  {% endif %}
-
-  {% if option_name_downcase == 'kleur' or option_name_downcase == 'color' %}
-    {% assign kleur_index = forloop.index0 %}
-  {% endif %}
-{% endfor %}
-
 
 <div class="product-specifications">
 
   <div class="product-spec-column">
 
-    {% comment %} 1. Productnummer - Metafield {% endcomment %}
     {% if product.metafields.custom.productnummer != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Productnummer</span>
@@ -151,8 +127,6 @@
       </div>
     {% endif %}
 
-
-    {% comment %} 2. Type - Metafield {% endcomment %}
     {% if product.metafields.custom.type != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Type</span>
@@ -162,8 +136,6 @@
       </div>
     {% endif %}
 
-
-    {% comment %} 3. Merk - Product vendor {% endcomment %}
     {% if product.vendor != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Merk</span>
@@ -173,53 +145,33 @@
       </div>
     {% endif %}
 
-
-    {% comment %} 4. Maat - Variant option {% endcomment %}
-    {% if maat_index != blank %}
-      {% assign maat_value = current_variant.options[maat_index] %}
-
-      {% if maat_value != blank %}
-        <div class="product-spec-row">
-          <span class="product-spec-label">Maat</span>
-          <span class="product-spec-value">
-            {{ maat_value }}
-          </span>
-        </div>
-      {% endif %}
+    {% if product.metafields.custom.maat != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Maat</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.maat }}
+        </span>
+      </div>
     {% endif %}
 
-
-    {% comment %} 5. Accucapaciteit - Variant option {% endcomment %}
-    {% if accu_index != blank %}
-      {% assign accu_value = current_variant.options[accu_index] %}
-
-      {% if accu_value != blank %}
-        <div class="product-spec-row">
-          <span class="product-spec-label">Accucapaciteit</span>
-          <span class="product-spec-value">
-            {{ accu_value }}
-          </span>
-        </div>
-      {% endif %}
+    {% if product.metafields.custom.accucapaciteit != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Accucapaciteit</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.accucapaciteit }}
+        </span>
+      </div>
     {% endif %}
 
-
-    {% comment %} 6. Kleur - Variant option {% endcomment %}
-    {% if kleur_index != blank %}
-      {% assign kleur_value = current_variant.options[kleur_index] %}
-
-      {% if kleur_value != blank %}
-        <div class="product-spec-row">
-          <span class="product-spec-label">Kleur</span>
-          <span class="product-spec-value">
-            {{ kleur_value }}
-          </span>
-        </div>
-      {% endif %}
+    {% if product.metafields.custom.kleur != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Kleur</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.kleur }}
+        </span>
+      </div>
     {% endif %}
 
-
-    {% comment %} 7. Versnellingen - Metafield {% endcomment %}
     {% if product.metafields.custom.versnellingen != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Versnellingen</span>
@@ -229,8 +181,6 @@
       </div>
     {% endif %}
 
-
-    {% comment %} 8. Model versnellingsysteem - Metafield {% endcomment %}
     {% if product.metafields.custom.model_versnellingsysteem != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Model versnellingsysteem</span>
@@ -240,8 +190,6 @@
       </div>
     {% endif %}
 
-
-    {% comment %} 9. Frame materiaal - Metafield {% endcomment %}
     {% if product.metafields.custom.frame_materiaal != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Frame materiaal</span>
@@ -251,8 +199,6 @@
       </div>
     {% endif %}
 
-
-    {% comment %} 10. Gewicht - Metafield {% endcomment %}
     {% if product.metafields.custom.gewicht != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Gewicht</span>
@@ -262,8 +208,6 @@
       </div>
     {% endif %}
 
-
-    {% comment %} 11. Modeljaar / Seizoen - Metafield {% endcomment %}
     {% if product.metafields.custom.modeljaar_seizoen != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Modeljaar / Seizoen</span>
@@ -273,8 +217,6 @@
       </div>
     {% endif %}
 
-
-    {% comment %} 12. Wielmaat - Metafield {% endcomment %}
     {% if product.metafields.custom.wielmaat != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Wielmaat</span>
@@ -287,8 +229,6 @@
   </div>
 
 </div>
-```cc
-
 
 
 
