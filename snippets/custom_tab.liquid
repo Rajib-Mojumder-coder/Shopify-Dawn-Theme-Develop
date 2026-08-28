@@ -116,8 +116,9 @@
              {{ product.metafields.custom.modeljaar }}
              {{ product.metafields.custom.merk }}
 
-            {% for option_name in product.options %}
-                
+            {% for option in product.options %}
+                {{ option.name }}
+                {{ option.value }}
             {% endfor %}
 
 {% comment %} <div class="product-specifications">
