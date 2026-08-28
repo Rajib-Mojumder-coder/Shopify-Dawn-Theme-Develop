@@ -116,12 +116,33 @@
              {{ product.metafields.custom.modeljaar }}
              {{ product.metafields.custom.merk }}
 
-            {% for option in product.options %}
-                {{ option.name }}
-                {{ option.value }}
+            {% for variant in product.variants %}
+                {{ variant.name }}
+                {{ variant.value }}
             {% endfor %}
 
-{% comment %} <div class="product-specifications">
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+
+  assign maat_value = blank
+  assign kleur_value = blank
+  assign accu_value = blank
+
+  for option in product.options_with_values
+    assign option_index = option.position | minus: 1
+
+    case option.name
+      when 'Maat'
+        assign maat_value = current_variant.options[option_index]
+      when 'Kleur'
+        assign kleur_value = current_variant.options[option_index]
+      when 'Accucapaciteit'
+        assign accu_value = current_variant.options[option_index]
+    endcase
+  endfor
+%}
+
+<div class="product-specifications">
 
   <div class="product-spec-column">
 
@@ -152,29 +173,29 @@
       </div>
     {% endif %}
 
-    {% if product.metafields.custom.maat != blank %}
+    {% if maat_value != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Maat</span>
-        <span class="product-spec-value">
-          {{ product.metafields.custom.maat }}
+        <span class="product-spec-value" data-spec-option="Maat">
+          {{ maat_value }}
         </span>
       </div>
     {% endif %}
 
-    {% if product.metafields.custom.accucapaciteit != blank %}
+    {% if accu_value != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Accucapaciteit</span>
-        <span class="product-spec-value">
-          {{ product.metafields.custom.accucapaciteit }}
+        <span class="product-spec-value" data-spec-option="Accucapaciteit">
+          {{ accu_value }}
         </span>
       </div>
     {% endif %}
 
-    {% if product.metafields.custom.kleur != blank %}
+    {% if kleur_value != blank %}
       <div class="product-spec-row">
         <span class="product-spec-label">Kleur</span>
-        <span class="product-spec-value">
-          {{ product.metafields.custom.kleur }}
+        <span class="product-spec-value" data-spec-option="Kleur">
+          {{ kleur_value }}
         </span>
       </div>
     {% endif %}
@@ -235,7 +256,7 @@
 
   </div>
 
-</div> {% endcomment %}
+</div>
 
 
 
