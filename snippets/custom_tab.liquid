@@ -142,12 +142,7 @@
   endfor
 %}
 
-<pre style="color:red; background:#fff; padding:10px;">
-Productnummer: [{{ product.metafields.custom.productnummer }}]
-Type: [{{ product.metafields.custom.type }}]
-Maat metafield (if any): [{{ product.metafields.custom.maat }}]
-All custom metafields: {{ product.metafields.custom | json }}
-</pre>
+
 
 <div class="product-specifications">
 
@@ -260,6 +255,27 @@ All custom metafields: {{ product.metafields.custom | json }}
         </span>
       </div>
     {% endif %}
+
+
+
+
+    {% if product.metafields.custom.frame_material != blank %}
+  <div class="product-spec-row">
+    <span class="product-spec-label">Frame materiaal</span>
+    <span class="product-spec-value">
+      {{ product.metafields.custom.frame_material }}
+    </span>
+  </div>
+{% endif %}
+
+{% if product.metafields.custom.modeljaar != blank %}
+  <div class="product-spec-row">
+    <span class="product-spec-label">Modeljaar / Seizoen</span>
+    <span class="product-spec-value">
+      {{ product.metafields.custom.modeljaar }}
+    </span>
+  </div>
+{% endif %}
 
   </div>
 
