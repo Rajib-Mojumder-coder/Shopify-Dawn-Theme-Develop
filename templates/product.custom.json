@@ -221,17 +221,17 @@
             "group_padding_right": 20
           },
           "blocks": {
-            "custom_tab_B6VUA8": {
+            "custom_tab_dmJAG4": {
               "type": "custom-tab",
               "name": "Custom Tab",
               "settings": {
                 "enable_color_scheme": false,
                 "color_scheme": "",
                 "custom_tab_width": "100",
-                "tab_1_title": "Description",
+                "tab_1_title": "Product omschrijving",
                 "tab_1_heading": "Product description",
                 "tab_1_description": "",
-                "tab_2_title": "Specification",
+                "tab_2_title": "Specificaties",
                 "tab_2_heading": "Product specifications"
               },
               "blocks": {}
@@ -261,7 +261,7 @@
             }
           },
           "block_order": [
-            "custom_tab_B6VUA8",
+            "custom_tab_dmJAG4",
             "advisor_card_x9Ptir"
           ]
         }
