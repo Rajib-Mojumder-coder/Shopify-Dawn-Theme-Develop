@@ -1,11 +1,11 @@
-{{ 'custom_tab.css' | asset_url | stylesheet_tag }}
+{% comment %} {{ 'custom_tab.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'custom-tab.js' | asset_url }}" defer></script>
 
 {% render 'custom_tab',
     custom_tab_block: block
 %}
 
-
+{% endcomment %}
 {% schema %}
 {
   "name": "Custom Tab",
@@ -92,4 +92,4 @@
   ]
 }
 {% endschema %}
-
+ 
