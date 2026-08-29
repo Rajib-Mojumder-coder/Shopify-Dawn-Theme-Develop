@@ -29,10 +29,8 @@
         >
 
     <label
-      for="tab1-{{ custom_tab_block.id }}"
-      role="tab"
-      aria-selected="true"
-      aria-controls="tab-content1-{{ custom_tab_block.id }}"
+      for="tab1-{{ custom_tab_block.id }}" class="tab2"
+      role="tab" aria-selected="true" aria-controls="tab-content1-{{ custom_tab_block.id }}"
     >
       {{ tab_2_title }}
     </label>
@@ -44,11 +42,8 @@
         id="tab2-{{ custom_tab_block.id }}"
     >
 
-    <label
-      for="tab2-{{ custom_tab_block.id }}"
-      role="tab"
-      aria-selected="false"
-      aria-controls="tab-content2-{{ custom_tab_block.id }}"
+    <label for="tab2-{{ custom_tab_block.id }}" class="tab2"
+      role="tab" aria-selected="false" aria-controls="tab-content2-{{ custom_tab_block.id }}"
     >
       {{ tab_1_title }}
     </label>
