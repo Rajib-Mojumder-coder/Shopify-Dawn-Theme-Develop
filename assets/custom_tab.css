@@ -274,7 +274,7 @@
 .custom-tab .tab1 {
   position: relative;
 }
-.custom-tab .tab1::after {
+.custom-tab .tab1::before {
   position: absolute;
   content: '';
   width: 100%;
