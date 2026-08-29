@@ -249,82 +249,8 @@
 .custom-tab .tabs {
   display: flex;
   position: relative;
-}
-
-.custom-tab .tabs input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  width: 1px;
-  height: 1px;
-  margin: 0;
-  pointer-events: none;
-}
-
-
-.custom-tab .tab1 {
-  position: relative;
-  background: #3F7280;
-  color: rgba(255, 255, 255, 0.85);
-  border-radius: 25px 0 25px 0;
-  padding: 16px 32px;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.custom-tab .tab2 {
-  position: relative;
-  background: #3F7280;
-  color: rgba(255, 255, 255, 0.85);
-  border-radius: 0 25px 0 25px;
-  padding: 16px 32px;
-  cursor: pointer;
-  z-index: 1;
-}
-
-
-.custom-tab .tabs input:checked + label.tab1,
-.custom-tab .tabs input:checked + label.tab2 {
-  background: #fff;
-  color: #1a1a1a;
-  border-radius: 25px 25px 0 0;
-  z-index: 2;
-}
-
-
-.custom-tab .tabs input:checked + label.tab1::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: -1px;
-  width: 25px;
-  height: 25px;
-  background: radial-gradient(circle at top right, transparent 25px, #3F7280 26px);
-  z-index: 1;
-  rotate: 180deg;
-}
-
-
-.custom-tab .tabs input:checked + label.tab2::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -1px;
-  width: 25px;
-  height: 25px;
-  background: radial-gradient(
-    circle at top right,
-    transparent 25px,
-    #3F7280 26px
-  );
-  z-index: 1;
-  rotate: 90deg;
-} */
-
-.custom-tab .tabs {
-  display: flex;
-  position: relative;
-  background: #3F7280;   /* the ONLY teal source now */
-  overflow: hidden;        /* keeps everything clipped to the bar */
+  background: #3F7280;  
+  overflow: hidden;        
 }
 
 .custom-tab .tabs input[type="radio"] {
@@ -338,27 +264,27 @@
 
 .custom-tab .tabs label {
   position: relative;
-  flex: 1;                 /* remove if you want unequal widths — see note below */
+  flex: 1;                 
   padding: 16px 32px;
   text-align: center;
   cursor: pointer;
   color: rgba(255, 255, 255, 0.85);
-  background: transparent; /* inherits the parent's teal — no separate bg to sync */
+  background: transparent; 
   transition: color 0.15s ease;
 }
 
-/* Outer corners only, for the inactive look — bottom stays flush with content */
+
 .custom-tab .tab1 { border-radius: 25px 0 0 0; }
 .custom-tab .tab2 { border-radius: 0 25px 0 0; }
 
-/* Active tab: white pill, both top corners rounded, sits above the teal */
+
 .custom-tab .tabs input:checked + label.tab1,
 .custom-tab .tabs input:checked + label.tab2 {
   background: #fff;
   color: #1a1a1a;
   border-radius: 25px 25px 0 0;
   z-index: 2;
-}
+} */
 
 .custom-tab .tab2 { 
   position: relative;
