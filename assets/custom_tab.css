@@ -59,25 +59,14 @@
 }
 
 .custom-tab .tab1 { 
+  position: relative;
   border-radius: 25px 0 0 0; 
 }
 .custom-tab .tab2 { 
+  position: relative;
   border-radius: 0 25px 0 0; 
 }
 
-
-/* .custom-tab .tabs input[type="radio"]:nth-of-type(1):checked + label {
-  background: #fff;
-  color: #3F7280;
- border-radius: 25px 25px 0 0;
-}
-
-
-.custom-tab .tabs input[type="radio"]:nth-of-type(2):checked + label {
-  background: #fff;
-  color: #3F7280;
-  border-radius: 25px 25px 0 0;
-} */
 
 .custom-tab .tabs input:checked + label.tab1,
 .custom-tab .tabs input:checked + label.tab2 {
@@ -87,6 +76,26 @@
   z-index: 2;
 } 
 
+.custom-tab .tab2:after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle at top right, transparent 25px, #ffffff 26px );
+    left: 0;
+}
+
+.custom-tab .tab1:after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle at top right, transparent 25px, #ffffff 26px );
+    right: -1px;
+    rotate: -90deg;
+}
 
 /* =========================
    TAB CONTENT
@@ -241,36 +250,4 @@
 
 
 
-
-
-
-
-
-
-
-.custom-tab .tab2 { 
-  position: relative;
-}
-.custom-tab .tab2:after {
-    position: absolute;
-    content: "";
-    bottom: 0;
-    width: 25px;
-    height: 25px;
-    background: radial-gradient(circle at top right, transparent 25px, #ffffff 26px );
-    left: 0;
-}
-.custom-tab .tab1 { 
-  position: relative;
-}
-.custom-tab .tab1:after {
-    position: absolute;
-    content: "";
-    bottom: 0;
-    width: 25px;
-    height: 25px;
-    background: radial-gradient(circle at top right, transparent 25px, #ffffff 26px );
-    right: -1px;
-    rotate: -90deg;
-}
 
