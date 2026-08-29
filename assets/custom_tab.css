@@ -22,7 +22,7 @@
   padding: 0;
 
   box-sizing: border-box;
-  background: #3F7280;
+  /* background: #3F7280; */
 }
 
 .custom-tab .tabs input[type="radio"] {
