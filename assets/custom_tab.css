@@ -39,12 +39,12 @@
   box-sizing: border-box;
   padding: 14px 21px;
   background: #3F7280;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.55);
   font-size: 18px;
   line-height: 1.2;
   text-align: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 /* ==========================================
@@ -271,3 +271,7 @@
 .custom-tab .tabs {
   position: relative;
 }
+
+.custom-tab .tabs label {
+  position: relative;
+ }
