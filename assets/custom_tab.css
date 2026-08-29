@@ -268,3 +268,6 @@
 
 }
 
+.custom-tab .tabs {
+  position: relative;
+}
