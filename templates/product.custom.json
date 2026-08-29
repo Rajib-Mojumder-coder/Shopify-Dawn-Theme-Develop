@@ -240,6 +240,7 @@
             "advisor_card_x9Ptir": {
               "type": "advisor_card",
               "name": "Advisor Card",
+              "disabled": true,
               "settings": {
                 "enable_color_scheme": true,
                 "color_scheme": "scheme-3296e57e-bd80-43f3-b60c-834eff51ef68",
@@ -270,7 +271,6 @@
       "block_order": [
         "group_3em9YH"
       ],
-      "disabled": true,
       "name": "Custom Block Section",
       "settings": {
         "color_scheme": "scheme-2",
