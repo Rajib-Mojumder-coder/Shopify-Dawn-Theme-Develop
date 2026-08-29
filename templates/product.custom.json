@@ -57,7 +57,7 @@
         "custom_variant_picker_CCLrie": {
           "type": "custom-variant-picker",
           "settings": {
-            "variant_option_1_name": "Color",
+            "variant_option_1_name": "Kleur",
             "variant_option_1_style": "swatches",
             "variant_option_1_swatch_type": "color",
             "variant_option_1_swatch_shape": "circle",
