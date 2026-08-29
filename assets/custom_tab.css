@@ -363,11 +363,13 @@
 .custom-tab .tab2 { 
   position: relative;
 }
-.custom-tab .tab2::after { 
-  position: after;
-  content: '';
-  bottom: 0;
-  width: 25px;
-  height: 25px;
-  background-color: #fff;
+.custom-tab .tab2:after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle at top right, transparent 25px, #ffffff 26px );
+    left: 0;
 }
+
