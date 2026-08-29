@@ -267,16 +267,31 @@
   }
 
 }
-
 .custom-tab .tabs {
+  display: flex;
   position: relative;
+}
+
+/* Hide native radio appearance completely */
+.custom-tab .tabs input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
 }
 
 .custom-tab .tabs label {
   position: relative;
- }
-
- /* ---- Inactive shape (default), based on position ---- */
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  background: #3F7280;
+  color: rgba(255, 255, 255, 0.85);
+  transition: background 0.2s ease, color 0.2s ease;
+}
 
 /* Left tab, inactive: rounded top-left + bottom-right */
 .custom-tab .tabs label:first-of-type {
@@ -293,8 +308,7 @@
   z-index: 1;
 }
 
-/* ---- Active shape: whichever tab is checked becomes the white "pill" ---- */
-
+/* Active tab becomes the white pill */
 .custom-tab .tabs:has(input:first-of-type:checked) label:first-of-type,
 .custom-tab .tabs:has(input:last-of-type:checked) label:last-of-type {
   background: #fff;
