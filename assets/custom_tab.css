@@ -245,7 +245,7 @@
 }
 
 
-
+/* 
 .custom-tab .tabs {
   display: flex;
   position: relative;
@@ -260,7 +260,7 @@
   pointer-events: none;
 }
 
-/* Inactive base styles */
+
 .custom-tab .tab1 {
   position: relative;
   background: #3F7280;
@@ -281,7 +281,7 @@
   z-index: 1;
 }
 
-/* Active state — driven by the radio, not a class */
+
 .custom-tab .tabs input:checked + label.tab1,
 .custom-tab .tabs input:checked + label.tab2 {
   background: #fff;
@@ -290,7 +290,7 @@
   z-index: 2;
 }
 
-/* Notch when tab1 is active — bites into the right side */
+
 .custom-tab .tabs input:checked + label.tab1::before {
   content: "";
   position: absolute;
@@ -303,7 +303,7 @@
   rotate: 180deg;
 }
 
-/* Notch when tab2 is active — bites into the left side */
+
 .custom-tab .tabs input:checked + label.tab2::before {
   content: '';
   position: absolute;
@@ -318,4 +318,55 @@
   );
   z-index: 1;
   rotate: 90deg;
+} */
+
+.custom-tab .tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  background: linear-gradient(to right, #3F7280 50%, #ffffff 50%);
+  position: relative;
+}
+
+.custom-tab .tabs input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.custom-tab .tabs label {
+  position: relative;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6);
+  background: transparent; /* lets the parent's split gradient show through */
+  transition: color 0.2s ease;
+}
+
+/* Left tab, when checked: white pill, rounded top corners */
+.custom-tab .tabs input:first-of-type:checked ~ label:first-of-type,
+.custom-tab .tabs input:checked + label.tab1 {
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 25px 25px 0 0;
+}
+
+/* Right tab, when checked: white pill, rounded top corners */
+.custom-tab .tabs input:checked + label.tab2 {
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 25px 25px 0 0;
+}
+
+/* Whichever tab is NOT active stays transparent, revealing the teal half of the parent gradient underneath, with its own diagonal shape */
+.custom-tab .tabs label.tab1 {
+  border-radius: 25px 0 25px 0;
+}
+.custom-tab .tabs label.tab2 {
+  border-radius: 0 25px 0 25px;
 }
