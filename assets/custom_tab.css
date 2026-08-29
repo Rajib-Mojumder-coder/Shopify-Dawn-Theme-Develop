@@ -359,3 +359,15 @@
   border-radius: 25px 25px 0 0;
   z-index: 2;
 }
+
+.custom-tab .tab2 { 
+  position: relative;
+}
+.custom-tab .tab2::after { 
+  position: after;
+  content: '';
+  bottom: 0;
+  width: 25px;
+  height: 25px;
+  background-color: #fff;
+}
