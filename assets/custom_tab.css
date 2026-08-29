@@ -275,3 +275,30 @@
 .custom-tab .tabs label {
   position: relative;
  }
+
+ /* ---- Inactive shape (default), based on position ---- */
+
+/* Left tab, inactive: rounded top-left + bottom-right */
+.custom-tab .tabs label:first-of-type {
+  border-radius: 25px 0 25px 0;
+  margin-right: -25px;
+  padding-right: 57px;
+  z-index: 1;
+}
+
+/* Right tab, inactive: rounded top-right + bottom-left */
+.custom-tab .tabs label:last-of-type {
+  border-radius: 0 25px 0 25px;
+  padding-left: 57px;
+  z-index: 1;
+}
+
+/* ---- Active shape: whichever tab is checked becomes the white "pill" ---- */
+
+.custom-tab .tabs:has(input:first-of-type:checked) label:first-of-type,
+.custom-tab .tabs:has(input:last-of-type:checked) label:last-of-type {
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 25px 25px 0 0;
+  z-index: 2;
+}
