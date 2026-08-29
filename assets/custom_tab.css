@@ -274,12 +274,13 @@
 .custom-tab .tabs {
   position: relative;
 }
-.custom-tab .tab1 {
+.custom-tab .tab1::after {
   position: absolute;
   content: '';
   width: 100%;
   left: 0;
   height: 25px;
   top: 0;
+  background-color: #3F7280;
 }
 
