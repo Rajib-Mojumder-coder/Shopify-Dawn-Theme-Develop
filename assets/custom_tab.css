@@ -332,7 +332,7 @@
   content: '';
   position: absolute;
   top: 0;
-  left: -25px;
+  left: -1px;
   width: 25px;
   height: 25px;
   background: radial-gradient(
@@ -341,4 +341,5 @@
     #3F7280 26px
   );
   z-index: 1;
+  rotate: 90deg;
 }
