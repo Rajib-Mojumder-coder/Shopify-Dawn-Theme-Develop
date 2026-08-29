@@ -267,17 +267,20 @@
   }
 
 }
+
+
 .custom-tab .tabs {
   display: flex;
   position: relative;
 }
 
-/* Hide native radio appearance completely */
+/* Fully hide native radio rendering */
 .custom-tab .tabs input[type="radio"] {
   position: absolute;
   opacity: 0;
-  width: 0;
-  height: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
   pointer-events: none;
 }
 
@@ -291,26 +294,22 @@
   background: #3F7280;
   color: rgba(255, 255, 255, 0.85);
   transition: background 0.2s ease, color 0.2s ease;
+  z-index: 1;
 }
 
-/* Left tab, inactive: rounded top-left + bottom-right */
+/* Base (inactive) shapes, purely by position */
 .custom-tab .tabs label:first-of-type {
   border-radius: 25px 0 25px 0;
-  margin-right: -25px;
-  padding-right: 57px;
-  z-index: 1;
 }
 
-/* Right tab, inactive: rounded top-right + bottom-left */
 .custom-tab .tabs label:last-of-type {
   border-radius: 0 25px 0 25px;
-  padding-left: 57px;
-  z-index: 1;
+  margin-left: -25px;   /* permanent overlap onto tab 1 */
+  padding-left: 57px;   /* 32px original + 25px overlap, so text isn't crowded */
 }
 
-/* Active tab becomes the white pill */
-.custom-tab .tabs:has(input:first-of-type:checked) label:first-of-type,
-.custom-tab .tabs:has(input:last-of-type:checked) label:last-of-type {
+/* Whichever tab is checked: white, fully top-rounded, on top */
+.custom-tab .tabs input:checked + label {
   background: #fff;
   color: #1a1a1a;
   border-radius: 25px 25px 0 0;
