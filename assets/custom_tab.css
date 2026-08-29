@@ -316,22 +316,6 @@
 
 /* Notch when tab1 is active — bites into the right side */
 .custom-tab .tabs input:checked + label.tab1::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -25px;
-  width: 25px;
-  height: 25px;
-  background: radial-gradient(
-    circle at top left,
-    transparent 25px,
-    #3F7280 26px
-  );
-  z-index: 1;
-}
-
-/* Notch when tab2 is active — bites into the left side */
-.custom-tab .tabs input:checked + label.tab2::before {
   content: "";
   position: absolute;
   top: 0;
@@ -340,5 +324,21 @@
   height: 25px;
   background: radial-gradient(circle at top right, transparent 25px, #3F7280 26px);
   z-index: 1;
-  rotate: 90deg;
+  rotate: -90deg;
+}
+
+/* Notch when tab2 is active — bites into the left side */
+.custom-tab .tabs input:checked + label.tab2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -25px;
+  width: 25px;
+  height: 25px;
+  background: radial-gradient(
+    circle at top right,
+    transparent 25px,
+    #3F7280 26px
+  );
+  z-index: 1;
 }
