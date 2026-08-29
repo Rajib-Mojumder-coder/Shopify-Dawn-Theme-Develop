@@ -516,8 +516,8 @@
                   render 'share-button', block: block, share_link: share_url
                 %}
 
-              {%- when 'variant_picker' -%}
-                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+              {% comment %} {%- when 'variant_picker' -%}
+                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %} {% endcomment %}
                 
              
                 {%- when 'custom-variant-picker' -%}
