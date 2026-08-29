@@ -58,23 +58,12 @@
   padding: 16px 32px;
 }
 
-/* ==========================================
-   TAB 1 - DEFAULT / NOT SELECTED
-   ========================================== */
-
-.custom-tab .tabs label[for^="tab1"] {
-  border-radius: 25px 0 25px 0;
+.custom-tab .tab1 { 
+  border-radius: 25px 0 0 0; 
 }
-
-
-/* ==========================================
-   TAB 2 - DEFAULT / NOT SELECTED
-   ========================================== */
-
-.custom-tab .tabs label[for^="tab2"] {
-  border-radius: 0 25px 0 25px;
+.custom-tab .tab2 { 
+  border-radius: 0 25px 0 0; 
 }
-
 
 /* ==========================================
    TAB 1 SELECTED
@@ -259,8 +248,7 @@
 
 
 
-.custom-tab .tab1 { border-radius: 25px 0 0 0; }
-.custom-tab .tab2 { border-radius: 0 25px 0 0; }
+
 
 
 .custom-tab .tabs input:checked + label.tab1,
