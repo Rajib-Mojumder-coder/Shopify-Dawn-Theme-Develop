@@ -47,6 +47,33 @@
   transition: background 0.2s ease, color 0.2s ease;
 }
 
+.custom-tab .tabs {
+  display: flex;
+  position: relative;
+  background: #3F7280;  
+  overflow: hidden;        
+}
+
+.custom-tab .tabs input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.custom-tab .tabs label {
+  position: relative;
+  flex: 1;                 
+  padding: 16px 32px;
+  text-align: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent; 
+  transition: color 0.15s ease;
+}
+
 /* ==========================================
    TAB 1 - DEFAULT / NOT SELECTED
    ========================================== */
@@ -245,33 +272,7 @@
 }
 
 
-/* 
-.custom-tab .tabs {
-  display: flex;
-  position: relative;
-  background: #3F7280;  
-  overflow: hidden;        
-}
 
-.custom-tab .tabs input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  width: 1px;
-  height: 1px;
-  margin: 0;
-  pointer-events: none;
-}
-
-.custom-tab .tabs label {
-  position: relative;
-  flex: 1;                 
-  padding: 16px 32px;
-  text-align: center;
-  cursor: pointer;
-  color: rgba(255, 255, 255, 0.85);
-  background: transparent; 
-  transition: color 0.15s ease;
-}
 
 
 .custom-tab .tab1 { border-radius: 25px 0 0 0; }
@@ -284,7 +285,7 @@
   color: #1a1a1a;
   border-radius: 25px 25px 0 0;
   z-index: 2;
-} */
+} 
 
 .custom-tab .tab2 { 
   position: relative;
