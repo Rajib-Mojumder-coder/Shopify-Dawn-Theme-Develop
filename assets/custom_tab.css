@@ -268,3 +268,74 @@
 
 }
 
+
+
+
+.custom-tab .tabs {
+  display: flex;
+  position: relative;
+}
+
+/* Fully hide native radio rendering */
+.custom-tab .tabs input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.custom-tab .tabs label {
+  position: relative;
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  background: #3F7280;
+  color: rgba(255, 255, 255, 0.85);
+  transition: background 0.2s ease, color 0.2s ease;
+  z-index: 1;
+}
+
+/* Base (inactive) shapes — purely by position */
+.custom-tab .tabs label:first-of-type {
+  border-radius: 25px 0 25px 0;
+}
+
+.custom-tab .tabs label:last-of-type {
+  border-radius: 0 25px 0 25px;
+}
+
+/* Active tab: white, fully top-rounded, on top */
+.custom-tab .tabs input:checked + label {
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 25px 25px 0 0;
+  z-index: 3;
+}
+
+/* Tab 1 active → notch curves into Tab 2's space, on the right */
+.custom-tab .tabs input:checked + label:first-of-type::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: -25px;
+  width: 25px;
+  height: 25px;
+  background: radial-gradient(circle at top left, transparent 25px, #fff 26px);
+  z-index: 2;
+}
+
+/* Tab 2 active → notch curves into Tab 1's space, on the left */
+.custom-tab .tabs input:checked + label:last-of-type::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -25px;
+  width: 25px;
+  height: 25px;
+  background: radial-gradient(circle at top right, transparent 25px, #fff 26px);
+  z-index: 2;
+}
