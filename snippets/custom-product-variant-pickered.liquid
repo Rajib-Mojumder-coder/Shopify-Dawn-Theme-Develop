@@ -36,7 +36,7 @@
     {% for option in product.options_with_values %}
 
       {% liquid
-        assign option_name_normalized = option.name | downcase | strip
+        assign option_name_normalized = option.name | strip | downcase
 
         assign option_style = 'buttons'
         assign custom_swatch_type = 'color'
@@ -58,7 +58,7 @@
 
           assign option_style = block.settings.variant_option_3_style
           assign custom_swatch_type = block.settings.variant_option_3_swatch_type
-         assign custom_swatches_style = block.settings.variant_option_3_swatch_shape
+          assign custom_swatches_style = block.settings.variant_option_3_swatch_shape
 
         endif
       %}
