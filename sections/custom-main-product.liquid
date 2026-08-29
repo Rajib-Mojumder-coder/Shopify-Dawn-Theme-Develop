@@ -519,14 +519,7 @@
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
                 
-              {%- when 'custom-product-variant' -%}
-                {% render 'custom-product-variant-picker',
-                  product: product,
-                  block: block,
-                  section: section,
-                  product_form_id: product_form_id
-                %}
-
+             
                 {%- when 'custom-variant-picker' -%}
                 {% render 'custom-product-variant-pickered',
                   product: product,
