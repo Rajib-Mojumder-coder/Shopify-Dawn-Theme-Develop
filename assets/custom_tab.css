@@ -382,6 +382,7 @@
     width: 25px;
     height: 25px;
     background: radial-gradient(circle at top right, transparent 25px, #ffffff 26px );
-    left: 0;
+    right: -1px;
+    rotate: -90deg;
 }
 
