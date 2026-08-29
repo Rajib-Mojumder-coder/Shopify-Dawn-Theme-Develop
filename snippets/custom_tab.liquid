@@ -98,14 +98,14 @@
     %}
 
     <div class="product-specifications">
-      {{ product.id }}
+      
       <div class="product-spec-column">
 
         {% if product.metafields.custom.productnummer != blank %}
           <div class="product-spec-row">
             <span class="product-spec-label">Productnummer</span>
             <span class="product-spec-value">
-              {{ product.metafields.custom.productnummer }}
+             {{ product.id }}
             </span>
           </div>
         {% endif %}
