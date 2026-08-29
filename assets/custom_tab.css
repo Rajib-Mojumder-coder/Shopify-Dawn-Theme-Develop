@@ -270,28 +270,56 @@
 
 
 
-
-.custom-tab .tab1 {
+.custom-tab .tabs {
+  display: flex;
   position: relative;
-  background: #3F7280;      /* inactive default */
-  color: rgba(255,255,255,0.85);
-  border-radius: 25px 0 25px 0;   /* inactive shape */
 }
 
-/* When tab1 is the active one */
-.custom-tab .tab1.is-active {
+.custom-tab .tabs input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* Inactive base styles */
+.custom-tab .tab1 {
+  position: relative;
+  background: #3F7280;
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 25px 0 25px 0;
+  padding: 16px 32px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.custom-tab .tab2 {
+  position: relative;
+  background: #3F7280;
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 0 25px 0 25px;
+  padding: 16px 32px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* Active state — driven by the radio, not a class */
+.custom-tab .tabs input:checked + label.tab1,
+.custom-tab .tabs input:checked + label.tab2 {
   background: #fff;
   color: #1a1a1a;
-  border-radius: 25px 25px 0 0;   /* active shape: both top corners round */
+  border-radius: 25px 25px 0 0;
   z-index: 2;
 }
 
-/* The notch — only exists while tab1 is active */
-.custom-tab .tab1.is-active::before {
+/* Notch when tab1 is active — bites into the right side */
+.custom-tab .tabs input:checked + label.tab1::before {
   content: '';
   position: absolute;
   top: 0;
-  right: -25px;              /* sits just outside tab1's own right edge */
+  right: -25px;
   width: 25px;
   height: 25px;
   background: radial-gradient(
@@ -302,3 +330,18 @@
   z-index: 1;
 }
 
+/* Notch when tab2 is active — bites into the left side */
+.custom-tab .tabs input:checked + label.tab2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -25px;
+  width: 25px;
+  height: 25px;
+  background: radial-gradient(
+    circle at top right,
+    transparent 25px,
+    #3F7280 26px
+  );
+  z-index: 1;
+}
