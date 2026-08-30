@@ -58,7 +58,7 @@
   font-family: inherit;
   font-weight: 600;
 
-  color: var(--custom-variant-text);
+  color: rgb(var(--custom-variant-option-label) / 1);
   background: var(--custom-variant-bg);
 }
 
