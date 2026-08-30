@@ -124,7 +124,24 @@
 /*Product Information*/
 /*Product Title*/
 
+.custom-product-title__heading {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  color: inherit;
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 600;
+  line-height: 1;
+}
 
+.custom-product-title__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.custom-product-title__link:hover {
+  color: inherit;
+}
 
 
 @media(min-width: 750px) and (max-width: 1024px){
