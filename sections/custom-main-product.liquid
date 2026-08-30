@@ -153,15 +153,17 @@
                     </h2>
                   </a>
                 </div>
+                
                 {%- when 'title' -%}
-  <div
-    class="product__title custom-product-title"
-    {{ block.shopify_attributes }}
-  >
-    <h1 class="custom-product-title__heading">
-      {{ product.title | escape }}
-    </h1>
-  </div>
+
+              <div class="product__title custom-product-title"
+                {{ block.shopify_attributes }}>
+
+                <h1 class="custom-product-title__heading">
+                  {{ product.title | escape }}
+                </h1>
+
+              </div>
 
               {%- when 'custom_price' -%}
                 <div id="custom-price-{{ block.id }}" class="custom-price-block" role="status" {{ block.shopify_attributes }}>
