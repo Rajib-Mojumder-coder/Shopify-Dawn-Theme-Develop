@@ -50,18 +50,15 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
-
   min-height: 4rem;
-  
-
   font-size: var(--font-body);
   font-family: inherit;
   font-weight: 600;
-
-  color: rgb(var(--custom-variant-option-label) / 1);
   background: var(--custom-variant-bg);
 }
-
+.custom-product-variant__label-title{
+  color: rgb(var(--custom-variant-option-label) / 1);
+}
 .custom-product-variant__selected-value {
   font-weight: 500;
   color: color-mix(
