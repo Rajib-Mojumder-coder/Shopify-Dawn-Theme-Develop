@@ -57,6 +57,8 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 20px;
+  font-family: inherit;
+  
   font-weight: 600;
 }
 
