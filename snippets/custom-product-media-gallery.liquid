@@ -77,9 +77,12 @@
                 {% endif %}
             </div>
             
-            <div class="custom-product-bestseller">
-                <p class="custom-product-bestseller-text"> {{ product.metafields.custom.bestseller }} </p>
-            </div>
+            {% if product.metafields.custom.bestseller %}
+                <div class="custom-product-bestseller">
+                    <p class="custom-product-bestseller-text"> {{ product.metafields.custom.bestseller }} </p>
+                </div>
+            {% endif %}
+            
         </div>
  
     </div>
