@@ -71,7 +71,7 @@
         {% endif %}
 
         <div class="product-logo-bestseller-wrapper">
-            
+
             {% if product_media_logo != blank%}
             <div class="product-logo-container">
                     {{ product_media_logo | image_url: width: 300 | image_tag: class: 'product_media_logo', loading: 'lazy'}}
@@ -244,6 +244,7 @@ new Swiper('.productMediaSliderThumbs', {
 }
 .productMediaSliderThumbs .swiper-wrapper{
     justify-content: center;
+    padding: 6px;
 }
 
 .productMediaSliderThumbs .thumb-prev,
