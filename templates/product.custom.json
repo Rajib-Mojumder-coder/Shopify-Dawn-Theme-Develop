@@ -28,7 +28,7 @@
           "type": "custom_price",
           "settings": {
             "show_current_price": true,
-            "large_price": false,
+            "large_price": true,
             "price_format": "money_without_trailing_zeros",
             "round_price": true,
             "show_compare_price": true,
