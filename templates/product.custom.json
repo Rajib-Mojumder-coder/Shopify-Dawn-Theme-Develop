@@ -60,7 +60,7 @@
           "settings": {
             "variant_option_1_name": "Kleur",
             "variant_option_1_style": "swatches",
-            "variant_option_1_swatch_type": "kleur",
+            "variant_option_1_swatch_type": "image",
             "variant_option_1_swatch_shape": "circle",
             "variant_option_2_name": "Maat",
             "variant_option_2_style": "buttons",
