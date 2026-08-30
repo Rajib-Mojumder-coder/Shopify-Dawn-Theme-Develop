@@ -132,7 +132,7 @@
         "enable_sticky_info": false,
         "product_content_spacing": 14,
         "color_scheme": "scheme-f37b896e-74b3-4fd8-853c-b43ae546e1fe",
-        "media_size": "medium",
+        "media_size": "large",
         "media-container-bg": "#ffffff",
         "product_media_logo": "shopify://shop_images/Group.png",
         "constrain_to_viewport": true,
