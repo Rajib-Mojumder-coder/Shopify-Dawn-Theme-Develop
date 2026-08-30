@@ -145,14 +145,21 @@
                   {{- block.settings.text -}}
                 </p>
               {%- when 'title' -%}
-                <div class="product__title" {{ block.shopify_attributes }}>
-                  <h1>{{ product.title | escape }}</h1>
-                  <a href="{{ product.url }}" class="product__title">
-                    <h2 class="h1">
-                      {{ product.title | escape }}
-                    </h2>
-                  </a>
+                <div
+                  class="product__title custom-product-title"
+                  style="
+                    --product-title-size: {{ block.settings.title_size }}px;
+                    --product-title-mobile-size: {{ block.settings.title_mobile_size }}px;
+                    --product-title-weight: {{ block.settings.title_weight }};
+                    --product-title-color: {{ block.settings.title_color }};
+                  "
+                  {{ block.shopify_attributes }}
+                >
+                  <h1 class="custom-product-title__heading">
+                    {{ product.title | escape }}
+                  </h1>
                 </div>
+
 
               {%- when 'custom_price' -%}
                 <div id="custom-price-{{ block.id }}" class="custom-price-block" role="status" {{ block.shopify_attributes }}>
