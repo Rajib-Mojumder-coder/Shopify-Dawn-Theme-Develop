@@ -59,7 +59,6 @@
     font-family: inherit;
     font-weight: 600;
     color: var(--custom-variant-text);
-    padding-inline: 1.5rem;
     min-height: 4rem;
     background: var(--custom-variant-bg);
     /* line-height: 90%; */
