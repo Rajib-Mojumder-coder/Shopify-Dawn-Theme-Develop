@@ -5,6 +5,8 @@
 
 .custom-product-variant-picker {
   --custom-variant-text: rgb(var(--color-foreground));
+  --custom-variant-text: rgb(var(--color-foreground));
+
   --custom-variant-bg: rgb(var(--color-background));
   --custom-variant-active-text: rgb(var(--color-background));
   --custom-variant-active-bg: rgb(var(--color-foreground));
