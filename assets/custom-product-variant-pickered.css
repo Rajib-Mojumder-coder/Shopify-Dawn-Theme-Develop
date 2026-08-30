@@ -5,8 +5,7 @@
 
 .custom-product-variant-picker {
   --custom-variant-text: rgb(var(--color-foreground));
-  --custom-variant-option-label: rgb(var(--color-foreground));
-3F7280
+  --custom-variant-option-label: #3F7280;
   --custom-variant-bg: rgb(var(--color-background));
   --custom-variant-active-text: rgb(var(--color-background));
   --custom-variant-active-bg: rgb(var(--color-foreground));
