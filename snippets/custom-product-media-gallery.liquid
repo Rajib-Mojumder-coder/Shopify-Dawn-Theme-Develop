@@ -71,18 +71,19 @@
         {% endif %}
 
         <div class="product-logo-bestseller-wrapper">
+            
+            {% if product_media_logo != blank%}
             <div class="product-logo-container">
-                {% if product_media_logo != blank%}
                     {{ product_media_logo | image_url: width: 300 | image_tag: class: 'product_media_logo', loading: 'lazy'}}
-                {% endif %}
             </div>
+            {% endif %}
             
             {% if product.metafields.custom.bestseller %}
                 <div class="custom-product-bestseller">
                     <p class="custom-product-bestseller-text"> {{ product.metafields.custom.bestseller }} </p>
                 </div>
             {% endif %}
-            
+
         </div>
  
     </div>
