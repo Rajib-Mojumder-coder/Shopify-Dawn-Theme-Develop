@@ -58,7 +58,8 @@
     font-size: var(--font-body);
     font-family: inherit;
     font-weight: 600;
-    color: var(--custom-variant-text);
+    color: rgb(var(--color-foreground));
+    /* color: var(--custom-variant-text); */
     min-height: 4rem;
     background: var(--custom-variant-bg);
     /* line-height: 90%; */
