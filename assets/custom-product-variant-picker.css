@@ -54,7 +54,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    gap: .65rem;
+    gap: .60rem;
     font-size: var(--font-body);
     font-family: inherit;
     font-weight: 600;
