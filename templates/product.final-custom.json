@@ -15,23 +15,25 @@
         "vendor": {
           "type": "text",
           "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
+            "text": "<p>{{ product.vendor }}</p>"
           }
         },
         "title": {
           "type": "title",
-          "settings": {}
+          "settings": {
+            "heading_size": "h1"
+          }
         },
         "price": {
           "type": "price",
-          "settings": {}
+          "settings": {
+            "show_badges": true
+          }
         },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
+            "picker_type": "button"
           }
         },
         "quantity_selector": {
@@ -42,7 +44,7 @@
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
+            "show_pickup_availability": false
           }
         },
         "description": {
@@ -51,9 +53,7 @@
         },
         "share": {
           "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
+          "settings": {}
         }
       },
       "block_order": [
@@ -67,17 +67,25 @@
         "share"
       ],
       "settings": {
-        "enable_sticky_info": true,
-        "color_scheme": "scheme-1",
-        "media_size": "large",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
+        "page_width": "page",
+        "custom_page_width": 800,
         "media_position": "left",
+        "equal_columns": false,
+        "media_column_size": "large",
+        "column_gap": 40,
+        "enable_sticky_info": true,
+        "information_content_width": "full",
+        "information_alignment": "left",
+        "information_vertical_alignment": "start",
+        "mobile_information_order": "media-first",
+        "enable_sticky_add_to_cart": false,
+        "color_scheme": "scheme-1",
+        "use_custom_colors": false,
+        "custom_background": "#ffffff",
+        "custom_text": "#121212",
+        "custom_heading": "#121212",
+        "custom_accent": "#121212",
         "image_zoom": "lightbox",
-        "hide_variants": true,
-        "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
       }
