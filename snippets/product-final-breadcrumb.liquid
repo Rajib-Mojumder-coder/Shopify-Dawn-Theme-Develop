@@ -1,0 +1,198 @@
+{%- comment -%}
+  Product Final — Breadcrumb
+
+  Usage:
+  
+
+  Responsibilities:
+  - Render product breadcrumb navigation
+  - Handle Home → Collection → Product hierarchy
+  - Contain its own CSS
+  - Does NOT control product layout/grid
+{%- endcomment -%}
+
+{%- if section.settings.show_breadcrumb -%}
+
+  <nav
+    class="product-final-breadcrumb"
+    aria-label="Breadcrumb"
+  >
+    <ol class="product-final-breadcrumb__list">
+
+      {%- comment -%}
+        Home
+      {%- endcomment -%}
+
+      <li class="product-final-breadcrumb__item">
+        <a
+          href="{{ routes.root_url }}"
+          class="product-final-breadcrumb__link"
+        >
+          {{ 'general.breadcrumbs.home' | t | default: 'Home' }}
+        </a>
+      </li>
+
+      <li
+        class="product-final-breadcrumb__separator"
+        aria-hidden="true"
+      >
+        /
+      </li>
+
+      {%- comment -%}
+        Collection
+
+        On a product page, Shopify may provide the collection
+        through the current context. If no collection exists,
+        this part is skipped.
+      {%- endcomment -%}
+
+      {%- if collection -%}
+
+        <li class="product-final-breadcrumb__item">
+          <a
+            href="{{ collection.url }}"
+            class="product-final-breadcrumb__link"
+          >
+            {{ collection.title | escape }}
+          </a>
+        </li>
+
+        <li
+          class="product-final-breadcrumb__separator"
+          aria-hidden="true"
+        >
+          /
+        </li>
+
+      {%- endif -%}
+
+      {%- comment -%}
+        Current Product
+      {%- endcomment -%}
+
+      <li
+        class="product-final-breadcrumb__item product-final-breadcrumb__item--current"
+        aria-current="page"
+      >
+        <span class="product-final-breadcrumb__current">
+          {{ product.title | escape }}
+        </span>
+      </li>
+
+    </ol>
+  </nav>
+
+  <style>
+    /* ================================================================
+       PRODUCT FINAL — BREADCRUMB
+       ================================================================ */
+
+    .product-final-breadcrumb {
+      width: 100%;
+      margin-bottom: {{ section.settings.breadcrumb_bottom_spacing }}px;
+    }
+
+    .product-final-breadcrumb__list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      width: 100%;
+      margin: 0;
+      padding: 0;
+
+      list-style: none;
+
+      gap: 8px;
+    }
+
+    .product-final-breadcrumb__item {
+      margin: 0;
+      padding: 0;
+
+      font-size: 1.3rem;
+      line-height: 1.4;
+    }
+
+    .product-final-breadcrumb__link {
+      color: inherit;
+      text-decoration: none;
+
+      transition: opacity 0.2s ease;
+    }
+
+    .product-final-breadcrumb__link:hover {
+      opacity: 0.7;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .product-final-breadcrumb__separator {
+      margin: 0;
+      padding: 0;
+
+      opacity: 0.45;
+
+      user-select: none;
+    }
+
+    .product-final-breadcrumb__item--current {
+      min-width: 0;
+    }
+
+    .product-final-breadcrumb__current {
+      display: block;
+
+      max-width: 100%;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      opacity: 0.65;
+    }
+
+
+    /* ================================================================
+       ALIGNMENT
+       ================================================================ */
+
+    .product-final-breadcrumb[data-align='left']
+      .product-final-breadcrumb__list {
+      justify-content: flex-start;
+    }
+
+    .product-final-breadcrumb[data-align='center']
+      .product-final-breadcrumb__list {
+      justify-content: center;
+    }
+
+    .product-final-breadcrumb[data-align='right']
+      .product-final-breadcrumb__list {
+      justify-content: flex-end;
+    }
+
+
+    /* ================================================================
+       MOBILE
+       ================================================================ */
+
+    @media screen and (max-width: 749px) {
+
+      .product-final-breadcrumb {
+        margin-bottom: {{ section.settings.breadcrumb_bottom_spacing_mobile }}px;
+      }
+
+      .product-final-breadcrumb__item {
+        font-size: 1.2rem;
+      }
+
+      .product-final-breadcrumb__list {
+        gap: 6px;
+      }
+
+    }
+  </style>
+
+{%- endif -%}
