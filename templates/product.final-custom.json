@@ -70,7 +70,7 @@
         "page_width": "page",
         "custom_page_width": 800,
         "media_position": "left",
-        "equal_columns": false,
+        "equal_columns": true,
         "media_column_size": "large",
         "column_gap": 40,
         "enable_sticky_info": true,
