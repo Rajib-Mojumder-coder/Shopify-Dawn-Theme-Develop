@@ -1,0 +1,123 @@
+
+{%- liquid
+  assign media_count = product.media.size
+-%}
+
+<div
+  class="product-final-media"
+  data-media-count="{{ media_count }}"
+  data-gallery-layout="{{ section.settings.gallery_layout }}"
+  data-mobile-thumbnails="{{ section.settings.mobile_thumbnails }}"
+  data-image-zoom="{{ section.settings.image_zoom }}"
+  data-media-fit="{{ section.settings.media_fit }}"
+  data-constrain-viewport="{{ section.settings.constrain_to_viewport }}"
+>
+
+  {%- if media_count > 0 -%}
+
+    <div class="product-final-media__gallery">
+
+      {%- render 'product-media-gallery',
+        variant_images: variant_images
+      -%}
+
+    </div>
+
+  {%- else -%}
+
+    <div class="product-final-media__empty">
+
+      {{ 'product-1' | placeholder_svg_tag: 'product-final-media__placeholder' }}
+
+    </div>
+
+  {%- endif -%}
+
+</div>
+
+
+<style>
+
+  /* ================================================================
+     PRODUCT FINAL — MEDIA
+     ================================================================ */
+
+  .product-final-media {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+  }
+
+
+  /* ================================================================
+     GALLERY
+     ================================================================ */
+
+  .product-final-media__gallery {
+    position: relative;
+    width: 100%;
+  }
+
+
+  /* ================================================================
+     EMPTY MEDIA
+     ================================================================ */
+
+  .product-final-media__empty {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .product-final-media__placeholder {
+    width: 100%;
+    height: 100%;
+  }
+
+
+  /* ================================================================
+     MEDIA FIT
+     ================================================================ */
+
+  .product-final-media[data-media-fit='contain']
+  .product-media-gallery img {
+    object-fit: contain;
+  }
+
+  .product-final-media[data-media-fit='cover']
+  .product-media-gallery img {
+    object-fit: cover;
+  }
+
+
+  /* ================================================================
+     VIEWPORT CONSTRAINT
+     ================================================================ */
+
+  .product-final-media[data-constrain-viewport='true'] {
+    max-width: 100%;
+  }
+
+
+  /* ================================================================
+     MOBILE
+     ================================================================ */
+
+  @media screen and (max-width: 749px) {
+
+    .product-final-media {
+      width: 100%;
+    }
+
+  }
+
+</style>
