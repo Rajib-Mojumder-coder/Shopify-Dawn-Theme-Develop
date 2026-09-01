@@ -446,7 +446,11 @@
       {%- endcomment -%}
 
       <div class="product-final__media">
-        {% render 'product-media-gallery', variant_images: variant_images %}
+
+        {% render 'product-final-media',
+          variant_images: variant_images
+        %}
+
       </div>
 
 
