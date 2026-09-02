@@ -1,12 +1,28 @@
 {{ 'section-main-product-final.css' | asset_url | stylesheet_tag }}
 
-<product-info  id="MainProduct-{{ section.id }}" class="product-final color-{{ section.settings.color_scheme }}gradient>
+<product-info  id="MainProduct-{{ section.id }}" class="product-final color-{{ section.settings.color_scheme }}gradient">
 
 </product-info>
 
+
 {%  schema  %}
 {
-  "name": "Product information",
-  "tag": "section"
+  "name": "Product Information",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "blocks": [
+
+  ],
+  "settings": [
+
+  ],
+  "presets": [
+    {
+      "name": "Product information"
+    }
+  ]
 }
 {% endschema %}
