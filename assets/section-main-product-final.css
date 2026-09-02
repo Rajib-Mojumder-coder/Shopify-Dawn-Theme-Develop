@@ -1,0 +1,255 @@
+/* ==========================================================================
+   MAIN PRODUCT FINAL
+   Product Information Layout System
+   ========================================================================== */
+
+.product-final {
+  --product-final-page-width: var(--page-width);
+  --product-final-media-width: 50%;
+  --product-final-info-width: 50%;
+  --product-final-column-gap: 40px;
+
+  --product-final-padding-top: 36px;
+  --product-final-padding-bottom: 36px;
+
+  --product-final-info-max-width: none;
+
+  width: 100%;
+}
+
+/* ==========================================================================
+   INNER CONTAINER
+   ========================================================================== */
+
+.product-final__inner {
+  width: 100%;
+  max-width: var(--product-final-page-width);
+  margin-inline: auto;
+
+  padding-top: var(--product-final-padding-top);
+  padding-bottom: var(--product-final-padding-bottom);
+}
+
+/* ==========================================================================
+   BREADCRUMB
+   ========================================================================== */
+
+.product-final__breadcrumb {
+  width: 100%;
+  margin-bottom: var(--product-final-breadcrumb-spacing, 24px);
+}
+
+/* ==========================================================================
+   MAIN PRODUCT GRID
+   ========================================================================== */
+
+.product-final__layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, var(--product-final-media-width))
+    minmax(0, var(--product-final-info-width));
+
+  gap: var(--product-final-column-gap);
+
+  align-items: start;
+}
+
+/* ==========================================================================
+   MEDIA
+   ========================================================================== */
+
+.product-final__media {
+  min-width: 0;
+  width: 100%;
+}
+
+/* ==========================================================================
+   INFORMATION
+   ========================================================================== */
+
+.product-final__information {
+  min-width: 0;
+  width: 100%;
+
+  display: flex;
+}
+
+.product-final__information-inner {
+  width: 100%;
+  max-width: var(--product-final-info-max-width);
+}
+
+/* ==========================================================================
+   INFORMATION CONTENT WIDTH
+   ========================================================================== */
+
+.product-final[data-information-width="narrow"]
+  .product-final__information-inner {
+  max-width: 520px;
+}
+
+.product-final[data-information-width="medium"]
+  .product-final__information-inner {
+  max-width: 680px;
+}
+
+.product-final[data-information-width="wide"]
+  .product-final__information-inner {
+  max-width: 820px;
+}
+
+.product-final[data-information-width="full"]
+  .product-final__information-inner {
+  max-width: none;
+}
+
+/* ==========================================================================
+   INFORMATION ALIGNMENT
+   ========================================================================== */
+
+.product-final[data-information-align="left"]
+  .product-final__information-inner {
+  text-align: left;
+}
+
+.product-final[data-information-align="center"]
+  .product-final__information-inner {
+  text-align: center;
+}
+
+.product-final[data-information-align="right"]
+  .product-final__information-inner {
+  text-align: right;
+}
+
+/* ==========================================================================
+   VERTICAL ALIGNMENT
+   ========================================================================== */
+
+.product-final[data-information-vertical="start"]
+  .product-final__information {
+  align-self: start;
+}
+
+.product-final[data-information-vertical="center"]
+  .product-final__information {
+  align-self: center;
+}
+
+.product-final[data-information-vertical="end"]
+  .product-final__information {
+  align-self: end;
+}
+
+/* ==========================================================================
+   MEDIA POSITION
+   ========================================================================== */
+
+.product-final[data-media-position="left"]
+  .product-final__media {
+  order: 1;
+}
+
+.product-final[data-media-position="left"]
+  .product-final__information {
+  order: 2;
+}
+
+.product-final[data-media-position="right"]
+  .product-final__media {
+  order: 2;
+}
+
+.product-final[data-media-position="right"]
+  .product-final__information {
+  order: 1;
+}
+
+/* ==========================================================================
+   STICKY INFORMATION
+   ========================================================================== */
+
+.product-final__information-inner.is-sticky {
+  position: sticky;
+  top: var(--product-final-sticky-top, 24px);
+}
+
+/* ==========================================================================
+   COLOR SYSTEM
+   ========================================================================== */
+
+.product-final[data-custom-colors="true"] {
+  background: var(--product-final-background);
+  color: var(--product-final-text);
+}
+
+.product-final[data-custom-colors="true"] .product-final__heading {
+  color: var(--product-final-heading);
+}
+
+.product-final[data-custom-colors="true"] .product-final__accent {
+  color: var(--product-final-accent);
+}
+
+/* ==========================================================================
+   FULL WIDTH
+   ========================================================================== */
+
+.product-final--full {
+  width: 100%;
+}
+
+.product-final--full .product-final__inner {
+  max-width: none;
+}
+
+/* ==========================================================================
+   MOBILE
+   ========================================================================== */
+
+@media screen and (max-width: 749px) {
+  .product-final__inner {
+    padding-top: calc(var(--product-final-padding-top) * 0.75);
+    padding-bottom: calc(var(--product-final-padding-bottom) * 0.75);
+  }
+
+  .product-final__layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--product-final-mobile-gap, 32px);
+  }
+
+  .product-final__media,
+  .product-final__information {
+    order: initial !important;
+  }
+
+  .product-final[data-mobile-order="information-first"]
+    .product-final__information {
+    order: 1 !important;
+  }
+
+  .product-final[data-mobile-order="information-first"]
+    .product-final__media {
+    order: 2 !important;
+  }
+
+  .product-final__information-inner.is-sticky {
+    position: static;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .product-final *,
+  .product-final *::before,
+  .product-final *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
