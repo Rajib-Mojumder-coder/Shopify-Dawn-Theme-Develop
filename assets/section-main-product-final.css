@@ -16,7 +16,7 @@
 
   width: 100%;
   color: var(--product-text, inherit);
-  background-color: var(--product-background, transparent);
+  background-color: var(--product-background );
   border-color: var(--product-border, currentColor);
 }
 
