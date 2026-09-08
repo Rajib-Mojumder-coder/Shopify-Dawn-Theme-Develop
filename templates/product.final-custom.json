@@ -12,7 +12,9 @@
     "main": {
       "type": "main-product-final",
       "settings": {
-        "layout_size": "100%",
+        "layout_size": "page",
+        "page_width": "default",
+        "custom_page_width": 1200,
         "color_scheme": "scheme-1"
       }
     },
