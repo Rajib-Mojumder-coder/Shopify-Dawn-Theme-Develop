@@ -50,9 +50,7 @@ color: var(--product-accent, inherit);
   margin-bottom: var(--breadcrumb_bottom_spacing, 24px);
 }
 
-/* ==========================================================================
-   MAIN PRODUCT GRID
-   ========================================================================== */
+/* ==============   MAIN PRODUCT GRID ==================== */
 
 .product-final__layout {
   display: grid;
