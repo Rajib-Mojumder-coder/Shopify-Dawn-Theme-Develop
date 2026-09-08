@@ -26,8 +26,8 @@
   max-width: var(--page-layout-width);
   margin-inline: auto;
 
-  padding-top: var(--product-final-padding-top);
-  padding-bottom: var(--product-final-padding-bottom);
+  padding-top: var(--section_padding_top);
+  padding-bottom: var(--section_padding_bottom);
 }
 
 /* ====== BREADCRUMB ========= */
