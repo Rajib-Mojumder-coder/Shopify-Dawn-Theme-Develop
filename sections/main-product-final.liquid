@@ -1,10 +1,18 @@
 {{ 'section-main-product-final.css' | asset_url | stylesheet_tag }}
 {%  liquid  
     assign color_scheme = section.settings.color_scheme
+
+    if section.settings.layout_size == 'full'
+      assign layout-width = '100%'
+    elsif section.settings.page_width == 'default'
+      assign layout-width = 'var(--page-width)'
+    elsif section.settings.page_width == 'custom'
+      assign layout-width = section.settings.custom_page_width | append: 'px'
+    endif
 %}
 
 <product-info  id="MainProduct-{{ section.id }}" class="product-final color-{{ color_scheme }}gradient"
-style="--page-layout-width: {{ page-layout-width }}">
+style="--page-layout-width: {{ layout-width }}">
 
 </product-info>
 
