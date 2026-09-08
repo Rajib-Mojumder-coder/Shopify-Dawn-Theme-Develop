@@ -2,7 +2,7 @@
 {%  liquid  
     assign color_scheme = section.settings.color_scheme
     assign breadcrumb_bottom_spacing = section.settings.breadcrumb_bottom_spacing
-    
+
     if section.settings.layout_size == 'full'
       assign layout-width = '100%'
     elsif section.settings.page_width == 'default'
@@ -105,6 +105,30 @@
       "step": 4,
       "unit": "px",
       "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 36
     }
   ],
   "presets": [
