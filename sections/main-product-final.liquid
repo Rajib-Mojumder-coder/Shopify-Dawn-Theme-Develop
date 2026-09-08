@@ -35,6 +35,28 @@
       "default": "page"
     },
     {
+      "type": "select",
+      "id": "page_width",
+      "label": "Page width",
+      "options": [
+    { "label": "Theme default", "value": "default" },
+    { "label": "Custom", "value": "custom" }
+    ],
+     "default": "default",
+      "visible_if": "{{ section.settings.layout_size == 'page' }}"
+    },
+    {
+      "type": "range",
+      "id": "custom_page_width",
+      "label": "Custom page width",
+      "min": 800,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "default": 1200,
+      "visible_if": "{{ section.settings.layout_size == 'page' and section.settings.page_width == 'custom' }}"
+    },
+    {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "Color Scheme",
