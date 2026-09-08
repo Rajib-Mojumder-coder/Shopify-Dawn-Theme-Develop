@@ -1,7 +1,8 @@
 {{ 'section-main-product-final.css' | asset_url | stylesheet_tag }}
 {%  liquid  
     assign color_scheme = section.settings.color_scheme
-
+    assign breadcrumb_bottom_spacing = section.settings.breadcrumb_bottom_spacing
+    
     if section.settings.layout_size == 'full'
       assign layout-width = '100%'
     elsif section.settings.page_width == 'default'
@@ -11,11 +12,11 @@
     endif
 %}
 
-<product-info  id="MainProduct-{{ section.id }}" class="product-final color-{{ color_scheme }}gradient"
-style="">
+<product-info  id="MainProduct-{{ section.id }}" class="product-final color-{{ color_scheme }}gradient">
    <style>
      #MainProduct-{{ section.id }} {
-
+        --page-layout-width: {{ layout-width }};
+        --breadcrumb_bottom_spacing: {{ breadcrumb_bottom_spacing }};
      }
    </style>
   <div class="product-final__inner" style="background-color: aqua; ">

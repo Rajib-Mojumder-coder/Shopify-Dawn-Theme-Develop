@@ -36,7 +36,7 @@
 
 .product-final__breadcrumb {
   width: 100%;
-  margin-bottom: var(--product-final-breadcrumb-spacing, 24px);
+  margin-bottom: var(--breadcrumb_bottom_spacing, 24px);
 }
 
 /* ==========================================================================
