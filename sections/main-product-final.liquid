@@ -2,6 +2,8 @@
 {%  liquid  
     assign color_scheme = section.settings.color_scheme
     assign breadcrumb_bottom_spacing = section.settings.breadcrumb_bottom_spacing
+    assign section_padding_top = section.settings.padding_top
+    assign section_padding_bottom = section.settings.padding_bottom
 
     if section.settings.layout_size == 'full'
       assign layout-width = '100%'
@@ -17,6 +19,8 @@
      #MainProduct-{{ section.id }} {
         --page-layout-width: {{ layout-width }};
         --breadcrumb_bottom_spacing: {{ breadcrumb_bottom_spacing }};
+        --section_padding_top: {{ section_padding_top }};
+        --section_padding_bottom: {{ section_padding_bottom }};
      }
    </style>
   <div class="product-final__inner" style="background-color: aqua; ">
