@@ -32,9 +32,7 @@ color: var(--product-heading, inherit);
 .product-final a {
 color: var(--product-accent, inherit);
 }
-/* ==========================================================================
-   INNER CONTAINER
-   ========================================================================== */
+/* ============   INNER CONTAINER ================= */
 
 .product-final__inner {
   width: 100%;
