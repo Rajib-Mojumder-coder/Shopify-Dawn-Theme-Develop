@@ -1,9 +1,9 @@
 {{ 'section-main-product-final.css' | asset_url | stylesheet_tag }}
 {%  liquid  
-  
+    assign color_scheme = section.settings.color_scheme
 %}
 
-<product-info  id="MainProduct-{{ section.id }}" class="product-final color-{{ section.settings.color_scheme }}gradient">
+<product-info  id="MainProduct-{{ section.id }}" class="product-final color-{{ color_scheme }}gradient">
 
 </product-info>
 
@@ -20,7 +20,12 @@
 
   ],
   "settings": [
-
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
   ],
   "presets": [
     {
