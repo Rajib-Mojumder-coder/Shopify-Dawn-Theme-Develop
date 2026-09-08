@@ -17,6 +17,7 @@
   width: 100%;
   color: var(--product-text, inherit);
   background-color: var(--product-background, transparent);
+  border-color: var(--product-border, currentColor);
 }
 
 .product-final h1,
@@ -26,6 +27,10 @@
 .product-final h5,
 .product-final h6 {
 color: var(--product-heading, inherit);
+}
+
+.product-final a {
+color: var(--product-accent, inherit);
 }
 /* ==========================================================================
    INNER CONTAINER
