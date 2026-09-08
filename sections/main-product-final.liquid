@@ -15,7 +15,13 @@
 style="--page-layout-width: {{ layout-width }}">
 
   <div class="product-final__inner" style="background-color: aqua;">
-     abvhjj
+    
+    {% if section.settings.show_breadcrumb %}
+      <div class="product-final__breadcrumb">
+        {% render 'product-final-breadcrumb' %}
+      </div>
+    {% endif %}
+
   </div>
 
 </product-info>
