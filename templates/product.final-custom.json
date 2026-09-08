@@ -13,8 +13,8 @@
       "type": "main-product-final",
       "settings": {
         "layout_size": "page",
-        "page_width": "default",
-        "custom_page_width": 1240,
+        "page_width": "custom",
+        "custom_page_width": 1020,
         "color_scheme": "scheme-1"
       }
     },
