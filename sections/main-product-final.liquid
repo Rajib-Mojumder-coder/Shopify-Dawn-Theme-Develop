@@ -51,7 +51,8 @@
     {% endif %}
   
     <div class="product-final__layout">
-      {% content_for 'blocks' %}
+      {% content_for 'block', type: 'product-media', id: 'static-media' %}
+      {% content_for 'block', type: 'product-details', id: 'static-details' %}
     </div>
 
 
