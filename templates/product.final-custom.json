@@ -28,16 +28,17 @@
         "padding_bottom": 28
       }
     },
-    "main_product_final_GTRQaw": {
+    "main_product_final_PrahVp": {
       "type": "main-product-final",
       "name": "Product information",
       "settings": {
         "layout_size": "page",
         "page_width": "default",
         "custom_page_width": 1200,
-        "color_scheme": "scheme-3",
+        "product_media_position": "left",
+        "color_scheme": "",
         "use_custom_colors": false,
-        "background_color": "#e51616",
+        "background_color": "#ffffff",
         "text_color": "#222222",
         "heading_color": "#111111",
         "accent_color": "#000000",
@@ -51,6 +52,6 @@
   },
   "order": [
     "related-products",
-    "main_product_final_GTRQaw"
+    "main_product_final_PrahVp"
   ]
 }
