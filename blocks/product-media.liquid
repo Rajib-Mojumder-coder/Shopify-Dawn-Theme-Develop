@@ -1,57 +1,135 @@
-{%- assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' -%}
+{%- assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'-%}
 
-<div class="product-final__media" {{ block.shopify_attributes }}>
-   {% render 'custom-product-media-gallery', variant_images: variant_images %}
+<div
+  class="product-final__media"
+  {{ block.shopify_attributes }}
+>
+
+  <div class="product-final__media-inner">
+
+    {% render 'custom-product-media-gallery',
+      variant_images: variant_images
+    %}
+
+  </div>
+
 </div>
-
-{% if block.settings.image_zoom == 'hover' %}
-  <script id="EnableZoomOnHover-{{ section.id }}" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
-{% endif %}
 
 {% schema %}
 {
   "name": "Product Media",
   "settings": [
+
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+
     {
       "type": "select",
       "id": "gallery_layout",
       "label": "Gallery layout",
       "options": [
-        { "value": "stacked", "label": "Stacked" },
-        { "value": "columns", "label": "2 columns" },
-        { "value": "thumbnail", "label": "Thumbnails" },
-        { "value": "thumbnail_slider", "label": "Thumbnail carousel" }
+        {
+          "value": "stacked",
+          "label": "Stacked"
+        },
+        {
+          "value": "columns",
+          "label": "2 columns"
+        },
+        {
+          "value": "thumbnail",
+          "label": "Thumbnails"
+        },
+        {
+          "value": "thumbnail_slider",
+          "label": "Thumbnail carousel"
+        }
       ],
       "default": "stacked"
     },
+
     {
       "type": "select",
       "id": "mobile_thumbnails",
       "label": "Mobile layout",
       "options": [
-        { "value": "columns", "label": "2 columns" },
-        { "value": "show", "label": "Show thumbnails" },
-        { "value": "hide", "label": "Hide thumbnails" }
+        {
+          "value": "columns",
+          "label": "2 columns"
+        },
+        {
+          "value": "show",
+          "label": "Show thumbnails"
+        },
+        {
+          "value": "hide",
+          "label": "Hide thumbnails"
+        }
       ],
       "default": "hide"
     },
+
     {
       "type": "select",
       "id": "image_zoom",
       "label": "Image zoom",
       "options": [
-        { "value": "lightbox", "label": "Open lightbox" },
-        { "value": "hover", "label": "Zoom on hover" },
-        { "value": "none", "label": "None" }
+        {
+          "value": "lightbox",
+          "label": "Open lightbox"
+        },
+        {
+          "value": "hover",
+          "label": "Zoom on hover"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
       ],
       "default": "lightbox"
     },
+
+    {
+      "type": "select",
+      "id": "media_fit",
+      "label": "Media fit",
+      "options": [
+        {
+          "value": "contain",
+          "label": "Contain"
+        },
+        {
+          "value": "cover",
+          "label": "Cover"
+        }
+      ],
+      "default": "contain"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "constrain_to_viewport",
+      "label": "Constrain media to viewport",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "hide_variants",
+      "label": "Hide variant media",
+      "default": false
+    },
+
     {
       "type": "checkbox",
       "id": "enable_video_looping",
       "label": "Enable video looping",
       "default": false
     }
+
   ]
 }
 {% endschema %}
