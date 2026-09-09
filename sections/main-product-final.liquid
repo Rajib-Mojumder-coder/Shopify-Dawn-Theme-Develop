@@ -22,11 +22,18 @@
         --section_padding_bottom: {{ section_padding_bottom }}px;
 
         {% if section.settings.use_custom_colors %}
-          --product-background: {{ section.settings.background_color }}; 
-          --product-text: {{ section.settings.text_color }}; 
-          --product-heading: {{ section.settings.heading_color }}; 
-          --product-accent: {{ section.settings.accent_color }}; --product-border: {{ section.settings.border_color }};
-        {% endif %} 
+          --product-background: {{ section.settings.background_color }};
+          --product-text: {{ section.settings.text_color }};
+          --product-heading: {{ section.settings.heading_color }};
+          --product-accent: {{ section.settings.accent_color }};
+          --product-border: {{ section.settings.border_color }};
+        {% else %}
+          --product-background: rgb(var(--color-background));
+          --product-text: rgb(var(--color-foreground));
+          --product-heading: rgb(var(--color-foreground));
+          --product-accent: rgb(var(--color-foreground));
+          --product-border: rgb(var(--color-foreground));
+        {% endif %}
      }
    </style>
   <div class="product-final__inner">
