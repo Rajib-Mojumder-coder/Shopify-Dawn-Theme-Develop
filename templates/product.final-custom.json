@@ -9,26 +9,6 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-product-final",
-      "settings": {
-        "layout_size": "page",
-        "page_width": "default",
-        "custom_page_width": 1020,
-        "product_media_position": "left",
-        "color_scheme": "scheme-2",
-        "use_custom_colors": false,
-        "background_color": "#000000",
-        "text_color": "#222222",
-        "heading_color": "#111111",
-        "accent_color": "#000000",
-        "border_color": "#e5e5e5",
-        "show_breadcrumb": true,
-        "breadcrumb_bottom_spacing": 24,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "related-products": {
       "type": "related-products",
       "disabled": true,
@@ -47,10 +27,31 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "main_product_final_HdTwUw": {
+      "type": "main-product-final",
+      "name": "Product information",
+      "settings": {
+        "layout_size": "page",
+        "page_width": "default",
+        "custom_page_width": 1200,
+        "product_media_position": "left",
+        "color_scheme": "",
+        "use_custom_colors": false,
+        "background_color": "#ffffff",
+        "text_color": "#222222",
+        "heading_color": "#111111",
+        "accent_color": "#000000",
+        "border_color": "#e5e5e5",
+        "show_breadcrumb": true,
+        "breadcrumb_bottom_spacing": 24,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main",
-    "related-products"
+    "related-products",
+    "main_product_final_HdTwUw"
   ]
 }
