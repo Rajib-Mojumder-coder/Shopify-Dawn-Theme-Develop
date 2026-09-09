@@ -35,7 +35,7 @@
         "layout_size": "page",
         "page_width": "default",
         "custom_page_width": 1200,
-        "color_scheme": "",
+        "color_scheme": "scheme-4",
         "use_custom_colors": false,
         "background_color": "#ffffff",
         "text_color": "#222222",
