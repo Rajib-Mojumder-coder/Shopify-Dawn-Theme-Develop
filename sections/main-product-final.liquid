@@ -52,9 +52,12 @@ data-section="{{ section.id }}" data-product-id="{{ product.id }}" data-update-u
       </div>
     {% endif %}
   
-    <div class="product-final__layout">
+   <div class="product-final__layout product-final__layout--{{ section.settings.product_media_position }}
+   
+        product-final__layout--{{ section.settings.column_ratio }}">
       {% content_for 'block', type: 'product-media', id: 'static-media' %}
       {% content_for 'block', type: 'product-details', id: 'static-details' %}
+
     </div>
 
 
