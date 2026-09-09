@@ -14,28 +14,33 @@
 %}
 
 <product-info  id="MainProduct-{{ section.id }}" class="product-final color-{{ section.settings.color_scheme }} gradient">
-   <style>
-     #MainProduct-{{ section.id }} {
-        --page-layout-width: {{ layout_width }};
-        --breadcrumb_bottom_spacing: {{ breadcrumb_bottom_spacing }}px;
-        --section_padding_top: {{ section_padding_top }}px;
-        --section_padding_bottom: {{ section_padding_bottom }}px;
- 
-        {% if section.settings.use_custom_colors %}
-          --product-background: {{ section.settings.background_color }};
-          --product-text: {{ section.settings.text_color }};
-          --product-heading: {{ section.settings.heading_color }};
-          --product-accent: {{ section.settings.accent_color }};
-          --product-border: {{ section.settings.border_color }};
-        {% else %}
-          --product-background: rgb(var(--color-background));
-          --product-text: rgb(var(--color-foreground));
-          --product-heading: rgb(var(--color-foreground));
-          --product-accent: rgb(var(--color-foreground));
-          --product-border: rgb(var(--color-foreground));
-        {% endif %} 
-     }
-   </style>
+
+  <style>
+    #MainProduct-{{ section.id }} {
+     --page-layout-width: {{ layout_width }};
+     --breadcrumb_bottom_spacing: {{ breadcrumb_bottom_spacing }}px;
+     --section_padding_top: {{ section_padding_top }}px;
+     --section_padding_bottom: {{ section_padding_bottom }}px;
+
+     {% if section.settings.use_custom_colors %}
+       --product-background: {{ section.settings.background_color }};
+       --product-text: {{ section.settings.text_color }};
+       --product-heading: {{ section.settings.heading_color }};
+       --product-accent: {{ section.settings.accent_color }};
+       --product-border: {{ section.settings.border_color }};
+     {% else %}
+       --product-background: rgb(var(--color-background));
+       --product-text: rgb(var(--color-foreground));
+       --product-heading: rgb(var(--color-foreground));
+       --product-accent: rgb(var(--color-foreground));
+       --product-border: rgb(var(--color-foreground));
+     {% endif %}
+
+     background-color: var(--product-background);
+     color: var(--product-text);
+    }
+  </style>
+
   <div class="product-final__inner">
     
     {% if section.settings.show_breadcrumb %}

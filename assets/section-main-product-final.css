@@ -19,9 +19,6 @@ product-info {
   --product-final-info-max-width: none;
 
   width: 100%;
-
-  background-color: var(--product-background);
-  color: var(--product-text);
 }
 
 .product-final h1,
