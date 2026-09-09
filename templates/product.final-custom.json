@@ -30,6 +30,30 @@
     },
     "main_product_final_HdTwUw": {
       "type": "main-product-final",
+      "blocks": {
+        "static-media": {
+          "type": "product-media",
+          "static": true,
+          "settings": {
+            "gallery_layout": "stacked",
+            "mobile_thumbnails": "hide",
+            "image_zoom": "lightbox",
+            "enable_video_looping": false
+          },
+          "blocks": {}
+        },
+        "static-details": {
+          "type": "product-details",
+          "static": true,
+          "settings": {
+            "content_width": "medium",
+            "text_align": "left",
+            "vertical_align": "start",
+            "mobile_order": "media-first"
+          },
+          "blocks": {}
+        }
+      },
       "name": "Product information",
       "settings": {
         "layout_size": "page",
