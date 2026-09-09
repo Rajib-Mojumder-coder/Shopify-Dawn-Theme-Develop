@@ -16,11 +16,11 @@
 
   width: 100%;
 
-  color: rgb(var(--color-foreground));
-  background-color: rgb(var(--color-background));
+  background-color: var(--product-background);
+  color: var(--product-text);
 }
 
-/* .product-final h1,
+.product-final h1,
 .product-final h2,
 .product-final h3,
 .product-final h4,
@@ -31,7 +31,7 @@ color: var(--product-heading);
 
 .product-final a {
 color: var(--product-accent);
-} */
+} 
 /* ============   INNER CONTAINER ================= */
 
 .product-final__inner {
