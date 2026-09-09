@@ -3,10 +3,6 @@
 <div class="product-final__information{% if section.settings.enable_sticky_info %}" data-sticky-enabled="true{% endif %}" {{ block.shopify_attributes }}>
   <div class="product-final__information-inner{% if section.settings.enable_sticky_info %} is-sticky{% endif %}">
     <section id="ProductInfo-{{ section.id }}" class="product__info-container">
-      {%- comment -%}
-        Renders whatever child blocks the merchant added here: Title, Price,
-        Variant picker, Buy buttons, Description, or any other @theme/@app block.
-      {%- endcomment -%}
       {% content_for 'blocks' %}
     </section>
   </div>
