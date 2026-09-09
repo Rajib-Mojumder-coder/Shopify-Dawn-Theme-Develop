@@ -13,7 +13,7 @@
               value="{{ product.selected_or_first_available_variant.id }}">
 
             {% content_for 'blocks' %}
-            
+
             {%- endform -%}
         </product-form>
     </section>
@@ -22,9 +22,13 @@
 
 {% schema %} 
 {
-  "name": "Details",
+  "name": "Product Details",
   "blocks": [
-    { "type": "@theme" },
+    { "type": "header" },
+    { "type": "divider" },
+    { "type": "variant_picker" },
+    { "type": "buy_buttons" },
+    { "type": "description" },
     { "type": "@app" }
   ],
   "settings": [
