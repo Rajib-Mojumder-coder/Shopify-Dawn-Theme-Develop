@@ -1,0 +1,34 @@
+{% unless product.has_only_default_variant %}
+  {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+{% endunless %}
+
+<div class="product-final__variant-picker" {{ block.shopify_attributes }}>
+  {%- assign product_form_id = 'product-form-' | append: section.id -%}
+ 
+  {% render 'custom-product-variant-pickered',
+            product: product,
+            block: block,
+            section: section,
+            product_form_id: product_form_id
+        %}
+</div>
+
+{% schema %}
+{
+  "name": "Variant picker",
+  "settings": [
+    {
+      "type": "select",
+      "id": "picker_type",
+      "label": "Style",
+      "options": [
+        { "value": "dropdown", "label": "Dropdown" },
+        { "value": "swatch", "label": "Swatch / buttons" }
+      ],
+      "default": "swatch"
+    }
+  ]
+}
+{% endschema %}
