@@ -184,22 +184,6 @@ color: var(--product-accent, inherit);
   top: var(--product-final-sticky-top, 24px);
 }
 
-/* ==========================================================================
-   COLOR SYSTEM
-   ========================================================================== */
-
-.product-final[data-custom-colors="true"] {
-  background: var(--product-final-background);
-  color: var(--product-final-text);
-}
-
-.product-final[data-custom-colors="true"] .product-final__heading {
-  color: var(--product-final-heading);
-}
-
-.product-final[data-custom-colors="true"] .product-final__accent {
-  color: var(--product-final-accent);
-}
 
 /* ==========================================================================
    FULL WIDTH
