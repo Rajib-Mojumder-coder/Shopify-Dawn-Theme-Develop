@@ -21,7 +21,7 @@
   border-color: var(--product-border); */
 }
 
-.product-final h1,
+/* .product-final h1,
 .product-final h2,
 .product-final h3,
 .product-final h4,
@@ -32,7 +32,7 @@ color: var(--product-heading);
 
 .product-final a {
 color: var(--product-accent);
-}
+} */
 /* ============   INNER CONTAINER ================= */
 
 .product-final__inner {
