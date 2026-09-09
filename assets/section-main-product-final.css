@@ -26,11 +26,11 @@
 .product-final h4,
 .product-final h5,
 .product-final h6 {
-color: var(--product-heading, inherit);
+color: var(--product-heading);
 }
 
 .product-final a {
-color: var(--product-accent, inherit);
+color: var(--product-accent);
 }
 /* ============   INNER CONTAINER ================= */
 
