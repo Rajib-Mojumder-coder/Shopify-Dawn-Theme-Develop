@@ -16,9 +16,8 @@
 
   width: 100%;
 
-  /* color: var(--product-text);
-  background-color: var(--product-background);
-  border-color: var(--product-border); */
+  color: rgb(var(--color-foreground));
+  background-color: rgb(var(--color-background)) !important;
 }
 
 /* .product-final h1,
