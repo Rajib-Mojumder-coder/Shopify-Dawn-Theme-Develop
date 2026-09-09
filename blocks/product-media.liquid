@@ -1,0 +1,63 @@
+{%- assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' -%}
+
+<div class="product-final__media" {{ block.shopify_attributes }}>
+  {% render 'product-media-gallery',
+    variant_images: variant_images,
+    gallery_layout: block.settings.gallery_layout,
+    mobile_thumbnails: block.settings.mobile_thumbnails,
+    image_zoom: block.settings.image_zoom,
+    enable_video_looping: block.settings.enable_video_looping
+  %}
+</div>
+
+{% if block.settings.image_zoom == 'hover' %}
+  <script id="EnableZoomOnHover-{{ section.id }}" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Media",
+  "settings": [
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "label": "Gallery layout",
+      "options": [
+        { "value": "stacked", "label": "Stacked" },
+        { "value": "columns", "label": "2 columns" },
+        { "value": "thumbnail", "label": "Thumbnails" },
+        { "value": "thumbnail_slider", "label": "Thumbnail carousel" }
+      ],
+      "default": "stacked"
+    },
+    {
+      "type": "select",
+      "id": "mobile_thumbnails",
+      "label": "Mobile layout",
+      "options": [
+        { "value": "columns", "label": "2 columns" },
+        { "value": "show", "label": "Show thumbnails" },
+        { "value": "hide", "label": "Hide thumbnails" }
+      ],
+      "default": "hide"
+    },
+    {
+      "type": "select",
+      "id": "image_zoom",
+      "label": "Image zoom",
+      "options": [
+        { "value": "lightbox", "label": "Open lightbox" },
+        { "value": "hover", "label": "Zoom on hover" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "lightbox"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "Enable video looping",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
