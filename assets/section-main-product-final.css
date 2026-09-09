@@ -15,9 +15,9 @@
   --product-final-info-max-width: none;
 
   width: 100%;
-  color: var(--product-text, inherit);
-  background-color: var(--product-background );
-  border-color: var(--product-border, currentColor);
+  color: var(--product-text);
+  background-color: var(--product-background);
+  border-color: var(--product-border);
 }
 
 .product-final h1,
