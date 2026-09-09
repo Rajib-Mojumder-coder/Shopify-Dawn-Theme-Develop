@@ -2,6 +2,10 @@
    MAIN PRODUCT FINAL
    Product Information Layout System
    ========================================================================== */
+product-info {
+  display: block;
+  width: 100%;
+}
 
 .product-final {
   --product-final-page-width: var(--page-width);
