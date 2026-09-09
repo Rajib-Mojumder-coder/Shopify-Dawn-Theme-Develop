@@ -113,19 +113,75 @@ data-section="{{ section.id }}" data-product-id="{{ product.id }}" data-update-u
       "min": 800,
       "max": 1800,
       "step": 20,
-      "unit": "px",
+      "unit": "px", 
       "default": 1200,
       "visible_if": "{{ section.settings.layout_size == 'page' and section.settings.page_width == 'custom' }}"
     },
     {
       "type": "select",
       "id": "product_media_position",
-      "label": "Media Position",
+      "label": "Media position",
       "options": [
-        { "label": "left", "value": "left" },
-        { "label": "Right", "value": "right" }
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
       ],
       "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "column_ratio",
+      "label": "Column ratio",
+      "options": [
+        {
+          "value": "equal",
+          "label": "Equal"
+        },
+        {
+          "value": "media-large",
+          "label": "Media large"
+        },
+        {
+          "value": "media-medium",
+          "label": "Media medium"
+        },
+        {
+          "value": "media-small",
+          "label": "Media small"
+        }
+      ],
+      "default": "media-large"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Sticky product information"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "label": "Enable sticky product information",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_cart",
+      "label": "Enable sticky add to cart",
+      "default": false
     },
     {
       "type": "header",
