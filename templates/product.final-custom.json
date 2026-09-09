@@ -28,7 +28,7 @@
         "padding_bottom": 28
       }
     },
-    "main_product_final_PrahVp": {
+    "main_product_final_ffVLGq": {
       "type": "main-product-final",
       "name": "Product information",
       "settings": {
@@ -52,6 +52,6 @@
   },
   "order": [
     "related-products",
-    "main_product_final_PrahVp"
+    "main_product_final_ffVLGq"
   ]
 }
