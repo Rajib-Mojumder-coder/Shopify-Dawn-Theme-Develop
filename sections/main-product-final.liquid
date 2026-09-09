@@ -4,7 +4,7 @@
     assign section_padding_top = section.settings.padding_top
     assign section_padding_bottom = section.settings.padding_bottom
 
-    if section.settings.layout_size == 'full'
+    if section.settings.layout_size == '100%'
       assign layout-width = '100%'
     elsif section.settings.page_width == 'default'
       assign layout-width = 'var(--page-width)'
