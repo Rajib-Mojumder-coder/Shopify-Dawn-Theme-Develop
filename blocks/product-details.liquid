@@ -1,80 +1,161 @@
 {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
-<div class="product-final__information{% if section.settings.enable_sticky_info %}" data-sticky-enabled="true{% endif %}" {{ block.shopify_attributes }}>
-  <div class="product-final__information-inner{% if section.settings.enable_sticky_info %} is-sticky{% endif %}">
-    <section id="ProductInfo-{{ section.id }}" class="product__info-container">
+<div
+  class="product-final__information"
+  {{ block.shopify_attributes }}
+>
 
-        <product-form class="product-form custom-product-form" data-section-id="{{ section.id }}" data-product-id="{{ product.id }}" data-product-scope data-hide-errors="false" style="--product-content-spacing: {{ section.settings.product_content_spacing }}px;">
-            {%- form 'product', product, id: product_form_id, class: 'form custom-product-form__form',
-              novalidate: 'novalidate', data-type: 'add-to-cart-form'-%}
+  <div
+    class="
+      product-final__information-inner
+      {% if section.settings.enable_sticky_info %}
+        product-final__information-inner--sticky
+      {% endif %}
+    "
+  >
 
-               <!-- Module 2 : Hidden Variant ID -->
-           <input type="hidden" name="id" class="product-variant-id custom-product-variant__variant-id"
-              value="{{ product.selected_or_first_available_variant.id }}">
+    <section
+      id="ProductInfo-{{ section.id }}"
+      class="product-final__info-content"
+    >
 
-            {% content_for 'blocks' %}
+      <product-form
+        class="product-form custom-product-form"
+        data-section-id="{{ section.id }}"
+        data-product-id="{{ product.id }}"
+        data-product-scope
+        data-hide-errors="false"
+      >
 
-            {%- endform -%}
-        </product-form>
+        {%- form 'product',
+          product,
+          id: product_form_id,
+          class: 'form custom-product-form__form',
+          novalidate: 'novalidate',
+          data-type: 'add-to-cart-form'
+        -%}
+
+          <input
+            type="hidden"
+            name="id"
+            class="product-variant-id custom-product-variant__variant-id"
+            value="{{ product.selected_or_first_available_variant.id }}"
+          >
+
+          <input
+            type="hidden"
+            name="quantity"
+            value="1"
+            class="custom-product-form__quantity"
+          >
+
+          {% content_for 'blocks' %}
+
+        {%- endform -%}
+
+      </product-form>
+
     </section>
+
   </div>
+
 </div>
 
-{% schema %} 
+{% schema %}
 {
-  "name": "Product Details",
+  "name": "Details",
+
   "blocks": [
-    { "type": "header" },
-    { "type": "divider" },
-    { "type": "custom-variant-picker" },
-    { "type": "buy_buttons" },
-    { "type": "description" },
-    { "type": "@app" }
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
   ],
+
   "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+
     {
       "type": "select",
       "id": "content_width",
       "label": "Content width",
       "options": [
-        { "value": "narrow", "label": "Narrow" },
-        { "value": "medium", "label": "Medium" },
-        { "value": "wide", "label": "Wide" },
-        { "value": "full", "label": "Full" }
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        },
+        {
+          "value": "full",
+          "label": "Full"
+        }
       ],
       "default": "medium"
     },
+
     {
       "type": "select",
       "id": "text_align",
       "label": "Text alignment",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
       ],
       "default": "left"
     },
+
     {
       "type": "select",
       "id": "vertical_align",
       "label": "Vertical alignment",
       "options": [
-        { "value": "start", "label": "Top" },
-        { "value": "center", "label": "Center" },
-        { "value": "end", "label": "Bottom" }
+        {
+          "value": "start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "end",
+          "label": "Bottom"
+        }
       ],
       "default": "start"
     },
+
     {
-      "type": "select",
-      "id": "mobile_order",
-      "label": "Mobile order",
-      "options": [
-        { "value": "media-first", "label": "Media first" },
-        { "value": "information-first", "label": "Details first" }
-      ],
-      "default": "media-first"
+      "type": "range",
+      "id": "product_content_spacing",
+      "label": "Block spacing",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
     }
   ]
 }
