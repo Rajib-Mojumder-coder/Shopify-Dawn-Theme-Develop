@@ -1,0 +1,69 @@
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+<div class="product-final__information{% if section.settings.enable_sticky_info %}" data-sticky-enabled="true{% endif %}" {{ block.shopify_attributes }}>
+  <div class="product-final__information-inner{% if section.settings.enable_sticky_info %} is-sticky{% endif %}">
+    <section id="ProductInfo-{{ section.id }}" class="product__info-container">
+      {%- comment -%}
+        Renders whatever child blocks the merchant added here: Title, Price,
+        Variant picker, Buy buttons, Description, or any other @theme/@app block.
+      {%- endcomment -%}
+      {% content_for 'blocks' %}
+    </section>
+  </div>
+</div>
+
+{% schema %} 
+{
+  "name": "Details",
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "options": [
+        { "value": "narrow", "label": "Narrow" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "wide", "label": "Wide" },
+        { "value": "full", "label": "Full" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "vertical_align",
+      "label": "Vertical alignment",
+      "options": [
+        { "value": "start", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "end", "label": "Bottom" }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "select",
+      "id": "mobile_order",
+      "label": "Mobile order",
+      "options": [
+        { "value": "media-first", "label": "Media first" },
+        { "value": "information-first", "label": "Details first" }
+      ],
+      "default": "media-first"
+    }
+  ]
+}
+{% endschema %}
