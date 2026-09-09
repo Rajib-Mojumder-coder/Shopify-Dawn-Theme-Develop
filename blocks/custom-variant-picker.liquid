@@ -20,15 +20,292 @@
   "name": "Variant picker",
   "settings": [
     {
+      "type": "header",
+      "content": "Variant Picker"
+    },
+
+    {
+      "type": "paragraph",
+      "content": "Choose a different display style for each product variant option."
+    },
+
+    {
+      "type": "header",
+      "content": "Option 1"
+    },
+
+    {
+      "type": "text",
+      "id": "variant_option_1_name",
+      "label": "Option name",
+      "info": "Example: Color, Size, Material",
+      "default": "Color"
+    },
+
+    {
       "type": "select",
-      "id": "picker_type",
-      "label": "Style",
+      "id": "variant_option_1_style",
+      "label": "Display style",
       "options": [
-        { "value": "dropdown", "label": "Dropdown" },
-        { "value": "swatch", "label": "Swatch / buttons" }
+        {
+          "label": "Buttons",
+          "value": "buttons"
+        },
+        {
+          "label": "Dropdown",
+          "value": "dropdown"
+        },
+        {
+          "label": "Swatches",
+          "value": "swatches"
+        }
       ],
-      "default": "swatch"
-    }
-  ]
+      "default": "swatches"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_1_swatch_type",
+      "label": "Swatch type",
+      "options": [
+        {
+          "label": "Kleur",
+          "value": "kleur"
+        },
+        {
+          "label": "Image",
+          "value": "image"
+        }
+      ],
+      "default": "kleur",
+      "visible_if": "{{ block.settings.variant_option_1_style == 'swatches' }}"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_1_swatch_shape",
+      "label": "Swatch shape",
+      "options": [
+        {
+          "label": "Circle",
+          "value": "circle"
+        },
+        {
+          "label": "Square",
+          "value": "square"
+        }
+      ],
+      "default": "circle",
+      "visible_if": "{{ block.settings.variant_option_1_style == 'swatches' }}"
+    },
+
+    {
+      "type": "header",
+      "content": "Option 2"
+    },
+
+    {
+      "type": "text",
+      "id": "variant_option_2_name",
+      "label": "Option name",
+      "info": "Example: Color, Size, Material",
+      "default": "Size"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_2_style",
+      "label": "Display style",
+      "options": [
+        {
+          "label": "Buttons",
+          "value": "buttons"
+        },
+        {
+          "label": "Dropdown",
+          "value": "dropdown"
+        },
+        {
+          "label": "Swatches",
+          "value": "swatches"
+        }
+      ],
+      "default": "buttons"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_2_swatch_type",
+      "label": "Swatch type",
+      "options": [
+        {
+          "label": "Color",
+          "value": "color"
+        },
+        {
+          "label": "Image",
+          "value": "image"
+        }
+      ],
+      "default": "color",
+      "visible_if": "{{ block.settings.variant_option_2_style == 'swatches' }}"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_2_swatch_shape",
+      "label": "Swatch shape",
+      "options": [
+        {
+          "label": "Circle",
+          "value": "circle"
+        },
+        {
+          "label": "Square",
+          "value": "square"
+        }
+      ],
+      "default": "circle",
+      "visible_if": "{{ block.settings.variant_option_2_style == 'swatches' }}"
+    },
+
+    {
+      "type": "header",
+      "content": "Option 3"
+    },
+
+    {
+      "type": "text",
+      "id": "variant_option_3_name",
+      "label": "Option name",
+      "info": "Example: Color, Size, Material",
+      "default": "Material"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_3_style",
+      "label": "Display style",
+      "options": [
+        {
+          "label": "Buttons",
+          "value": "buttons"
+        },
+        {
+          "label": "Dropdown",
+          "value": "dropdown"
+        },
+        {
+          "label": "Swatches",
+          "value": "swatches"
+        }
+      ],
+      "default": "dropdown"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_3_swatch_type",
+      "label": "Swatch type",
+      "options": [
+        {
+          "label": "Color",
+          "value": "color"
+        },
+        {
+          "label": "Image",
+          "value": "image"
+        }
+      ],
+      "default": "color",
+      "visible_if": "{{ block.settings.variant_option_3_style == 'swatches' }}"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_3_swatch_shape",
+      "label": "Swatch shape",
+      "options": [
+        {
+          "label": "Circle",
+          "value": "circle"
+        },
+        {
+          "label": "Square",
+          "value": "square"
+        }
+      ],
+      "default": "circle",
+      "visible_if": "{{ block.settings.variant_option_3_style == 'swatches' }}"
+    },
+
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "custom_variant_color_scheme",
+      "label": "Use theme color scheme",
+      "default": true
+    },
+
+    {
+      "type": "color_scheme",
+      "id": "variant_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == true }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_text_color",
+      "label": "Text color",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_background_color",
+      "label": "Background color",
+      "default": "#ECEEF2",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_active_text_color",
+      "label": "Active text color",
+      "default": "#ECEEF2",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_active_background_color",
+      "label": "Active background color",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_border_color",
+      "label": "Border color",
+      "default": "#D9DDE3",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_active_border_color",
+      "label": "Active border color",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+      }
+    ]
 }
 {% endschema %}
