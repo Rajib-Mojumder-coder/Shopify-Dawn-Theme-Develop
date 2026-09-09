@@ -1,13 +1,6 @@
 {%- assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' -%}
 
 <div class="product-final__media" {{ block.shopify_attributes }}>
-  {% comment %} {% render 'product-media-gallery',
-    variant_images: variant_images,
-    gallery_layout: block.settings.gallery_layout,
-    mobile_thumbnails: block.settings.mobile_thumbnails,
-    image_zoom: block.settings.image_zoom,
-    enable_video_looping: block.settings.enable_video_looping
-  %} {% endcomment %}
    {% render 'custom-product-media-gallery', variant_images: variant_images %}
 </div>
 
