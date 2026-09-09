@@ -20,7 +20,7 @@
         --breadcrumb_bottom_spacing: {{ breadcrumb_bottom_spacing }}px;
         --section_padding_top: {{ section_padding_top }}px;
         --section_padding_bottom: {{ section_padding_bottom }}px;
-/* 
+ 
         {% if section.settings.use_custom_colors %}
           --product-background: {{ section.settings.background_color }};
           --product-text: {{ section.settings.text_color }};
@@ -33,7 +33,7 @@
           --product-heading: rgb(var(--color-foreground));
           --product-accent: rgb(var(--color-foreground));
           --product-border: rgb(var(--color-foreground));
-        {% endif %} */
+        {% endif %} 
      }
    </style>
   <div class="product-final__inner">
@@ -107,7 +107,47 @@
       "label": "Color Scheme",
       "default": "scheme-1"
     },
-   
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "label": "Use custom colors",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#222222",
+      "visible_if": "{{ section.settings.use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#111111",
+      "visible_if": "{{ section.settings.use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#e5e5e5",
+      "visible_if": "{{ section.settings.use_custom_colors }}"
+    },
     {
       "type": "header",
       "content": "Breadcrumb"
@@ -161,44 +201,3 @@
 }
 {% endschema %}
 
- {% comment %} {
-      "type": "checkbox",
-      "id": "use_custom_colors",
-      "label": "Use custom colors",
-      "default": false
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background",
-      "default": "#ffffff",
-      "visible_if": "{{ section.settings.use_custom_colors }}"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text",
-      "default": "#222222",
-      "visible_if": "{{ section.settings.use_custom_colors }}"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading",
-      "default": "#111111",
-      "visible_if": "{{ section.settings.use_custom_colors }}"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent",
-      "default": "#000000",
-      "visible_if": "{{ section.settings.use_custom_colors }}"
-    },
-    {
-      "type": "color",
-      "id": "border_color",
-      "label": "Border",
-      "default": "#e5e5e5",
-      "visible_if": "{{ section.settings.use_custom_colors }}"
-    }, {% endcomment %}
