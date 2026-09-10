@@ -72,6 +72,25 @@ color: var(--product-accent);
 .product-final__layout--right .product-final__details-block {
   order: 1;
 }
+
+/* Column ratios */
+
+.product-final__layout--equal {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.product-final__layout--media-large {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+}
+
+.product-final__layout--media-medium {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+
+.product-final__layout--media-small {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+}
+
 /* ==========================================================================
    MEDIA
    ========================================================================== */
