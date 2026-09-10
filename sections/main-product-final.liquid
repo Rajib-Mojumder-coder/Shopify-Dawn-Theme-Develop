@@ -6,7 +6,7 @@
     assign section_padding_top = section.settings.padding_top
     assign section_padding_bottom = section.settings.padding_bottom
 
-    if section.settings.layout_size == '100%'
+    if section.settings.layout_size == 'full'
       assign layout_width = '100%'
     elsif section.settings.page_width == 'default'
       assign layout_width = 'var(--page-width)'
@@ -91,7 +91,7 @@ data-section="{{ section.id }}" data-product-id="{{ product.id }}" data-update-u
       "label": "Width",
       "options": [
         { "label": "Page", "value": "page" },
-        { "label": "Full", "value": "100%" }
+        { "label": "Full", "value": "full" }
       ],
       "default": "page"
     },
