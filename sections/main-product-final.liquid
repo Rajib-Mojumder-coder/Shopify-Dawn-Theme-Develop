@@ -3,6 +3,7 @@
 {%  liquid  
     assign breadcrumb_bottom_spacing = section.settings.breadcrumb_bottom_spacing
     assign column_gap = section.settings.column_gap
+    assign product_media_position = section.settings.product_media_position 
     assign product_media_position = section.settings.product_media_position
     assign section_padding_top = section.settings.padding_top
     assign section_padding_bottom = section.settings.padding_bottom
@@ -54,7 +55,7 @@ data-section="{{ section.id }}" data-product-id="{{ product.id }}" data-update-u
       </div>
     {% endif %}
   
-   <div class="product-final__layout product-final__layout--{{ section.settings.product_media_position }}
+   <div class="product-final__layout product-final__layout--{{ product_media_position }}
         product-final__layout--{{ section.settings.column_ratio }}">
 
       {% content_for 'block', type: 'product-media', id: 'product-media' %}
