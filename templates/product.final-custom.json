@@ -54,7 +54,33 @@
             "vertical_align": "start",
             "product_content_spacing": 20
           },
-          "blocks": {}
+          "blocks": {
+            "advisor_card_YqjeT4": {
+              "type": "advisor_card",
+              "name": "Advisor Card",
+              "settings": {
+                "enable_color_scheme": false,
+                "color_scheme": "",
+                "Advisor_block_width": "100",
+                "enable_img_position": true,
+                "advisor_img_y_offset": -40,
+                "advisor_card_bg": true,
+                "card_bg_color": "#071540",
+                "transparant_img_bg": true,
+                "transparant_img_bg_color": "#06123D",
+                "advisor_heading": "Advisor Heading",
+                "heading_max_width": 350,
+                "advisor_description": "Advisor Description",
+                "advisor_button_width": "full",
+                "button_text": "ADVIESGESPREK",
+                "button_link": ""
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "advisor_card_YqjeT4"
+          ]
         }
       },
       "name": "Product information",
