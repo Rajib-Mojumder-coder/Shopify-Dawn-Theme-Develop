@@ -65,6 +65,13 @@ color: var(--product-accent);
   align-items: start;
 }
 
+.product-final__layout--right .product-final__media {
+  order: 2;
+}
+
+.product-final__layout--right .product-final__information {
+  order: 1;
+}
 /* ==========================================================================
    MEDIA
    ========================================================================== */
