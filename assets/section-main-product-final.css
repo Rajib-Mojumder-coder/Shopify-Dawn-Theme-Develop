@@ -65,11 +65,11 @@ color: var(--product-accent);
   align-items: start;
 }
 
-.product-final__layout--right .product-final__media {
+.product-final__layout--right .product-final__media-block {
   order: 2;
 }
 
-.product-final__layout--right .product-final__information {
+.product-final__layout--right .product-final__details-block {
   order: 1;
 }
 /* ==========================================================================
