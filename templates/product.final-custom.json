@@ -89,7 +89,7 @@
         "page_width": "default",
         "custom_page_width": 1200,
         "product_media_position": "left",
-        "column_ratio": "media-large",
+        "column_ratio": "media-small",
         "column_gap": 48,
         "enable_sticky_info": true,
         "enable_sticky_cart": false,
