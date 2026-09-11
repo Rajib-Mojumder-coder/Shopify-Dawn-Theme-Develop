@@ -162,14 +162,14 @@
     },
      {
       "type": "range",
-      "id": "borders_range",
-      "label": "Padding Top",
+      "id": "borders_thikness",
+      "label": "Thikness",
       "min": 0,
-      "max": 100,
+      "max": 10,
       "step": 1,
       "unit": "px",
       "default": 0,
-      "visible_if": "{{ block.settings.details_padding == true }}"
+      "visible_if": "{{ block.settings.borders_style == 'solid' }}"
     },
     {
       "type": "header",
