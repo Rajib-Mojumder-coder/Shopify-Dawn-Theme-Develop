@@ -35,8 +35,10 @@
           "type": "product-media",
           "static": true,
           "settings": {
-            "gallery_layout": "stacked",
-            "mobile_thumbnails": "hide",
+            "gallery_layout": "grid",
+            "grid_column": "1",
+            "grid_column_gap": 4,
+            "full_width_first_image": false,
             "image_zoom": "lightbox",
             "media_fit": "contain",
             "constrain_to_viewport": true,
