@@ -172,6 +172,23 @@
       "visible_if": "{{ block.settings.borders_style == 'solid' }}"
     },
     {
+      "type": "color",
+      "id": "borders_color",
+      "label": "Color",
+      "default": "#00000000",
+      "visible_if": "{{ block.settings.borders_style == 'solid' }}"
+    },
+    {
+      "type": "range",
+      "id": "details_corner_radius",
+      "label": "Corner Radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
       "type": "header",
       "content": "Padding"
     },
