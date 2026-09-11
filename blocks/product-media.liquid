@@ -2,13 +2,15 @@
 
 <div
   class="product-final__media"
+  id="ProductMedia-{{ block.id }}"
   {{ block.shopify_attributes }}
 >
 
   <div class="product-final__media-inner">
 
     {% render 'custom-product-media-gallery',
-      variant_images: variant_images
+      variant_images: variant_images,
+      block: block
     %}
 
   </div>
@@ -41,15 +43,16 @@
       "content": "Grid",
       "visible_if": "{{ block.settings.gallery_layout == 'grid' }}"
     },
-    {
+     {
       "type": "select",
       "id": "grid_column",
-      "label": "Colums",
+      "label": "Columns",
       "options": [
         { "label": "1", "value": "1" },
         { "label": "2", "value": "2" }
       ],
-      "default": "1"
+      "default": "2",
+      "visible_if": "{{ block.settings.gallery_layout == 'grid' }}"
     },
     {
       "type": "range",
@@ -65,13 +68,14 @@
     {
       "type": "checkbox",
       "id": "full_width_first_image",
-      "label": "Full Width First Image",
+      "label": "Full width first image",
       "default": false,
-      "visible_if": "{{ block.settings.grid_column == '2' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'grid' and block.settings.grid_column == '2' }}"
     },
     {
       "type": "header",
-      "content": "Carousel"
+      "content": "Carousel",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "select",
@@ -82,7 +86,7 @@
         { "label": "Cheverons", "value": "cheverons" },
         { "label": "Large Arrows", "value": "large_arrows" },
         { "label": "Large Cheverons", "value": "large_cheverons" },
-        { "label": "Custom", "value": "custom" }
+        { "label": "Custom", "value": "custom_svg_code" }
       ],
       "default": "arrows",
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
@@ -104,7 +108,7 @@
         { "label": "Counter", "value": "counter" }
       ],
       "default": "thumbnails",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination == true }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination }}"
     },
     {
       "type": "checkbox",
@@ -123,7 +127,7 @@
         { "label": "Hint", "value": "hint" }
       ],
       "default": "thumbnails",
-      "visible_if": "{{ block.settings.mobile_pagination == true}}"
+      "visible_if": "{{ block.settings.mobile_pagination }}"
     },
     {
       "type": "header",
@@ -186,20 +190,13 @@
       ],
       "default": "auto"
     },
-    
-    {
+   {
       "type": "select",
       "id": "media_fit",
       "label": "Media fit",
       "options": [
-        {
-          "value": "contain",
-          "label": "Contain"
-        },
-        {
-          "value": "cover",
-          "label": "Cover"
-        }
+        { "value": "contain", "label": "Contain" },
+        { "value": "cover", "label": "Cover" }
       ],
       "default": "contain"
     },
@@ -236,21 +233,11 @@
       "id": "image_zoom",
       "label": "Image zoom",
       "options": [
-        {
-          "value": "lightbox",
-          "label": "Open lightbox"
-        },
-        {
-          "value": "hover",
-          "label": "Zoom on hover"
-        },
-        {
-          "value": "none",
-          "label": "None"
-        }
+        { "value": "lightbox", "label": "Open lightbox" },
+        { "value": "hover", "label": "Zoom on hover" }
       ],
       "default": "lightbox",
-      "visible_if": "{{ block.settings.enable_media_zoom == 'true' }}"
+      "visible_if": "{{ block.settings.enable_media_zoom }}"
     },
     {
       "type": "checkbox",
