@@ -20,13 +20,10 @@
   "name": "Product Media",
   "settings": [
     {
-      "type": "header",
-      "content": "Type"
-    },
-    {
       "type": "select",
       "id": "gallery_layout",
       "label": "Gallery layout",
+      "info": "Carousel is always used on mobile",
       "options": [
         {
           "value": "grid",
@@ -37,11 +34,21 @@
           "label": "Carousel"
         }
       ],
-      "default": "grid"
+      "default": "carousel"
     },
     {
       "type": "header",
-      "content": "Grid"
+      "content": "Grid",
+      "visible_if": "{{ block.settings.gallery_layout == 'grid' }}"
+    },
+    {
+      "type": "select",
+      "id": "grid_column",
+      "label": "Colums",
+      "options": [
+        { "label": "1", "value": "1" },
+        { "label": "2", "value": "2" }
+      ]
     },
     {
       "type": "select",
