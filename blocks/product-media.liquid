@@ -90,7 +90,8 @@
       "type": "checkbox",
       "id": "desktop_pagination",
       "label": "Desktop Pagination",
-      "default": false
+      "default": false,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel'}}"
     },
     {
       "type": "select",
