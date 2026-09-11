@@ -87,21 +87,33 @@
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
-      "type": "select",
+      "type": "checkbox",
       "id": "desktop_pagination",
       "label": "Desktop Pagination",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "desktop_pagination_type",
+      "label": "Desktop Pagination Type",
       "options": [
         { "label": "Thumbnails", "value": "thumbnails" },
         { "label": "Dots", "value": "dots" },
         { "label": "Counter", "value": "counter" }
       ],
       "default": "thumbnails",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination == true }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_pagination",
+      "label": "Desktop Pagination",
+      "default": false
     },
     {
       "type": "select",
-      "id": "mobile_pagination",
-      "label": "Mobile Pagination",
+      "id": "mobile_pagination_type",
+      "label": "Mobile Pagination Type",
       "options": [
         { "label": "Thumbnails", "value": "thumbnails" },
         { "label": "Dots", "value": "dots" },
@@ -109,7 +121,7 @@
         { "label": "Hint", "value": "hint" }
       ],
       "default": "thumbnails",
-      "visible_if": "{{ block.settings.gallery_layout == 'grid' and block.settings.gallery_layout == 'carousel'}}"
+      "visible_if": "{{ block.settings.mobile_pagination == true}}"
     },
     {
       "type": "select",
