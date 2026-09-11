@@ -1,0 +1,361 @@
+{%- comment -%}
+  custom-product-media-gallery.liquid
+  ------------------------------------------------------------
+  Accepts:
+    - variant_images: array of image srcs attached to variants
+    - block: the "product-media" block (all settings read from block.settings)
+
+  Every setting below maps to a specific line of markup/CSS/JS —
+  see the inline comments next to each one.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = block.settings
+
+  assign layout = s.gallery_layout
+  assign grid_columns = s.grid_column | default: '2'
+  assign full_width_first = s.full_width_first_image
+
+  assign icon_style = s.carosel_icon
+  assign desktop_pagination = s.desktop_pagination
+  assign desktop_pagination_type = s.desktop_pagination_type
+  assign mobile_pagination = s.mobile_pagination
+  assign mobile_pagination_type = s.mobile_pagination_type
+
+  assign thumb_position = s.thumbnail_desktop_position
+
+  assign media_ratio = s.media_ratio
+  assign media_fit = s.media_fit
+  assign hide_variants = s.hide_variants
+  assign loop_video = s.enable_video_looping
+  assign enable_zoom = s.enable_media_zoom
+  assign zoom_type = s.image_zoom
+
+  # Filter out media attached to a variant OTHER than the one currently selected.
+  # (Media with no variant association always shows.)
+  assign current_variant_media_id = product.selected_or_first_available_variant.featured_media.id
+  assign media_list = product.media
+
+  # Does either breakpoint need the thumbnail strip specifically?
+  assign needs_thumb_swiper = false
+  if desktop_pagination and desktop_pagination_type == 'thumbnails'
+    assign needs_thumb_swiper = true
+  endif
+  if mobile_pagination and mobile_pagination_type == 'thumbnails'
+    assign needs_thumb_swiper = true
+  endif
+-%}
+
+<media-gallery
+  id="MediaGallery-{{ block.id }}"
+  role="region"
+  aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
+  data-desktop-layout="{{ layout }}"
+  {% if hide_variants %}data-hide-variant-media data-current-media-id="{{ current_variant_media_id }}"{% endif %}
+  {% if enable_zoom and zoom_type == 'hover' %}data-zoom-on-hover{% endif %}
+  {% if enable_zoom and zoom_type == 'lightbox' %}data-zoom-lightbox{% endif %}
+>
+
+  <style>
+    #MediaGallery-{{ block.id }} {
+      /* ---- Media ---- */
+      --media-corner-radius: {{ s.media_corner_radius }}px;
+      --media-fit: {{ media_fit }};
+      {% case media_ratio %}
+        {% when 'portrait' %}--media-aspect-ratio: 3 / 4;
+        {% when 'square' %}--media-aspect-ratio: 1 / 1;
+        {% when 'landscape' %}--media-aspect-ratio: 4 / 3;
+        {% else %}--media-aspect-ratio: auto;
+      {% endcase %}
+      --media-max-height: {% if s.constrain_to_screen_height %}calc(100vh - 4rem){% else %}none{% endif %};
+
+      /* ---- Grid ---- */
+      --grid-columns: {{ grid_columns }};
+      --grid-gap: {{ s.grid_column_gap }}px;
+
+      /* ---- Thumbnails ---- */
+      --thumb-corner-radius: {{ s.thumbnail_corner_radius }}px;
+      --thumb-desktop-size: {{ s.thumbnail_desktop_width }}px;
+      --thumb-mobile-size: {{ s.thumbnail_mobile_width }}px;
+
+      /* ---- Padding ---- */
+      {% if s.media_padding %}
+        --media-padding-top: {{ s.padding_top }}px;
+        --media-padding-right: {{ s.padding_right }}px;
+        --media-padding-bottom: {{ s.padding_bottom }}px;
+        --media-padding-left: {{ s.padding_left }}px;
+      {% else %}
+        --media-padding-top: 0px;
+        --media-padding-right: 0px;
+        --media-padding-bottom: 0px;
+        --media-padding-left: 0px;
+      {% endif %}
+    }
+
+    /* Extend media edge-to-edge: cancel the section's own gutters for this block only */
+    {% if s.extent_media_to_screen_edge %}
+      #ProductMedia-{{ block.id }} {
+        margin-inline: calc(-1 * var(--page-gutter, 1.5rem));
+      }
+    {% endif %}
+  </style>
+
+  <div class="custom-product-media-main" data-layout="{{ layout }}" data-thumb-position="{{ thumb_position }}">
+    <div class="media-container-wrapper">
+
+      {% if layout == 'grid' %}
+
+        {%- comment -%} ---------------- GRID LAYOUT ---------------- {%- endcomment -%}
+        <ul class="media-grid" role="list">
+          {%- for media in media_list -%}
+            {%- assign is_hidden = false -%}
+            {%- if hide_variants and media.id != current_variant_media_id and media.alt != blank and variant_images contains media.src -%}
+              {%- assign is_hidden = true -%}
+            {%- endif -%}
+            <li
+              class="media-grid__item{% if full_width_first and forloop.first %} media-grid__item--full{% endif %}"
+              data-media-id="{{ block.id }}-{{ media.id }}"
+              {% if is_hidden %}hidden{% endif %}
+            >
+              <div class="media-frame">
+                {%- if media.media_type == 'image' -%}
+                  {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'media-frame__img' }}
+                {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
+                  {% render 'deferred-media-item', media: media, loop: loop_video %}
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+      {% else %}
+
+        {%- comment -%} ---------------- CAROUSEL LAYOUT ---------------- {%- endcomment -%}
+        <div class="swiper productMediaSlider mySwiper2">
+          <ul class="swiper-wrapper" role="list">
+            {%- for media in media_list -%}
+              {%- assign is_hidden = false -%}
+              {%- if hide_variants and media.id != current_variant_media_id and variant_images contains media.src -%}
+                {%- assign is_hidden = true -%}
+              {%- endif -%}
+              <li
+                class="swiper-slide product__media-item"
+                data-media-id="{{ block.id }}-{{ media.id }}"
+                data-media-position="{{ forloop.index }}"
+                {% if is_hidden %}hidden{% endif %}
+              >
+                <div class="media-frame">
+                  {%- if media.media_type == 'image' -%}
+                    {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'media-frame__img' }}
+                  {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
+                    {% render 'deferred-media-item', media: media, loop: loop_video %}
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+
+          {%- comment -%} Navigation icons — style driven by carosel_icon {%- endcomment -%}
+          <div class="custom-slider-controls custom-slider-controls--{{ icon_style }}">
+            <button type="button" class="swiper-button-prev slider-prev-{{ block.id }}" aria-label="{{ 'general.slider.previous_slide' | t }}"></button>
+            <div class="swiper-pagination slider-pagination-{{ block.id }}"></div>
+            <button type="button" class="swiper-button-next slider-next-{{ block.id }}" aria-label="{{ 'general.slider.next_slide' | t }}"></button>
+          </div>
+        </div>
+
+      {% endif %}
+
+      {%- comment -%} ---------------- THUMBNAIL STRIP ---------------- {%- endcomment -%}
+      {% if needs_thumb_swiper %}
+        <div thumbsSlider="" class="swiper mySwiper productMediaSliderThumbs">
+          <div class="swiper-wrapper">
+            {%- for media in media_list -%}
+              <div class="swiper-slide thumbs-media" data-media-id="{{ block.id }}-{{ media.id }}">
+                {%- if media.media_type == 'image' -%}
+                  {{ media | image_url: width: 300 | image_tag: loading: 'lazy' }}
+                {%- else -%}
+                  {{ media.preview_image | image_url: width: 300 | image_tag: loading: 'lazy' }}
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+          <div class="thumb-prev swiper-button-prev"></div>
+          <div class="thumb-next swiper-button-next"></div>
+        </div>
+      {% endif %}
+
+      {%- comment -%} ---------------- DOTS / COUNTER / HINT (non-thumbnail pagination) ---------------- {%- endcomment -%}
+      {% if desktop_pagination and desktop_pagination_type != 'thumbnails' %}
+        <div class="gallery-pagination gallery-pagination--desktop gallery-pagination--{{ desktop_pagination_type }} pagination-{{ block.id }}-desktop"></div>
+      {% endif %}
+      {% if mobile_pagination and mobile_pagination_type != 'thumbnails' and mobile_pagination_type != 'hint' %}
+        <div class="gallery-pagination gallery-pagination--mobile gallery-pagination--{{ mobile_pagination_type }} pagination-{{ block.id }}-mobile"></div>
+      {% endif %}
+
+    </div>
+  </div>
+</media-gallery>
+
+<script>
+  (function () {
+    function initGallery() {
+      var root = document.getElementById('MediaGallery-{{ block.id }}');
+      if (!root || root.dataset.desktopLayout !== 'carousel') return;
+
+      var thumbsSwiper = null;
+      {% if needs_thumb_swiper %}
+        thumbsSwiper = new Swiper('#MediaGallery-{{ block.id }} .productMediaSliderThumbs', {
+          spaceBetween: 10,
+          slidesPerView: 'auto',
+          freeMode: true,
+          watchSlidesProgress: true,
+          navigation: {
+            nextEl: '#MediaGallery-{{ block.id }} .productMediaSliderThumbs .thumb-next',
+            prevEl: '#MediaGallery-{{ block.id }} .productMediaSliderThumbs .thumb-prev'
+          }
+        });
+      {% endif %}
+
+      window['productMainSwiper-{{ block.id }}'] = new Swiper('#MediaGallery-{{ block.id }} .productMediaSlider', {
+        {% if mobile_pagination and mobile_pagination_type == 'hint' %}
+          slidesPerView: 1.06,
+          spaceBetween: 12,
+        {% else %}
+          slidesPerView: 1,
+          spaceBetween: 10,
+        {% endif %}
+        navigation: {
+          nextEl: '.slider-next-{{ block.id }}',
+          prevEl: '.slider-prev-{{ block.id }}'
+        },
+        {% if desktop_pagination and desktop_pagination_type != 'thumbnails' %}
+          pagination: {
+            el: '.pagination-{{ block.id }}-desktop',
+            clickable: true,
+            type: '{% if desktop_pagination_type == "counter" %}fraction{% else %}bullets{% endif %}'
+          },
+        {% elsif mobile_pagination and mobile_pagination_type != 'thumbnails' and mobile_pagination_type != 'hint' %}
+          pagination: {
+            el: '.pagination-{{ block.id }}-mobile',
+            clickable: true,
+            type: '{% if mobile_pagination_type == "counter" %}fraction{% else %}bullets{% endif %}'
+          },
+        {% endif %}
+        {% if needs_thumb_swiper %}
+          thumbs: { swiper: thumbsSwiper },
+        {% endif %}
+      });
+    }
+
+    if (window.Swiper) {
+      initGallery();
+    } else {
+      document.addEventListener('shopify:section:load', initGallery);
+      window.addEventListener('load', initGallery);
+    }
+  })();
+</script>
+
+<style>
+  #MediaGallery-{{ block.id }} .media-frame {
+    aspect-ratio: var(--media-aspect-ratio);
+    max-height: var(--media-max-height);
+    border-radius: var(--media-corner-radius);
+    overflow: hidden;
+    padding: var(--media-padding-top) var(--media-padding-right) var(--media-padding-bottom) var(--media-padding-left);
+  }
+
+  #MediaGallery-{{ block.id }} .media-frame__img,
+  #MediaGallery-{{ block.id }} .media-frame video {
+    width: 100%;
+    height: 100%;
+    object-fit: var(--media-fit);
+    display: block;
+  }
+
+  /* ---- Grid layout ---- */
+  #MediaGallery-{{ block.id }} .media-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), 1fr);
+    gap: var(--grid-gap);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  #MediaGallery-{{ block.id }} .media-grid__item--full {
+    grid-column: 1 / -1;
+  }
+
+  /* ---- Thumbnails ---- */
+  #MediaGallery-{{ block.id }} .productMediaSliderThumbs .thumbs-media {
+    width: var(--thumb-mobile-size);
+    border-radius: var(--thumb-corner-radius);
+    overflow: hidden;
+    cursor: pointer;
+  }
+  #MediaGallery-{{ block.id }} .productMediaSliderThumbs .thumbs-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media screen and (min-width: 750px) {
+    #MediaGallery-{{ block.id }} .productMediaSliderThumbs .thumbs-media {
+      width: var(--thumb-desktop-size);
+    }
+
+    /* Thumbnail position: left / right / bottom */
+    #MediaGallery-{{ block.id }} .custom-product-media-main[data-thumb-position="left"] .media-container-wrapper,
+    #MediaGallery-{{ block.id }} .custom-product-media-main[data-thumb-position="right"] .media-container-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    #MediaGallery-{{ block.id }} .custom-product-media-main[data-thumb-position="left"] .media-container-wrapper {
+      flex-direction: row-reverse;
+    }
+    #MediaGallery-{{ block.id }} .custom-product-media-main[data-thumb-position="left"] .productMediaSliderThumbs,
+    #MediaGallery-{{ block.id }} .custom-product-media-main[data-thumb-position="right"] .productMediaSliderThumbs {
+      flex-direction: column;
+      width: var(--thumb-desktop-size);
+      flex-shrink: 0;
+    }
+    #MediaGallery-{{ block.id }} .custom-product-media-main[data-thumb-position="left"] .productMediaSliderThumbs .swiper-wrapper,
+    #MediaGallery-{{ block.id }} .custom-product-media-main[data-thumb-position="right"] .productMediaSliderThumbs .swiper-wrapper {
+      flex-direction: column;
+    }
+    #MediaGallery-{{ block.id }} .custom-product-media-main[data-thumb-position="left"] .productMediaSlider,
+    #MediaGallery-{{ block.id }} .custom-product-media-main[data-thumb-position="right"] .productMediaSlider {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  /* ---- Pagination visibility per breakpoint ---- */
+  @media screen and (min-width: 750px) {
+    #MediaGallery-{{ block.id }} .gallery-pagination--mobile { display: none; }
+  }
+  @media screen and (max-width: 749px) {
+    #MediaGallery-{{ block.id }} .gallery-pagination--desktop { display: none; }
+    #MediaGallery-{{ block.id }} .custom-product-media-main { flex-direction: column !important; }
+  }
+
+  /* ---- Nav icon size variants ---- */
+  #MediaGallery-{{ block.id }} .custom-slider-controls--large_arrows .swiper-button-prev,
+  #MediaGallery-{{ block.id }} .custom-slider-controls--large_arrows .swiper-button-next,
+  #MediaGallery-{{ block.id }} .custom-slider-controls--large_chevrons .swiper-button-prev,
+  #MediaGallery-{{ block.id }} .custom-slider-controls--large_chevrons .swiper-button-next {
+    width: 44px;
+    height: 44px;
+  }
+
+  #MediaGallery-{{ block.id }} .custom-slider-controls {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    max-width: 270px;
+    width: 100%;
+    margin-inline: auto;
+  }
+</style>
