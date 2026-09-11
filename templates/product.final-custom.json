@@ -93,7 +93,7 @@
         "column_gap": 48,
         "enable_sticky_info": true,
         "enable_sticky_cart": false,
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "use_custom_colors": false,
         "background_color": "#ffffff",
         "text_color": "#222222",
