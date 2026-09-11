@@ -160,6 +160,17 @@
         { "label": "Solid", "value": "solid" }
       ]
     },
+     {
+      "type": "range",
+      "id": "borders_range",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.details_padding == true }}"
+    },
     {
       "type": "header",
       "content": "Padding"
