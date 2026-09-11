@@ -105,10 +105,11 @@
       "options": [
         { "label": "Thumbnails", "value": "thumbnails" },
         { "label": "Dots", "value": "dots" },
-        { "label": "Counter", "value": "counter" }
+        { "label": "Counter", "value": "counter" },
+        { "label": "Hint", "value": "hint" }
       ],
       "default": "thumbnails",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'grid' and block.settings.gallery_layout == 'carousel'}}"
     },
     {
       "type": "select",
