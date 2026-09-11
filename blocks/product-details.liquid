@@ -148,14 +148,58 @@
     },
 
     {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "checkbox",
+      "id": "details_padding",
+      "label": "Padding",
+      "default": false
+    },
+    {
       "type": "range",
-      "id": "product_content_spacing",
-      "label": "Block spacing",
+      "id": "padding_top",
+      "label": "Padding Top",
       "min": 0,
-      "max": 60,
-      "step": 2,
+      "max": 100,
+      "step": 1,
       "unit": "px",
-      "default": 20
+      "default": 0,
+      "visible_if": "{{ block.settings.details_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.details_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Padding Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.details_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Padding Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.details_padding == true }}"
     }
   ]
 }
