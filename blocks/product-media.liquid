@@ -51,6 +51,17 @@
       ]
     },
     {
+      "type": "range",
+      "id": "grid_column_gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4,
+      "visible_if": "{{ block.settings.gallery_layout == 'grid' }}"
+    },
+    {
       "type": "select",
       "id": "mobile_thumbnails",
       "label": "Mobile layout",
