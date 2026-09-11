@@ -185,6 +185,23 @@
       ],
       "default": "auto"
     },
+    
+    {
+      "type": "select",
+      "id": "media_fit",
+      "label": "Media fit",
+      "options": [
+        {
+          "value": "contain",
+          "label": "Contain"
+        },
+        {
+          "value": "cover",
+          "label": "Cover"
+        }
+      ],
+      "default": "contain"
+    },
     {
       "type": "checkbox",
       "id": "constrain_to_screen_height",
@@ -234,31 +251,6 @@
       "default": "lightbox",
       "visible_if": "{{ block.settings.enable_media_zoom == 'true' }}"
     },
-
-    {
-      "type": "select",
-      "id": "media_fit",
-      "label": "Media fit",
-      "options": [
-        {
-          "value": "contain",
-          "label": "Contain"
-        },
-        {
-          "value": "cover",
-          "label": "Cover"
-        }
-      ],
-      "default": "contain"
-    },
-
-    {
-      "type": "checkbox",
-      "id": "constrain_to_viewport",
-      "label": "Constrain media to viewport",
-      "default": true
-    },
-
     {
       "type": "checkbox",
       "id": "hide_variants",
