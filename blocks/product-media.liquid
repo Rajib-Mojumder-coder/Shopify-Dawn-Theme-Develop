@@ -210,7 +210,7 @@
     {
       "type": "checkbox",
       "id": "enable_media_zoom",
-      "label": "Extend media to screen edge",
+      "label": "Enable Zoom",
       "default": false
     },
     {
@@ -231,7 +231,8 @@
           "label": "None"
         }
       ],
-      "default": "lightbox"
+      "default": "lightbox",
+      "visible_if": "{{ block.settings.enable_media_zoom == 'true' }}"
     },
 
     {
