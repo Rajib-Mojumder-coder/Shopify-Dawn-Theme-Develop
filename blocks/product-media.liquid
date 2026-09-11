@@ -88,6 +88,20 @@
     },
     {
       "type": "select",
+      "id": "desktop_pagination",
+      "label": "Desktop Pagination",
+      "options": [
+        { "label": "Arrows", "value": "arrows" },
+        { "label": "Cheverons", "value": "cheverons" },
+        { "label": "Large Arrows", "value": "large_arrows" },
+        { "label": "Large Cheverons", "value": "large_cheverons" },
+        { "label": "Custom", "value": "custom" }
+      ],
+      "default": "arrows",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
+      "type": "select",
       "id": "image_zoom",
       "label": "Image zoom",
       "options": [
