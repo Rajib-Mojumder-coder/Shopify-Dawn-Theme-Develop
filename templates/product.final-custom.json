@@ -35,7 +35,7 @@
           "type": "product-media",
           "static": true,
           "settings": {
-            "gallery_layout": "grid",
+            "gallery_layout": "carousel",
             "grid_column": "2",
             "grid_column_gap": 0,
             "full_width_first_image": true,
