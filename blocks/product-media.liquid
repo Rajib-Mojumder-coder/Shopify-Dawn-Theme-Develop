@@ -94,6 +94,35 @@
       "default": "arrows",
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
+     {
+      "type": "select",
+      "id": "carousel_slides",
+      "label": "Desktop slides",
+      "info": "Use 1.33 for one full image plus approximately one-third of the next image.",
+      "options": [
+        {
+          "label": "1",
+          "value": "1"
+        },
+        {
+          "label": "1.25",
+          "value": "1.25"
+        },
+        {
+          "label": "1.33",
+          "value": "1.33"
+        },
+        {
+          "label": "1.5",
+          "value": "1.5"
+        },
+        {
+          "label": "2",
+          "value": "2"
+        }
+      ],
+      "default": "1"
+    },
     {
       "type": "checkbox",
       "id": "desktop_pagination",
