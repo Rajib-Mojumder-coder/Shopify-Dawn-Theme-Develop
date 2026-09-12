@@ -8,10 +8,13 @@
 
   <div class="product-final__media-inner">
 
-    {% render 'product-media-gallery-final',
+    {% render 'custom-product-media-gallery',
+      product: product, section: section, block: block, variant_images: variant_images
+    %}
+    {% comment %} {% render 'product-media-gallery-final',
       variant_images: variant_images,
       block: block
-    %}
+    %} {% endcomment %}
 
   </div>
 
