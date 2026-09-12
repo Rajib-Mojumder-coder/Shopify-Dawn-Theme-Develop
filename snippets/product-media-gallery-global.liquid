@@ -248,9 +248,20 @@
                 {% if block.settings.mobile_pagination_type == 'dots' %}
 
                   <div
-                    class="custom-media-gallery__dots custom-media-gallery__mobile-pagination"
-                    data-mobile-pagination-dots
-                  ></div>
+                    class="custom-media-gallery__dots custom-media-gallery__desktop-pagination"
+                    data-pagination-dots
+                    >
+                    {% for media in product.media %}
+                        {% unless block.settings.hide_variants and media.media_type == 'image' and media.attached_to_variant? %}
+                        <button
+                            type="button"
+                            class="custom-media-gallery__dot{% if media.id == featured_media.id %} is-active{% endif %}"
+                            data-media-index="{{ forloop.index0 }}"
+                            aria-label="Go to media {{ forloop.index }}"
+                        ></button>
+                        {% endunless %}
+                    {% endfor %}
+                    </div>
 
                 {% else %}
 
