@@ -55,7 +55,7 @@
             "extent_media_to_screen_edge": false,
             "enable_media_zoom": true,
             "image_zoom": "hover",
-            "hide_variants": false,
+            "hide_variants": true,
             "enable_video_looping": false,
             "media_padding": false,
             "padding_top": 0,
