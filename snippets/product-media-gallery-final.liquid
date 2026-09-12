@@ -31,8 +31,6 @@
   assign enable_zoom = s.enable_media_zoom
   assign zoom_type = s.image_zoom
 
-  # Filter out media attached to a variant OTHER than the one currently selected.
-  # (Media with no variant association always shows.)
   assign current_variant_media_id = product.selected_or_first_available_variant.featured_media.id
   assign media_list = product.media
 
