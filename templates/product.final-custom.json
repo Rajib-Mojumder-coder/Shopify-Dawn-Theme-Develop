@@ -36,9 +36,9 @@
           "static": true,
           "settings": {
             "gallery_layout": "grid",
-            "grid_column": "1",
-            "grid_column_gap": 4,
-            "full_width_first_image": false,
+            "grid_column": "2",
+            "grid_column_gap": 0,
+            "full_width_first_image": true,
             "carosel_icon": "large_arrows",
             "desktop_pagination": false,
             "desktop_pagination_type": "thumbnails",
