@@ -31,6 +31,8 @@
   assign enable_zoom = s.enable_media_zoom
   assign zoom_type = s.image_zoom
 
+  # Filter out media attached to a variant OTHER than the one currently selected.
+  # (Media with no variant association always shows.)
   assign current_variant_media_id = product.selected_or_first_available_variant.featured_media.id
   assign media_list = product.media
 
@@ -115,12 +117,17 @@
               data-media-id="{{ block.id }}-{{ media.id }}"
               {% if is_hidden %}hidden{% endif %}
             >
-              <div class="media-frame">
-                {%- if media.media_type == 'image' -%}
-                  {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'media-frame__img' }}
-                {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
-                  {% render 'deferred-media-item', media: media, loop: loop_video %}
-                {%- endif -%}
+              <div class="media-frame" data-ratio="{{ media_ratio }}">
+                {%- case media.media_type -%}
+                  {%- when 'image' -%}
+                    {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'media-frame__img' }}
+                  {%- when 'video' -%}
+                    {{ media | video_tag: image_size: '1200x', controls: true, loop: loop_video, class: 'media-frame__video' }}
+                  {%- when 'external_video' -%}
+                    {{ media | external_video_tag: class: 'media-frame__video' }}
+                  {%- when 'model' -%}
+                    {{ media | model_viewer_tag: image_size: '1200x', class: 'media-frame__video' }}
+                {%- endcase -%}
               </div>
             </li>
           {%- endfor -%}
@@ -142,12 +149,17 @@
                 data-media-position="{{ forloop.index }}"
                 {% if is_hidden %}hidden{% endif %}
               >
-                <div class="media-frame">
-                  {%- if media.media_type == 'image' -%}
-                    {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'media-frame__img' }}
-                  {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
-                    {% render 'deferred-media-item', media: media, loop: loop_video %}
-                  {%- endif -%}
+                <div class="media-frame" data-ratio="{{ media_ratio }}">
+                  {%- case media.media_type -%}
+                    {%- when 'image' -%}
+                      {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'media-frame__img' }}
+                    {%- when 'video' -%}
+                      {{ media | video_tag: image_size: '1200x', controls: true, loop: loop_video, class: 'media-frame__video' }}
+                    {%- when 'external_video' -%}
+                      {{ media | external_video_tag: class: 'media-frame__video' }}
+                    {%- when 'model' -%}
+                      {{ media | model_viewer_tag: image_size: '1200x', class: 'media-frame__video' }}
+                  {%- endcase -%}
                 </div>
               </li>
             {%- endfor -%}
@@ -215,6 +227,7 @@
       {% endif %}
 
       window['productMainSwiper-{{ block.id }}'] = new Swiper('#MediaGallery-{{ block.id }} .productMediaSlider', {
+        autoHeight: true,
         {% if mobile_pagination and mobile_pagination_type == 'hint' %}
           slidesPerView: 1.06,
           spaceBetween: 12,
@@ -264,11 +277,36 @@
   }
 
   #MediaGallery-{{ block.id }} .media-frame__img,
-  #MediaGallery-{{ block.id }} .media-frame video {
+  #MediaGallery-{{ block.id }} .media-frame__video {
     width: 100%;
-    height: 100%;
-    object-fit: var(--media-fit);
     display: block;
+    object-fit: var(--media-fit);
+  }
+
+  /* Auto ratio: the frame has no definite height of its own, so let the
+     image/video set its own height from its natural proportions — this is
+     what stops it from collapsing to 0 in Swiper, and from rendering at a
+     raw, oversized intrinsic height when nothing else constrains it. */
+  #MediaGallery-{{ block.id }} .media-frame[data-ratio="auto"] .media-frame__img,
+  #MediaGallery-{{ block.id }} .media-frame[data-ratio="auto"] .media-frame__video {
+    height: auto;
+  }
+
+  /* Explicit ratio (portrait/square/landscape): the frame DOES have a real,
+     defined height via aspect-ratio, so height:100% + object-fit correctly
+     fills and crops it. */
+  #MediaGallery-{{ block.id }} .media-frame:not([data-ratio="auto"]) .media-frame__img,
+  #MediaGallery-{{ block.id }} .media-frame:not([data-ratio="auto"]) .media-frame__video {
+    height: 100%;
+  }
+
+  /* The .swiper container must not be height:0 while Swiper (via autoHeight)
+     measures and sets the wrapper's real height on init/slide-change. */
+  #MediaGallery-{{ block.id }} .productMediaSlider {
+    height: auto;
+  }
+  #MediaGallery-{{ block.id }} .productMediaSlider .swiper-wrapper {
+    align-items: flex-start;
   }
 
   /* ---- Grid layout ---- */
