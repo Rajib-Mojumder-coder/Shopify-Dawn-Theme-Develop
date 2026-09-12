@@ -1,0 +1,423 @@
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_media = current_variant.featured_media
+
+  assign media_ratio = block.settings.media_ratio
+  assign media_fit = block.settings.media_fit
+
+  assign media_count = product.media.size
+%}
+
+<div
+  class="
+    custom-media-gallery
+    custom-media-gallery--{{ block.settings.gallery_layout }}
+    custom-media-gallery--thumbs-{{ block.settings.thumbnail_desktop_position }}
+    custom-media-gallery--ratio-{{ media_ratio }}
+    custom-media-gallery--fit-{{ media_fit }}
+  "
+  id="CustomMediaGallery-{{ section.id }}-{{ block.id }}"
+  data-media-gallery
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-gallery-layout="{{ block.settings.gallery_layout }}"
+  data-image-zoom="{{ block.settings.image_zoom }}"
+  data-hide-variants="{{ block.settings.hide_variants }}"
+  style="
+    --media-gap: {{ block.settings.grid_column_gap }}px;
+    --media-radius: {{ block.settings.media_corner_radius }}px;
+    --desktop-slides: {{ block.settings.carousel_slides }};
+    --mobile-slides: {{ block.settings.mobile_slides }};
+    --thumbnail-width: {{ block.settings.thumbnail_desktop_width }}px;
+    --thumbnail-mobile-width: {{ block.settings.thumbnail_mobile_width }}px;
+    --thumbnail-gap: {{ block.settings.thumbnail_gap }}px;
+    {% if block.settings.media_padding %}
+      --media-padding-top: {{ block.settings.padding_top }}px;
+      --media-padding-bottom: {{ block.settings.padding_bottom }}px;
+      --media-padding-left: {{ block.settings.padding_left }}px;
+      --media-padding-right: {{ block.settings.padding_right }}px;
+    {% else %}
+      --media-padding-top: 0px;
+      --media-padding-bottom: 0px;
+      --media-padding-left: 0px;
+      --media-padding-right: 0px;
+    {% endif %}
+  "
+>
+
+  {% if media_count > 0 %}
+
+    <div class="custom-media-gallery__body">
+
+      {% if block.settings.show_thumbnails and block.settings.thumbnail_desktop_position == 'left' %}
+
+        <div class="custom-media-gallery__thumbnails">
+          <div
+            class="custom-media-gallery__thumbnail-track"
+            data-thumbnail-track
+          >
+
+            {% for media in product.media %}
+
+              {% if block.settings.hide_variants and media.media_type == 'image' and media.attached_to_variant? %}
+                {% continue %}
+              {% endif %}
+
+              <button
+                type="button"
+                class="custom-media-gallery__thumbnail{% if media.id == featured_media.id %} is-active{% endif %}"
+                data-thumbnail
+                data-media-id="{{ media.id }}"
+                data-media-index="{{ forloop.index0 }}"
+                aria-label="Show media {{ forloop.index }}"
+                aria-controls="CustomMediaTrack-{{ section.id }}-{{ block.id }}"
+              >
+
+                {% if media.preview_image %}
+                  {{
+                    media.preview_image
+                    | image_url: width: 180
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '60,90,120,180',
+                      sizes: '80px'
+                  }}
+                {% endif %}
+
+              </button>
+
+            {% endfor %}
+
+          </div>
+        </div>
+
+      {% endif %}
+
+
+      <div class="custom-media-gallery__main">
+
+        <div
+          class="custom-media-gallery__viewport"
+          data-media-viewport
+        >
+
+          <div
+            id="CustomMediaTrack-{{ section.id }}-{{ block.id }}"
+            class="
+              custom-media-gallery__track
+              {% if block.settings.gallery_layout == 'grid' %}
+                custom-media-gallery__track--grid
+              {% endif %}
+            "
+            data-media-track
+            role="list"
+            aria-label="Product media"
+          >
+
+            {% for media in product.media %}
+
+              {% if block.settings.hide_variants and media.media_type == 'image' and media.attached_to_variant? %}
+                {% continue %}
+              {% endif %}
+
+              <div
+                class="
+                  custom-media-gallery__slide
+                  {% if media.id == featured_media.id %}is-active{% endif %}
+                  {% if block.settings.full_width_first_image and forloop.first and block.settings.grid_column == '2' %}
+                    custom-media-gallery__slide--full
+                  {% endif %}
+                "
+                data-media-slide
+                data-media-id="{{ media.id }}"
+                data-media-index="{{ forloop.index0 }}"
+                data-media-type="{{ media.media_type }}"
+                role="listitem"
+              >
+
+                <div
+                  class="custom-media-gallery__media"
+                  data-media-content
+                >
+
+                  {% case media.media_type %}
+
+                    {% when 'image' %}
+
+                      <button
+                        type="button"
+                        class="custom-media-gallery__media-button"
+                        data-media-open
+                        {% if block.settings.image_zoom == 'none' %}
+                          disabled
+                        {% endif %}
+                      >
+
+                        {{
+                          media
+                          | image_url: width: 2000
+                          | image_tag:
+                            loading: 'lazy',
+                            class: 'custom-media-gallery__image',
+                            widths: '500,750,1000,1400,1800,2000',
+                            sizes: '(min-width: 990px) 50vw, 100vw'
+                        }}
+
+                      </button>
+
+
+                    {% when 'video' %}
+
+                      {{
+                        media
+                        | video_tag:
+                          controls: true,
+                          loop: block.settings.enable_video_looping,
+                          muted: false,
+                          class: 'custom-media-gallery__video'
+                      }}
+
+
+                    {% when 'external_video' %}
+
+                      {{
+                        media
+                        | external_video_tag:
+                          class: 'custom-media-gallery__external-video'
+                      }}
+
+
+                    {% when 'model' %}
+
+                      {{
+                        media
+                        | model_viewer_tag:
+                          image_size: '1200x',
+                          reveal: 'interaction',
+                          toggleable: true,
+                          class: 'custom-media-gallery__model'
+                      }}
+
+                  {% endcase %}
+
+                </div>
+
+              </div>
+
+            {% endfor %}
+
+          </div>
+
+        </div>
+
+
+        {% if block.settings.gallery_layout == 'carousel' %}
+
+          <div class="custom-media-gallery__navigation">
+
+            <button
+              type="button"
+              class="custom-media-gallery__nav custom-media-gallery__nav--previous"
+              data-gallery-prev
+              aria-label="Previous media"
+            >
+              <span aria-hidden="true">←</span>
+            </button>
+
+
+            <div class="custom-media-gallery__pagination">
+
+              {% if block.settings.desktop_pagination %}
+                {% if block.settings.desktop_pagination_type == 'dots' %}
+
+                  <div
+                    class="custom-media-gallery__dots custom-media-gallery__desktop-pagination"
+                    data-pagination-dots
+                  ></div>
+
+                {% else %}
+
+                  <span
+                    class="custom-media-gallery__counter custom-media-gallery__desktop-pagination"
+                    data-pagination-counter
+                  >
+                    1 / {{ media_count }}
+                  </span>
+
+                {% endif %}
+              {% endif %}
+
+              {% if block.settings.mobile_pagination %}
+
+                {% if block.settings.mobile_pagination_type == 'dots' %}
+
+                  <div
+                    class="custom-media-gallery__dots custom-media-gallery__mobile-pagination"
+                    data-mobile-pagination-dots
+                  ></div>
+
+                {% else %}
+
+                  <span
+                    class="custom-media-gallery__counter custom-media-gallery__mobile-pagination"
+                    data-mobile-pagination-counter
+                  >
+                    1 / {{ media_count }}
+                  </span>
+
+                {% endif %}
+
+              {% endif %}
+
+            </div>
+
+
+            <button
+              type="button"
+              class="custom-media-gallery__nav custom-media-gallery__nav--next"
+              data-gallery-next
+              aria-label="Next media"
+            >
+              <span aria-hidden="true">→</span>
+            </button>
+
+          </div>
+
+        {% endif %}
+
+
+        {% if block.settings.show_thumbnails and block.settings.thumbnail_desktop_position == 'bottom' %}
+
+          <div class="custom-media-gallery__thumbnails">
+            <div
+              class="custom-media-gallery__thumbnail-track"
+              data-thumbnail-track
+            >
+
+              {% for media in product.media %}
+
+                {% if block.settings.hide_variants and media.media_type == 'image' and media.attached_to_variant? %}
+                  {% continue %}
+                {% endif %}
+
+                <button
+                  type="button"
+                  class="custom-media-gallery__thumbnail{% if media.id == featured_media.id %} is-active{% endif %}"
+                  data-thumbnail
+                  data-media-id="{{ media.id }}"
+                  data-media-index="{{ forloop.index0 }}"
+                  aria-label="Show media {{ forloop.index }}"
+                >
+
+                  {% if media.preview_image %}
+                    {{
+                      media.preview_image
+                      | image_url: width: 180
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '60,90,120,180',
+                        sizes: '80px'
+                    }}
+                  {% endif %}
+
+                </button>
+
+              {% endfor %}
+
+            </div>
+          </div>
+
+        {% endif %}
+
+
+        {% if block.settings.show_thumbnails and block.settings.thumbnail_desktop_position == 'right' %}
+
+          <div class="custom-media-gallery__thumbnails">
+            <div
+              class="custom-media-gallery__thumbnail-track"
+              data-thumbnail-track
+            >
+
+              {% for media in product.media %}
+
+                {% if block.settings.hide_variants and media.media_type == 'image' and media.attached_to_variant? %}
+                  {% continue %}
+                {% endif %}
+
+                <button
+                  type="button"
+                  class="custom-media-gallery__thumbnail{% if media.id == featured_media.id %} is-active{% endif %}"
+                  data-thumbnail
+                  data-media-id="{{ media.id }}"
+                  data-media-index="{{ forloop.index0 }}"
+                  aria-label="Show media {{ forloop.index }}"
+                >
+
+                  {% if media.preview_image %}
+                    {{
+                      media.preview_image
+                      | image_url: width: 180
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '60,90,120,180',
+                        sizes: '80px'
+                    }}
+                  {% endif %}
+
+                </button>
+
+              {% endfor %}
+
+            </div>
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+
+
+    <dialog
+      class="custom-media-gallery__lightbox"
+      data-lightbox
+      aria-label="Product media viewer"
+    >
+
+      <button
+        type="button"
+        class="custom-media-gallery__lightbox-close"
+        data-lightbox-close
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+      <div
+        class="custom-media-gallery__lightbox-content"
+        data-lightbox-content
+      ></div>
+
+    </dialog>
+
+
+    <script type="application/json" data-variant-media-map>
+      [
+        {% for variant in product.variants %}
+          {
+            "id": {{ variant.id | json }},
+            "mediaId": {% if variant.featured_media %}{{ variant.featured_media.id | json }}{% else %}null{% endif %}
+          }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    </script>
+
+  {% else %}
+
+    <div class="custom-media-gallery__empty">
+      No product media available.
+    </div>
+
+  {% endif %}
+
+</div>
