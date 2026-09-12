@@ -8,8 +8,7 @@
   assign media_count = product.media.size
 %}
 
-<div
-  class="
+<div class="
     custom-media-gallery
     custom-media-gallery--{{ block.settings.gallery_layout }}
     custom-media-gallery--thumbs-{{ block.settings.thumbnail_desktop_position }}
@@ -52,10 +51,7 @@
       {% if block.settings.show_thumbnails and block.settings.thumbnail_desktop_position == 'left' %}
 
         <div class="custom-media-gallery__thumbnails">
-          <div
-            class="custom-media-gallery__thumbnail-track"
-            data-thumbnail-track
-          >
+          <div class="custom-media-gallery__thumbnail-track" data-thumbnail-track>
 
             {% for media in product.media %}
 
