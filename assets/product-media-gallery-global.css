@@ -967,6 +967,10 @@ min-width: calc(100% / var(--gallery-slides, 1));
     justify-content: flex-start;
   }
 
+  .custom-media-gallery--carousel {
+  --gallery-slides: var(--gallery-mobile-slides, 1);
+  }
+
 }
 
 
