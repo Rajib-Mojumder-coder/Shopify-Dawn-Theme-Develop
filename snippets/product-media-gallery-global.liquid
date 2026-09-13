@@ -66,6 +66,9 @@
   data-full-width-first="{{ gallery_settings.full_width_first_image }}"
   data-desktop-slides="{{ gallery_settings.carousel_slides | default: '1' }}"
   data-mobile-slides="{{ gallery_settings.mobile_slides | default: '1' }}"
+  data-desktop-navigation="{{ gallery_settings.desktop_navigation }}"
+  data-mobile-navigation="{{ gallery_settings.mobile_navigation }}"
+  data-navigation-position="{{ gallery_settings.navigation_position }}"
 
   style="
     --gallery-thumbnail-width: {{ thumbnail_desktop_width }}px;
