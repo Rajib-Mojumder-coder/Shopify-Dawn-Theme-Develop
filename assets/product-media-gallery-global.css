@@ -137,10 +137,7 @@
   min-width: 0;
 }
 
-.custom-media-gallery--grid[data-full-width-first="true"]
-.custom-media-gallery__slide:first-child {
-  grid-column: 1 / -1;
-}
+
 /* =========================================================
    MEDIA CONTAINER
    ========================================================= */

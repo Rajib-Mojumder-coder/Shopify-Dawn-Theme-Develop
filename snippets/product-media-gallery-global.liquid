@@ -63,6 +63,7 @@
   data-media-ratio="{{ media_ratio }}"
   data-media-fit="{{ media_fit }}"
   data-image-zoom="{% if media_zoom_enabled %}{{ image_zoom }}{% else %}none{% endif %}"
+  data-full-width-first="{{ gallery_settings.full_width_first_image }}"
   style="
     --gallery-thumbnail-width: {{ thumbnail_desktop_width }}px;
     --gallery-thumbnail-mobile-width: {{ thumbnail_mobile_width }}px;
