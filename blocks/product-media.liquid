@@ -218,9 +218,15 @@
       "id": "desktop_navigation",
       "label": "Desktop navigation",
       "default": true,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.show_navigation }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel'}}"
     },
-    
+    {
+      "type": "checkbox",
+      "id": "mobile_navigation",
+      "label": "Mobile navigation",
+      "default": true,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
     {
       "type": "header",
       "content": "Thumbnails"
