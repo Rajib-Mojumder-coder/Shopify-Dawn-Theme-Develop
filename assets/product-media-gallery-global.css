@@ -846,6 +846,33 @@
   }
 
 }
+
+/*Bottom Thumbnail*/
+
+@media screen and (min-width: 990px) {
+
+  .custom-media-gallery--thumb-bottom
+  .custom-media-gallery__body {
+
+    grid-template-columns: minmax(0, 1fr);
+
+  }
+
+  .custom-media-gallery--thumb-bottom
+  .custom-media-gallery__main {
+
+    width: 100%;
+
+  }
+
+  .custom-media-gallery--thumb-bottom
+  .custom-media-gallery__desktop-pagination {
+
+    width: 100%;
+
+  }
+
+}
 /* =========================================================
    MOBILE PAGINATION
    Hidden on desktop.
