@@ -9,6 +9,10 @@
   assign mobile_pagination = gallery_settings.mobile_pagination
   assign mobile_pagination_type = gallery_settings.mobile_pagination_type | default: 'dots'
 
+  assign desktop_navigation = gallery_settings.desktop_navigation
+  assign mobile_navigation = gallery_settings.mobile_navigation
+  assign navigation_position = gallery_settings.navigation_position | default: 'sides'
+
   assign thumbnail_position = gallery_settings.thumbnail_desktop_position | default: 'bottom'
 
   assign media_ratio = gallery_settings.media_ratio | default: 'auto'
