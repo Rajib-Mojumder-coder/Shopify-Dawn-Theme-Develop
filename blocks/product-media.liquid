@@ -218,7 +218,7 @@
       "id": "desktop_navigation",
       "label": "Desktop navigation",
       "default": true,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel'}}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "checkbox",
@@ -230,7 +230,7 @@
     {
       "type": "select",
       "id": "navigation_position",
-      "label": "Position",
+      "label": "Desktop position",
       "options": [
         {
           "value": "sides",
@@ -242,7 +242,7 @@
         }
       ],
       "default": "sides",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation }}"
     },
     {
       "type": "header",
