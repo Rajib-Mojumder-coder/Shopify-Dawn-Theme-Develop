@@ -27,12 +27,16 @@
         )
       );
 
-      this.prevButton = gallery.querySelector(
-        '[data-gallery-prev]'
+      this.prevButtons = Array.from(
+        gallery.querySelectorAll(
+          '[data-gallery-prev]'
+        )
       );
 
-      this.nextButton = gallery.querySelector(
-        '[data-gallery-next]'
+      this.nextButtons = Array.from(
+        gallery.querySelectorAll(
+          '[data-gallery-next]'
+        )
       );
 
       this.thumbnailPrev = gallery.querySelector(
