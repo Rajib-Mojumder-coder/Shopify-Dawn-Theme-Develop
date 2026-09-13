@@ -1,4 +1,8 @@
-{%- assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'-%}
+
+{%- liquid
+  assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
+  assign gallery_id = 'ProductMedia-' | append: block.id
+-%}
 
 <div
   class="product-final__media"
