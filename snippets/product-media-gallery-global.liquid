@@ -235,7 +235,85 @@
           ========================================================
         {%- endcomment -%}
 
-        
+        {% if media_count > 1 and gallery_layout == 'carousel' %}
+
+  <div
+    class="
+      custom-media-gallery__main-navigation
+      custom-media-gallery__main-navigation--{{ navigation_position }}
+    "
+  >
+
+    {% if desktop_navigation %}
+      <button
+        type="button"
+        class="
+          custom-media-gallery__main-nav
+          custom-media-gallery__main-nav--desktop
+          custom-media-gallery__main-nav--prev
+          custom-media-gallery__main-nav--{{ gallery_settings.carosel_icon | default: 'arrows' }}
+        "
+        data-gallery-prev
+        aria-label="Previous media"
+      >
+        <span aria-hidden="true">‹</span>
+      </button>
+    {% endif %}
+
+
+          {% if mobile_navigation %}
+            <button
+              type="button"
+              class="
+                custom-media-gallery__main-nav
+                custom-media-gallery__main-nav--mobile
+                custom-media-gallery__main-nav--prev
+                custom-media-gallery__main-nav--{{ gallery_settings.carosel_icon | default: 'arrows' }}
+              "
+              data-gallery-prev
+              aria-label="Previous media"
+            >
+              <span aria-hidden="true">‹</span>
+            </button>
+          {% endif %}
+
+
+          {% if desktop_navigation %}
+            <button
+              type="button"
+              class="
+                custom-media-gallery__main-nav
+                custom-media-gallery__main-nav--desktop
+                custom-media-gallery__main-nav--next
+                custom-media-gallery__main-nav--{{ gallery_settings.carosel_icon | default: 'arrows' }}
+              "
+              data-gallery-next
+              aria-label="Next media"
+            >
+              <span aria-hidden="true">›</span>
+            </button>
+          {% endif %}
+
+
+          {% if mobile_navigation %}
+            <button
+              type="button"
+              class="
+                custom-media-gallery__main-nav
+                custom-media-gallery__main-nav--mobile
+                custom-media-gallery__main-nav--next
+                custom-media-gallery__main-nav--{{ gallery_settings.carosel_icon | default: 'arrows' }}
+              "
+              data-gallery-next
+              aria-label="Next media"
+            >
+              <span aria-hidden="true">›</span>
+            </button>
+          {% endif %}
+
+        </div>
+
+      {% endif %}
 
       </div>
 
