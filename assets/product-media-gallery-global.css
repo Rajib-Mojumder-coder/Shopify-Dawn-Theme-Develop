@@ -243,10 +243,13 @@
 
 .custom-media-gallery--fit-cover
 .custom-media-gallery__image {
+
   width: 100%;
   height: 100%;
-}
 
+  object-fit: cover;
+
+}
 
 /* =========================================================
    VIDEO
