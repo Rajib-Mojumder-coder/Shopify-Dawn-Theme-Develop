@@ -214,6 +214,14 @@
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
+      "type": "checkbox",
+      "id": "desktop_navigation",
+      "label": "Desktop navigation",
+      "default": true,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.show_navigation }}"
+    },
+    
+    {
       "type": "header",
       "content": "Thumbnails"
     },
