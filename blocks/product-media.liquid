@@ -10,7 +10,29 @@
   {{ block.shopify_attributes }}
 >
 
-  <div class="product-final__media-inner">
+  <div class="product-final__media-inner
+      product-final__media-inner--{{ block.settings.gallery_layout }}
+      product-final__media-inner--thumb-{{ block.settings.thumbnail_desktop_position }}
+    "
+    style="
+      --media-grid-columns: {{ block.settings.grid_column }};
+      --media-grid-gap: {{ block.settings.grid_column_gap }}px;
+
+      --media-thumbnail-desktop-width: {{ block.settings.thumbnail_desktop_width }}px;
+      --media-thumbnail-mobile-width: {{ block.settings.thumbnail_mobile_width }}px;
+      --media-thumbnail-radius: {{ block.settings.thumbnail_corner_radius }}px;
+
+      --media-corner-radius: {{ block.settings.media_corner_radius }}px;
+
+      --media-padding-top: {{ block.settings.padding_top }}px;
+      --media-padding-bottom: {{ block.settings.padding_bottom }}px;
+      --media-padding-left: {{ block.settings.padding_left }}px;
+      --media-padding-right: {{ block.settings.padding_right }}px;
+
+      --media-padding-enabled:
+        {% if block.settings.media_padding %}1{% else %}0{% endif %};
+    "
+  >
 
     {% render 'product-media-gallery-global',
       variant_images: variant_images, gallery_settings: block.settings, gallery_block_id: block.id
