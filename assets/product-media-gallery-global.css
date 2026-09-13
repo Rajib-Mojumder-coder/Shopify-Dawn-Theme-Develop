@@ -873,6 +873,10 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   }
 
+    .custom-media-gallery--carousel {
+    --gallery-slides: var(--gallery-desktop-slides, 1);
+  }
+
 }
 
 /*Bottom Thumbnail*/
