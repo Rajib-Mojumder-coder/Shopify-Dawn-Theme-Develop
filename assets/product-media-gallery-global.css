@@ -813,7 +813,39 @@
 
 }
 
+@media screen and (min-width: 990px) {
 
+  .custom-media-gallery--thumb-left
+  .custom-media-gallery__desktop-pagination,
+
+  .custom-media-gallery--thumb-right
+  .custom-media-gallery__desktop-pagination {
+
+    align-self: stretch;
+
+  }
+
+  .custom-media-gallery--thumb-left
+  .custom-media-gallery__thumbnail-area,
+
+  .custom-media-gallery--thumb-right
+  .custom-media-gallery__thumbnail-area {
+
+    height: 100%;
+
+  }
+
+  .custom-media-gallery--thumb-left
+  .custom-media-gallery__thumbnail-track,
+
+  .custom-media-gallery--thumb-right
+  .custom-media-gallery__thumbnail-track {
+
+    max-height: 100%;
+
+  }
+
+}
 /* =========================================================
    MOBILE PAGINATION
    Hidden on desktop.
