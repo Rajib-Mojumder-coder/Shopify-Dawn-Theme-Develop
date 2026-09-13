@@ -984,7 +984,6 @@
   .custom-media-gallery--grid
   .custom-media-gallery__slide {
     flex: 0 0 100%;
-
     min-width: 100%;
   }
 
