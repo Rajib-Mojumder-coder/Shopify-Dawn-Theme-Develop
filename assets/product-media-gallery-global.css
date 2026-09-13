@@ -100,11 +100,11 @@
 
 .custom-media-gallery--carousel
 .custom-media-gallery__slide {
-  flex: 0 0 100%;
+  flex: 0 0 calc( 100% / var(--gallery-slides, 1));
 
-  width: 100%;
-  min-width: 100%;
+width: calc(100% / var(--gallery-slides, 1));
 
+min-width: calc(100% / var(--gallery-slides, 1));
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
@@ -137,7 +137,10 @@
   min-width: 0;
 }
 
-
+.custom-media-gallery--grid[data-full-width-first="true"]
+.custom-media-gallery__slide:first-child {
+  grid-column: 1 / -1;
+}
 /* =========================================================
    MEDIA CONTAINER
    ========================================================= */
