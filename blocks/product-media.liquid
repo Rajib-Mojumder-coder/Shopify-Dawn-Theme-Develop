@@ -220,7 +220,8 @@
         { "label": "Bottom", "value": "bottom" },
         { "label": "Right", "value": "right" }
       ],
-      "default": "bottom"
+      "default": "bottom",
+       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "range",

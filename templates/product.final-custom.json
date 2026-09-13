@@ -35,7 +35,7 @@
           "type": "product-media",
           "static": true,
           "settings": {
-            "gallery_layout": "carousel",
+            "gallery_layout": "grid",
             "grid_column": "2",
             "grid_column_gap": 0,
             "full_width_first_image": true,
@@ -53,7 +53,7 @@
             "media_ratio": "auto",
             "media_fit": "contain",
             "constrain_to_screen_height": true,
-            "media_corner_radius": 16,
+            "media_corner_radius": 100,
             "extent_media_to_screen_edge": false,
             "enable_media_zoom": true,
             "image_zoom": "hover",
