@@ -193,19 +193,39 @@
    IMAGES
    ========================================================= */
 
+.custom-media-gallery__image-wrapper {
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+}
+
+
 .custom-media-gallery__image {
+
   display: block;
 
   width: 100%;
-  height: auto;
 
   max-width: 100%;
 
+  height: auto;
+
   object-fit: var(--media-object-fit, contain);
 
-  transition:
-    transform 400ms ease,
-    opacity 200ms ease;
+  transform-origin: center center;
+
 }
 
 
