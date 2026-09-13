@@ -228,6 +228,23 @@
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
+      "type": "select",
+      "id": "navigation_position",
+      "label": "Position",
+      "options": [
+        {
+          "value": "sides",
+          "label": "Middle on sides"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "sides",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
       "type": "header",
       "content": "Thumbnails"
     },
