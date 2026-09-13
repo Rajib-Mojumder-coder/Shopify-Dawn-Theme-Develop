@@ -95,25 +95,32 @@
     bindEvents() {
 
       /* Main previous */
-      if (this.prevButton) {
-        this.prevButton.addEventListener(
-          'click',
-          () => {
-            this.previous();
-          }
-        );
-      }
+      /* Main previous */
+      this.prevButtons.forEach(
+        button => {
+          button.addEventListener(
+            'click',
+            event => {
+              event.preventDefault();
+              this.previous();
+            }
+          );
+        }
+      );
 
 
       /* Main next */
-      if (this.nextButton) {
-        this.nextButton.addEventListener(
-          'click',
-          () => {
-            this.next();
-          }
-        );
-      }
+      this.nextButtons.forEach(
+        button => {
+          button.addEventListener(
+            'click',
+            event => {
+              event.preventDefault();
+              this.next();
+            }
+          );
+        }
+      );
 
 
       /* Thumbnails */
