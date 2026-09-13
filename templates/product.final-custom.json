@@ -42,7 +42,7 @@
             "carosel_icon": "custom_svg_code",
             "carousel_slides": "2",
             "mobile_slides": "1.25",
-            "desktop_pagination": true,
+            "desktop_pagination": false,
             "desktop_pagination_type": "thumbnails",
             "mobile_pagination": true,
             "mobile_pagination_type": "thumbnails",
