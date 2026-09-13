@@ -196,45 +196,33 @@
 .custom-media-gallery__image-wrapper {
 
   position: relative;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   width: 100%;
-
   min-width: 0;
-
   overflow: hidden;
-
 }
 
 
 .custom-media-gallery__image {
-
   display: block;
-
   width: 100%;
-
   max-width: 100%;
-
   height: auto;
-
   object-fit: var(--media-object-fit, contain);
-
   transform-origin: center center;
-
 }
 
 
 /* =========================================================
    CONTAIN / COVER
    ========================================================= */
+.custom-media-gallery--fit-contain
+.custom-media-gallery__image {
 
-.custom-media-gallery--fit-contain {
-  --media-object-fit: contain;
+  object-fit: contain;
+
 }
 
 .custom-media-gallery--fit-cover {
