@@ -11,9 +11,10 @@
 >
 
   <div class="product-final__media-inner
-      product-final__media-inner--{{ block.settings.gallery_layout }}
-      product-final__media-inner--thumb-{{ block.settings.thumbnail_desktop_position }}
-    "
+          product-final__media-inner--{{ block.settings.gallery_layout }}
+          product-final__media-inner--thumb-{{ block.settings.thumbnail_desktop_position }}
+          product-final__media-inner--first-full-{{ block.settings.full_width_first_image }}
+        "
     style="
       --media-grid-columns: {{ block.settings.grid_column }};
       --media-grid-gap: {{ block.settings.grid_column_gap }}px;
