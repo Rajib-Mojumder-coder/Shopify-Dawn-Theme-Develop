@@ -3,9 +3,6 @@
   assign gallery_block_id = gallery_block_id | default: section.id
 
   assign gallery_layout = gallery_settings.gallery_layout | default: 'carousel'
-  assign grid_column = gallery_settings.grid_column | default: '2'
-  assign grid_column_gap = gallery_settings.grid_column_gap | default: 4
-  assign full_width_first_image = gallery_settings.full_width_first_image
 
   assign desktop_pagination = gallery_settings.desktop_pagination
   assign desktop_pagination_type = gallery_settings.desktop_pagination_type | default: 'dots'
@@ -14,28 +11,9 @@
   assign mobile_pagination_type = gallery_settings.mobile_pagination_type | default: 'dots'
 
   assign thumbnail_position = gallery_settings.thumbnail_desktop_position | default: 'bottom'
-  assign thumbnail_desktop_width = gallery_settings.thumbnail_desktop_width | default: 50
-  assign thumbnail_mobile_width = gallery_settings.thumbnail_mobile_width | default: 30
-  assign thumbnail_corner_radius = gallery_settings.thumbnail_corner_radius | default: 8
 
   assign media_ratio = gallery_settings.media_ratio | default: 'auto'
   assign media_fit = gallery_settings.media_fit | default: 'contain'
-
-  assign constrain_to_screen_height = gallery_settings.constrain_to_screen_height
-  assign media_corner_radius = gallery_settings.media_corner_radius | default: 16
-  assign extent_media_to_screen_edge = gallery_settings.extent_media_to_screen_edge
-
-  assign enable_media_zoom = gallery_settings.enable_media_zoom
-  assign image_zoom = gallery_settings.image_zoom | default: 'lightbox'
-
-  assign hide_variants = gallery_settings.hide_variants
-  assign enable_video_looping = gallery_settings.enable_video_looping
-
-  assign media_padding = gallery_settings.media_padding
-  assign padding_top = gallery_settings.padding_top | default: 0
-  assign padding_bottom = gallery_settings.padding_bottom | default: 0
-  assign padding_left = gallery_settings.padding_left | default: 0
-  assign padding_right = gallery_settings.padding_right | default: 0
 
   assign media_count = product.media.size
 
@@ -44,105 +22,97 @@
 
   assign gallery_id = 'MediaGallery-' | append: gallery_block_id
 
-  assign variant_media_count = 0
+  assign thumbnail_desktop_width = gallery_settings.thumbnail_desktop_width | default: 50
+  assign thumbnail_mobile_width = gallery_settings.thumbnail_mobile_width | default: 30
+  assign thumbnail_radius = gallery_settings.thumbnail_corner_radius | default: 8
+  assign media_radius = gallery_settings.media_corner_radius | default: 16
 
-  if hide_variants
-    for media in product.media
-      if media.attached_to_variant?
-        assign variant_media_count = variant_media_count | plus: 1
-      endif
-    endfor
-  endif
+  assign grid_columns = gallery_settings.grid_column | default: 2
+  assign grid_gap = gallery_settings.grid_column_gap | default: 4
+
+  assign padding_top = gallery_settings.padding_top | default: 0
+  assign padding_bottom = gallery_settings.padding_bottom | default: 0
+  assign padding_left = gallery_settings.padding_left | default: 0
+  assign padding_right = gallery_settings.padding_right | default: 0
+
+  assign constrain_height = gallery_settings.constrain_to_screen_height
+  assign media_zoom_enabled = gallery_settings.enable_media_zoom
+  assign image_zoom = gallery_settings.image_zoom | default: 'none'
 -%}
-
 
 <media-gallery
   id="{{ gallery_id }}"
-  class="custom-media-gallery"
+  class="
+    custom-media-gallery
+    custom-media-gallery--{{ gallery_layout }}
+    custom-media-gallery--ratio-{{ media_ratio }}
+    custom-media-gallery--fit-{{ media_fit }}
+    custom-media-gallery--thumb-{{ thumbnail_position }}
+    {% if constrain_height %}custom-media-gallery--constrain-height{% endif %}
+    {% if gallery_settings.extent_media_to_screen_edge %}custom-media-gallery--edge{% endif %}
+  "
   role="region"
-  aria-label="{{ 'products.product.media.gallery_viewer' | t | escape }}"
-  data-gallery-layout="{{ gallery_layout }}"
-  data-section-id="{{ section.id }}"
+  aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
   data-gallery-id="{{ gallery_block_id }}"
+  data-section-id="{{ section.id }}"
   data-media-count="{{ media_count }}"
-  data-selected-media-id="{% if selected_media %}{{ selected_media.id }}{% endif %}"
+  data-desktop-pagination="{{ desktop_pagination }}"
+  data-desktop-pagination-type="{{ desktop_pagination_type }}"
+  data-mobile-pagination="{{ mobile_pagination }}"
+  data-mobile-pagination-type="{{ mobile_pagination_type }}"
+  data-media-ratio="{{ media_ratio }}"
+  data-media-fit="{{ media_fit }}"
+  data-image-zoom="{% if media_zoom_enabled %}{{ image_zoom }}{% else %}none{% endif %}"
+  style="
+    --gallery-thumbnail-width: {{ thumbnail_desktop_width }}px;
+    --gallery-thumbnail-mobile-width: {{ thumbnail_mobile_width }}px;
+    --gallery-thumbnail-radius: {{ thumbnail_radius }}px;
+    --gallery-media-radius: {{ media_radius }}px;
+
+    --gallery-grid-columns: {{ grid_columns }};
+    --gallery-grid-gap: {{ grid_gap }}px;
+
+    --gallery-padding-top: {{ padding_top }}px;
+    --gallery-padding-bottom: {{ padding_bottom }}px;
+    --gallery-padding-left: {{ padding_left }}px;
+    --gallery-padding-right: {{ padding_right }}px;
+  "
 >
 
-
   {%- comment -%}
     ============================================================
-    VARIANT → MEDIA MAP
-    ============================================================
-
-    This JSON is used by our custom gallery JavaScript.
-
-    When the customer changes a variant:
-
-    Variant ID
-       ↓
-    Featured Media ID
-       ↓
-    Gallery activates corresponding media
-  {%- endcomment -%}
-
-  <script type="application/json" data-variant-media-map>
-    [
-      {% for variant in product.variants %}
-        {
-          "id": {{ variant.id | json }},
-          "mediaId":
-            {% if variant.featured_media %}
-              {{ variant.featured_media.id | json }}
-            {% else %}
-              null
-            {% endif %}
-        }{% unless forloop.last %},{% endunless %}
-      {% endfor %}
-    ]
-  </script>
-
-
-  {%- comment -%}
-    ============================================================
-    MAIN GALLERY
+    MAIN GALLERY BODY
     ============================================================
   {%- endcomment -%}
 
-  <div class="custom-media-gallery__main">
+  <div class="custom-media-gallery__body">
 
+    <div class="custom-media-gallery__main">
 
-    <div class="custom-media-gallery__viewport">
+      <div class="custom-media-gallery__viewport">
 
+        <div class="custom-media-gallery__track">
 
-      <div class="custom-media-gallery__track">
+          {% for media in product.media %}
 
+            {%- liquid
+              assign is_active = false
 
-        {%- for media in product.media -%}
-
-          {%- liquid
-            assign should_hide_media = false
-
-            if hide_variants and media.attached_to_variant?
-              assign should_hide_media = true
-            endif
-
-            assign is_active = false
-
-            if selected_media and media.id == selected_media.id
-              assign is_active = true
-            elsif selected_media == blank and forloop.first
-              assign is_active = true
-            endif
-          -%}
-
-
-          {% unless should_hide_media %}
+              if selected_media and media.id == selected_media.id
+                assign is_active = true
+              elsif selected_media == blank and forloop.first
+                assign is_active = true
+              endif
+            -%}
 
             <div
-              class="custom-media-gallery__slide{% if is_active %} is-active{% endif %}"
+              class="
+                custom-media-gallery__slide
+                custom-media-gallery__slide--{{ media.media_type }}
+                {% if is_active %}is-active{% endif %}
+              "
               data-media-id="{{ media.id }}"
               data-media-position="{{ forloop.index }}"
-              data-media-type="{{ media.media_type }}"
               {% unless is_active %}
                 aria-hidden="true"
               {% endunless %}
@@ -150,38 +120,56 @@
 
               <div class="custom-media-gallery__media">
 
+                {% case media.media_type %}
 
-                {%- case media.media_type -%}
+                  {% when 'image' %}
 
+                    {% if media_zoom_enabled and image_zoom == 'lightbox' %}
 
-                  {%- when 'image' -%}
+                      <button
+                        type="button"
+                        class="custom-media-gallery__media-button"
+                        data-media-lightbox
+                        aria-label="Open image {{ forloop.index }}"
+                      >
 
-                    <div class="custom-media-gallery__image-wrapper">
+                        {{
+                          media
+                          | image_url: width: 2000
+                          | image_tag:
+                            class: 'custom-media-gallery__image',
+                            loading: 'lazy',
+                            widths: '375,550,750,1100,1500,2000',
+                            sizes: '(min-width: 990px) 60vw, 100vw'
+                        }}
+
+                      </button>
+
+                    {% else %}
 
                       {{
                         media
-                        | image_url: width: 2400
+                        | image_url: width: 2000
                         | image_tag:
                           class: 'custom-media-gallery__image',
                           loading: 'lazy',
-                          widths: '375,550,750,990,1200,1500,1800,2000,2400',
-                          sizes: '(min-width: 990px) 60vw, 100vw',
-                          alt: media.alt | escape
+                          widths: '375,550,750,1100,1500,2000',
+                          sizes: '(min-width: 990px) 60vw, 100vw'
                       }}
 
-                    </div>
+                    {% endif %}
 
 
-                  {%- when 'video' -%}
+                  {% when 'video' %}
 
                     <div class="custom-media-gallery__video-wrapper">
 
                       {{
                         media
                         | media_tag:
-                          image_size: '1600x',
+                          image_size: '1500x',
                           autoplay: false,
-                          loop: enable_video_looping,
+                          loop: gallery_settings.enable_video_looping,
                           controls: true,
                           preload: 'metadata',
                           class: 'custom-media-gallery__video'
@@ -190,568 +178,394 @@
                     </div>
 
 
-                  {%- when 'external_video' -%}
+                  {% when 'external_video' %}
 
-                    <div class="custom-media-gallery__external-video-wrapper">
+                    <div class="custom-media-gallery__external-video">
 
                       {{
                         media
                         | external_video_tag:
-                          class: 'custom-media-gallery__external-video'
+                          class: 'custom-media-gallery__external-video-player'
                       }}
 
                     </div>
 
 
-                  {%- when 'model' -%}
+                  {% when 'model' %}
 
-                    <div class="custom-media-gallery__model-wrapper">
+                    <div class="custom-media-gallery__model">
 
                       {{
                         media
                         | model_viewer_tag:
-                          image_size: '1600x',
+                          image_size: '1500x',
                           reveal: 'interaction',
                           toggleable: true
                       }}
 
                     </div>
 
-
-                {%- endcase -%}
+                {% endcase %}
 
               </div>
 
             </div>
 
-          {% endunless %}
+          {% endfor %}
 
-        {%- endfor -%}
-
-
-      </div>
+        </div>
 
 
-      {%- comment -%}
-        ========================================================
-        MAIN MEDIA NAVIGATION
-        ========================================================
+        {%- comment -%}
+          ========================================================
+          MAIN MEDIA NAVIGATION
+          These buttons belong ONLY to the main media.
+          ========================================================
+        {%- endcomment -%}
 
-        These controls belong to the MAIN media.
-
-        They appear at the left/right center edge.
-      {%- endcomment -%}
-
-      {% if media_count > 1 and gallery_layout == 'carousel' %}
-
-        <button
-          type="button"
-          class="custom-media-gallery__main-nav custom-media-gallery__main-nav--prev"
-          data-gallery-prev
-          aria-label="Previous media"
-        >
-          <span aria-hidden="true">‹</span>
-        </button>
-
-
-        <button
-          type="button"
-          class="custom-media-gallery__main-nav custom-media-gallery__main-nav--next"
-          data-gallery-next
-          aria-label="Next media"
-        >
-          <span aria-hidden="true">›</span>
-        </button>
-
-      {% endif %}
-
-
-    </div>
-
-
-  </div>
-
-
-  {%- comment -%}
-    ============================================================
-    DESKTOP THUMBNAILS
-    ============================================================
-
-    Independent from main navigation.
-
-    Main navigation:
-       left / right center of main media
-
-    Thumbnail navigation:
-       start / end of thumbnail row
-  {%- endcomment -%}
-
-
-  {% if gallery_layout == 'carousel'
-    and desktop_pagination
-    and desktop_pagination_type == 'thumbnails'
-    and media_count > 1
-  %}
-
-
-    <div class="custom-media-gallery__thumbnail-area">
-
-
-      <button
-        type="button"
-        class="custom-media-gallery__thumbnail-nav custom-media-gallery__thumbnail-nav--prev"
-        data-thumbnail-prev
-        aria-label="Previous thumbnails"
-      >
-        <span aria-hidden="true">‹</span>
-      </button>
-
-
-      <div class="custom-media-gallery__thumbnails">
-
-
-        {% for media in product.media %}
+        {% if media_count > 1 and gallery_layout == 'carousel' %}
 
           <button
             type="button"
-            class="custom-media-gallery__thumbnail{% if selected_media and media.id == selected_media.id %} is-active{% elsif selected_media == blank and forloop.first %} is-active{% endif %}"
-            data-thumbnail-index="{{ forloop.index0 }}"
-            data-thumbnail-media-id="{{ media.id }}"
-            aria-label="View media {{ forloop.index }}"
-            aria-current="{% if selected_media and media.id == selected_media.id %}true{% elsif selected_media == blank and forloop.first %}true{% else %}false{% endif %}"
+            class="
+              custom-media-gallery__main-nav
+              custom-media-gallery__main-nav--prev
+              custom-media-gallery__main-nav--{{ gallery_settings.carosel_icon | default: 'arrows' }}
+            "
+            data-gallery-prev
+            aria-label="Previous media"
           >
-
-
-            {% if media.media_type == 'image' %}
-
-              {{
-                media
-                | image_url: width: 400
-                | image_tag:
-                  loading: 'lazy',
-                  widths: '100,150,200,300,400',
-                  sizes: '100px',
-                  alt: media.alt | escape
-              }}
-
-
-            {% elsif media.preview_image %}
-
-              {{
-                media.preview_image
-                | image_url: width: 400
-                | image_tag:
-                  loading: 'lazy',
-                  widths: '100,150,200,300,400',
-                  sizes: '100px',
-                  alt: media.alt | escape
-              }}
-
-
-              <span class="custom-media-gallery__thumbnail-type-icon" aria-hidden="true">
-
-                {% case media.media_type %}
-
-                  {% when 'video' %}
-                    ▶
-
-                  {% when 'external_video' %}
-                    ▶
-
-                  {% when 'model' %}
-                    ◇
-
-                {% endcase %}
-
-              </span>
-
-
-            {% endif %}
-
-
+            <span aria-hidden="true">‹</span>
           </button>
 
-        {% endfor %}
+          <button
+            type="button"
+            class="
+              custom-media-gallery__main-nav
+              custom-media-gallery__main-nav--next
+              custom-media-gallery__main-nav--{{ gallery_settings.carosel_icon | default: 'arrows' }}
+            "
+            data-gallery-next
+            aria-label="Next media"
+          >
+            <span aria-hidden="true">›</span>
+          </button>
 
+        {% endif %}
 
       </div>
 
+    </div>
 
-      <button
-        type="button"
-        class="custom-media-gallery__thumbnail-nav custom-media-gallery__thumbnail-nav--next"
-        data-thumbnail-next
-        aria-label="Next thumbnails"
+
+    {%- comment -%}
+      ============================================================
+      DESKTOP PAGINATION
+      Only ONE of thumbnails / dots / counter is rendered.
+      ============================================================
+    {%- endcomment -%}
+
+    {% if gallery_layout == 'carousel'
+      and desktop_pagination
+      and media_count > 1
+    %}
+
+      <div
+        class="custom-media-gallery__desktop-pagination"
+        data-desktop-pagination
       >
-        <span aria-hidden="true">›</span>
-      </button>
 
+        {% case desktop_pagination_type %}
 
-    </div>
+          {% when 'thumbnails' %}
 
-
-  {% endif %}
-
-
-  {%- comment -%}
-    ============================================================
-    DESKTOP DOT PAGINATION
-    ============================================================
-  {%- endcomment -%}
-
-
-  {% if gallery_layout == 'carousel'
-    and desktop_pagination
-    and desktop_pagination_type == 'dots'
-    and media_count > 1
-  %}
-
-
-    <div
-      class="custom-media-gallery__dots"
-      data-gallery-dots
-    >
-
-      {% for media in product.media %}
-
-        <button
-          type="button"
-          class="custom-media-gallery__dot{% if selected_media and media.id == selected_media.id %} is-active{% elsif selected_media == blank and forloop.first %} is-active{% endif %}"
-          data-dot-index="{{ forloop.index0 }}"
-          data-dot-media-id="{{ media.id }}"
-          aria-label="View media {{ forloop.index }}"
-          aria-current="{% if selected_media and media.id == selected_media.id %}true{% elsif selected_media == blank and forloop.first %}true{% else %}false{% endif %}"
-        ></button>
-
-      {% endfor %}
-
-    </div>
-
-
-  {% endif %}
-
-
-  {%- comment -%}
-    ============================================================
-    DESKTOP COUNTER
-    ============================================================
-  {%- endcomment -%}
-
-
-  {% if gallery_layout == 'carousel'
-    and desktop_pagination
-    and desktop_pagination_type == 'counter'
-    and media_count > 1
-  %}
-
-
-    <div class="custom-media-gallery__counter">
-
-      <span data-counter-current>
-        {% if selected_media %}
-          {% for media in product.media %}
-            {% if media.id == selected_media.id %}
-              {{ forloop.index }}
-            {% endif %}
-          {% endfor %}
-        {% else %}
-          1
-        {% endif %}
-      </span>
-
-      <span aria-hidden="true"> / </span>
-
-      <span>
-        {{ media_count }}
-      </span>
-
-    </div>
-
-
-  {% endif %}
-
-
-  {%- comment -%}
-    ============================================================
-    MOBILE PAGINATION
-    ============================================================
-  {%- endcomment -%}
-
-
-  {% if gallery_layout == 'carousel'
-    and mobile_pagination
-    and media_count > 1
-  %}
-
-
-    <div class="custom-media-gallery__mobile-pagination">
-
-
-      {% case mobile_pagination_type %}
-
-
-        {% when 'thumbnails' %}
-
-          <div class="custom-media-gallery__mobile-thumbnails">
-
-            {% for media in product.media %}
+            <div class="custom-media-gallery__thumbnail-area">
 
               <button
                 type="button"
-                class="custom-media-gallery__mobile-thumbnail{% if selected_media and media.id == selected_media.id %} is-active{% elsif selected_media == blank and forloop.first %} is-active{% endif %}"
-                data-mobile-thumbnail-index="{{ forloop.index0 }}"
-                data-mobile-thumbnail-media-id="{{ media.id }}"
-                aria-label="View media {{ forloop.index }}"
+                class="
+                  custom-media-gallery__thumbnail-nav
+                  custom-media-gallery__thumbnail-nav--prev
+                "
+                data-thumbnail-prev
+                aria-label="Previous thumbnails"
               >
-
-                {% if media.media_type == 'image' %}
-
-                  {{
-                    media
-                    | image_url: width: 300
-                    | image_tag:
-                      loading: 'lazy',
-                      widths: '80,120,180,300',
-                      sizes: '80px',
-                      alt: media.alt | escape
-                  }}
-
-                {% elsif media.preview_image %}
-
-                  {{
-                    media.preview_image
-                    | image_url: width: 300
-                    | image_tag:
-                      loading: 'lazy',
-                      widths: '80,120,180,300',
-                      sizes: '80px',
-                      alt: media.alt | escape
-                  }}
-
-                {% endif %}
-
+                <span aria-hidden="true">‹</span>
               </button>
 
-            {% endfor %}
 
-          </div>
+              <div class="custom-media-gallery__thumbnails">
 
+                <div class="custom-media-gallery__thumbnail-track">
 
-        {% when 'dots' %}
+                  {% for media in product.media %}
 
-          <div
-            class="custom-media-gallery__dots"
-            data-mobile-dots
-          >
+                    <button
+                      type="button"
+                      class="
+                        custom-media-gallery__thumbnail
+                        {% if selected_media and media.id == selected_media.id %}
+                          is-active
+                        {% elsif selected_media == blank and forloop.first %}
+                          is-active
+                        {% endif %}
+                      "
+                      data-thumbnail-index="{{ forloop.index0 }}"
+                      data-thumbnail-media-id="{{ media.id }}"
+                      aria-label="View media {{ forloop.index }}"
+                      aria-current="
+                        {% if selected_media and media.id == selected_media.id %}
+                          true
+                        {% elsif selected_media == blank and forloop.first %}
+                          true
+                        {% else %}
+                          false
+                        {% endif %}
+                      "
+                    >
 
-            {% for media in product.media %}
+                      {% if media.media_type == 'image' %}
+
+                        {{
+                          media
+                          | image_url: width: 300
+                          | image_tag:
+                            loading: 'lazy',
+                            widths: '100,150,200,300',
+                            sizes: '100px'
+                        }}
+
+                      {% else %}
+
+                        <div class="custom-media-gallery__thumbnail-placeholder">
+
+                          {% case media.media_type %}
+
+                            {% when 'video' %}
+                              <span aria-hidden="true">▶</span>
+
+                            {% when 'external_video' %}
+                              <span aria-hidden="true">▶</span>
+
+                            {% when 'model' %}
+                              <span aria-hidden="true">◇</span>
+
+                          {% endcase %}
+
+                        </div>
+
+                      {% endif %}
+
+                    </button>
+
+                  {% endfor %}
+
+                </div>
+
+              </div>
+
 
               <button
                 type="button"
-                class="custom-media-gallery__dot{% if selected_media and media.id == selected_media.id %} is-active{% elsif selected_media == blank and forloop.first %} is-active{% endif %}"
-                data-mobile-dot-index="{{ forloop.index0 }}"
-                data-mobile-dot-media-id="{{ media.id }}"
-                aria-label="View media {{ forloop.index }}"
-              ></button>
+                class="
+                  custom-media-gallery__thumbnail-nav
+                  custom-media-gallery__thumbnail-nav--next
+                "
+                data-thumbnail-next
+                aria-label="Next thumbnails"
+              >
+                <span aria-hidden="true">›</span>
+              </button>
 
-            {% endfor %}
-
-          </div>
-
-
-        {% when 'counter' %}
-
-          <div class="custom-media-gallery__counter">
-
-            <span data-mobile-counter-current>1</span>
-
-            <span aria-hidden="true"> / </span>
-
-            <span>
-              {{ media_count }}
-            </span>
-
-          </div>
+            </div>
 
 
-        {% when 'hint' %}
+          {% when 'dots' %}
 
-          <div class="custom-media-gallery__hint">
-            Swipe to view more
-          </div>
+            <div
+              class="custom-media-gallery__dots"
+              data-gallery-dots
+            >
+
+              {% for media in product.media %}
+
+                <button
+                  type="button"
+                  class="
+                    custom-media-gallery__dot
+                    {% if selected_media and media.id == selected_media.id %}
+                      is-active
+                    {% elsif selected_media == blank and forloop.first %}
+                      is-active
+                    {% endif %}
+                  "
+                  data-dot-index="{{ forloop.index0 }}"
+                  aria-label="View media {{ forloop.index }}"
+                ></button>
+
+              {% endfor %}
+
+            </div>
 
 
-      {% endcase %}
+          {% when 'counter' %}
+
+            <div class="custom-media-gallery__counter">
+
+              <span data-counter-current>
+                {% if selected_media %}
+                  {% for media in product.media %}
+                    {% if media.id == selected_media.id %}
+                      {{ forloop.index }}
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  1
+                {% endif %}
+              </span>
+
+              <span aria-hidden="true"> / </span>
+
+              <span>{{ media_count }}</span>
+
+            </div>
+
+        {% endcase %}
+
+      </div>
+
+    {% endif %}
 
 
-    </div>
+    {%- comment -%}
+      ============================================================
+      MOBILE PAGINATION
+      Only visible below 990px.
+      ============================================================
+    {%- endcomment -%}
+
+    {% if gallery_layout == 'carousel'
+      and mobile_pagination
+      and media_count > 1
+    %}
+
+      <div
+        class="custom-media-gallery__mobile-pagination"
+        data-mobile-pagination
+      >
+
+        {% case mobile_pagination_type %}
+
+          {% when 'thumbnails' %}
+
+            <div class="custom-media-gallery__mobile-thumbnails">
+
+              <div class="custom-media-gallery__thumbnail-track">
+
+                {% for media in product.media %}
+
+                  <button
+                    type="button"
+                    class="
+                      custom-media-gallery__thumbnail
+                      {% if selected_media and media.id == selected_media.id %}
+                        is-active
+                      {% elsif selected_media == blank and forloop.first %}
+                        is-active
+                      {% endif %}
+                    "
+                    data-thumbnail-index="{{ forloop.index0 }}"
+                    data-thumbnail-media-id="{{ media.id }}"
+                    aria-label="View media {{ forloop.index }}"
+                  >
+
+                    {% if media.media_type == 'image' %}
+
+                      {{
+                        media
+                        | image_url: width: 200
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '80,120,160,200',
+                          sizes: '60px'
+                      }}
+
+                    {% else %}
+
+                      <div class="custom-media-gallery__thumbnail-placeholder">
+
+                        {% case media.media_type %}
+
+                          {% when 'video' %}
+                            <span aria-hidden="true">▶</span>
+
+                          {% when 'external_video' %}
+                            <span aria-hidden="true">▶</span>
+
+                          {% when 'model' %}
+                            <span aria-hidden="true">◇</span>
+
+                        {% endcase %}
+
+                      </div>
+
+                    {% endif %}
+
+                  </button>
+
+                {% endfor %}
+
+              </div>
+
+            </div>
 
 
-  {% endif %}
+          {% when 'dots' %}
+
+            <div
+              class="custom-media-gallery__dots"
+              data-mobile-dots
+            >
+
+              {% for media in product.media %}
+
+                <button
+                  type="button"
+                  class="custom-media-gallery__dot"
+                  data-mobile-dot-index="{{ forloop.index0 }}"
+                  aria-label="View media {{ forloop.index }}"
+                ></button>
+
+              {% endfor %}
+
+            </div>
 
 
-  {%- comment -%}
-    ============================================================
-    PRODUCT MEDIA BRAND / BADGE
-    ============================================================
-  {%- endcomment -%}
+          {% when 'counter' %}
+
+            <div class="custom-media-gallery__counter">
+
+              <span data-mobile-counter-current>1</span>
+
+              <span aria-hidden="true"> / </span>
+
+              <span>{{ media_count }}</span>
+
+            </div>
 
 
-  {% if product.metafields.custom.bestseller != blank %}
+          {% when 'hint' %}
 
-    <div class="custom-media-gallery__bestseller">
+            <div class="custom-media-gallery__hint">
+              Swipe to view more
+            </div>
 
-      {{ product.metafields.custom.bestseller }}
+        {% endcase %}
 
-    </div>
+      </div>
 
-  {% endif %}
+    {% endif %}
 
+  </div>
 
 </media-gallery>
-
-
-{%- comment -%}
-  ==============================================================
-  GALLERY CONFIGURATION
-
-  CSS-only values are passed through CSS variables.
-
-  We do NOT use unnecessary data-* attributes for CSS.
-  ============================================================== 
-{%- endcomment -%}
-
-
-<style>
-
-  #{{ gallery_id }} {
-
-    --gallery-grid-columns: {{ grid_column }};
-    --gallery-grid-gap: {{ grid_column_gap }}px;
-
-    --gallery-thumbnail-width: {{ thumbnail_desktop_width }}px;
-    --gallery-thumbnail-mobile-width: {{ thumbnail_mobile_width }}px;
-
-    --gallery-thumbnail-radius: {{ thumbnail_corner_radius }}px;
-
-    --gallery-media-radius: {{ media_corner_radius }}px;
-
-    --gallery-media-fit: {{ media_fit }};
-
-    --gallery-media-padding-top: {% if media_padding %}{{ padding_top }}px{% else %}0px{% endif %};
-    --gallery-media-padding-bottom: {% if media_padding %}{{ padding_bottom }}px{% else %}0px{% endif %};
-    --gallery-media-padding-left: {% if media_padding %}{{ padding_left }}px{% else %}0px{% endif %};
-    --gallery-media-padding-right: {% if media_padding %}{{ padding_right }}px{% else %}0px{% endif %};
-
-  }
-
-
-  {% if media_ratio == 'portrait' %}
-
-    #{{ gallery_id }} {
-      --gallery-media-ratio: 4 / 5;
-    }
-
-  {% elsif media_ratio == 'square' %}
-
-    #{{ gallery_id }} {
-      --gallery-media-ratio: 1 / 1;
-    }
-
-  {% elsif media_ratio == 'landscape' %}
-
-    #{{ gallery_id }} {
-      --gallery-media-ratio: 4 / 3;
-    }
-
-  {% else %}
-
-    #{{ gallery_id }} {
-      --gallery-media-ratio: auto;
-    }
-
-  {% endif %}
-
-
-  {% if constrain_to_screen_height %}
-
-    #{{ gallery_id }} {
-      --gallery-media-max-height: 85vh;
-    }
-
-  {% else %}
-
-    #{{ gallery_id }} {
-      --gallery-media-max-height: none;
-    }
-
-  {% endif %}
-
-
-  {% if extent_media_to_screen_edge %}
-
-    #{{ gallery_id }} {
-      --gallery-extend-edge: true;
-    }
-
-  {% else %}
-
-    #{{ gallery_id }} {
-      --gallery-extend-edge: false;
-    }
-
-  {% endif %}
-
-
-  {% if gallery_layout == 'grid' %}
-
-    #{{ gallery_id }} .custom-media-gallery__track {
-      display: grid;
-      grid-template-columns: repeat(var(--gallery-grid-columns), minmax(0, 1fr));
-      gap: var(--gallery-grid-gap);
-    }
-
-  {% endif %}
-
-
-  {% if full_width_first_image and grid_column == '2' %}
-
-    #{{ gallery_id }} .custom-media-gallery__slide:first-child {
-      grid-column: 1 / -1;
-    }
-
-  {% endif %}
-
-
-</style>
-
-
-{%- comment -%}
-  ==============================================================
-  GALLERY JAVASCRIPT
-
-  Loaded once through the asset.
-
-  The script itself is responsible for:
-  - carousel
-  - navigation
-  - thumbnails
-  - dots
-  - counter
-  - variant media switching
-  - Shopify section reload
-  ============================================================== 
-{%- endcomment -%}
-
-<script src="{{ 'product-media-gallery-global.js' | asset_url }}" defer></script>
-
-
-{% if enable_media_zoom and image_zoom == 'hover' %}
-
-  <script
-    id="EnableZoomOnHover-{{ gallery_block_id }}"
-    src="{{ 'magnify.js' | asset_url }}"
-    defer
-  ></script>
-
-{% endif %}

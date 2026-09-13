@@ -1,25 +1,20 @@
 /* =========================================================
    CUSTOM PRODUCT MEDIA GALLERY
-   Theme-independent gallery system
+   Theme-independent
    ========================================================= */
 
 .custom-media-gallery {
+  --gallery-gap: 8px;
+
   width: 100%;
   min-width: 0;
 
-  --gallery-gap: var(--media-gap, 8px);
-  --gallery-radius: var(--media-radius, 16px);
+  box-sizing: border-box;
+}
 
-  --gallery-padding-top: var(--media-padding-top, 0px);
-  --gallery-padding-bottom: var(--media-padding-bottom, 0px);
-  --gallery-padding-left: var(--media-padding-left, 0px);
-  --gallery-padding-right: var(--media-padding-right, 0px);
-
-  --gallery-slide-width: calc(
-    (100% - (var(--gallery-gap) * (var(--desktop-slides) - 1)))
-    / var(--desktop-slides)
-  );
-
+.custom-media-gallery *,
+.custom-media-gallery *::before,
+.custom-media-gallery *::after {
   box-sizing: border-box;
 }
 
@@ -30,19 +25,23 @@
 
 .custom-media-gallery__body {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--gallery-gap);
+
   width: 100%;
+  min-width: 0;
 }
 
 
 /* =========================================================
-   MAIN AREA
+   MAIN
    ========================================================= */
 
 .custom-media-gallery__main {
-  min-width: 0;
+  position: relative;
+
   width: 100%;
+  min-width: 0;
 }
 
 
@@ -51,12 +50,17 @@
    ========================================================= */
 
 .custom-media-gallery__viewport {
+  position: relative;
+
   width: 100%;
+  min-width: 0;
+
   overflow: hidden;
-  padding-top: var(--gallery-padding-top);
-  padding-right: var(--gallery-padding-right);
-  padding-bottom: var(--gallery-padding-bottom);
-  padding-left: var(--gallery-padding-left);
+
+  padding-top: var(--gallery-padding-top, 0px);
+  padding-right: var(--gallery-padding-right, 0px);
+  padding-bottom: var(--gallery-padding-bottom, 0px);
+  padding-left: var(--gallery-padding-left, 0px);
 }
 
 
@@ -66,9 +70,11 @@
 
 .custom-media-gallery__track {
   display: flex;
-  gap: var(--gallery-gap);
 
   width: 100%;
+  min-width: 0;
+
+  gap: 0;
 
   overflow-x: auto;
   overflow-y: hidden;
@@ -89,97 +95,97 @@
 
 
 /* =========================================================
-   SLIDES
+   CAROUSEL SLIDES
    ========================================================= */
 
+.custom-media-gallery--carousel
 .custom-media-gallery__slide {
-  position: relative;
+  flex: 0 0 100%;
 
-  flex: 0 0 var(--gallery-slide-width);
-
-  min-width: 0;
+  width: 100%;
+  min-width: 100%;
 
   scroll-snap-align: start;
-  scroll-snap-stop: normal;
-
-  box-sizing: border-box;
-}
-
-.custom-media-gallery__slide--full {
-  flex-basis: 100%;
+  scroll-snap-stop: always;
 }
 
 
 /* =========================================================
-   GRID MODE
+   GRID
    ========================================================= */
 
-.custom-media-gallery--grid .custom-media-gallery__track {
+.custom-media-gallery--grid
+.custom-media-gallery__track {
   display: grid;
 
   grid-template-columns:
-    repeat(var(--grid-columns, 2), minmax(0, 1fr));
+    repeat(
+      var(--gallery-grid-columns, 2),
+      minmax(0, 1fr)
+    );
 
-  gap: var(--gallery-gap);
+  gap: var(--gallery-grid-gap, 4px);
 
   overflow: visible;
 
   scroll-snap-type: none;
 }
 
-.custom-media-gallery--grid .custom-media-gallery__slide {
-  flex: none;
+.custom-media-gallery--grid
+.custom-media-gallery__slide {
   width: auto;
+  min-width: 0;
 }
 
 
 /* =========================================================
-   MEDIA
+   MEDIA CONTAINER
    ========================================================= */
 
 .custom-media-gallery__media {
   position: relative;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
 
   overflow: hidden;
 
-  border-radius: var(--gallery-radius);
+  border-radius: var(--gallery-media-radius, 16px);
 
   background: rgba(0, 0, 0, 0.03);
-
-  box-sizing: border-box;
-
-  aspect-ratio: auto;
 }
 
 
 /* =========================================================
-   RATIO
+   MEDIA RATIO
    ========================================================= */
 
 .custom-media-gallery--ratio-square
-  .custom-media-gallery__media {
+.custom-media-gallery__media {
   aspect-ratio: 1 / 1;
 }
 
 .custom-media-gallery--ratio-portrait
-  .custom-media-gallery__media {
+.custom-media-gallery__media {
   aspect-ratio: 4 / 5;
 }
 
 .custom-media-gallery--ratio-landscape
-  .custom-media-gallery__media {
+.custom-media-gallery__media {
   aspect-ratio: 4 / 3;
 }
 
 
 /* =========================================================
-   SCREEN HEIGHT
+   AUTO RATIO
    ========================================================= */
 
-.custom-media-gallery[data-image-zoom] {
-  --gallery-max-height: none;
+.custom-media-gallery--ratio-auto
+.custom-media-gallery__media {
+  aspect-ratio: auto;
 }
 
 
@@ -191,7 +197,9 @@
   display: block;
 
   width: 100%;
-  height: 100%;
+  height: auto;
+
+  max-width: 100%;
 
   object-fit: var(--media-object-fit, contain);
 
@@ -200,12 +208,116 @@
     opacity 200ms ease;
 }
 
+
+/* =========================================================
+   CONTAIN / COVER
+   ========================================================= */
+
+.custom-media-gallery--fit-contain {
+  --media-object-fit: contain;
+}
+
 .custom-media-gallery--fit-cover {
   --media-object-fit: cover;
 }
 
-.custom-media-gallery--fit-contain {
-  --media-object-fit: contain;
+.custom-media-gallery--fit-cover
+.custom-media-gallery__image {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =========================================================
+   VIDEO
+   ========================================================= */
+
+.custom-media-gallery__video-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  max-height: 75vh;
+
+  overflow: hidden;
+}
+
+.custom-media-gallery__video {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  max-width: 100%;
+  max-height: 75vh;
+
+  object-fit: contain;
+}
+
+
+/* =========================================================
+   EXTERNAL VIDEO
+   ========================================================= */
+
+.custom-media-gallery__external-video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  max-height: 75vh;
+
+  overflow: hidden;
+}
+
+.custom-media-gallery__external-video-player {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+
+  max-height: 75vh;
+}
+
+
+/* =========================================================
+   MODEL
+   ========================================================= */
+
+.custom-media-gallery__model {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  max-height: 75vh;
+}
+
+.custom-media-gallery__model model-viewer {
+  display: block;
+
+  width: 100%;
+  height: min(75vh, 700px);
+}
+
+
+/* =========================================================
+   SCREEN HEIGHT CONSTRAINT
+   ========================================================= */
+
+.custom-media-gallery--constrain-height
+.custom-media-gallery__media {
+  max-height: 75vh;
+}
+
+.custom-media-gallery--constrain-height
+.custom-media-gallery__image {
+  max-height: 75vh;
+  object-fit: contain;
 }
 
 
@@ -229,109 +341,108 @@
   cursor: zoom-in;
 }
 
-.custom-media-gallery__media-button:disabled {
-  cursor: default;
-}
-
 
 /* =========================================================
    HOVER ZOOM
    ========================================================= */
 
 .custom-media-gallery[data-image-zoom="hover"]
-  .custom-media-gallery__media-button:hover
-  .custom-media-gallery__image {
+.custom-media-gallery__media-button {
+  overflow: hidden;
+}
+
+.custom-media-gallery[data-image-zoom="hover"]
+.custom-media-gallery__media-button:hover
+.custom-media-gallery__image {
   transform: scale(1.06);
 }
 
 
 /* =========================================================
-   VIDEO
+   MAIN MEDIA NAVIGATION
+   These are positioned directly on the media.
    ========================================================= */
 
-.custom-media-gallery__video,
-.custom-media-gallery__external-video,
-.custom-media-gallery__model {
-  display: block;
+.custom-media-gallery__main-nav {
+  position: absolute;
 
-  width: 100%;
-  height: 100%;
+  top: 50%;
 
-  max-width: 100%;
-  max-height: 90vh;
-}
+  z-index: 5;
 
-.custom-media-gallery__video {
-  object-fit: var(--media-object-fit, contain);
-}
-
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-.custom-media-gallery__navigation {
-  display: grid;
-
-  grid-template-columns: 40px 1fr 40px;
-
-  align-items: center;
-
-  gap: 12px;
-
-  margin-top: 12px;
-}
-
-
-.custom-media-gallery__nav {
   display: inline-flex;
 
   align-items: center;
   justify-content: center;
 
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
 
   padding: 0;
+  margin: 0;
 
-  border: 1px solid var(--product-border, rgba(0, 0, 0, 0.15));
-
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 50%;
 
-  background: transparent;
+  background: rgba(255, 255, 255, 0.9);
 
   color: currentColor;
 
+  font-size: 30px;
+  line-height: 1;
+
   cursor: pointer;
 
+  transform: translateY(-50%);
+
   transition:
+    background-color 180ms ease,
     opacity 180ms ease,
-    background-color 180ms ease;
+    transform 180ms ease;
 }
 
-.custom-media-gallery__nav:hover {
-  background: rgba(0, 0, 0, 0.05);
+.custom-media-gallery__main-nav:hover {
+  background: #fff;
+
+  transform:
+    translateY(-50%)
+    scale(1.05);
 }
 
-.custom-media-gallery__nav:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
+.custom-media-gallery__main-nav--prev {
+  left: 12px;
+}
+
+.custom-media-gallery__main-nav--next {
+  right: 12px;
 }
 
 
 /* =========================================================
-   PAGINATION
+   MAIN NAVIGATION ICON VARIANTS
    ========================================================= */
 
-.custom-media-gallery__pagination {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  min-width: 0;
+.custom-media-gallery__main-nav--cheverons,
+.custom-media-gallery__main-nav--large_cheverons {
+  font-size: 34px;
 }
 
+.custom-media-gallery__main-nav--large_arrows,
+.custom-media-gallery__main-nav--large_cheverons {
+  width: 50px;
+  height: 50px;
+}
+
+
+/* =========================================================
+   DESKTOP PAGINATION
+   ========================================================= */
+
+.custom-media-gallery__desktop-pagination {
+  display: block;
+
+  width: 100%;
+}
 
 .custom-media-gallery__dots {
   display: flex;
@@ -339,18 +450,22 @@
   align-items: center;
   justify-content: center;
 
-  gap: 6px;
-}
+  gap: 7px;
 
+  width: 100%;
+
+  padding: 8px 0;
+}
 
 .custom-media-gallery__dot {
   width: 7px;
   height: 7px;
 
+  flex: 0 0 7px;
+
   padding: 0;
 
   border: 0;
-
   border-radius: 50%;
 
   background: currentColor;
@@ -365,17 +480,74 @@
 }
 
 
+/* =========================================================
+   COUNTER
+   ========================================================= */
+
 .custom-media-gallery__counter {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 34px;
+
   font-size: 13px;
   line-height: 1;
 }
 
 
 /* =========================================================
-   MOBILE / DESKTOP PAGINATION
+   DESKTOP THUMBNAIL AREA
    ========================================================= */
 
-.custom-media-gallery__mobile-pagination {
+.custom-media-gallery__thumbnail-area {
+  display: grid;
+
+  grid-template-columns: 36px minmax(0, 1fr) 36px;
+
+  align-items: center;
+
+  width: 100%;
+
+  gap: 8px;
+
+  padding-top: 8px;
+}
+
+
+/* =========================================================
+   THUMBNAIL SCROLL AREA
+   ========================================================= */
+
+.custom-media-gallery__thumbnails {
+  min-width: 0;
+
+  width: 100%;
+
+  overflow: hidden;
+}
+
+.custom-media-gallery__thumbnail-track {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  width: 100%;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding: 2px;
+
+  scrollbar-width: none;
+
+  scroll-behavior: smooth;
+}
+
+.custom-media-gallery__thumbnail-track::-webkit-scrollbar {
   display: none;
 }
 
@@ -384,43 +556,22 @@
    THUMBNAILS
    ========================================================= */
 
-.custom-media-gallery__thumbnails {
-  min-width: 0;
-}
-
-
-.custom-media-gallery__thumbnail-track {
-  display: flex;
-
-  gap: var(--thumbnail-gap, 8px);
-
-  overflow-x: auto;
-
-  scrollbar-width: none;
-
-  scroll-behavior: smooth;
-
-  padding: 2px;
-}
-
-.custom-media-gallery__thumbnail-track::-webkit-scrollbar {
-  display: none;
-}
-
-
 .custom-media-gallery__thumbnail {
-  flex: 0 0 var(--thumbnail-width, 80px);
+  display: block;
 
-  width: var(--thumbnail-width, 80px);
-  height: var(--thumbnail-width, 80px);
+  flex: 0 0 var(--gallery-thumbnail-width, 50px);
+
+  width: var(--gallery-thumbnail-width, 50px);
+  height: var(--gallery-thumbnail-width, 50px);
 
   padding: 0;
 
+  overflow: hidden;
+
   border: 2px solid transparent;
 
-  border-radius: var(--thumbnail-radius, 6px);
-
-  overflow: hidden;
+  border-radius:
+    var(--gallery-thumbnail-radius, 8px);
 
   background: transparent;
 
@@ -445,6 +596,10 @@
 }
 
 
+/* =========================================================
+   THUMBNAIL IMAGE
+   ========================================================= */
+
 .custom-media-gallery__thumbnail img {
   display: block;
 
@@ -456,128 +611,10 @@
 
 
 /* =========================================================
-   LEFT / RIGHT THUMBNAILS
+   THUMBNAIL PLACEHOLDER
    ========================================================= */
 
-@media screen and (min-width: 990px) {
-
-  .custom-media-gallery--thumbs-left
-  .custom-media-gallery__body,
-
-  .custom-media-gallery--thumbs-right
-  .custom-media-gallery__body {
-
-    grid-template-columns: auto minmax(0, 1fr);
-
-    align-items: start;
-  }
-
-  .custom-media-gallery--thumbs-right
-  .custom-media-gallery__body {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-
-
-  .custom-media-gallery--thumbs-left
-  .custom-media-gallery__thumbnails {
-    order: 1;
-  }
-
-  .custom-media-gallery--thumbs-left
-  .custom-media-gallery__main {
-    order: 2;
-  }
-
-
-  .custom-media-gallery--thumbs-right
-  .custom-media-gallery__main {
-    order: 1;
-  }
-
-  .custom-media-gallery--thumbs-right
-  .custom-media-gallery__thumbnails {
-    order: 2;
-  }
-
-
-  .custom-media-gallery--thumbs-left
-  .custom-media-gallery__thumbnail-track,
-
-  .custom-media-gallery--thumbs-right
-  .custom-media-gallery__thumbnail-track {
-
-    flex-direction: column;
-
-    max-height: 700px;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  .custom-media-gallery--thumbs-left
-  .custom-media-gallery__thumbnail,
-
-  .custom-media-gallery--thumbs-right
-  .custom-media-gallery__thumbnail {
-
-    flex: 0 0 var(--thumbnail-width, 80px);
-  }
-}
-
-
-/* =========================================================
-   LIGHTBOX
-   ========================================================= */
-
-.custom-media-gallery__lightbox {
-  width: min(96vw, 1400px);
-  height: min(94vh, 1000px);
-
-  max-width: none;
-  max-height: none;
-
-  padding: 30px;
-
-  border: 0;
-
-  border-radius: 12px;
-
-  background: rgba(0, 0, 0, 0.96);
-
-  color: #fff;
-}
-
-.custom-media-gallery__lightbox::backdrop {
-  background: rgba(0, 0, 0, 0.85);
-}
-
-
-.custom-media-gallery__lightbox-close {
-  position: absolute;
-
-  top: 12px;
-  right: 12px;
-
-  z-index: 2;
-
-  width: 40px;
-  height: 40px;
-
-  border: 0;
-
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.12);
-
-  color: #fff;
-
-  font-size: 28px;
-
-  cursor: pointer;
-}
-
-
-.custom-media-gallery__lightbox-content {
+.custom-media-gallery__thumbnail-placeholder {
   display: flex;
 
   align-items: center;
@@ -585,41 +622,72 @@
 
   width: 100%;
   height: 100%;
-}
 
+  background: rgba(0, 0, 0, 0.06);
 
-.custom-media-gallery__lightbox-content img,
-.custom-media-gallery__lightbox-content video,
-.custom-media-gallery__lightbox-content iframe {
-  display: block;
-
-  max-width: 100%;
-  max-height: 100%;
-
-  width: auto;
-  height: auto;
-
-  object-fit: contain;
+  font-size: 18px;
 }
 
 
 /* =========================================================
-   EMPTY
+   THUMBNAIL NAVIGATION
+   Separate from main media navigation.
    ========================================================= */
 
-.custom-media-gallery__empty {
-  display: flex;
+.custom-media-gallery__thumbnail-nav {
+  display: inline-flex;
 
   align-items: center;
   justify-content: center;
 
-  min-height: 300px;
+  width: 32px;
+  height: 32px;
 
-  border: 1px dashed var(--product-border, #ddd);
+  padding: 0;
 
-  border-radius: var(--gallery-radius);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
 
-  opacity: 0.6;
+  background: transparent;
+
+  color: currentColor;
+
+  font-size: 22px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.custom-media-gallery__thumbnail-nav:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+
+/* =========================================================
+   LEFT / RIGHT DESKTOP THUMBNAILS
+   ========================================================= */
+
+@media screen and (min-width: 990px) {
+
+  .custom-media-gallery--thumb-left
+  .custom-media-gallery__body,
+
+  .custom-media-gallery--thumb-right
+  .custom-media-gallery__body {
+    grid-template-columns:
+      auto minmax(0, 1fr);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE PAGINATION
+   Hidden on desktop.
+   ========================================================= */
+
+.custom-media-gallery__mobile-pagination {
+  display: none;
 }
 
 
@@ -629,53 +697,89 @@
 
 @media screen and (max-width: 989px) {
 
-  .custom-media-gallery {
-    --gallery-slide-width: calc(
-      (100% - (var(--gallery-gap) * (var(--mobile-slides) - 1)))
-      / var(--mobile-slides)
-    );
-  }
-
-
-  .custom-media-gallery__mobile-pagination {
-    display: flex;
-  }
-
   .custom-media-gallery__desktop-pagination {
     display: none;
   }
 
+  .custom-media-gallery__mobile-pagination {
+    display: block;
 
-  .custom-media-gallery--grid .custom-media-gallery__track {
+    width: 100%;
+  }
+
+  .custom-media-gallery__main-nav {
+    width: 36px;
+    height: 36px;
+
+    font-size: 26px;
+  }
+
+  .custom-media-gallery__main-nav--prev {
+    left: 8px;
+  }
+
+  .custom-media-gallery__main-nav--next {
+    right: 8px;
+  }
+
+  .custom-media-gallery__thumbnail {
+    flex-basis:
+      var(--gallery-thumbnail-mobile-width, 30px);
+
+    width:
+      var(--gallery-thumbnail-mobile-width, 30px);
+
+    height:
+      var(--gallery-thumbnail-mobile-width, 30px);
+  }
+
+  .custom-media-gallery__mobile-thumbnails {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .custom-media-gallery__mobile-thumbnails
+  .custom-media-gallery__thumbnail-track {
+    justify-content: flex-start;
+  }
+
+}
+
+
+/* =========================================================
+   GRID MOBILE BEHAVIOR
+   Your setting says carousel is always used on mobile.
+   ========================================================= */
+
+@media screen and (max-width: 989px) {
+
+  .custom-media-gallery--grid
+  .custom-media-gallery__track {
     display: flex;
 
     overflow-x: auto;
 
     scroll-snap-type: x mandatory;
+
+    gap: var(--gallery-gap);
   }
 
-  .custom-media-gallery--grid .custom-media-gallery__slide {
-    flex: 0 0 var(--gallery-slide-width);
+  .custom-media-gallery--grid
+  .custom-media-gallery__slide {
+    flex: 0 0 100%;
+
+    min-width: 100%;
   }
 
-
-  .custom-media-gallery__thumbnail {
-    width: var(--thumbnail-mobile-width, 64px);
-    height: var(--thumbnail-mobile-width, 64px);
-
-    flex-basis: var(--thumbnail-mobile-width, 64px);
-  }
+}
 
 
-  .custom-media-gallery__navigation {
-    grid-template-columns: 34px 1fr 34px;
-  }
+/* =========================================================
+   EDGE EXTENSION
+   ========================================================= */
 
-
-  .custom-media-gallery__nav {
-    width: 34px;
-    height: 34px;
-  }
+.custom-media-gallery--edge {
+  width: 100vw;
 }
 
 
@@ -693,4 +797,5 @@
   .custom-media-gallery__image {
     transition: none;
   }
+
 }
