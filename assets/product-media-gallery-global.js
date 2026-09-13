@@ -1,632 +1,746 @@
 (() => {
-  'use strict';
+  class CustomProductMediaGallery {
+    constructor(root) {
+      this.root = root;
 
-  class ProductMediaGallery {
-    constructor(gallery) {
-      this.gallery = gallery;
+      this.track = root.querySelector("[data-media-track]");
+      this.slides = [...root.querySelectorAll("[data-media-slide]")];
 
-      this.track = gallery.querySelector(
-        '.custom-media-gallery__track'
+      this.prevButton = root.querySelector("[data-gallery-prev]");
+      this.nextButton = root.querySelector("[data-gallery-next]");
+
+      this.thumbnails = [
+        ...root.querySelectorAll("[data-thumbnail]")
+      ];
+
+      this.thumbnailTracks = [
+        ...root.querySelectorAll("[data-thumbnail-track]")
+      ];
+
+      this.lightbox = root.querySelector("[data-lightbox]");
+      this.lightboxContent = root.querySelector("[data-lightbox-content]");
+      this.lightboxClose = root.querySelector("[data-lightbox-close]");
+
+      this.variantMapElement = root.querySelector(
+        "[data-variant-media-map]"
       );
 
-      this.slides = Array.from(
-        gallery.querySelectorAll(
-          '.custom-media-gallery__slide'
-        )
-      );
+      this.activeIndex = 0;
 
-      this.thumbnails = Array.from(
-        gallery.querySelectorAll(
-          '[data-thumbnail-index]'
-        )
-      );
+      this.variantMap = this.readVariantMap();
 
-      this.dots = Array.from(
-        gallery.querySelectorAll(
-          '[data-dot-index], [data-mobile-dot-index]'
-        )
-      );
+      this.init();
+    }
 
-      this.prevButton = gallery.querySelector(
-        '[data-gallery-prev]'
-      );
 
-      this.nextButton = gallery.querySelector(
-        '[data-gallery-next]'
-      );
+    /* =====================================================
+       INITIALIZE
+       ===================================================== */
 
-      this.thumbnailPrev = gallery.querySelector(
-        '[data-thumbnail-prev]'
-      );
-
-      this.thumbnailNext = gallery.querySelector(
-        '[data-thumbnail-next]'
-      );
-
-      this.counterCurrent = gallery.querySelector(
-        '[data-counter-current]'
-      );
-
-      this.mobileCounterCurrent = gallery.querySelector(
-        '[data-mobile-counter-current]'
-      );
-
-      this.currentIndex = this.getInitialIndex();
-
+    init() {
       if (!this.track || !this.slides.length) {
         return;
       }
 
-      this.bindEvents();
+      this.bindNavigation();
 
-      this.goToSlide(
-        this.currentIndex,
-        false
-      );
+      this.bindThumbnails();
 
-      this.updateUI();
+      this.bindMediaOpening();
+
+      this.bindLightbox();
+
+      this.observeSlides();
+
+      this.bindVariantChanges();
+
+      this.updateState(0);
+
+      this.updateNavigation();
+
+      this.setInitialVariantMedia();
     }
 
 
-    /* =========================================
-       INITIAL INDEX
-       ========================================= */
+    /* =====================================================
+       VARIANT MAP
+       ===================================================== */
 
-    getInitialIndex() {
-      const activeSlide = this.slides.findIndex(
-        slide =>
-          slide.classList.contains('is-active')
-      );
-
-      return activeSlide >= 0
-        ? activeSlide
-        : 0;
-    }
-
-
-    /* =========================================
-       EVENTS
-       ========================================= */
-
-    bindEvents() {
-
-      /* Main previous */
-      if (this.prevButton) {
-        this.prevButton.addEventListener(
-          'click',
-          () => {
-            this.previous();
-          }
-        );
+    readVariantMap() {
+      if (!this.variantMapElement) {
+        return [];
       }
 
-
-      /* Main next */
-      if (this.nextButton) {
-        this.nextButton.addEventListener(
-          'click',
-          () => {
-            this.next();
-          }
+      try {
+        return JSON.parse(
+          this.variantMapElement.textContent
         );
-      }
-
-
-      /* Thumbnails */
-      this.thumbnails.forEach(
-        thumbnail => {
-
-          thumbnail.addEventListener(
-            'click',
-            event => {
-
-              event.preventDefault();
-
-              const index = Number(
-                thumbnail.dataset.thumbnailIndex
-              );
-
-              if (
-                Number.isInteger(index) &&
-                this.slides[index]
-              ) {
-                this.goToSlide(index);
-              }
-
-            }
-          );
-
-        }
-      );
-
-
-      /* Dots */
-      this.dots.forEach(
-        dot => {
-
-          dot.addEventListener(
-            'click',
-            event => {
-
-              event.preventDefault();
-
-              let index;
-
-              if (
-                dot.dataset.dotIndex !== undefined
-              ) {
-                index = Number(
-                  dot.dataset.dotIndex
-                );
-              } else {
-                index = Number(
-                  dot.dataset.mobileDotIndex
-                );
-              }
-
-              if (
-                Number.isInteger(index) &&
-                this.slides[index]
-              ) {
-                this.goToSlide(index);
-              }
-
-            }
-          );
-
-        }
-      );
-
-
-      /* Thumbnail previous */
-      if (this.thumbnailPrev) {
-        this.thumbnailPrev.addEventListener(
-          'click',
-          () => {
-            this.scrollThumbnails(-1);
-          }
+      } catch (error) {
+        console.warn(
+          "Product media gallery: unable to read variant map.",
+          error
         );
+
+        return [];
       }
-
-
-      /* Thumbnail next */
-      if (this.thumbnailNext) {
-        this.thumbnailNext.addEventListener(
-          'click',
-          () => {
-            this.scrollThumbnails(1);
-          }
-        );
-      }
-
-
-      /* Detect manual swipe / scroll */
-      this.track.addEventListener(
-        'scroll',
-        this.handleScroll.bind(this),
-        { passive: true }
-      );
-
-
-      /* Keyboard support */
-      this.gallery.addEventListener(
-        'keydown',
-        event => {
-
-          if (event.key === 'ArrowLeft') {
-            event.preventDefault();
-            this.previous();
-          }
-
-          if (event.key === 'ArrowRight') {
-            event.preventDefault();
-            this.next();
-          }
-
-        }
-      );
-
     }
 
 
-    /* =========================================
-       NEXT / PREVIOUS
-       ========================================= */
+    /* =====================================================
+       NAVIGATION
+       ===================================================== */
 
-    next() {
+    bindNavigation() {
+      this.prevButton?.addEventListener("click", () => {
+        this.goPrevious();
+      });
 
-      const nextIndex =
-        this.currentIndex >= this.slides.length - 1
-          ? 0
-          : this.currentIndex + 1;
-
-      this.goToSlide(nextIndex);
-
+      this.nextButton?.addEventListener("click", () => {
+        this.goNext();
+      });
     }
 
 
-    previous() {
+    goNext() {
+      if (!this.slides.length) {
+        return;
+      }
 
-      const previousIndex =
-        this.currentIndex <= 0
-          ? this.slides.length - 1
-          : this.currentIndex - 1;
+      const nextIndex = Math.min(
+        this.activeIndex + 1,
+        this.slides.length - 1
+      );
 
-      this.goToSlide(previousIndex);
-
+      this.goTo(nextIndex);
     }
 
 
-    /* =========================================
-       GO TO SLIDE
-       ========================================= */
+    goPrevious() {
+      if (!this.slides.length) {
+        return;
+      }
 
-    goToSlide(index, smooth = true) {
+      const previousIndex = Math.max(
+        this.activeIndex - 1,
+        0
+      );
 
+      this.goTo(previousIndex);
+    }
+
+
+    goTo(index, behavior = "smooth") {
       const slide = this.slides[index];
+
+      if (!slide || !this.track) {
+        return;
+      }
+
+      this.track.scrollTo({
+        left: slide.offsetLeft,
+        behavior
+      });
+
+      this.updateState(index);
+    }
+
+
+    /* =====================================================
+       THUMBNAILS
+       ===================================================== */
+
+    bindThumbnails() {
+      this.thumbnails.forEach((thumbnail) => {
+        thumbnail.addEventListener("click", () => {
+          const index = Number(
+            thumbnail.dataset.mediaIndex
+          );
+
+          this.goTo(index);
+        });
+      });
+    }
+
+
+    updateThumbnails(index) {
+      const activeSlide = this.slides[index];
+
+      if (!activeSlide) {
+        return;
+      }
+
+      const mediaId = activeSlide.dataset.mediaId;
+
+      this.thumbnails.forEach((thumbnail) => {
+        const active =
+          thumbnail.dataset.mediaId === mediaId;
+
+        thumbnail.classList.toggle(
+          "is-active",
+          active
+        );
+
+        thumbnail.setAttribute(
+          "aria-current",
+          active ? "true" : "false"
+        );
+      });
+
+      const activeThumbnail = this.thumbnails.find(
+        (thumbnail) =>
+          thumbnail.dataset.mediaId === mediaId
+      );
+
+      activeThumbnail?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "nearest"
+      });
+    }
+
+
+    /* =====================================================
+       INTERSECTION OBSERVER
+       ===================================================== */
+
+    observeSlides() {
+      if (!("IntersectionObserver" in window)) {
+        return;
+      }
+
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          let bestEntry = null;
+
+          entries.forEach((entry) => {
+            if (
+              entry.isIntersecting &&
+              (!bestEntry ||
+                entry.intersectionRatio >
+                  bestEntry.intersectionRatio)
+            ) {
+              bestEntry = entry;
+            }
+          });
+
+          if (!bestEntry) {
+            return;
+          }
+
+          const index = Number(
+            bestEntry.target.dataset.mediaIndex
+          );
+
+          this.updateState(index);
+        },
+        {
+          root: this.track,
+          threshold: [0.5, 0.75, 0.9]
+        }
+      );
+
+      this.slides.forEach((slide) => {
+        this.observer.observe(slide);
+      });
+    }
+
+
+    /* =====================================================
+       STATE
+       ===================================================== */
+
+    updateState(index) {
+      if (!this.slides[index]) {
+        return;
+      }
+
+      this.activeIndex = index;
+
+      this.slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle(
+          "is-active",
+          slideIndex === index
+        );
+      });
+
+      this.updateThumbnails(index);
+
+      this.updatePagination(index);
+
+      this.updateNavigation();
+
+      this.dispatchMediaChange();
+    }
+
+
+    /* =====================================================
+       NAVIGATION STATE
+       ===================================================== */
+
+    updateNavigation() {
+      if (!this.slides.length) {
+        return;
+      }
+
+      if (this.prevButton) {
+        this.prevButton.disabled =
+          this.activeIndex <= 0;
+      }
+
+      if (this.nextButton) {
+        this.nextButton.disabled =
+          this.activeIndex >=
+          this.slides.length - 1;
+      }
+    }
+
+
+    /* =====================================================
+       PAGINATION
+       ===================================================== */
+
+    updatePagination(index) {
+      const dots = this.root.querySelectorAll(
+        "[data-pagination-dots] button"
+      );
+
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle(
+          "is-active",
+          dotIndex === index
+        );
+      });
+
+      const mobileDots =
+        this.root.querySelectorAll(
+          "[data-mobile-pagination-dots] button"
+        );
+
+      mobileDots.forEach((dot, dotIndex) => {
+        dot.classList.toggle(
+          "is-active",
+          dotIndex === index
+        );
+      });
+
+      const counter = this.root.querySelector(
+        "[data-pagination-counter]"
+      );
+
+      if (counter) {
+        counter.textContent =
+          `${index + 1} / ${this.slides.length}`;
+      }
+
+      const mobileCounter =
+        this.root.querySelector(
+          "[data-mobile-pagination-counter]"
+        );
+
+      if (mobileCounter) {
+        mobileCounter.textContent =
+          `${index + 1} / ${this.slides.length}`;
+      }
+    }
+
+
+    /* =====================================================
+       MEDIA OPEN
+       ===================================================== */
+
+    bindMediaOpening() {
+      const buttons = this.root.querySelectorAll(
+        "[data-media-open]"
+      );
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const slide = button.closest(
+            "[data-media-slide]"
+          );
+
+          if (!slide) {
+            return;
+          }
+
+          this.openLightbox(slide);
+        });
+      });
+    }
+
+
+    /* =====================================================
+       LIGHTBOX
+       ===================================================== */
+
+    bindLightbox() {
+      this.lightboxClose?.addEventListener(
+        "click",
+        () => {
+          this.closeLightbox();
+        }
+      );
+
+      this.lightbox?.addEventListener(
+        "click",
+        (event) => {
+          if (
+            event.target === this.lightbox
+          ) {
+            this.closeLightbox();
+          }
+        }
+      );
+    }
+
+
+    openLightbox(slide) {
+      if (!this.lightbox || !this.lightboxContent) {
+        return;
+      }
+
+      const mediaContent =
+        slide.querySelector(
+          "[data-media-content]"
+        );
+
+      if (!mediaContent) {
+        return;
+      }
+
+      this.lightboxContent.innerHTML = "";
+
+      const clone =
+        mediaContent.cloneNode(true);
+
+      const button =
+        clone.querySelector(
+          "[data-media-open]"
+        );
+
+      button?.removeAttribute("data-media-open");
+
+      this.lightboxContent.appendChild(clone);
+
+      if (
+        typeof this.lightbox.showModal ===
+        "function"
+      ) {
+        this.lightbox.showModal();
+      } else {
+        this.lightbox.setAttribute(
+          "open",
+          ""
+        );
+      }
+
+      document.documentElement.classList.add(
+        "custom-media-lightbox-open"
+      );
+    }
+
+
+    closeLightbox() {
+      if (!this.lightbox) {
+        return;
+      }
+
+      if (
+        typeof this.lightbox.close ===
+        "function"
+      ) {
+        this.lightbox.close();
+      } else {
+        this.lightbox.removeAttribute(
+          "open"
+        );
+      }
+
+      this.lightboxContent.innerHTML = "";
+
+      document.documentElement.classList.remove(
+        "custom-media-lightbox-open"
+      );
+    }
+
+
+    /* =====================================================
+       VARIANT SUPPORT
+       ===================================================== */
+
+    bindVariantChanges() {
+
+      /*
+       * Integration method #1:
+       * Listen for common custom variant events.
+       */
+
+      this.root.closest(
+        "product-info"
+      )?.addEventListener(
+        "variant:change",
+        (event) => {
+          const variant =
+            event.detail?.variant;
+
+          if (variant?.id) {
+            this.setVariantMedia(
+              variant.id
+            );
+          }
+        }
+      );
+
+
+      this.root.closest(
+        "product-info"
+      )?.addEventListener(
+        "variant-change",
+        (event) => {
+          const variant =
+            event.detail?.variant;
+
+          if (variant?.id) {
+            this.setVariantMedia(
+              variant.id
+            );
+          }
+        }
+      );
+
+
+      /*
+       * Integration method #2:
+       * Observe the product form's hidden
+       * variant ID.
+       */
+
+      const productInfo =
+        this.root.closest(
+          "product-info"
+        );
+
+      if (!productInfo) {
+        return;
+      }
+
+      const variantInput =
+        productInfo.querySelector(
+          'input[name="id"]'
+        );
+
+      if (!variantInput) {
+        return;
+      }
+
+      this.lastVariantId =
+        variantInput.value;
+
+      this.variantMutationObserver =
+        new MutationObserver(() => {
+          this.checkVariantInput(
+            variantInput
+          );
+        });
+
+      this.variantMutationObserver.observe(
+        variantInput,
+        {
+          attributes: true,
+          attributeFilter: [
+            "value"
+          ]
+        }
+      );
+
+
+      variantInput.addEventListener(
+        "change",
+        () => {
+          this.checkVariantInput(
+            variantInput
+          );
+        }
+      );
+    }
+
+
+    checkVariantInput(input) {
+      const variantId =
+        input.value;
+
+      if (
+        !variantId ||
+        variantId ===
+          this.lastVariantId
+      ) {
+        return;
+      }
+
+      this.lastVariantId =
+        variantId;
+
+      this.setVariantMedia(
+        variantId
+      );
+    }
+
+
+    setInitialVariantMedia() {
+      const productInfo =
+        this.root.closest(
+          "product-info"
+        );
+
+      const variantInput =
+        productInfo?.querySelector(
+          'input[name="id"]'
+        );
+
+      if (variantInput?.value) {
+        this.setVariantMedia(
+          variantInput.value,
+          false
+        );
+      }
+    }
+
+
+    setVariantMedia(
+      variantId,
+      smooth = true
+    ) {
+      const mapping =
+        this.variantMap.find(
+          (item) =>
+            String(item.id) ===
+            String(variantId)
+        );
+
+      if (
+        !mapping ||
+        !mapping.mediaId
+      ) {
+        return;
+      }
+
+      const index =
+        this.slides.findIndex(
+          (slide) =>
+            String(
+              slide.dataset.mediaId
+            ) ===
+            String(mapping.mediaId)
+        );
+
+      if (index === -1) {
+        return;
+      }
+
+      this.goTo(
+        index,
+        smooth ? "smooth" : "auto"
+      );
+    }
+
+
+    /* =====================================================
+       PUBLIC EVENT
+       ===================================================== */
+
+    dispatchMediaChange() {
+      const slide =
+        this.slides[
+          this.activeIndex
+        ];
 
       if (!slide) {
         return;
       }
 
-      this.currentIndex = index;
-
-
-      const slideLeft =
-        slide.offsetLeft;
-
-
-      this.track.scrollTo({
-        left: slideLeft,
-        behavior: smooth
-          ? 'smooth'
-          : 'auto'
-      });
-
-
-      this.updateUI();
-
-    }
-
-
-    /* =========================================
-       UPDATE UI
-       ========================================= */
-
-    updateUI() {
-
-      this.slides.forEach(
-        (slide, index) => {
-
-          const active =
-            index === this.currentIndex;
-
-          slide.classList.toggle(
-            'is-active',
-            active
-          );
-
-          if (active) {
-            slide.removeAttribute(
-              'aria-hidden'
-            );
-          } else {
-            slide.setAttribute(
-              'aria-hidden',
-              'true'
-            );
-          }
-
-        }
-      );
-
-
-      /* Thumbnails */
-
-      this.thumbnails.forEach(
-        thumbnail => {
-
-          const index = Number(
-            thumbnail.dataset.thumbnailIndex
-          );
-
-          const active =
-            index === this.currentIndex;
-
-          thumbnail.classList.toggle(
-            'is-active',
-            active
-          );
-
-          thumbnail.setAttribute(
-            'aria-current',
-            active
-              ? 'true'
-              : 'false'
-          );
-
-        }
-      );
-
-
-      /* Dots */
-
-      this.dots.forEach(
-        dot => {
-
-          let index;
-
-          if (
-            dot.dataset.dotIndex !== undefined
-          ) {
-            index = Number(
-              dot.dataset.dotIndex
-            );
-          } else {
-            index = Number(
-              dot.dataset.mobileDotIndex
-            );
-          }
-
-          dot.classList.toggle(
-            'is-active',
-            index === this.currentIndex
-          );
-
-        }
-      );
-
-
-      /* Counter */
-
-      const current =
-        this.currentIndex + 1;
-
-      if (this.counterCurrent) {
-        this.counterCurrent.textContent =
-          current;
-      }
-
-      if (this.mobileCounterCurrent) {
-        this.mobileCounterCurrent.textContent =
-          current;
-      }
-
-
-      this.scrollActiveThumbnailIntoView();
-
-    }
-
-
-    /* =========================================
-       ACTIVE THUMBNAIL AUTO SCROLL
-       ========================================= */
-
-    scrollActiveThumbnailIntoView() {
-
-      const activeThumbnail =
-        this.thumbnails.find(
-          thumbnail =>
-            Number(
-              thumbnail.dataset.thumbnailIndex
-            ) === this.currentIndex
-        );
-
-      if (!activeThumbnail) {
-        return;
-      }
-
-      activeThumbnail.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'nearest'
-      });
-
-    }
-
-
-    /* =========================================
-       THUMBNAIL ARROWS
-       ========================================= */
-
-    scrollThumbnails(direction) {
-
-      const track =
-        this.gallery.querySelector(
-          '.custom-media-gallery__desktop-pagination .custom-media-gallery__thumbnail-track'
-        );
-
-      if (!track) {
-        return;
-      }
-
-
-      const vertical =
-        window.matchMedia(
-          '(min-width: 990px)'
-        ).matches &&
-        (
-          this.gallery.classList.contains(
-            'custom-media-gallery--thumb-left'
-          ) ||
-          this.gallery.classList.contains(
-            'custom-media-gallery--thumb-right'
-          )
-        );
-
-
-      if (vertical) {
-
-        track.scrollBy({
-          top: direction * 150,
-          behavior: 'smooth'
-        });
-
-      } else {
-
-        track.scrollBy({
-          left: direction * 150,
-          behavior: 'smooth'
-        });
-
-      }
-
-    }
-
-
-    /* =========================================
-       MANUAL SCROLL DETECTION
-       ========================================= */
-
-    handleScroll() {
-
-      if (
-        this._scrollTimer
-      ) {
-        clearTimeout(
-          this._scrollTimer
-        );
-      }
-
-      this._scrollTimer =
-        setTimeout(
-          () => {
-
-            const scrollLeft =
-              this.track.scrollLeft;
-
-            let closestIndex = 0;
-
-            let closestDistance =
-              Infinity;
-
-
-            this.slides.forEach(
-              (slide, index) => {
-
-                const distance =
-                  Math.abs(
-                    slide.offsetLeft -
-                    scrollLeft
-                  );
-
-                if (
-                  distance <
-                  closestDistance
-                ) {
-
-                  closestDistance =
-                    distance;
-
-                  closestIndex =
-                    index;
-
-                }
-
-              }
-            );
-
-
-            if (
-              closestIndex !==
-              this.currentIndex
-            ) {
-
-              this.currentIndex =
-                closestIndex;
-
-              this.updateUI();
-
+      this.root.dispatchEvent(
+        new CustomEvent(
+          "product-media:change",
+          {
+            bubbles: true,
+            detail: {
+              mediaId:
+                slide.dataset.mediaId,
+              index:
+                this.activeIndex
             }
-
-          },
-          80
-        );
-
+          }
+        )
+      );
     }
-
   }
 
 
-  /* =========================================
-     INITIALIZE
-     ========================================= */
+  /* =======================================================
+     CREATE GALLERIES
+     ======================================================= */
 
-  function initializeGalleries(root = document) {
+  function initProductMediaGalleries(
+    container = document
+  ) {
 
     const galleries =
-      root.querySelectorAll(
-        'media-gallery.custom-media-gallery'
+      container.querySelectorAll(
+        "[data-media-gallery]"
       );
 
-    galleries.forEach(
-      gallery => {
+    galleries.forEach((gallery) => {
 
-        if (
-          gallery.dataset.galleryInitialized ===
-          'true'
-        ) {
-          return;
-        }
-
-        gallery.dataset.galleryInitialized =
-          'true';
-
-        new ProductMediaGallery(
-          gallery
-        );
-
+      if (
+        gallery.dataset.galleryInitialized ===
+        "true"
+      ) {
+        return;
       }
-    );
 
+      gallery.dataset.galleryInitialized =
+        "true";
+
+      new CustomProductMediaGallery(
+        gallery
+      );
+    });
   }
 
 
-  /* Initial page load */
+  /* =======================================================
+     DOM READY
+     ======================================================= */
+
   if (
-    document.readyState === 'loading'
+    document.readyState ===
+    "loading"
   ) {
 
     document.addEventListener(
-      'DOMContentLoaded',
+      "DOMContentLoaded",
       () => {
-        initializeGalleries();
+        initProductMediaGalleries();
       }
     );
 
   } else {
 
-    initializeGalleries();
+    initProductMediaGalleries();
 
   }
 
 
-  /* Shopify Theme Editor */
+  /* =======================================================
+     SHOPIFY THEME EDITOR
+     ======================================================= */
+
   document.addEventListener(
-    'shopify:section:load',
-    event => {
-      initializeGalleries(
+    "shopify:section:load",
+    (event) => {
+      initProductMediaGalleries(
         event.target
       );
-    }
-  );
-
-
-  document.addEventListener(
-    'shopify:block:select',
-    event => {
-
-      const gallery =
-        event.target.closest(
-          'media-gallery.custom-media-gallery'
-        );
-
-      if (gallery) {
-        initializeGalleries(
-          gallery.parentElement
-        );
-      }
-
     }
   );
 
