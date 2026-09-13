@@ -124,7 +124,40 @@
 
                   {% when 'image' %}
 
-                    
+                   {% if media_zoom_enabled and image_zoom == 'lightbox' %}
+
+                    <button
+                      type="button"
+                      class="custom-media-gallery__media-button"
+                      data-media-lightbox
+                      aria-label="Open image {{ forloop.index }}"
+                    >
+                      {{
+                        media
+                        | image_url: width: 2000
+                        | image_tag:
+                          class: 'custom-media-gallery__image',
+                          loading: 'lazy',
+                          widths: '375,550,750,1100,1500,2000',
+                          sizes: '(min-width: 990px) 60vw, 100vw'
+                      }}
+                    </button>
+
+                  {% else %}
+
+                    <div class="custom-media-gallery__image-wrapper">
+                      {{
+                        media
+                        | image_url: width: 2000
+                        | image_tag:
+                          class: 'custom-media-gallery__image',
+                          loading: 'lazy',
+                          widths: '375,550,750,1100,1500,2000',
+                          sizes: '(min-width: 990px) 60vw, 100vw'
+                      }}
+                    </div>
+
+                  {% endif %}
 
 
                   {% when 'video' %}
