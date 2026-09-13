@@ -9,8 +9,12 @@
   <div class="product-final__media-inner">
 
     {% render 'product-media-gallery-global',
-      product: product, section: section, block: block, variant_images: variant_images
+      variant_images: variant_images, gallery_settings: block.settings, gallery_block_id: block.id
     %}
+    {% comment %} {% render 'product-media-gallery-global',
+      product: product, section: section, block: block, variant_images: variant_images
+    %} {% endcomment %}
+    
     {% comment %} {% render 'product-media-gallery-final',
       variant_images: variant_images,
       block: block
