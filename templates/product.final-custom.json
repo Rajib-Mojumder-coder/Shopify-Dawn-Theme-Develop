@@ -51,7 +51,7 @@
             "thumbnail_mobile_width": 30,
             "thumbnail_corner_radius": 0,
             "media_background_color": "#FFFFFF",
-            "media_ratio": "auto",
+            "media_ratio": "portrait",
             "media_fit": "contain",
             "constrain_to_screen_height": true,
             "media_corner_radius": 17,
