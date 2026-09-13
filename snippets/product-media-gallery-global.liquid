@@ -64,6 +64,9 @@
   data-media-fit="{{ media_fit }}"
   data-image-zoom="{% if media_zoom_enabled %}{{ image_zoom }}{% else %}none{% endif %}"
   data-full-width-first="{{ gallery_settings.full_width_first_image }}"
+  data-desktop-slides="{{ gallery_settings.carousel_slides | default: '1' }}"
+  data-mobile-slides="{{ gallery_settings.mobile_slides | default: '1' }}"
+
   style="
     --gallery-thumbnail-width: {{ thumbnail_desktop_width }}px;
     --gallery-thumbnail-mobile-width: {{ thumbnail_mobile_width }}px;
