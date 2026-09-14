@@ -1045,6 +1045,10 @@
       var(--gallery-desktop-slides, 1);
   }
 
+  .custom-media-gallery__main-nav--mobile {
+  display: none;
+}
+
 }
 
 
