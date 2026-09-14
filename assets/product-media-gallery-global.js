@@ -95,7 +95,6 @@
     bindEvents() {
 
       /* Main previous */
-      /* Main previous */
       this.prevButtons.forEach(
         button => {
           button.addEventListener(
