@@ -293,7 +293,9 @@
 
         {% if media_count > 1 and gallery_layout == 'carousel' %}
 
-          {% if navigation_position == 'sides' %}
+          {% if navigation_position == 'sides'
+            or desktop_pagination_type == 'thumbnails'
+          %}
 
             <div
               class="

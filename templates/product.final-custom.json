@@ -41,7 +41,7 @@
             "full_width_first_image": true,
             "carosel_icon": "custom_svg_code",
             "carousel_slides": "1",
-            "mobile_slides": "1",
+            "mobile_slides": "1.25",
             "desktop_pagination": true,
             "desktop_pagination_type": "dots",
             "mobile_pagination": true,
