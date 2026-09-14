@@ -594,22 +594,46 @@
 
 
 /* =========================================================
-   BOTTOM CONTROL LAYOUT
-   Navigation + pagination
+   DESKTOP BOTTOM CONTROL LAYOUT
+   PREV → PAGINATION → NEXT
    ========================================================= */
 
-.custom-media-gallery__bottom-controls:
-has(
-  .custom-media-gallery__main-navigation--bottom
-) {
+.custom-media-gallery__desktop-bottom-controls {
   display: flex;
 
   align-items: center;
   justify-content: center;
 
+  width: 100%;
+
   gap: 12px;
+
+  margin-top: 10px;
 }
 
+
+.custom-media-gallery__desktop-bottom-controls
+.custom-media-gallery__desktop-pagination {
+  width: auto;
+
+  flex: 0 0 auto;
+}
+
+
+.custom-media-gallery__desktop-bottom-controls
+.custom-media-gallery__main-nav {
+  position: static;
+
+  flex: 0 0 42px;
+
+  transform: none;
+}
+
+
+.custom-media-gallery__desktop-bottom-controls
+.custom-media-gallery__main-nav:hover {
+  transform: scale(1.05);
+}
 
 /* =========================================================
    DESKTOP PAGINATION
