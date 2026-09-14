@@ -25,7 +25,9 @@
 
 .custom-media-gallery__body {
   display: grid;
+
   grid-template-columns: minmax(0, 1fr);
+
   gap: var(--gallery-gap);
 
   width: 100%;
@@ -95,16 +97,24 @@
 
 
 /* =========================================================
-   CAROUSEL SLIDES
+   CAROUSEL
+   Desktop + Mobile slide width
    ========================================================= */
 
 .custom-media-gallery--carousel
 .custom-media-gallery__slide {
-  flex: 0 0 calc( 100% / var(--gallery-slides, 1));
+  flex: 0 0 calc(
+    100% / var(--gallery-slides, 1)
+  );
 
-width: calc(100% / var(--gallery-slides, 1));
+  width: calc(
+    100% / var(--gallery-slides, 1)
+  );
 
-min-width: calc(100% / var(--gallery-slides, 1));
+  min-width: calc(
+    100% / var(--gallery-slides, 1)
+  );
+
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
@@ -131,32 +141,46 @@ min-width: calc(100% / var(--gallery-slides, 1));
   scroll-snap-type: none;
 }
 
+
 .custom-media-gallery--grid
 .custom-media-gallery__slide {
   width: auto;
   min-width: 0;
 }
 
+
+/* Full-width first image */
+
 .custom-media-gallery--grid[data-full-width-first="true"]
 .custom-media-gallery__slide:first-child {
   grid-column: 1 / -1;
 }
+
+
 /* =========================================================
-   MEDIA CONTAINER
+   MEDIA
    ========================================================= */
 
 .custom-media-gallery__media {
   position: relative;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   width: 100%;
+
   overflow: hidden;
 
-  border-radius: var(--gallery-media-radius, 16px);
-  background: var( --media-background-color, rgba(0, 0, 0, 0.03));
+  border-radius:
+    var(--gallery-media-radius, 16px);
+
+  background:
+    var(
+      --media-background-color,
+      rgba(0, 0, 0, 0.03)
+    );
 }
 
 
@@ -169,20 +193,18 @@ min-width: calc(100% / var(--gallery-slides, 1));
   aspect-ratio: 1 / 1;
 }
 
+
 .custom-media-gallery--ratio-portrait
 .custom-media-gallery__media {
   aspect-ratio: 4 / 5;
 }
+
 
 .custom-media-gallery--ratio-landscape
 .custom-media-gallery__media {
   aspect-ratio: 4 / 3;
 }
 
-
-/* =========================================================
-   AUTO RATIO
-   ========================================================= */
 
 .custom-media-gallery--ratio-auto
 .custom-media-gallery__media {
@@ -191,34 +213,47 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
 
 /* =========================================================
-   IMAGES
+   IMAGE WRAPPER
    ========================================================= */
 
 .custom-media-gallery__image-wrapper {
-
   position: relative;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
+
   width: 100%;
   min-width: 0;
+
   overflow: hidden;
 }
 
 
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
 .custom-media-gallery__image {
   display: block;
+
   width: 100%;
   max-width: 100%;
+
   height: auto;
-  object-fit: var(--media-object-fit, contain);
+
+  object-fit:
+    var(--media-object-fit, contain);
+
   transform-origin: center center;
 }
 
 
 /* =========================================================
-   CONTAIN / COVER
+   IMAGE FIT
    ========================================================= */
+
 .custom-media-gallery--fit-cover
 .custom-media-gallery__image {
   width: 100%;
@@ -227,18 +262,20 @@ min-width: calc(100% / var(--gallery-slides, 1));
   object-fit: cover;
 }
 
+
 .custom-media-gallery--fit-contain
 .custom-media-gallery__image {
-
   object-fit: contain;
-
 }
+
+
 /* =========================================================
    VIDEO
    ========================================================= */
 
 .custom-media-gallery__video-wrapper {
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -248,6 +285,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   overflow: hidden;
 }
+
 
 .custom-media-gallery__video {
   display: block;
@@ -268,6 +306,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
 .custom-media-gallery__external-video {
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -277,6 +316,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   overflow: hidden;
 }
+
 
 .custom-media-gallery__external-video-player {
   display: block;
@@ -294,6 +334,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
 .custom-media-gallery__model {
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -301,6 +342,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   max-height: 75vh;
 }
+
 
 .custom-media-gallery__model model-viewer {
   display: block;
@@ -311,7 +353,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
 
 /* =========================================================
-   SCREEN HEIGHT CONSTRAINT
+   SCREEN HEIGHT
    ========================================================= */
 
 .custom-media-gallery--constrain-height
@@ -319,9 +361,11 @@ min-width: calc(100% / var(--gallery-slides, 1));
   max-height: 75vh;
 }
 
+
 .custom-media-gallery--constrain-height
 .custom-media-gallery__image {
   max-height: 75vh;
+
   object-fit: contain;
 }
 
@@ -346,41 +390,53 @@ min-width: calc(100% / var(--gallery-slides, 1));
   cursor: zoom-in;
 }
 
+
 /* =========================================================
    HOVER ZOOM
    ========================================================= */
 
 .custom-media-gallery[data-image-zoom="hover"]
 .custom-media-gallery__image-wrapper {
-
   width: 100%;
   height: 100%;
 
   overflow: hidden;
 
   cursor: zoom-in;
-
 }
 
 
 .custom-media-gallery[data-image-zoom="hover"]
 .custom-media-gallery__image {
-
   transform-origin: center center;
 
   transition:
     transform 400ms ease,
     opacity 200ms ease;
-
 }
 
 
 .custom-media-gallery[data-image-zoom="hover"]
 .custom-media-gallery__image-wrapper:hover
 .custom-media-gallery__image {
-
   transform: scale(1.08);
+}
 
+
+/* =========================================================
+   BOTTOM CONTROLS
+   Main navigation + desktop pagination
+   ========================================================= */
+
+.custom-media-gallery__bottom-controls {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  margin-top: 10px;
 }
 
 
@@ -390,6 +446,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
 .custom-media-gallery__main-navigation {
   position: absolute;
+
   z-index: 10;
 
   pointer-events: none;
@@ -409,13 +466,17 @@ min-width: calc(100% / var(--gallery-slides, 1));
   width: 42px;
   height: 42px;
 
+  flex: 0 0 42px;
+
   padding: 0;
   margin: 0;
 
   border: 1px solid rgba(0, 0, 0, 0.12);
+
   border-radius: 50%;
 
   background: rgba(255, 255, 255, 0.9);
+
   color: currentColor;
 
   font-size: 30px;
@@ -438,7 +499,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
 
 /* =========================================================
-   DESKTOP - SIDE NAVIGATION
+   SIDE NAVIGATION
    ========================================================= */
 
 .custom-media-gallery__main-navigation--sides {
@@ -480,12 +541,14 @@ min-width: calc(100% / var(--gallery-slides, 1));
 .custom-media-gallery__main-nav--prev:hover,
 .custom-media-gallery__main-navigation--sides
 .custom-media-gallery__main-nav--next:hover {
-  transform: translateY(-50%) scale(1.05);
+  transform:
+    translateY(-50%)
+    scale(1.05);
 }
 
 
 /* =========================================================
-   DESKTOP - BOTTOM NAVIGATION
+   BOTTOM NAVIGATION
    ========================================================= */
 
 .custom-media-gallery__main-navigation--bottom {
@@ -496,12 +559,24 @@ min-width: calc(100% / var(--gallery-slides, 1));
   align-items: center;
   justify-content: center;
 
-  gap: 10px;
+  gap: 12px;
 
-  width: 100%;
+  width: auto;
 
-  padding-top: 10px;
+  pointer-events: none;
 }
+
+
+/*
+   IMPORTANT
+
+   When navigation is bottom, the navigation container
+   participates in the bottom control row.
+
+   The order becomes:
+
+   PREV → PAGINATION → NEXT
+*/
 
 
 .custom-media-gallery__main-navigation--bottom
@@ -519,28 +594,20 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
 
 /* =========================================================
-   MOBILE NAVIGATION
+   BOTTOM CONTROL LAYOUT
+   Navigation + pagination
    ========================================================= */
 
-.custom-media-gallery__main-nav--mobile {
-  display: none;
-}
+.custom-media-gallery__bottom-controls:
+has(
+  .custom-media-gallery__main-navigation--bottom
+) {
+  display: flex;
 
+  align-items: center;
+  justify-content: center;
 
-/* =========================================================
-   ICON VARIANTS
-   ========================================================= */
-
-.custom-media-gallery__main-nav--cheverons,
-.custom-media-gallery__main-nav--large_cheverons {
-  font-size: 34px;
-}
-
-
-.custom-media-gallery__main-nav--large_arrows,
-.custom-media-gallery__main-nav--large_cheverons {
-  width: 50px;
-  height: 50px;
+  gap: 12px;
 }
 
 
@@ -551,8 +618,15 @@ min-width: calc(100% / var(--gallery-slides, 1));
 .custom-media-gallery__desktop-pagination {
   display: block;
 
-  width: 100%;
+  width: auto;
+
+  min-width: 0;
 }
+
+
+/* =========================================================
+   DOTS
+   ========================================================= */
 
 .custom-media-gallery__dots {
   display: flex;
@@ -562,10 +636,11 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   gap: 7px;
 
-  width: 100%;
+  width: auto;
 
   padding: 8px 0;
 }
+
 
 .custom-media-gallery__dot {
   width: 7px;
@@ -576,6 +651,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
   padding: 0;
 
   border: 0;
+
   border-radius: 50%;
 
   background: currentColor;
@@ -584,6 +660,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   cursor: pointer;
 }
+
 
 .custom-media-gallery__dot.is-active {
   opacity: 1;
@@ -608,13 +685,16 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
 
 /* =========================================================
-   DESKTOP THUMBNAIL AREA
+   DESKTOP THUMBNAILS
    ========================================================= */
 
 .custom-media-gallery__thumbnail-area {
   display: grid;
 
-  grid-template-columns: 36px minmax(0, 1fr) 36px;
+  grid-template-columns:
+    36px
+    minmax(0, 1fr)
+    36px;
 
   align-items: center;
 
@@ -626,10 +706,6 @@ min-width: calc(100% / var(--gallery-slides, 1));
 }
 
 
-/* =========================================================
-   THUMBNAIL SCROLL AREA
-   ========================================================= */
-
 .custom-media-gallery__thumbnails {
   min-width: 0;
 
@@ -637,6 +713,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   overflow: hidden;
 }
+
 
 .custom-media-gallery__thumbnail-track {
   display: flex;
@@ -657,22 +734,33 @@ min-width: calc(100% / var(--gallery-slides, 1));
   scroll-behavior: smooth;
 }
 
+
 .custom-media-gallery__thumbnail-track::-webkit-scrollbar {
   display: none;
 }
 
 
 /* =========================================================
-   THUMBNAILS
+   THUMBNAIL
    ========================================================= */
 
 .custom-media-gallery__thumbnail {
   display: block;
 
-  flex: 0 0 var(--gallery-thumbnail-width, 50px);
+  flex: 0 0 var(
+    --gallery-thumbnail-width,
+    50px
+  );
 
-  width: var(--gallery-thumbnail-width, 50px);
-  height: var(--gallery-thumbnail-width, 50px);
+  width: var(
+    --gallery-thumbnail-width,
+    50px
+  );
+
+  height: var(
+    --gallery-thumbnail-width,
+    50px
+  );
 
   padding: 0;
 
@@ -694,9 +782,11 @@ min-width: calc(100% / var(--gallery-slides, 1));
     border-color 180ms ease;
 }
 
+
 .custom-media-gallery__thumbnail:hover {
   opacity: 0.9;
 }
+
 
 .custom-media-gallery__thumbnail.is-active {
   opacity: 1;
@@ -741,7 +831,6 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
 /* =========================================================
    THUMBNAIL NAVIGATION
-   Separate from main media navigation.
    ========================================================= */
 
 .custom-media-gallery__thumbnail-nav {
@@ -756,6 +845,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
   padding: 0;
 
   border: 1px solid rgba(0, 0, 0, 0.15);
+
   border-radius: 50%;
 
   background: transparent;
@@ -768,20 +858,20 @@ min-width: calc(100% / var(--gallery-slides, 1));
   cursor: pointer;
 }
 
+
 .custom-media-gallery__thumbnail-nav:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
 
-@media screen and (min-width: 990px) {
+/* =========================================================
+   DESKTOP - LEFT / RIGHT THUMBNAILS
+   ========================================================= */
 
-  /* =========================================
-     LEFT THUMBNAILS
-     ========================================= */
+@media screen and (min-width: 990px) {
 
   .custom-media-gallery--thumb-left
   .custom-media-gallery__body {
-
     grid-template-columns:
       var(--gallery-thumbnail-width, 50px)
       minmax(0, 1fr);
@@ -789,32 +879,25 @@ min-width: calc(100% / var(--gallery-slides, 1));
     grid-template-areas:
       "pagination main";
 
-    column-gap: var(--gallery-gap, 8px);
-
+    column-gap:
+      var(--gallery-gap, 8px);
   }
+
 
   .custom-media-gallery--thumb-left
   .custom-media-gallery__main {
-
     grid-area: main;
-
   }
+
 
   .custom-media-gallery--thumb-left
   .custom-media-gallery__desktop-pagination {
-
     grid-area: pagination;
-
   }
 
 
-  /* =========================================
-     RIGHT THUMBNAILS
-     ========================================= */
-
   .custom-media-gallery--thumb-right
   .custom-media-gallery__body {
-
     grid-template-columns:
       minmax(0, 1fr)
       var(--gallery-thumbnail-width, 50px);
@@ -822,35 +905,30 @@ min-width: calc(100% / var(--gallery-slides, 1));
     grid-template-areas:
       "main pagination";
 
-    column-gap: var(--gallery-gap, 8px);
-
+    column-gap:
+      var(--gallery-gap, 8px);
   }
+
 
   .custom-media-gallery--thumb-right
   .custom-media-gallery__main {
-
     grid-area: main;
-
   }
+
 
   .custom-media-gallery--thumb-right
   .custom-media-gallery__desktop-pagination {
-
     grid-area: pagination;
-
   }
 
 
-  /* =========================================
-     VERTICAL THUMBNAILS
-     ========================================= */
+  /* Vertical thumbnail area */
 
   .custom-media-gallery--thumb-left
   .custom-media-gallery__thumbnail-area,
 
   .custom-media-gallery--thumb-right
   .custom-media-gallery__thumbnail-area {
-
     display: flex;
 
     flex-direction: column;
@@ -861,8 +939,9 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
     width: 100%;
 
-    padding-top: 0;
+    height: 100%;
 
+    padding-top: 0;
   }
 
 
@@ -871,13 +950,11 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   .custom-media-gallery--thumb-right
   .custom-media-gallery__thumbnails {
-
     width: 100%;
 
     min-height: 0;
 
     overflow: hidden;
-
   }
 
 
@@ -886,7 +963,6 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   .custom-media-gallery--thumb-right
   .custom-media-gallery__thumbnail-track {
-
     flex-direction: column;
 
     width: 100%;
@@ -894,9 +970,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
     max-height: 100%;
 
     overflow-x: hidden;
-
     overflow-y: auto;
-
   }
 
 
@@ -905,9 +979,8 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   .custom-media-gallery--thumb-right
   .custom-media-gallery__thumbnail {
-
-    flex: 0 0 var(--gallery-thumbnail-width, 50px);
-
+    flex: 0 0
+      var(--gallery-thumbnail-width, 50px);
   }
 
 
@@ -916,80 +989,43 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
   .custom-media-gallery--thumb-right
   .custom-media-gallery__thumbnail-nav {
-
     flex: 0 0 32px;
-
   }
 
-}
 
-@media screen and (min-width: 990px) {
-
-  .custom-media-gallery--thumb-left
-  .custom-media-gallery__desktop-pagination,
-
-  .custom-media-gallery--thumb-right
-  .custom-media-gallery__desktop-pagination {
-
-    align-self: stretch;
-
-  }
-
-  .custom-media-gallery--thumb-left
-  .custom-media-gallery__thumbnail-area,
-
-  .custom-media-gallery--thumb-right
-  .custom-media-gallery__thumbnail-area {
-
-    height: 100%;
-
-  }
-
-  .custom-media-gallery--thumb-left
-  .custom-media-gallery__thumbnail-track,
-
-  .custom-media-gallery--thumb-right
-  .custom-media-gallery__thumbnail-track {
-
-    max-height: 100%;
-
-  }
-
-    .custom-media-gallery--carousel {
-    --gallery-slides: var(--gallery-desktop-slides, 1);
-  }
-
-}
-
-/*Bottom Thumbnail*/
-
-@media screen and (min-width: 990px) {
+  /* Bottom thumbnails */
 
   .custom-media-gallery--thumb-bottom
   .custom-media-gallery__body {
-
-    grid-template-columns: minmax(0, 1fr);
-
+    grid-template-columns:
+      minmax(0, 1fr);
   }
+
 
   .custom-media-gallery--thumb-bottom
   .custom-media-gallery__main {
-
     width: 100%;
-
   }
+
 
   .custom-media-gallery--thumb-bottom
   .custom-media-gallery__desktop-pagination {
-
     width: 100%;
+  }
 
+
+  /* Desktop carousel slide setting */
+
+  .custom-media-gallery--carousel {
+    --gallery-slides:
+      var(--gallery-desktop-slides, 1);
   }
 
 }
+
+
 /* =========================================================
    MOBILE PAGINATION
-   Hidden on desktop.
    ========================================================= */
 
 .custom-media-gallery__mobile-pagination {
@@ -1003,9 +1039,14 @@ min-width: calc(100% / var(--gallery-slides, 1));
 
 @media screen and (max-width: 989px) {
 
+  /* Hide desktop pagination */
+
   .custom-media-gallery__desktop-pagination {
     display: none;
   }
+
+
+  /* Show mobile pagination */
 
   .custom-media-gallery__mobile-pagination {
     display: block;
@@ -1013,20 +1054,77 @@ min-width: calc(100% / var(--gallery-slides, 1));
     width: 100%;
   }
 
+
+  /* Mobile navigation size */
+
   .custom-media-gallery__main-nav {
     width: 36px;
     height: 36px;
 
+    flex-basis: 36px;
+
     font-size: 26px;
   }
 
+
+  /* Hide desktop navigation */
+
+  .custom-media-gallery__main-nav--desktop {
+    display: none;
+  }
+
+
+  /* Show mobile navigation */
+
+  .custom-media-gallery__main-nav--mobile {
+    display: inline-flex;
+  }
+
+
+  /* Mobile side navigation */
+
+  .custom-media-gallery__main-navigation--sides {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+  }
+
+
+  .custom-media-gallery__main-navigation--sides
   .custom-media-gallery__main-nav--prev {
     left: 8px;
   }
 
+
+  .custom-media-gallery__main-navigation--sides
   .custom-media-gallery__main-nav--next {
     right: 8px;
   }
+
+
+  /* Mobile bottom navigation */
+
+  .custom-media-gallery__main-navigation--bottom {
+    position: static;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: auto;
+
+    padding-top: 0;
+
+    gap: 10px;
+  }
+
+
+  /* Mobile thumbnails */
 
   .custom-media-gallery__thumbnail {
     flex-basis:
@@ -1039,29 +1137,29 @@ min-width: calc(100% / var(--gallery-slides, 1));
       var(--gallery-thumbnail-mobile-width, 30px);
   }
 
+
   .custom-media-gallery__mobile-thumbnails {
     width: 100%;
+
     overflow: hidden;
   }
+
 
   .custom-media-gallery__mobile-thumbnails
   .custom-media-gallery__thumbnail-track {
     justify-content: flex-start;
   }
 
+
+  /* Mobile carousel slides */
+
   .custom-media-gallery--carousel {
-  --gallery-slides: var(--gallery-mobile-slides, 1);
+    --gallery-slides:
+      var(--gallery-mobile-slides, 1);
   }
 
-}
 
-
-/* =========================================================
-   GRID MOBILE BEHAVIOR
-   Your setting says carousel is always used on mobile.
-   ========================================================= */
-
-@media screen and (max-width: 989px) {
+  /* Grid becomes horizontal on mobile */
 
   .custom-media-gallery--grid
   .custom-media-gallery__track {
@@ -1074,60 +1172,35 @@ min-width: calc(100% / var(--gallery-slides, 1));
     gap: var(--gallery-gap);
   }
 
+
   .custom-media-gallery--grid
   .custom-media-gallery__slide {
     flex: 0 0 100%;
+
+    width: 100%;
+
     min-width: 100%;
   }
 
+}
+
+
 /* =========================================================
-   MOBILE NAVIGATION
+   ICON VARIANTS
    ========================================================= */
 
-.custom-media-gallery__main-nav--desktop {
-  display: none;
+.custom-media-gallery__main-nav--cheverons,
+.custom-media-gallery__main-nav--large_cheverons {
+  font-size: 34px;
 }
 
 
-.custom-media-gallery__main-nav--mobile {
-  display: inline-flex;
-}
+.custom-media-gallery__main-nav--large_arrows,
+.custom-media-gallery__main-nav--large_cheverons {
+  width: 50px;
+  height: 50px;
 
-
-.custom-media-gallery__main-navigation--sides {
-  position: absolute;
-
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
-}
-
-
-.custom-media-gallery__main-navigation--sides
-.custom-media-gallery__main-nav--prev {
-  left: 8px;
-}
-
-
-.custom-media-gallery__main-navigation--sides
-.custom-media-gallery__main-nav--next {
-  right: 8px;
-}
-
-
-.custom-media-gallery__main-navigation--bottom {
-  position: static;
-
-  display: flex;
-
-  width: 100%;
-
-  padding-top: 8px;
-}
-
-  
+  flex-basis: 50px;
 }
 
 
@@ -1150,6 +1223,7 @@ min-width: calc(100% / var(--gallery-slides, 1));
   .custom-media-gallery__thumbnail-track {
     scroll-behavior: auto;
   }
+
 
   .custom-media-gallery__image {
     transition: none;
