@@ -1118,16 +1118,25 @@
   }
 
 
-  /* Mobile navigation size */
+  /* =========================================================
+   MOBILE NAVIGATION BUTTON
+   ========================================================= */
 
-  .custom-media-gallery__main-nav {
-    width: 36px;
-    height: 36px;
+.custom-media-gallery__main-nav {
+  width: var(--mobile-nav-button-size, 36px);
+  height: var(--mobile-nav-button-size, 36px);
 
-    flex-basis: 36px;
+  flex-basis: var(--mobile-nav-button-size, 36px);
 
-    font-size: 26px;
-  }
+  border-color:
+    var(--mobile-nav-border-color, #DDDDDD);
+
+  background:
+    var(--mobile-nav-background, #FFFFFF);
+
+  color:
+    var(--mobile-nav-icon-color, #000000);
+}
 
 
   /* Hide desktop navigation */
