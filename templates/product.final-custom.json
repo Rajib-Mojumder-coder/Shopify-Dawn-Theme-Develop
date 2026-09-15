@@ -43,7 +43,7 @@
             "carousel_slides": "1",
             "mobile_slides": "1.25",
             "desktop_pagination": true,
-            "desktop_pagination_type": "dots",
+            "desktop_pagination_type": "thumbnails",
             "mobile_pagination": true,
             "mobile_pagination_type": "thumbnails",
             "desktop_navigation": true,
