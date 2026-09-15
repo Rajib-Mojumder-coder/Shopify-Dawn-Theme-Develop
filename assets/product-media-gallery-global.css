@@ -497,6 +497,35 @@
   background: #fff;
 }
 
+/* =========================================================
+   NAVIGATION ICON
+   ========================================================= */
+
+.custom-media-gallery__nav-icon {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: var(--desktop-nav-icon-size, 24px);
+  height: var(--desktop-nav-icon-size, 24px);
+
+  font-size: var(--desktop-nav-icon-size, 24px);
+  line-height: 1;
+
+  color: inherit;
+}
+
+
+.custom-media-gallery__nav-icon svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: 100%;
+  max-height: 100%;
+}
 
 /* =========================================================
    SIDE NAVIGATION
