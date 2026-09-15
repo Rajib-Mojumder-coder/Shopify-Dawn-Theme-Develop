@@ -454,7 +454,7 @@
 
 
 /* =========================================================
-   NAVIGATION BUTTON
+   MAIN NAVIGATION BUTTON
    ========================================================= */
 
 .custom-media-gallery__main-nav {
@@ -463,24 +463,24 @@
   align-items: center;
   justify-content: center;
 
-  width: 42px;
-  height: 42px;
+  width: var(--desktop-nav-button-size, 42px);
+  height: var(--desktop-nav-button-size, 42px);
 
-  flex: 0 0 42px;
+  flex: 0 0 var(--desktop-nav-button-size, 42px);
 
   padding: 0;
   margin: 0;
 
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border:
+    1px solid var(--desktop-nav-border-color, #DDDDDD);
 
   border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.9);
+  background:
+    var(--desktop-nav-background, #FFFFFF);
 
-  color: currentColor;
-
-  font-size: 30px;
-  line-height: 1;
+  color:
+    var(--desktop-nav-icon-color, #000000);
 
   cursor: pointer;
 
