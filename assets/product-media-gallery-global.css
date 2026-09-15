@@ -1249,25 +1249,6 @@
 
 
 /* =========================================================
-   ICON VARIANTS
-   ========================================================= */
-
-.custom-media-gallery__main-nav--cheverons,
-.custom-media-gallery__main-nav--large_cheverons {
-  font-size: 34px;
-}
-
-
-.custom-media-gallery__main-nav--large_arrows,
-.custom-media-gallery__main-nav--large_cheverons {
-  width: 50px;
-  height: 50px;
-
-  flex-basis: 50px;
-}
-
-
-/* =========================================================
    EDGE EXTENSION
    ========================================================= */
 
