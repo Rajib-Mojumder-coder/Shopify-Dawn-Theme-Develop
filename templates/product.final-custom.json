@@ -73,6 +73,7 @@
         },
         "product-details": {
           "type": "product-details",
+          "disabled": true,
           "static": true,
           "settings": {
             "content_width": "wide",
