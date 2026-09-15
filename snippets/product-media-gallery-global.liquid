@@ -16,6 +16,15 @@
 
   assign thumbnail_position = gallery_settings.thumbnail_desktop_position | default: 'bottom'
 
+  assign desktop_nav_icon = gallery_settings.desktop_carosel_icon | default: 'arrows'
+  assign mobile_nav_icon = gallery_settings.mobile_carosel_icon | default: 'arrows'
+
+  assign desktop_nav_icon_size = gallery_settings.desktop_nav_icon_size | default: 24
+  assign desktop_nav_button_size = gallery_settings.desktop_nav_button_size | default: 42
+
+  assign mobile_nav_icon_size = gallery_settings.mobile_nav_icon_size | default: 22
+  assign mobile_nav_button_size = gallery_settings.mobile_nav_button_size | default: 36
+
   assign media_ratio = gallery_settings.media_ratio | default: 'auto'
   assign media_fit = gallery_settings.media_fit | default: 'contain'
 
