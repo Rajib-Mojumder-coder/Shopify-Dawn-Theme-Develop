@@ -614,7 +614,13 @@
 
 .custom-media-gallery__desktop-bottom-controls
 .custom-media-gallery__desktop-pagination {
-  width: auto;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: max-content;
+  max-width: 100%;
 
   flex: 0 0 auto;
 }
