@@ -265,11 +265,29 @@
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
+      "type": "checkbox",
+      "id": "mobile_nav_border_enable",
+      "label": "Enable border",
+      "default": true,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_nav_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "default": 1,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_border_enable }}"
+    },
+    {
       "type": "color",
       "id": "mobile_nav_border_color",
       "label": "Border color",
       "default": "#DDDDDD",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_border_enable }}"
     },
      {
       "type": "select",
