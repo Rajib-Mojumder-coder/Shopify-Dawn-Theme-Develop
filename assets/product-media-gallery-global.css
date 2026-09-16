@@ -570,6 +570,18 @@
   fill: currentColor;
   stroke: currentColor;
 }
+
+/* =========================================================
+   ICON VARIANTS
+   ========================================================= */
+
+.custom-media-gallery__main-nav--large_arrows,
+.custom-media-gallery__main-nav--large_cheverons {
+  width: 50px;
+  height: 50px;
+
+  flex-basis: 50px;
+}
 /* =========================================================
    SIDE NAVIGATION
    ========================================================= */
