@@ -59,7 +59,9 @@
 
   assign desktop_nav_icon_color = gallery_settings.desktop_nav_icon_color | default: '#000000'
   assign desktop_nav_background = gallery_settings.desktop_nav_background | default: '#ffffff'
-  assign desktop_nav_border_color = gallery_settings.desktop_nav_border_color | default: 'rgba(0,0,0,0.12)'
+  assign desktop_nav_border_enable = gallery_settings.desktop_nav_border_enable
+  assign desktop_nav_border_width = gallery_settings.desktop_nav_border_width | default: 1
+  assign desktop_nav_border_color = gallery_settings.desktop_nav_border_color | default: '#DDDDDD'
 
 
   # ==========================================================
