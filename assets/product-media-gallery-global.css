@@ -542,7 +542,9 @@
   stroke: currentColor;
 }
 
-.custom-media-gallery__main-nav--next 
+.custom-media-gallery__main-nav--next .custom-media-gallery__nav-icon--custom{
+  rotate: 180deg;
+}
 /* =========================================================
    SIDE NAVIGATION
    ========================================================= */
