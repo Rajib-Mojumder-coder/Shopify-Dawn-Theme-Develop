@@ -1151,7 +1151,7 @@
     color: var(--mobile-nav-icon-color, #000000);
     background: var(--mobile-nav-background, #FFFFFF);
 
-    border: var(--mobile-nav-border-width, 1px) solid var(--mobile-nav-border-color, #DDDDDD);
+    border: var(--mobile-nav-border-width, 1px) var(--mobile-nav-border-style, solid) var(--mobile-nav-border-color, #DDDDDD);
   }
 
 /* =========================================================
