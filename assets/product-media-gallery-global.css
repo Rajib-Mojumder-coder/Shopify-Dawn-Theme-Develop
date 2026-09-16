@@ -1178,19 +1178,16 @@
    ========================================================= */
 
 .custom-media-gallery__main-nav {
-  width: var(--mobile-nav-button-size, 36px);
-  height: var(--mobile-nav-button-size, 36px);
+  width: var(--mobile-nav-button-size);
+  height: var(--mobile-nav-button-size);
 
-  flex-basis: var(--mobile-nav-button-size, 36px);
+  flex-basis: var(--mobile-nav-button-size);
 
-  border-color:
-    var(--mobile-nav-border-color, #DDDDDD);
+  font-size: var(--mobile-nav-icon-size);
 
-  background:
-    var(--mobile-nav-background, #FFFFFF);
-
-  color:
-    var(--mobile-nav-icon-color, #000000);
+  color: var(--mobile-nav-icon-color);
+  background: var(--mobile-nav-background);
+  border-color: var(--mobile-nav-border-color);
 }
 
 /* =========================================================
