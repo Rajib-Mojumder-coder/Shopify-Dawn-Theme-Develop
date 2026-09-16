@@ -1133,18 +1133,19 @@
    MOBILE NAVIGATION BUTTON
    ========================================================= */
 
-.custom-media-gallery__main-nav {
-  width: var(--mobile-nav-button-size);
-  height: var(--mobile-nav-button-size);
+ .custom-media-gallery__main-nav--mobile {
+    width: var(--mobile-nav-button-size, 36px);
+    height: var(--mobile-nav-button-size, 36px);
 
-  flex-basis: var(--mobile-nav-button-size);
+    flex: 0 0 var(--mobile-nav-button-size, 36px);
 
-  font-size: var(--mobile-nav-icon-size);
+    font-size: var(--mobile-nav-icon-size, 22px);
 
-  color: var(--mobile-nav-icon-color);
-  background: var(--mobile-nav-background);
-  border-color: var(--mobile-nav-border-color);
-}
+    color: var(--mobile-nav-icon-color, #000000);
+    background: var(--mobile-nav-background, #FFFFFF);
+
+    border-color: var(--mobile-nav-border-color, #DDDDDD);
+  }
 
 /* =========================================================
    MOBILE NAVIGATION ICON
