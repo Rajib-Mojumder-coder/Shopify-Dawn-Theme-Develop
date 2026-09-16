@@ -12,28 +12,10 @@
 
   assign desktop_navigation = gallery_settings.desktop_navigation
   assign mobile_navigation = gallery_settings.mobile_navigation
+
   assign navigation_position = gallery_settings.navigation_position | default: 'sides'
 
   assign thumbnail_position = gallery_settings.thumbnail_desktop_position | default: 'bottom'
-
-  assign desktop_nav_icon = gallery_settings.desktop_carosel_icon | default: 'arrows'
-  assign mobile_nav_icon = gallery_settings.mobile_carosel_icon | default: 'arrows'
-
-  assign desktop_nav_svg = gallery_settings.desktop_nav_svg | default: blank
-  assign mobile_nav_svg = gallery_settings.mobile_nav_svg | default: blank
-  assign desktop_nav_icon_size = gallery_settings.desktop_nav_icon_size | default: 24
-  assign desktop_nav_button_size = gallery_settings.desktop_nav_button_size | default: 42
-
-  assign mobile_nav_icon_size = gallery_settings.mobile_nav_icon_size | default: 22
-  assign mobile_nav_button_size = gallery_settings.mobile_nav_button_size | default: 36
-
-  assign desktop_nav_icon_color = gallery_settings.desktop_nav_icon_color | default: '#000000'
-  assign desktop_nav_background = gallery_settings.desktop_nav_background | default: '#FFFFFF'
-  assign desktop_nav_border_color = gallery_settings.desktop_nav_border_color | default: '#DDDDDD'
-
-  assign mobile_nav_icon_color = gallery_settings.mobile_nav_icon_color | default: '#000000'
-  assign mobile_nav_background = gallery_settings.mobile_nav_background | default: '#FFFFFF'
-  assign mobile_nav_border_color = gallery_settings.mobile_nav_border_color | default: '#DDDDDD'
 
   assign media_ratio = gallery_settings.media_ratio | default: 'auto'
   assign media_fit = gallery_settings.media_fit | default: 'contain'
@@ -62,6 +44,53 @@
   assign constrain_height = gallery_settings.constrain_to_screen_height
   assign media_zoom_enabled = gallery_settings.enable_media_zoom
   assign image_zoom = gallery_settings.image_zoom | default: 'none'
+
+
+  # ==========================================================
+  # DESKTOP NAVIGATION SETTINGS
+  # ==========================================================
+
+  assign desktop_nav_icon = gallery_settings.desktop_nav_icon | default: 'arrows'
+
+  assign desktop_nav_svg = gallery_settings.desktop_nav_svg | default: blank
+
+  assign desktop_nav_icon_size = gallery_settings.desktop_nav_icon_size | default: 24
+  assign desktop_nav_button_size = gallery_settings.desktop_nav_button_size | default: 42
+
+  assign desktop_nav_icon_color = gallery_settings.desktop_nav_icon_color | default: '#000000'
+  assign desktop_nav_background = gallery_settings.desktop_nav_background | default: '#ffffff'
+  assign desktop_nav_border_color = gallery_settings.desktop_nav_border_color | default: 'rgba(0,0,0,0.12)'
+
+
+  # ==========================================================
+  # MOBILE NAVIGATION SETTINGS
+  # ==========================================================
+
+  assign mobile_nav_icon = gallery_settings.mobile_nav_icon | default: 'arrows'
+
+  assign mobile_nav_svg = gallery_settings.mobile_nav_svg | default: blank
+
+  assign mobile_nav_icon_size = gallery_settings.mobile_nav_icon_size | default: 22
+  assign mobile_nav_button_size = gallery_settings.mobile_nav_button_size | default: 36
+
+  assign mobile_nav_icon_color = gallery_settings.mobile_nav_icon_color | default: '#000000'
+  assign mobile_nav_background = gallery_settings.mobile_nav_background | default: '#ffffff'
+  assign mobile_nav_border_color = gallery_settings.mobile_nav_border_color | default: 'rgba(0,0,0,0.12)'
+
+
+  # ==========================================================
+  # THUMBNAIL PAGINATION FORCES SIDE NAVIGATION
+  # ==========================================================
+
+  assign show_side_navigation = false
+
+  if navigation_position == 'sides'
+    assign show_side_navigation = true
+  endif
+
+  if desktop_pagination_type == 'thumbnails'
+    assign show_side_navigation = true
+  endif
 -%}
 
 
@@ -315,18 +344,26 @@
         DESKTOP + MOBILE SIDE NAVIGATION
         ========================================================
 
-        Only "sides" navigation stays inside the media viewport.
+        Navigation is shown here when:
 
-        Bottom navigation is rendered later together with
-        pagination.
+        1. Navigation Position = Sides
+
+        OR
+
+        2. Desktop Pagination = Thumbnails
+
+        This means that if the user selects:
+        Desktop Pagination = Thumbnails
+        Navigation Position = Bottom
+
+        the navigation automatically remains over the media
+        instead of joining the thumbnail pagination row.
         ========================================================
         {%- endcomment -%}
 
         {% if media_count > 1 and gallery_layout == 'carousel' %}
 
-          {% if navigation_position == 'sides'
-            or desktop_pagination_type == 'thumbnails'
-          %}
+          {% if show_side_navigation %}
 
             <div
               class="
@@ -335,6 +372,13 @@
               "
             >
 
+
+              {%- comment -%}
+              ==================================================
+              DESKTOP PREVIOUS
+              ==================================================
+              {%- endcomment -%}
+
               {% if desktop_navigation %}
 
                 <button
@@ -348,11 +392,49 @@
                   data-gallery-prev
                   aria-label="Previous media"
                 >
-                  <span aria-hidden="true">‹</span>
+
+                  {% if desktop_nav_icon == 'custom_svg_code'
+                    and desktop_nav_svg != blank
+                  %}
+
+                    <span
+                      class="
+                        custom-media-gallery__nav-icon
+                        custom-media-gallery__nav-icon--custom
+                      "
+                      aria-hidden="true"
+                    >
+                      {{ desktop_nav_svg }}
+                    </span>
+
+                  {% elsif desktop_nav_icon == 'cheverons'
+                    or desktop_nav_icon == 'large_cheverons'
+                  %}
+
+                    <span
+                      class="custom-media-gallery__nav-icon"
+                      aria-hidden="true"
+                    >‹</span>
+
+                  {% else %}
+
+                    <span
+                      class="custom-media-gallery__nav-icon"
+                      aria-hidden="true"
+                    >←</span>
+
+                  {% endif %}
+
                 </button>
 
               {% endif %}
 
+
+              {%- comment -%}
+              ==================================================
+              MOBILE PREVIOUS
+              ==================================================
+              {%- endcomment -%}
 
               {% if mobile_navigation %}
 
@@ -367,11 +449,50 @@
                   data-gallery-prev
                   aria-label="Previous media"
                 >
-                  <span aria-hidden="true">‹</span>
+
+                  {% if mobile_nav_icon == 'custom_svg_code'
+                    and mobile_nav_svg != blank
+                  %}
+
+                    <span
+                      class="
+                        custom-media-gallery__nav-icon
+                        custom-media-gallery__nav-icon--custom
+                      "
+                      aria-hidden="true"
+                    >
+                      {{ mobile_nav_svg }}
+                    </span>
+
+                  {% elsif mobile_nav_icon == 'cheverons'
+                    or mobile_nav_icon == 'large_cheverons'
+                  %}
+
+                    <span
+                      class="custom-media-gallery__nav-icon"
+                      aria-hidden="true"
+                    >‹</span>
+
+                  {% else %}
+
+                    <span
+                      class="custom-media-gallery__nav-icon"
+                      aria-hidden="true"
+                    >←</span>
+
+                  {% endif %}
+
                 </button>
 
               {% endif %}
 
+
+              {%- comment -%}
+              ==================================================
+              DESKTOP NEXT
+              ==================================================
+              ==================================================
+              {%- endcomment -%}
 
               {% if desktop_navigation %}
 
@@ -386,11 +507,49 @@
                   data-gallery-next
                   aria-label="Next media"
                 >
-                  <span aria-hidden="true">›</span>
+
+                  {% if desktop_nav_icon == 'custom_svg_code'
+                    and desktop_nav_svg != blank
+                  %}
+
+                    <span
+                      class="
+                        custom-media-gallery__nav-icon
+                        custom-media-gallery__nav-icon--custom
+                      "
+                      aria-hidden="true"
+                    >
+                      {{ desktop_nav_svg }}
+                    </span>
+
+                  {% elsif desktop_nav_icon == 'cheverons'
+                    or desktop_nav_icon == 'large_cheverons'
+                  %}
+
+                    <span
+                      class="custom-media-gallery__nav-icon"
+                      aria-hidden="true"
+                    >›</span>
+
+                  {% else %}
+
+                    <span
+                      class="custom-media-gallery__nav-icon"
+                      aria-hidden="true"
+                    >→</span>
+
+                  {% endif %}
+
                 </button>
 
               {% endif %}
 
+
+              {%- comment -%}
+              ==================================================
+              MOBILE NEXT
+              ==================================================
+              {%- endcomment -%}
 
               {% if mobile_navigation %}
 
@@ -405,7 +564,39 @@
                   data-gallery-next
                   aria-label="Next media"
                 >
-                  <span aria-hidden="true">›</span>
+
+                  {% if mobile_nav_icon == 'custom_svg_code'
+                    and mobile_nav_svg != blank
+                  %}
+
+                    <span
+                      class="
+                        custom-media-gallery__nav-icon
+                        custom-media-gallery__nav-icon--custom
+                      "
+                      aria-hidden="true"
+                    >
+                      {{ mobile_nav_svg }}
+                    </span>
+
+                  {% elsif mobile_nav_icon == 'cheverons'
+                    or mobile_nav_icon == 'large_cheverons'
+                  %}
+
+                    <span
+                      class="custom-media-gallery__nav-icon"
+                      aria-hidden="true"
+                    >›</span>
+
+                  {% else %}
+
+                    <span
+                      class="custom-media-gallery__nav-icon"
+                      aria-hidden="true"
+                    >→</span>
+
+                  {% endif %}
+
                 </button>
 
               {% endif %}
@@ -424,14 +615,19 @@
     {%- comment -%}
     ============================================================
     DESKTOP BOTTOM CONTROLS
+    ============================================================
 
-    IMPORTANT:
+    Used only when:
 
-    When navigation_position == bottom:
+    Navigation Position = Bottom
+
+    AND
+
+    Desktop Pagination is NOT thumbnails
+
+    Layout:
 
     PREV → PAGINATION → NEXT
-
-    All three are inside the same wrapper.
     ============================================================
     {%- endcomment -%}
 
@@ -446,6 +642,13 @@
 
         <div class="custom-media-gallery__desktop-bottom-controls">
 
+
+          {%- comment -%}
+          ======================================================
+          DESKTOP BOTTOM PREVIOUS
+          ======================================================
+          {%- endcomment -%}
+
           <button
             type="button"
             class="
@@ -457,9 +660,47 @@
             data-gallery-prev
             aria-label="Previous media"
           >
-            <span aria-hidden="true">‹</span>
+
+            {% if desktop_nav_icon == 'custom_svg_code'
+              and desktop_nav_svg != blank
+            %}
+
+              <span
+                class="
+                  custom-media-gallery__nav-icon
+                  custom-media-gallery__nav-icon--custom
+                "
+                aria-hidden="true"
+              >
+                {{ desktop_nav_svg }}
+              </span>
+
+            {% elsif desktop_nav_icon == 'cheverons'
+              or desktop_nav_icon == 'large_cheverons'
+            %}
+
+              <span
+                class="custom-media-gallery__nav-icon"
+                aria-hidden="true"
+              >‹</span>
+
+            {% else %}
+
+              <span
+                class="custom-media-gallery__nav-icon"
+                aria-hidden="true"
+              >←</span>
+
+            {% endif %}
+
           </button>
 
+
+          {%- comment -%}
+          ======================================================
+          DESKTOP PAGINATION
+          ======================================================
+          {%- endcomment -%}
 
           {% if desktop_pagination %}
 
@@ -645,18 +886,56 @@
           {% endif %}
 
 
+          {%- comment -%}
+          ======================================================
+          DESKTOP BOTTOM NEXT
+          ======================================================
+          {%- endcomment -%}
+
           <button
             type="button"
             class="
               custom-media-gallery__main-nav
               custom-media-gallery__main-nav--desktop
               custom-media-gallery__main-nav--next
-              custom-media-gallery__main-nav--{{ desktop_nav_icon }}"
+              custom-media-gallery__main-nav--{{ desktop_nav_icon }}
             "
             data-gallery-next
             aria-label="Next media"
           >
-            <span aria-hidden="true">›</span>
+
+            {% if desktop_nav_icon == 'custom_svg_code'
+              and desktop_nav_svg != blank
+            %}
+
+              <span
+                class="
+                  custom-media-gallery__nav-icon
+                  custom-media-gallery__nav-icon--custom
+                "
+                aria-hidden="true"
+              >
+                {{ desktop_nav_svg }}
+              </span>
+
+            {% elsif desktop_nav_icon == 'cheverons'
+              or desktop_nav_icon == 'large_cheverons'
+            %}
+
+              <span
+                class="custom-media-gallery__nav-icon"
+                aria-hidden="true"
+              >›</span>
+
+            {% else %}
+
+              <span
+                class="custom-media-gallery__nav-icon"
+                aria-hidden="true"
+              >→</span>
+
+            {% endif %}
+
           </button>
 
         </div>
@@ -664,13 +943,20 @@
 
       {% else %}
 
+
         {%- comment -%}
         ========================================================
         NORMAL DESKTOP PAGINATION
+        ========================================================
 
         Used when:
-        - navigation position = sides
-        - OR desktop navigation disabled
+
+        - Navigation Position = Sides
+        - OR Desktop Navigation = disabled
+        - OR Desktop Pagination = thumbnails
+
+        Thumbnail pagination therefore remains separate from
+        bottom navigation.
         ========================================================
         {%- endcomment -%}
 
@@ -856,6 +1142,7 @@
     {%- comment -%}
     ============================================================
     MOBILE PAGINATION
+    ============================================================
     ============================================================
     {%- endcomment -%}
 
