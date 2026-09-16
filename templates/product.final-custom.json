@@ -39,7 +39,7 @@
             "grid_column": "2",
             "grid_column_gap": 4,
             "full_width_first_image": false,
-            "desktop_nav_icon": "arrows",
+            "desktop_nav_icon": "custom_svg_code",
             "desktop_nav_svg": "",
             "desktop_nav_icon_size": 24,
             "desktop_nav_button_size": 42,
