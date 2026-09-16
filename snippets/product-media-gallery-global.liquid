@@ -154,7 +154,7 @@
     --desktop-nav-icon-size: {{ desktop_nav_icon_size }}px;
     --desktop-nav-button-size: {{ desktop_nav_button_size }}px;
     --desktop-nav-icon-color: {{ desktop_nav_icon_color }};
-    --desktop-nav-background: {{ desktop_nav_background }};
+    --desktop-nav-background: {% if desktop_nav_border_enable %} {{ desktop_nav_background }} {% else %} transparent {% endif %};
     --desktop-nav-border-width: {{ desktop_nav_border_width }}px;
     --desktop-nav-border-style: {% if desktop_nav_border_enable %} solid {% else %}  none {% endif %};
     --desktop-nav-border-color: {{ desktop_nav_border_color }};
