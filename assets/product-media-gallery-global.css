@@ -527,6 +527,27 @@
   max-height: 100%;
 }
 
+
+/* Custom SVG */
+
+.custom-media-gallery__nav-icon--custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-media-gallery__nav-icon--custom svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: 100%;
+  max-height: 100%;
+
+  fill: currentColor;
+  stroke: currentColor;
+}
 /* =========================================================
    SIDE NAVIGATION
    ========================================================= */
@@ -1138,6 +1159,16 @@
     var(--mobile-nav-icon-color, #000000);
 }
 
+/* =========================================================
+   MOBILE NAVIGATION ICON
+   ========================================================= */
+
+.custom-media-gallery__nav-icon {
+  width: var(--mobile-nav-icon-size, 22px);
+  height: var(--mobile-nav-icon-size, 22px);
+
+  font-size: var(--mobile-nav-icon-size, 22px);
+}
 
   /* Hide desktop navigation */
 
