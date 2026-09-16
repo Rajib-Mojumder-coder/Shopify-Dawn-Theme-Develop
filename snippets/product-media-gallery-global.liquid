@@ -77,7 +77,9 @@
 
   assign mobile_nav_icon_color = gallery_settings.mobile_nav_icon_color | default: '#000000'
   assign mobile_nav_background = gallery_settings.mobile_nav_background | default: '#ffffff'
-  assign mobile_nav_border_color = gallery_settings.mobile_nav_border_color | default: 'rgba(0,0,0,0.12)'
+  assign mobile_nav_border_enable = gallery_settings.mobile_nav_border_enable
+  assign mobile_nav_border_width = gallery_settings.mobile_nav_border_width | default: 1
+  assign mobile_nav_border_color = gallery_settings.mobile_nav_border_color | default: '#DDDDDD'
 
 
   # ==========================================================
