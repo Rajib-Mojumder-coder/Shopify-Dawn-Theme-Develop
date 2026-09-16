@@ -637,51 +637,48 @@
           ======================================================
           {%- endcomment -%}
 
-          <button
-            type="button"
-            class="
-              custom-media-gallery__main-nav
-              custom-media-gallery__main-nav--desktop
-              custom-media-gallery__main-nav--prev
-              custom-media-gallery__main-nav--{{ desktop_nav_icon }}
-            "
-            data-gallery-prev
-            aria-label="Previous media"
-          >
-
-            {% if desktop_nav_icon == 'custom_svg_code'
-              and desktop_nav_svg != blank
-            %}
-
-              <span
+            <button
+                type="button"
                 class="
-                  custom-media-gallery__nav-icon
-                  custom-media-gallery__nav-icon--custom
+                  custom-media-gallery__main-nav
+                  custom-media-gallery__main-nav--desktop
+                  custom-media-gallery__main-nav--prev
+                  custom-media-gallery__main-nav--{{ desktop_nav_icon }}
                 "
-                aria-hidden="true"
+                data-gallery-prev
+                aria-label="Previous media"
               >
-                {{ desktop_nav_svg }}
-              </span>
 
-            {% elsif desktop_nav_icon == 'cheverons'
-              or desktop_nav_icon == 'large_cheverons'
-            %}
+                {% if desktop_nav_icon == 'custom_svg_code'
+                  and desktop_nav_svg != blank
+                %}
 
-              <span
-                class="custom-media-gallery__nav-icon"
-                aria-hidden="true"
-              >‹</span>
+                  <span
+                    class="custom-media-gallery__nav-icon custom-media-gallery__nav-icon--custom"
+                    aria-hidden="true"
+                  >
+                    {{ desktop_nav_svg }}
+                  </span>
 
-            {% else %}
+                {% elsif desktop_nav_icon == 'cheverons'
+                  or desktop_nav_icon == 'large_cheverons'
+                %}
 
-              <span
-                class="custom-media-gallery__nav-icon"
-                aria-hidden="true"
-              >←</span>
+                  <span
+                    class="custom-media-gallery__nav-icon"
+                    aria-hidden="true"
+                  >‹</span>
 
-            {% endif %}
+                {% else %}
 
-          </button>
+                  <span
+                    class="custom-media-gallery__nav-icon"
+                    aria-hidden="true"
+                  >←</span>
+
+                {% endif %}
+
+              </button>
 
 
           {%- comment -%}
