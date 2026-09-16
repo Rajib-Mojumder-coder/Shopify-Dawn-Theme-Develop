@@ -1151,12 +1151,21 @@
    MOBILE NAVIGATION ICON
    ========================================================= */
 
-.custom-media-gallery__nav-icon {
-  width: var(--mobile-nav-icon-size, 22px);
-  height: var(--mobile-nav-icon-size, 22px);
+.custom-media-gallery__main-nav--mobile
+  .custom-media-gallery__nav-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-  font-size: var(--mobile-nav-icon-size, 22px);
-}
+    width: var(--mobile-nav-icon-size, 22px);
+    height: var(--mobile-nav-icon-size, 22px);
+
+    font-size: var(--mobile-nav-icon-size, 22px);
+
+    color: currentColor;
+
+    line-height: 1;
+  }
 
   /* Hide desktop navigation */
 
