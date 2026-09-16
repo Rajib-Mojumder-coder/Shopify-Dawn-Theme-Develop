@@ -468,7 +468,7 @@
 
   padding: 0;
 
-  border: 1px solid var(--desktop-nav-border-color, #DDDDDD);
+  border: var(--desktop-nav-border-width, 1px) solid var(--desktop-nav-border-color, #DDDDDD);
   border-radius: 50%;
 
   background: var(--desktop-nav-background, #FFFFFF);
