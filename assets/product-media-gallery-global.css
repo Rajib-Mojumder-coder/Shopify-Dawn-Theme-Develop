@@ -501,19 +501,41 @@
    NAVIGATION ICON
    ========================================================= */
 
-.custom-media-gallery__nav-icon {
+.custom-media-gallery__main-nav {
   display: inline-flex;
 
   align-items: center;
   justify-content: center;
 
-  width: var(--desktop-nav-icon-size, 24px);
-  height: var(--desktop-nav-icon-size, 24px);
+  width: var(--desktop-nav-button-size);
+  height: var(--desktop-nav-button-size);
 
-  font-size: var(--desktop-nav-icon-size, 24px);
+  flex: 0 0 var(--desktop-nav-button-size);
+
+  padding: 0;
+
+  border: 1px solid var(--desktop-nav-border-color);
+  border-radius: 50%;
+
+  background: var(--desktop-nav-background);
+  color: var(--desktop-nav-icon-color);
+
+  font-size: var(--desktop-nav-icon-size);
   line-height: 1;
 
-  color: inherit;
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.custom-media-gallery__main-nav:hover {
+  transform: scale(1.05);
 }
 
 
