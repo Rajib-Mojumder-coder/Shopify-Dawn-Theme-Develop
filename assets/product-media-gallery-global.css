@@ -494,6 +494,21 @@
   transform: scale(1.05);
 }
 
+.custom-media-gallery__main-nav--desktop
+.custom-media-gallery__nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--desktop-nav-icon-size, 24px);
+  height: var(--desktop-nav-icon-size, 24px);
+
+  font-size: var(--desktop-nav-icon-size, 24px);
+
+  color: currentColor;
+
+  line-height: 1;
+}
 
 .custom-media-gallery__nav-icon svg {
   display: block;
