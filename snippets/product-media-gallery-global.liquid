@@ -164,9 +164,8 @@
     --mobile-nav-button-size: {{ mobile_nav_button_size }}px;
     --mobile-nav-icon-color: {{ mobile_nav_icon_color }};
     --mobile-nav-background: {{ mobile_nav_background }};
-    --mobile-nav-border-width:
-    {% if mobile_nav_border_enable %} {{ mobile_nav_border_width }}px {% else %} 0px {% endif %};
-
+    --mobile-nav-border-width: {{ mobile_nav_border_width }}px;
+    --mobile-nav-border-style: {% if mobile_nav_border_enable %} solid {% else %}  none {% endif %};
     --mobile-nav-border-color: {{ mobile_nav_border_color }};
 
     --gallery-thumbnail-width: {{ thumbnail_desktop_width }}px;
