@@ -470,7 +470,7 @@
       "step": 1,
       "unit": "px",
       "default": 30,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_pagination_type == 'thumbnails' }}"
     },
     {
       "type": "range",
@@ -481,7 +481,7 @@
       "step": 1,
       "unit": "px",
       "default": 8,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_pagination_type == 'thumbnails'}}"
     },
     {
       "type": "header",
