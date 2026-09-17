@@ -334,7 +334,8 @@
           "value": "2"
         }
       ],
-      "default": "1"
+      "default": "1",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
      {
       "type": "select",
@@ -358,7 +359,8 @@
           "value": "1.33"
         }
       ],
-      "default": "1"
+      "default": "1",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "checkbox",
