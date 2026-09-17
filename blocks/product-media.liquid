@@ -332,7 +332,8 @@
     },
     {
       "type": "header",
-      "content": "Pagination"
+      "content": "Pagination",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "checkbox",
@@ -422,7 +423,8 @@
     },
      {
       "type": "header",
-      "content": "Slider Settings"
+      "content": "Slider Settings",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
      {
       "type": "select",
