@@ -364,7 +364,7 @@
         { "label": "Right", "value": "right" }
       ],
       "default": "bottom",
-       "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination_type == 'thumbnails' }}"
+       "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination_type == 'thumbnails' and block.settings.desktop_pagination }}"
     },
     {
       "type": "range",
@@ -375,7 +375,7 @@
       "step": 1,
       "unit": "px",
       "default": 50,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination_type == 'thumbnails' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination_type == 'thumbnails' and block.settings.desktop_pagination }}"
     },
     {
       "type": "checkbox",
