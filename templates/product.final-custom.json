@@ -35,7 +35,7 @@
           "type": "product-media",
           "static": true,
           "settings": {
-            "gallery_layout": "grid",
+            "gallery_layout": "carousel",
             "grid_column": "2",
             "grid_column_gap": 4,
             "full_width_first_image": true,
@@ -75,7 +75,6 @@
             "media_fit": "contain",
             "constrain_to_screen_height": true,
             "media_corner_radius": 16,
-            "extent_media_to_screen_edge": false,
             "enable_media_zoom": true,
             "image_zoom": "lightbox",
             "hide_variants": false,
