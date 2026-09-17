@@ -105,6 +105,30 @@
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
+      "type": "checkbox",
+      "id": "desktop_navigation",
+      "label": "Desktop navigation",
+      "default": true,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
+      "type": "select",
+      "id": "navigation_position",
+      "label": "Desktop position",
+      "options": [
+        {
+          "value": "sides",
+          "label": "Middle on sides"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "sides",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation }}"
+    },
+    {
       "type": "select",
       "id": "desktop_nav_icon",
       "label": "Icon",
@@ -207,6 +231,13 @@
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
+      "type": "checkbox",
+      "id": "mobile_navigation",
+      "label": "Mobile navigation",
+      "default": true,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
       "type": "select",
       "id": "mobile_nav_icon",
       "label": "Icon",
@@ -303,6 +334,10 @@
       "default": "#DDDDDD",
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_border_enable }}"
     },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
      {
       "type": "select",
       "id": "carousel_slides",
@@ -397,42 +432,7 @@
       "default": "thumbnails",
       "visible_if": "{{ block.settings.mobile_pagination }}"
     },
-    {
-      "type": "header",
-      "content": "Navigation",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
-    },
-    {
-      "type": "checkbox",
-      "id": "desktop_navigation",
-      "label": "Desktop navigation",
-      "default": true,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
-    },
-    {
-      "type": "checkbox",
-      "id": "mobile_navigation",
-      "label": "Mobile navigation",
-      "default": true,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
-    },
-    {
-      "type": "select",
-      "id": "navigation_position",
-      "label": "Desktop position",
-      "options": [
-        {
-          "value": "sides",
-          "label": "Middle on sides"
-        },
-        {
-          "value": "bottom",
-          "label": "Bottom"
-        }
-      ],
-      "default": "sides",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation }}"
-    },
+    
     {
       "type": "header",
       "content": "Thumbnails",
