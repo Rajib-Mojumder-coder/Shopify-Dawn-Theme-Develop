@@ -398,7 +398,7 @@
         { "label": "Hint", "value": "hint" }
       ],
       "default": "thumbnails",
-      "visible_if": "{{ block.settings.mobile_pagination }}"
+      "visible_if": "{{ block.settings.mobile_pagination and block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "header",
