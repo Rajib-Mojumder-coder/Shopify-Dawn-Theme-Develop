@@ -271,7 +271,7 @@
       "id": "mobile_nav_svg",
       "label": "Mobile custom SVG",
       "info": "Paste SVG code. Use currentColor for the SVG stroke or fill.",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_icon == 'custom_svg_code' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_icon == 'custom_svg_code' and block.settings.mobile_navigation }}"
     },
     {
       "type": "range",
@@ -282,7 +282,7 @@
       "step": 1,
       "unit": "px",
       "default": 22,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation }}"
     },
     {
       "type": "range",
@@ -293,28 +293,28 @@
       "step": 1,
       "unit": "px",
       "default": 36,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation}}"
     },
     {
       "type": "color",
       "id": "mobile_nav_icon_color",
       "label": "Icon color",
       "default": "#000000",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation }}"
     },
     {
       "type": "color",
       "id": "mobile_nav_background",
       "label": "Background color",
       "default": "#FFFFFF",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation }}"
     },
     {
       "type": "checkbox",
       "id": "mobile_nav_border_enable",
       "label": "Enable border",
       "default": true,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation }}"
     },
     {
       "type": "range",
@@ -325,14 +325,14 @@
       "step": 1,
       "unit": "px",
       "default": 1,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_border_enable }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_border_enable and block.settings.mobile_navigation }}"
     },
     {
       "type": "color",
       "id": "mobile_nav_border_color",
       "label": "Border color",
       "default": "#DDDDDD",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_border_enable }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_border_enable and block.settings.mobile_navigation }}"
     },
     {
       "type": "header",
@@ -392,6 +392,10 @@
       ],
       "default": "1",
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
+      "type": "header",
+      "content": "Pagination"
     },
     {
       "type": "checkbox",
