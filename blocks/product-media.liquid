@@ -439,7 +439,8 @@
     },
     {
       "type": "header",
-      "content": "Thumbnails"
+      "content": "Thumbnails",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "select",
@@ -461,7 +462,8 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 50
+      "default": 50,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "range",
@@ -471,7 +473,8 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 30
+      "default": 30,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "range",
@@ -481,7 +484,8 @@
       "max": 50,
       "step": 1,
       "unit": "px",
-      "default": 8
+      "default": 8,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "header",
