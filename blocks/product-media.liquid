@@ -416,6 +416,30 @@
       "default": "thumbnails",
       "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination }}"
     },
+     
+    {
+      "type": "select",
+      "id": "thumbnail_desktop_position",
+      "label": "Desktop Position",
+      "options": [
+        { "label": "Left", "value": "left" },
+        { "label": "Bottom", "value": "bottom" },
+        { "label": "Right", "value": "right" }
+      ],
+      "default": "bottom",
+       "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination_type == 'thumbnails' }}"
+    },
+    {
+      "type": "range",
+      "id": "thumbnail_desktop_width",
+      "label": "Desktop Width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 50,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination_type == 'thumbnails' }}"
+    },
     {
       "type": "checkbox",
       "id": "mobile_pagination",
@@ -436,35 +460,7 @@
       "default": "thumbnails",
       "visible_if": "{{ block.settings.mobile_pagination }}"
     },
-    
-    {
-      "type": "header",
-      "content": "Thumbnails",
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
-    },
-    {
-      "type": "select",
-      "id": "thumbnail_desktop_position",
-      "label": "Desktop Position",
-      "options": [
-        { "label": "Left", "value": "left" },
-        { "label": "Bottom", "value": "bottom" },
-        { "label": "Right", "value": "right" }
-      ],
-      "default": "bottom",
-       "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
-    },
-    {
-      "type": "range",
-      "id": "thumbnail_desktop_width",
-      "label": "Desktop Width",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 50,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
-    },
+   
     {
       "type": "range",
       "id": "thumbnail_mobile_width",
