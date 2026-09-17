@@ -407,7 +407,7 @@
       "step": 1,
       "unit": "px",
       "default": 30,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_pagination_type == 'thumbnails' }}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_pagination_type == 'thumbnails' and block.settings.mobile_pagination }}"
     },
     {
       "type": "range",
@@ -418,7 +418,7 @@
       "step": 1,
       "unit": "px",
       "default": 8,
-      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_pagination_type == 'thumbnails'}}"
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_pagination_type == 'thumbnails' and block.settings.mobile_pagination}}"
     },
      {
       "type": "header",
