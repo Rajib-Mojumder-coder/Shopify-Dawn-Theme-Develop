@@ -50,7 +50,7 @@
             "desktop_nav_border_enable": true,
             "desktop_nav_border_width": 1,
             "desktop_nav_border_color": "#dddddd",
-            "mobile_navigation": true,
+            "mobile_navigation": false,
             "mobile_nav_icon": "arrows",
             "mobile_nav_svg": "",
             "mobile_nav_icon_size": 22,
