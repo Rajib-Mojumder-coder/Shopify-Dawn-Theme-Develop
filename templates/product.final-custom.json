@@ -75,7 +75,7 @@
             "media_fit": "contain",
             "constrain_to_screen_height": true,
             "media_corner_radius": 16,
-            "extent_media_to_screen_edge": true,
+            "extent_media_to_screen_edge": false,
             "enable_media_zoom": true,
             "image_zoom": "lightbox",
             "hide_variants": false,
