@@ -385,7 +385,8 @@
       "type": "checkbox",
       "id": "mobile_pagination",
       "label": "Mobile Pagination",
-      "default": false
+      "default": false,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
     },
     {
       "type": "select",
@@ -398,7 +399,7 @@
         { "label": "Hint", "value": "hint" }
       ],
       "default": "thumbnails",
-      "visible_if": "{{ block.settings.mobile_pagination and block.settings.gallery_layout == 'carousel' }}"
+      "visible_if": "{{ block.settings.mobile_pagination }}"
     },
     {
       "type": "header",
