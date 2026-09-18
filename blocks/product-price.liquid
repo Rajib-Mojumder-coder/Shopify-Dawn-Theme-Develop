@@ -22,7 +22,8 @@
 
 <div
   id="ProductPrice-{{ block.id }}"
-  class="product-price product-price--{{ block.id }}"
+  class="product-price product-price--{{ block.id }}  {% if block.settings.typography %}
+      custom-price--custom-type {% endif %}"
   {{ block.shopify_attributes }}
 >
 
