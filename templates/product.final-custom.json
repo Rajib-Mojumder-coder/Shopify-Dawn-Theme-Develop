@@ -35,7 +35,7 @@
           "type": "product-media",
           "static": true,
           "settings": {
-            "gallery_layout": "grid",
+            "gallery_layout": "carousel",
             "grid_column": "2",
             "grid_column_gap": 4,
             "full_width_first_image": true,
@@ -68,7 +68,7 @@
             "mobile_pagination_type": "thumbnails",
             "thumbnail_mobile_width": 30,
             "thumbnail_corner_radius": 8,
-            "carousel_slides": "1.25",
+            "carousel_slides": "1",
             "mobile_slides": "1",
             "media_background_color": "#d59b9b",
             "media_ratio": "landscape",
