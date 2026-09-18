@@ -26,12 +26,6 @@
   assign block_width = block.settings.block_width
   assign block_max_width = block.settings.block_max_width
 
-  assign block_padding = block.settings.block_padding
-  assign padding_top = block.settings.padding_top
-  assign padding_right = block.settings.padding_right
-  assign padding_bottom = block.settings.padding_bottom
-  assign padding_left = block.settings.padding_left
-
   assign block_border = block.settings.block_border
   assign border_width = block.settings.border_width
   assign border_style = block.settings.border_style
@@ -82,16 +76,6 @@
   .product-details-title--{{ block.id }} {
     width: {{ block_width }};
     max-width: {{ block_max_width }}px;
-
-    {% if block_padding %}
-      padding:
-        {{ padding_top }}px
-        {{ padding_right }}px
-        {{ padding_bottom }}px
-        {{ padding_left }}px;
-    {% else %}
-      padding: 0;
-    {% endif %}
 
     {% if block_border %}
       border:
@@ -509,66 +493,6 @@
         }
       ],
       "default": "left"
-    },
-
-    {
-      "type": "header",
-      "content": "Block padding"
-    },
-
-    {
-      "type": "checkbox",
-      "id": "block_padding",
-      "label": "Enable padding",
-      "default": false
-    },
-
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "Top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 0,
-      "visible_if": "{{ block.settings.block_padding }}"
-    },
-
-    {
-      "type": "range",
-      "id": "padding_right",
-      "label": "Right",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 0,
-      "visible_if": "{{ block.settings.block_padding }}"
-    },
-
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "label": "Bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 0,
-      "visible_if": "{{ block.settings.block_padding }}"
-    },
-
-    {
-      "type": "range",
-      "id": "padding_left",
-      "label": "Left",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 0,
-      "visible_if": "{{ block.settings.block_padding }}"
     },
 
     {
