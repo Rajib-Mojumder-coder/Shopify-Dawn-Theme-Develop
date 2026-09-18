@@ -462,6 +462,103 @@
       "label": "Badge text color",
       "default": "#FFFFFF",
       "visible_if": "{{ block.settings.show_custom_sale_badge }}"
+    },
+    {
+    "type": "header",
+    "content": "Typography"
+    },
+    {
+    "type": "checkbox",
+    "id": "typography",
+    "label": "Custom typography",
+    "default": false
+    },
+    {
+    "type": "color",
+    "id": "price_color",
+    "label": "Price color",
+    "default": "#000000",
+    "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+    "type": "range",
+    "id": "mobile_min_fontsize",
+    "label": "Mobile font size",
+    "min": 16,
+    "max": 60,
+    "step": 1,
+    "unit": "px",
+    "default": 20,
+    "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+    "type": "range",
+    "id": "desktop_max_fontsize",
+    "label": "Desktop font size",
+    "min": 18,
+    "max": 80,
+    "step": 1,
+    "unit": "px",
+    "default": 24,
+    "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+    "type": "select",
+    "id": "font_weight",
+    "label": "Font weight",
+    "options": [
+        {
+        "value": "300",
+        "label": "Light"
+        },
+        {
+        "value": "400",
+        "label": "Regular"
+        },
+        {
+        "value": "500",
+        "label": "Medium"
+        },
+        {
+        "value": "600",
+        "label": "Semi Bold"
+        },
+        {
+        "value": "700",
+        "label": "Bold"
+        },
+        {
+        "value": "800",
+        "label": "Extra Bold"
+        },
+        {
+        "value": "900",
+        "label": "Black"
+        }
+    ],
+    "default": "600",
+    "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+    "type": "range",
+    "id": "line_height",
+    "label": "Line height",
+    "min": 0.8,
+    "max": 2,
+    "step": 0.1,
+    "default": 1.1,
+    "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+    "type": "range",
+    "id": "letter_spacing",
+    "label": "Letter spacing",
+    "min": -2,
+    "max": 10,
+    "step": 1,
+    "unit": "px",
+    "default": 0,
+    "visible_if": "{{ block.settings.typography }}"
     }
 
   ],
