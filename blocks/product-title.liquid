@@ -79,6 +79,16 @@
 
     {% if typography %}
       font-size: clamp(
+      {{ block.settings.mobile_min_fontsize }}px,
+      calc(
+        {{ block.settings.mobile_min_fontsize }}px +
+        ({{ block.settings.desktop_max_fontsize }} - {{ block.settings.mobile_min_fontsize }})
+        * ((100vw - 320px) / 880)
+      ),
+      {{ block.settings.desktop_max_fontsize }}px
+    ) !important;
+
+      font-size: clamp(
         {{ mobile_font_size }}px,
         calc(
           {{ mobile_font_size }}px +
