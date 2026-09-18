@@ -210,126 +210,148 @@
       "type": "header",
       "content": "Layout"
     },
+
     {
       "type": "range",
       "id": "details_item_gap",
-      "label": "Gap",
+      "label": "Block spacing",
       "min": 0,
-      "max": 50,
+      "max": 60,
       "step": 1,
       "unit": "px",
       "default": 16
     },
+
     {
       "type": "checkbox",
-      "id": "Sticky_on_desktop",
+      "id": "sticky_on_desktop",
       "label": "Sticky on desktop",
       "default": false
     },
+
     {
       "type": "header",
-      "content": "Apparance"
+      "content": "Appearance"
     },
+
     {
       "type": "color",
       "id": "background_color",
-      "label": "Color",
+      "label": "Background",
       "default": "#00000000"
     },
+
     {
       "type": "header",
-      "content": "Borders"
+      "content": "Border"
     },
+
     {
       "type": "select",
-      "id": "borders_style",
-      "label": "Style",
+      "id": "border_style",
+      "label": "Border",
       "options": [
-        { "label": "None", "value": "none" },
-        { "label": "Solid", "value": "solid" }
-      ]
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "solid",
+          "label": "Solid"
+        }
+      ],
+      "default": "none"
     },
-     {
+
+    {
       "type": "range",
-      "id": "borders_thikness",
-      "label": "Thikness",
+      "id": "border_thickness",
+      "label": "Border thickness",
       "min": 0,
       "max": 10,
       "step": 1,
       "unit": "px",
-      "default": 0,
-      "visible_if": "{{ block.settings.borders_style == 'solid' }}"
+      "default": 1,
+      "visible_if": "{{ block.settings.border_style == 'solid' }}"
     },
+
     {
       "type": "color",
-      "id": "borders_color",
-      "label": "Color",
-      "default": "#00000000",
-      "visible_if": "{{ block.settings.borders_style == 'solid' }}"
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#DDDDDD",
+      "visible_if": "{{ block.settings.border_style == 'solid' }}"
     },
+
     {
       "type": "range",
       "id": "details_corner_radius",
-      "label": "Corner Radius",
+      "label": "Corner radius",
       "min": 0,
       "max": 100,
       "step": 1,
       "unit": "px",
       "default": 0
     },
+
     {
       "type": "header",
       "content": "Padding"
     },
+
     {
       "type": "checkbox",
       "id": "details_padding",
-      "label": "Padding",
+      "label": "Enable padding",
       "default": false
     },
+
     {
       "type": "range",
       "id": "padding_top",
-      "label": "Padding Top",
+      "label": "Top",
       "min": 0,
       "max": 100,
       "step": 1,
       "unit": "px",
       "default": 0,
-      "visible_if": "{{ block.settings.details_padding == true }}"
+      "visible_if": "{{ block.settings.details_padding }}"
     },
+
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "Padding Bottom",
+      "label": "Bottom",
       "min": 0,
       "max": 100,
       "step": 1,
       "unit": "px",
       "default": 0,
-      "visible_if": "{{ block.settings.details_padding == true }}"
+      "visible_if": "{{ block.settings.details_padding }}"
     },
+
     {
       "type": "range",
       "id": "padding_left",
-      "label": "Padding Left",
+      "label": "Left",
       "min": 0,
       "max": 100,
       "step": 1,
       "unit": "px",
       "default": 0,
-      "visible_if": "{{ block.settings.details_padding == true }}"
+      "visible_if": "{{ block.settings.details_padding }}"
     },
+
     {
       "type": "range",
       "id": "padding_right",
-      "label": "Padding Right",
+      "label": "Right",
       "min": 0,
       "max": 100,
       "step": 1,
       "unit": "px",
       "default": 0,
-      "visible_if": "{{ block.settings.details_padding == true }}"
+      "visible_if": "{{ block.settings.details_padding }}"
     }
   ]
 }
