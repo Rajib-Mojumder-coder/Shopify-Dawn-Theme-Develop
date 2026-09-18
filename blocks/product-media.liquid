@@ -4,11 +4,7 @@
   assign gallery_id = 'ProductMedia-' | append: block.id
 -%}
 
-<div
-  id="{{ gallery_id }}"
-  class="product-final__media"
-  {{ block.shopify_attributes }}
->
+<div id="{{ gallery_id }}" class="product-final__media" {{ block.shopify_attributes }}>
 
   <div class="product-final__media-inner
           product-final__media-inner--{{ block.settings.gallery_layout }}
