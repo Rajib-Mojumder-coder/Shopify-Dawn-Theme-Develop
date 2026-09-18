@@ -109,23 +109,30 @@
             "padding_right": 0
           },
           "blocks": {
-            "product_price_QG369Y": {
+            "product_price_UWKmbw": {
               "type": "product-price",
               "name": "Product price",
               "settings": {
                 "show_current_price": true,
-                "large_price": true,
-                "price_format": "money_without_currency",
+                "large_price": false,
+                "price_format": "money",
                 "round_price": false,
                 "show_compare_price": true,
                 "hide_compare_without_discount": true,
-                "compare_price_before": true,
+                "compare_price_before": false,
                 "compare_full_width": false,
                 "show_custom_sale_badge": true,
                 "sale_badge_type": "percentage",
                 "sale_badge_position": "inline",
                 "sale_badge_bg_color": "#FF0000",
-                "sale_badge_text_color": "#FFFFFF"
+                "sale_badge_text_color": "#FFFFFF",
+                "typography": true,
+                "price_color": "#000000",
+                "mobile_min_fontsize": 20,
+                "desktop_max_fontsize": 44,
+                "font_weight": "600",
+                "line_height": 1.1,
+                "letter_spacing": 0
               },
               "blocks": {}
             },
@@ -155,7 +162,7 @@
             }
           },
           "block_order": [
-            "product_price_QG369Y",
+            "product_price_UWKmbw",
             "product_title_WtaEHj"
           ]
         }
