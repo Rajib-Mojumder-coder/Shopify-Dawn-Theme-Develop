@@ -21,11 +21,6 @@
 
   assign block_width = block.settings.block_width
 
-  assign block_border = block.settings.block_border
-  assign border_width = block.settings.border_width
-  assign border_style = block.settings.border_style
-  assign border_color = block.settings.border_color
-  assign border_radius = block.settings.border_radius
 %}
 
 <div
@@ -396,77 +391,8 @@
         }
       ],
       "default": "left"
-    },
-
-    {
-      "type": "header",
-      "content": "Border"
-    },
-
-    {
-      "type": "checkbox",
-      "id": "block_border",
-      "label": "Enable border",
-      "default": false
-    },
-
-    {
-      "type": "range",
-      "id": "border_width",
-      "label": "Border width",
-      "min": 0,
-      "max": 10,
-      "step": 0.5,
-      "unit": "px",
-      "default": 1,
-      "visible_if": "{{ block.settings.block_border }}"
-    },
-
-    {
-      "type": "select",
-      "id": "border_style",
-      "label": "Border style",
-      "options": [
-        {
-          "value": "solid",
-          "label": "Solid"
-        },
-        {
-          "value": "dashed",
-          "label": "Dashed"
-        },
-        {
-          "value": "dotted",
-          "label": "Dotted"
-        },
-        {
-          "value": "double",
-          "label": "Double"
-        }
-      ],
-      "default": "solid",
-      "visible_if": "{{ block.settings.block_border }}"
-    },
-
-    {
-      "type": "color",
-      "id": "border_color",
-      "label": "Border color",
-      "default": "#000000",
-      "visible_if": "{{ block.settings.block_border }}"
-    },
-
-    {
-      "type": "range",
-      "id": "border_radius",
-      "label": "Corner radius",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0,
-      "visible_if": "{{ block.settings.block_border }}"
     }
+
   ],
 
   "presets": [
