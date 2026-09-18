@@ -52,8 +52,7 @@
 
   .product-details-title--{{ block.id }}
   .product-details-title__inner {
-    width: {{ content_width }};
-    text-align: {{ content_alignment }};
+    
   }
 
   .product-details-title--{{ block.id }}
@@ -63,7 +62,8 @@
       0
       {{ title_bottom_spacing }}px;
 
-    /* width: 100%; */
+    width: {{ content_width }};
+    text-align: {{ content_alignment }};
 
     overflow-wrap: break-word;
     word-break: break-word;
