@@ -129,7 +129,7 @@
                 "text_transform": "none",
                 "block_width": "100%",
                 "content_width": "100%",
-                "content_alignment": "center"
+                "content_alignment": "left"
               },
               "blocks": {}
             }
