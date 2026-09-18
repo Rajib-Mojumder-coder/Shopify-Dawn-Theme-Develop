@@ -14,20 +14,64 @@
   endif
 -%}
 
-<div class="product-final__information" {{ block.shopify_attributes }}>
+<div
+  class="product-final__information"
+  {{ block.shopify_attributes }}
+
+  style="
+    --details-item-gap: {{ details_gap }}px;
+    --details-content-width: {{ content_max_width }};
+    --details-background: {{ block.settings.background_color }};
+    --details-border-width: {{ block.settings.border_thickness }}px;
+    --details-border-color: {{ block.settings.border_color }};
+    --details-radius: {{ details_radius }}px;
+
+    {% if block.settings.details_padding %}
+      --details-padding-top: {{ block.settings.padding_top }}px;
+      --details-padding-bottom: {{ block.settings.padding_bottom }}px;
+      --details-padding-left: {{ block.settings.padding_left }}px;
+      --details-padding-right: {{ block.settings.padding_right }}px;
+    {% else %}
+      --details-padding-top: 0px;
+      --details-padding-bottom: 0px;
+      --details-padding-left: 0px;
+      --details-padding-right: 0px;
+    {% endif %}
+  "
+>
 
   <div
     class="
       product-final__information-inner
-      {% if section.settings.enable_sticky_info %}
+
+      {% if block.settings.sticky_on_desktop %}
         product-final__information-inner--sticky
       {% endif %}
+
+      product-final__information-inner--{{ block.settings.content_width }}
+
+      product-final__information-inner--align-{{ block.settings.text_align }}
+
+      product-final__information-inner--valign-{{ block.settings.vertical_align }}
     "
   >
 
     <section
       id="ProductInfo-{{ section.id }}"
       class="product-final__info-content"
+      style="
+        background: var(--details-background);
+        border:
+          var(--details-border-width)
+          {{ block.settings.border_style }}
+          var(--details-border-color);
+        border-radius: var(--details-radius);
+        padding:
+          var(--details-padding-top)
+          var(--details-padding-right)
+          var(--details-padding-bottom)
+          var(--details-padding-left);
+      "
     >
 
       <product-form
@@ -60,7 +104,11 @@
             class="custom-product-form__quantity"
           >
 
-          {% content_for 'blocks' %}
+          <div class="product-final__details-content">
+
+            {% content_for 'blocks' %}
+
+          </div>
 
         {%- endform -%}
 
