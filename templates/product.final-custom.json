@@ -121,21 +121,15 @@
                 "title_bottom_spacing": 0,
                 "typography": true,
                 "title_color": "#000000",
-                "mobile_font_size": 32,
-                "desktop_font_size": 78,
+                "mobile_min_fontsize": 32,
+                "desktop_max_fontsize": 73,
                 "font_weight": "600",
                 "line_height": 1.1,
                 "letter_spacing": 0,
                 "text_transform": "none",
                 "block_width": "100%",
-                "block_max_width": 1200,
                 "content_width": "fit-content",
-                "content_alignment": "right",
-                "block_border": false,
-                "border_width": 1,
-                "border_style": "solid",
-                "border_color": "#000000",
-                "border_radius": 0
+                "content_alignment": "right"
               },
               "blocks": {}
             }
