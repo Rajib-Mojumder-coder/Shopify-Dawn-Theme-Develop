@@ -119,7 +119,7 @@
                 "text_wrap": "nowrap",
                 "title_top_spacing": 0,
                 "title_bottom_spacing": 0,
-                "typography": true,
+                "typography": false,
                 "title_color": "#000000",
                 "mobile_min_fontsize": 32,
                 "desktop_max_fontsize": 48,
