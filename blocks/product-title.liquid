@@ -14,8 +14,6 @@
   assign typography = block.settings.typography
   assign title_color = block.settings.title_color
 
-  assign mobile_font_size = block.settings.mobile_font_size
-  assign desktop_font_size = block.settings.desktop_font_size
   assign font_weight = block.settings.font_weight
   assign line_height = block.settings.line_height
   assign letter_spacing = block.settings.letter_spacing
@@ -87,16 +85,6 @@
       ),
       {{ block.settings.desktop_max_fontsize }}px
     ) !important;
-
-      font-size: clamp(
-        {{ mobile_font_size }}px,
-        calc(
-          {{ mobile_font_size }}px +
-          ({{ desktop_font_size }} - {{ mobile_font_size }}px)
-          * ((100vw - 320px) / 880)
-        ),
-        {{ desktop_font_size }}px
-      ) !important;
 
       font-weight: {{ font_weight }};
       line-height: {{ line_height }};
@@ -227,31 +215,26 @@
       "default": "#000000",
       "visible_if": "{{ block.settings.typography }}"
     },
-
     {
       "type": "range",
-      "id": "mobile_font_size",
+      "id": "mobile_min_fontsize",
       "label": "Mobile font size",
       "min": 20,
       "max": 80,
       "step": 1,
       "unit": "px",
-      "default": 32,
-      "visible_if": "{{ block.settings.typography }}"
+      "default": 32
     },
-
     {
       "type": "range",
-      "id": "desktop_font_size",
+      "id": "desktop_max_fontsize",
       "label": "Desktop font size",
-      "min": 24,
+      "min": 30,
       "max": 120,
       "step": 1,
       "unit": "px",
-      "default": 48,
-      "visible_if": "{{ block.settings.typography }}"
+      "default": 48
     },
-
     {
       "type": "select",
       "id": "font_weight",
