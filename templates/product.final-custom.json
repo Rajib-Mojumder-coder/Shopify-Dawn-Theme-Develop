@@ -114,7 +114,28 @@
               "name": "Product title",
               "settings": {
                 "show_vendor": false,
-                "show_product_type": false
+                "vendor_position": "top",
+                "show_product_type": false,
+                "text_wrap": "wrap",
+                "title_top_spacing": 22,
+                "title_bottom_spacing": 8,
+                "typography": false,
+                "title_color": "#000000",
+                "mobile_font_size": 32,
+                "desktop_font_size": 48,
+                "font_weight": "600",
+                "line_height": 1.1,
+                "letter_spacing": 0,
+                "text_transform": "none",
+                "block_width": "100%",
+                "block_max_width": 1200,
+                "content_width": "100%",
+                "content_alignment": "left",
+                "block_border": false,
+                "border_width": 1,
+                "border_style": "solid",
+                "border_color": "#000000",
+                "border_radius": 0
               },
               "blocks": {}
             }

@@ -4,10 +4,8 @@
 
   assign vendor_position = block.settings.vendor_position
 
-  assign title_tag = block.settings.title_tag
   assign content_width = block.settings.content_width
   assign content_alignment = block.settings.content_alignment
-  assign title_max_width = block.settings.title_max_width
   assign text_wrap = block.settings.text_wrap
 
   assign title_top_spacing = block.settings.title_top_spacing
@@ -51,11 +49,9 @@
       </div>
     {% endif %}
 
-    <{{ title_tag }}
-      class="product-details-title__heading"
-    >
+    <h1 class="product-details-title__heading">
       {{ product.title }}
-    </{{ title_tag }}>
+    </h1>
 
     {% if show_vendor and product.vendor != blank and vendor_position == 'bottom' %}
       <div class="product-details-title__vendor">
@@ -93,7 +89,6 @@
   .product-details-title--{{ block.id }}
   .product-details-title__inner {
     width: {{ content_width }};
-    max-width: {{ title_max_width }}px;
     text-align: {{ content_alignment }};
   }
 
@@ -196,39 +191,6 @@
 
     {
       "type": "select",
-      "id": "title_tag",
-      "label": "Title tag",
-      "options": [
-        {
-          "value": "h1",
-          "label": "H1"
-        },
-        {
-          "value": "h2",
-          "label": "H2"
-        },
-        {
-          "value": "h3",
-          "label": "H3"
-        },
-        {
-          "value": "h4",
-          "label": "H4"
-        },
-        {
-          "value": "h5",
-          "label": "H5"
-        },
-        {
-          "value": "h6",
-          "label": "H6"
-        }
-      ],
-      "default": "h1"
-    },
-
-    {
-      "type": "select",
       "id": "text_wrap",
       "label": "Text wrap",
       "options": [
@@ -243,18 +205,6 @@
       ],
       "default": "wrap"
     },
-
-    {
-      "type": "range",
-      "id": "title_max_width",
-      "label": "Title max width",
-      "min": 200,
-      "max": 1200,
-      "step": 10,
-      "unit": "px",
-      "default": 1000
-    },
-
     {
       "type": "range",
       "id": "title_top_spacing",
