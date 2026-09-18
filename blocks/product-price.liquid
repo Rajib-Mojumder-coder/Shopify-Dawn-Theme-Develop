@@ -1,92 +1,38 @@
 {%- liquid
-  assign current_variant = product.selected_or_first_available_variant
-
-  assign current_price = current_variant.price
-  assign compare_price = current_variant.compare_at_price
+  assign current_price = product.selected_or_first_available_variant.price
+  assign compare_price = product.selected_or_first_available_variant.compare_at_price
 
   assign has_discount = false
 
-  if compare_price > current_price
+  if compare_price != blank and compare_price > current_price
     assign has_discount = true
   endif
 
   assign sale_percentage = 0
-  assign sale_amount = 0
+  assign savings_amount = 0
 
   if has_discount
-    assign sale_amount = compare_price | minus: current_price
-    assign sale_percentage = sale_amount | times: 100 | divided_by: compare_price
-  endif
+    assign savings_amount = compare_price | minus: current_price
 
-  assign current_price_format = block.settings.price_format
-
-  if block.settings.round_price
-    assign current_price = current_price | divided_by: 100 | round | times: 100
+    if compare_price > 0
+      assign sale_percentage = savings_amount | times: 100 | divided_by: compare_price
+    endif
   endif
 -%}
 
 <div
   id="ProductPrice-{{ block.id }}"
-  class="
-    product-price
-    product-price--{{ block.id }}
-    {% if block.settings.compare_price_before %}
-      product-price--compare-before
-    {% endif %}
-  "
+  class="product-price product-price--{{ block.id }}"
   {{ block.shopify_attributes }}
 >
 
   <div class="product-price__display">
 
     {%- comment -%}
-      ==========================================================
-      COMPARE-AT PRICE
-      ==========================================================
-    {%- endcomment -%}
-
-    {% if block.settings.show_compare_price and has_discount %}
-
-      <span
-        class="
-          product-price__compare
-          {% if block.settings.compare_full_width %}
-            product-price__compare--full
-          {% endif %}
-        "
-        data-product-compare-price
-      >
-        {{ compare_price | money }}
-      </span>
-
-    {% elsif block.settings.show_compare_price
-      and block.settings.hide_compare_without_discount == false
-      and compare_price > 0
-    %}
-
-      <span
-        class="
-          product-price__compare
-          {% if block.settings.compare_full_width %}
-            product-price__compare--full
-          {% endif %}
-        "
-        data-product-compare-price
-      >
-        {{ compare_price | money }}
-      </span>
-
-    {% endif %}
-
-
-    {%- comment -%}
-      ==========================================================
       CURRENT PRICE
-      ==========================================================
     {%- endcomment -%}
 
     {% if block.settings.show_current_price %}
-
       <span
         class="
           product-price__current
@@ -94,10 +40,9 @@
             product-price__current--large
           {% endif %}
         "
-        data-product-current-price
+        data-product-price
       >
-
-        {% case current_price_format %}
+        {% case block.settings.price_format %}
 
           {% when 'money_with_currency' %}
             {{ current_price | money_with_currency }}
@@ -112,34 +57,56 @@
             {{ current_price | money }}
 
         {% endcase %}
-
       </span>
+    {% endif %}
+
+
+    {%- comment -%}
+      COMPARE-AT PRICE
+    {%- endcomment -%}
+
+    {% if block.settings.show_compare_price and compare_price != blank %}
+
+      {% if has_discount or block.settings.hide_compare_without_discount == false %}
+
+        <span
+          class="
+            product-price__compare
+            {% if block.settings.compare_full_width %}
+              product-price__compare--full-width
+            {% endif %}
+          "
+          data-product-compare-price
+        >
+          {% case block.settings.price_format %}
+
+            {% when 'money_with_currency' %}
+              {{ compare_price | money_with_currency }}
+
+            {% when 'money_without_currency' %}
+              {{ compare_price | money_without_currency }}
+
+            {% when 'money_without_trailing_zeros' %}
+              {{ compare_price | money_without_trailing_zeros }}
+
+            {% else %}
+              {{ compare_price | money }}
+
+          {% endcase %}
+        </span>
+
+      {% endif %}
 
     {% endif %}
 
 
     {%- comment -%}
-      ==========================================================
       SALE BADGE
-      ==========================================================
     {%- endcomment -%}
 
     {% if block.settings.show_custom_sale_badge and has_discount %}
 
-      <span
-        class="
-          product-price__badge
-
-          {% if block.settings.sale_badge_position == 'inline' %}
-            product-price__badge--inline
-          {% elsif block.settings.sale_badge_position == 'top-right' %}
-            product-price__badge--top-right
-          {% elsif block.settings.sale_badge_position == 'top-left' %}
-            product-price__badge--top-left
-          {% endif %}
-        "
-        data-product-sale-badge
-      >
+      <span class="product-price__badge">
 
         {% case block.settings.sale_badge_type %}
 
@@ -150,7 +117,23 @@
             {{ sale_percentage }}% OFF
 
           {% when 'amount' %}
-            Save {{ sale_amount | money }}
+
+            Save
+            {% case block.settings.price_format %}
+
+              {% when 'money_with_currency' %}
+                {{ savings_amount | money_with_currency }}
+
+              {% when 'money_without_currency' %}
+                {{ savings_amount | money_without_currency }}
+
+              {% when 'money_without_trailing_zeros' %}
+                {{ savings_amount | money_without_trailing_zeros }}
+
+              {% else %}
+                {{ savings_amount | money }}
+
+            {% endcase %}
 
         {% endcase %}
 
