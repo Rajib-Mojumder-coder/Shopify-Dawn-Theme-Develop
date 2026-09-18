@@ -508,7 +508,7 @@
 
     {
       "type": "header",
-      "content": "Price"
+      "content": "Current price"
     },
 
     {
@@ -516,6 +516,54 @@
       "id": "show_current_price",
       "label": "Show current price",
       "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "large_price",
+      "label": "Large price",
+      "default": false,
+      "visible_if": "{{ block.settings.show_current_price }}"
+    },
+
+    {
+      "type": "select",
+      "id": "price_format",
+      "label": "Money format",
+      "default": "money",
+      "options": [
+        {
+          "label": "Money",
+          "value": "money"
+        },
+        {
+          "label": "Money with currency",
+          "value": "money_with_currency"
+        },
+        {
+          "label": "Money without currency",
+          "value": "money_without_currency"
+        },
+        {
+          "label": "Money without trailing zeros",
+          "value": "money_without_trailing_zeros"
+        }
+      ],
+      "visible_if": "{{ block.settings.show_current_price }}"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "round_price",
+      "label": "Round price",
+      "default": false,
+      "visible_if": "{{ block.settings.show_current_price }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Compare-at price"
     },
 
     {
@@ -528,40 +576,25 @@
     {
       "type": "checkbox",
       "id": "hide_compare_without_discount",
-      "label": "Hide compare-at price when not on sale",
-      "default": true
-    },
-
-    {
-      "type": "select",
-      "id": "price_format",
-      "label": "Price format",
-      "options": [
-        {
-          "value": "money",
-          "label": "Money"
-        },
-        {
-          "value": "money_with_currency",
-          "label": "Money with currency"
-        },
-        {
-          "value": "money_without_currency",
-          "label": "Money without currency"
-        },
-        {
-          "value": "money_without_trailing_zeros",
-          "label": "Money without trailing zeros"
-        }
-      ],
-      "default": "money"
+      "label": "Hide when no discount",
+      "default": true,
+      "visible_if": "{{ block.settings.show_compare_price }}"
     },
 
     {
       "type": "checkbox",
-      "id": "round_price",
-      "label": "Round price",
-      "default": false
+      "id": "compare_price_before",
+      "label": "Show compare-at price first",
+      "default": false,
+      "visible_if": "{{ block.settings.show_compare_price }}"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "compare_full_width",
+      "label": "Full width",
+      "default": false,
+      "visible_if": "{{ block.settings.show_compare_price }}"
     },
 
 
@@ -572,247 +605,73 @@
 
     {
       "type": "checkbox",
-      "id": "show_sale_badge",
+      "id": "show_custom_sale_badge",
       "label": "Show sale badge",
-      "default": false
+      "default": true
     },
 
     {
       "type": "select",
       "id": "sale_badge_type",
-      "label": "Badge type",
+      "label": "Badge display type",
+      "default": "percentage",
+
       "options": [
         {
+          "value": "text",
+          "label": "Text (SALE)"
+        },
+        {
           "value": "percentage",
-          "label": "Percentage"
+          "label": "Percentage (33% OFF)"
         },
         {
           "value": "amount",
-          "label": "Savings amount"
-        },
-        {
-          "value": "sale",
-          "label": "Sale"
+          "label": "Amount (Save $100)"
         }
       ],
-      "default": "percentage",
-      "visible_if": "{{ block.settings.show_sale_badge }}"
+
+      "visible_if": "{{ block.settings.show_custom_sale_badge }}"
     },
 
     {
       "type": "select",
       "id": "sale_badge_position",
-      "label": "Badge vertical alignment",
+      "label": "Badge position",
+      "default": "inline",
+
       "options": [
         {
-          "value": "top",
-          "label": "Top"
+          "value": "inline",
+          "label": "Inline with price"
         },
         {
-          "value": "center",
-          "label": "Center"
+          "value": "top-right",
+          "label": "Top right"
         },
         {
-          "value": "bottom",
-          "label": "Bottom"
+          "value": "top-left",
+          "label": "Top left"
         }
       ],
-      "default": "center",
-      "visible_if": "{{ block.settings.show_sale_badge }}"
-    },
 
-
-    {
-      "type": "header",
-      "content": "Typography"
+      "visible_if": "{{ block.settings.show_custom_sale_badge }}"
     },
 
     {
-      "type": "range",
-      "id": "current_price_mobile",
-      "label": "Current price mobile size",
-      "min": 14,
-      "max": 50,
-      "step": 1,
-      "unit": "px",
-      "default": 18
+      "type": "color",
+      "id": "sale_badge_bg_color",
+      "label": "Badge background",
+      "default": "#FF0000",
+      "visible_if": "{{ block.settings.show_custom_sale_badge }}"
     },
 
     {
-      "type": "range",
-      "id": "current_price_desktop",
-      "label": "Current price desktop size",
-      "min": 16,
-      "max": 60,
-      "step": 1,
-      "unit": "px",
-      "default": 22
-    },
-
-    {
-      "type": "select",
-      "id": "current_price_weight",
-      "label": "Current price weight",
-      "options": [
-        {
-          "value": "400",
-          "label": "Regular"
-        },
-        {
-          "value": "500",
-          "label": "Medium"
-        },
-        {
-          "value": "600",
-          "label": "Semi bold"
-        },
-        {
-          "value": "700",
-          "label": "Bold"
-        }
-      ],
-      "default": "700"
-    },
-
-    {
-      "type": "range",
-      "id": "compare_price_mobile",
-      "label": "Compare price mobile size",
-      "min": 12,
-      "max": 40,
-      "step": 1,
-      "unit": "px",
-      "default": 16
-    },
-
-    {
-      "type": "range",
-      "id": "compare_price_desktop",
-      "label": "Compare price desktop size",
-      "min": 14,
-      "max": 50,
-      "step": 1,
-      "unit": "px",
-      "default": 18
-    },
-
-    {
-      "type": "select",
-      "id": "compare_price_weight",
-      "label": "Compare price weight",
-      "options": [
-        {
-          "value": "400",
-          "label": "Regular"
-        },
-        {
-          "value": "500",
-          "label": "Medium"
-        },
-        {
-          "value": "600",
-          "label": "Semi bold"
-        },
-        {
-          "value": "700",
-          "label": "Bold"
-        }
-      ],
-      "default": "400"
-    },
-
-
-    {
-      "type": "header",
-      "content": "Layout"
-    },
-
-    {
-      "type": "select",
-      "id": "content_width",
-      "label": "Content width",
-      "options": [
-        {
-          "value": "100%",
-          "label": "Full"
-        },
-        {
-          "value": "fit-content",
-          "label": "Fit content"
-        }
-      ],
-      "default": "100%"
-    },
-
-    {
-      "type": "select",
-      "id": "text_alignment",
-      "label": "Text alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
-      ],
-      "default": "left"
-    },
-
-
-    {
-      "type": "header",
-      "content": "Spacing"
-    },
-
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "Padding top",
-      "min": 0,
-      "max": 100,
-      "step": 2,
-      "unit": "px",
-      "default": 0
-    },
-
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "label": "Padding bottom",
-      "min": 0,
-      "max": 100,
-      "step": 2,
-      "unit": "px",
-      "default": 0
-    },
-
-    {
-      "type": "range",
-      "id": "padding_left",
-      "label": "Padding left",
-      "min": 0,
-      "max": 100,
-      "step": 2,
-      "unit": "px",
-      "default": 0
-    },
-
-    {
-      "type": "range",
-      "id": "padding_right",
-      "label": "Padding right",
-      "min": 0,
-      "max": 100,
-      "step": 2,
-      "unit": "px",
-      "default": 0
+      "type": "color",
+      "id": "sale_badge_text_color",
+      "label": "Badge text color",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.show_custom_sale_badge }}"
     }
 
   ],
