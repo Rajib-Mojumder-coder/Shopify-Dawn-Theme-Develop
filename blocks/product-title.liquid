@@ -1,40 +1,644 @@
+{% liquid
+  assign show_vendor = block.settings.show_vendor
+  assign show_product_type = block.settings.show_product_type
+
+  assign vendor_position = block.settings.vendor_position
+
+  assign title_tag = block.settings.title_tag
+  assign content_width = block.settings.content_width
+  assign content_alignment = block.settings.content_alignment
+  assign title_max_width = block.settings.title_max_width
+  assign text_wrap = block.settings.text_wrap
+
+  assign title_top_spacing = block.settings.title_top_spacing
+  assign title_bottom_spacing = block.settings.title_bottom_spacing
+
+  assign typography = block.settings.typography
+  assign title_color = block.settings.title_color
+
+  assign mobile_font_size = block.settings.mobile_font_size
+  assign desktop_font_size = block.settings.desktop_font_size
+  assign font_weight = block.settings.font_weight
+  assign line_height = block.settings.line_height
+  assign letter_spacing = block.settings.letter_spacing
+  assign text_transform = block.settings.text_transform
+
+  assign block_width = block.settings.block_width
+  assign block_max_width = block.settings.block_max_width
+
+  assign block_padding = block.settings.block_padding
+  assign padding_top = block.settings.padding_top
+  assign padding_right = block.settings.padding_right
+  assign padding_bottom = block.settings.padding_bottom
+  assign padding_left = block.settings.padding_left
+
+  assign block_border = block.settings.block_border
+  assign border_width = block.settings.border_width
+  assign border_style = block.settings.border_style
+  assign border_color = block.settings.border_color
+  assign border_radius = block.settings.border_radius
+%}
+
 <div
-  class="product-details-title"
+  class="
+    product-details-title
+    product-details-title--{{ block.id }}
+    {% if block_border %}
+      product-details-title--border
+    {% endif %}
+  "
   {{ block.shopify_attributes }}
 >
-  {% if block.settings.show_vendor %}
-    <div class="product-details-title__vendor">
-      {{ product.vendor }}
-    </div>
-  {% endif %}
+  <div class="product-details-title__inner">
 
-  <h1 class="product-details-title__heading">
-    {{ product.title }}
-  </h1>
+    {% if show_vendor and product.vendor != blank and vendor_position == 'top' %}
+      <div class="product-details-title__vendor">
+        {{ product.vendor }}
+      </div>
+    {% endif %}
 
-  {% if block.settings.show_product_type and product.type != blank %}
-    <div class="product-details-title__type">
-      {{ product.type }}
-    </div>
-  {% endif %}
+    <{{ title_tag }}
+      class="product-details-title__heading"
+    >
+      {{ product.title }}
+    </{{ title_tag }}>
+
+    {% if show_vendor and product.vendor != blank and vendor_position == 'bottom' %}
+      <div class="product-details-title__vendor">
+        {{ product.vendor }}
+      </div>
+    {% endif %}
+
+    {% if show_product_type and product.type != blank %}
+      <div class="product-details-title__type">
+        {{ product.type }}
+      </div>
+    {% endif %}
+
+  </div>
 </div>
+
+<style>
+  .product-details-title--{{ block.id }} {
+    width: {{ block_width }};
+    max-width: {{ block_max_width }}px;
+
+    {% if block_padding %}
+      padding:
+        {{ padding_top }}px
+        {{ padding_right }}px
+        {{ padding_bottom }}px
+        {{ padding_left }}px;
+    {% else %}
+      padding: 0;
+    {% endif %}
+
+    {% if block_border %}
+      border:
+        {{ border_width }}px
+        {{ border_style }}
+        {{ border_color }};
+      border-radius: {{ border_radius }}px;
+    {% else %}
+      border: none;
+    {% endif %}
+
+    box-sizing: border-box;
+  }
+
+  .product-details-title--{{ block.id }}
+  .product-details-title__inner {
+    width: {{ content_width }};
+    max-width: {{ title_max_width }}px;
+    text-align: {{ content_alignment }};
+  }
+
+  .product-details-title--{{ block.id }}
+  .product-details-title__heading {
+    margin:
+      {{ title_top_spacing }}px
+      0
+      {{ title_bottom_spacing }}px;
+
+    width: 100%;
+
+    overflow-wrap: break-word;
+    word-break: break-word;
+
+    white-space: {{ text_wrap }};
+
+    {% if typography %}
+      font-size: clamp(
+        {{ mobile_font_size }}px,
+        calc(
+          {{ mobile_font_size }}px +
+          ({{ desktop_font_size }} - {{ mobile_font_size }}px)
+          * ((100vw - 320px) / 880)
+        ),
+        {{ desktop_font_size }}px
+      );
+
+      font-weight: {{ font_weight }};
+      line-height: {{ line_height }};
+      letter-spacing: {{ letter_spacing }}px;
+      text-transform: {{ text_transform }};
+      color: {{ title_color }};
+    {% endif %}
+  }
+
+  .product-details-title--{{ block.id }}
+  .product-details-title__vendor {
+    margin: 0 0 8px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .product-details-title--{{ block.id }}
+  .product-details-title__type {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+</style>
 
 {% schema %}
 {
   "name": "Product title",
+  "tag": null,
 
   "settings": [
+
+    {
+      "type": "header",
+      "content": "Product content"
+    },
+
     {
       "type": "checkbox",
       "id": "show_vendor",
       "label": "Show vendor",
       "default": false
     },
+
+    {
+      "type": "select",
+      "id": "vendor_position",
+      "label": "Vendor position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Above title"
+        },
+        {
+          "value": "bottom",
+          "label": "Below title"
+        }
+      ],
+      "default": "top",
+      "visible_if": "{{ block.settings.show_vendor }}"
+    },
+
     {
       "type": "checkbox",
       "id": "show_product_type",
       "label": "Show product type",
       "default": false
+    },
+
+    {
+      "type": "header",
+      "content": "Title"
+    },
+
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ],
+      "default": "h1"
+    },
+
+    {
+      "type": "select",
+      "id": "text_wrap",
+      "label": "Text wrap",
+      "options": [
+        {
+          "value": "wrap",
+          "label": "Wrap"
+        },
+        {
+          "value": "nowrap",
+          "label": "No wrap"
+        }
+      ],
+      "default": "wrap"
+    },
+
+    {
+      "type": "range",
+      "id": "title_max_width",
+      "label": "Title max width",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 1000
+    },
+
+    {
+      "type": "range",
+      "id": "title_top_spacing",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "title_bottom_spacing",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "typography",
+      "label": "Custom typography",
+      "default": false
+    },
+
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "label": "Mobile font size",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 32,
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "range",
+      "id": "desktop_font_size",
+      "label": "Desktop font size",
+      "min": 24,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "default": 48,
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold"
+        },
+        {
+          "value": "900",
+          "label": "Black"
+        }
+      ],
+      "default": "600",
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "range",
+      "id": "line_height",
+      "label": "Line height",
+      "min": 0.8,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.1,
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": -5,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "UPPERCASE"
+        },
+        {
+          "value": "lowercase",
+          "label": "lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "none",
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "header",
+      "content": "Block layout"
+    },
+
+    {
+      "type": "select",
+      "id": "block_width",
+      "label": "Block width",
+      "options": [
+        {
+          "value": "100%",
+          "label": "100%"
+        },
+        {
+          "value": "80%",
+          "label": "80%"
+        },
+        {
+          "value": "75%",
+          "label": "75%"
+        },
+        {
+          "value": "66.66%",
+          "label": "66%"
+        },
+        {
+          "value": "50%",
+          "label": "50%"
+        },
+        {
+          "value": "fit-content",
+          "label": "Fit content"
+        }
+      ],
+      "default": "100%"
+    },
+
+    {
+      "type": "range",
+      "id": "block_max_width",
+      "label": "Block max width",
+      "min": 200,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1200
+    },
+
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "options": [
+        {
+          "value": "100%",
+          "label": "Full"
+        },
+        {
+          "value": "fit-content",
+          "label": "Fit content"
+        }
+      ],
+      "default": "100%"
+    },
+
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+
+    {
+      "type": "header",
+      "content": "Block padding"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "block_padding",
+      "label": "Enable padding",
+      "default": false
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.block_padding }}"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.block_padding }}"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.block_padding }}"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.block_padding }}"
+    },
+
+    {
+      "type": "header",
+      "content": "Border"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "block_border",
+      "label": "Enable border",
+      "default": false
+    },
+
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "px",
+      "default": 1,
+      "visible_if": "{{ block.settings.block_border }}"
+    },
+
+    {
+      "type": "select",
+      "id": "border_style",
+      "label": "Border style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "dashed",
+          "label": "Dashed"
+        },
+        {
+          "value": "dotted",
+          "label": "Dotted"
+        },
+        {
+          "value": "double",
+          "label": "Double"
+        }
+      ],
+      "default": "solid",
+      "visible_if": "{{ block.settings.block_border }}"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.block_border }}"
+    },
+
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.block_border }}"
     }
   ],
 
