@@ -96,11 +96,11 @@
             "text_align": "left",
             "vertical_align": "start",
             "details_item_gap": 16,
-            "Sticky_on_desktop": false,
+            "sticky_on_desktop": false,
             "background_color": "rgba(0,0,0,0)",
-            "borders_style": "none",
-            "borders_thikness": 0,
-            "borders_color": "rgba(0,0,0,0)",
+            "border_style": "none",
+            "border_thickness": 1,
+            "border_color": "#dddddd",
             "details_corner_radius": 0,
             "details_padding": false,
             "padding_top": 0,
@@ -108,7 +108,51 @@
             "padding_left": 0,
             "padding_right": 0
           },
-          "blocks": {}
+          "blocks": {
+            "custom_text_iQKcjV": {
+              "type": "custom_text",
+              "name": "Text Block",
+              "settings": {
+                "block_outer_width": "100%",
+                "max_width": 1200,
+                "inherit_color_scheme": false,
+                "color_scheme": "",
+                "block_text": "<p>{{ closest.product.vendor }}</p>",
+                "content_width": "fit-content",
+                "content_height": "fit-content",
+                "text_maxwidth": 1000,
+                "white_space": "wrap",
+                "typography": false,
+                "mobile_min_fontsize": 14,
+                "desktop_max_fontsize": 16,
+                "font_weight": "400",
+                "line_height": 1.2,
+                "letter_spacing": 0,
+                "text_transform": "none",
+                "text_horizontal_alignment": "left",
+                "content_spacing": false,
+                "padding_top": 0,
+                "padding_bottom": 0,
+                "padding_left": 0,
+                "padding_right": 0,
+                "block_border": false,
+                "block_border-width": 3,
+                "block_border-style": "solid",
+                "block_border-color": "#000000",
+                "block_border-opacity": 100,
+                "border_hover-color": "#ff0000",
+                "block_border_radius": false,
+                "block_border_top_left_radius": 0,
+                "block_border_top_right_radius": 0,
+                "block_border_bottom_left_radius": 0,
+                "block_border_bottom_right_radius": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "custom_text_iQKcjV"
+          ]
         }
       },
       "name": "Product information",
