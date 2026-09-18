@@ -129,7 +129,7 @@
                 "text_transform": "none",
                 "block_width": "100%",
                 "block_max_width": 1200,
-                "content_width": "100%",
+                "content_width": "fit-content",
                 "content_alignment": "left",
                 "block_border": false,
                 "border_width": 1,
