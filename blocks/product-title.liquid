@@ -32,40 +32,24 @@
 %}
 
 <div
-  class="
-    product-details-title
-    product-details-title--{{ block.id }}
-    {% if block_border %}
-      product-details-title--border
-    {% endif %}
-  "
+  class="product-details-title product-details-title--{{ block.id }}"
   {{ block.shopify_attributes }}
 >
-  <div class="product-details-title__inner">
+  {% if block.settings.show_vendor %}
+    <div class="product-details-title__vendor">
+      {{ product.vendor }}
+    </div>
+  {% endif %}
 
-    {% if show_vendor and product.vendor != blank and vendor_position == 'top' %}
-      <div class="product-details-title__vendor">
-        {{ product.vendor }}
-      </div>
-    {% endif %}
+  <h1 class="product-details-title__heading">
+    {{ product.title }}
+  </h1>
 
-    <h1 class="product-details-title__heading">
-      {{ product.title }}
-    </h1>
-
-    {% if show_vendor and product.vendor != blank and vendor_position == 'bottom' %}
-      <div class="product-details-title__vendor">
-        {{ product.vendor }}
-      </div>
-    {% endif %}
-
-    {% if show_product_type and product.type != blank %}
-      <div class="product-details-title__type">
-        {{ product.type }}
-      </div>
-    {% endif %}
-
-  </div>
+  {% if block.settings.show_product_type and product.type != blank %}
+    <div class="product-details-title__type">
+      {{ product.type }}
+    </div>
+  {% endif %}
 </div>
 
 <style>
