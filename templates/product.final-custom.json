@@ -121,8 +121,6 @@
                 "title_bottom_spacing": 0,
                 "typography": true,
                 "title_color": "#000000",
-                "mobile_min_fontsize": 32,
-                "desktop_max_fontsize": 73,
                 "font_weight": "600",
                 "line_height": 1.1,
                 "letter_spacing": 0,
