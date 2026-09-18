@@ -1,0 +1,47 @@
+<div
+  class="product-details-title"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.show_vendor %}
+    <div class="product-details-title__vendor">
+      {{ product.vendor }}
+    </div>
+  {% endif %}
+
+  <h1 class="product-details-title__heading">
+    {{ product.title }}
+  </h1>
+
+  {% if block.settings.show_product_type and product.type != blank %}
+    <div class="product-details-title__type">
+      {{ product.type }}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Product title",
+
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_type",
+      "label": "Show product type",
+      "default": false
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Product title"
+    }
+  ]
+}
+{% endschema %}
