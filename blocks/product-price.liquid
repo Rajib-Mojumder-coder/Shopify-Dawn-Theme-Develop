@@ -1,329 +1,162 @@
 {%- liquid
-  assign variant = product.selected_or_first_available_variant
+  assign current_variant = product.selected_or_first_available_variant
 
-  assign current_price = variant.price
-  assign compare_price = variant.compare_at_price
+  assign current_price = current_variant.price
+  assign compare_price = current_variant.compare_at_price
 
-  assign on_sale = false
+  assign has_discount = false
 
   if compare_price > current_price
-    assign on_sale = true
+    assign has_discount = true
   endif
 
-  assign show_current_price = block.settings.show_current_price
-  assign show_compare_price = block.settings.show_compare_price
-  assign hide_compare_without_discount = block.settings.hide_compare_without_discount
+  assign sale_percentage = 0
+  assign sale_amount = 0
 
-  assign price_format = block.settings.price_format
-  assign round_price = block.settings.round_price
-
-  assign content_width = block.settings.content_width
-  assign text_alignment = block.settings.text_alignment
-
-  assign current_price_mobile = block.settings.current_price_mobile
-  assign current_price_desktop = block.settings.current_price_desktop
-
-  assign compare_price_mobile = block.settings.compare_price_mobile
-  assign compare_price_desktop = block.settings.compare_price_desktop
-
-  assign current_price_weight = block.settings.current_price_weight
-  assign compare_price_weight = block.settings.compare_price_weight
-
-  assign sale_badge_enabled = block.settings.show_sale_badge
-  assign sale_badge_type = block.settings.sale_badge_type
-  assign sale_badge_position = block.settings.sale_badge_position
-
-  assign padding_top = block.settings.padding_top
-  assign padding_bottom = block.settings.padding_bottom
-  assign padding_left = block.settings.padding_left
-  assign padding_right = block.settings.padding_right
-
-  if round_price
-    assign current_price = current_price | divided_by: 100.0 | round | times: 100
-
-    if compare_price
-      assign compare_price = compare_price | divided_by: 100.0 | round | times: 100
-    endif
+  if has_discount
+    assign sale_amount = compare_price | minus: current_price
+    assign sale_percentage = sale_amount | times: 100 | divided_by: compare_price
   endif
 
-  if compare_price and compare_price > current_price
-    assign on_sale = true
+  assign current_price_format = block.settings.price_format
+
+  if block.settings.round_price
+    assign current_price = current_price | divided_by: 100 | round | times: 100
   endif
 -%}
 
-
-{%- capture current_price_html -%}
-  {%- case price_format -%}
-    {%- when 'money_with_currency' -%}
-      {{ current_price | money_with_currency }}
-
-    {%- when 'money_without_currency' -%}
-      {{ current_price | money_without_currency }}
-
-    {%- when 'money_without_trailing_zeros' -%}
-      {{ current_price | money_without_trailing_zeros }}
-
-    {%- else -%}
-      {{ current_price | money }}
-  {%- endcase -%}
-{%- endcapture -%}
-
-
-{%- capture compare_price_html -%}
-  {%- case price_format -%}
-    {%- when 'money_with_currency' -%}
-      {{ compare_price | money_with_currency }}
-
-    {%- when 'money_without_currency' -%}
-      {{ compare_price | money_without_currency }}
-
-    {%- when 'money_without_trailing_zeros' -%}
-      {{ compare_price | money_without_trailing_zeros }}
-
-    {%- else -%}
-      {{ compare_price | money }}
-  {%- endcase -%}
-{%- endcapture -%}
-
-
 <div
   id="ProductPrice-{{ block.id }}"
-  class="product-price product-price--{{ block.id }}"
-  data-product-price-scope
-  data-product-id="{{ product.id }}"
-  data-variant-id="{{ variant.id }}"
-  data-round-price="{{ round_price }}"
-  data-price-format="{{ price_format }}"
-  data-hide-compare-without-discount="{{ hide_compare_without_discount }}"
+  class="
+    product-price
+    product-price--{{ block.id }}
+    {% if block.settings.compare_price_before %}
+      product-price--compare-before
+    {% endif %}
+  "
   {{ block.shopify_attributes }}
 >
 
-  <div class="product-price__inner">
+  <div class="product-price__display">
 
-    <div
-      class="
-        product-price__display
-        product-price__display--{{ text_alignment }}
-      "
-      data-price-display
-    >
+    {%- comment -%}
+      ==========================================================
+      COMPARE-AT PRICE
+      ==========================================================
+    {%- endcomment -%}
 
-      {%- if show_current_price -%}
+    {% if block.settings.show_compare_price and has_discount %}
 
-        <span
-          class="product-price__current"
-          data-product-price
-        >
-          {{ current_price_html }}
-        </span>
+      <span
+        class="
+          product-price__compare
+          {% if block.settings.compare_full_width %}
+            product-price__compare--full
+          {% endif %}
+        "
+        data-product-compare-price
+      >
+        {{ compare_price | money }}
+      </span>
 
-      {%- endif -%}
+    {% elsif block.settings.show_compare_price
+      and block.settings.hide_compare_without_discount == false
+      and compare_price > 0
+    %}
 
+      <span
+        class="
+          product-price__compare
+          {% if block.settings.compare_full_width %}
+            product-price__compare--full
+          {% endif %}
+        "
+        data-product-compare-price
+      >
+        {{ compare_price | money }}
+      </span>
 
-      {%- if show_compare_price -%}
-
-        <span
-          class="product-price__compare"
-          data-compare-price
-          {% unless on_sale %}
-            hidden
-          {% endunless %}
-        >
-          {{ compare_price_html }}
-        </span>
-
-      {%- endif -%}
-
-
-      {%- if sale_badge_enabled and on_sale -%}
-
-        {%- assign savings_amount = compare_price | minus: current_price -%}
-
-        {%- assign savings_percentage = savings_amount
-          | times: 100
-          | divided_by: compare_price
-          | round
-        -%}
-
-        <span
-          class="
-            product-price__badge
-            product-price__badge--{{ sale_badge_position }}
-          "
-          data-sale-badge
-        >
-
-          {%- case sale_badge_type -%}
-
-            {%- when 'percentage' -%}
-              {{ savings_percentage }}% OFF
-
-            {%- when 'amount' -%}
-              Save {{ savings_amount | money }}
-
-            {%- else -%}
-              SALE
-
-          {%- endcase -%}
-
-        </span>
-
-      {%- endif -%}
-
-    </div>
-
-  </div>
+    {% endif %}
 
 
-  {%- comment -%}
-  ==========================================================
-  PRE-RENDERED VARIANT PRICE DATA
+    {%- comment -%}
+      ==========================================================
+      CURRENT PRICE
+      ==========================================================
+    {%- endcomment -%}
 
-  Your existing custom-product-price.js can use these
-  templates when the selected variant changes.
-  ==========================================================
-  {%- endcomment -%}
+    {% if block.settings.show_current_price %}
 
-  <div
-    class="product-price__variant-data"
-    hidden
-    aria-hidden="true"
-  >
-
-    {%- for product_variant in product.variants -%}
-
-      {%- liquid
-        assign variant_price = product_variant.price
-        assign variant_compare_price = product_variant.compare_at_price
-
-        assign variant_on_sale = false
-
-        if variant_compare_price and variant_compare_price > variant_price
-          assign variant_on_sale = true
-        endif
-
-        if round_price
-          assign variant_price = variant_price | divided_by: 100.0 | round | times: 100
-          if variant_compare_price
-            assign variant_compare_price = variant_compare_price | divided_by: 100.0 | round | times: 100
-          endif
-        endif
-      -%}
-
-
-      <template
-        data-variant-price-template="{{ product_variant.id }}"
+      <span
+        class="
+          product-price__current
+          {% if block.settings.large_price %}
+            product-price__current--large
+          {% endif %}
+        "
+        data-product-current-price
       >
 
-        <div class="product-price__display">
+        {% case current_price_format %}
 
-          {%- if show_current_price -%}
+          {% when 'money_with_currency' %}
+            {{ current_price | money_with_currency }}
 
-            <span
-              class="product-price__current"
-              data-product-price
-            >
+          {% when 'money_without_currency' %}
+            {{ current_price | money_without_currency }}
 
-              {%- case price_format -%}
+          {% when 'money_without_trailing_zeros' %}
+            {{ current_price | money_without_trailing_zeros }}
 
-                {%- when 'money_with_currency' -%}
-                  {{ variant_price | money_with_currency }}
+          {% else %}
+            {{ current_price | money }}
 
-                {%- when 'money_without_currency' -%}
-                  {{ variant_price | money_without_currency }}
+        {% endcase %}
 
-                {%- when 'money_without_trailing_zeros' -%}
-                  {{ variant_price | money_without_trailing_zeros }}
+      </span>
 
-                {%- else -%}
-                  {{ variant_price | money }}
-
-              {%- endcase -%}
-
-            </span>
-
-          {%- endif -%}
+    {% endif %}
 
 
-          {%- if show_compare_price -%}
+    {%- comment -%}
+      ==========================================================
+      SALE BADGE
+      ==========================================================
+    {%- endcomment -%}
 
-            <span
-              class="product-price__compare"
-              data-compare-price
-              {% unless variant_on_sale %}
-                hidden
-              {% endunless %}
-            >
+    {% if block.settings.show_custom_sale_badge and has_discount %}
 
-              {%- if variant_compare_price -%}
+      <span
+        class="
+          product-price__badge
 
-                {%- case price_format -%}
+          {% if block.settings.sale_badge_position == 'inline' %}
+            product-price__badge--inline
+          {% elsif block.settings.sale_badge_position == 'top-right' %}
+            product-price__badge--top-right
+          {% elsif block.settings.sale_badge_position == 'top-left' %}
+            product-price__badge--top-left
+          {% endif %}
+        "
+        data-product-sale-badge
+      >
 
-                  {%- when 'money_with_currency' -%}
-                    {{ variant_compare_price | money_with_currency }}
+        {% case block.settings.sale_badge_type %}
 
-                  {%- when 'money_without_currency' -%}
-                    {{ variant_compare_price | money_without_currency }}
+          {% when 'text' %}
+            SALE
 
-                  {%- when 'money_without_trailing_zeros' -%}
-                    {{ variant_compare_price | money_without_trailing_zeros }}
+          {% when 'percentage' %}
+            {{ sale_percentage }}% OFF
 
-                  {%- else -%}
-                    {{ variant_compare_price | money }}
+          {% when 'amount' %}
+            Save {{ sale_amount | money }}
 
-                {%- endcase -%}
+        {% endcase %}
 
-              {%- endif -%}
+      </span>
 
-            </span>
-
-          {%- endif -%}
-
-
-          {%- if sale_badge_enabled and variant_on_sale -%}
-
-            {%- assign variant_savings_amount =
-              variant_compare_price
-              | minus: variant_price
-            -%}
-
-            {%- assign variant_savings_percentage =
-              variant_savings_amount
-              | times: 100
-              | divided_by: variant_compare_price
-              | round
-            -%}
-
-            <span
-              class="
-                product-price__badge
-                product-price__badge--{{ sale_badge_position }}
-              "
-              data-sale-badge
-            >
-
-              {%- case sale_badge_type -%}
-
-                {%- when 'percentage' -%}
-                  {{ variant_savings_percentage }}% OFF
-
-                {%- when 'amount' -%}
-                  Save {{ variant_savings_amount | money }}
-
-                {%- else -%}
-                  SALE
-
-              {%- endcase -%}
-
-            </span>
-
-          {%- endif -%}
-
-        </div>
-
-      </template>
-
-    {%- endfor -%}
+    {% endif %}
 
   </div>
 
