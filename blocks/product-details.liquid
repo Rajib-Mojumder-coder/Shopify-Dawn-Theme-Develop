@@ -1,4 +1,18 @@
-{%- assign product_form_id = 'product-form-' | append: section.id -%}
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  assign details_gap = block.settings.details_item_gap
+  assign details_radius = block.settings.details_corner_radius
+
+  if block.settings.content_width == 'narrow'
+    assign content_max_width = '480px'
+  elsif block.settings.content_width == 'medium'
+    assign content_max_width = '620px'
+  elsif block.settings.content_width == 'wide'
+    assign content_max_width = '760px'
+  else
+    assign content_max_width = '100%'
+  endif
+-%}
 
 <div class="product-final__information" {{ block.shopify_attributes }}>
 
