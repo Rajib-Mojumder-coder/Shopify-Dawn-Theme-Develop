@@ -332,7 +332,195 @@
 
 <style>
 
-  
+  /* ==========================================================
+   PRODUCT PRICE
+   ========================================================== */
+
+.product-price {
+  position: relative;
+  width: 100%;
+  color: rgb(var(--color-foreground));
+}
+
+.product-price__display {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+/* ==========================================================
+   CURRENT PRICE
+   ========================================================== */
+
+.product-price__current {
+  display: inline-block;
+
+  font-size: clamp(17px, 2.5vw, 20px);
+  font-weight: 700;
+  line-height: 1.2;
+
+  color: rgb(var(--color-foreground));
+}
+
+.product-price__current--large {
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+
+/* ==========================================================
+   COMPARE-AT PRICE
+   ========================================================== */
+
+.product-price__compare {
+  display: inline-block;
+
+  font-size: clamp(14px, 2vw, 16px);
+  line-height: 1.2;
+
+  color: rgba(var(--color-foreground), 0.55);
+
+  text-decoration: line-through;
+}
+
+.product-price__compare--full {
+  width: 100%;
+}
+
+
+/* ==========================================================
+   COMPARE PRICE BEFORE CURRENT PRICE
+   ========================================================== */
+
+.product-price--compare-before
+.product-price__display {
+  flex-direction: row;
+}
+
+
+/*
+   Because the markup already places compare price first,
+   normal mode needs CSS order adjustment.
+*/
+
+.product-price:not(.product-price--compare-before)
+.product-price__current {
+  order: 1;
+}
+
+.product-price:not(.product-price--compare-before)
+.product-price__compare {
+  order: 2;
+}
+
+.product-price--compare-before
+.product-price__compare {
+  order: 1;
+}
+
+.product-price--compare-before
+.product-price__current {
+  order: 2;
+}
+
+
+/* ==========================================================
+   SALE BADGE
+   ========================================================== */
+
+.product-price__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 12px;
+
+  border-radius: 4px;
+
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+
+  background: #ff0000;
+  color: #ffffff;
+
+  transition: transform 0.2s ease;
+}
+
+
+/* Inline */
+
+.product-price__badge--inline {
+  position: static;
+}
+
+
+/* Top right */
+
+.product-price__badge--top-right {
+  position: absolute;
+
+  top: -12px;
+  right: 0;
+
+  z-index: 2;
+}
+
+
+/* Top left */
+
+.product-price__badge--top-left {
+  position: absolute;
+
+  top: -12px;
+  left: 0;
+
+  z-index: 2;
+}
+
+
+/* ==========================================================
+   BADGE HOVER
+   ========================================================== */
+
+.product-price__badge:hover {
+  transform: scale(1.05);
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media screen and (max-width: 749px) {
+
+  .product-price__current {
+    font-size: clamp(17px, 4vw, 20px);
+  }
+
+  .product-price__current--large {
+    font-size: clamp(21px, 5vw, 26px);
+  }
+
+  .product-price__compare {
+    font-size: 14px;
+  }
+
+  .product-price__badge {
+    padding: 4px 9px;
+    font-size: 11px;
+  }
+
+  .product-price__badge--top-right,
+  .product-price__badge--top-left {
+    top: -8px;
+  }
+
+}
 
 </style>
 
