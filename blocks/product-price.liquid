@@ -181,7 +181,17 @@
   font-size: clamp(20px, 3vw, 22px);
 }
 
-
+.custom-price--custom-type .custom-price__current {
+  font-size: clamp(
+    {{ block.settings.mobile_min_fontsize }}px,
+    calc(
+      {{ block.settings.mobile_min_fontsize }}px +
+      ({{ block.settings.desktop_max_fontsize }} - {{ block.settings.mobile_min_fontsize }}) *
+      ((100vw - 320px) / 880)
+    ),
+    {{ block.settings.desktop_max_fontsize }}px
+  );
+}
 /* =========================================================
    COMPARE PRICE
    ========================================================= */
