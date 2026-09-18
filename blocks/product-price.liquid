@@ -106,7 +106,9 @@
 
     {% if block.settings.show_custom_sale_badge and has_discount %}
 
-      <span class="product-price__badge">
+    <span class="product-price__badge product-price__badge--{{ block.settings.sale_badge_position }}"
+        style="--sale-badge-bg: {{ block.settings.sale_badge_bg_color }};--sale-badge-text: {{ block.settings.sale_badge_text_color }};
+        ">
 
         {% case block.settings.sale_badge_type %}
 
