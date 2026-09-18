@@ -22,7 +22,6 @@
   assign text_transform = block.settings.text_transform
 
   assign block_width = block.settings.block_width
-  assign block_max_width = block.settings.block_max_width
 
   assign block_border = block.settings.block_border
   assign border_width = block.settings.border_width
@@ -55,18 +54,6 @@
 <style>
   .product-details-title--{{ block.id }} {
     width: {{ block_width }};
-    max-width: {{ block_max_width }}px;
-
-    {% if block_border %}
-      border:
-        {{ border_width }}px
-        {{ border_style }}
-        {{ border_color }};
-      border-radius: {{ border_radius }}px;
-    {% else %}
-      border: none;
-    {% endif %}
-
     box-sizing: border-box;
   }
 
@@ -378,17 +365,6 @@
         }
       ],
       "default": "100%"
-    },
-
-    {
-      "type": "range",
-      "id": "block_max_width",
-      "label": "Block max width",
-      "min": 200,
-      "max": 1600,
-      "step": 20,
-      "unit": "px",
-      "default": 1200
     },
 
     {
