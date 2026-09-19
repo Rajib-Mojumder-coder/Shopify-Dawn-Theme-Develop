@@ -138,7 +138,7 @@
               "name": "Product price",
               "settings": {
                 "show_current_price": true,
-                "large_price": false,
+                "large_price": true,
                 "price_format": "money_without_currency",
                 "round_price": false,
                 "show_compare_price": true,
