@@ -4,7 +4,8 @@
   assign round_price = block.settings.round_price
   assign price_order = block.settings.price_order
   assign has_discount = false
-
+  assign typography = block.settings.typography
+  
   if compare_price != blank and compare_price > current_price
     assign has_discount = true
   endif
