@@ -164,7 +164,7 @@
               "type": "product-variant-picker",
               "name": "Product variant picker",
               "settings": {
-                "variant_option_1_name": "Color",
+                "variant_option_1_name": "kleur",
                 "variant_option_1_style": "swatches",
                 "variant_option_1_swatch_type": "kleur",
                 "variant_option_1_swatch_shape": "circle",
@@ -178,12 +178,12 @@
                 "variant_option_3_swatch_shape": "circle",
                 "custom_variant_color_scheme": true,
                 "variant_color_scheme": "",
-                "variant_text_color": "#06123D",
-                "variant_background_color": "#ECEEF2",
-                "variant_active_text_color": "#ECEEF2",
-                "variant_active_background_color": "#06123D",
-                "variant_border_color": "#D9DDE3",
-                "variant_active_border_color": "#06123D"
+                "variant_text_color": "#06123d",
+                "variant_background_color": "#eceef2",
+                "variant_active_text_color": "#eceef2",
+                "variant_active_background_color": "#06123d",
+                "variant_border_color": "#d9dde3",
+                "variant_active_border_color": "#06123d"
               },
               "blocks": {}
             }
