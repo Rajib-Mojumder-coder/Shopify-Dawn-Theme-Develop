@@ -113,7 +113,7 @@
               "settings": {
                 "text": "Onze Bestseller",
                 "position": "top-right",
-                "font_size": 14,
+                "font_size": 18,
                 "font_weight": "600",
                 "background_color": "#177AA4",
                 "text_color": "#ffffff",
