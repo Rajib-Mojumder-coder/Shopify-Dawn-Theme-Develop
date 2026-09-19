@@ -159,11 +159,39 @@
                 "letter_spacing": 4
               },
               "blocks": {}
+            },
+            "product_variant_picker_Npmftb": {
+              "type": "product-variant-picker",
+              "name": "Custom variant picker",
+              "settings": {
+                "variant_option_1_name": "Color",
+                "variant_option_1_style": "swatches",
+                "variant_option_1_swatch_type": "kleur",
+                "variant_option_1_swatch_shape": "circle",
+                "variant_option_2_name": "Size",
+                "variant_option_2_style": "buttons",
+                "variant_option_2_swatch_type": "color",
+                "variant_option_2_swatch_shape": "circle",
+                "variant_option_3_name": "Material",
+                "variant_option_3_style": "dropdown",
+                "variant_option_3_swatch_type": "color",
+                "variant_option_3_swatch_shape": "circle",
+                "custom_variant_color_scheme": true,
+                "variant_color_scheme": "",
+                "variant_text_color": "#06123D",
+                "variant_background_color": "#ECEEF2",
+                "variant_active_text_color": "#ECEEF2",
+                "variant_active_background_color": "#06123D",
+                "variant_border_color": "#D9DDE3",
+                "variant_active_border_color": "#06123D"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "product_title_WtaEHj",
-            "product_price_UWKmbw"
+            "product_price_UWKmbw",
+            "product_variant_picker_Npmftb"
           ]
         }
       },
