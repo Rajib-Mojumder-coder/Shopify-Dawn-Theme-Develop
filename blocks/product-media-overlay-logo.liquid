@@ -1,9 +1,278 @@
-{%  schema  %}
+<div
+  class="
+    product-media-overlay-logo
+    product-media-overlay-logo--{{ block.id }}
+    product-media-overlay-logo--{{ block.settings.position }}
+  "
+  {{ block.shopify_attributes }}
+>
+
+  {% if block.settings.logo != blank %}
+
+    {{
+      block.settings.logo
+      | image_url: width: 600
+      | image_tag:
+        class: 'product-media-overlay-logo__image',
+        loading: 'lazy'
+    }}
+
+  {% endif %}
+
+</div>
+
+<style>
+  .product-media-overlay-logo--{{ block.id }} {
+    position: absolute;
+    z-index: 20;
+
+    {% case block.settings.position %}
+
+      {% when 'top-left' %}
+        top: {{ block.settings.offset_top }}px;
+        left: {{ block.settings.offset_left }}px;
+
+      {% when 'top-right' %}
+        top: {{ block.settings.offset_top }}px;
+        right: {{ block.settings.offset_right }}px;
+
+      {% when 'bottom-left' %}
+        bottom: {{ block.settings.offset_bottom }}px;
+        left: {{ block.settings.offset_left }}px;
+
+      {% when 'bottom-right' %}
+        bottom: {{ block.settings.offset_bottom }}px;
+        right: {{ block.settings.offset_right }}px;
+
+    {% endcase %}
+
+    width: {{ block.settings.logo_width }}px;
+
+    max-width: calc(100% - 32px);
+  }
+
+  .product-media-overlay-logo--{{ block.id }}
+  .product-media-overlay-logo__image {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 989px) {
+
+    .product-media-overlay-logo--{{ block.id }} {
+      {% case block.settings.mobile_position %}
+
+        {% when 'top-left' %}
+          top: {{ block.settings.mobile_offset_top }}px;
+          left: {{ block.settings.mobile_offset_left }}px;
+
+        {% when 'top-right' %}
+          top: {{ block.settings.mobile_offset_top }}px;
+          right: {{ block.settings.mobile_offset_right }}px;
+
+        {% when 'bottom-left' %}
+          bottom: {{ block.settings.mobile_offset_bottom }}px;
+          left: {{ block.settings.mobile_offset_left }}px;
+
+        {% when 'bottom-right' %}
+          bottom: {{ block.settings.mobile_offset_bottom }}px;
+          right: {{ block.settings.mobile_offset_right }}px;
+
+      {% endcase %}
+
+      width: {{ block.settings.mobile_logo_width }}px;
+    }
+
+  }
+</style>
+
+{% schema %}
 {
-"name": "Product Media OverlayLogo",
-"settings": [],
-"presets": [
-    { "name": "Product Media Overlay Logo" }
-]
-}  
+  "name": "Media logo",
+
+  "settings": [
+
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Desktop width",
+      "min": 20,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Desktop position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "top-left"
+    },
+
+    {
+      "type": "range",
+      "id": "offset_top",
+      "label": "Top offset",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "offset_left",
+      "label": "Left offset",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "offset_right",
+      "label": "Right offset",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "offset_bottom",
+      "label": "Bottom offset",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "label": "Mobile width",
+      "min": 20,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+
+    {
+      "type": "select",
+      "id": "mobile_position",
+      "label": "Mobile position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "top-left"
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_offset_top",
+      "label": "Mobile top offset",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_offset_left",
+      "label": "Mobile left offset",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_offset_right",
+      "label": "Mobile right offset",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_offset_bottom",
+      "label": "Mobile bottom offset",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Media logo"
+    }
+  ]
+}
 {% endschema %}
