@@ -5,7 +5,7 @@
   assign price_order = block.settings.price_order
   assign has_discount = false
   assign typography = block.settings.typography
-  
+
   if compare_price != blank and compare_price > current_price
     assign has_discount = true
   endif
@@ -44,15 +44,10 @@
     {%- endcomment -%}
 
     {% if block.settings.show_current_price %}
-      <span
-        class="
-          product-price__current
-          {% if block.settings.large_price %}
-            product-price__current--large
-          {% endif %}
-        "
-        data-product-price
-      >
+      <span class="product-price__current
+          {% if block.settings.large_price %} product-price__current--large {% endif %}"
+        data-product-price>
+        
         {% case block.settings.price_format %}
 
           {% when 'money_with_currency' %}
