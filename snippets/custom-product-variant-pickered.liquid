@@ -27,10 +27,22 @@
   >
 
     <script type="application/json" class="custom-product-variant__json">
-      {
-        "productId": {{ product.id }},
-        "variants": {{ product.variants | json }}
-      }
+        {
+          "productId": {{ product.id }},
+          "variants": {{ product.variants | json }},
+
+          "variantMedia": {
+            {% for variant in product.variants %}
+              "{{ variant.id }}":
+                {% if variant.featured_media %}
+                  {{ variant.featured_media.id }}
+                {% else %}
+                  null
+                {% endif %}
+              {% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          }
+        }
     </script>
 
     {% for option in product.options_with_values %}
