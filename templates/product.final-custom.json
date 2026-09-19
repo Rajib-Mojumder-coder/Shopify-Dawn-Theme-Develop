@@ -97,7 +97,7 @@
             "vertical_align": "center",
             "details_item_gap": 16,
             "sticky_on_desktop": false,
-            "background_color": "rgba(0,0,0,0)",
+            "background_color": "#AA3030",
             "border_style": "none",
             "border_thickness": 1,
             "border_color": "#dddddd",
