@@ -160,20 +160,20 @@
               },
               "blocks": {}
             },
-            "product_variant_picker_b6TnKr": {
+            "product_variant_picker_XbqHiq": {
               "type": "product-variant-picker",
               "name": "Product variant picker",
               "settings": {
-                "variant_option_1_name": "Kleur",
+                "variant_option_1_name": "Color",
                 "variant_option_1_style": "swatches",
                 "variant_option_1_swatch_type": "kleur",
                 "variant_option_1_swatch_shape": "circle",
-                "variant_option_2_name": "Maat",
+                "variant_option_2_name": "Size",
                 "variant_option_2_style": "buttons",
                 "variant_option_2_swatch_type": "color",
                 "variant_option_2_swatch_shape": "circle",
                 "variant_option_3_name": "Material",
-                "variant_option_3_style": "buttons",
+                "variant_option_3_style": "dropdown",
                 "variant_option_3_swatch_type": "color",
                 "variant_option_3_swatch_shape": "circle",
                 "custom_variant_color_scheme": true,
@@ -191,7 +191,7 @@
           "block_order": [
             "product_title_WtaEHj",
             "product_price_UWKmbw",
-            "product_variant_picker_b6TnKr"
+            "product_variant_picker_XbqHiq"
           ]
         }
       },
