@@ -111,7 +111,7 @@
               "type": "product-media-overlay-badge",
               "name": "Media badge",
               "settings": {
-                "text": "New",
+                "text": "Onze Bestseller",
                 "position": "top-right",
                 "font_size": 14,
                 "font_weight": "600",
