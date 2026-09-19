@@ -5,7 +5,7 @@
     constructor(gallery) {
       this.gallery = gallery;
       this.gallery.productMediaGallery = this;
-      
+
       this.track = gallery.querySelector(
         '.custom-media-gallery__track'
       );
@@ -272,34 +272,50 @@
        GO TO SLIDE
        ========================================= */
 
-    goToSlide(index, smooth = true) {
+          goToSlide(index, smooth = true) {
 
-      const slide = this.slides[index];
+            const slide = this.slides[index];
 
-      if (!slide) {
-        return;
+            if (!slide) {
+              return;
+            }
+
+            this.currentIndex = index;
+
+
+            const slideLeft =
+              slide.offsetLeft;
+
+
+            this.track.scrollTo({
+              left: slideLeft,
+              behavior: smooth
+                ? 'smooth'
+                : 'auto'
+            });
+
+
+            this.updateUI();
+
+          }
+
+          goToMediaId(mediaId, smooth = true) {
+        if (!mediaId) {
+          return;
+        }
+
+        const index = this.slides.findIndex(
+          slide =>
+            String(slide.dataset.mediaId) === String(mediaId)
+        );
+
+        if (index === -1) {
+          return;
+        }
+
+        this.goToSlide(index, smooth);
       }
-
-      this.currentIndex = index;
-
-
-      const slideLeft =
-        slide.offsetLeft;
-
-
-      this.track.scrollTo({
-        left: slideLeft,
-        behavior: smooth
-          ? 'smooth'
-          : 'auto'
-      });
-
-
-      this.updateUI();
-
-    }
-
-
+      
     /* =========================================
        UPDATE UI
        ========================================= */
