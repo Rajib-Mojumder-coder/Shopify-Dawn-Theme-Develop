@@ -86,7 +86,60 @@
             "padding_left": 0,
             "padding_right": 0
           },
-          "blocks": {}
+          "blocks": {
+            "product_media_overlay_logo_9fX7LP": {
+              "type": "product-media-overlay-logo",
+              "name": "Media logo",
+              "settings": {
+                "logo": "shopify://shop_images/Group.png",
+                "logo_width": 80,
+                "position": "top-left",
+                "offset_top": 20,
+                "offset_left": 20,
+                "offset_right": 20,
+                "offset_bottom": 20,
+                "mobile_logo_width": 60,
+                "mobile_position": "top-left",
+                "mobile_offset_top": 12,
+                "mobile_offset_left": 12,
+                "mobile_offset_right": 12,
+                "mobile_offset_bottom": 12
+              },
+              "blocks": {}
+            },
+            "product_media_overlay_badge_FLL7mr": {
+              "type": "product-media-overlay-badge",
+              "name": "Media badge",
+              "settings": {
+                "text": "New",
+                "position": "top-right",
+                "font_size": 14,
+                "font_weight": "600",
+                "background_color": "#000000",
+                "text_color": "#FFFFFF",
+                "radius": 6,
+                "padding_vertical": 6,
+                "padding_horizontal": 12,
+                "offset_top": 20,
+                "offset_left": 20,
+                "offset_right": 20,
+                "offset_bottom": 20,
+                "mobile_position": "top-right",
+                "mobile_font_size": 12,
+                "mobile_padding_vertical": 5,
+                "mobile_padding_horizontal": 10,
+                "mobile_offset_top": 12,
+                "mobile_offset_left": 12,
+                "mobile_offset_right": 12,
+                "mobile_offset_bottom": 12
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_media_overlay_logo_9fX7LP",
+            "product_media_overlay_badge_FLL7mr"
+          ]
         },
         "product-details": {
           "type": "product-details",
@@ -97,7 +150,7 @@
             "vertical_align": "center",
             "details_item_gap": 16,
             "sticky_on_desktop": false,
-            "background_color": "#AA3030",
+            "background_color": "#aa3030",
             "border_style": "none",
             "border_thickness": 1,
             "border_color": "#dddddd",
