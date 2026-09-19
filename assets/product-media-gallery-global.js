@@ -4,7 +4,8 @@
   class ProductMediaGallery {
     constructor(gallery) {
       this.gallery = gallery;
-
+      this.gallery.productMediaGallery = this;
+      
       this.track = gallery.querySelector(
         '.custom-media-gallery__track'
       );
