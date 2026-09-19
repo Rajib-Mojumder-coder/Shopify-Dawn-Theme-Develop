@@ -54,7 +54,7 @@
   font-size: var(--font-body);
   font-family: inherit;
   font-weight: 600;
-  background: var(--custom-variant-bg);
+  /* background: var(--custom-variant-bg); */
 }
 .custom-product-variant__label-title{
   color: rgb(var(--custom-variant-option-label) / 1);
