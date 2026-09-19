@@ -194,32 +194,52 @@
 .product-price--current_first .product-price__badge {
   order: 3;
 }
+
 /* =========================================================
-   CURRENT PRICE
+   PRODUCT PRICE
+   Default: inherit theme typography
    ========================================================= */
 
 .product-price__current {
-  font-size: clamp(17px, 3vw, 20px);
-  font-weight: 700;
-  line-height: 1.1;
-  color: rgb(var(--color-foreground));
+  color: inherit;
 }
+
+
+/* =========================================================
+   LARGE PRICE
+   Optional predefined size
+   ========================================================= */
 
 .product-price__current--large {
   font-size: clamp(20px, 3vw, 22px);
 }
 
-.custom-price--custom-type .custom-price__current {
+
+/* =========================================================
+   CUSTOM TYPOGRAPHY
+   Only active when Typography is enabled
+   ========================================================= */
+
+.product-price__current--custom-typography {
   font-size: clamp(
     {{ block.settings.mobile_min_fontsize }}px,
     calc(
       {{ block.settings.mobile_min_fontsize }}px +
-      ({{ block.settings.desktop_max_fontsize }} - {{ block.settings.mobile_min_fontsize }}) *
+      (
+        {{ block.settings.desktop_max_fontsize }} -
+        {{ block.settings.mobile_min_fontsize }}
+      ) *
       ((100vw - 320px) / 880)
     ),
     {{ block.settings.desktop_max_fontsize }}px
   );
+
+  font-weight: {{ block.settings.font_weight }};
+  line-height: {{ block.settings.line_height }};
+  letter-spacing: {{ block.settings.letter_spacing }}px;
+  color: {{ block.settings.price_color }};
 }
+
 /* =========================================================
    COMPARE PRICE
    ========================================================= */
