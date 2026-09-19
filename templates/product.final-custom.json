@@ -92,9 +92,9 @@
           "type": "product-details",
           "static": true,
           "settings": {
-            "content_width": "medium",
-            "text_align": "left",
-            "vertical_align": "start",
+            "content_width": "full",
+            "text_align": "center",
+            "vertical_align": "center",
             "details_item_gap": 16,
             "sticky_on_desktop": false,
             "background_color": "rgba(0,0,0,0)",
