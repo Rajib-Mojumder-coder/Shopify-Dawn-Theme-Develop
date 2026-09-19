@@ -143,7 +143,7 @@
                 "round_price": false,
                 "show_compare_price": true,
                 "hide_compare_without_discount": true,
-                "price_order": "compare_first",
+                "price_order": "current_first",
                 "compare_full_width": false,
                 "show_custom_sale_badge": true,
                 "sale_badge_type": "amount",
