@@ -387,15 +387,22 @@
       "default": true,
       "visible_if": "{{ block.settings.show_compare_price }}"
     },
-
     {
-      "type": "checkbox",
-      "id": "compare_price_before",
-      "label": "Show compare-at price first",
-      "default": false,
-      "visible_if": "{{ block.settings.show_compare_price }}"
+      "type": "select",
+      "id": "price_order",
+      "label": "Price order",
+      "options": [
+        {
+          "value": "current_first",
+          "label": "Current price first"
+        },
+        {
+          "value": "compare_first",
+          "label": "Compare-at price first"
+        }
+      ],
+      "default": "current_first"
     },
-
     {
       "type": "checkbox",
       "id": "compare_full_width",
