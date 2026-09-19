@@ -150,10 +150,10 @@
                 "sale_badge_position": "inline",
                 "sale_badge_bg_color": "#ff0000",
                 "sale_badge_text_color": "#ffffff",
-                "typography": false,
+                "typography": true,
                 "price_color": "#e31b1b",
                 "mobile_min_fontsize": 20,
-                "desktop_max_fontsize": 60,
+                "desktop_max_fontsize": 40,
                 "font_weight": "800",
                 "line_height": 1.6,
                 "letter_spacing": 4
