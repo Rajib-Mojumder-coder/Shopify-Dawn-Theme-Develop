@@ -44,10 +44,10 @@
     {%- endcomment -%}
 
     {% if block.settings.show_current_price %}
-      <span class="product-price__current
-          {% if block.settings.large_price %} product-price__current--large {% endif %}"
-        data-product-price>
-        
+      <span class="product-price__current {% if block.settings.large_price %} product-price__current--large {% endif %}
+        {% if block.settings.typography %} product-price__current--custom-typography {% endif %}"
+          data-product-price>
+
         {% case block.settings.price_format %}
 
           {% when 'money_with_currency' %}
