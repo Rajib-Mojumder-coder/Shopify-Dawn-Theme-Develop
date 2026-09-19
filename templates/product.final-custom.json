@@ -102,10 +102,10 @@
             "border_thickness": 1,
             "border_color": "#dddddd",
             "details_corner_radius": 18,
-            "details_padding": false,
-            "padding_top": 0,
-            "padding_bottom": 0,
-            "padding_left": 0,
+            "details_padding": true,
+            "padding_top": 13,
+            "padding_bottom": 15,
+            "padding_left": 18,
             "padding_right": 0
           },
           "blocks": {
