@@ -30,7 +30,7 @@
 
 <div
   id="ProductPrice-{{ block.id }}"
-  class="product-price product-price--{{ block.id }}" product-price--{{price_order}} 
+  class="product-price product-price--{{ block.id }} product-price--{{price_order}}" 
   {% if block.settings.typography %} custom-price--custom-type {% endif %}
   data-round-price="{{ round_price }}"
   {{ block.shopify_attributes }}
