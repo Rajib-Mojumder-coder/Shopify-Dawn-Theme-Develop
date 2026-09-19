@@ -1,0 +1,394 @@
+<div
+  class="
+    product-media-overlay-badge
+    product-media-overlay-badge--{{ block.id }}
+    product-media-overlay-badge--{{ block.settings.position }}
+  "
+  {{ block.shopify_attributes }}
+>
+
+  {% if block.settings.text != blank %}
+
+    <span class="product-media-overlay-badge__text">
+      {{ block.settings.text }}
+    </span>
+
+  {% endif %}
+
+</div>
+
+<style>
+  .product-media-overlay-badge--{{ block.id }} {
+    position: absolute;
+    z-index: 20;
+
+    {% case block.settings.position %}
+
+      {% when 'top-left' %}
+        top: {{ block.settings.offset_top }}px;
+        left: {{ block.settings.offset_left }}px;
+
+      {% when 'top-right' %}
+        top: {{ block.settings.offset_top }}px;
+        right: {{ block.settings.offset_right }}px;
+
+      {% when 'bottom-left' %}
+        bottom: {{ block.settings.offset_bottom }}px;
+        left: {{ block.settings.offset_left }}px;
+
+      {% when 'bottom-right' %}
+        bottom: {{ block.settings.offset_bottom }}px;
+        right: {{ block.settings.offset_right }}px;
+
+    {% endcase %}
+
+    max-width: calc(100% - 32px);
+  }
+
+  .product-media-overlay-badge--{{ block.id }}
+  .product-media-overlay-badge__text {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding:
+      {{ block.settings.padding_vertical }}px
+      {{ block.settings.padding_horizontal }}px;
+
+    border-radius: {{ block.settings.radius }}px;
+
+    background: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+  }
+
+
+  @media screen and (max-width: 989px) {
+
+    .product-media-overlay-badge--{{ block.id }} {
+
+      {% case block.settings.mobile_position %}
+
+        {% when 'top-left' %}
+          top: {{ block.settings.mobile_offset_top }}px;
+          left: {{ block.settings.mobile_offset_left }}px;
+
+        {% when 'top-right' %}
+          top: {{ block.settings.mobile_offset_top }}px;
+          right: {{ block.settings.mobile_offset_right }}px;
+
+        {% when 'bottom-left' %}
+          bottom: {{ block.settings.mobile_offset_bottom }}px;
+          left: {{ block.settings.mobile_offset_left }}px;
+
+        {% when 'bottom-right' %}
+          bottom: {{ block.settings.mobile_offset_bottom }}px;
+          right: {{ block.settings.mobile_offset_right }}px;
+
+      {% endcase %}
+    }
+
+    .product-media-overlay-badge--{{ block.id }}
+    .product-media-overlay-badge__text {
+      padding:
+        {{ block.settings.mobile_padding_vertical }}px
+        {{ block.settings.mobile_padding_horizontal }}px;
+
+      font-size: {{ block.settings.mobile_font_size }}px;
+    }
+
+  }
+</style>
+
+
+{% schema %}
+{
+  "name": "Media badge",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "New"
+    },
+
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Desktop position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "top-right"
+    },
+
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra bold"
+        }
+      ],
+      "default": "600"
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "offset_top",
+      "label": "Top offset",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "offset_left",
+      "label": "Left offset",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "offset_right",
+      "label": "Right offset",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "offset_bottom",
+      "label": "Bottom offset",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+
+    {
+      "type": "select",
+      "id": "mobile_position",
+      "label": "Mobile position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "top-right"
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "label": "Mobile font size",
+      "min": 9,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_padding_vertical",
+      "label": "Mobile vertical padding",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 5
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_padding_horizontal",
+      "label": "Mobile horizontal padding",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_offset_top",
+      "label": "Mobile top offset",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_offset_left",
+      "label": "Mobile left offset",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_offset_right",
+      "label": "Mobile right offset",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_offset_bottom",
+      "label": "Mobile bottom offset",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Media badge"
+    }
+  ]
+}
+{% endschema %}
