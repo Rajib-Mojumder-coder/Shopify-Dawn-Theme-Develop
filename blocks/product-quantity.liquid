@@ -1,0 +1,424 @@
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+
+  assign quantity_type = block.settings.quantity_type
+
+  assign min_quantity = block.settings.min_quantity | default: 1
+  assign max_quantity = block.settings.max_quantity | default: 10
+  assign quantity_step = block.settings.quantity_step | default: 1
+
+  if max_quantity < min_quantity
+    assign max_quantity = min_quantity
+  endif
+-%}
+
+
+<div
+  id="ProductQuantity-{{ block.id }}"
+  class="
+    product-quantity
+    product-quantity--{{ block.id }}
+    product-quantity--{{ quantity_type }}
+  "
+  data-product-quantity
+  data-quantity-type="{{ quantity_type }}"
+  data-min="{{ min_quantity }}"
+  data-max="{{ max_quantity }}"
+  data-step="{{ quantity_step }}"
+  {{ block.shopify_attributes }}
+>
+
+  {% if block.settings.show_label %}
+
+    <label
+      class="product-quantity__label"
+      for="ProductQuantityInput-{{ block.id }}"
+    >
+      {{ block.settings.label }}
+    </label>
+
+  {% endif %}
+
+
+  {%- comment -%}
+  ==========================================================
+  STEPPER
+  ==========================================================
+  {%- endcomment -%}
+
+  {% if quantity_type == 'stepper' %}
+
+    <div class="product-quantity__stepper">
+
+      <button
+        type="button"
+        class="
+          product-quantity__button
+          product-quantity__button--minus
+        "
+        data-quantity-decrease
+        aria-label="Decrease quantity"
+        {% if product.available == false %}
+          disabled
+        {% endif %}
+      >
+        <span aria-hidden="true">−</span>
+      </button>
+
+
+      <input
+        id="ProductQuantityInput-{{ block.id }}"
+        class="
+          product-quantity__input
+          custom-product-form__quantity
+        "
+        type="number"
+        name="quantity"
+        value="{{ min_quantity }}"
+        min="{{ min_quantity }}"
+        max="{{ max_quantity }}"
+        step="{{ quantity_step }}"
+        inputmode="numeric"
+        form="{{ product_form_id }}"
+        data-quantity-input
+        aria-label="{{ block.settings.label }}"
+        {% if product.available == false %}
+          disabled
+        {% endif %}
+      >
+
+
+      <button
+        type="button"
+        class="
+          product-quantity__button
+          product-quantity__button--plus
+        "
+        data-quantity-increase
+        aria-label="Increase quantity"
+        {% if product.available == false %}
+          disabled
+        {% endif %}
+      >
+        <span aria-hidden="true">+</span>
+      </button>
+
+    </div>
+
+
+  {%- comment -%}
+  ==========================================================
+  DROPDOWN
+  ==========================================================
+  {%- endcomment -%}
+
+  {% elsif quantity_type == 'dropdown' %}
+
+    <div class="product-quantity__dropdown">
+
+      <select
+        id="ProductQuantityInput-{{ block.id }}"
+        class="
+          product-quantity__select
+          custom-product-form__quantity
+        "
+        name="quantity"
+        form="{{ product_form_id }}"
+        data-quantity-input
+        aria-label="{{ block.settings.label }}"
+        {% if product.available == false %}
+          disabled
+        {% endif %}
+      >
+
+        {% for quantity in (1..100) %}
+
+          {% if quantity >= min_quantity
+            and quantity <= max_quantity
+          %}
+
+            {% assign relative_quantity =
+              quantity | minus: min_quantity
+            %}
+
+            {% assign remainder =
+              relative_quantity | modulo: quantity_step
+            %}
+
+            {% if remainder == 0 %}
+
+              <option
+                value="{{ quantity }}"
+                {% if quantity == min_quantity %}
+                  selected
+                {% endif %}
+              >
+                {{ quantity }}
+              </option>
+
+            {% endif %}
+
+          {% endif %}
+
+        {% endfor %}
+
+      </select>
+
+    </div>
+
+
+  {%- comment -%}
+  ==========================================================
+  PRESETS
+  ==========================================================
+  {%- endcomment -%}
+
+  {% elsif quantity_type == 'presets' %}
+
+    {%- liquid
+      assign preset_1_quantity = block.settings.preset_1_quantity
+      assign preset_2_quantity = block.settings.preset_2_quantity
+      assign preset_3_quantity = block.settings.preset_3_quantity
+    -%}
+
+    <div
+      class="product-quantity__presets"
+      role="group"
+      aria-label="{{ block.settings.label }}"
+    >
+
+      {% if preset_1_quantity >= min_quantity
+        and preset_1_quantity <= max_quantity
+      %}
+
+        <button
+          type="button"
+          class="product-quantity__preset is-active"
+          data-quantity-preset="{{ preset_1_quantity }}"
+          aria-pressed="true"
+        >
+          {{ block.settings.preset_1_label }}
+        </button>
+
+      {% endif %}
+
+
+      {% if preset_2_quantity >= min_quantity
+        and preset_2_quantity <= max_quantity
+      %}
+
+        <button
+          type="button"
+          class="product-quantity__preset"
+          data-quantity-preset="{{ preset_2_quantity }}"
+          aria-pressed="false"
+        >
+          {{ block.settings.preset_2_label }}
+        </button>
+
+      {% endif %}
+
+
+      {% if preset_3_quantity >= min_quantity
+        and preset_3_quantity <= max_quantity
+      %}
+
+        <button
+          type="button"
+          class="product-quantity__preset"
+          data-quantity-preset="{{ preset_3_quantity }}"
+          aria-pressed="false"
+        >
+          {{ block.settings.preset_3_label }}
+        </button>
+
+      {% endif %}
+
+    </div>
+
+
+    <input
+      id="ProductQuantityInput-{{ block.id }}"
+      class="custom-product-form__quantity"
+      type="hidden"
+      name="quantity"
+      value="{{ preset_1_quantity }}"
+      form="{{ product_form_id }}"
+      data-quantity-input
+    >
+
+  {% endif %}
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Product quantity",
+  "tag": null,
+
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Quantity"
+    },
+
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Quantity"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_label",
+      "label": "Show label",
+      "default": true
+    },
+
+    {
+      "type": "select",
+      "id": "quantity_type",
+      "label": "Display type",
+      "options": [
+        {
+          "value": "stepper",
+          "label": "Quantity selector"
+        },
+        {
+          "value": "dropdown",
+          "label": "Dropdown"
+        },
+        {
+          "value": "presets",
+          "label": "Quantity presets"
+        }
+      ],
+      "default": "stepper"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Quantity limits"
+    },
+
+    {
+      "type": "range",
+      "id": "min_quantity",
+      "label": "Minimum quantity",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 1
+    },
+
+    {
+      "type": "range",
+      "id": "max_quantity",
+      "label": "Maximum quantity",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 10
+    },
+
+    {
+      "type": "range",
+      "id": "quantity_step",
+      "label": "Quantity step",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1
+    },
+
+
+    {
+      "type": "header",
+      "content": "Preset 1",
+      "visible_if": "{{ block.settings.quantity_type == 'presets' }}"
+    },
+
+    {
+      "type": "range",
+      "id": "preset_1_quantity",
+      "label": "Quantity",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 1,
+      "visible_if": "{{ block.settings.quantity_type == 'presets' }}"
+    },
+
+    {
+      "type": "text",
+      "id": "preset_1_label",
+      "label": "Label",
+      "default": "1 item",
+      "visible_if": "{{ block.settings.quantity_type == 'presets' }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Preset 2",
+      "visible_if": "{{ block.settings.quantity_type == 'presets' }}"
+    },
+
+    {
+      "type": "range",
+      "id": "preset_2_quantity",
+      "label": "Quantity",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 2,
+      "visible_if": "{{ block.settings.quantity_type == 'presets' }}"
+    },
+
+    {
+      "type": "text",
+      "id": "preset_2_label",
+      "label": "Label",
+      "default": "2 items",
+      "visible_if": "{{ block.settings.quantity_type == 'presets' }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Preset 3",
+      "visible_if": "{{ block.settings.quantity_type == 'presets' }}"
+    },
+
+    {
+      "type": "range",
+      "id": "preset_3_quantity",
+      "label": "Quantity",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 3,
+      "visible_if": "{{ block.settings.quantity_type == 'presets' }}"
+    },
+
+    {
+      "type": "text",
+      "id": "preset_3_label",
+      "label": "Label",
+      "default": "3 items",
+      "visible_if": "{{ block.settings.quantity_type == 'presets' }}"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Product quantity"
+    }
+  ]
+}
+{% endschema %}
