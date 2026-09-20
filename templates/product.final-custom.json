@@ -107,16 +107,16 @@
               },
               "blocks": {}
             },
-            "product_media_overlay_badge_FLL7mr": {
+            "product_media_overlay_badge_qmdPk9": {
               "type": "product-media-overlay-badge",
               "name": "Media badge",
               "settings": {
-                "text": "Onze Bestseller",
+                "text": "Best Seller",
                 "position": "top-right",
-                "font_size": 18,
+                "font_size": 20,
                 "font_weight": "600",
-                "background_color": "#177AA4",
-                "text_color": "#ffffff",
+                "background_color": "#65DBDD",
+                "text_color": "#FFFFFF",
                 "radius": 6,
                 "padding_vertical": 6,
                 "padding_horizontal": 12,
@@ -138,7 +138,7 @@
           },
           "block_order": [
             "product_media_overlay_logo_9fX7LP",
-            "product_media_overlay_badge_FLL7mr"
+            "product_media_overlay_badge_qmdPk9"
           ]
         },
         "product-details": {
