@@ -246,7 +246,7 @@
               "settings": {
                 "label": "Quantity",
                 "show_label": true,
-                "quantity_type": "presets",
+                "quantity_type": "stepper",
                 "min_quantity": 1,
                 "max_quantity": 10,
                 "quantity_step": 1,
