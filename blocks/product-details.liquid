@@ -97,12 +97,12 @@
             value="{{ product.selected_or_first_available_variant.id }}"
           >
 
-          <input
+          {% comment %} <input
             type="hidden"
             name="quantity"
             value="1"
             class="custom-product-form__quantity"
-          >
+          > {% endcomment %}
 
           <div class="product-final__details-content">
 
