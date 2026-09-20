@@ -13,27 +13,14 @@
 -%}
 
 
-<div
-  id="ProductQuantity-{{ block.id }}"
-  class="
-    product-quantity
-    product-quantity--{{ block.id }}
-    product-quantity--{{ quantity_type }}
-  "
-  data-product-quantity
-  data-quantity-type="{{ quantity_type }}"
-  data-min="{{ min_quantity }}"
-  data-max="{{ max_quantity }}"
-  data-step="{{ quantity_step }}"
-  {{ block.shopify_attributes }}
->
+<div id="ProductQuantity-{{ block.id }}"
+  class="product-quantity product-quantity--{{ block.id }} product-quantity--{{ quantity_type }}"
+  data-product-quantity data-quantity-type="{{ quantity_type }}"
+  data-min="{{ min_quantity }}" data-max="{{ max_quantity }}" data-step="{{ quantity_step }}" {{ block.shopify_attributes }}>
 
   {% if block.settings.show_label %}
 
-    <label
-      class="product-quantity__label"
-      for="ProductQuantityInput-{{ block.id }}"
-    >
+    <label class="product-quantity__label" for="ProductQuantityInput-{{ block.id }}">
       {{ block.settings.label }}
     </label>
 
@@ -50,56 +37,24 @@
 
     <div class="product-quantity__stepper">
 
-      <button
-        type="button"
-        class="
-          product-quantity__button
-          product-quantity__button--minus
-        "
-        data-quantity-decrease
-        aria-label="Decrease quantity"
-        {% if product.available == false %}
-          disabled
-        {% endif %}
-      >
+      <button type="button" class="product-quantity__button product-quantity__button--minus"
+        data-quantity-decrease aria-label="Decrease quantity"
+        {% if product.available == false %} disabled {% endif %}>
         <span aria-hidden="true">−</span>
       </button>
 
 
-      <input
-        id="ProductQuantityInput-{{ block.id }}"
-        class="
-          product-quantity__input
-          custom-product-form__quantity
-        "
-        type="number"
-        name="quantity"
-        value="{{ min_quantity }}"
-        min="{{ min_quantity }}"
-        max="{{ max_quantity }}"
-        step="{{ quantity_step }}"
-        inputmode="numeric"
-        form="{{ product_form_id }}"
-        data-quantity-input
-        aria-label="{{ block.settings.label }}"
-        {% if product.available == false %}
-          disabled
-        {% endif %}
-      >
+      <input id="ProductQuantityInput-{{ block.id }}"
+        class="product-quantity__input custom-product-form__quantity"
+        type="number" name="quantity" value="{{ min_quantity }}"
+        min="{{ min_quantity }}" max="{{ max_quantity }}" step="{{ quantity_step }}"
+        inputmode="numeric" form="{{ product_form_id }}" data-quantity-input aria-label="{{ block.settings.label }}"
+        {% if product.available == false %} disabled {% endif %}>
 
 
-      <button
-        type="button"
-        class="
-          product-quantity__button
-          product-quantity__button--plus
-        "
-        data-quantity-increase
-        aria-label="Increase quantity"
-        {% if product.available == false %}
-          disabled
-        {% endif %}
-      >
+      <button type="button" class="product-quantity__button product-quantity__button--plus"
+        data-quantity-increase  aria-label="Increase quantity"
+        {% if product.available == false %} disabled {% endif %}>
         <span aria-hidden="true">+</span>
       </button>
 
