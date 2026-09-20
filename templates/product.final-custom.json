@@ -117,7 +117,7 @@
                 "font_weight": "600",
                 "background_color": "#65DBDD",
                 "text_color": "#FFFFFF",
-                "radius": 6,
+                "radius": 23,
                 "padding_vertical": 6,
                 "padding_horizontal": 12,
                 "offset_top": 0,
