@@ -55,7 +55,7 @@
       {{ block.settings.padding_vertical }}px
       {{ block.settings.padding_horizontal }}px;
 
-    border-radius: {{ block.settings.radius }}px;
+    border-radius: 0 var(--gallery-media-radius, 16px) 0 {{ block.settings.bottom_left_radius }}px;
 
     background: {{ block.settings.background_color }};
     color: {{ block.settings.text_color }};
