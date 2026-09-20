@@ -57,53 +57,29 @@
     </div>
 
 
-  {%- comment -%}
-  ==========================================================
-  DROPDOWN
-  ==========================================================
-  {%- endcomment -%}
+  {%- comment -%} ================= DROPDOWN ============ {%- endcomment -%}
 
   {% elsif quantity_type == 'dropdown' %}
 
     <div class="product-quantity__dropdown">
 
-      <select
-        id="ProductQuantityInput-{{ block.id }}"
-        class="
-          product-quantity__select
-          custom-product-form__quantity
-        "
-        name="quantity"
-        form="{{ product_form_id }}"
-        data-quantity-input
-        aria-label="{{ block.settings.label }}"
-        {% if product.available == false %}
-          disabled
-        {% endif %}
-      >
+      <select id="ProductQuantityInput-{{ block.id }}"
+        class="product-quantity__select custom-product-form__quantity"
+        name="quantity" form="{{ product_form_id }}"
+        data-quantity-input aria-label="{{ block.settings.label }}"
+        {% if product.available == false %} disabled {% endif %}>
 
         {% for quantity in (1..100) %}
 
-          {% if quantity >= min_quantity
-            and quantity <= max_quantity
-          %}
+          {% if quantity >= min_quantity and quantity <= max_quantity %}
 
-            {% assign relative_quantity =
-              quantity | minus: min_quantity
-            %}
+            {% assign relative_quantity = quantity | minus: min_quantity %}
 
-            {% assign remainder =
-              relative_quantity | modulo: quantity_step
-            %}
+            {% assign remainder = relative_quantity | modulo: quantity_step %}
 
             {% if remainder == 0 %}
 
-              <option
-                value="{{ quantity }}"
-                {% if quantity == min_quantity %}
-                  selected
-                {% endif %}
-              >
+              <option value="{{ quantity }}" {% if quantity == min_quantity %} selected {% endif %}>
                 {{ quantity }}
               </option>
 
@@ -118,11 +94,7 @@
     </div>
 
 
-  {%- comment -%}
-  ==========================================================
-  PRESETS
-  ==========================================================
-  {%- endcomment -%}
+  {%- comment -%} ========== PRESETS========== {%- endcomment -%}
 
   {% elsif quantity_type == 'presets' %}
 
@@ -132,54 +104,32 @@
       assign preset_3_quantity = block.settings.preset_3_quantity
     -%}
 
-    <div
-      class="product-quantity__presets"
-      role="group"
-      aria-label="{{ block.settings.label }}"
-    >
+    <div class="product-quantity__presets" role="group" aria-label="{{ block.settings.label }}">
 
-      {% if preset_1_quantity >= min_quantity
-        and preset_1_quantity <= max_quantity
-      %}
+      {% if preset_1_quantity >= min_quantity and preset_1_quantity <= max_quantity %}
 
-        <button
-          type="button"
-          class="product-quantity__preset is-active"
-          data-quantity-preset="{{ preset_1_quantity }}"
-          aria-pressed="true"
-        >
+        <button type="button" class="product-quantity__preset is-active"
+          data-quantity-preset="{{ preset_1_quantity }}" aria-pressed="true">
           {{ block.settings.preset_1_label }}
         </button>
 
       {% endif %}
 
 
-      {% if preset_2_quantity >= min_quantity
-        and preset_2_quantity <= max_quantity
-      %}
+      {% if preset_2_quantity >= min_quantity and preset_2_quantity <= max_quantity %}
 
-        <button
-          type="button"
-          class="product-quantity__preset"
-          data-quantity-preset="{{ preset_2_quantity }}"
-          aria-pressed="false"
-        >
+        <button type="button" class="product-quantity__preset" 
+        data-quantity-preset="{{ preset_2_quantity }}" aria-pressed="false">
           {{ block.settings.preset_2_label }}
         </button>
 
       {% endif %}
 
 
-      {% if preset_3_quantity >= min_quantity
-        and preset_3_quantity <= max_quantity
-      %}
+      {% if preset_3_quantity >= min_quantity and preset_3_quantity <= max_quantity %}
 
-        <button
-          type="button"
-          class="product-quantity__preset"
-          data-quantity-preset="{{ preset_3_quantity }}"
-          aria-pressed="false"
-        >
+        <button type="button" class="product-quantity__preset"
+          data-quantity-preset="{{ preset_3_quantity }}" aria-pressed="false">
           {{ block.settings.preset_3_label }}
         </button>
 
@@ -188,15 +138,9 @@
     </div>
 
 
-    <input
-      id="ProductQuantityInput-{{ block.id }}"
-      class="custom-product-form__quantity"
-      type="hidden"
-      name="quantity"
-      value="{{ preset_1_quantity }}"
-      form="{{ product_form_id }}"
-      data-quantity-input
-    >
+    <input  id="ProductQuantityInput-{{ block.id }}"
+      class="custom-product-form__quantity" type="hidden" name="quantity"
+      value="{{ preset_1_quantity }}" form="{{ product_form_id }}" data-quantity-input>
 
   {% endif %}
 
