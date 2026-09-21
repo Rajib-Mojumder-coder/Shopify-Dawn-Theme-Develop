@@ -272,7 +272,7 @@
                 "bundle_3_label": "Buy 3",
                 "bundle_3_description": "Best value",
                 "bundle_3_savings": "Save 10%",
-                "bundle_4_enabled": false,
+                "bundle_4_enabled": true,
                 "bundle_4_quantity": 5,
                 "bundle_4_label": "Buy 5",
                 "bundle_4_description": "Maximum value",
