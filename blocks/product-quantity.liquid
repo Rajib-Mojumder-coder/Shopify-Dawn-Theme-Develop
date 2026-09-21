@@ -12,74 +12,132 @@
   endif
 -%}
 
-
-<div id="ProductQuantity-{{ block.id }}"
-  class="product-quantity product-quantity--{{ block.id }} product-quantity--{{ quantity_type }}"
-  data-product-quantity data-quantity-type="{{ quantity_type }}"
-  data-min="{{ min_quantity }}" data-max="{{ max_quantity }}" data-step="{{ quantity_step }}" {{ block.shopify_attributes }}>
+<div
+  id="ProductQuantity-{{ block.id }}"
+  class="
+    product-quantity
+    product-quantity--{{ block.id }}
+    product-quantity--{{ quantity_type }}
+  "
+  data-product-quantity
+  data-quantity-type="{{ quantity_type }}"
+  data-min="{{ min_quantity }}"
+  data-max="{{ max_quantity }}"
+  data-step="{{ quantity_step }}"
+  {{ block.shopify_attributes }}
+>
 
   {% if block.settings.show_label %}
 
-    <label class="product-quantity__label" for="ProductQuantityInput-{{ block.id }}">
+    <label
+      class="product-quantity__label"
+      for="ProductQuantityInput-{{ block.id }}"
+    >
       {{ block.settings.label }}
     </label>
 
   {% endif %}
 
 
-  {%- comment -%} ================= STEPPER ================= {%- endcomment -%}
+  {%- comment -%}
+  ==========================================================
+  STANDARD QUANTITY SELECTOR
+  ==========================================================
+  {%- endcomment -%}
 
   {% if quantity_type == 'stepper' %}
 
     <div class="product-quantity__stepper">
 
-      <button type="button" class="product-quantity__button product-quantity__button--minus"
-        data-quantity-decrease aria-label="Decrease quantity"
-        {% if product.available == false %} disabled {% endif %}>
+      <button
+        type="button"
+        class="
+          product-quantity__button
+          product-quantity__button--minus
+        "
+        data-quantity-decrease
+        aria-label="Decrease quantity"
+      >
         <span aria-hidden="true">−</span>
       </button>
 
+      <input
+        id="ProductQuantityInput-{{ block.id }}"
+        class="
+          product-quantity__input
+          custom-product-form__quantity
+        "
+        type="number"
+        name="quantity"
+        value="{{ min_quantity }}"
+        min="{{ min_quantity }}"
+        max="{{ max_quantity }}"
+        step="{{ quantity_step }}"
+        inputmode="numeric"
+        form="{{ product_form_id }}"
+        data-quantity-input
+        aria-label="{{ block.settings.label }}"
+      >
 
-      <input id="ProductQuantityInput-{{ block.id }}"
-        class="product-quantity__input custom-product-form__quantity"
-        type="number" name="quantity" value="{{ min_quantity }}"
-        min="{{ min_quantity }}" max="{{ max_quantity }}" step="{{ quantity_step }}"
-        inputmode="numeric" form="{{ product_form_id }}" data-quantity-input aria-label="{{ block.settings.label }}"
-        {% if product.available == false %} disabled {% endif %}>
-
-
-      <button type="button" class="product-quantity__button product-quantity__button--plus"
-        data-quantity-increase  aria-label="Increase quantity"
-        {% if product.available == false %} disabled {% endif %}>
+      <button
+        type="button"
+        class="
+          product-quantity__button
+          product-quantity__button--plus
+        "
+        data-quantity-increase
+        aria-label="Increase quantity"
+      >
         <span aria-hidden="true">+</span>
       </button>
 
     </div>
 
 
-  {%- comment -%} ================= DROPDOWN ============ {%- endcomment -%}
+  {%- comment -%}
+  ==========================================================
+  DROPDOWN
+  ==========================================================
+  {%- endcomment -%}
 
   {% elsif quantity_type == 'dropdown' %}
 
     <div class="product-quantity__dropdown">
 
-      <select id="ProductQuantityInput-{{ block.id }}"
-        class="product-quantity__select custom-product-form__quantity"
-        name="quantity" form="{{ product_form_id }}"
-        data-quantity-input aria-label="{{ block.settings.label }}"
-        {% if product.available == false %} disabled {% endif %}>
+      <select
+        id="ProductQuantityInput-{{ block.id }}"
+        class="
+          product-quantity__select
+          custom-product-form__quantity
+        "
+        name="quantity"
+        form="{{ product_form_id }}"
+        data-quantity-input
+        aria-label="{{ block.settings.label }}"
+      >
 
         {% for quantity in (1..100) %}
 
-          {% if quantity >= min_quantity and quantity <= max_quantity %}
+          {% if quantity >= min_quantity
+            and quantity <= max_quantity
+          %}
 
-            {% assign relative_quantity = quantity | minus: min_quantity %}
+            {% assign relative_quantity =
+              quantity | minus: min_quantity
+            %}
 
-            {% assign remainder = relative_quantity | modulo: quantity_step %}
+            {% assign remainder =
+              relative_quantity | modulo: quantity_step
+            %}
 
             {% if remainder == 0 %}
 
-              <option value="{{ quantity }}" {% if quantity == min_quantity %} selected {% endif %}>
+              <option
+                value="{{ quantity }}"
+                {% if quantity == min_quantity %}
+                  selected
+                {% endif %}
+              >
                 {{ quantity }}
               </option>
 
@@ -94,42 +152,62 @@
     </div>
 
 
-  {%- comment -%} ========== PRESETS========== {%- endcomment -%}
+  {%- comment -%}
+  ==========================================================
+  PRESETS
+  ==========================================================
+  {%- endcomment -%}
 
   {% elsif quantity_type == 'presets' %}
 
-    {%- liquid
-      assign preset_1_quantity = block.settings.preset_1_quantity
-      assign preset_2_quantity = block.settings.preset_2_quantity
-      assign preset_3_quantity = block.settings.preset_3_quantity
-    -%}
+    <div
+      class="product-quantity__presets"
+      role="group"
+      aria-label="{{ block.settings.label }}"
+    >
 
-    <div class="product-quantity__presets" role="group" aria-label="{{ block.settings.label }}">
+      {% if block.settings.preset_1_quantity >= min_quantity
+        and block.settings.preset_1_quantity <= max_quantity
+      %}
 
-      {% if preset_1_quantity >= min_quantity and preset_1_quantity <= max_quantity %}
-
-        <button type="button" class="product-quantity__preset is-active"
-          data-quantity-preset="{{ preset_1_quantity }}" aria-pressed="true">
+        <button
+          type="button"
+          class="product-quantity__preset is-active"
+          data-quantity-preset="{{ block.settings.preset_1_quantity }}"
+          aria-pressed="true"
+        >
           {{ block.settings.preset_1_label }}
         </button>
 
       {% endif %}
 
 
-      {% if preset_2_quantity >= min_quantity and preset_2_quantity <= max_quantity %}
+      {% if block.settings.preset_2_quantity >= min_quantity
+        and block.settings.preset_2_quantity <= max_quantity
+      %}
 
-        <button type="button" class="product-quantity__preset" 
-        data-quantity-preset="{{ preset_2_quantity }}" aria-pressed="false">
+        <button
+          type="button"
+          class="product-quantity__preset"
+          data-quantity-preset="{{ block.settings.preset_2_quantity }}"
+          aria-pressed="false"
+        >
           {{ block.settings.preset_2_label }}
         </button>
 
       {% endif %}
 
 
-      {% if preset_3_quantity >= min_quantity and preset_3_quantity <= max_quantity %}
+      {% if block.settings.preset_3_quantity >= min_quantity
+        and block.settings.preset_3_quantity <= max_quantity
+      %}
 
-        <button type="button" class="product-quantity__preset"
-          data-quantity-preset="{{ preset_3_quantity }}" aria-pressed="false">
+        <button
+          type="button"
+          class="product-quantity__preset"
+          data-quantity-preset="{{ block.settings.preset_3_quantity }}"
+          aria-pressed="false"
+        >
           {{ block.settings.preset_3_label }}
         </button>
 
@@ -138,9 +216,229 @@
     </div>
 
 
-    <input  id="ProductQuantityInput-{{ block.id }}"
-      class="custom-product-form__quantity" type="hidden" name="quantity"
-      value="{{ preset_1_quantity }}" form="{{ product_form_id }}" data-quantity-input>
+    <input
+      id="ProductQuantityInput-{{ block.id }}"
+      class="custom-product-form__quantity"
+      type="hidden"
+      name="quantity"
+      value="{{ block.settings.preset_1_quantity }}"
+      form="{{ product_form_id }}"
+      data-quantity-input
+    >
+
+
+  {%- comment -%}
+  ==========================================================
+  BUNDLE & SAVE
+  ==========================================================
+  ==========================================================
+  IMPORTANT:
+  This UI changes quantity.
+
+  The configured savings text is promotional display only.
+  Actual discounting must be configured in Shopify's
+  discount system / Shopify Function.
+  ==========================================================
+  {%- endcomment -%}
+
+  {% elsif quantity_type == 'bundle' %}
+
+    <div
+      class="product-quantity__bundles"
+      role="radiogroup"
+      aria-label="{{ block.settings.bundle_label }}"
+    >
+
+      {% if block.settings.bundle_1_enabled %}
+
+        <button
+          type="button"
+          class="
+            product-quantity__bundle
+            is-active
+          "
+          data-bundle-option
+          data-bundle-quantity="{{ block.settings.bundle_1_quantity }}"
+          aria-pressed="true"
+        >
+
+          <span class="product-quantity__bundle-radio">
+            <span class="product-quantity__bundle-radio-dot"></span>
+          </span>
+
+          <span class="product-quantity__bundle-content">
+
+            <span class="product-quantity__bundle-title">
+              {{ block.settings.bundle_1_label }}
+            </span>
+
+            {% if block.settings.bundle_1_description != blank %}
+              <span class="product-quantity__bundle-description">
+                {{ block.settings.bundle_1_description }}
+              </span>
+            {% endif %}
+
+          </span>
+
+          {% if block.settings.bundle_1_savings != blank %}
+
+            <span class="product-quantity__bundle-savings">
+              {{ block.settings.bundle_1_savings }}
+            </span>
+
+          {% endif %}
+
+        </button>
+
+      {% endif %}
+
+
+      {% if block.settings.bundle_2_enabled %}
+
+        <button
+          type="button"
+          class="product-quantity__bundle"
+          data-bundle-option
+          data-bundle-quantity="{{ block.settings.bundle_2_quantity }}"
+          aria-pressed="false"
+        >
+
+          <span class="product-quantity__bundle-radio">
+            <span class="product-quantity__bundle-radio-dot"></span>
+          </span>
+
+          <span class="product-quantity__bundle-content">
+
+            <span class="product-quantity__bundle-title">
+              {{ block.settings.bundle_2_label }}
+            </span>
+
+            {% if block.settings.bundle_2_description != blank %}
+              <span class="product-quantity__bundle-description">
+                {{ block.settings.bundle_2_description }}
+              </span>
+            {% endif %}
+
+          </span>
+
+          {% if block.settings.bundle_2_savings != blank %}
+
+            <span class="product-quantity__bundle-savings">
+              {{ block.settings.bundle_2_savings }}
+            </span>
+
+          {% endif %}
+
+        </button>
+
+      {% endif %}
+
+
+      {% if block.settings.bundle_3_enabled %}
+
+        <button
+          type="button"
+          class="product-quantity__bundle"
+          data-bundle-option
+          data-bundle-quantity="{{ block.settings.bundle_3_quantity }}"
+          aria-pressed="false"
+        >
+
+          <span class="product-quantity__bundle-radio">
+            <span class="product-quantity__bundle-radio-dot"></span>
+          </span>
+
+          <span class="product-quantity__bundle-content">
+
+            <span class="product-quantity__bundle-title">
+              {{ block.settings.bundle_3_label }}
+            </span>
+
+            {% if block.settings.bundle_3_description != blank %}
+              <span class="product-quantity__bundle-description">
+                {{ block.settings.bundle_3_description }}
+              </span>
+            {% endif %}
+
+          </span>
+
+          {% if block.settings.bundle_3_savings != blank %}
+
+            <span class="product-quantity__bundle-savings">
+              {{ block.settings.bundle_3_savings }}
+            </span>
+
+          {% endif %}
+
+        </button>
+
+      {% endif %}
+
+
+      {% if block.settings.bundle_4_enabled %}
+
+        <button
+          type="button"
+          class="product-quantity__bundle"
+          data-bundle-option
+          data-bundle-quantity="{{ block.settings.bundle_4_quantity }}"
+          aria-pressed="false"
+        >
+
+          <span class="product-quantity__bundle-radio">
+            <span class="product-quantity__bundle-radio-dot"></span>
+          </span>
+
+          <span class="product-quantity__bundle-content">
+
+            <span class="product-quantity__bundle-title">
+              {{ block.settings.bundle_4_label }}
+            </span>
+
+            {% if block.settings.bundle_4_description != blank %}
+              <span class="product-quantity__bundle-description">
+                {{ block.settings.bundle_4_description }}
+              </span>
+            {% endif %}
+
+          </span>
+
+          {% if block.settings.bundle_4_savings != blank %}
+
+            <span class="product-quantity__bundle-savings">
+              {{ block.settings.bundle_4_savings }}
+            </span>
+
+          {% endif %}
+
+        </button>
+
+      {% endif %}
+
+    </div>
+
+
+    {%- liquid
+      assign first_bundle_quantity = block.settings.bundle_1_quantity | default: 1
+
+      if first_bundle_quantity < min_quantity
+        assign first_bundle_quantity = min_quantity
+      endif
+
+      if first_bundle_quantity > max_quantity
+        assign first_bundle_quantity = min_quantity
+      endif
+    -%}
+
+    <input
+      id="ProductQuantityInput-{{ block.id }}"
+      class="custom-product-form__quantity"
+      type="hidden"
+      name="quantity"
+      value="{{ first_bundle_quantity }}"
+      form="{{ product_form_id }}"
+      data-quantity-input
+    >
 
   {% endif %}
 
@@ -189,6 +487,10 @@
         {
           "value": "presets",
           "label": "Quantity presets"
+        },
+        {
+          "value": "bundle",
+          "label": "Bundle & save"
         }
       ],
       "default": "stepper"
@@ -306,6 +608,221 @@
       "label": "Label",
       "default": "3 items",
       "visible_if": "{{ block.settings.quantity_type == 'presets' }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Bundle & save",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_label",
+      "label": "Section label",
+      "default": "Choose your quantity",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Bundle 1",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "bundle_1_enabled",
+      "label": "Enable bundle 1",
+      "default": true,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "range",
+      "id": "bundle_1_quantity",
+      "label": "Quantity",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 1,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_1_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_1_label",
+      "label": "Title",
+      "default": "Buy 1",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_1_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_1_description",
+      "label": "Description",
+      "default": "Single item",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_1_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_1_savings",
+      "label": "Savings text",
+      "default": "save",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_1_enabled }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Bundle 2",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "bundle_2_enabled",
+      "label": "Enable bundle 2",
+      "default": true,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "range",
+      "id": "bundle_2_quantity",
+      "label": "Quantity",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 2,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_2_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_2_label",
+      "label": "Title",
+      "default": "Buy 2",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_2_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_2_description",
+      "label": "Description",
+      "default": "Save more",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_2_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_2_savings",
+      "label": "Savings text",
+      "default": "Save 5%",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_2_enabled }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Bundle 3",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "bundle_3_enabled",
+      "label": "Enable bundle 3",
+      "default": true,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "range",
+      "id": "bundle_3_quantity",
+      "label": "Quantity",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 3,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_3_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_3_label",
+      "label": "Title",
+      "default": "Buy 3",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_3_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_3_description",
+      "label": "Description",
+      "default": "Best value",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_3_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_3_savings",
+      "label": "Savings text",
+      "default": "Save 10%",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_3_enabled }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Bundle 4",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "bundle_4_enabled",
+      "label": "Enable bundle 4",
+      "default": false,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "range",
+      "id": "bundle_4_quantity",
+      "label": "Quantity",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 5,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_4_label",
+      "label": "Title",
+      "default": "Buy 5",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_4_description",
+      "label": "Description",
+      "default": "Maximum value",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_4_savings",
+      "label": "Savings text",
+      "default": "Save 15%",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
     }
 
   ],
