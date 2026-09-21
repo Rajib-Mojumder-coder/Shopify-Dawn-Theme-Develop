@@ -246,7 +246,7 @@
               "settings": {
                 "label": "Quantity",
                 "show_label": true,
-                "quantity_type": "stepper",
+                "quantity_type": "bundle",
                 "min_quantity": 1,
                 "max_quantity": 10,
                 "quantity_step": 1,
@@ -255,7 +255,28 @@
                 "preset_2_quantity": 2,
                 "preset_2_label": "2 items",
                 "preset_3_quantity": 3,
-                "preset_3_label": "3 items"
+                "preset_3_label": "3 items",
+                "bundle_label": "Choose your quantity",
+                "bundle_1_enabled": true,
+                "bundle_1_quantity": 1,
+                "bundle_1_label": "Buy 1",
+                "bundle_1_description": "Single item",
+                "bundle_1_savings": "save",
+                "bundle_2_enabled": true,
+                "bundle_2_quantity": 2,
+                "bundle_2_label": "Buy 2",
+                "bundle_2_description": "Save more",
+                "bundle_2_savings": "Save 5%",
+                "bundle_3_enabled": true,
+                "bundle_3_quantity": 3,
+                "bundle_3_label": "Buy 3",
+                "bundle_3_description": "Best value",
+                "bundle_3_savings": "Save 10%",
+                "bundle_4_enabled": false,
+                "bundle_4_quantity": 5,
+                "bundle_4_label": "Buy 5",
+                "bundle_4_description": "Maximum value",
+                "bundle_4_savings": "Save 15%"
               },
               "blocks": {}
             }
