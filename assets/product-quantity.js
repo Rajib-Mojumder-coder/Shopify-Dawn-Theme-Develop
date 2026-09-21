@@ -21,11 +21,6 @@
         Number(container.dataset.step) || 1;
 
 
-      if (this.max < this.min) {
-        this.max = this.min;
-      }
-
-
       this.input =
         container.querySelector(
           '[data-quantity-input]'
@@ -52,6 +47,14 @@
         );
 
 
+      this.bundleButtons =
+        Array.from(
+          container.querySelectorAll(
+            '[data-bundle-option]'
+          )
+        );
+
+
       if (!this.input) {
         return;
       }
@@ -71,18 +74,14 @@
     initialize() {
 
       const currentValue =
-        Number(this.input.value) || this.min;
+        Number(this.input.value) ||
+        this.min;
 
 
       this.setQuantity(
         currentValue,
         false
       );
-
-
-      this.updateButtonState();
-
-      this.updatePresetState();
 
     }
 
@@ -95,7 +94,7 @@
 
 
       /* -----------------------------------------
-         Minus
+         Stepper minus
          ----------------------------------------- */
 
       if (this.decreaseButton) {
@@ -106,6 +105,7 @@
 
             const current =
               this.getQuantity();
+
 
             this.setQuantity(
               current - this.step
@@ -118,7 +118,7 @@
 
 
       /* -----------------------------------------
-         Plus
+         Stepper plus
          ----------------------------------------- */
 
       if (this.increaseButton) {
@@ -129,6 +129,7 @@
 
             const current =
               this.getQuantity();
+
 
             this.setQuantity(
               current + this.step
@@ -185,8 +186,48 @@
                 value
               );
 
+            }
+          );
 
-              this.updatePresetState();
+        }
+      );
+
+
+      /* -----------------------------------------
+         Bundle & Save
+         ----------------------------------------- */
+
+      this.bundleButtons.forEach(
+        button => {
+
+          button.addEventListener(
+            'click',
+            event => {
+
+              event.preventDefault();
+
+
+              const quantity =
+                Number(
+                  button.dataset.bundleQuantity
+                );
+
+
+              if (
+                !Number.isFinite(quantity)
+              ) {
+                return;
+              }
+
+
+              this.setQuantity(
+                quantity
+              );
+
+
+              this.updateBundleState(
+                button
+              );
 
             }
           );
@@ -215,7 +256,7 @@
 
 
     /* =========================================
-       NORMALIZE QUANTITY
+       NORMALIZE
        ========================================= */
 
     normalizeQuantity(value) {
@@ -224,7 +265,9 @@
         Number(value);
 
 
-      if (!Number.isFinite(quantity)) {
+      if (
+        !Number.isFinite(quantity)
+      ) {
         quantity = this.min;
       }
 
@@ -238,11 +281,6 @@
           )
         );
 
-
-      /*
-       * Keep quantity aligned with
-       * the configured step.
-       */
 
       const stepPosition =
         (quantity - this.min) /
@@ -292,9 +330,17 @@
         quantity;
 
 
+      this.container.dataset.currentQuantity =
+        quantity;
+
+
       this.updateButtonState();
 
       this.updatePresetState();
+
+      this.updateBundleStateByQuantity(
+        quantity
+      );
 
 
       if (dispatchChange) {
@@ -319,8 +365,10 @@
 
     updateButtonState() {
 
-      if (!this.decreaseButton &&
-          !this.increaseButton) {
+      if (
+        !this.decreaseButton &&
+        !this.increaseButton
+      ) {
         return;
       }
 
@@ -348,12 +396,14 @@
 
 
     /* =========================================
-       PRESET ACTIVE STATE
+       PRESET STATE
        ========================================= */
 
     updatePresetState() {
 
-      if (!this.presetButtons.length) {
+      if (
+        !this.presetButtons.length
+      ) {
         return;
       }
 
@@ -393,11 +443,99 @@
 
     }
 
+
+    /* =========================================
+       BUNDLE STATE
+       ========================================= */
+
+    updateBundleStateByQuantity(
+      quantity
+    ) {
+
+      if (
+        !this.bundleButtons.length
+      ) {
+        return;
+      }
+
+
+      this.bundleButtons.forEach(
+        button => {
+
+          const bundleQuantity =
+            Number(
+              button.dataset.bundleQuantity
+            );
+
+
+          const active =
+            bundleQuantity === quantity;
+
+
+          button.classList.toggle(
+            'is-active',
+            active
+          );
+
+
+          button.setAttribute(
+            'aria-pressed',
+            active
+              ? 'true'
+              : 'false'
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       DIRECT BUNDLE UPDATE
+       ========================================= */
+
+    updateBundleState(
+      activeButton
+    ) {
+
+      if (
+        !this.bundleButtons.length
+      ) {
+        return;
+      }
+
+
+      this.bundleButtons.forEach(
+        button => {
+
+          const active =
+            button === activeButton;
+
+
+          button.classList.toggle(
+            'is-active',
+            active
+          );
+
+
+          button.setAttribute(
+            'aria-pressed',
+            active
+              ? 'true'
+              : 'false'
+          );
+
+        }
+      );
+
+    }
+
   }
 
 
   /* =========================================
-     INITIALIZATION
+     INITIALIZE BLOCKS
      ========================================= */
 
   function initializeQuantityBlocks(
