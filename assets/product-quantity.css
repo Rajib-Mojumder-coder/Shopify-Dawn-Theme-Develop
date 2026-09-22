@@ -288,36 +288,18 @@
 
 .product-quantity__bundle {
   position: relative;
-
   display: flex;
-
   align-items: center;
-
   width: 100%;
-
   min-width: 0;
-
   padding: var(--bundle-padding, 16px);
-
-  border:
-    1px solid
-    var(--bundle-border, currentColor);
-
-  border-radius:
-    var(--bundle-radius, 10px);
-
-  background:
-    var(--bundle-background, transparent);
-
-  color:
-    var(--bundle-text, inherit);
-
+  border: 1px solid var(--bundle-border);
+  border-radius: var(--bundle-radius, 10px);
+  background: var(--bundle-background);
+  color: var(--bundle-text);
   text-align: left;
-
   cursor: pointer;
-
-  transition:
-    background-color 180ms ease,
+  transition: background-color 180ms ease,
     color 180ms ease,
     border-color 180ms ease,
     box-shadow 180ms ease,
