@@ -355,8 +355,7 @@
   box-shadow:
     0 0 0 1px
     var(
-      --bundle-active-border,
-      currentColor
+      --bundle-active-border
     );
 }
 
