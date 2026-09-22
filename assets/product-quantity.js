@@ -447,48 +447,74 @@
     /* =========================================
        BUNDLE STATE
        ========================================= */
+      updateBundleStateByQuantity(quantity) {
 
-    updateBundleStateByQuantity(
-      quantity
-    ) {
-
-      if (
-        !this.bundleButtons.length
-      ) {
-        return;
-      }
+        if (!this.bundleButtons.length) {
+          return;
+        }
 
 
-      this.bundleButtons.forEach(
-        button => {
+        let selectedDiscountCode = '';
 
-          const bundleQuantity =
-            Number(
-              button.dataset.bundleQuantity
+
+        this.bundleButtons.forEach(
+          button => {
+
+            const bundleQuantity =
+              Number(
+                button.dataset.bundleQuantity
+              );
+
+
+            const active =
+              bundleQuantity === quantity;
+
+
+            button.classList.toggle(
+              'is-active',
+              active
             );
 
 
-          const active =
-            bundleQuantity === quantity;
+            button.setAttribute(
+              'aria-pressed',
+              active
+                ? 'true'
+                : 'false'
+            );
 
 
-          button.classList.toggle(
-            'is-active',
-            active
-          );
+            if (active) {
+
+              selectedDiscountCode =
+                (
+                  button.dataset.bundleDiscountCode ||
+                  ''
+                ).trim();
+
+            }
+
+          }
+        );
 
 
-          button.setAttribute(
-            'aria-pressed',
-            active
-              ? 'true'
-              : 'false'
-          );
+        /*
+        * Store the selected discount code
+        * on the SAME product form.
+        */
+
+        const form =
+          this.container.closest('form');
+
+
+        if (form) {
+
+          form.dataset.bundleDiscountCode =
+            selectedDiscountCode;
 
         }
-      );
 
-    }
+      }
 
 
     /* =========================================
