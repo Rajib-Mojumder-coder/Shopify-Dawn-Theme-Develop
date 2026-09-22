@@ -19,7 +19,39 @@
 >
 <style>
   #ProductQuantity-{{ block.id }}{
+    --bundle-gap: {{ block.settings.bundle_gap }}px;
+  --bundle-radius: {{ block.settings.bundle_radius }}px;
+  --bundle-padding: {{ block.settings.bundle_padding }}px;
 
+  {% if block.settings.bundle_use_custom_colors %}
+
+    --bundle-background:
+      {% if block.settings.bundle_enable_gradient %}
+        linear-gradient(
+          135deg,
+          {{ block.settings.bundle_background }},
+          {{ block.settings.bundle_background_gradient }}
+        );
+      {% else %}
+        {{ block.settings.bundle_background }};
+      {% endif %}
+
+    --bundle-text: {{ block.settings.bundle_text_color }};
+    --bundle-border: {{ block.settings.bundle_border_color }};
+    --bundle-active-background: {{ block.settings.bundle_active_background }};
+    --bundle-active-text: {{ block.settings.bundle_active_text }};
+    --bundle-active-border: {{ block.settings.bundle_active_border }};
+
+  {% else %}
+
+    --bundle-background: transparent;
+    --bundle-text: inherit;
+    --bundle-border: currentColor;
+    --bundle-active-background: currentColor;
+    --bundle-active-text: #ffffff;
+    --bundle-active-border: currentColor;
+
+  {% endif %}
   }
 </style>
 
