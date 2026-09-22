@@ -792,8 +792,13 @@
       "default": "save",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_1_enabled }}"
     },
-
-
+    {
+      "type": "text",
+      "id": "bundle_1_badge",
+      "label": "Badge",
+      "default": "Most Popular",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_1_enabled }}"
+    },
     {
       "type": "header",
       "content": "Bundle 2",
@@ -842,14 +847,18 @@
       "default": "Save 5%",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_2_enabled }}"
     },
-
-
+    {
+      "type": "text",
+      "id": "bundle_2_badge",
+      "label": "Badge",
+      "default": "Most popular",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_2_enabled }}"
+    },
     {
       "type": "header",
       "content": "Bundle 3",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
     },
-
     {
       "type": "checkbox",
       "id": "bundle_3_enabled",
@@ -892,8 +901,13 @@
       "default": "Save 10%",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_3_enabled }}"
     },
-
-
+    {
+      "type": "text",
+      "id": "bundle_3_badge",
+      "label": "Badge",
+      "default": "Best value",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_3_enabled }}"
+    },    
     {
       "type": "header",
       "content": "Bundle 4",
@@ -934,12 +948,18 @@
       "default": "Maximum value",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
     },
-
     {
       "type": "text",
       "id": "bundle_4_savings",
       "label": "Savings text",
       "default": "Save 15%",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
+    },
+    {
+      "type": "text",
+      "id": "bundle_4_badge",
+      "label": "Badge",
+      "default": "Exclusive Offer",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
     }
 
