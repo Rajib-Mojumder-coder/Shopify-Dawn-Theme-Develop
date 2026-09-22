@@ -280,6 +280,12 @@
           data-bundle-option data-bundle-quantity="{{ block.settings.bundle_1_quantity }}"
           aria-pressed="true">
 
+           {% if block.settings.bundle_1_badge != blank %}
+            <span class="product-quantity__bundle-badge">
+              {{ block.settings.bundle_1_badge }}
+            </span>
+          {% endif %}
+
           <span class="product-quantity__bundle-radio">
             <span class="product-quantity__bundle-radio-dot"></span>
           </span>
@@ -320,6 +326,12 @@
           data-bundle-quantity="{{ block.settings.bundle_2_quantity }}"
           aria-pressed="false"
         >
+
+           {% if block.settings.bundle_2_badge != blank %}
+            <span class="product-quantity__bundle-badge">
+              {{ block.settings.bundle_2_badge }}
+            </span>
+          {% endif %}
 
           <span class="product-quantity__bundle-radio">
             <span class="product-quantity__bundle-radio-dot"></span>
@@ -362,6 +374,12 @@
           aria-pressed="false"
         >
 
+        {% if block.settings.bundle_3_badge != blank %}
+          <span class="product-quantity__bundle-badge">
+            {{ block.settings.bundle_3_badge }}
+          </span>
+        {% endif %}
+
           <span class="product-quantity__bundle-radio">
             <span class="product-quantity__bundle-radio-dot"></span>
           </span>
@@ -402,6 +420,12 @@
           data-bundle-quantity="{{ block.settings.bundle_4_quantity }}"
           aria-pressed="false"
         >
+
+        {% if block.settings.bundle_4_badge != blank %}
+          <span class="product-quantity__bundle-badge">
+            {{ block.settings.bundle_4_badge }}
+          </span>
+        {% endif %}
 
           <span class="product-quantity__bundle-radio">
             <span class="product-quantity__bundle-radio-dot"></span>
