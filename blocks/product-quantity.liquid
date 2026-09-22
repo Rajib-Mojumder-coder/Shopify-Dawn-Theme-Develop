@@ -789,6 +789,34 @@
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
     },
     {
+      "type": "color",
+      "id": "bundle_badge_background",
+      "label": "Badge background",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "bundle_badge_text",
+      "label": "Badge text",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "bundle_active_badge_background",
+      "label": "Active badge background",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "bundle_active_badge_text",
+      "label": "Active badge text",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
       "type": "header",
       "content": "Bundle 1",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
