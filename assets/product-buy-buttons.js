@@ -27,7 +27,7 @@
       this.variantInput =
         this.form
           ? this.form.querySelector(
-              '.product-variant-id'
+              '[name="id"]'
             )
           : null;
 
@@ -38,80 +38,14 @@
         );
 
 
-      this.addButtonText =
-        container.querySelector(
-          '[data-add-to-cart-text]'
-        );
-
-
-      this.loading =
-        container.querySelector(
-          '[data-add-to-cart-loading]'
-        );
-
-
-      this.dynamicCheckout =
-        container.querySelector(
-          '[data-dynamic-checkout]'
-        );
-
-
-      this.status =
-        container.querySelector(
-          '[data-buy-button-status]'
-        );
-
-
-      this.variants = [];
-
-
-      this.lastVariantId =
-        this.variantInput
-          ? this.variantInput.value
-          : '';
-
-
-      this.loadVariants();
-
-      this.bindEvents();
-
-      this.updateVariantState();
-
-    }
-
-
-    /* =========================================
-       LOAD VARIANTS
-       ========================================= */
-
-    loadVariants() {
-
-      const json =
-        this.container.querySelector(
-          '.product-buy-buttons__variants'
-        );
-
-
-      if (!json) {
+      if (!this.addButton) {
         return;
       }
 
 
-      try {
+      this.bindEvents();
 
-        this.variants =
-          JSON.parse(
-            json.textContent
-          );
-
-      } catch (error) {
-
-        console.warn(
-          'Product buy button variant data could not be parsed.',
-          error
-        );
-
-      }
+      this.syncVariantState();
 
     }
 
@@ -122,9 +56,8 @@
 
     bindEvents() {
 
-
       /*
-       * Native product form changes.
+       * Variant picker changes
        */
 
       if (this.productInfo) {
@@ -135,7 +68,7 @@
 
             window.setTimeout(
               () => {
-                this.updateVariantState();
+                this.syncVariantState();
               },
               30
             );
@@ -145,27 +78,27 @@
 
 
         /*
-         * Custom variant dropdown items.
+         * Custom dropdown / custom controls
          */
 
         this.productInfo.addEventListener(
           'click',
           event => {
 
-            const variantControl =
+            const variantPicker =
               event.target.closest(
                 '.custom-product-variant-picker'
               );
 
 
-            if (!variantControl) {
+            if (!variantPicker) {
               return;
             }
 
 
             window.setTimeout(
               () => {
-                this.updateVariantState();
+                this.syncVariantState();
               },
               60
             );
@@ -177,9 +110,7 @@
 
 
       /*
-       * Keep the button synchronized when
-       * the hidden variant input is changed
-       * directly.
+       * Direct variant input changes
        */
 
       if (this.variantInput) {
@@ -187,29 +118,7 @@
         this.variantInput.addEventListener(
           'change',
           () => {
-
-            this.updateVariantState();
-
-          }
-        );
-
-      }
-
-
-      /*
-       * Product form submission.
-       */
-
-      if (this.form) {
-
-        this.form.addEventListener(
-          'submit',
-          event => {
-
-            this.handleSubmitState(
-              event
-            );
-
+            this.syncVariantState();
           }
         );
 
@@ -231,7 +140,7 @@
 
       const variantId =
         String(
-          this.variantInput.value
+          this.variantInput.value || ''
         );
 
 
@@ -240,7 +149,23 @@
       }
 
 
-      return this.variants.find(
+      /*
+       * The current variant information is
+       * read from the product page rather than
+       * maintaining a second discount or cart
+       * system here.
+       */
+
+      const variantData =
+        this.getVariantData();
+
+
+      if (!variantData) {
+        return null;
+      }
+
+
+      return variantData.find(
         variant =>
           String(variant.id) ===
           variantId
@@ -250,10 +175,48 @@
 
 
     /* =========================================
-       UPDATE VARIANT STATE
+       VARIANT DATA
        ========================================= */
 
-    updateVariantState() {
+    getVariantData() {
+
+      if (!this._variantData) {
+
+        this._variantData =
+          Array.from(
+            this.container
+              .querySelectorAll(
+                'script[type="application/json"]'
+              )
+          )
+          .map(script => {
+
+            try {
+              return JSON.parse(
+                script.textContent
+              );
+            } catch (error) {
+              return null;
+            }
+
+          })
+          .find(data =>
+            Array.isArray(data)
+          );
+
+      }
+
+
+      return this._variantData || [];
+
+    }
+
+
+    /* =========================================
+       SYNC BUTTON
+       ========================================= */
+
+    syncVariantState() {
 
       const variant =
         this.getSelectedVariant();
@@ -264,26 +227,6 @@
       }
 
 
-      const variantId =
-        String(variant.id);
-
-
-      /*
-       * Avoid unnecessary UI work.
-       */
-
-      if (
-        variantId ===
-        this.lastVariantId
-      ) {
-        return;
-      }
-
-
-      this.lastVariantId =
-        variantId;
-
-
       const available =
         Boolean(
           variant.available
@@ -291,66 +234,22 @@
 
 
       /*
-       * Add to cart.
+       * Only control availability.
+       *
+       * Do NOT control:
+       * - loading
+       * - aria-disabled during submit
+       * - form submission
+       *
+       * Dawn/custom product-form owns those.
        */
 
-      if (this.addButton) {
-
-        this.addButton.disabled =
-          !available;
-
-      }
-
-
-      /*
-       * Button text.
-       */
-
-      if (this.addButtonText) {
-
-        const availableText =
-          this.container.dataset
-            .availableText;
-
-
-        const soldOutText =
-          this.container.dataset
-            .soldOutText;
-
-
-        /*
-         * We use the current Liquid-rendered
-         * text when possible. Only update to
-         * a sold-out state here.
-         */
-
-        if (!available) {
-
-          this.addButtonText.textContent =
-            soldOutText ||
-            'Sold out';
-
-        }
-
-      }
-
-
-      /*
-       * Accelerated checkout.
-       */
-
-      if (this.dynamicCheckout) {
-
-        this.dynamicCheckout.classList.toggle(
-          'product-buy-buttons__dynamic--disabled',
-          !available
-        );
-
-      }
+      this.addButton.disabled =
+        !available;
 
 
       this.container.dataset.selectedVariantId =
-        variantId;
+        String(variant.id);
 
 
       this.container.dataset.selectedVariantAvailable =
@@ -358,105 +257,19 @@
           ? 'true'
           : 'false';
 
-    }
+
+      const text =
+        this.addButton.querySelector(
+          '.product-buy-buttons__text'
+        );
 
 
-    /* =========================================
-       SUBMIT STATE
-       ========================================= */
+      if (text) {
 
-    handleSubmitState() {
-
-      if (
-        !this.addButton ||
-        this.addButton.disabled
-      ) {
-        return;
-      }
-
-
-      /*
-       * Let the existing Shopify/custom
-       * product-form JavaScript handle the
-       * actual submission.
-       *
-       * We only provide loading UI here.
-       */
-
-      this.setLoading(true);
-
-
-      /*
-       * Safety fallback.
-       *
-       * If a custom AJAX form does not finish
-       * immediately, restore the button after
-       * a short period.
-       */
-
-      window.setTimeout(
-        () => {
-
-          this.setLoading(false);
-
-        },
-        2500
-      );
-
-    }
-
-
-    /* =========================================
-       LOADING
-       ========================================= */
-
-    setLoading(
-      loading
-    ) {
-
-      if (!this.addButton) {
-        return;
-      }
-
-
-      this.addButton.classList.toggle(
-        'is-loading',
-        loading
-      );
-
-
-      this.addButton.setAttribute(
-        'aria-busy',
-        loading
-          ? 'true'
-          : 'false'
-      );
-
-
-      if (this.addButtonText) {
-
-        this.addButtonText.hidden =
-          loading;
-
-      }
-
-
-      if (this.loading) {
-
-        this.loading.hidden =
-          !loading;
-
-      }
-
-
-      if (loading) {
-
-        this.addButton.disabled =
-          true;
-
-      } else {
-
-        this.updateVariantState();
+        text.textContent =
+          available
+            ? this.container.dataset.availableText
+            : this.container.dataset.soldOutText;
 
       }
 
@@ -466,7 +279,7 @@
 
 
   /* =========================================
-     INITIALIZE
+     INITIALIZATION
      ========================================= */
 
   function initializeBuyButtons(
@@ -516,11 +329,6 @@
           'true';
 
 
-        /*
-         * Store instance for debugging
-         * and future integrations.
-         */
-
         container.productBuyButtons =
           new ProductBuyButtons(
             container
@@ -533,7 +341,7 @@
 
 
   /* =========================================
-     INITIAL PAGE LOAD
+     PAGE LOAD
      ========================================= */
 
   if (
@@ -544,9 +352,7 @@
     document.addEventListener(
       'DOMContentLoaded',
       () => {
-
         initializeBuyButtons();
-
       }
     );
 
@@ -558,17 +364,15 @@
 
 
   /* =========================================
-     SHOPIFY THEME EDITOR
+     THEME EDITOR
      ========================================= */
 
   document.addEventListener(
     'shopify:section:load',
     event => {
-
       initializeBuyButtons(
         event.target
       );
-
     }
   );
 
@@ -576,11 +380,9 @@
   document.addEventListener(
     'shopify:block:select',
     event => {
-
       initializeBuyButtons(
         event.target
       );
-
     }
   );
 
