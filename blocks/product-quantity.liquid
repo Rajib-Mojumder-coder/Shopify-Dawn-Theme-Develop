@@ -938,6 +938,13 @@
     },
     {
       "type": "text",
+      "id": "bundle_2_discount_code",
+      "label": "Discount code",
+      "info": "Enter the Shopify discount code that should apply to this bundle.",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_2_enabled }}"
+    },
+    {
+      "type": "text",
       "id": "bundle_2_badge",
       "label": "Badge",
       "default": "Most popular",
