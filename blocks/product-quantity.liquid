@@ -44,12 +44,13 @@
 
   {% else %}
 
-    --bundle-background: transparent;
-    --bundle-text: inherit;
-    --bundle-border: currentColor;
-    --bundle-active-background: inherit;
-    --bundle-active-text: #ffffff;
-    --bundle-active-border: currentColor;
+     --bundle-background: rgb(var(--color-background));
+    --bundle-text: rgb(var(--color-foreground));
+    --bundle-border: rgba(var(--color-foreground), 0.25);
+
+    --bundle-active-background: rgb(var(--color-foreground));
+    --bundle-active-text: rgb(var(--color-background));
+    --bundle-active-border: rgb(var(--color-foreground));
 
   {% endif %}
   }
