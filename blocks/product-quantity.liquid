@@ -1053,6 +1053,13 @@
     },
     {
       "type": "text",
+      "id": "bundle_4_discount_code",
+      "label": "Discount code",
+      "info": "Enter the Shopify discount code for this bundle.",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
+    },
+    {
+      "type": "text",
       "id": "bundle_4_badge",
       "label": "Badge",
       "default": "Exclusive Offer",
