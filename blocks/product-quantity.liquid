@@ -248,16 +248,9 @@
 
       {% if block.settings.bundle_1_enabled %}
 
-        <button
-          type="button"
-          class="
-            product-quantity__bundle
-            is-active
-          "
-          data-bundle-option
-          data-bundle-quantity="{{ block.settings.bundle_1_quantity }}"
-          aria-pressed="true"
-        >
+        <button type="button" class="product-quantity__bundle is-active"
+          data-bundle-option data-bundle-quantity="{{ block.settings.bundle_1_quantity }}"
+          aria-pressed="true">
 
           <span class="product-quantity__bundle-radio">
             <span class="product-quantity__bundle-radio-dot"></span>
