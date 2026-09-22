@@ -690,6 +690,62 @@
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
     },
     {
+      "type": "color",
+      "id": "bundle_background",
+      "label": "Background",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "bundle_background_gradient",
+      "label": "Gradient end color",
+      "default": "#F3F5F7",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "bundle_enable_gradient",
+      "label": "Use gradient",
+      "default": false,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "bundle_text_color",
+      "label": "Text color",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "bundle_border_color",
+      "label": "Border color",
+      "default": "#D9DDE3",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "bundle_active_background",
+      "label": "Active background",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "bundle_active_text",
+      "label": "Active text",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "bundle_active_border",
+      "label": "Active border",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
+    },
+    {
       "type": "header",
       "content": "Bundle 1",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
