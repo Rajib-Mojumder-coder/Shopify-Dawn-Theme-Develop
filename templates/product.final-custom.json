@@ -306,11 +306,11 @@
               "name": "Product buy buttons",
               "settings": {
                 "show_add_to_cart": true,
-                "add_to_cart_text": "Add to cart",
+                "add_to_cart_text": "Add to carts",
                 "sold_out_text": "Sold out",
                 "show_cart_icon": true,
                 "show_dynamic_checkout": true,
-                "button_width": "full",
+                "button_width": "75",
                 "button_alignment": "left",
                 "button_size": "small",
                 "button_radius": 14,
