@@ -243,11 +243,8 @@
 
   {% elsif quantity_type == 'bundle' %}
 
-    <div
-      class="product-quantity__bundles"
-      role="radiogroup"
-      aria-label="{{ block.settings.bundle_label }}"
-    >
+    <div class="product-quantity__bundles product-quantity__bundles--{{ block.settings.bundle_layout }}"
+      role="radiogroup" aria-label="{{ block.settings.bundle_label }}">
 
       {% if block.settings.bundle_1_enabled %}
 
