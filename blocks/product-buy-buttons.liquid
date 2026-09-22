@@ -50,8 +50,9 @@
   data-selected-variant-id="{{ selected_variant.id }}"
   data-selected-variant-available="{{ selected_variant.available }}"
   {{ block.shopify_attributes }}
-
-  style="
+>
+<style>
+    #ProductBuyButtons-{{ block.id }}{
     --buy-button-radius: {{ button_radius }}px;
     --buy-button-border-width: {{ button_border_width }}px;
 
@@ -64,9 +65,8 @@
 
     --buy-button-disabled-background: {{ button_disabled_background }};
     --buy-button-disabled-text: {{ button_disabled_text }};
-  "
->
-
+    }
+</style>
   {%- comment -%}
   ==========================================================
   VARIANT DATA
