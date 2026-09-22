@@ -169,7 +169,7 @@
                 "show_vendor": false,
                 "vendor_position": "top",
                 "show_product_type": false,
-                "text_wrap": "nowrap",
+                "text_wrap": "wrap",
                 "title_top_spacing": 0,
                 "title_bottom_spacing": 0,
                 "typography": false,
