@@ -325,20 +325,10 @@
    ========================================================= */
 
 .product-quantity__bundle.is-active {
-  background:
-    var(--bundle-active-background );
-
-  color: var( --bundle-active-text );
-
-  border-color:
-    var(
-      --bundle-active-border);
-
-  box-shadow:
-    0 0 0 1px
-    var(
-      --bundle-active-border
-    );
+  background: var(--bundle-active-background);
+  color: var(--bundle-active-text);
+  border-color: var(--bundle-active-border);
+  box-shadow: 0 0 0 1px var(--bundle-active-border);
 }
 
 
