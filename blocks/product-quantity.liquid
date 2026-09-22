@@ -624,6 +624,27 @@
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
     },
     {
+      "type": "select",
+      "id": "bundle_layout",
+      "label": "Offer layout",
+      "options": [
+        {
+          "value": "list",
+          "label": "List"
+        },
+        {
+          "value": "grid",
+          "label": "2-column cards"
+        },
+        {
+          "value": "featured",
+          "label": "Featured first"
+        }
+      ],
+      "default": "featured",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+    {
       "type": "header",
       "content": "Bundle 1",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
