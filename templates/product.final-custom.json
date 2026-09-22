@@ -257,7 +257,7 @@
                 "preset_3_quantity": 3,
                 "preset_3_label": "3 items",
                 "bundle_label": "xfasdfa",
-                "bundle_layout": "list",
+                "bundle_layout": "grid",
                 "bundle_gap": 10,
                 "bundle_radius": 10,
                 "bundle_padding": 16,
