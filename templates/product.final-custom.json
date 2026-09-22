@@ -193,7 +193,7 @@
                 "show_current_price": true,
                 "large_price": true,
                 "price_format": "money_without_currency",
-                "round_price": true,
+                "round_price": false,
                 "show_compare_price": true,
                 "hide_compare_without_discount": true,
                 "price_order": "current_first",
