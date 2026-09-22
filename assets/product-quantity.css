@@ -485,7 +485,11 @@
   white-space: nowrap;
 }
 
-
+.product-quantity__bundle.is-active
+.product-quantity__bundle-badge {
+  background:  var(--bundle-active-badge-background);
+  color: var(--bundle-active-badge-text);
+}
 /* =========================================================
    MOBILE
    ========================================================= */
