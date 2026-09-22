@@ -24,21 +24,39 @@
           : null;
 
 
-      this.variantInput =
-        this.form
-          ? this.form.querySelector(
-              '[name="id"]'
-            )
-          : null;
-
-
       this.addButton =
         container.querySelector(
           '[data-add-to-cart]'
         );
 
 
-      if (!this.addButton) {
+      this.buyNowButton =
+        container.querySelector(
+          '[data-buy-now]'
+        );
+
+
+      this.status =
+        container.querySelector(
+          '[data-buy-button-status]'
+        );
+
+
+      this.variants =
+        this.loadVariants();
+
+
+      this.cartRoute =
+        (
+          container.dataset.cartRoute ||
+          '/cart'
+        ).replace(
+          /\/$/,
+          ''
+        );
+
+
+      if (!this.form) {
         return;
       }
 
@@ -51,13 +69,93 @@
 
 
     /* =========================================
+       VARIANTS
+       ========================================= */
+
+    loadVariants() {
+
+      const element =
+        this.container.querySelector(
+          '.product-buy-buttons__variants'
+        );
+
+
+      if (!element) {
+        return [];
+      }
+
+
+      try {
+
+        const data =
+          JSON.parse(
+            element.textContent
+          );
+
+
+        return Array.isArray(data)
+          ? data
+          : [];
+
+      } catch (error) {
+
+        console.warn(
+          'Product buy button variant data could not be parsed.',
+          error
+        );
+
+        return [];
+
+      }
+
+    }
+
+
+    /* =========================================
        EVENTS
        ========================================= */
 
     bindEvents() {
 
+
+      /* Add to cart */
+
+      if (this.addButton) {
+
+        this.addButton.addEventListener(
+          'click',
+          event => {
+
+            event.preventDefault();
+
+            this.addToCart();
+
+          }
+        );
+
+      }
+
+
+      /* Buy now */
+
+      if (this.buyNowButton) {
+
+        this.buyNowButton.addEventListener(
+          'click',
+          event => {
+
+            event.preventDefault();
+
+            this.buyNow();
+
+          }
+        );
+
+      }
+
+
       /*
-       * Variant picker changes
+       * Variant changes.
        */
 
       if (this.productInfo) {
@@ -68,7 +166,9 @@
 
             window.setTimeout(
               () => {
+
                 this.syncVariantState();
+
               },
               30
             );
@@ -78,27 +178,29 @@
 
 
         /*
-         * Custom dropdown / custom controls
+         * Custom dropdown variant controls.
          */
 
         this.productInfo.addEventListener(
           'click',
           event => {
 
-            const variantPicker =
+            const picker =
               event.target.closest(
                 '.custom-product-variant-picker'
               );
 
 
-            if (!variantPicker) {
+            if (!picker) {
               return;
             }
 
 
             window.setTimeout(
               () => {
+
                 this.syncVariantState();
+
               },
               60
             );
@@ -108,40 +210,37 @@
 
       }
 
-
-      /*
-       * Direct variant input changes
-       */
-
-      if (this.variantInput) {
-
-        this.variantInput.addEventListener(
-          'change',
-          () => {
-            this.syncVariantState();
-          }
-        );
-
-      }
-
     }
 
 
     /* =========================================
-       GET SELECTED VARIANT
+       SELECTED VARIANT
        ========================================= */
 
-    getSelectedVariant() {
+    getVariantId() {
 
-      if (!this.variantInput) {
-        return null;
+      const input =
+        this.form.querySelector(
+          '[name="id"]'
+        );
+
+
+      if (!input) {
+        return '';
       }
 
 
+      return String(
+        input.value || ''
+      );
+
+    }
+
+
+    getSelectedVariant() {
+
       const variantId =
-        String(
-          this.variantInput.value || ''
-        );
+        this.getVariantId();
 
 
       if (!variantId) {
@@ -149,23 +248,7 @@
       }
 
 
-      /*
-       * The current variant information is
-       * read from the product page rather than
-       * maintaining a second discount or cart
-       * system here.
-       */
-
-      const variantData =
-        this.getVariantData();
-
-
-      if (!variantData) {
-        return null;
-      }
-
-
-      return variantData.find(
+      return this.variants.find(
         variant =>
           String(variant.id) ===
           variantId
@@ -175,45 +258,62 @@
 
 
     /* =========================================
-       VARIANT DATA
+       QUANTITY
        ========================================= */
 
-    getVariantData() {
+    getQuantity() {
 
-      if (!this._variantData) {
+      const quantityInput =
+        this.form.querySelector(
+          '[name="quantity"]'
+        );
 
-        this._variantData =
-          Array.from(
-            this.container
-              .querySelectorAll(
-                'script[type="application/json"]'
-              )
-          )
-          .map(script => {
 
-            try {
-              return JSON.parse(
-                script.textContent
-              );
-            } catch (error) {
-              return null;
-            }
-
-          })
-          .find(data =>
-            Array.isArray(data)
-          );
-
+      if (!quantityInput) {
+        return 1;
       }
 
 
-      return this._variantData || [];
+      const quantity =
+        Number(
+          quantityInput.value
+        );
+
+
+      if (
+        !Number.isFinite(quantity) ||
+        quantity < 1
+      ) {
+        return 1;
+      }
+
+
+      return Math.floor(quantity);
 
     }
 
 
     /* =========================================
-       SYNC BUTTON
+       DISCOUNT CODE
+       ========================================= */
+
+    getBundleDiscountCode() {
+
+      if (!this.form) {
+        return '';
+      }
+
+
+      return (
+        this.form.dataset.bundleDiscountCode ||
+        ''
+      ).trim();
+
+    }
+
+
+    /* =========================================
+       VARIANT AVAILABILITY
        ========================================= */
 
     syncVariantState() {
@@ -223,7 +323,11 @@
 
 
       if (!variant) {
+
+        this.setButtonsDisabled(true);
+
         return;
+
       }
 
 
@@ -233,19 +337,9 @@
         );
 
 
-      /*
-       * Only control availability.
-       *
-       * Do NOT control:
-       * - loading
-       * - aria-disabled during submit
-       * - form submission
-       *
-       * Dawn/custom product-form owns those.
-       */
-
-      this.addButton.disabled =
-        !available;
+      this.setButtonsDisabled(
+        !available
+      );
 
 
       this.container.dataset.selectedVariantId =
@@ -258,20 +352,457 @@
           : 'false';
 
 
-      const text =
-        this.addButton.querySelector(
+      const textElements =
+        this.container.querySelectorAll(
           '.product-buy-buttons__text'
         );
 
 
-      if (text) {
+      textElements.forEach(
+        element => {
 
-        text.textContent =
-          available
-            ? this.container.dataset.availableText
-            : this.container.dataset.soldOutText;
+          /*
+           * Don't overwrite button text
+           * while a request is running.
+           */
+
+          const button =
+            element.closest('button');
+
+
+          if (
+            button &&
+            button.getAttribute(
+              'aria-busy'
+            ) === 'true'
+          ) {
+            return;
+          }
+
+
+          element.textContent =
+            available
+              ? (
+                  button?.hasAttribute(
+                    'data-buy-now'
+                  )
+                    ? this.container.dataset.buyNowText
+                    : this.container.dataset.availableText
+                )
+              : this.container.dataset.soldOutText;
+
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       BUTTON STATE
+       ========================================= */
+
+    setButtonsDisabled(
+      disabled
+    ) {
+
+      if (this.addButton) {
+        this.addButton.disabled =
+          disabled;
+      }
+
+
+      if (this.buyNowButton) {
+        this.buyNowButton.disabled =
+          disabled;
+      }
+
+    }
+
+
+    /* =========================================
+       LOADING
+       ========================================= */
+
+    setLoading(
+      button,
+      loading
+    ) {
+
+      if (!button) {
+        return;
+      }
+
+
+      const text =
+        button.querySelector(
+          '.product-buy-buttons__text'
+        );
+
+
+      const spinner =
+        button.querySelector(
+          '[data-button-spinner]'
+        );
+
+
+      button.classList.toggle(
+        'is-loading',
+        loading
+      );
+
+
+      button.setAttribute(
+        'aria-busy',
+        loading
+          ? 'true'
+          : 'false'
+      );
+
+
+      if (text) {
+        text.style.visibility =
+          loading
+            ? 'hidden'
+            : 'visible';
+      }
+
+
+      if (spinner) {
+
+        spinner.classList.toggle(
+          'hidden',
+          !loading
+        );
 
       }
+
+
+      if (loading) {
+        button.disabled = true;
+      }
+
+    }
+
+
+    /* =========================================
+       STATUS
+       ========================================= */
+
+    showStatus(
+      message,
+      type = ''
+    ) {
+
+      if (!this.status) {
+        return;
+      }
+
+
+      this.status.textContent =
+        message;
+
+
+      this.status.dataset.status =
+        type;
+
+    }
+
+
+    clearStatus() {
+
+      if (!this.status) {
+        return;
+      }
+
+
+      this.status.textContent = '';
+
+      delete this.status.dataset.status;
+
+    }
+
+
+    /* =========================================
+       ADD TO CART
+       ========================================= */
+
+    async addToCart() {
+
+      const variant =
+        this.getSelectedVariant();
+
+
+      if (!variant || !variant.available) {
+        return;
+      }
+
+
+      if (!this.addButton) {
+        return;
+      }
+
+
+      this.clearStatus();
+
+
+      const quantity =
+        this.getQuantity();
+
+
+      const discountCode =
+        this.getBundleDiscountCode();
+
+
+      this.setLoading(
+        this.addButton,
+        true
+      );
+
+
+      try {
+
+        /*
+         * Build FormData from the existing
+         * Shopify product form.
+         *
+         * This keeps variant, quantity and
+         * future supported form values together.
+         */
+
+        const formData =
+          new FormData(
+            this.form
+          );
+
+
+        /*
+         * Make sure the correct values are
+         * explicitly present.
+         */
+
+        formData.set(
+          'id',
+          String(variant.id)
+        );
+
+
+        formData.set(
+          'quantity',
+          String(quantity)
+        );
+
+
+        /*
+         * Add product to cart.
+         */
+
+        const addResponse =
+          await fetch(
+            window.Shopify.routes.root +
+              'cart/add.js',
+            {
+              method: 'POST',
+              headers: {
+                'Accept':
+                  'application/json'
+              },
+              body: formData
+            }
+          );
+
+
+        const addData =
+          await addResponse.json()
+            .catch(
+              () => null
+            );
+
+
+        if (!addResponse.ok) {
+
+          throw new Error(
+            addData?.description ||
+            addData?.message ||
+            'Unable to add this product to cart.'
+          );
+
+        }
+
+
+        /*
+         * Apply Bundle & Save discount.
+         *
+         * The discount is a real Shopify
+         * discount code configured in Admin.
+         */
+
+        if (discountCode) {
+
+          const discountResponse =
+            await fetch(
+              window.Shopify.routes.root +
+                'cart/update.js',
+              {
+                method: 'POST',
+
+                headers: {
+                  'Content-Type':
+                    'application/json',
+
+                  'Accept':
+                    'application/json'
+                },
+
+                body: JSON.stringify({
+                  discount:
+                    discountCode
+                })
+              }
+            );
+
+
+          const discountData =
+            await discountResponse.json()
+              .catch(
+                () => null
+              );
+
+
+          if (!discountResponse.ok) {
+
+            throw new Error(
+              discountData?.description ||
+              discountData?.message ||
+              'The bundle discount could not be applied.'
+            );
+
+          }
+
+        }
+
+
+        /*
+         * Successful Add to Cart.
+         *
+         * Your current requirement is to
+         * redirect to the cart page.
+         */
+
+        window.location.href =
+          this.cartRoute;
+
+
+      } catch (error) {
+
+        console.error(
+          'Add to cart error:',
+          error
+        );
+
+
+        this.showStatus(
+          error.message ||
+          'Something went wrong. Please try again.',
+          'error'
+        );
+
+
+        this.setLoading(
+          this.addButton,
+          false
+        );
+
+
+        this.syncVariantState();
+
+      }
+
+    }
+
+
+    /* =========================================
+       BUY NOW
+       ========================================= */
+
+    buyNow() {
+
+      const variant =
+        this.getSelectedVariant();
+
+
+      if (!variant || !variant.available) {
+        return;
+      }
+
+
+      if (!this.buyNowButton) {
+        return;
+      }
+
+
+      this.clearStatus();
+
+
+      const quantity =
+        this.getQuantity();
+
+
+      const discountCode =
+        this.getBundleDiscountCode();
+
+
+      this.setLoading(
+        this.buyNowButton,
+        true
+      );
+
+
+      /*
+       * Shopify cart permalink.
+       *
+       * No "storefront=true" means Shopify
+       * continues toward checkout.
+       */
+
+      let url =
+        this.cartRoute +
+        '/' +
+        encodeURIComponent(
+          String(variant.id)
+        ) +
+        ':' +
+        encodeURIComponent(
+          String(quantity)
+        );
+
+
+      const params =
+        new URLSearchParams();
+
+
+      if (discountCode) {
+
+        params.set(
+          'discount',
+          discountCode
+        );
+
+      }
+
+
+      const query =
+        params.toString();
+
+
+      if (query) {
+
+        url += '?' + query;
+
+      }
+
+
+      window.location.href =
+        url;
 
     }
 
@@ -364,15 +895,17 @@
 
 
   /* =========================================
-     THEME EDITOR
+     SHOPIFY THEME EDITOR
      ========================================= */
 
   document.addEventListener(
     'shopify:section:load',
     event => {
+
       initializeBuyButtons(
         event.target
       );
+
     }
   );
 
@@ -380,9 +913,11 @@
   document.addEventListener(
     'shopify:block:select',
     event => {
+
       initializeBuyButtons(
         event.target
       );
+
     }
   );
 
