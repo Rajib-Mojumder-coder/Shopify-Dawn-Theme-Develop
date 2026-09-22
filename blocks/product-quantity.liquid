@@ -683,6 +683,13 @@
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
     },
     {
+      "type": "checkbox",
+      "id": "bundle_use_custom_colors",
+      "label": "Use custom colors",
+      "default": false,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+    {
       "type": "header",
       "content": "Bundle 1",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
