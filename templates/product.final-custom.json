@@ -312,7 +312,7 @@
                 "add_to_cart_text": "Add to cart",
                 "sold_out_text": "Sold out",
                 "show_cart_icon": true,
-                "show_dynamic_checkout": false,
+                "show_dynamic_checkout": true,
                 "button_width": "full",
                 "button_alignment": "left",
                 "button_size": "small",
