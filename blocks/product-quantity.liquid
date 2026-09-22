@@ -12,19 +12,10 @@
   endif
 -%}
 
-<div
-  id="ProductQuantity-{{ block.id }}"
-  class="
-    product-quantity
-    product-quantity--{{ block.id }}
-    product-quantity--{{ quantity_type }}
-  "
-  data-product-quantity
-  data-quantity-type="{{ quantity_type }}"
-  data-min="{{ min_quantity }}"
-  data-max="{{ max_quantity }}"
-  data-step="{{ quantity_step }}"
-  {{ block.shopify_attributes }}
+<div id="ProductQuantity-{{ block.id }}"
+  class="product-quantity product-quantity--{{ block.id }} product-quantity--{{ quantity_type }}"
+  data-product-quantity data-quantity-type="{{ quantity_type }}"
+  data-min="{{ min_quantity }}" data-max="{{ max_quantity }}" data-step="{{ quantity_step }}" {{ block.shopify_attributes }}
 >
 
   {% if block.settings.show_label %}
