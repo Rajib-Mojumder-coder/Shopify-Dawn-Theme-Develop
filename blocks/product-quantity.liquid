@@ -646,6 +646,44 @@
     },
     {
       "type": "header",
+      "content": "Offer card design",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+    {
+      "type": "range",
+      "id": "bundle_gap",
+      "label": "Card gap",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 10,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+    {
+      "type": "range",
+      "id": "bundle_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 10,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+    {
+      "type": "range",
+      "id": "bundle_padding",
+      "label": "Card padding",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+    {
+      "type": "header",
       "content": "Bundle 1",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
     },
