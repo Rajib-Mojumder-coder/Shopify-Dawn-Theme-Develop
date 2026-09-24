@@ -1,35 +1,7 @@
 {%- liquid
   assign product_form_id = 'product-form-' | append: section.id
-
   assign selected_variant = product.selected_or_first_available_variant
-
   assign use_custom_colors = block.settings.use_custom_colors
-
-  if use_custom_colors
-
-    assign button_background = block.settings.button_background
-    assign button_text_color = block.settings.button_text_color
-    assign button_border_color = block.settings.button_border_color
-
-    assign button_hover_background = block.settings.button_hover_background
-    assign button_hover_text = block.settings.button_hover_text
-
-    assign button_disabled_background = block.settings.button_disabled_background
-    assign button_disabled_text = block.settings.button_disabled_text
-
-  else
-
-    assign button_background = 'rgb(var(--color-button))'
-    assign button_text_color = 'rgb(var(--color-button-text))'
-    assign button_border_color = 'rgb(var(--color-button))'
-
-    assign button_hover_background = 'rgb(var(--color-button-text))'
-    assign button_hover_text = 'rgb(var(--color-button))'
-
-    assign button_disabled_background = 'rgba(var(--color-foreground), 0.12)'
-    assign button_disabled_text = 'rgba(var(--color-foreground), 0.5)'
-
-  endif
 -%}
 
 
@@ -40,472 +12,781 @@
     product-buy-buttons--{{ block.id }}
     product-buy-buttons--width-{{ block.settings.button_width }}
     product-buy-buttons--align-{{ block.settings.button_alignment }}
+    product-buy-buttons--layout-{{ block.settings.button_layout }}
   "
+
   data-product-buy-buttons
   data-product-id="{{ product.id }}"
   data-product-form-id="{{ product_form_id }}"
-  data-available-text="{{ block.settings.add_to_cart_text | escape }}"
+
+  data-cart-route="{{ routes.cart_url }}"
+
+  data-add-to-cart-text="{{ block.settings.add_to_cart_text | escape }}"
+  data-buy-now-text="{{ block.settings.buy_now_text | escape }}"
   data-sold-out-text="{{ block.settings.sold_out_text | escape }}"
+
   {{ block.shopify_attributes }}
 
   style="
-    --buy-button-radius: {{ block.settings.button_radius }}px;
-    --buy-button-border-width: {{ block.settings.button_border_width }}px;
 
-    --buy-button-background: {{ button_background }};
-    --buy-button-text: {{ button_text_color }};
-    --buy-button-border: {{ button_border_color }};
+    --buy-button-radius:
+      {{ block.settings.button_radius }}px;
 
-    --buy-button-hover-background: {{ button_hover_background }};
-    --buy-button-hover-text: {{ button_hover_text }};
+    --buy-button-border-width:
+      {{ block.settings.button_border_width }}px;
 
-    --buy-button-disabled-background: {{ button_disabled_background }};
-    --buy-button-disabled-text: {{ button_disabled_text }};
+    {% if use_custom_colors %}
+
+      --buy-button-background:
+        {{ block.settings.button_background }};
+
+      --buy-button-text:
+        {{ block.settings.button_text_color }};
+
+      --buy-button-border:
+        {{ block.settings.button_border_color }};
+
+      --buy-button-hover-background:
+        {{ block.settings.button_hover_background }};
+
+      --buy-button-hover-text:
+        {{ block.settings.button_hover_text }};
+
+      --buy-button-disabled-background:
+        {{ block.settings.button_disabled_background }};
+
+      --buy-button-disabled-text:
+        {{ block.settings.button_disabled_text }};
+
+      --buy-now-background:
+        {{ block.settings.buy_now_background }};
+
+      --buy-now-text:
+        {{ block.settings.buy_now_text_color }};
+
+      --buy-now-border:
+        {{ block.settings.buy_now_border_color }};
+
+      --buy-now-hover-background:
+        {{ block.settings.buy_now_hover_background }};
+
+      --buy-now-hover-text:
+        {{ block.settings.buy_now_hover_text }};
+
+    {% else %}
+
+      --buy-button-background:
+        rgb(var(--color-button));
+
+      --buy-button-text:
+        rgb(var(--color-button-text));
+
+      --buy-button-border:
+        rgb(var(--color-button));
+
+      --buy-button-hover-background:
+        rgb(var(--color-button-text));
+
+      --buy-button-hover-text:
+        rgb(var(--color-button));
+
+      --buy-button-disabled-background:
+        rgba(var(--color-foreground), 0.12);
+
+      --buy-button-disabled-text:
+        rgba(var(--color-foreground), 0.5);
+
+      --buy-now-background:
+        transparent;
+
+      --buy-now-text:
+        rgb(var(--color-foreground));
+
+      --buy-now-border:
+        rgb(var(--color-button));
+
+      --buy-now-hover-background:
+        rgb(var(--color-button));
+
+      --buy-now-hover-text:
+        rgb(var(--color-button-text));
+
+    {% endif %}
+
   "
 >
 
 
-  {% if block.settings.show_add_to_cart %}
+  {%- comment -%}
+  ========================================================
+  VARIANT DATA
+  ========================================================
+  {%- endcomment -%}
 
-    <button
-      id="ProductSubmitButton-{{ block.id }}"
-      type="submit"
-      name="add"
+  <script
+    type="application/json"
+    class="product-buy-buttons__variants"
+  >
+    [
+      {% for variant in product.variants %}
+        {
+          "id": {{ variant.id | json }},
+          "available": {{ variant.available | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  </script>
 
-      class="
-        product-buy-buttons__add
-        product-buy-buttons__add--{{ block.settings.button_size }}
-      "
 
-      form="{{ product_form_id }}"
+  {%- comment -%}
+  ========================================================
+  BUTTON GROUP
+  ========================================================
+  {%- endcomment -%}
 
-      {% unless selected_variant.available %}
-        disabled
-      {% endunless %}
+  <div class="product-buy-buttons__group">
 
-      aria-live="polite"
-    >
 
-      <span class="product-buy-buttons__text">
+    {%- comment -%}
+    ======================================================
+    ADD TO CART
+    ======================================================
+    {%- endcomment -%}
 
-        {% if selected_variant.available %}
+    {% if block.settings.show_add_to_cart %}
 
-          {{ block.settings.add_to_cart_text }}
+      <button
+        type="button"
+        id="ProductAddToCart-{{ block.id }}"
 
-        {% else %}
+        class="
+          product-buy-buttons__button
+          product-buy-buttons__add
+          product-buy-buttons__button--{{ block.settings.button_size }}
 
-          {{ block.settings.sold_out_text }}
+          {% if block.settings.show_cart_icon %}
+            product-buy-buttons__button--icon-{{ block.settings.cart_icon_position }}
+          {% endif %}
+        "
+
+        data-add-to-cart
+
+        {% unless selected_variant.available %}
+          disabled
+        {% endunless %}
+
+        aria-live="polite"
+      >
+
+        {% if block.settings.show_cart_icon %}
+
+          <span
+            class="product-buy-buttons__icon"
+            aria-hidden="true"
+          >
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M6 8h12l-1 12H7L6 8Z"></path>
+              <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+            </svg>
+
+          </span>
 
         {% endif %}
 
-      </span>
 
+        <span class="product-buy-buttons__text">
 
-      {% if block.settings.show_cart_icon %}
-
-        <span
-          class="product-buy-buttons__icon"
-          aria-hidden="true"
-        >
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M6 8h12l-1 12H7L6 8Z"></path>
-            <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
-          </svg>
+          {% if selected_variant.available %}
+            {{ block.settings.add_to_cart_text }}
+          {% else %}
+            {{ block.settings.sold_out_text }}
+          {% endif %}
 
         </span>
 
-      {% endif %}
 
-
-      {%- comment -%}
-        IMPORTANT:
-        Dawn's product-form.js expects this exact
-        loading spinner class.
-      {%- endcomment -%}
-
-      <span
-        class="loading__spinner hidden"
-        aria-hidden="true"
-      >
-        <svg
+        <span
+          class="product-buy-buttons__spinner"
+          data-button-spinner
           aria-hidden="true"
-          focusable="false"
-          class="spinner"
-          viewBox="0 0 66 66"
-          xmlns="http://www.w3.org/2000/svg"
+          hidden
         >
-          <circle
-            class="path"
-            fill="none"
-            stroke-width="6"
-            cx="33"
-            cy="33"
-            r="30"
-          ></circle>
-        </svg>
-      </span>
+          <svg
+            viewBox="0 0 50 50"
+            aria-hidden="true"
+          >
+            <circle
+              cx="25"
+              cy="25"
+              r="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+          </svg>
+        </span>
 
-    </button>
+      </button>
 
-  {% endif %}
+    {% endif %}
 
 
-  {% if block.settings.show_dynamic_checkout %}
+    {%- comment -%}
+    ======================================================
+    BUY NOW
+    ======================================================
+    ======================================================
+    Uses Shopify cart permalink.
 
-    <div class="product-buy-buttons__dynamic">
+    /cart/VARIANT_ID:QUANTITY
 
-      {{ form | payment_button }}
+    Shopify then continues to checkout.
+    ======================================================
+    {%- endcomment -%}
 
-    </div>
+    {% if block.settings.show_buy_now %}
 
-  {% endif %}
+      <button
+        type="button"
+        id="ProductBuyNow-{{ block.id }}"
+
+        class="
+          product-buy-buttons__button
+          product-buy-buttons__buy-now
+          product-buy-buttons__button--{{ block.settings.button_size }}
+        "
+
+        data-buy-now
+
+        {% unless selected_variant.available %}
+          disabled
+        {% endunless %}
+      >
+
+        <span class="product-buy-buttons__text">
+
+          {% if selected_variant.available %}
+            {{ block.settings.buy_now_text }}
+          {% else %}
+            {{ block.settings.sold_out_text }}
+          {% endif %}
+
+        </span>
+
+
+        <span
+          class="product-buy-buttons__spinner"
+          data-button-spinner
+          aria-hidden="true"
+          hidden
+        >
+          <svg
+            viewBox="0 0 50 50"
+            aria-hidden="true"
+          >
+            <circle
+              cx="25"
+              cy="25"
+              r="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+          </svg>
+        </span>
+
+      </button>
+
+    {% endif %}
+
+  </div>
+
+
+  <div
+    class="product-buy-buttons__status"
+    data-buy-button-status
+    role="status"
+    aria-live="polite"
+  ></div>
 
 </div>
 
 
 <style>
 
-  /* =====================================================
-     OUTER
-     ===================================================== */
+/* ========================================================
+   ROOT
+   ======================================================== */
 
-  .product-buy-buttons--{{ block.id }} {
-    display: flex;
-    flex-direction: column;
-
-    width: 100%;
-
-    gap: 10px;
-  }
+.product-buy-buttons--{{ block.id }} {
+  width: 100%;
+}
 
 
-  /* =====================================================
-     ALIGNMENT
-     ===================================================== */
+/* ========================================================
+   BUTTON GROUP
+   ======================================================== */
 
-  .product-buy-buttons--align-left {
-    align-items: flex-start;
-  }
-
-  .product-buy-buttons--align-center {
-    align-items: center;
-  }
-
-  .product-buy-buttons--align-right {
-    align-items: flex-end;
-  }
+.product-buy-buttons__group {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
 
 
-  /* =====================================================
-     WIDTH
-     ===================================================== */
+/* ========================================================
+   LAYOUT
+   ======================================================== */
 
-  .product-buy-buttons--width-full
-  .product-buy-buttons__add,
-  .product-buy-buttons--width-full
-  .product-buy-buttons__dynamic {
-    width: 100%;
-  }
+/* Top → Bottom */
 
-
-  .product-buy-buttons--width-75
-  .product-buy-buttons__add,
-  .product-buy-buttons--width-75
-  .product-buy-buttons__dynamic {
-    width: 75%;
-  }
+.product-buy-buttons--layout-column
+.product-buy-buttons__group {
+  flex-direction: column;
+}
 
 
-  .product-buy-buttons--width-50
-  .product-buy-buttons__add,
-  .product-buy-buttons--width-50
-  .product-buy-buttons__dynamic {
-    width: 50%;
-  }
+/* Bottom → Top */
+
+.product-buy-buttons--layout-column-reverse
+.product-buy-buttons__group {
+  flex-direction: column-reverse;
+}
 
 
-  .product-buy-buttons--width-auto
-  .product-buy-buttons__add,
-  .product-buy-buttons--width-auto
-  .product-buy-buttons__dynamic {
-    width: auto;
-  }
+/* Same row */
+
+.product-buy-buttons--layout-row
+.product-buy-buttons__group {
+  flex-direction: row;
+}
 
 
-  /* =====================================================
-     ADD TO CART BUTTON
-     ===================================================== */
+/* Reverse row */
 
-  .product-buy-buttons--{{ block.id }}
-  .product-buy-buttons__add {
+.product-buy-buttons--layout-row-reverse
+.product-buy-buttons__group {
+  flex-direction: row-reverse;
+}
 
-    display: inline-flex;
 
-    align-items: center;
-    justify-content: center;
+/* ========================================================
+   ALIGNMENT
+   ======================================================== */
 
-    gap: 8px;
+.product-buy-buttons--align-left
+.product-buy-buttons__group {
+  justify-content: flex-start;
+}
 
-    min-width: 0;
+.product-buy-buttons--align-center
+.product-buy-buttons__group {
+  justify-content: center;
+}
 
-    padding:
-      0
-      20px;
+.product-buy-buttons--align-right
+.product-buy-buttons__group {
+  justify-content: flex-end;
+}
 
-    border:
-      var(--buy-button-border-width)
-      solid
-      var(--buy-button-border);
 
-    border-radius:
-      var(--buy-button-radius);
+/* ========================================================
+   WIDTH
+   ======================================================== */
+
+.product-buy-buttons--width-full
+.product-buy-buttons__button {
+  width: 100%;
+}
+
+.product-buy-buttons--width-75
+.product-buy-buttons__button {
+  width: 75%;
+}
+
+.product-buy-buttons--width-50
+.product-buy-buttons__button {
+  width: 50%;
+}
+
+.product-buy-buttons--width-auto
+.product-buy-buttons__button {
+  width: auto;
+}
+
+
+/* ========================================================
+   ROW MODE
+   ======================================================== */
+
+.product-buy-buttons--layout-row
+.product-buy-buttons__button,
+
+.product-buy-buttons--layout-row-reverse
+.product-buy-buttons__button {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+
+/* ========================================================
+   SHARED BUTTON
+   ======================================================== */
+
+.product-buy-buttons__button {
+
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-width: 0;
+
+  padding:
+    0 20px;
+
+  border:
+    var(--buy-button-border-width)
+    solid
+    var(--buy-button-border);
+
+  border-radius:
+    var(--buy-button-radius);
+
+  background:
+    var(--buy-button-background);
+
+  color:
+    var(--buy-button-text);
+
+  font: inherit;
+
+  font-weight: 600;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  transition:
+    background-color .18s ease,
+    color .18s ease,
+    border-color .18s ease,
+    opacity .18s ease,
+    transform .18s ease;
+}
+
+
+/* ========================================================
+   BUTTON SIZE
+   ======================================================== */
+
+.product-buy-buttons__button--small {
+  min-height: 42px;
+  font-size: 14px;
+}
+
+.product-buy-buttons__button--medium {
+  min-height: 48px;
+  font-size: 15px;
+}
+
+.product-buy-buttons__button--large {
+  min-height: 56px;
+  font-size: 16px;
+}
+
+
+/* ========================================================
+   BUY NOW
+   ======================================================== */
+
+.product-buy-buttons__buy-now {
+
+  background:
+    var(--buy-now-background);
+
+  color:
+    var(--buy-now-text);
+
+  border-color:
+    var(--buy-now-border);
+}
+
+
+/* ========================================================
+   HOVER
+   ======================================================== */
+
+@media (hover: hover) {
+
+  .product-buy-buttons__add:hover:not(:disabled) {
 
     background:
-      var(--buy-button-background);
+      var(--buy-button-hover-background);
 
     color:
-      var(--buy-button-text);
-
-    font: inherit;
-
-    font-weight: 600;
-
-    line-height: 1;
-
-    cursor: pointer;
-
-    appearance: none;
-    -webkit-appearance: none;
-
-    transition:
-      background-color 180ms ease,
-      color 180ms ease,
-      border-color 180ms ease,
-      transform 180ms ease,
-      opacity 180ms ease;
-  }
-
-
-  /* =====================================================
-     BUTTON SIZE
-     ===================================================== */
-
-  .product-buy-buttons__add--small {
-    min-height: 42px;
-
-    font-size: 14px;
-  }
-
-
-  .product-buy-buttons__add--medium {
-    min-height: 48px;
-
-    font-size: 15px;
-  }
-
-
-  .product-buy-buttons__add--large {
-    min-height: 56px;
-
-    font-size: 16px;
-  }
-
-
-  /* =====================================================
-     HOVER
-     ===================================================== */
-
-  @media (hover: hover) {
-
-    .product-buy-buttons--{{ block.id }}
-    .product-buy-buttons__add:hover:not(:disabled) {
-
-      background:
-        var(--buy-button-hover-background);
-
-      color:
-        var(--buy-button-hover-text);
-
-      border-color:
-        var(--buy-button-hover-background);
-
-      transform:
-        translateY(-1px);
-    }
-
-  }
-
-
-  /* =====================================================
-     DISABLED
-     ===================================================== */
-
-  .product-buy-buttons--{{ block.id }}
-  .product-buy-buttons__add:disabled {
-
-    background:
-      var(--buy-button-disabled-background);
-
-    color:
-      var(--buy-button-disabled-text);
+      var(--buy-button-hover-text);
 
     border-color:
-      var(--buy-button-disabled-background);
-
-    cursor: not-allowed;
-
-    opacity: 0.7;
-  }
-
-
-  /* =====================================================
-     TEXT
-     ===================================================== */
-
-  .product-buy-buttons__text {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-  }
-
-
-  /* =====================================================
-     CART ICON
-     Right of text
-     ===================================================== */
-
-  .product-buy-buttons__icon {
-
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    flex: 0 0 18px;
-
-    width: 18px;
-    height: 18px;
-  }
-
-
-  .product-buy-buttons__icon svg {
-
-    display: block;
-
-    width: 100%;
-    height: 100%;
-  }
-
-
-  /* =====================================================
-     SHOPIFY LOADING SPINNER
-     ===================================================== */
-
-  .product-buy-buttons__add
-  .loading__spinner {
-
-    width: 18px;
-    height: 18px;
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
+      var(--buy-button-hover-background);
 
     transform:
-      translate(-50%, -50%);
+      translateY(-1px);
   }
 
 
-  .product-buy-buttons__add
-  .loading__spinner svg {
+  .product-buy-buttons__buy-now:hover:not(:disabled) {
+
+    background:
+      var(--buy-now-hover-background);
+
+    color:
+      var(--buy-now-hover-text);
+
+    border-color:
+      var(--buy-now-hover-background);
+
+    transform:
+      translateY(-1px);
+  }
+
+}
+
+
+/* ========================================================
+   ACTIVE
+   ======================================================== */
+
+.product-buy-buttons__button:active:not(:disabled) {
+  transform: scale(.99);
+}
+
+
+/* ========================================================
+   DISABLED
+   ======================================================== */
+
+.product-buy-buttons__button:disabled {
+
+  background:
+    var(--buy-button-disabled-background);
+
+  color:
+    var(--buy-button-disabled-text);
+
+  border-color:
+    var(--buy-button-disabled-background);
+
+  opacity: .7;
+
+  cursor: not-allowed;
+}
+
+
+/* ========================================================
+   ICON
+   ======================================================== */
+
+.product-buy-buttons__icon {
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  flex: 0 0 18px;
+}
+
+
+.product-buy-buttons__icon svg {
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Icon left */
+
+.product-buy-buttons__button--icon-left
+.product-buy-buttons__icon {
+  order: -1;
+}
+
+
+/* Icon right */
+
+.product-buy-buttons__button--icon-right
+.product-buy-buttons__icon {
+  order: 2;
+}
+
+
+/* ========================================================
+   TEXT
+   ======================================================== */
+
+.product-buy-buttons__text {
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ========================================================
+   SPINNER
+   ======================================================== */
+
+.product-buy-buttons__spinner {
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 18px;
+  height: 18px;
+
+  transform:
+    translate(-50%, -50%);
+}
+
+
+.product-buy-buttons__spinner[hidden] {
+  display: none;
+}
+
+
+.product-buy-buttons__spinner svg {
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  animation:
+    product-buy-button-spin
+    .7s linear infinite;
+}
+
+
+.product-buy-buttons__spinner circle {
+
+  stroke-dasharray:
+    90 150;
+
+  stroke-linecap: round;
+}
+
+
+@keyframes product-buy-button-spin {
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+/* ========================================================
+   LOADING
+   ======================================================== */
+
+.product-buy-buttons__button.is-loading {
+
+  pointer-events: none;
+}
+
+
+.product-buy-buttons__button.is-loading
+.product-buy-buttons__text {
+
+  visibility: hidden;
+}
+
+
+/* ========================================================
+   STATUS
+   ======================================================== */
+
+.product-buy-buttons__status {
+
+  width: 100%;
+
+  min-height: 0;
+
+  margin-top: 8px;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+}
+
+
+/* ========================================================
+   MOBILE
+   ======================================================== */
+
+@media screen and (max-width: 749px) {
+
+  .product-buy-buttons--width-75
+  .product-buy-buttons__button,
+
+  .product-buy-buttons--width-50
+  .product-buy-buttons__button {
+    width: 100%;
+  }
+
+
+  .product-buy-buttons--layout-row
+  .product-buy-buttons__group,
+
+  .product-buy-buttons--layout-row-reverse
+  .product-buy-buttons__group {
+
+    flex-direction: column;
+  }
+
+
+  .product-buy-buttons--layout-row
+  .product-buy-buttons__button,
+
+  .product-buy-buttons--layout-row-reverse
+  .product-buy-buttons__button {
 
     width: 100%;
-    height: 100%;
+
+    flex: none;
   }
 
-
-  .product-buy-buttons__add
-  .loading__spinner.hidden {
-
-    display: none;
-  }
-
-
-  /* =====================================================
-     DYNAMIC CHECKOUT
-     ===================================================== */
-
-  .product-buy-buttons__dynamic {
-    max-width: 100%;
-  }
-
-
-  .product-buy-buttons__dynamic
-  .shopify-payment-button {
-
-    width: 100%;
-  }
-
-
-  .product-buy-buttons__dynamic
-  .shopify-payment-button__button {
-
-    width: 100%;
-
-    min-height: 48px;
-
-    border-radius:
-      var(--buy-button-radius);
-  }
-
-
-  /* =====================================================
-     MOBILE
-     ===================================================== */
-
-  @media screen and (max-width: 749px) {
-
-    .product-buy-buttons--width-75
-    .product-buy-buttons__add,
-    .product-buy-buttons--width-75
-    .product-buy-buttons__dynamic {
-
-      width: 100%;
-    }
-
-
-    .product-buy-buttons--width-50
-    .product-buy-buttons__add,
-    .product-buy-buttons--width-50
-    .product-buy-buttons__dynamic {
-
-      width: 100%;
-    }
-
-
-    .product-buy-buttons--width-auto
-    .product-buy-buttons__add {
-
-      width: auto;
-      max-width: 100%;
-    }
-
-  }
+}
 
 </style>
 
 
 {% schema %}
+
 {
   "name": "Product buy buttons",
 
@@ -532,14 +813,6 @@
     },
 
     {
-      "type": "text",
-      "id": "sold_out_text",
-      "label": "Sold out text",
-      "default": "Sold out",
-      "visible_if": "{{ block.settings.show_add_to_cart }}"
-    },
-
-    {
       "type": "checkbox",
       "id": "show_cart_icon",
       "label": "Show cart icon",
@@ -547,18 +820,43 @@
       "visible_if": "{{ block.settings.show_add_to_cart }}"
     },
 
+    {
+      "type": "select",
+      "id": "cart_icon_position",
+      "label": "Cart icon position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left of text"
+        },
+        {
+          "value": "right",
+          "label": "Right of text"
+        }
+      ],
+      "default": "right",
+      "visible_if": "{{ block.settings.show_add_to_cart and block.settings.show_cart_icon }}"
+    },
+
 
     {
       "type": "header",
-      "content": "Accelerated checkout"
+      "content": "Buy now"
     },
 
     {
       "type": "checkbox",
-      "id": "show_dynamic_checkout",
-      "label": "Show dynamic checkout",
-      "info": "Uses the accelerated payment methods available for the store.",
-      "default": false
+      "id": "show_buy_now",
+      "label": "Show Buy now",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "buy_now_text",
+      "label": "Button text",
+      "default": "Buy now",
+      "visible_if": "{{ block.settings.show_buy_now }}"
     },
 
 
@@ -569,8 +867,37 @@
 
     {
       "type": "select",
+      "id": "button_layout",
+      "label": "Button layout",
+
+      "options": [
+        {
+          "value": "column",
+          "label": "Add to cart / Buy now"
+        },
+        {
+          "value": "column-reverse",
+          "label": "Buy now / Add to cart"
+        },
+        {
+          "value": "row",
+          "label": "Same row"
+        },
+        {
+          "value": "row-reverse",
+          "label": "Same row reversed"
+        }
+      ],
+
+      "default": "column"
+    },
+
+
+    {
+      "type": "select",
       "id": "button_width",
       "label": "Button width",
+
       "options": [
         {
           "value": "full",
@@ -589,13 +916,16 @@
           "label": "Auto"
         }
       ],
+
       "default": "full"
     },
+
 
     {
       "type": "select",
       "id": "button_alignment",
       "label": "Alignment",
+
       "options": [
         {
           "value": "left",
@@ -610,13 +940,16 @@
           "label": "Right"
         }
       ],
+
       "default": "center"
     },
+
 
     {
       "type": "select",
       "id": "button_size",
       "label": "Button size",
+
       "options": [
         {
           "value": "small",
@@ -631,6 +964,7 @@
           "label": "Large"
         }
       ],
+
       "default": "large"
     },
 
@@ -639,6 +973,7 @@
       "type": "header",
       "content": "Style"
     },
+
 
     {
       "type": "range",
@@ -651,6 +986,7 @@
       "default": 8
     },
 
+
     {
       "type": "range",
       "id": "button_border_width",
@@ -662,6 +998,7 @@
       "default": 1
     },
 
+
     {
       "type": "checkbox",
       "id": "use_custom_colors",
@@ -669,10 +1006,11 @@
       "default": false
     },
 
+
     {
       "type": "color",
       "id": "button_background",
-      "label": "Background",
+      "label": "Add to cart background",
       "default": "#06123D",
       "visible_if": "{{ block.settings.use_custom_colors }}"
     },
@@ -680,7 +1018,7 @@
     {
       "type": "color",
       "id": "button_text_color",
-      "label": "Text color",
+      "label": "Add to cart text",
       "default": "#FFFFFF",
       "visible_if": "{{ block.settings.use_custom_colors }}"
     },
@@ -688,7 +1026,7 @@
     {
       "type": "color",
       "id": "button_border_color",
-      "label": "Border color",
+      "label": "Add to cart border",
       "default": "#06123D",
       "visible_if": "{{ block.settings.use_custom_colors }}"
     },
@@ -696,7 +1034,7 @@
     {
       "type": "color",
       "id": "button_hover_background",
-      "label": "Hover background",
+      "label": "Add to cart hover background",
       "default": "#1A2C5C",
       "visible_if": "{{ block.settings.use_custom_colors }}"
     },
@@ -704,10 +1042,11 @@
     {
       "type": "color",
       "id": "button_hover_text",
-      "label": "Hover text color",
+      "label": "Add to cart hover text",
       "default": "#FFFFFF",
       "visible_if": "{{ block.settings.use_custom_colors }}"
     },
+
 
     {
       "type": "color",
@@ -720,8 +1059,49 @@
     {
       "type": "color",
       "id": "button_disabled_text",
-      "label": "Disabled text color",
+      "label": "Disabled text",
       "default": "#6B7280",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+
+    {
+      "type": "color",
+      "id": "buy_now_background",
+      "label": "Buy now background",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "buy_now_text_color",
+      "label": "Buy now text",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "buy_now_border_color",
+      "label": "Buy now border",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "buy_now_hover_background",
+      "label": "Buy now hover background",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "buy_now_hover_text",
+      "label": "Buy now hover text",
+      "default": "#FFFFFF",
       "visible_if": "{{ block.settings.use_custom_colors }}"
     }
 
@@ -729,8 +1109,10 @@
 
   "presets": [
     {
-      "name": "Product buy buttons"
+      "name": "Productx buy buttons"
     }
   ]
 }
+
 {% endschema %}
+

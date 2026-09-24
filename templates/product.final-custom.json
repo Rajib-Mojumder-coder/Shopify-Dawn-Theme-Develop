@@ -304,15 +304,13 @@
               },
               "blocks": {}
             },
-            "product_buy_buttons_ahFUE8": {
+            "product_buy_buttons_TNXcE4": {
               "type": "product-buy-buttons",
               "name": "Product buy buttons",
               "settings": {
                 "show_add_to_cart": true,
                 "add_to_cart_text": "Add to cart",
-                "sold_out_text": "Sold out",
                 "show_cart_icon": false,
-                "show_dynamic_checkout": false,
                 "button_width": "full",
                 "button_alignment": "center",
                 "button_size": "large",
@@ -335,7 +333,7 @@
             "product_price_UWKmbw",
             "product_variant_picker_XbqHiq",
             "product_quantity_z39MN8",
-            "product_buy_buttons_ahFUE8"
+            "product_buy_buttons_TNXcE4"
           ]
         }
       },
