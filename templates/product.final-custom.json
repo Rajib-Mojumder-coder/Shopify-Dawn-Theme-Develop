@@ -246,7 +246,7 @@
               "settings": {
                 "label": "Bundle & save",
                 "show_label": true,
-                "quantity_type": "stepper",
+                "quantity_type": "presets",
                 "min_quantity": 1,
                 "max_quantity": 10,
                 "quantity_step": 1,
