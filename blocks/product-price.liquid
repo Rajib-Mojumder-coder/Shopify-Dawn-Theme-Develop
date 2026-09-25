@@ -1,10 +1,15 @@
 {%- liquid
-  assign current_price = product.selected_or_first_available_variant.price
-  assign compare_price = product.selected_or_first_available_variant.compare_at_price
+
+  assign current_variant = product.selected_or_first_available_variant
+
+  assign current_price = current_variant.price
+  assign compare_price = current_variant.compare_at_price
+
   assign round_price = block.settings.round_price
   assign price_order = block.settings.price_order
-  assign has_discount = false
   assign typography = block.settings.typography
+
+  assign has_discount = false
 
   if compare_price != blank and compare_price > current_price
     assign has_discount = true
@@ -14,19 +19,25 @@
   assign savings_amount = 0
 
   if has_discount
+
     assign savings_amount = compare_price | minus: current_price
 
     if compare_price > 0
       assign sale_percentage = savings_amount | times: 100 | divided_by: compare_price
     endif
+
   endif
 
   if round_price
+
     assign current_price = current_price | divided_by: 100.0 | round | times: 100
+
     if compare_price
-      assign compare_price = compare_price | divided_by: 100.0 | round | times: 100
+      assign compare_price = compare_price | divided_by: 100.0 | round  | times: 100
     endif
+
   endif
+
 -%}
 
 <div
