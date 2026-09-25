@@ -42,11 +42,21 @@
 
 <div
   id="ProductPrice-{{ block.id }}"
-  class="product-price product-price--{{ block.id }} product-price--{{price_order}}" 
+  class="product-price product-price--{{ block.id }} product-price--{{ price_order }}"
   {% if block.settings.typography %} custom-price--custom-type {% endif %}
+  data-product-price-block
   data-round-price="{{ round_price }}"
+  data-price-format="{{ block.settings.price_format }}"
+  data-money-format="{{ shop.money_format | escape }}"
+  data-show-current-price="{{ block.settings.show_current_price }}"
+  data-show-compare-price="{{ block.settings.show_compare_price }}"
+  data-hide-compare-without-discount="{{ block.settings.hide_compare_without_discount }}"
+  data-show-sale-badge="{{ block.settings.show_custom_sale_badge }}"
+  data-sale-badge-type="{{ block.settings.sale_badge_type }}"
+  data-sale-badge-position="{{ block.settings.sale_badge_position }}"
   {{ block.shopify_attributes }}
 >
+
 
   <div class="product-price__display">
 
