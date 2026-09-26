@@ -70,7 +70,7 @@
             "thumbnail_corner_radius": 8,
             "carousel_slides": "1",
             "mobile_slides": "1",
-            "media_background_color": "#FFFFFF",
+            "media_background_color": "#ffffff",
             "media_ratio": "landscape",
             "media_fit": "contain",
             "constrain_to_screen_height": true,
@@ -150,7 +150,7 @@
             "vertical_align": "center",
             "details_item_gap": 16,
             "sticky_on_desktop": false,
-            "background_color": "#FFFFFF",
+            "background_color": "#ffffff",
             "border_style": "none",
             "border_thickness": 1,
             "border_color": "#dddddd",
@@ -304,6 +304,47 @@
               },
               "blocks": {}
             },
+            "product_offer_EnXdBk": {
+              "type": "product-offer",
+              "name": "Product offer",
+              "settings": {
+                "enable_offer": true,
+                "offer_type": "buy_x_get_y",
+                "buy_quantity": 1,
+                "buy_products": [
+                  "kalkhoff-image-3-excite-380-600w-dli48"
+                ],
+                "get_quantity": 1,
+                "get_products": [],
+                "badge_text": "Special offer",
+                "show_badge": true,
+                "title": "Buy more, get more",
+                "description": "<p>Add the qualifying products to your cart to unlock this offer.</p>",
+                "buy_label": "Buy",
+                "get_label": "Get",
+                "buy_products_title": "You buy",
+                "get_products_title": "You get",
+                "button_text": "Add offer to cart",
+                "success_message": "Offer added to cart.",
+                "error_message": "Unable to add this offer. Please try again.",
+                "layout": "split",
+                "alignment": "left",
+                "button_size": "medium",
+                "corner_radius": 12,
+                "border_width": 1,
+                "padding": 16,
+                "content_gap": 14,
+                "background_color": "#F8F8F8",
+                "text_color": "#111111",
+                "border_color": "#DDDDDD",
+                "badge_background": "#111111",
+                "badge_text_color": "#FFFFFF",
+                "button_background": "#111111",
+                "button_text_color": "#FFFFFF",
+                "button_border_color": "#111111"
+              },
+              "blocks": {}
+            },
             "product_buy_buttons_TNXcE4": {
               "type": "product-buy-buttons",
               "name": "Product buy buttons",
@@ -342,6 +383,7 @@
             "product_price_UWKmbw",
             "product_variant_picker_XbqHiq",
             "product_quantity_z39MN8",
+            "product_offer_EnXdBk",
             "product_buy_buttons_TNXcE4"
           ]
         }
