@@ -1,0 +1,1383 @@
+{%- liquid
+  assign offer_enabled = block.settings.enable_offer
+
+  assign buy_products = block.settings.buy_products
+  assign get_products = block.settings.get_products
+
+  assign current_product_variant = product.selected_or_first_available_variant
+
+  assign buy_quantity = block.settings.buy_quantity
+  assign get_quantity = block.settings.get_quantity
+
+  if buy_quantity < 1
+    assign buy_quantity = 1
+  endif
+
+  if get_quantity < 1
+    assign get_quantity = 1
+  endif
+-%}
+
+
+{% if offer_enabled and get_products != blank %}
+
+  <div
+    id="ProductOffer-{{ block.id }}"
+    class="
+      product-offer
+      product-offer--{{ block.id }}
+      product-offer--layout-{{ block.settings.layout }}
+      product-offer--align-{{ block.settings.alignment }}
+    "
+
+    data-product-offer
+    data-block-id="{{ block.id }}"
+
+    data-current-product-id="{{ product.id }}"
+
+    data-cart-route="{{ routes.cart_url }}"
+
+    data-success-message="{{ block.settings.success_message | escape }}"
+    data-error-message="{{ block.settings.error_message | escape }}"
+
+    {{ block.shopify_attributes }}
+
+    style="
+      --offer-background:
+        {{ block.settings.background_color }};
+
+      --offer-text:
+        {{ block.settings.text_color }};
+
+      --offer-border:
+        {{ block.settings.border_color }};
+
+      --offer-border-width:
+        {{ block.settings.border_width }}px;
+
+      --offer-radius:
+        {{ block.settings.corner_radius }}px;
+
+      --offer-padding:
+        {{ block.settings.padding }}px;
+
+      --offer-gap:
+        {{ block.settings.content_gap }}px;
+
+      --offer-button-background:
+        {{ block.settings.button_background }};
+
+      --offer-button-text:
+        {{ block.settings.button_text_color }};
+
+      --offer-button-border:
+        {{ block.settings.button_border_color }};
+
+      --offer-badge-background:
+        {{ block.settings.badge_background }};
+
+      --offer-badge-text:
+        {{ block.settings.badge_text_color }};
+    "
+  >
+
+    {%- comment -%}
+    =====================================================
+    OFFER DATA
+    =====================================================
+    {%- endcomment -%}
+
+    <script
+      type="application/json"
+      data-product-offer-data
+    >
+      {
+        "buyQuantity": {{ buy_quantity | json }},
+        "getQuantity": {{ get_quantity | json }},
+
+        "currentProductId": {{ product.id | json }},
+        "currentProductVariantId": {{ current_product_variant.id | json }},
+
+        "buyProducts": [
+          {% if buy_products != blank %}
+
+            {% for buy_product in buy_products %}
+
+              {% assign buy_variant = buy_product.selected_or_first_available_variant %}
+
+              {
+                "productId": {{ buy_product.id | json }},
+                "title": {{ buy_product.title | json }},
+                "variantId": {{ buy_variant.id | json }},
+                "available": {{ buy_variant.available | json }}
+              }
+
+              {% unless forloop.last %},{% endunless %}
+
+            {% endfor %}
+
+          {% else %}
+
+            {
+              "productId": {{ product.id | json }},
+              "title": {{ product.title | json }},
+              "variantId": {{ current_product_variant.id | json }},
+              "available": {{ current_product_variant.available | json }},
+              "currentProduct": true
+            }
+
+          {% endif %}
+        ],
+
+        "getProducts": [
+
+          {% for get_product in get_products %}
+
+            {% assign get_variant = get_product.selected_or_first_available_variant %}
+
+            {
+              "productId": {{ get_product.id | json }},
+              "title": {{ get_product.title | json }},
+              "variantId": {{ get_variant.id | json }},
+              "available": {{ get_variant.available | json }}
+            }
+
+            {% unless forloop.last %},{% endunless %}
+
+          {% endfor %}
+
+        ]
+      }
+    </script>
+
+
+    {%- comment -%}
+    =====================================================
+    OFFER HEADER
+    =====================================================
+    {%- endcomment -%}
+
+    <div class="product-offer__header">
+
+      {% if block.settings.show_badge %}
+
+        <span class="product-offer__badge">
+          {{ block.settings.badge_text }}
+        </span>
+
+      {% endif %}
+
+
+      {% if block.settings.title != blank %}
+
+        <h3 class="product-offer__title">
+          {{ block.settings.title }}
+        </h3>
+
+      {% endif %}
+
+
+      {% if block.settings.description != blank %}
+
+        <div class="product-offer__description">
+          {{ block.settings.description }}
+        </div>
+
+      {% endif %}
+
+    </div>
+
+
+    {%- comment -%}
+    =====================================================
+    BUY / GET SUMMARY
+    =====================================================
+    {%- endcomment -%}
+
+    <div class="product-offer__summary">
+
+      <div class="product-offer__summary-item">
+
+        <span class="product-offer__summary-label">
+          {{ block.settings.buy_label }}
+        </span>
+
+        <strong class="product-offer__summary-value">
+          {{ buy_quantity }}
+        </strong>
+
+      </div>
+
+
+      <span
+        class="product-offer__summary-separator"
+        aria-hidden="true"
+      >
+        +
+      </span>
+
+
+      <div class="product-offer__summary-item">
+
+        <span class="product-offer__summary-label">
+          {{ block.settings.get_label }}
+        </span>
+
+        <strong class="product-offer__summary-value">
+          {{ get_quantity }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    {%- comment -%}
+    =====================================================
+    PRODUCT LIST
+    =====================================================
+    {%- endcomment -%}
+
+    <div class="product-offer__products">
+
+
+      {%- comment -%}
+      BUY PRODUCTS
+      {%- endcomment -%}
+
+      <div class="product-offer__group">
+
+        <div class="product-offer__group-title">
+          {{ block.settings.buy_products_title }}
+        </div>
+
+
+        <div class="product-offer__product-list">
+
+          {% if buy_products != blank %}
+
+            {% for buy_product in buy_products %}
+
+              {% assign buy_variant =
+                buy_product.selected_or_first_available_variant
+              %}
+
+              <div class="product-offer__product">
+
+                {% if buy_product.featured_image %}
+
+                  <div class="product-offer__product-image">
+
+                    {{
+                      buy_product.featured_image
+                      | image_url: width: 120
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '60, 90, 120',
+                        alt: buy_product.title
+                    }}
+
+                  </div>
+
+                {% endif %}
+
+
+                <div class="product-offer__product-info">
+
+                  <span class="product-offer__product-title">
+                    {{ buy_product.title }}
+                  </span>
+
+                  <span class="product-offer__product-quantity">
+                    × {{ buy_quantity }}
+                  </span>
+
+                </div>
+
+              </div>
+
+            {% endfor %}
+
+          {% else %}
+
+            <div class="product-offer__product">
+
+              {% if product.featured_image %}
+
+                <div class="product-offer__product-image">
+
+                  {{
+                    product.featured_image
+                    | image_url: width: 120
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '60, 90, 120',
+                      alt: product.title
+                  }}
+
+                </div>
+
+              {% endif %}
+
+
+              <div class="product-offer__product-info">
+
+                <span class="product-offer__product-title">
+                  {{ product.title }}
+                </span>
+
+                <span class="product-offer__product-quantity">
+                  × {{ buy_quantity }}
+                </span>
+
+              </div>
+
+            </div>
+
+          {% endif %}
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="product-offer__plus"
+        aria-hidden="true"
+      >
+        +
+      </div>
+
+
+      {%- comment -%}
+      GET PRODUCTS
+      {%- endcomment -%}
+
+      <div class="product-offer__group">
+
+        <div class="product-offer__group-title">
+          {{ block.settings.get_products_title }}
+        </div>
+
+
+        <div class="product-offer__product-list">
+
+          {% for get_product in get_products %}
+
+            <div class="product-offer__product">
+
+              {% if get_product.featured_image %}
+
+                <div class="product-offer__product-image">
+
+                  {{
+                    get_product.featured_image
+                    | image_url: width: 120
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '60, 90, 120',
+                      alt: get_product.title
+                  }}
+
+                </div>
+
+              {% endif %}
+
+
+              <div class="product-offer__product-info">
+
+                <span class="product-offer__product-title">
+                  {{ get_product.title }}
+                </span>
+
+                <span class="product-offer__product-quantity">
+                  × {{ get_quantity }}
+                </span>
+
+              </div>
+
+            </div>
+
+          {% endfor %}
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    {%- comment -%}
+    =====================================================
+    ADD OFFER BUTTON
+    =====================================================
+    {%- endcomment -%}
+
+    <button
+      type="button"
+
+      class="
+        product-offer__button
+        product-offer__button--{{ block.settings.button_size }}
+      "
+
+      data-product-offer-button
+    >
+
+      <span class="product-offer__button-text">
+        {{ block.settings.button_text }}
+      </span>
+
+
+      <span
+        class="product-offer__spinner"
+        data-product-offer-spinner
+        aria-hidden="true"
+      >
+        <svg
+          viewBox="0 0 66 66"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            class="path"
+            fill="none"
+            stroke-width="6"
+            cx="33"
+            cy="33"
+            r="30"
+          ></circle>
+        </svg>
+      </span>
+
+    </button>
+
+
+    <div
+      class="product-offer__status"
+      data-product-offer-status
+      role="status"
+      aria-live="polite"
+    ></div>
+
+  </div>
+
+{% endif %}
+
+
+<style>
+
+/* =====================================================
+   CONTAINER
+   ===================================================== */
+
+.product-offer--{{ block.id }} {
+
+  width: 100%;
+
+  padding:
+    var(--offer-padding);
+
+  border:
+    var(--offer-border-width)
+    solid
+    var(--offer-border);
+
+  border-radius:
+    var(--offer-radius);
+
+  background:
+    var(--offer-background);
+
+  color:
+    var(--offer-text);
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   ALIGNMENT
+   ===================================================== */
+
+.product-offer--align-left {
+  text-align: left;
+}
+
+.product-offer--align-center {
+  text-align: center;
+}
+
+.product-offer--align-right {
+  text-align: right;
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.product-offer__header {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin-bottom:
+    var(--offer-gap);
+}
+
+
+.product-offer__badge {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  align-self: flex-start;
+
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background:
+    var(--offer-badge-background);
+
+  color:
+    var(--offer-badge-text);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: .02em;
+
+  text-transform: uppercase;
+}
+
+
+.product-offer--align-center
+.product-offer__badge {
+
+  align-self: center;
+}
+
+
+.product-offer--align-right
+.product-offer__badge {
+
+  align-self: flex-end;
+}
+
+
+.product-offer__title {
+
+  margin: 0;
+
+  font-size: 18px;
+
+  line-height: 1.25;
+
+  font-weight: 700;
+}
+
+
+.product-offer__description {
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  opacity: .78;
+}
+
+
+/* =====================================================
+   SUMMARY
+   ===================================================== */
+
+.product-offer__summary {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-bottom:
+    var(--offer-gap);
+}
+
+
+.product-offer__summary-item {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+
+.product-offer__summary-label {
+
+  font-size: 13px;
+
+  opacity: .75;
+}
+
+
+.product-offer__summary-value {
+
+  font-size: 14px;
+}
+
+
+.product-offer__summary-separator {
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  opacity: .55;
+}
+
+
+/* =====================================================
+   PRODUCT GROUPS
+   ===================================================== */
+
+.product-offer__products {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom:
+    var(--offer-gap);
+}
+
+
+.product-offer__group {
+
+  flex: 1 1 0;
+
+  min-width: 0;
+}
+
+
+.product-offer__group-title {
+
+  margin-bottom: 7px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  opacity: .7;
+
+  text-transform: uppercase;
+
+  letter-spacing: .04em;
+}
+
+
+.product-offer__product-list {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.product-offer__product {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+
+.product-offer__product-image {
+
+  width: 46px;
+
+  height: 46px;
+
+  flex: 0 0 46px;
+
+  overflow: hidden;
+
+  border-radius: 6px;
+
+  background:
+    rgba(0, 0, 0, .04);
+}
+
+
+.product-offer__product-image img {
+
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+}
+
+
+.product-offer__product-info {
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 2px;
+}
+
+
+.product-offer__product-title {
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.product-offer__product-quantity {
+
+  font-size: 12px;
+
+  opacity: .65;
+}
+
+
+.product-offer__plus {
+
+  flex: 0 0 auto;
+
+  font-size: 20px;
+
+  font-weight: 700;
+
+  opacity: .5;
+}
+
+
+/* =====================================================
+   BUTTON
+   ===================================================== */
+
+.product-offer__button {
+
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+
+  border:
+    var(--offer-border-width)
+    solid
+    var(--offer-button-border);
+
+  border-radius:
+    var(--offer-radius);
+
+  background:
+    var(--offer-button-background);
+
+  color:
+    var(--offer-button-text);
+
+  font: inherit;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  appearance: none;
+
+  transition:
+    opacity .18s ease,
+    transform .18s ease,
+    filter .18s ease;
+}
+
+
+.product-offer__button--small {
+
+  min-height: 42px;
+
+  padding: 10px 16px;
+
+  font-size: 13px;
+}
+
+
+.product-offer__button--medium {
+
+  min-height: 48px;
+
+  padding: 12px 18px;
+
+  font-size: 14px;
+}
+
+
+.product-offer__button--large {
+
+  min-height: 54px;
+
+  padding: 14px 20px;
+
+  font-size: 15px;
+}
+
+
+@media (hover: hover) {
+
+  .product-offer__button:hover:not(:disabled) {
+
+    filter: brightness(.94);
+
+    transform:
+      translateY(-1px);
+  }
+
+}
+
+
+.product-offer__button:active:not(:disabled) {
+
+  transform:
+    scale(.99);
+}
+
+
+.product-offer__button:disabled {
+
+  opacity: .6;
+
+  cursor: not-allowed;
+}
+
+
+/* =====================================================
+   SPINNER
+   ===================================================== */
+
+.product-offer__spinner {
+
+  position: absolute;
+
+  top: 50%;
+
+  left: 50%;
+
+  display: none;
+
+  width: 18px;
+
+  height: 18px;
+
+  transform:
+    translate(-50%, -50%);
+}
+
+
+.product-offer__button.is-loading
+.product-offer__spinner {
+
+  display: block;
+}
+
+
+.product-offer__spinner svg {
+
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  animation:
+    product-offer-spin
+    .8s
+    linear
+    infinite;
+}
+
+
+.product-offer__spinner .path {
+
+  stroke:
+    currentColor;
+
+  stroke-linecap: round;
+
+  stroke-dasharray: 1, 200;
+
+  stroke-dashoffset: 0;
+
+  animation:
+    product-offer-dash
+    1.5s
+    ease-in-out
+    infinite;
+}
+
+
+.product-offer__button.is-loading
+.product-offer__button-text {
+
+  visibility: hidden;
+}
+
+
+@keyframes product-offer-spin {
+
+  100% {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+@keyframes product-offer-dash {
+
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+
+}
+
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+.product-offer__status {
+
+  margin-top: 8px;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+}
+
+
+.product-offer__status[data-status="error"] {
+
+  color:
+    #b42318;
+}
+
+
+.product-offer__status[data-status="success"] {
+
+  color:
+    #16794c;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 749px) {
+
+  .product-offer__products {
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+
+  .product-offer__plus {
+
+    text-align: center;
+
+    line-height: 1;
+  }
+
+}
+
+</style>
+
+
+{% schema %}
+
+{
+  "name": "Product offer",
+
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Offer"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "enable_offer",
+      "label": "Enable offer",
+      "default": true
+    },
+
+    {
+      "type": "select",
+      "id": "offer_type",
+      "label": "Offer type",
+      "options": [
+        {
+          "value": "buy_x_get_y",
+          "label": "Buy X Get Y"
+        }
+      ],
+      "default": "buy_x_get_y"
+    },
+
+    {
+      "type": "range",
+      "id": "buy_quantity",
+      "label": "Buy quantity",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 1
+    },
+
+    {
+      "type": "product_list",
+      "id": "buy_products",
+      "label": "Buy products",
+      "limit": 20,
+      "info": "Leave empty to use the current product."
+    },
+
+    {
+      "type": "range",
+      "id": "get_quantity",
+      "label": "Get quantity",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 1
+    },
+
+    {
+      "type": "product_list",
+      "id": "get_products",
+      "label": "Get products",
+      "limit": 20
+    },
+
+
+    {
+      "type": "header",
+      "content": "Content"
+    },
+
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge",
+      "default": "Special offer"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show badge",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Buy more, get more"
+    },
+
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Add the qualifying products to your cart to unlock this offer.</p>"
+    },
+
+    {
+      "type": "text",
+      "id": "buy_label",
+      "label": "Buy label",
+      "default": "Buy"
+    },
+
+    {
+      "type": "text",
+      "id": "get_label",
+      "label": "Get label",
+      "default": "Get"
+    },
+
+    {
+      "type": "text",
+      "id": "buy_products_title",
+      "label": "Buy products title",
+      "default": "You buy"
+    },
+
+    {
+      "type": "text",
+      "id": "get_products_title",
+      "label": "Get products title",
+      "default": "You get"
+    },
+
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Add offer to cart"
+    },
+
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Offer added to cart."
+    },
+
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error message",
+      "default": "Unable to add this offer. Please try again."
+    },
+
+
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "stacked",
+          "label": "Stacked"
+        },
+        {
+          "value": "split",
+          "label": "Side by side"
+        }
+      ],
+      "default": "split"
+    },
+
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Button"
+    },
+
+    {
+      "type": "select",
+      "id": "button_size",
+      "label": "Button size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Style"
+    },
+
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Padding",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Content gap",
+      "min": 4,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F8F8F8"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#111111"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#DDDDDD"
+    },
+
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#111111"
+    },
+
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#111111"
+    },
+
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border",
+      "default": "#111111"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Product offer"
+    }
+  ]
+}
+
+{% endschema %}
