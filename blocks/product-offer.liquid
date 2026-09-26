@@ -1,34 +1,4 @@
 {%- liquid
-
-  assign offer_use_custom_colors = block.settings.use_custom_colors
-
-  if offer_use_custom_colors
-
-    assign offer_background = block.settings.background_color
-    assign offer_text = block.settings.text_color
-    assign offer_border = block.settings.border_color
-
-    assign offer_badge_background = block.settings.badge_background
-    assign offer_badge_text = block.settings.badge_text_color
-
-    assign offer_hover_background = block.settings.hover_background
-    assign offer_hover_text = block.settings.hover_text_color
-
-  else
-
-    assign offer_background = 'rgb(var(--color-background))'
-    assign offer_text = 'rgb(var(--color-foreground))'
-    assign offer_border = 'rgba(var(--color-foreground), 0.15)'
-
-    assign offer_badge_background = 'rgb(var(--color-button))'
-    assign offer_badge_text = 'rgb(var(--color-button-text))'
-
-    assign offer_hover_background = 'rgba(var(--color-foreground), 0.05)'
-    assign offer_hover_text = 'rgb(var(--color-foreground))'
-
-  endif
-
-
   assign offer_enabled = block.settings.enable_offer
 
   assign buy_products = block.settings.buy_products
@@ -45,6 +15,38 @@
 
   if get_quantity < 1
     assign get_quantity = 1
+  endif
+
+
+  assign use_custom_colors = block.settings.use_custom_colors
+
+
+  if use_custom_colors
+
+    assign offer_background = block.settings.background_color
+    assign offer_text = block.settings.text_color
+    assign offer_border = block.settings.border_color
+
+    assign offer_button_background = block.settings.button_background
+    assign offer_button_text = block.settings.button_text_color
+    assign offer_button_border = block.settings.button_border_color
+
+    assign offer_badge_background = block.settings.badge_background
+    assign offer_badge_text = block.settings.badge_text_color
+
+  else
+
+    assign offer_background = 'rgb(var(--color-background, 255, 255, 255))'
+    assign offer_text = 'rgb(var(--color-foreground, 17, 17, 17))'
+    assign offer_border = 'rgba(var(--color-foreground, 17, 17, 17), 0.18)'
+
+    assign offer_button_background = 'rgb(var(--color-button, 17, 17, 17))'
+    assign offer_button_text = 'rgb(var(--color-button-text, 255, 255, 255))'
+    assign offer_button_border = 'rgb(var(--color-button, 17, 17, 17))'
+
+    assign offer_badge_background = 'rgb(var(--color-button, 17, 17, 17))'
+    assign offer_badge_text = 'rgb(var(--color-button-text, 255, 255, 255))'
+
   endif
 -%}
 
@@ -73,20 +75,42 @@
     {{ block.shopify_attributes }}
 
     style="
-    --offer-background: {{ offer_background }};
-    --offer-text: {{ offer_text }};
-    --offer-border: {{ offer_border }};
+      --offer-background:
+        {{ offer_background }};
 
-    --offer-badge-background: {{ offer_badge_background }};
-    --offer-badge-text: {{ offer_badge_text }};
+      --offer-text:
+        {{ offer_text }};
 
-    --offer-hover-background: {{ offer_hover_background }};
-    --offer-hover-text: {{ offer_hover_text }};
+      --offer-border:
+        {{ offer_border }};
 
-    --offer-border-width: {{ block.settings.border_width }}px;
-    --offer-radius: {{ block.settings.corner_radius }}px;
-    --offer-padding: {{ block.settings.padding }}px;
-  "
+      --offer-border-width:
+        {{ block.settings.border_width }}px;
+
+      --offer-radius:
+        {{ block.settings.corner_radius }}px;
+
+      --offer-padding:
+        {{ block.settings.padding }}px;
+
+      --offer-gap:
+        {{ block.settings.content_gap }}px;
+
+      --offer-button-background:
+        {{ offer_button_background }};
+
+      --offer-button-text:
+        {{ offer_button_text }};
+
+      --offer-button-border:
+        {{ offer_button_border }};
+
+      --offer-badge-background:
+        {{ offer_badge_background }};
+
+      --offer-badge-text:
+        {{ offer_badge_text }};
+    "
   >
 
     {%- comment -%}
@@ -111,7 +135,9 @@
 
             {% for buy_product in buy_products %}
 
-              {% assign buy_variant = buy_product.selected_or_first_available_variant %}
+              {% assign buy_variant =
+                buy_product.selected_or_first_available_variant
+              %}
 
               {
                 "productId": {{ buy_product.id | json }},
@@ -141,7 +167,9 @@
 
           {% for get_product in get_products %}
 
-            {% assign get_variant = get_product.selected_or_first_available_variant %}
+            {% assign get_variant =
+              get_product.selected_or_first_available_variant
+            %}
 
             {
               "productId": {{ get_product.id | json }},
@@ -247,7 +275,6 @@
     {%- endcomment -%}
 
     <div class="product-offer__products">
-
 
       {%- comment -%}
       BUY PRODUCTS
@@ -1272,95 +1299,140 @@
       ],
       "default": "medium"
     },
+
+
     {
-    "type": "header",
-    "content": "Design"
+      "type": "header",
+      "content": "Style"
     },
+
     {
-    "type": "checkbox",
-    "id": "use_custom_colors",
-    "label": "Use custom colors",
-    "info": "When disabled, this offer inherits the Product Information color scheme.",
-    "default": false
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 12
     },
+
     {
-    "type": "color",
-    "id": "background_color",
-    "label": "Background",
-    "default": "#FFFFFF",
-    "visible_if": "{{ block.settings.use_custom_colors }}"
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
     },
+
     {
-    "type": "color",
-    "id": "text_color",
-    "label": "Text",
-    "default": "#111111",
-    "visible_if": "{{ block.settings.use_custom_colors }}"
+      "type": "range",
+      "id": "padding",
+      "label": "Padding",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
     },
+
     {
-    "type": "color",
-    "id": "border_color",
-    "label": "Border",
-    "default": "#E5E5E5",
-    "visible_if": "{{ block.settings.use_custom_colors }}"
+      "type": "range",
+      "id": "content_gap",
+      "label": "Content gap",
+      "min": 4,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 14
     },
+
+
     {
-    "type": "color",
-    "id": "badge_background",
-    "label": "Badge background",
-    "default": "#111111",
-    "visible_if": "{{ block.settings.use_custom_colors }}"
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "label": "Use custom colors",
+      "default": false
     },
+
+
     {
-    "type": "color",
-    "id": "badge_text_color",
-    "label": "Badge text",
-    "default": "#FFFFFF",
-    "visible_if": "{{ block.settings.use_custom_colors }}"
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F8F8F8",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
     },
+
     {
-    "type": "color",
-    "id": "hover_background",
-    "label": "Hover background",
-    "default": "#F5F5F5",
-    "visible_if": "{{ block.settings.use_custom_colors }}"
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#111111",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
     },
+
     {
-    "type": "color",
-    "id": "hover_text_color",
-    "label": "Hover text",
-    "default": "#111111",
-    "visible_if": "{{ block.settings.use_custom_colors }}"
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#DDDDDD",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
     },
+
+
     {
-    "type": "range",
-    "id": "border_width",
-    "label": "Border width",
-    "min": 0,
-    "max": 4,
-    "step": 1,
-    "unit": "px",
-    "default": 1
+      "type": "header",
+      "content": "Badge colors"
     },
+
     {
-    "type": "range",
-    "id": "corner_radius",
-    "label": "Corner radius",
-    "min": 0,
-    "max": 50,
-    "step": 1,
-    "unit": "px",
-    "default": 10
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#111111",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
     },
+
     {
-    "type": "range",
-    "id": "padding",
-    "label": "Inner spacing",
-    "min": 0,
-    "max": 40,
-    "step": 2,
-    "unit": "px",
-    "default": 16
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Button colors"
+    },
+
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#111111",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border",
+      "default": "#111111",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
     }
 
   ],
