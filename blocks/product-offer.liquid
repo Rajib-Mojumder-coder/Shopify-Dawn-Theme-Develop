@@ -1272,111 +1272,95 @@
       ],
       "default": "medium"
     },
-
-
     {
-      "type": "header",
-      "content": "Style"
+    "type": "header",
+    "content": "Design"
     },
-
     {
-      "type": "range",
-      "id": "corner_radius",
-      "label": "Corner radius",
-      "min": 0,
-      "max": 50,
-      "step": 1,
-      "unit": "px",
-      "default": 12
+    "type": "checkbox",
+    "id": "use_custom_colors",
+    "label": "Use custom colors",
+    "info": "When disabled, this offer inherits the Product Information color scheme.",
+    "default": false
     },
-
     {
-      "type": "range",
-      "id": "border_width",
-      "label": "Border width",
-      "min": 0,
-      "max": 4,
-      "step": 1,
-      "unit": "px",
-      "default": 1
+    "type": "color",
+    "id": "background_color",
+    "label": "Background",
+    "default": "#FFFFFF",
+    "visible_if": "{{ block.settings.use_custom_colors }}"
     },
-
     {
-      "type": "range",
-      "id": "padding",
-      "label": "Padding",
-      "min": 8,
-      "max": 40,
-      "step": 1,
-      "unit": "px",
-      "default": 16
+    "type": "color",
+    "id": "text_color",
+    "label": "Text",
+    "default": "#111111",
+    "visible_if": "{{ block.settings.use_custom_colors }}"
     },
-
     {
-      "type": "range",
-      "id": "content_gap",
-      "label": "Content gap",
-      "min": 4,
-      "max": 32,
-      "step": 1,
-      "unit": "px",
-      "default": 14
+    "type": "color",
+    "id": "border_color",
+    "label": "Border",
+    "default": "#E5E5E5",
+    "visible_if": "{{ block.settings.use_custom_colors }}"
     },
-
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background",
-      "default": "#F8F8F8"
+    "type": "color",
+    "id": "badge_background",
+    "label": "Badge background",
+    "default": "#111111",
+    "visible_if": "{{ block.settings.use_custom_colors }}"
     },
-
     {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text",
-      "default": "#111111"
+    "type": "color",
+    "id": "badge_text_color",
+    "label": "Badge text",
+    "default": "#FFFFFF",
+    "visible_if": "{{ block.settings.use_custom_colors }}"
     },
-
     {
-      "type": "color",
-      "id": "border_color",
-      "label": "Border",
-      "default": "#DDDDDD"
+    "type": "color",
+    "id": "hover_background",
+    "label": "Hover background",
+    "default": "#F5F5F5",
+    "visible_if": "{{ block.settings.use_custom_colors }}"
     },
-
     {
-      "type": "color",
-      "id": "badge_background",
-      "label": "Badge background",
-      "default": "#111111"
+    "type": "color",
+    "id": "hover_text_color",
+    "label": "Hover text",
+    "default": "#111111",
+    "visible_if": "{{ block.settings.use_custom_colors }}"
     },
-
     {
-      "type": "color",
-      "id": "badge_text_color",
-      "label": "Badge text",
-      "default": "#FFFFFF"
+    "type": "range",
+    "id": "border_width",
+    "label": "Border width",
+    "min": 0,
+    "max": 4,
+    "step": 1,
+    "unit": "px",
+    "default": 1
     },
-
     {
-      "type": "color",
-      "id": "button_background",
-      "label": "Button background",
-      "default": "#111111"
+    "type": "range",
+    "id": "corner_radius",
+    "label": "Corner radius",
+    "min": 0,
+    "max": 50,
+    "step": 1,
+    "unit": "px",
+    "default": 10
     },
-
     {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Button text color",
-      "default": "#FFFFFF"
-    },
-
-    {
-      "type": "color",
-      "id": "button_border_color",
-      "label": "Button border",
-      "default": "#111111"
+    "type": "range",
+    "id": "padding",
+    "label": "Inner spacing",
+    "min": 0,
+    "max": 40,
+    "step": 2,
+    "unit": "px",
+    "default": 16
     }
 
   ],
