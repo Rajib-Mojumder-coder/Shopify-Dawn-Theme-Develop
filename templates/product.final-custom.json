@@ -244,7 +244,7 @@
               "type": "product-quantity",
               "name": "Product quantity",
               "settings": {
-                "label": "",
+                "label": "Bundle & Save",
                 "show_label": true,
                 "quantity_type": "bundle",
                 "min_quantity": 1,
