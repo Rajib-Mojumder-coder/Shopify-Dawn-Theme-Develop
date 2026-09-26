@@ -73,42 +73,20 @@
     {{ block.shopify_attributes }}
 
     style="
-      --offer-background:
-        {{ block.settings.background_color }};
+    --offer-background: {{ offer_background }};
+    --offer-text: {{ offer_text }};
+    --offer-border: {{ offer_border }};
 
-      --offer-text:
-        {{ block.settings.text_color }};
+    --offer-badge-background: {{ offer_badge_background }};
+    --offer-badge-text: {{ offer_badge_text }};
 
-      --offer-border:
-        {{ block.settings.border_color }};
+    --offer-hover-background: {{ offer_hover_background }};
+    --offer-hover-text: {{ offer_hover_text }};
 
-      --offer-border-width:
-        {{ block.settings.border_width }}px;
-
-      --offer-radius:
-        {{ block.settings.corner_radius }}px;
-
-      --offer-padding:
-        {{ block.settings.padding }}px;
-
-      --offer-gap:
-        {{ block.settings.content_gap }}px;
-
-      --offer-button-background:
-        {{ block.settings.button_background }};
-
-      --offer-button-text:
-        {{ block.settings.button_text_color }};
-
-      --offer-button-border:
-        {{ block.settings.button_border_color }};
-
-      --offer-badge-background:
-        {{ block.settings.badge_background }};
-
-      --offer-badge-text:
-        {{ block.settings.badge_text_color }};
-    "
+    --offer-border-width: {{ block.settings.border_width }}px;
+    --offer-radius: {{ block.settings.corner_radius }}px;
+    --offer-padding: {{ block.settings.padding }}px;
+  "
   >
 
     {%- comment -%}
