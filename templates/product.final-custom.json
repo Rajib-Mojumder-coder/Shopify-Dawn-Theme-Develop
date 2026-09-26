@@ -307,6 +307,7 @@
             "product_offer_EnXdBk": {
               "type": "product-offer",
               "name": "Product offer",
+              "disabled": true,
               "settings": {
                 "enable_offer": true,
                 "offer_type": "buy_x_get_y",
