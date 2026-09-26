@@ -1,43 +1,81 @@
-/* ======== PRODUCT QUANTITY Theme-independent============= */
+/* =========================================================
+   PRODUCT QUANTITY
+   Theme / Color Scheme Independent
+   ========================================================= */
 
 .product-quantity {
+
   width: 100%;
+
   min-width: 0;
+
+  color:
+    var(--quantity-text);
+
 }
 
 
-/* ===========   LABEL ============ */
+/* =========================================================
+   LABEL
+   ========================================================= */
 
 .product-quantity__label {
+
   display: block;
 
   margin-bottom: 8px;
 
+  color:
+    var(--quantity-text);
+
   font: inherit;
+
   font-weight: 600;
+
   line-height: 1.4;
+
 }
 
 
-/* ================ STEPPER================== */
+/* =========================================================
+   STEPPER
+   ========================================================= */
 
 .product-quantity__stepper {
+
   display: inline-flex;
+
   align-items: center;
+
   min-height: 46px;
-  border: 1px solid currentColor;
+
+  border:
+    1px solid
+    var(--quantity-border);
+
   border-radius: 8px;
+
   overflow: hidden;
+
+  background:
+    var(--quantity-background);
+
+  color:
+    var(--quantity-text);
+
 }
 
 
 .product-quantity__button {
+
   display: inline-flex;
 
   align-items: center;
+
   justify-content: center;
 
   width: 44px;
+
   height: 44px;
 
   padding: 0;
@@ -45,10 +83,13 @@
   border: 0;
 
   background: transparent;
+
   color: inherit;
 
   font: inherit;
+
   font-size: 22px;
+
   line-height: 1;
 
   cursor: pointer;
@@ -56,70 +97,90 @@
   transition:
     background-color 180ms ease,
     opacity 180ms ease;
+
 }
 
 
 .product-quantity__button:hover:not(:disabled) {
-  background: rgba(0, 0, 0, 0.06);
+
+  background:
+    color-mix(
+      in srgb,
+      var(--quantity-text) 8%,
+      transparent
+    );
+
 }
 
 
 .product-quantity__button:disabled {
+
   opacity: 0.35;
+
   cursor: not-allowed;
+
 }
 
 
-/* ==========  NUMBER INPUT=============== */
+/* =========================================================
+   NUMBER INPUT
+   ========================================================= */
 
 .product-quantity__input {
+
   width: 56px;
+
   height: 44px;
 
   padding: 0;
 
   border: 0;
 
-  background: transparent;
-  color: inherit;
+  background:
+    transparent;
+
+  color:
+    inherit;
 
   font: inherit;
+
   text-align: center;
 
   appearance: textfield;
+
   -moz-appearance: textfield;
+
 }
 
 
 .product-quantity__input::-webkit-outer-spin-button,
+
 .product-quantity__input::-webkit-inner-spin-button {
+
   margin: 0;
 
   -webkit-appearance: none;
+
 }
 
 
-/* ================  FOCUS================ */
-
-.product-quantity__input:focus-visible,
-.product-quantity__select:focus-visible,
-.product-quantity__button:focus-visible,
-.product-quantity__preset:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
-}
-
-
-/* ==================   DROPDOWN=============== */
+/* =========================================================
+   DROPDOWN
+   ========================================================= */
 
 .product-quantity__dropdown {
+
   width: 100%;
+
   max-width: 260px;
+
 }
 
 
 .product-quantity__select {
+
   width: 100%;
+
   min-height: 46px;
 
   padding:
@@ -128,21 +189,31 @@
     0
     14px;
 
-  border: 1px solid currentColor;
+  border:
+    1px solid
+    var(--quantity-border);
+
   border-radius: 8px;
 
-  background-color: transparent;
-  color: inherit;
+  background-color:
+    var(--quantity-background);
+
+  color:
+    var(--quantity-text);
 
   font: inherit;
 
   cursor: pointer;
+
 }
 
 
-/* ================= PRESETS================ */
+/* =========================================================
+   PRESETS
+   ========================================================= */
 
 .product-quantity__presets {
+
   display: flex;
 
   flex-wrap: wrap;
@@ -150,13 +221,16 @@
   gap: 8px;
 
   width: 100%;
+
 }
 
 
 .product-quantity__preset {
+
   display: inline-flex;
 
   align-items: center;
+
   justify-content: center;
 
   min-height: 44px;
@@ -165,11 +239,17 @@
     0.7em
     1.1em;
 
-  border: 1px solid currentColor;
+  border:
+    1px solid
+    var(--quantity-border);
+
   border-radius: 8px;
 
-  background: transparent;
-  color: inherit;
+  background:
+    var(--quantity-background);
+
+  color:
+    var(--quantity-text);
 
   font: inherit;
 
@@ -179,106 +259,130 @@
     background-color 180ms ease,
     color 180ms ease,
     border-color 180ms ease;
+
 }
 
 
 .product-quantity__preset:hover {
-  background: rgba(0, 0, 0, 0.06);
+
+  background:
+    color-mix(
+      in srgb,
+      var(--quantity-text) 8%,
+      var(--quantity-background)
+    );
+
 }
 
 
 .product-quantity__preset.is-active {
-  background: currentColor;
-  color: var(--product-background, #ffffff);
+
+  background:
+    var(--quantity-active-background);
+
+  color:
+    var(--quantity-active-text);
+
+  border-color:
+    var(--quantity-active-border);
+
 }
 
 
-/* ==================  DISABLED PRODUCT================= */
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+.product-quantity__input:focus-visible,
+
+.product-quantity__select:focus-visible,
+
+.product-quantity__button:focus-visible,
+
+.product-quantity__preset:focus-visible,
+
+.product-quantity__bundle:focus-visible {
+
+  outline:
+    2px solid
+    var(--quantity-active-border);
+
+  outline-offset: 2px;
+
+}
+
+
+/* =========================================================
+   DISABLED
+   ========================================================= */
 
 .product-quantity input:disabled,
+
 .product-quantity select:disabled {
+
   opacity: 0.5;
+
   cursor: not-allowed;
-}
-
-
-/* ============   MOBILE=================== */
-
-@media screen and (max-width: 749px) {
-
-  .product-quantity__stepper {
-    min-height: 42px;
-  }
-
-  .product-quantity__button {
-    width: 40px;
-    height: 40px;
-  }
-
-  .product-quantity__input {
-    width: 50px;
-    height: 40px;
-  }
-
-  .product-quantity__select {
-    min-height: 42px;
-  }
-
-  .product-quantity__preset {
-    min-height: 42px;
-  }
 
 }
+
 
 /* =========================================================
    BUNDLE & SAVE
    ========================================================= */
 
 .product-quantity__bundles {
+
   display: grid;
 
   width: 100%;
 
-  gap: var(--bundle-gap, 10px);
+  gap:
+    var(--bundle-gap, 10px);
+
 }
 
 
 /* =========================================================
-   LAYOUT: LIST
+   LIST
    ========================================================= */
 
 .product-quantity__bundles--list {
+
   grid-template-columns: 1fr;
+
 }
 
 
 /* =========================================================
-   LAYOUT: 2 COLUMN
+   GRID
    ========================================================= */
 
 .product-quantity__bundles--grid {
+
   grid-template-columns:
     repeat(2, minmax(0, 1fr));
+
 }
 
 
 /* =========================================================
-   LAYOUT: FEATURED FIRST
-   First offer = full width
-   Remaining offers = 2 columns
+   FEATURED
    ========================================================= */
 
 .product-quantity__bundles--featured {
+
   grid-template-columns:
     repeat(2, minmax(0, 1fr));
+
 }
 
 
-/* First bundle */
-
 .product-quantity__bundles--featured
 .product-quantity__bundle:first-child {
+
   grid-column: 1 / -1;
+
 }
 
 
@@ -287,64 +391,105 @@
    ========================================================= */
 
 .product-quantity__bundle {
+
   position: relative;
+
   display: flex;
+
   align-items: center;
+
   width: 100%;
+
   min-width: 0;
-  padding: var(--bundle-padding, 16px);
-  border: 1px solid var(--bundle-border);
-  border-radius: var(--bundle-radius, 10px);
-  background: var(--bundle-background);
-  color: var(--bundle-text);
+
+  padding:
+    var(--bundle-padding, 16px);
+
+  border:
+    1px solid
+    var(--quantity-border);
+
+  border-radius:
+    var(--bundle-radius, 10px);
+
+  background:
+    var(--quantity-background);
+
+  color:
+    var(--quantity-text);
+
   text-align: left;
+
   cursor: pointer;
-  transition: background-color 180ms ease,
+
+  transition:
+    background-color 180ms ease,
     color 180ms ease,
     border-color 180ms ease,
     box-shadow 180ms ease,
     transform 180ms ease;
+
 }
 
 
 .product-quantity__bundle:hover {
-  transform: translateY(-1px);
+
+  transform:
+    translateY(-1px);
 
   box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.06);
+    0 4px 14px
+    rgba(0, 0, 0, 0.06);
+
 }
 
 
 .product-quantity__bundle:active {
-  transform: scale(0.995);
+
+  transform:
+    scale(0.995);
+
 }
 
 
 /* =========================================================
-   ACTIVE CARD
+   ACTIVE BUNDLE
    ========================================================= */
 
 .product-quantity__bundle.is-active {
-  background: var(--bundle-active-background);
-  color: var(--bundle-active-text);
-  border-color: var(--bundle-active-border);
-  box-shadow: 0 0 0 1px var(--bundle-active-border);
+
+  background:
+    var(--quantity-active-background);
+
+  color:
+    var(--quantity-active-text);
+
+  border-color:
+    var(--quantity-active-border);
+
+  box-shadow:
+    0 0 0 1px
+    var(--quantity-active-border);
+
 }
 
 
 /* =========================================================
-   RADIO INDICATOR
+   RADIO
    ========================================================= */
 
 .product-quantity__bundle-radio {
+
   display: inline-flex;
 
   align-items: center;
+
   justify-content: center;
 
   flex: 0 0 20px;
 
   width: 20px;
+
   height: 20px;
 
   margin-right: 12px;
@@ -354,40 +499,50 @@
     currentColor;
 
   border-radius: 50%;
+
 }
 
 
 .product-quantity__bundle-radio-dot {
+
   width: 10px;
+
   height: 10px;
 
   border-radius: 50%;
 
-  background: currentColor;
+  background:
+    currentColor;
 
   opacity: 0;
 
-  transform: scale(0.5);
+  transform:
+    scale(0.5);
 
   transition:
     opacity 180ms ease,
     transform 180ms ease;
+
 }
 
 
 .product-quantity__bundle.is-active
 .product-quantity__bundle-radio-dot {
+
   opacity: 1;
 
-  transform: scale(1);
+  transform:
+    scale(1);
+
 }
 
 
 /* =========================================================
-   CONTENT
+   BUNDLE CONTENT
    ========================================================= */
 
 .product-quantity__bundle-content {
+
   display: flex;
 
   flex-direction: column;
@@ -395,10 +550,12 @@
   flex: 1;
 
   min-width: 0;
+
 }
 
 
 .product-quantity__bundle-title {
+
   display: block;
 
   font: inherit;
@@ -406,10 +563,12 @@
   font-weight: 700;
 
   line-height: 1.3;
+
 }
 
 
 .product-quantity__bundle-description {
+
   display: block;
 
   margin-top: 4px;
@@ -419,14 +578,79 @@
   line-height: 1.3;
 
   opacity: 0.7;
+
 }
 
 
 /* =========================================================
-   SAVINGS BADGE
+   BUNDLE PRICE
+   ========================================================= */
+
+.product-quantity__bundle-price {
+
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-top: 7px;
+
+  font-size: 0.88em;
+
+  line-height: 1.3;
+
+}
+
+
+.product-quantity__bundle-price-current {
+
+  font-weight: 700;
+
+}
+
+
+.product-quantity__bundle-price-original {
+
+  opacity: 0.55;
+
+  text-decoration: line-through;
+
+}
+
+
+.product-quantity__bundle-total {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 3px;
+
+  font-size: 0.78em;
+
+  opacity: 0.7;
+
+}
+
+
+.product-quantity__bundle-total del {
+
+  opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   SAVINGS
    ========================================================= */
 
 .product-quantity__bundle-savings {
+
   flex-shrink: 0;
 
   margin-left: 12px;
@@ -438,7 +662,11 @@
   border-radius: 999px;
 
   background:
-    rgba(0, 0, 0, 0.08);
+    color-mix(
+      in srgb,
+      currentColor 10%,
+      transparent
+    );
 
   font-size: 0.8em;
 
@@ -447,15 +675,20 @@
   line-height: 1.1;
 
   white-space: nowrap;
+
 }
 
 
-/* Active savings badge */
-
 .product-quantity__bundle.is-active
 .product-quantity__bundle-savings {
+
   background:
-    rgba(255, 255, 255, 0.16);
+    color-mix(
+      in srgb,
+      var(--quantity-active-text) 16%,
+      transparent
+    );
+
 }
 
 
@@ -464,61 +697,128 @@
    ========================================================= */
 
 .product-quantity__bundle-badge {
+
   position: absolute;
 
   top: -9px;
+
   right: 12px;
 
   z-index: 2;
+
   display: inline-flex;
+
   align-items: center;
+
   justify-content: center;
-  padding: 4px 9px;
+
+  padding:
+    4px
+    9px;
+
   border-radius: 999px;
+
   background:
-    var(--bundle-badge-background);
+    var(--quantity-badge-background);
+
   color:
-    var(--bundle-badge-text);
+    var(--quantity-badge-text);
+
   font-size: 11px;
+
   font-weight: 700;
+
   line-height: 1;
+
   white-space: nowrap;
+
 }
+
 
 .product-quantity__bundle.is-active
 .product-quantity__bundle-badge {
-  background:  var(--bundle-active-badge-background);
-  color: var(--bundle-active-badge-text);
+
+  background:
+    var(--quantity-active-badge-background);
+
+  color:
+    var(--quantity-active-badge-text);
+
 }
+
+
 /* =========================================================
    MOBILE
    ========================================================= */
 
 @media screen and (max-width: 749px) {
 
-  /*
-   * All layouts become one column.
-   * This keeps cards readable on small screens.
-   */
+  .product-quantity__stepper {
+
+    min-height: 42px;
+
+  }
+
+
+  .product-quantity__button {
+
+    width: 40px;
+
+    height: 40px;
+
+  }
+
+
+  .product-quantity__input {
+
+    width: 50px;
+
+    height: 40px;
+
+  }
+
+
+  .product-quantity__select {
+
+    min-height: 42px;
+
+  }
+
+
+  .product-quantity__preset {
+
+    min-height: 42px;
+
+  }
+
 
   .product-quantity__bundles--grid,
+
   .product-quantity__bundles--featured {
+
     grid-template-columns: 1fr;
+
   }
+
 
   .product-quantity__bundles--featured
   .product-quantity__bundle:first-child {
+
     grid-column: auto;
+
   }
 
 
   .product-quantity__bundle {
+
     padding:
       calc(var(--bundle-padding, 16px) * 0.85);
+
   }
 
 
   .product-quantity__bundle-savings {
+
     margin-left: 8px;
 
     padding:
@@ -526,13 +826,16 @@
       7px;
 
     font-size: 0.75em;
+
   }
 
 
   .product-quantity__bundle-badge {
+
     right: 8px;
 
     font-size: 10px;
+
   }
 
 }
