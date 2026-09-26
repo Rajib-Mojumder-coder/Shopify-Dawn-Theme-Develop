@@ -70,7 +70,7 @@
             "thumbnail_corner_radius": 8,
             "carousel_slides": "1",
             "mobile_slides": "1",
-            "media_background_color": "rgba(0,0,0,0)",
+            "media_background_color": "#FFFFFF",
             "media_ratio": "landscape",
             "media_fit": "contain",
             "constrain_to_screen_height": true,
