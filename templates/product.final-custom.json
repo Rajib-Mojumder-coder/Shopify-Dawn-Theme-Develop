@@ -149,7 +149,7 @@
             "text_align": "center",
             "vertical_align": "center",
             "details_item_gap": 16,
-            "sticky_on_desktop": false,
+            "sticky_on_desktop": true,
             "background_color": "#ffffff",
             "border_style": "none",
             "border_thickness": 1,
@@ -244,7 +244,7 @@
               "type": "product-quantity",
               "name": "Product quantity",
               "settings": {
-                "label": "Bundle & save",
+                "label": "",
                 "show_label": true,
                 "quantity_type": "bundle",
                 "min_quantity": 1,
