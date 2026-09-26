@@ -315,7 +315,9 @@
                   "kalkhoff-image-3-excite-380-600w-dli48"
                 ],
                 "get_quantity": 1,
-                "get_products": [],
+                "get_products": [
+                  "selle-royal-lookin-evo-athletic"
+                ],
                 "badge_text": "Special offer",
                 "show_badge": true,
                 "title": "Buy more, get more",
