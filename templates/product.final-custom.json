@@ -246,7 +246,7 @@
               "settings": {
                 "label": "Quantity",
                 "show_label": true,
-                "quantity_type": "presets",
+                "quantity_type": "bundle",
                 "min_quantity": 1,
                 "max_quantity": 10,
                 "quantity_step": 1,
@@ -268,7 +268,7 @@
                 "preset_3_quantity": 3,
                 "preset_3_label": "3 items",
                 "bundle_label": "Choose your quantity",
-                "bundle_layout": "grid",
+                "bundle_layout": "featured",
                 "bundle_show_price": true,
                 "bundle_show_original_total": true,
                 "bundle_gap": 10,
