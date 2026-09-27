@@ -4,26 +4,19 @@
    ========================================================= */
 
 .product-quantity {
-
   width: 100%;
-
   min-width: 0;
-
-  color:
-    var(--quantity-text);
-
+  color: var(--quantity-text);
 }
 
 
-/* =========================================================
-   LABEL
-   ========================================================= */
+/* ====  LABEL============================ */
 
 .product-quantity__label {
 
   display: block;
 
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 
   color:
     var(--quantity-text);
