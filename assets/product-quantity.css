@@ -408,56 +408,30 @@
 
 }
 
-
 .product-quantity__preset.is-active {
-
-  background:
-    var(--quantity-active-background);
-
-  color:
-    var(--quantity-active-text);
-
-  border-color:
-    var(--quantity-active-border);
-
+  background: var(--quantity-active-background);
+  color: var(--quantity-active-text);
+  border-color: var(--quantity-active-border);
 }
 
 
-/* =========================================================
-   FOCUS
-   ========================================================= */
+/* =========  FOCUS==================== */
 
 .product-quantity__input:focus-visible,
-
 .product-quantity__select:focus-visible,
-
 .product-quantity__button:focus-visible,
-
 .product-quantity__preset:focus-visible,
-
 .product-quantity__bundle:focus-visible {
-
-  outline:
-    2px solid
-    var(--quantity-active-border);
-
+  outline: 2px solid var(--quantity-active-border);
   outline-offset: 2px;
-
 }
 
-
-/* =========================================================
-   DISABLED
-   ========================================================= */
+/* =============   DISABLED=================== */
 
 .product-quantity input:disabled,
-
 .product-quantity select:disabled {
-
   opacity: 0.5;
-
   cursor: not-allowed;
-
 }
 
 
