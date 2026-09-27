@@ -753,18 +753,15 @@
   .product-quantity__stepper {
     min-height: 50px;
   }
-  
+
   .product-quantity__button {
     width: 40px;
     height: 40px;
 
   }
 
-
   .product-quantity__input {
-
     width: 50px;
-
     height: 40px;
 
   }
