@@ -315,39 +315,21 @@
   font-size: 16px;
 }
 
-
+/* ==============  PRESETS ================== */
 .product-quantity__preset {
 
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
-
   min-height: 44px;
-
-  padding:
-    0.7em
-    1.1em;
-
-  border:
-    1px solid
-    var(--quantity-border);
-
+  padding: 0.7em 1.1em;
+  border: 1px solid var(--quantity-border);
   border-radius: 8px;
-
-  background:
-    var(--quantity-background);
-
-  color:
-    var(--quantity-text);
-
+  background: var(--quantity-background);
+  color: var(--quantity-text);
   font: inherit;
-
   cursor: pointer;
-
-  transition:
-    background-color 180ms ease,
+  transition: background-color 180ms ease,
     color 180ms ease,
     border-color 180ms ease;
 
