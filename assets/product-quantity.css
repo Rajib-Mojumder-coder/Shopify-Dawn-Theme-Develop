@@ -368,6 +368,34 @@
 
 }
 
+/* Small */
+
+.product-quantity--presets-size-small
+.product-quantity__preset {
+  min-height: 36px;
+  padding: 0.55em 0.9em;
+  font-size: 13px;
+}
+
+
+/* Medium */
+
+.product-quantity--presets-size-medium
+.product-quantity__preset {
+  min-height: 44px;
+  padding: 0.7em 1.1em;
+  font-size: 14px;
+}
+
+
+/* Large */
+
+.product-quantity--presets-size-large
+.product-quantity__preset {
+  min-height: 52px;
+  padding: 0.8em 1.3em;
+  font-size: 16px;
+}
 
 .product-quantity__preset:hover {
 
