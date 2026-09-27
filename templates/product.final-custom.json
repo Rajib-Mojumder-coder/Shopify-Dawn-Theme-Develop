@@ -240,7 +240,7 @@
               },
               "blocks": {}
             },
-            "product_quantity_4FfXBk": {
+            "product_quantity_eVHjQ8": {
               "type": "product-quantity",
               "name": "Product quantity",
               "settings": {
@@ -269,21 +269,21 @@
                 "show_bundle_total_price": true,
                 "show_bundle_regular_price": true,
                 "bundle_gap": 10,
-                "bundle_radius": 17,
+                "bundle_radius": 10,
                 "bundle_padding": 16,
-                "bundle_use_custom_colors": true,
-                "bundle_background": "#65DBDD",
-                "bundle_background_gradient": "#f3f5f7",
+                "bundle_use_custom_colors": false,
+                "bundle_background": "#FFFFFF",
+                "bundle_background_gradient": "#F3F5F7",
                 "bundle_enable_gradient": false,
-                "bundle_text_color": "#06123d",
-                "bundle_border_color": "#4979C0",
-                "bundle_active_background": "#06123d",
-                "bundle_active_text": "#ffffff",
-                "bundle_active_border": "#06123d",
-                "bundle_badge_background": "#06123d",
-                "bundle_badge_text": "#ffffff",
-                "bundle_active_badge_background": "#ffffff",
-                "bundle_active_badge_text": "#06123d",
+                "bundle_text_color": "#06123D",
+                "bundle_border_color": "#D9DDE3",
+                "bundle_active_background": "#06123D",
+                "bundle_active_text": "#FFFFFF",
+                "bundle_active_border": "#06123D",
+                "bundle_badge_background": "#06123D",
+                "bundle_badge_text": "#FFFFFF",
+                "bundle_active_badge_background": "#FFFFFF",
+                "bundle_active_badge_text": "#06123D",
                 "bundle_1_enabled": true,
                 "bundle_1_quantity": 1,
                 "bundle_1_discount_percent": 0,
@@ -356,7 +356,7 @@
             "product_title_WtaEHj",
             "product_price_UWKmbw",
             "product_variant_picker_XbqHiq",
-            "product_quantity_4FfXBk",
+            "product_quantity_eVHjQ8",
             "product_buy_buttons_TNXcE4"
           ]
         }
