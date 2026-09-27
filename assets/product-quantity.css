@@ -795,11 +795,8 @@
 
   }
 
-
   .product-quantity__bundle {
-
-    padding:
-      calc(var(--bundle-padding, 16px) * 0.85);
+    padding: calc(var(--bundle-padding, 16px) * 0.85);
 
   }
 
