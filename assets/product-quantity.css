@@ -782,9 +782,7 @@
 
 
   .product-quantity__bundles--grid,
-
   .product-quantity__bundles--featured {
-
     grid-template-columns: 1fr;
 
   }
