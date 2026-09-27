@@ -525,23 +525,23 @@
    ACTIVE BUNDLE
    ========================================================= */
 
+/* .product-quantity__bundle.is-active {
+  background: var(--quantity-active-background);
+  color: var(--quantity-active-text);
+  border-color: var(--quantity-active-border);
+  box-shadow: 0 0 0 1px var(--quantity-active-border);
+
+} */
+/* =========================================================
+   ACTIVE CARD
+   ========================================================= */
+
 .product-quantity__bundle.is-active {
-
-  background:
-    var(--quantity-active-background);
-
-  color:
-    var(--quantity-active-text);
-
-  border-color:
-    var(--quantity-active-border);
-
-  box-shadow:
-    0 0 0 1px
-    var(--quantity-active-border);
-
+  background: var(--bundle-active-background);
+  color: var(--bundle-active-text);
+  border-color: var(--bundle-active-border);
+  box-shadow: 0 0 0 1px var(--bundle-active-border);
 }
-
 
 /* =========================================================
    RADIO
