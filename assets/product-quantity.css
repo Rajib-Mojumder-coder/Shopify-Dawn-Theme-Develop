@@ -440,13 +440,9 @@
    ========================================================= */
 
 .product-quantity__bundles {
-
   display: grid;
-
   width: 100%;
-
-  gap:
-    var(--bundle-gap, 10px);
+  gap: var(--bundle-gap, 10px);
 
 }
 
