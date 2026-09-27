@@ -246,9 +246,9 @@
               "settings": {
                 "label": "Quantity",
                 "show_label": true,
-                "quantity_type": "bundle",
-                "stepper_size": "medium",
-                "stepper_alignment": "left",
+                "quantity_type": "stepper",
+                "stepper_size": "large",
+                "stepper_alignment": "center",
                 "dropdown_size": "medium",
                 "dropdown_alignment": "left",
                 "presets_size": "medium",
