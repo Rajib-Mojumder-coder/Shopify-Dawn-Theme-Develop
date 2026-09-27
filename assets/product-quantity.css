@@ -124,21 +124,13 @@
 
 
 .product-quantity__button:hover:not(:disabled) {
-
-  background:
-    color-mix(
-      in srgb,
-      var(--quantity-text) 8%,
-      transparent
-    );
-
+  /* background: rgba(0, 0, 0, 0.06); */
+  background: color-mix( in srgb, var(--quantity-text) 8%, transparent);
 }
 
 
 .product-quantity__button:disabled {
-
   opacity: 0.35;
-
   cursor: not-allowed;
 
 }
