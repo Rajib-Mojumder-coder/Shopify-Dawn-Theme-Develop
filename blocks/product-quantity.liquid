@@ -40,24 +40,14 @@
 
   <style>
     #ProductQuantity-{{ block.id }} {
-
-      --bundle-gap:
-        {{ block.settings.bundle_gap }}px;
-
-      --bundle-radius:
-        {{ block.settings.bundle_radius }}px;
-
-      --bundle-padding:
-        {{ block.settings.bundle_padding }}px;
-
+      --bundle-gap: {{ block.settings.bundle_gap }}px;
+      --bundle-radius: {{ block.settings.bundle_radius }}px;
+      --bundle-padding: {{ block.settings.bundle_padding }}px;
 
       {% if block.settings.bundle_use_custom_colors %}
 
-        --bundle-background:
-          {% if block.settings.bundle_enable_gradient %}
-            linear-gradient(
-              135deg,
-              {{ block.settings.bundle_background }},
+        --bundle-background: {% if block.settings.bundle_enable_gradient %}
+            linear-gradient( 135deg, {{ block.settings.bundle_background }},
               {{ block.settings.bundle_background_gradient }}
             );
           {% else %}
