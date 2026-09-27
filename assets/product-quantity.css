@@ -315,8 +315,40 @@
   font-size: 16px;
 }
 
+/* ==================   PRESETS ================ */
 
-/* ==============  PRESETS ================== */
+.product-quantity__presets {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   PRESETS ALIGNMENT
+   ========================================================= */
+
+.product-quantity--presets-align-left
+.product-quantity__presets {
+  justify-content: flex-start;
+}
+
+.product-quantity--presets-align-center
+.product-quantity__presets {
+  justify-content: center;
+}
+
+.product-quantity--presets-align-right
+.product-quantity__presets {
+  justify-content: flex-end;
+}
+
+
+/* ====================   PRESET BUTTON ============== */
+
 .product-quantity__preset {
 
   display: inline-flex;
