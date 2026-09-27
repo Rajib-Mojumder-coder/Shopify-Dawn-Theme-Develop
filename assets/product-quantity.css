@@ -205,7 +205,7 @@
 .product-quantity__dropdown {
 
   width: 100%;
-  max-width: 260px;
+  /* max-width: 260px; */
 
 }
 
@@ -213,29 +213,13 @@
 .product-quantity__select {
 
   width: 100%;
-
   min-height: 46px;
-
-  padding:
-    0
-    40px
-    0
-    14px;
-
-  border:
-    1px solid
-    var(--quantity-border);
-
+  padding: 0 40px 0 14px;
+  border: 1px solid var(--quantity-border);
   border-radius: 8px;
-
-  background-color:
-    var(--quantity-background);
-
-  color:
-    var(--quantity-text);
-
+  background-color: var(--quantity-background);
+  color: var(--quantity-text);
   font: inherit;
-
   cursor: pointer;
 
 }
