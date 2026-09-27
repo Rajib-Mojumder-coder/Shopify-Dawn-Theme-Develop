@@ -155,13 +155,37 @@
 
 }
 
+/* Small */
+
+.product-quantity--stepper-size-small
+.product-quantity__input {
+  width: 46px;
+  height: 36px;
+}
+
+
+/* Medium */
+
+.product-quantity--stepper-size-medium
+.product-quantity__input {
+  width: 56px;
+  height: 44px;
+}
+
+
+/* Large */
+
+.product-quantity--stepper-size-large
+.product-quantity__input {
+  width: 68px;
+  height: 52px;
+}
+
 
 .product-quantity__input::-webkit-outer-spin-button,
-
 .product-quantity__input::-webkit-inner-spin-button {
 
   margin: 0;
-
   -webkit-appearance: none;
 
 }
