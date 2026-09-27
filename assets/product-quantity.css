@@ -210,6 +210,49 @@
 }
 
 
+/* =========================================================
+   DROPDOWN SIZE
+   ========================================================= */
+
+.product-quantity--dropdown-size-small
+.product-quantity__dropdown {
+  max-width: 200px;
+}
+
+.product-quantity--dropdown-size-medium
+.product-quantity__dropdown {
+  max-width: 260px;
+}
+
+.product-quantity--dropdown-size-large
+.product-quantity__dropdown {
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   DROPDOWN ALIGNMENT
+   ========================================================= */
+
+.product-quantity--dropdown-align-left
+.product-quantity__dropdown {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.product-quantity--dropdown-align-center
+.product-quantity__dropdown {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product-quantity--dropdown-align-right
+.product-quantity__dropdown {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+
 .product-quantity__select {
 
   width: 100%;
