@@ -93,6 +93,35 @@
 
 }
 
+/* Small */
+
+.product-quantity--stepper-size-small
+.product-quantity__button {
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+}
+
+
+/* Medium */
+
+.product-quantity--stepper-size-medium
+.product-quantity__button {
+  width: 44px;
+  height: 44px;
+  font-size: 22px;
+}
+
+
+/* Large */
+
+.product-quantity--stepper-size-large
+.product-quantity__button {
+  width: 52px;
+  height: 52px;
+  font-size: 25px;
+}
+
 
 .product-quantity__button:hover:not(:disabled) {
 
