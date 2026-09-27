@@ -720,12 +720,8 @@
 
 .product-quantity__bundle.is-active
 .product-quantity__bundle-badge {
-
-  background:
-    var(--quantity-active-badge-background);
-
-  color:
-    var(--quantity-active-badge-text);
+  background: var(--quantity-active-badge-background);
+  color: var(--quantity-active-badge-text);
 
 }
 
