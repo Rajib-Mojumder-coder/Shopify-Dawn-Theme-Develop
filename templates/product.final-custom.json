@@ -266,7 +266,7 @@
                 "bundle_layout": "featured",
                 "show_bundle_pricing": true,
                 "show_bundle_unit_price": true,
-                "show_bundle_total_price": true,
+                "show_bundle_total_price": false,
                 "show_bundle_regular_price": true,
                 "bundle_gap": 10,
                 "bundle_radius": 10,
