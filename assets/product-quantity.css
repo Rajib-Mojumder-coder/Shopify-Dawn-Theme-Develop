@@ -285,6 +285,36 @@
 
 }
 
+/* Small */
+
+.product-quantity--dropdown-size-small
+.product-quantity__select {
+  min-height: 38px;
+  padding-left: 11px;
+  padding-right: 34px;
+  font-size: 13px;
+}
+
+
+/* Medium */
+
+.product-quantity--dropdown-size-medium
+.product-quantity__select {
+  min-height: 46px;
+  font-size: 14px;
+}
+
+
+/* Large */
+
+.product-quantity--dropdown-size-large
+.product-quantity__select {
+  min-height: 54px;
+  padding-left: 16px;
+  padding-right: 44px;
+  font-size: 16px;
+}
+
 
 .product-quantity__preset {
 
