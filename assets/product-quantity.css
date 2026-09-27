@@ -190,15 +190,21 @@
 
 }
 
+/* ==============  FOCUS ================== */
 
-/* =========================================================
-   DROPDOWN
-   ========================================================= */
+.product-quantity__input:focus-visible,
+.product-quantity__select:focus-visible,
+.product-quantity__button:focus-visible,
+.product-quantity__preset:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* ==============  DROPDOWN =============== */
 
 .product-quantity__dropdown {
 
   width: 100%;
-
   max-width: 260px;
 
 }
