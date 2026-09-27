@@ -700,37 +700,19 @@
 .product-quantity__bundle-badge {
 
   position: absolute;
-
   top: -9px;
-
   right: 12px;
-
   z-index: 2;
-
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
-
-  padding:
-    4px
-    9px;
-
+  padding: 4px 9px;
   border-radius: 999px;
-
-  background:
-    var(--quantity-badge-background);
-
-  color:
-    var(--quantity-badge-text);
-
+  background: var(--quantity-badge-background);
+  color: var(--quantity-badge-text);
   font-size: 11px;
-
   font-weight: 700;
-
   line-height: 1;
-
   white-space: nowrap;
 
 }
