@@ -615,6 +615,47 @@
 }
 
 
+/* =========================================================
+   BUNDLE PRICING
+   ========================================================= */
+
+.product-quantity__bundle-pricing {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 7px;
+  line-height: 1.25;
+}
+
+
+.product-quantity__bundle-unit-price,
+.product-quantity__bundle-total-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-size: 13px;
+}
+
+
+.product-quantity__bundle-unit-price strong,
+.product-quantity__bundle-total-price strong {
+  font-weight: 700;
+}
+
+
+.product-quantity__bundle-unit-price s,
+.product-quantity__bundle-total-price s {
+  opacity: 0.55;
+  font-size: 0.9em;
+}
+
+
+.product-quantity__bundle-unit-price small,
+.product-quantity__bundle-total-price small {
+  font-size: 11px;
+  opacity: 0.65;
+}
 
 
 /* =========================================================
@@ -622,17 +663,10 @@
    ========================================================= */
 
 .product-quantity__bundle-savings {
-
   flex-shrink: 0;
-
   margin-left: 12px;
-
-  padding:
-    5px
-    9px;
-
+  padding: 5px 9px;
   border-radius: 999px;
-
   background:
     color-mix(
       in srgb,
@@ -641,11 +675,8 @@
     );
 
   font-size: 0.8em;
-
   font-weight: 700;
-
   line-height: 1.1;
-
   white-space: nowrap;
 
 }
