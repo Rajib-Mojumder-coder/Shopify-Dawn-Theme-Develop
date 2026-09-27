@@ -733,16 +733,12 @@
 @media screen and (max-width: 749px) {
 
   .product-quantity__stepper {
-
     min-height: 42px;
 
   }
 
-
   .product-quantity__button {
-
     width: 40px;
-
     height: 40px;
 
   }
