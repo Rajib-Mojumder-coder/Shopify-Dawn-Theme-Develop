@@ -40,6 +40,38 @@
   color: var(--quantity-text);
 }
 
+/* ===========   STEPPER SIZE================ */
+
+.product-quantity--stepper-size-small
+.product-quantity__stepper {
+  min-height: 38px;
+}
+
+.product-quantity--stepper-size-medium
+.product-quantity__stepper {
+  min-height: 46px;
+}
+
+.product-quantity--stepper-size-large
+.product-quantity__stepper {
+  min-height: 54px;
+}
+
+
+/* =============   STEPPER ALIGNMENT================ */
+
+.product-quantity--stepper-align-left {
+  text-align: left;
+}
+
+.product-quantity--stepper-align-center {
+  text-align: center;
+}
+
+.product-quantity--stepper-align-right {
+  text-align: right;
+}
+
 
 .product-quantity__button {
   display: inline-flex;
