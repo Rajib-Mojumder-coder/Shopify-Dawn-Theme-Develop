@@ -11,7 +11,9 @@
     assign max_quantity = min_quantity
   endif
 
-  assign current_product_variant = product.selected_or_first_available_variant
+  assign current_variant = product.selected_or_first_available_variant
+  assign current_price = current_variant.price
+  assign current_compare_price = current_variant.compare_at_price
 -%}
 
 <div
@@ -20,15 +22,6 @@
     product-quantity
     product-quantity--{{ block.id }}
     product-quantity--{{ quantity_type }}
-
-    product-quantity--stepper-size-{{ block.settings.stepper_size }}
-    product-quantity--stepper-align-{{ block.settings.stepper_alignment }}
-
-    product-quantity--dropdown-size-{{ block.settings.dropdown_size }}
-    product-quantity--dropdown-align-{{ block.settings.dropdown_alignment }}
-
-    product-quantity--presets-size-{{ block.settings.presets_size }}
-    product-quantity--presets-align-{{ block.settings.presets_alignment }}
   "
   data-product-quantity
   data-quantity-type="{{ quantity_type }}"
@@ -38,110 +31,586 @@
   {{ block.shopify_attributes }}
 >
 
-  <style>
-    #ProductQuantity-{{ block.id }} {
-      --bundle-gap: {{ block.settings.bundle_gap }}px;
-      --bundle-radius: {{ block.settings.bundle_radius }}px;
-      --bundle-padding: {{ block.settings.bundle_padding }}px;
+<style>
+  #ProductQuantity-{{ block.id }} {
 
-      {% if block.settings.bundle_use_custom_colors %}
+    /* =====================================================
+       GLOBAL QUANTITY COLORS
+       ===================================================== */
 
-        --bundle-background: {% if block.settings.bundle_enable_gradient %}
-            linear-gradient( 135deg, {{ block.settings.bundle_background }},
-              {{ block.settings.bundle_background_gradient }}
-            );
-          {% else %}
-            {{ block.settings.bundle_background }};
-          {% endif %}
+    {% if block.settings.use_custom_colors %}
 
-        --bundle-text:
-          {{ block.settings.bundle_text_color }};
+      --product-quantity-background:
+        {{ block.settings.background_color }};
 
-        --bundle-border:
-          {{ block.settings.bundle_border_color }};
+      --product-quantity-text:
+        {{ block.settings.text_color }};
 
-        --bundle-active-background:
-          {{ block.settings.bundle_active_background }};
+      --product-quantity-border:
+        {{ block.settings.border_color }};
 
-        --bundle-active-text:
-          {{ block.settings.bundle_active_text }};
+      --product-quantity-active-background:
+        {{ block.settings.active_background }};
 
-        --bundle-active-border:
-          {{ block.settings.bundle_active_border }};
+      --product-quantity-active-text:
+        {{ block.settings.active_text }};
 
-        --bundle-badge-background:
-          {{ block.settings.bundle_badge_background }};
+      --product-quantity-active-border:
+        {{ block.settings.active_border }};
 
-        --bundle-badge-text:
-          {{ block.settings.bundle_badge_text }};
+      --product-quantity-button-background:
+        {{ block.settings.button_background }};
 
-        --bundle-active-badge-background:
-          {{ block.settings.bundle_active_badge_background }};
+      --product-quantity-button-text:
+        {{ block.settings.button_text_color }};
 
-        --bundle-active-badge-text:
-          {{ block.settings.bundle_active_badge_text }};
+      --product-quantity-badge-background:
+        {{ block.settings.badge_background }};
 
-      {% else %}
+      --product-quantity-badge-text:
+        {{ block.settings.badge_text_color }};
 
-        --bundle-background:
-          rgb(var(--color-background));
+    {% else %}
 
-        --bundle-text:
-          rgb(var(--color-foreground));
+      --product-quantity-background:
+        rgb(var(--color-background));
 
-        --bundle-border:
-          rgba(var(--color-foreground), 0.25);
+      --product-quantity-text:
+        rgb(var(--color-foreground));
 
-        --bundle-active-background:
-          rgb(var(--color-foreground));
+      --product-quantity-border:
+        rgba(var(--color-foreground), 0.25);
 
-        --bundle-active-text:
-          rgb(var(--color-background));
+      --product-quantity-active-background:
+        rgb(var(--color-foreground));
 
-        --bundle-active-border:
-          rgb(var(--color-foreground));
+      --product-quantity-active-text:
+        rgb(var(--color-background));
 
-        --bundle-badge-background:
-          rgb(var(--color-foreground));
+      --product-quantity-active-border:
+        rgb(var(--color-foreground));
 
-        --bundle-badge-text:
-          rgb(var(--color-background));
+      --product-quantity-button-background:
+        transparent;
 
-        --bundle-active-badge-background:
-          rgb(var(--color-background));
+      --product-quantity-button-text:
+        rgb(var(--color-foreground));
 
-        --bundle-active-badge-text:
-          rgb(var(--color-foreground));
+      --product-quantity-badge-background:
+        rgb(var(--color-foreground));
 
-      {% endif %}
-    }
-  </style>
+      --product-quantity-badge-text:
+        rgb(var(--color-background));
+
+    {% endif %}
 
 
-  {% if block.settings.show_label %}
+    /* =====================================================
+       BUNDLE DESIGN
+       ===================================================== */
 
-    <label
-      class="product-quantity__label"
-      for="ProductQuantityInput-{{ block.id }}"
+    --bundle-gap:
+      {{ block.settings.bundle_gap }}px;
+
+    --bundle-radius:
+      {{ block.settings.bundle_radius }}px;
+
+    --bundle-padding:
+      {{ block.settings.bundle_padding }}px;
+
+  }
+
+
+  /* =====================================================
+     STANDARD QUANTITY SIZE
+     ===================================================== */
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper--small {
+
+    min-height: 40px;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper--medium {
+
+    min-height: 46px;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper--large {
+
+    min-height: 54px;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper--small
+  .product-quantity__button {
+
+    width: 38px;
+    height: 38px;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper--medium
+  .product-quantity__button {
+
+    width: 44px;
+    height: 44px;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper--large
+  .product-quantity__button {
+
+    width: 52px;
+    height: 52px;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper--small
+  .product-quantity__input {
+
+    width: 48px;
+    height: 38px;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper--medium
+  .product-quantity__input {
+
+    width: 56px;
+    height: 44px;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper--large
+  .product-quantity__input {
+
+    width: 68px;
+    height: 52px;
+
+  }
+
+
+  /* =====================================================
+     STANDARD QUANTITY ALIGNMENT
+     ===================================================== */
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__control--left {
+
+    margin-left: 0;
+    margin-right: auto;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__control--center {
+
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__control--right {
+
+    margin-left: auto;
+    margin-right: 0;
+
+  }
+
+
+  /* =====================================================
+     DROPDOWN SIZE
+     ===================================================== */
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__dropdown--small {
+
+    max-width: 180px;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__dropdown--medium {
+
+    max-width: 260px;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__dropdown--large {
+
+    max-width: 360px;
+
+  }
+
+
+  /* =====================================================
+     PRESET SIZE
+     ===================================================== */
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__presets--small
+  .product-quantity__preset {
+
+    min-height: 38px;
+    padding: 0.55em 0.9em;
+    font-size: 13px;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__presets--medium
+  .product-quantity__preset {
+
+    min-height: 44px;
+    padding: 0.7em 1.1em;
+    font-size: 14px;
+
+  }
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__presets--large
+  .product-quantity__preset {
+
+    min-height: 52px;
+    padding: 0.8em 1.25em;
+    font-size: 15px;
+
+  }
+
+
+  /* =====================================================
+     BUNDLE
+     ===================================================== */
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundles {
+
+    width: 100%;
+
+  }
+
+
+  /* =====================================================
+     BUNDLE IMAGE
+     ===================================================== */
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-image {
+
+    flex: 0 0 auto;
+
+    overflow: hidden;
+
+    border-radius:
+      calc(var(--bundle-radius) * 0.7);
+
+    background:
+      rgba(0, 0, 0, 0.04);
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-image--small {
+
+    width: 48px;
+    height: 48px;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-image--medium {
+
+    width: 64px;
+    height: 64px;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-image--large {
+
+    width: 82px;
+    height: 82px;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-image img {
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+  }
+
+
+  /* =====================================================
+     BUNDLE IMAGE TOP
+     ===================================================== */
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle--image-top {
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle--image-top
+  .product-quantity__bundle-image {
+
+    align-self: center;
+
+    margin-bottom: 10px;
+
+  }
+
+
+  /* =====================================================
+     BUNDLE PRODUCT INFO
+     ===================================================== */
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-product-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+    flex: 1;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-pricing {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    margin-top: 7px;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-price-row {
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 7px;
+
+    flex-wrap: wrap;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-price-label {
+
+    font-size: 11px;
+
+    opacity: .68;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-price {
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-compare-price {
+
+    font-size: 12px;
+
+    opacity: .55;
+
+    text-decoration: line-through;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-total {
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 7px;
+
+    margin-top: 3px;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-total-label {
+
+    font-size: 11px;
+
+    opacity: .68;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-total-price {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__bundle-total-compare {
+
+    font-size: 12px;
+
+    opacity: .55;
+
+    text-decoration: line-through;
+
+  }
+
+
+  /* =====================================================
+     THEME-CONSISTENT NON-BUNDLE CONTROLS
+     ===================================================== */
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper,
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__select,
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__preset {
+
+    color:
+      var(--product-quantity-text);
+
+    border-color:
+      var(--product-quantity-border);
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__stepper {
+
+    background:
+      var(--product-quantity-background);
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__select {
+
+    background-color:
+      var(--product-quantity-background);
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__preset.is-active {
+
+    background:
+      var(--product-quantity-active-background);
+
+    color:
+      var(--product-quantity-active-text);
+
+    border-color:
+      var(--product-quantity-active-border);
+
+  }
+
+
+  #ProductQuantity-{{ block.id }}
+  .product-quantity__button {
+
+    color:
+      var(--product-quantity-button-text);
+
+  }
+
+</style>
+
+
+{% if block.settings.show_label %}
+
+  <label
+    class="product-quantity__label"
+    for="ProductQuantityInput-{{ block.id }}"
+  >
+    {{ block.settings.label }}
+  </label>
+
+{% endif %}
+
+
+{%- comment -%}
+==========================================================
+STANDARD QUANTITY SELECTOR
+==========================================================
+{%- endcomment -%}
+
+{% if quantity_type == 'stepper' %}
+
+  <div
+    class="
+      product-quantity__control
+      product-quantity__control--{{ block.settings.stepper_alignment }}
+    "
+  >
+
+    <div
+      class="
+        product-quantity__stepper
+        product-quantity__stepper--{{ block.settings.stepper_size }}
+      "
     >
-      {{ block.settings.label }}
-    </label>
-
-  {% endif %}
-
-
-  {%- comment -%}
-  ==========================================================
-  STANDARD QUANTITY SELECTOR
-  ==========================================================
-  ==========================================================
-  Existing functionality preserved.
-  ==========================================================
-  {%- endcomment -%}
-
-  {% if quantity_type == 'stepper' %}
-
-    <div class="product-quantity__stepper">
 
       <button
         type="button"
@@ -189,208 +658,218 @@
 
     </div>
 
-
-  {%- comment -%}
-  ==========================================================
-  DROPDOWN
-  ==========================================================
-  {%- endcomment -%}
-
-  {% elsif quantity_type == 'dropdown' %}
-
-    <div class="product-quantity__dropdown">
-
-      <select
-        id="ProductQuantityInput-{{ block.id }}"
-        class="
-          product-quantity__select
-          custom-product-form__quantity
-        "
-        name="quantity"
-        form="{{ product_form_id }}"
-        data-quantity-input
-        aria-label="{{ block.settings.label }}"
-      >
-
-        {% for quantity in (1..100) %}
-
-          {% if quantity >= min_quantity
-            and quantity <= max_quantity
-          %}
-
-            {% assign relative_quantity =
-              quantity | minus: min_quantity
-            %}
-
-            {% assign remainder =
-              relative_quantity | modulo: quantity_step
-            %}
-
-            {% if remainder == 0 %}
-
-              <option
-                value="{{ quantity }}"
-                {% if quantity == min_quantity %}
-                  selected
-                {% endif %}
-              >
-                {{ quantity }}
-              </option>
-
-            {% endif %}
-
-          {% endif %}
-
-        {% endfor %}
-
-      </select>
-
-    </div>
+  </div>
 
 
-  {%- comment -%}
-  ==========================================================
-  PRESETS
-  ==========================================================
-  {%- endcomment -%}
+{% elsif quantity_type == 'dropdown' %}
 
-  {% elsif quantity_type == 'presets' %}
 
-    <div
-      class="product-quantity__presets"
-      role="group"
+  <div
+    class="
+      product-quantity__dropdown
+      product-quantity__dropdown--{{ block.settings.dropdown_size }}
+      product-quantity__control--{{ block.settings.dropdown_alignment }}
+    "
+  >
+
+    <select
+      id="ProductQuantityInput-{{ block.id }}"
+      class="
+        product-quantity__select
+        custom-product-form__quantity
+      "
+      name="quantity"
+      form="{{ product_form_id }}"
+      data-quantity-input
       aria-label="{{ block.settings.label }}"
     >
 
-      {% if block.settings.preset_1_quantity >= min_quantity
-        and block.settings.preset_1_quantity <= max_quantity
-      %}
+      {% for quantity in (1..100) %}
 
-        <button
-          type="button"
-          class="product-quantity__preset is-active"
-          data-quantity-preset="{{ block.settings.preset_1_quantity }}"
-          aria-pressed="true"
-        >
-          {{ block.settings.preset_1_label }}
-        </button>
+        {% if quantity >= min_quantity
+          and quantity <= max_quantity
+        %}
 
-      {% endif %}
+          {% assign relative_quantity =
+            quantity | minus: min_quantity
+          %}
 
+          {% assign remainder =
+            relative_quantity | modulo: quantity_step
+          %}
 
-      {% if block.settings.preset_2_quantity >= min_quantity
-        and block.settings.preset_2_quantity <= max_quantity
-      %}
+          {% if remainder == 0 %}
 
-        <button
-          type="button"
-          class="product-quantity__preset"
-          data-quantity-preset="{{ block.settings.preset_2_quantity }}"
-          aria-pressed="false"
-        >
-          {{ block.settings.preset_2_label }}
-        </button>
-
-      {% endif %}
-
-
-      {% if block.settings.preset_3_quantity >= min_quantity
-        and block.settings.preset_3_quantity <= max_quantity
-      %}
-
-        <button
-          type="button"
-          class="product-quantity__preset"
-          data-quantity-preset="{{ block.settings.preset_3_quantity }}"
-          aria-pressed="false"
-        >
-          {{ block.settings.preset_3_label }}
-        </button>
-
-      {% endif %}
-
-    </div>
-
-
-    <input
-      id="ProductQuantityInput-{{ block.id }}"
-      class="custom-product-form__quantity"
-      type="hidden"
-      name="quantity"
-      value="{{ block.settings.preset_1_quantity }}"
-      form="{{ product_form_id }}"
-      data-quantity-input
-    >
-
-
-  {%- comment -%}
-  ==========================================================
-  BUNDLE & SAVE
-  ==========================================================
-  ==========================================================
-  Existing bundle functionality preserved.
-
-  Pricing below is DISPLAY ONLY.
-  Actual discount remains controlled by Shopify.
-  ==========================================================
-  {%- endcomment -%}
-
-  {% elsif quantity_type == 'bundle' %}
-
-    <div
-      class="
-        product-quantity__bundles
-        product-quantity__bundles--{{ block.settings.bundle_layout }}
-      "
-      role="radiogroup"
-      aria-label="{{ block.settings.bundle_label }}"
-    >
-
-
-      {%- comment -%}
-      ========================================================
-      BUNDLE 1
-      ========================================================
-      {%- endcomment -%}
-
-      {% if block.settings.bundle_1_enabled %}
-
-        {%- liquid
-          assign bundle_1_quantity = block.settings.bundle_1_quantity | default: 1
-          assign bundle_1_discount = block.settings.bundle_1_discount_percent | default: 0
-          assign bundle_1_unit_regular = current_product_variant.price
-          assign bundle_1_unit_discount = bundle_1_unit_regular | times: bundle_1_discount | divided_by: 100
-          assign bundle_1_unit_offer = bundle_1_unit_regular | minus: bundle_1_unit_discount
-          assign bundle_1_total_regular =  bundle_1_unit_regular | times: bundle_1_quantity
-          assign bundle_1_total_offer =  bundle_1_unit_offer | times: bundle_1_quantity
-        -%}
-
-
-        <button
-          type="button"
-          class="
-            product-quantity__bundle
-            is-active
-          "
-          data-bundle-option
-          data-bundle-quantity="{{ bundle_1_quantity }}"
-          data-bundle-discount-code="{{ block.settings.bundle_1_discount_code | strip | escape }}"
-          aria-pressed="true"
-        >
-
-          {% if block.settings.bundle_1_badge != blank %}
-
-            <span class="product-quantity__bundle-badge">
-              {{ block.settings.bundle_1_badge }}
-            </span>
+            <option
+              value="{{ quantity }}"
+              {% if quantity == min_quantity %}
+                selected
+              {% endif %}
+            >
+              {{ quantity }}
+            </option>
 
           {% endif %}
 
+        {% endif %}
 
-          <span class="product-quantity__bundle-radio">
-            <span class="product-quantity__bundle-radio-dot"></span>
+      {% endfor %}
+
+    </select>
+
+  </div>
+
+
+{% elsif quantity_type == 'presets' %}
+
+
+  <div
+    class="
+      product-quantity__presets
+      product-quantity__presets--{{ block.settings.presets_size }}
+      product-quantity__control--{{ block.settings.presets_alignment }}
+    "
+    role="group"
+    aria-label="{{ block.settings.label }}"
+  >
+
+    {% if block.settings.preset_1_quantity >= min_quantity
+      and block.settings.preset_1_quantity <= max_quantity %}
+
+      <button
+        type="button"
+        class="product-quantity__preset is-active"
+        data-quantity-preset="{{ block.settings.preset_1_quantity }}"
+        aria-pressed="true"
+      >
+        {{ block.settings.preset_1_label }}
+      </button>
+
+    {% endif %}
+
+
+    {% if block.settings.preset_2_quantity >= min_quantity
+      and block.settings.preset_2_quantity <= max_quantity %}
+
+      <button
+        type="button"
+        class="product-quantity__preset"
+        data-quantity-preset="{{ block.settings.preset_2_quantity }}"
+        aria-pressed="false"
+      >
+        {{ block.settings.preset_2_label }}
+      </button>
+
+    {% endif %}
+
+
+    {% if block.settings.preset_3_quantity >= min_quantity
+      and block.settings.preset_3_quantity <= max_quantity %}
+
+      <button
+        type="button"
+        class="product-quantity__preset"
+        data-quantity-preset="{{ block.settings.preset_3_quantity }}"
+        aria-pressed="false"
+      >
+        {{ block.settings.preset_3_label }}
+      </button>
+
+    {% endif %}
+
+  </div>
+
+
+  <input
+    id="ProductQuantityInput-{{ block.id }}"
+    class="custom-product-form__quantity"
+    type="hidden"
+    name="quantity"
+    value="{{ block.settings.preset_1_quantity }}"
+    form="{{ product_form_id }}"
+    data-quantity-input
+  >
+
+
+{% elsif quantity_type == 'bundle' %}
+
+
+  <div
+    class="
+      product-quantity__bundles
+      product-quantity__bundles--{{ block.settings.bundle_layout }}
+    "
+    role="radiogroup"
+    aria-label="{{ block.settings.bundle_label }}"
+  >
+
+
+    {%- comment -%}
+    ======================================================
+    BUNDLE 1
+    ======================================================
+    {%- endcomment -%}
+
+    {% if block.settings.bundle_1_enabled %}
+
+      {%- liquid
+
+        assign bundle_quantity = block.settings.bundle_1_quantity | default: 1
+        assign bundle_discount = block.settings.bundle_1_discount_percent  | default: 0  | plus: 0
+        assign bundle_discount_amount = current_price | times: bundle_discount | divided_by: 100
+        assign bundle_sale_unit_price = current_price | minus: bundle_discount_amount
+        assign bundle_regular_total = current_price | times: bundle_quantity
+        assign bundle_sale_total = bundle_sale_unit_price| times: bundle_quantity
+
+      -%}
+
+
+      <button
+        type="button"
+        class="
+          product-quantity__bundle
+          {% if block.settings.bundle_image_position == 'top' %}
+            product-quantity__bundle--image-top
+          {% endif %}
+          is-active
+        "
+        data-bundle-option
+        data-bundle-quantity="{{ block.settings.bundle_1_quantity }}"
+        data-bundle-discount-code="{{ block.settings.bundle_1_discount_code | strip | escape }}"
+        aria-pressed="true"
+      >
+
+
+        {% if block.settings.bundle_show_image
+          and product.featured_image %}
+
+          <span
+            class="
+              product-quantity__bundle-image
+              product-quantity__bundle-image--{{ block.settings.bundle_image_size }}
+            "
+          >
+
+            {{
+              product.featured_image
+              | image_url: width: 240
+              | image_tag:
+                loading: 'lazy',
+                widths: '80, 120, 160, 240',
+                alt: product.title
+            }}
+
           </span>
 
+        {% endif %}
+
+
+        <span class="product-quantity__bundle-radio">
+          <span class="product-quantity__bundle-radio-dot"></span>
+        </span>
+
+
+        <span class="product-quantity__bundle-product-info">
 
           <span class="product-quantity__bundle-content">
 
@@ -407,132 +886,162 @@
 
             {% endif %}
 
-
-            {% if block.settings.show_bundle_pricing %}
-
-              <span class="product-quantity__bundle-pricing">
-
-                {% if block.settings.show_bundle_unit_price %}
-
-                  <span class="product-quantity__bundle-unit-price">
-
-                    {% if block.settings.show_bundle_regular_price
-                      and bundle_1_discount > 0
-                    %}
-
-                      <s>
-                        {{ bundle_1_unit_regular | money }}
-                      </s>
-
-                    {% endif %}
-
-                    <strong>
-                      {{ bundle_1_unit_offer | money }}
-                    </strong>
-
-                    <small>
-                      / pc
-                    </small>
-
-                  </span>
-
-                {% endif %}
-
-
-                {% if block.settings.show_bundle_total_price %}
-
-                  <span class="product-quantity__bundle-total-price">
-
-                    {% if block.settings.show_bundle_regular_price
-                      and bundle_1_discount > 0
-                    %}
-
-                      <s>
-                        {{ bundle_1_total_regular | money }}
-                      </s>
-
-                    {% endif %}
-
-                    <strong>
-                      {{ bundle_1_total_offer | money }}
-                    </strong>
-
-                    <small>
-                      / {{ bundle_1_quantity }} pcs
-                    </small>
-
-                  </span>
-
-                {% endif %}
-
-              </span>
-
-            {% endif %}
-
           </span>
 
 
-          {% if block.settings.bundle_1_savings != blank %}
+          {% if block.settings.bundle_show_pricing %}
 
-            <span class="product-quantity__bundle-savings">
-              {{ block.settings.bundle_1_savings }}
+            <span class="product-quantity__bundle-pricing">
+
+
+              {% if block.settings.bundle_show_unit_price %}
+
+                <span class="product-quantity__bundle-price-row">
+
+                  <span class="product-quantity__bundle-price-label">
+                    {{ block.settings.bundle_unit_price_label }}
+                  </span>
+
+                  <strong class="product-quantity__bundle-price">
+                    {{ bundle_sale_unit_price | money }}
+                  </strong>
+
+                  {% if block.settings.bundle_show_unit_regular_price
+                    and bundle_discount > 0 %}
+
+                    <span class="product-quantity__bundle-compare-price">
+                      {{ current_price | money }}
+                    </span>
+
+                  {% endif %}
+
+                </span>
+
+              {% endif %}
+
+
+              {% if block.settings.bundle_show_total_price %}
+
+                <span class="product-quantity__bundle-total">
+
+                  <span class="product-quantity__bundle-total-label">
+                    {{ block.settings.bundle_total_price_label }}
+                  </span>
+
+                  <strong class="product-quantity__bundle-total-price">
+                    {{ bundle_sale_total | money }}
+                  </strong>
+
+                  {% if block.settings.bundle_show_total_regular_price
+                    and bundle_discount > 0 %}
+
+                    <span class="product-quantity__bundle-total-compare">
+                      {{ bundle_regular_total | money }}
+                    </span>
+
+                  {% endif %}
+
+                </span>
+
+              {% endif %}
+
+
             </span>
 
           {% endif %}
 
-        </button>
-
-      {% endif %}
+        </span>
 
 
-      {%- comment -%}
-      ========================================================
-      BUNDLE 2
-      ========================================================
-      {%- endcomment -%}
+        {% if block.settings.bundle_1_savings != blank %}
 
-      {% if block.settings.bundle_2_enabled %}
-
-        {%- liquid
-          assign bundle_2_quantity = block.settings.bundle_2_quantity | default: 2
-          assign bundle_2_discount = block.settings.bundle_2_discount_percent | default: 5
-          assign bundle_2_unit_regular = current_product_variant.price
-          assign bundle_2_unit_discount = bundle_2_unit_regular | times: bundle_2_discount | divided_by: 100
-          assign bundle_2_unit_offer = bundle_2_unit_regular | minus: bundle_2_unit_discount 
-          assign bundle_2_total_regular = bundle_2_unit_regular | times: bundle_2_quantity
-          assign bundle_2_total_offer =  bundle_2_unit_offer | times: bundle_2_quantity
-        -%}
-
-
-        <button
-          type="button"
-          class="product-quantity__bundle"
-          data-bundle-option
-          data-bundle-quantity="{{ bundle_2_quantity }}"
-          data-bundle-discount-code="{{ block.settings.bundle_2_discount_code | strip | escape }}"
-          aria-pressed="false"
-        >
-
-          {% if block.settings.bundle_2_badge != blank %}
-
-            <span class="product-quantity__bundle-badge">
-              {{ block.settings.bundle_2_badge }}
-            </span>
-
-          {% endif %}
-
-
-          <span class="product-quantity__bundle-radio">
-            <span class="product-quantity__bundle-radio-dot"></span>
+          <span class="product-quantity__bundle-savings">
+            {{ block.settings.bundle_1_savings }}
           </span>
 
+        {% endif %}
+
+
+        {% if block.settings.bundle_1_badge != blank %}
+
+          <span class="product-quantity__bundle-badge">
+            {{ block.settings.bundle_1_badge }}
+          </span>
+
+        {% endif %}
+
+      </button>
+
+    {% endif %}
+
+
+
+    {%- comment -%}
+    ======================================================
+    BUNDLE 2
+    ======================================================
+    {%- endcomment -%}
+
+    {% if block.settings.bundle_2_enabled %}
+
+      {%- liquid
+
+        assign bundle_quantity = block.settings.bundle_2_quantity | default: 2
+        assign bundle_discount = block.settings.bundle_2_discount_percent | default: 0 | plus: 0
+        assign bundle_discount_amount = current_price | times: bundle_discount | divided_by: 100
+        assign bundle_sale_unit_price = current_price | minus: bundle_discount_amount
+        assign bundle_regular_total =  current_price | times: bundle_quantity
+        assign bundle_sale_total = bundle_sale_unit_price | times: bundle_quantity
+
+      -%}
+
+
+      <button
+        type="button"
+        class="product-quantity__bundle"
+        data-bundle-option
+        data-bundle-quantity="{{ block.settings.bundle_2_quantity }}"
+        data-bundle-discount-code="{{ block.settings.bundle_2_discount_code | strip | escape }}"
+        aria-pressed="false"
+      >
+
+
+        {% if block.settings.bundle_show_image
+          and product.featured_image %}
+
+          <span
+            class="
+              product-quantity__bundle-image
+              product-quantity__bundle-image--{{ block.settings.bundle_image_size }}
+            "
+          >
+
+            {{
+              product.featured_image
+              | image_url: width: 240
+              | image_tag:
+                loading: 'lazy',
+                widths: '80, 120, 160, 240',
+                alt: product.title
+            }}
+
+          </span>
+
+        {% endif %}
+
+
+        <span class="product-quantity__bundle-radio">
+          <span class="product-quantity__bundle-radio-dot"></span>
+        </span>
+
+
+        <span class="product-quantity__bundle-product-info">
 
           <span class="product-quantity__bundle-content">
 
             <span class="product-quantity__bundle-title">
               {{ block.settings.bundle_2_label }}
             </span>
-
 
             {% if block.settings.bundle_2_description != blank %}
 
@@ -542,132 +1051,157 @@
 
             {% endif %}
 
-
-            {% if block.settings.show_bundle_pricing %}
-
-              <span class="product-quantity__bundle-pricing">
-
-                {% if block.settings.show_bundle_unit_price %}
-
-                  <span class="product-quantity__bundle-unit-price">
-
-                    {% if block.settings.show_bundle_regular_price
-                      and bundle_2_discount > 0
-                    %}
-
-                      <s>
-                        {{ bundle_2_unit_regular | money }}
-                      </s>
-
-                    {% endif %}
-
-                    <strong>
-                      {{ bundle_2_unit_offer | money }}
-                    </strong>
-
-                    <small>
-                      / pc
-                    </small>
-
-                  </span>
-
-                {% endif %}
-
-
-                {% if block.settings.show_bundle_total_price %}
-
-                  <span class="product-quantity__bundle-total-price">
-
-                    {% if block.settings.show_bundle_regular_price
-                      and bundle_2_discount > 0
-                    %}
-
-                      <s>
-                        {{ bundle_2_total_regular | money }}
-                      </s>
-
-                    {% endif %}
-
-                    <strong>
-                      {{ bundle_2_total_offer | money }}
-                    </strong>
-
-                    <small>
-                      / {{ bundle_2_quantity }} pcs
-                    </small>
-
-                  </span>
-
-                {% endif %}
-
-              </span>
-
-            {% endif %}
-
           </span>
 
 
-          {% if block.settings.bundle_2_savings != blank %}
+          {% if block.settings.bundle_show_pricing %}
 
-            <span class="product-quantity__bundle-savings">
-              {{ block.settings.bundle_2_savings }}
+            <span class="product-quantity__bundle-pricing">
+
+              {% if block.settings.bundle_show_unit_price %}
+
+                <span class="product-quantity__bundle-price-row">
+
+                  <span class="product-quantity__bundle-price-label">
+                    {{ block.settings.bundle_unit_price_label }}
+                  </span>
+
+                  <strong class="product-quantity__bundle-price">
+                    {{ bundle_sale_unit_price | money }}
+                  </strong>
+
+                  {% if block.settings.bundle_show_unit_regular_price
+                    and bundle_discount > 0 %}
+
+                    <span class="product-quantity__bundle-compare-price">
+                      {{ current_price | money }}
+                    </span>
+
+                  {% endif %}
+
+                </span>
+
+              {% endif %}
+
+
+              {% if block.settings.bundle_show_total_price %}
+
+                <span class="product-quantity__bundle-total">
+
+                  <span class="product-quantity__bundle-total-label">
+                    {{ block.settings.bundle_total_price_label }}
+                  </span>
+
+                  <strong class="product-quantity__bundle-total-price">
+                    {{ bundle_sale_total | money }}
+                  </strong>
+
+                  {% if block.settings.bundle_show_total_regular_price
+                    and bundle_discount > 0 %}
+
+                    <span class="product-quantity__bundle-total-compare">
+                      {{ bundle_regular_total | money }}
+                    </span>
+
+                  {% endif %}
+
+                </span>
+
+              {% endif %}
+
             </span>
 
           {% endif %}
 
-        </button>
-
-      {% endif %}
+        </span>
 
 
-      {%- comment -%}
-      ========================================================
-      BUNDLE 3
-      ========================================================
-      {%- endcomment -%}
+        {% if block.settings.bundle_2_savings != blank %}
 
-      {% if block.settings.bundle_3_enabled %}
-
-        {%- liquid
-          assign bundle_3_quantity =  block.settings.bundle_3_quantity | default: 3
-          assign bundle_3_discount =  block.settings.bundle_3_discount_percent | default: 10
-          assign bundle_3_unit_regular =  current_product_variant.price
-          assign bundle_3_unit_discount =  bundle_3_unit_regular | times: bundle_3_discount | divided_by: 100
-          assign bundle_3_unit_offer = bundle_3_unit_regular | minus: bundle_3_unit_discount
-          assign bundle_3_total_regular = bundle_3_unit_regular | times: bundle_3_quantity
-          assign bundle_3_total_offer =  bundle_3_unit_offer | times: bundle_3_quantity
-        -%}
-
-
-        <button
-          type="button"
-          class="product-quantity__bundle"
-          data-bundle-option
-          data-bundle-quantity="{{ bundle_3_quantity }}"
-          data-bundle-discount-code="{{ block.settings.bundle_3_discount_code | strip | escape }}"
-          aria-pressed="false"
-        >
-
-          {% if block.settings.bundle_3_badge != blank %}
-
-            <span class="product-quantity__bundle-badge">
-              {{ block.settings.bundle_3_badge }}
-            </span>
-
-          {% endif %}
-
-
-          <span class="product-quantity__bundle-radio">
-            <span class="product-quantity__bundle-radio-dot"></span>
+          <span class="product-quantity__bundle-savings">
+            {{ block.settings.bundle_2_savings }}
           </span>
 
+        {% endif %}
+
+
+        {% if block.settings.bundle_2_badge != blank %}
+
+          <span class="product-quantity__bundle-badge">
+            {{ block.settings.bundle_2_badge }}
+          </span>
+
+        {% endif %}
+
+      </button>
+
+    {% endif %}
+
+
+
+    {%- comment -%}
+    ======================================================
+    BUNDLE 3
+    ======================================================
+    {%- endcomment -%}
+
+    {% if block.settings.bundle_3_enabled %}
+
+      {%- liquid
+        assign bundle_quantity = block.settings.bundle_3_quantity | default: 3
+        assign bundle_discount = block.settings.bundle_3_discount_percent | default: 0 | plus: 0
+        assign bundle_discount_amount = current_price | times: bundle_discount | divided_by: 100
+        assign bundle_sale_unit_price = current_price | minus: bundle_discount_amount
+        assign bundle_regular_total = current_price | times: bundle_quantity
+        assign bundle_sale_total = bundle_sale_unit_price | times: bundle_quantity
+      -%}
+
+
+      <button
+        type="button"
+        class="product-quantity__bundle"
+        data-bundle-option
+        data-bundle-quantity="{{ block.settings.bundle_3_quantity }}"
+        aria-pressed="false"
+      >
+
+
+        {% if block.settings.bundle_show_image
+          and product.featured_image %}
+
+          <span
+            class="
+              product-quantity__bundle-image
+              product-quantity__bundle-image--{{ block.settings.bundle_image_size }}
+            "
+          >
+
+            {{
+              product.featured_image
+              | image_url: width: 240
+              | image_tag:
+                loading: 'lazy',
+                widths: '80, 120, 160, 240',
+                alt: product.title
+            }}
+
+          </span>
+
+        {% endif %}
+
+
+        <span class="product-quantity__bundle-radio">
+          <span class="product-quantity__bundle-radio-dot"></span>
+        </span>
+
+
+        <span class="product-quantity__bundle-product-info">
 
           <span class="product-quantity__bundle-content">
 
             <span class="product-quantity__bundle-title">
               {{ block.settings.bundle_3_label }}
             </span>
-
 
             {% if block.settings.bundle_3_description != blank %}
 
@@ -677,132 +1211,160 @@
 
             {% endif %}
 
-
-            {% if block.settings.show_bundle_pricing %}
-
-              <span class="product-quantity__bundle-pricing">
-
-                {% if block.settings.show_bundle_unit_price %}
-
-                  <span class="product-quantity__bundle-unit-price">
-
-                    {% if block.settings.show_bundle_regular_price
-                      and bundle_3_discount > 0
-                    %}
-
-                      <s>
-                        {{ bundle_3_unit_regular | money }}
-                      </s>
-
-                    {% endif %}
-
-                    <strong>
-                      {{ bundle_3_unit_offer | money }}
-                    </strong>
-
-                    <small>
-                      / pc
-                    </small>
-
-                  </span>
-
-                {% endif %}
-
-
-                {% if block.settings.show_bundle_total_price %}
-
-                  <span class="product-quantity__bundle-total-price">
-
-                    {% if block.settings.show_bundle_regular_price
-                      and bundle_3_discount > 0
-                    %}
-
-                      <s>
-                        {{ bundle_3_total_regular | money }}
-                      </s>
-
-                    {% endif %}
-
-                    <strong>
-                      {{ bundle_3_total_offer | money }}
-                    </strong>
-
-                    <small>
-                      / {{ bundle_3_quantity }} pcs
-                    </small>
-
-                  </span>
-
-                {% endif %}
-
-              </span>
-
-            {% endif %}
-
           </span>
 
 
-          {% if block.settings.bundle_3_savings != blank %}
+          {% if block.settings.bundle_show_pricing %}
 
-            <span class="product-quantity__bundle-savings">
-              {{ block.settings.bundle_3_savings }}
+            <span class="product-quantity__bundle-pricing">
+
+              {% if block.settings.bundle_show_unit_price %}
+
+                <span class="product-quantity__bundle-price-row">
+
+                  <span class="product-quantity__bundle-price-label">
+                    {{ block.settings.bundle_unit_price_label }}
+                  </span>
+
+                  <strong class="product-quantity__bundle-price">
+                    {{ bundle_sale_unit_price | money }}
+                  </strong>
+
+                  {% if block.settings.bundle_show_unit_regular_price
+                    and bundle_discount > 0 %}
+
+                    <span class="product-quantity__bundle-compare-price">
+                      {{ current_price | money }}
+                    </span>
+
+                  {% endif %}
+
+                </span>
+
+              {% endif %}
+
+
+              {% if block.settings.bundle_show_total_price %}
+
+                <span class="product-quantity__bundle-total">
+
+                  <span class="product-quantity__bundle-total-label">
+                    {{ block.settings.bundle_total_price_label }}
+                  </span>
+
+                  <strong class="product-quantity__bundle-total-price">
+                    {{ bundle_sale_total | money }}
+                  </strong>
+
+                  {% if block.settings.bundle_show_total_regular_price
+                    and bundle_discount > 0 %}
+
+                    <span class="product-quantity__bundle-total-compare">
+                      {{ bundle_regular_total | money }}
+                    </span>
+
+                  {% endif %}
+
+                </span>
+
+              {% endif %}
+
             </span>
 
           {% endif %}
 
-        </button>
-
-      {% endif %}
+        </span>
 
 
-      {%- comment -%}
-      ========================================================
-      BUNDLE 4
-      ========================================================
-      {%- endcomment -%}
+        {% if block.settings.bundle_3_savings != blank %}
 
-      {% if block.settings.bundle_4_enabled %}
-
-        {%- liquid
-          assign bundle_4_quantity =  block.settings.bundle_4_quantity | default: 5
-          assign bundle_4_discount =  block.settings.bundle_4_discount_percent | default: 15
-          assign bundle_4_unit_regular = current_product_variant.price
-          assign bundle_4_unit_discount = bundle_4_unit_regular | times: bundle_4_discount | divided_by: 100
-          assign bundle_4_unit_offer = bundle_4_unit_regular | minus: bundle_4_unit_discount
-          assign bundle_4_total_regular = bundle_4_unit_regular | times: bundle_4_quantity
-          assign bundle_4_total_offer = bundle_4_unit_offer | times: bundle_4_quantity
-        -%}
-
-
-        <button
-          type="button"
-          class="product-quantity__bundle"
-          data-bundle-option
-          data-bundle-quantity="{{ bundle_4_quantity }}"
-          data-bundle-discount-code="{{ block.settings.bundle_4_discount_code | strip | escape }}"
-          aria-pressed="false"
-        >
-
-          {% if block.settings.bundle_4_badge != blank %}
-
-            <span class="product-quantity__bundle-badge">
-              {{ block.settings.bundle_4_badge }}
-            </span>
-
-          {% endif %}
-
-
-          <span class="product-quantity__bundle-radio">
-            <span class="product-quantity__bundle-radio-dot"></span>
+          <span class="product-quantity__bundle-savings">
+            {{ block.settings.bundle_3_savings }}
           </span>
 
+        {% endif %}
+
+
+        {% if block.settings.bundle_3_badge != blank %}
+
+          <span class="product-quantity__bundle-badge">
+            {{ block.settings.bundle_3_badge }}
+          </span>
+
+        {% endif %}
+
+      </button>
+
+    {% endif %}
+
+
+
+    {%- comment -%}
+    ======================================================
+    BUNDLE 4
+    ======================================================
+    {%- endcomment -%}
+
+    {% if block.settings.bundle_4_enabled %}
+
+      {%- liquid
+
+        assign bundle_quantity = block.settings.bundle_4_quantity | default: 5
+        assign bundle_discount = block.settings.bundle_4_discount_percent | default: 0 | plus: 0
+        assign bundle_discount_amount = current_price | times: bundle_discount | divided_by: 100
+        assign bundle_sale_unit_price = current_price | minus: bundle_discount_amount
+        assign bundle_regular_total = current_price | times: bundle_quantity
+        assign bundle_sale_total = bundle_sale_unit_price | times: bundle_quantity
+
+      -%}
+
+
+      <button
+        type="button"
+        class="product-quantity__bundle"
+        data-bundle-option
+        data-bundle-quantity="{{ block.settings.bundle_4_quantity }}"
+        data-bundle-discount-code="{{ block.settings.bundle_4_discount_code | strip | escape }}"
+        aria-pressed="false"
+      >
+
+
+        {% if block.settings.bundle_show_image
+          and product.featured_image %}
+
+          <span
+            class="
+              product-quantity__bundle-image
+              product-quantity__bundle-image--{{ block.settings.bundle_image_size }}
+            "
+          >
+
+            {{
+              product.featured_image
+              | image_url: width: 240
+              | image_tag:
+                loading: 'lazy',
+                widths: '80, 120, 160, 240',
+                alt: product.title
+            }}
+
+          </span>
+
+        {% endif %}
+
+
+        <span class="product-quantity__bundle-radio">
+          <span class="product-quantity__bundle-radio-dot"></span>
+        </span>
+
+
+        <span class="product-quantity__bundle-product-info">
 
           <span class="product-quantity__bundle-content">
 
             <span class="product-quantity__bundle-title">
               {{ block.settings.bundle_4_label }}
             </span>
-
 
             {% if block.settings.bundle_4_description != blank %}
 
@@ -812,116 +1374,124 @@
 
             {% endif %}
 
-
-            {% if block.settings.show_bundle_pricing %}
-
-              <span class="product-quantity__bundle-pricing">
-
-                {% if block.settings.show_bundle_unit_price %}
-
-                  <span class="product-quantity__bundle-unit-price">
-
-                    {% if block.settings.show_bundle_regular_price
-                      and bundle_4_discount > 0
-                    %}
-
-                      <s>
-                        {{ bundle_4_unit_regular | money }}
-                      </s>
-
-                    {% endif %}
-
-                    <strong>
-                      {{ bundle_4_unit_offer | money }}
-                    </strong>
-
-                    <small>
-                      / pc
-                    </small>
-
-                  </span>
-
-                {% endif %}
-
-
-                {% if block.settings.show_bundle_total_price %}
-
-                  <span class="product-quantity__bundle-total-price">
-
-                    {% if block.settings.show_bundle_regular_price
-                      and bundle_4_discount > 0
-                    %}
-
-                      <s>
-                        {{ bundle_4_total_regular | money }}
-                      </s>
-
-                    {% endif %}
-
-                    <strong>
-                      {{ bundle_4_total_offer | money }}
-                    </strong>
-
-                    <small>
-                      / {{ bundle_4_quantity }} pcs
-                    </small>
-
-                  </span>
-
-                {% endif %}
-
-              </span>
-
-            {% endif %}
-
           </span>
 
 
-          {% if block.settings.bundle_4_savings != blank %}
+          {% if block.settings.bundle_show_pricing %}
 
-            <span class="product-quantity__bundle-savings">
-              {{ block.settings.bundle_4_savings }}
+            <span class="product-quantity__bundle-pricing">
+
+              {% if block.settings.bundle_show_unit_price %}
+
+                <span class="product-quantity__bundle-price-row">
+
+                  <span class="product-quantity__bundle-price-label">
+                    {{ block.settings.bundle_unit_price_label }}
+                  </span>
+
+                  <strong class="product-quantity__bundle-price">
+                    {{ bundle_sale_unit_price | money }}
+                  </strong>
+
+                  {% if block.settings.bundle_show_unit_regular_price
+                    and bundle_discount > 0 %}
+
+                    <span class="product-quantity__bundle-compare-price">
+                      {{ current_price | money }}
+                    </span>
+
+                  {% endif %}
+
+                </span>
+
+              {% endif %}
+
+
+              {% if block.settings.bundle_show_total_price %}
+
+                <span class="product-quantity__bundle-total">
+
+                  <span class="product-quantity__bundle-total-label">
+                    {{ block.settings.bundle_total_price_label }}
+                  </span>
+
+                  <strong class="product-quantity__bundle-total-price">
+                    {{ bundle_sale_total | money }}
+                  </strong>
+
+                  {% if block.settings.bundle_show_total_regular_price
+                    and bundle_discount > 0 %}
+
+                    <span class="product-quantity__bundle-total-compare">
+                      {{ bundle_regular_total | money }}
+                    </span>
+
+                  {% endif %}
+
+                </span>
+
+              {% endif %}
+
             </span>
 
           {% endif %}
 
-        </button>
-
-      {% endif %}
-
-    </div>
+        </span>
 
 
-    {%- liquid
-      assign first_bundle_quantity = block.settings.bundle_1_quantity | default: 1
+        {% if block.settings.bundle_4_savings != blank %}
 
-      if first_bundle_quantity < min_quantity
-        assign first_bundle_quantity = min_quantity
-      endif
+          <span class="product-quantity__bundle-savings">
+            {{ block.settings.bundle_4_savings }}
+          </span>
 
-      if first_bundle_quantity > max_quantity
-        assign first_bundle_quantity = min_quantity
-      endif
-    -%}
+        {% endif %}
 
 
-    <input
-      id="ProductQuantityInput-{{ block.id }}"
-      class="custom-product-form__quantity"
-      type="hidden"
-      name="quantity"
-      value="{{ first_bundle_quantity }}"
-      form="{{ product_form_id }}"
-      data-quantity-input
-    >
+        {% if block.settings.bundle_4_badge != blank %}
 
-  {% endif %}
+          <span class="product-quantity__bundle-badge">
+            {{ block.settings.bundle_4_badge }}
+          </span>
+
+        {% endif %}
+
+      </button>
+
+    {% endif %}
+
+  </div>
+
+
+  {%- liquid
+    assign first_bundle_quantity = block.settings.bundle_1_quantity | default: 1
+
+    if first_bundle_quantity < min_quantity
+      assign first_bundle_quantity = min_quantity
+    endif
+
+    if first_bundle_quantity > max_quantity
+      assign first_bundle_quantity = min_quantity
+    endif
+  -%}
+
+
+  <input
+    id="ProductQuantityInput-{{ block.id }}"
+    class="custom-product-form__quantity"
+    type="hidden"
+    name="quantity"
+    value="{{ first_bundle_quantity }}"
+    form="{{ product_form_id }}"
+    data-quantity-input
+  >
+
+{% endif %}
 
 </div>
 
 
 {% schema %}
-
 {
   "name": "Product quantity",
   "tag": null,
@@ -1279,46 +1849,125 @@
 
     {
       "type": "header",
+      "content": "Bundle image",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "bundle_show_image",
+      "label": "Show product image",
+      "default": true,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
+    },
+
+    {
+      "type": "select",
+      "id": "bundle_image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "top",
+          "label": "Top"
+        }
+      ],
+      "default": "left",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_show_image }}"
+    },
+
+    {
+      "type": "select",
+      "id": "bundle_image_size",
+      "label": "Image size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_show_image }}"
+    },
+
+
+    {
+      "type": "header",
       "content": "Bundle pricing",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
     },
 
     {
       "type": "checkbox",
-      "id": "show_bundle_pricing",
-      "label": "Show bundle pricing",
+      "id": "bundle_show_pricing",
+      "label": "Show pricing",
       "default": true,
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
     },
 
     {
       "type": "checkbox",
-      "id": "show_bundle_unit_price",
-      "label": "Show price per piece",
+      "id": "bundle_show_unit_price",
+      "label": "Show price per item",
       "default": true,
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.show_bundle_pricing }}"
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_show_pricing }}"
     },
 
     {
       "type": "checkbox",
-      "id": "show_bundle_total_price",
-      "label": "Show total bundle price",
+      "id": "bundle_show_unit_regular_price",
+      "label": "Show regular price per item",
       "default": true,
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.show_bundle_pricing }}"
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_show_pricing and block.settings.bundle_show_unit_price }}"
     },
 
     {
       "type": "checkbox",
-      "id": "show_bundle_regular_price",
-      "label": "Show regular price",
+      "id": "bundle_show_total_price",
+      "label": "Show bundle total price",
       "default": true,
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.show_bundle_pricing }}"
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_show_pricing }}"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "bundle_show_total_regular_price",
+      "label": "Show regular bundle total",
+      "default": true,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_show_pricing and block.settings.bundle_show_total_price }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_unit_price_label",
+      "label": "Unit price label",
+      "default": "Per item",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_show_pricing and block.settings.bundle_show_unit_price }}"
+    },
+
+    {
+      "type": "text",
+      "id": "bundle_total_price_label",
+      "label": "Total price label",
+      "default": "Total",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_show_pricing and block.settings.bundle_show_total_price }}"
     },
 
 
     {
       "type": "header",
-      "content": "Offer card design",
+      "content": "Bundle card design",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
     },
 
@@ -1360,111 +2009,6 @@
 
 
     {
-      "type": "checkbox",
-      "id": "bundle_use_custom_colors",
-      "label": "Use custom colors",
-      "default": false,
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_background",
-      "label": "Background",
-      "default": "#FFFFFF",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_background_gradient",
-      "label": "Gradient end color",
-      "default": "#F3F5F7",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "checkbox",
-      "id": "bundle_enable_gradient",
-      "label": "Use gradient",
-      "default": false,
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_text_color",
-      "label": "Text color",
-      "default": "#06123D",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_border_color",
-      "label": "Border color",
-      "default": "#D9DDE3",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_active_background",
-      "label": "Active background",
-      "default": "#06123D",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_active_text",
-      "label": "Active text",
-      "default": "#FFFFFF",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_active_border",
-      "label": "Active border",
-      "default": "#06123D",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_badge_background",
-      "label": "Badge background",
-      "default": "#06123D",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_badge_text",
-      "label": "Badge text",
-      "default": "#FFFFFF",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_active_badge_background",
-      "label": "Active badge background",
-      "default": "#FFFFFF",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-    {
-      "type": "color",
-      "id": "bundle_active_badge_text",
-      "label": "Active badge text",
-      "default": "#06123D",
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_use_custom_colors }}"
-    },
-
-
-    {
       "type": "header",
       "content": "Bundle 1",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' }}"
@@ -1486,18 +2030,6 @@
       "max": 100,
       "step": 1,
       "default": 1,
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_1_enabled }}"
-    },
-
-    {
-      "type": "range",
-      "id": "bundle_1_discount_percent",
-      "label": "Discount percentage",
-      "min": 0,
-      "max": 90,
-      "step": 1,
-      "unit": "%",
-      "default": 0,
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_1_enabled }}"
     },
 
@@ -1526,6 +2058,18 @@
     },
 
     {
+      "type": "range",
+      "id": "bundle_1_discount_percent",
+      "label": "Discount percentage",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 0,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_1_enabled }}"
+    },
+
+    {
       "type": "text",
       "id": "bundle_1_discount_code",
       "label": "Discount code",
@@ -1537,7 +2081,7 @@
       "type": "text",
       "id": "bundle_1_badge",
       "label": "Badge",
-      "default": "Most Popular",
+      "default": "Regula Price",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_1_enabled }}"
     },
 
@@ -1568,18 +2112,6 @@
     },
 
     {
-      "type": "range",
-      "id": "bundle_2_discount_percent",
-      "label": "Discount percentage",
-      "min": 0,
-      "max": 90,
-      "step": 1,
-      "unit": "%",
-      "default": 5,
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_2_enabled }}"
-    },
-
-    {
       "type": "text",
       "id": "bundle_2_label",
       "label": "Title",
@@ -1600,6 +2132,18 @@
       "id": "bundle_2_savings",
       "label": "Savings text",
       "default": "Save 5%",
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_2_enabled }}"
+    },
+
+    {
+      "type": "range",
+      "id": "bundle_2_discount_percent",
+      "label": "Discount percentage",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 5,
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_2_enabled }}"
     },
 
@@ -1646,18 +2190,6 @@
     },
 
     {
-      "type": "range",
-      "id": "bundle_3_discount_percent",
-      "label": "Discount percentage",
-      "min": 0,
-      "max": 90,
-      "step": 1,
-      "unit": "%",
-      "default": 10,
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_3_enabled }}"
-    },
-
-    {
       "type": "text",
       "id": "bundle_3_label",
       "label": "Title",
@@ -1682,10 +2214,14 @@
     },
 
     {
-      "type": "text",
-      "id": "bundle_3_discount_code",
-      "label": "Discount code",
-      "info": "Enter the Shopify discount code for this bundle.",
+      "type": "range",
+      "id": "bundle_3_discount_percent",
+      "label": "Discount percentage",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 10,
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_3_enabled }}"
     },
 
@@ -1724,18 +2260,6 @@
     },
 
     {
-      "type": "range",
-      "id": "bundle_4_discount_percent",
-      "label": "Discount percentage",
-      "min": 0,
-      "max": 90,
-      "step": 1,
-      "unit": "%",
-      "default": 15,
-      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
-    },
-
-    {
       "type": "text",
       "id": "bundle_4_label",
       "label": "Title",
@@ -1760,6 +2284,18 @@
     },
 
     {
+      "type": "range",
+      "id": "bundle_4_discount_percent",
+      "label": "Discount percentage",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 15,
+      "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
+    },
+
+    {
       "type": "text",
       "id": "bundle_4_discount_code",
       "label": "Discount code",
@@ -1773,6 +2309,99 @@
       "label": "Badge",
       "default": "Exclusive Offer",
       "visible_if": "{{ block.settings.quantity_type == 'bundle' and block.settings.bundle_4_enabled }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Global colors"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "label": "Use custom colors",
+      "default": false
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#111111",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#DDDDDD",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "active_background",
+      "label": "Active background",
+      "default": "#111111",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "active_text",
+      "label": "Active text",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "active_border",
+      "label": "Active border",
+      "default": "#111111",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#111111",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#111111",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
+    },
+
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.use_custom_colors }}"
     }
 
   ],
@@ -1783,5 +2412,4 @@
     }
   ]
 }
-
 {% endschema %}
