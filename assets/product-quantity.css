@@ -737,6 +737,23 @@
 
   }
 
+   .product-quantity--stepper-size-small
+  .product-quantity__stepper {
+    min-height: 36px;
+  }
+
+
+  .product-quantity--stepper-size-medium
+  .product-quantity__stepper {
+    min-height: 42px;
+  }
+
+
+  .product-quantity--stepper-size-large
+  .product-quantity__stepper {
+    min-height: 50px;
+  }
+  
   .product-quantity__button {
     width: 40px;
     height: 40px;
