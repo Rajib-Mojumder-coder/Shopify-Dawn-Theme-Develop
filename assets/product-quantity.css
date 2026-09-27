@@ -802,22 +802,26 @@
 
 
   .product-quantity__bundle-savings {
-
     margin-left: 8px;
-
-    padding:
-      4px
-      7px;
-
+    padding: 4px  7px;
     font-size: 0.75em;
 
   }
-
 
   .product-quantity__bundle-badge {
     right: 8px;
     font-size: 10px;
 
+  }
+  
+  .product-quantity__bundle-pricing {
+    margin-top: 6px;
+  }
+
+
+  .product-quantity__bundle-unit-price,
+  .product-quantity__bundle-total-price {
+    font-size: 12px;
   }
 
 }
