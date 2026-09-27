@@ -490,35 +490,17 @@
 .product-quantity__bundle {
 
   position: relative;
-
   display: flex;
-
   align-items: center;
-
   width: 100%;
-
   min-width: 0;
-
-  padding:
-    var(--bundle-padding, 16px);
-
-  border:
-    1px solid
-    var(--quantity-border);
-
-  border-radius:
-    var(--bundle-radius, 10px);
-
-  background:
-    var(--quantity-background);
-
-  color:
-    var(--quantity-text);
-
+  padding: var(--bundle-padding, 16px);
+  border: 1px solid var(--quantity-border);
+  border-radius: var(--bundle-radius, 10px);
+  background: var(--quantity-background);
+  color: var(--quantity-text);
   text-align: left;
-
   cursor: pointer;
-
   transition:
     background-color 180ms ease,
     color 180ms ease,
