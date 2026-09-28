@@ -240,19 +240,13 @@
               },
               "blocks": {}
             },
-            "product_quantity_eVHjQ8": {
+            "product_quantity_4FfXBk": {
               "type": "product-quantity",
               "name": "Product quantity",
               "settings": {
                 "label": "Quantity",
                 "show_label": true,
                 "quantity_type": "bundle",
-                "stepper_size": "large",
-                "stepper_alignment": "center",
-                "dropdown_size": "large",
-                "dropdown_alignment": "center",
-                "presets_size": "large",
-                "presets_alignment": "center",
                 "min_quantity": 1,
                 "max_quantity": 10,
                 "quantity_step": 1,
@@ -264,16 +258,6 @@
                 "preset_3_label": "3 items",
                 "bundle_label": "Choose your quantity",
                 "bundle_layout": "featured",
-                "bundle_show_image": false,
-                "bundle_image_position": "left",
-                "bundle_image_size": "medium",
-                "bundle_show_pricing": true,
-                "bundle_show_unit_price": true,
-                "bundle_show_unit_regular_price": true,
-                "bundle_show_total_price": false,
-                "bundle_show_total_regular_price": true,
-                "bundle_unit_price_label": "Per item",
-                "bundle_total_price_label": "Total",
                 "bundle_gap": 10,
                 "bundle_radius": 10,
                 "bundle_padding": 16,
@@ -309,16 +293,13 @@
                 "bundle_4_discount_code": "",
                 "bundle_4_badge": "Exclusive Offer",
                 "use_custom_colors": false,
-                "background_color": "#ffffff",
+                "background_color": "#FFFFFF",
                 "text_color": "#111111",
-                "border_color": "#dddddd",
-                "active_background": "#111111",
-                "active_text": "#ffffff",
-                "active_border": "#111111",
-                "button_background": "#ffffff",
-                "button_text_color": "#111111",
-                "badge_background": "#111111",
-                "badge_text_color": "#ffffff"
+                "border_color": "#5C9C3C",
+                "active_background": "#5C9C3C",
+                "active_text": "#FFFFFF",
+                "active_border": "#5C9C3C",
+                "badge_background": "#111111"
               },
               "blocks": {}
             },
@@ -359,7 +340,7 @@
             "product_title_WtaEHj",
             "product_price_UWKmbw",
             "product_variant_picker_XbqHiq",
-            "product_quantity_eVHjQ8",
+            "product_quantity_4FfXBk",
             "product_buy_buttons_TNXcE4"
           ]
         }
