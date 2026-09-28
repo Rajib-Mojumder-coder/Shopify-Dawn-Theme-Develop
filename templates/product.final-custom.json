@@ -331,7 +331,8 @@
                 "offer_type": "buy_x_get_y",
                 "buy_quantity": 1,
                 "buy_products": [
-                  "qwic-elan-tour"
+                  "qwic-elan-tour",
+                  "kalkhoff-image-3-excite-380-600w-dli48"
                 ],
                 "get_quantity": 1,
                 "get_products": [
@@ -356,13 +357,13 @@
                 "padding": 16,
                 "content_gap": 14,
                 "use_custom_colors": false,
-                "background_color": "#F8F8F8",
+                "background_color": "#f8f8f8",
                 "text_color": "#111111",
-                "border_color": "#DDDDDD",
+                "border_color": "#dddddd",
                 "badge_background": "#111111",
-                "badge_text_color": "#FFFFFF",
+                "badge_text_color": "#ffffff",
                 "button_background": "#111111",
-                "button_text_color": "#FFFFFF",
+                "button_text_color": "#ffffff",
                 "button_border_color": "#111111"
               },
               "blocks": {}
