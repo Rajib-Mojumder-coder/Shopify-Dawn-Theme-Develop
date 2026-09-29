@@ -218,11 +218,11 @@
               "name": "Product variant picker",
               "settings": {
                 "variant_option_1_name": "Maat",
-                "variant_option_1_style": "swatches",
+                "variant_option_1_style": "buttons",
                 "variant_option_1_swatch_type": "image",
                 "variant_option_1_swatch_shape": "circle",
                 "variant_option_2_name": "kleur",
-                "variant_option_2_style": "buttons",
+                "variant_option_2_style": "swatches",
                 "variant_option_2_swatch_type": "color",
                 "variant_option_2_swatch_shape": "circle",
                 "variant_option_3_name": "Material",
