@@ -575,11 +575,22 @@
         "mobile_align": "stretch",
         "mobile_gap": 16
       }
+    },
+    "custom_features_slider_4wD4TN": {
+      "type": "custom-features-slider",
+      "name": "Features Block Slider",
+      "settings": {
+        "layout_max_width": "",
+        "color_scheme": "scheme-f37b896e-74b3-4fd8-853c-b43ae546e1fe",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
     "related-products",
     "main_product_final_HrM7nP",
-    "custom_section_layout_LQ8JwY"
+    "custom_section_layout_LQ8JwY",
+    "custom_features_slider_4wD4TN"
   ]
 }
