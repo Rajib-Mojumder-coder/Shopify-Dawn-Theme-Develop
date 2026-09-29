@@ -243,7 +243,6 @@
             "product_quantity_eVHjQ8": {
               "type": "product-quantity",
               "name": "Product quantity",
-              "disabled": true,
               "settings": {
                 "label": "Quantity",
                 "show_label": true,
@@ -326,6 +325,7 @@
             "product_offer_ebc4nM": {
               "type": "product-offer",
               "name": "Product offer",
+              "disabled": true,
               "settings": {
                 "enable_offer": true,
                 "offer_type": "buy_x_get_y",
