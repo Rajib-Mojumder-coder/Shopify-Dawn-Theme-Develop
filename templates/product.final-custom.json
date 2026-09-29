@@ -476,7 +476,6 @@
             "custom_tab_F7LMTC": {
               "type": "custom-tab",
               "name": "Custom Tab",
-              "disabled": true,
               "settings": {
                 "enable_color_scheme": false,
                 "color_scheme": "",
