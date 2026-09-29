@@ -542,7 +542,7 @@
         "overlay_opacity": 40,
         "overlay_blend": "normal",
         "overlay_blur": 0,
-        "layout_type": "full",
+        "layout_type": "default",
         "layout_max_width": "1728px",
         "surface_min_height": 120,
         "layout_background": "transparant",
