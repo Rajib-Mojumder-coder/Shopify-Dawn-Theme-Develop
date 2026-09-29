@@ -416,7 +416,7 @@
         "page_width": "default",
         "custom_page_width": 1200,
         "product_media_position": "left",
-        "column_ratio": "equal",
+        "column_ratio": "media-large",
         "column_gap": 48,
         "enable_sticky_info": true,
         "enable_sticky_cart": false,
@@ -494,7 +494,7 @@
               "settings": {
                 "enable_color_scheme": true,
                 "color_scheme": "",
-                "Advisor_block_width": "100",
+                "Advisor_block_width": "75",
                 "advisor_image": "shopify://shop_images/dsdf_70f3d2b3-292e-411f-95de-08b936042ce6.png",
                 "enable_img_position": true,
                 "advisor_img_y_offset": -40,
