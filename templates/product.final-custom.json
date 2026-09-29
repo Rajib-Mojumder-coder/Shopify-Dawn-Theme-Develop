@@ -223,7 +223,7 @@
                 "variant_option_1_swatch_shape": "circle",
                 "variant_option_2_name": "kleur",
                 "variant_option_2_style": "swatches",
-                "variant_option_2_swatch_type": "color",
+                "variant_option_2_swatch_type": "image",
                 "variant_option_2_swatch_shape": "circle",
                 "variant_option_3_name": "Material",
                 "variant_option_3_style": "dropdown",
