@@ -412,7 +412,7 @@
       },
       "name": "Product information",
       "settings": {
-        "layout_size": "full",
+        "layout_size": "page",
         "page_width": "default",
         "custom_page_width": 1200,
         "product_media_position": "left",
