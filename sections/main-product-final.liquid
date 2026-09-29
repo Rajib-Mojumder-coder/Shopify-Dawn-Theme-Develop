@@ -14,8 +14,6 @@
 
     if section.settings.layout_size == 'full'
       assign layout_width = '100%'
-    elsif section.settings.page_width == 'default'
-      assign layout_width = 'var(--page-width)'
     elsif section.settings.page_width == 'custom'
       assign layout_width = section.settings.custom_page_width | append: 'px'
     endif
@@ -52,7 +50,7 @@ data-section="{{ section.id }}" data-product-id="{{ product.id }}" data-update-u
     }
   </style>
 
-  <div class="product-final__inner">
+  <div class="product-final__inner{% if section.settings.layout_size == 'page' and section.settings.page_width == 'default' %} page-width{% endif %}">
     
     {% if section.settings.show_breadcrumb %}
       <div class="product-final__breadcrumb">
