@@ -246,7 +246,7 @@
             "border_radius": 50,
             "show_navigation_mobile": true,
             "nav_position": "top-right",
-            "nav_gap": 30,
+            "nav_gap": 76,
             "nav_outside_offset": 60
           },
           "blocks": {
