@@ -303,12 +303,31 @@
                 "description": "<p>Add a short description for this slide.</p>"
               },
               "blocks": {}
+            },
+            "image_text_UbFQ4a": {
+              "type": "_image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/Peeters_Tweewielers_sRGB-39_4.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>Add a short description for this slide.</p>"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "image_text_WnM8Ha",
             "image_text_Gh7cVJ",
-            "image_text_UWtW83"
+            "image_text_UWtW83",
+            "image_text_UbFQ4a"
           ]
         }
       },
