@@ -202,7 +202,7 @@
             "content_position": false,
             "content_vertical": "default",
             "overlay_spacing": 10,
-            "content_horizontal": "center",
+            "content_horizontal": "start",
             "image_radius": 0,
             "image_overlay": false,
             "overlay_style": "solid",
