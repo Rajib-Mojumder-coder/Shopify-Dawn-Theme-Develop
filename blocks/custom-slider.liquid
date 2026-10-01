@@ -730,7 +730,8 @@ document.addEventListener('DOMContentLoaded', function () {
       "type": "checkbox",
       "id": "reverse_direction",
       "label": "Reverse Slider Direction",
-      "default": false
+      "default": false,
+      "visible_if": "{{ block.settings.enable_slider }}"
     },
     {
       "type": "range",
@@ -740,7 +741,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "max": 1,
       "step": 0.1,
       "default": 0,
-      "visible_if": "{{ block.settings.partial_slider }}"
+      "visible_if": "{{ block.settings.enable_slider and block.settings.partial_slider }}"
     },
     {
       "type": "range",
@@ -750,7 +751,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "max": 1,
       "step": 0.1,
       "default": 0,
-      "visible_if": "{{ block.settings.partial_slider }}"
+      "visible_if": "{{ block.settings.enable_slider and block.settings.partial_slider }}"
     },
     {
       "type": "range",
@@ -760,7 +761,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "max": 1,
       "step": 0.1,
       "default": 0,
-      "visible_if": "{{ block.settings.partial_slider }}"
+      "visible_if": "{{ block.settings.enable_slider and block.settings.partial_slider }}"
     },
     {
       "type": "checkbox",
@@ -805,27 +806,29 @@ document.addEventListener('DOMContentLoaded', function () {
           "value": "flip",
           "label": "Flip"
         }
-      ]
+      ],
+       "visible_if": "{{ block.settings.enable_slider }}"
     },
     {
       "type": "checkbox",
       "id": "slider_settings",
       "label": "More Slider Settings",
-      "default": false
+      "default": false,
+       "visible_if": "{{ block.settings.enable_slider }}"
     },
     {
       "type": "checkbox",
       "id": "loop",
       "label": "Infinite Loop",
       "default": true,
-      "visible_if": "{{ block.settings.slider_settings }}"
+      "visible_if": "{{ block.settings.enable_slider and  block.settings.slider_settings }}"
     },
     {
       "type": "checkbox",
       "id": "autoplay",
       "label": "Autoplay",
       "default": true,
-      "visible_if": "{{ block.settings.slider_settings }}"
+      "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}"
     },
     {
       "type": "range",
@@ -842,14 +845,15 @@ document.addEventListener('DOMContentLoaded', function () {
       "type": "checkbox",
       "id": "disable_on_interaction",
       "label": "Keep autoplay after interaction",
-      "default": true
+      "default": true,
+      "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}"
     },
     {
       "type": "checkbox",
       "id": "pause_on_hover",
       "label": "Pause on Hover",
       "default": true,
-      "visible_if": "{{ block.settings.slider_settings }}"
+      "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}"
     },
     
      {
@@ -857,7 +861,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "id": "rewind",
       "label": "Rewind",
       "default": false,
-      "visible_if": "{{ block.settings.slider_settings }}",
+      "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}",
       "info": "Reached to last slider click next to re-start from first while looping off"
     },
     {
@@ -865,7 +869,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "id": "free_mode",
       "label": "Free Mode",
       "default": false,
-      "visible_if": "{{ block.settings.slider_settings }}",
+      "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}",
       "info": "Behaving like Smooth Scrolling in Swipe"
     },
     {
@@ -873,7 +877,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "id": "touch_swipe", 
       "label": "Touch Swipe",
       "default": true,
-      "visible_if": "{{ block.settings.slider_settings }}",
+      "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}",
       "info": "Touch devices allowed finger swipe"
     },
     {
@@ -881,7 +885,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "id": "keyboard",
       "label": "Kayborar",
       "default": true,
-      "visible_if": "{{ block.settings.slider_settings }}",
+      "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}",
       "info": "Keyborad Next & Prev Button for slider change"
     },
     {
@@ -889,7 +893,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "id": "mousewheel",
       "label" : "Mousewheel",
       "default": false,
-      "visible_if": "{{ block.settings.slider_settings }}",
+      "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}",
       "info": "Mousewheel Allowed for slider change"
     },
     {
@@ -897,19 +901,21 @@ document.addEventListener('DOMContentLoaded', function () {
       "id": "grab_cursor",
       "label": "Grab Cursor",
       "default": true,
-      "visible_if": "{{ block.settings.slider_settings }}"
+      "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}"
     },
     {
       "type": "checkbox",
       "id": "auto_height",
       "label": "Auto Height",
-      "default": false
+      "default": false,
+      "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}"
     },
     {
       "type": "checkbox",
       "id": "show_navigation",
       "label": "Desktop Navigation",
-      "default": true
+      "default": true,
+      "visible_if": "{{ block.settings.enable_slider }}"
     },
     {
       "type": "select",
@@ -930,7 +936,7 @@ document.addEventListener('DOMContentLoaded', function () {
           "label": "Custom SVG"
         }
       ],
-      "visible_if": "{{ block.settings.show_navigation }}"
+      "visible_if": "{{ block.settings.enable_slider and block.settings.show_navigation }}"
     },
     {
       "type": "range",
