@@ -313,7 +313,17 @@
 
 .custom-slider .swiper-button-prev,
 .custom-slider .swiper-button-next {
-  position: relative;
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+
+  margin: 0 !important;
+  transform: none !important;
+
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
