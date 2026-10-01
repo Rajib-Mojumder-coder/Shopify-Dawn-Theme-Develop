@@ -507,56 +507,73 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-  var swiper = new Swiper(".slider-{{ block.id }}", {
-    loop: {{loop}},
+  const sliderElement = document.querySelector(
+    ".slider-{{ block.id }}"
+  );
+
+  if (!sliderElement) return;
+
+  {% if block.settings.enable_slider %}
+
+  const swiper = new Swiper(sliderElement, {
+    loop: {{ loop }},
     rewind: {{ rewind }},
-   freeMode: {{ free_mode }},
-  allowTouchMove: {{ touch_swipe }},
-  centeredSlides: {{ center_mode }},
-  grabCursor: {{ grab_cursor }},
-  keyboard: {  enabled: {{ keyboard }}  },
-  mousewheel: {{ mousewheel }},
-  autoHeight: {{ auto_height }},
-  effect: "{{ effect }}",
-  preloadImages: false,
-  lazy: true,
- autoplay: {% if autoplay %}
-              {
-                delay: {{ autoplay_speed }},
-                pauseOnMouseEnter: {{ pause_on_hover }},
-                reverseDirection: {{ reverse_direction }},
-                disableOnInteraction: !{{ disable_on_interaction }}
-              }
-              {% else %}
-              false
-              {% endif %},
-    speed: {{autoplay_speed}},
+    freeMode: {{ free_mode }},
+    allowTouchMove: {{ touch_swipe }},
+    centeredSlides: {{ center_mode }},
+    grabCursor: {{ grab_cursor }},
+
+    keyboard: {
+      enabled: {{ keyboard }}
+    },
+
+    mousewheel: {{ mousewheel }},
+    autoHeight: {{ auto_height }},
+    effect: "{{ effect }}",
+
+    preloadImages: false,
+    lazy: true,
+
+    autoplay: {% if autoplay %}
+      {
+        delay: {{ autoplay_speed }},
+        pauseOnMouseEnter: {{ pause_on_hover }},
+        reverseDirection: {{ reverse_direction }},
+        disableOnInteraction: !{{ disable_on_interaction }}
+      }
+    {% else %}
+      false
+    {% endif %},
+
+    speed: {{ autoplay_speed }},
+
     slidesPerView: {{ mobile_view }},
     spaceBetween: 20,
 
     pagination: {
       el: ".slider-{{ block.id }} .swiper-pagination",
-      clickable: true,
+      clickable: true
     },
 
     navigation: {
       nextEl: ".slider-{{ block.id }} .swiper-button-next",
-      prevEl: ".slider-{{ block.id }} .swiper-button-prev",
+      prevEl: ".slider-{{ block.id }} .swiper-button-prev"
     },
 
     breakpoints: {
       750: {
         slidesPerView: {{ tablet_view }},
-        spaceBetween: 30,
+        spaceBetween: 30
       },
 
       1024: {
         slidesPerView: {{ desktop_view }},
-        spaceBetween: 40,
+        spaceBetween: 40
       }
     }
-
   });
+
+  {% endif %}
 
 });
 </script>
