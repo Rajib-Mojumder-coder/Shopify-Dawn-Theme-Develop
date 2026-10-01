@@ -50,7 +50,8 @@
 
 <div class="custom-slider custom-slider-{{ block.id }} {% if content_position %} content_vertical_{{ content_vertical }} {% endif %} content_horizontal_{{ content_horizontal }} nav-{{ nav_position }}"
   style="--overlay-spacing: {{ overlay_spacing }}%; --overlay-spacing-negative: {{ overlay_spacing }}%;
-   --nav-gap: {{ nav_gap }}px; --nav-outside-offset: {{ nav_outside_offset }}px; --nav-size: {{ block.settings.icon_size }}px;"
+   --nav-gap: {{ nav_gap }}px; --nav-outside-offset: {{ nav_outside_offset }}px; --nav-size: {{ block.settings.icon_size }}px;
+   --overlay_color: {{overlay_color}}"
   {{ block.shopify_attributes }}>
 
   <div class="swiper slider-{{ block.id }}">
