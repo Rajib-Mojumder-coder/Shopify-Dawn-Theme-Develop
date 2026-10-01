@@ -199,7 +199,7 @@
           "type": "custom-slider",
           "name": "Custom Slider",
           "settings": {
-            "content_position": false,
+            "content_position": true,
             "content_vertical": "default",
             "overlay_spacing": 10,
             "content_horizontal": "start",
@@ -245,7 +245,7 @@
             "hover_bg_color": "#000000",
             "border_radius": 50,
             "show_navigation_mobile": true,
-            "nav_position": "top-right",
+            "nav_position": "top-left",
             "nav_gap": 76,
             "nav_outside_offset": 60
           },
