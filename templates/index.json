@@ -245,7 +245,7 @@
             "hover_bg_color": "#000000",
             "border_radius": 50,
             "show_navigation_mobile": true,
-            "nav_position": "top-right",
+            "nav_position": "center-inner",
             "nav_gap": 30,
             "nav_outside_offset": 60
           },
