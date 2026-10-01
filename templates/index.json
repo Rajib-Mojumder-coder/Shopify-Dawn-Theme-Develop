@@ -245,9 +245,9 @@
             "hover_bg_color": "#000000",
             "border_radius": 50,
             "show_navigation_mobile": true,
-            "nav_position": "top-left",
+            "nav_position": "top-center",
             "nav_gap": 76,
-            "nav_outside_offset": 60
+            "nav_outside_offset": 80
           },
           "blocks": {
             "image_text_WnM8Ha": {
