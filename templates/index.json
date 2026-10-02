@@ -264,7 +264,12 @@
                   "e-mountainbikes",
                   "e-racefietsen"
                 ],
-                "products": [],
+                "products": [
+                  "kalkhoff-image-3-excite-380-600w-dli48",
+                  "qwic-elan-tour",
+                  "selle-royal-lookin-evo-athletic",
+                  "wielerkleding-actie-in-heel"
+                ],
                 "product_count": 8,
                 "desktop_columns": 4,
                 "tablet_columns": 2,
