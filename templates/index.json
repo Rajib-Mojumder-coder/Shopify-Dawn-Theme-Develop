@@ -255,7 +255,7 @@
               "type": "collection-product-slider",
               "name": "Collection Product Slider",
               "settings": {
-                "source_type": "collection",
+                "source_type": "products",
                 "collection": "e-bikes",
                 "collections": [
                   "aangepaste-fietsen",
