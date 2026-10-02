@@ -147,13 +147,20 @@
   /* overflow:hidden; */
   overflow:visible;
 }
+
+.custom-slider-{{ block.id }} .swiper-wrapper {
+  width: 100%;
+}
+
+.custom-slider .swiper-slide{
+  height:auto;
+}
+
 .slider-{{ block.id }}{
   display: flex;
   flex-direction: column;
 }
-.custom-slider .swiper-slide{
-  height:auto;
-}
+
 .custom-slider .image-text-slider{
    --image_radius: {{ image_radius }}px;
 }
