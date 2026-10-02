@@ -25,7 +25,9 @@
   ============================================================
 {% endcomment %}
 
-{% if source_type == 'collection' and block.settings.collection != blank %}
+{% case block.settings.source_type %}
+
+  {% when 'collection' %}
 
   {% assign selected_collection = block.settings.collection %}
 
@@ -119,7 +121,7 @@
 
  {% comment %}===========  COLLECTION LIST  Multiple collections -> 
  products from each collection ==============={% endcomment %}
-{% elsif source_type == 'collection_list' %}
+ {% when 'collection_list' %}
 
   {% for selected_collection in block.settings.collections %}
 
@@ -218,7 +220,7 @@
 
 {% comment %}================== PRODUCT LIST
   Multiple manually selected products  =============={% endcomment %}
-  {% elsif source_type == 'products' %}
+  {% when 'products' %}
 
   {% for product in block.settings.products %}
 
@@ -308,7 +310,7 @@
 
   {% endfor %}
 
-{% endif %}
+{% endcase %}
 
 
 <style>
