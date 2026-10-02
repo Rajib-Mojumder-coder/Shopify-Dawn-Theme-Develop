@@ -42,6 +42,8 @@
 
     {% when 'collection' %}
 
+      
+    {% assign selected_collection = block.settings.collection %}
       {% if selected_collection != blank %}
 
         <div class="collection-product-grid">
