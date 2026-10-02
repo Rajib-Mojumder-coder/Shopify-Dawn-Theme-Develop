@@ -500,6 +500,40 @@
 }
 {% endif %}
 
+/*Slider OFF হলে Grid বানানো*/
+{% unless block.settings.enable_slider %}
+
+.custom-slider-{{ block.id }} .swiper {
+  overflow: visible;
+}
+
+.custom-slider-{{ block.id }} .swiper-wrapper {
+  display: grid;
+  grid-template-columns: repeat({{ desktop_view }}, minmax(0, 1fr));
+  gap: 40px;
+  transform: none !important;
+}
+
+.custom-slider-{{ block.id }} .swiper-slide {
+  width: auto !important;
+  margin: 0 !important;
+}
+
+@media screen and (max-width: 1023px) {
+  .custom-slider-{{ block.id }} .swiper-wrapper {
+    grid-template-columns: repeat({{ tablet_view }}, minmax(0, 1fr));
+    gap: 30px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .custom-slider-{{ block.id }} .swiper-wrapper {
+    grid-template-columns: repeat({{ mobile_view }}, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+{% endunless %}
 </style>
 
 
