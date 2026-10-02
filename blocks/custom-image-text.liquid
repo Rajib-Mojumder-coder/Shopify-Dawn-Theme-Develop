@@ -47,9 +47,11 @@
     {% endif %}
 
     {% if block.settings.description != blank %}
-      <span class="image-text-slider__description">
+      {% comment %} <span class="image-text-slider__description">
         {{ block.settings.description }}
-      </span>
+      </span> {% endcomment %}
+      {{ block.settings.description | replace: '<p>', '<p class="image-text-slider__description">' }}
+
     {% endif %}
   </div>
 </div>
