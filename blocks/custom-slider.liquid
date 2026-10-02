@@ -236,6 +236,65 @@
 }
 
 /* =============   NAVIGATION BASE ================ */
+
+/* ======   Navigation Position Base ========= */
+
+.custom-slider .slider-navigation {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--nav-gap);
+  position: relative;
+  z-index: 30;
+}
+
+.custom-slider-{{ block.id }} .swiper-button-prev,
+.custom-slider-{{ block.id }} .swiper-button-next {
+  position: relative !important;
+
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+
+  margin: 0 !important;
+
+  transform: none !important;
+
+  inset: auto !important;
+
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: {{ block.settings.icon_size }}px;
+  height: {{ block.settings.icon_size }}px;
+
+  padding: 6px;
+
+  background: {{ block.settings.bg_color }};
+  color: {{ block.settings.icon_color }};
+
+  border-radius: {{ block.settings.border_radius }}px;
+
+  transition:
+    background .3s ease,
+    color .3s ease;
+
+  box-sizing: border-box;
+}
+
+
+.custom-slider-{{ block.id }} .swiper-button-prev:hover,
+.custom-slider-{{ block.id }} .swiper-button-next:hover {
+  background: {{ block.settings.hover_bg_color }};
+  color: {{ block.settings.hover_icon_color }};
+}
+
 /* ======  Custom Navigation Icon ========= */
 /* Hide Swiper default arrows */
 
@@ -316,63 +375,7 @@
 
 /* ======  EndCustom Navigation Icon ========= */
 
-/* ======   Navigation Position Base ========= */
 
-.custom-slider .slider-navigation {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  gap: var(--nav-gap);
-  position: relative;
-  z-index: 30;
-}
-
-.custom-slider-{{ block.id }} .swiper-button-prev,
-.custom-slider-{{ block.id }} .swiper-button-next {
-  position: relative !important;
-
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  left: auto !important;
-
-  margin: 0 !important;
-
-  transform: none !important;
-
-  inset: auto !important;
-
-  flex: 0 0 auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: {{ block.settings.icon_size }}px;
-  height: {{ block.settings.icon_size }}px;
-
-  padding: 6px;
-
-  background: {{ block.settings.bg_color }};
-  color: {{ block.settings.icon_color }};
-
-  border-radius: {{ block.settings.border_radius }}px;
-
-  transition:
-    background .3s ease,
-    color .3s ease;
-
-  box-sizing: border-box;
-}
-
-
-.custom-slider-{{ block.id }} .swiper-button-prev:hover,
-.custom-slider-{{ block.id }} .swiper-button-next:hover {
-  background: {{ block.settings.hover_bg_color }};
-  color: {{ block.settings.hover_icon_color }};
-}
 
 /* ========== TOP POSITIONS =============== */
 /* means: Select any .custom-slider whose class contains the text "nav-top-".
