@@ -263,8 +263,8 @@
                 "subtitle_desktopsize": 26,
                 "title": "Image Text Slider",
                 "title_color": "#fff",
-                "title_mobilesize": 44,
-                "title_desktopsize": 70,
+                "title_mobilesize": 20,
+                "title_desktopsize": 40,
                 "description": "<p>Add a short description for this slide.</p>"
               },
               "blocks": {}
