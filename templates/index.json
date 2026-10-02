@@ -250,7 +250,101 @@
             "nav_gap": 30,
             "nav_outside_offset": 60
           },
-          "blocks": {}
+          "blocks": {
+            "custom_image_text_ftXwJT": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_KhrCVU": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_ppGr9k": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/kalkhoff-image-3-excite-380-156046.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_kKYqhp": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_hqTi4U": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "custom_image_text_ftXwJT",
+            "custom_image_text_KhrCVU",
+            "custom_image_text_ppGr9k",
+            "custom_image_text_kKYqhp",
+            "custom_image_text_hqTi4U"
+          ]
         }
       },
       "block_order": [
