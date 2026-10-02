@@ -195,7 +195,7 @@
     "shopify_custom_section_yCkANW": {
       "type": "shopify_custom_section",
       "blocks": {
-        "custom_slider_YTqUHP": {
+        "custom_slider_XdCpjp": {
           "type": "custom-slider",
           "name": "Custom Slider",
           "settings": {
@@ -209,15 +209,15 @@
             "overlay_color": "#000000",
             "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
             "image_overlay_opacity": 0,
-            "enable_slider": true,
             "desktop_slides": 4,
             "tablet_slides": 2,
             "mobile_slides": 1,
             "partial_slider": false,
-            "reverse_direction": false,
             "desktop_partial_amount": 0,
             "tablet_partial_amount": 0,
             "mobile_partial_amount": 0,
+            "enable_slider": false,
+            "reverse_direction": false,
             "center_mode": false,
             "center_scale": 115,
             "effect": "slide",
@@ -246,7 +246,7 @@
             "hover_bg_color": "#000000",
             "border_radius": 50,
             "show_navigation_mobile": true,
-            "nav_position": "top-right",
+            "nav_position": "center-inner",
             "nav_gap": 30,
             "nav_outside_offset": 60
           },
@@ -254,7 +254,7 @@
         }
       },
       "block_order": [
-        "custom_slider_YTqUHP"
+        "custom_slider_XdCpjp"
       ],
       "name": "Shopify Custom Section",
       "settings": {
