@@ -65,7 +65,7 @@
 
     </div>
 
-      {% if show_navigation or show_navigation_mobile %}
+      {% if enable_slider and show_navigation or enable_slider and show_navigation_mobile %}
             <div class="slider-navigation slider-navigation-{{ block.id }}
               {% unless show_navigation %} nav-hide-desktop{% endunless %}
               {% unless show_navigation_mobile %} nav-hide-mobile{% endunless %}">
