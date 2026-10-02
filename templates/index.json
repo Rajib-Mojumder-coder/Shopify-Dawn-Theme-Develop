@@ -257,7 +257,13 @@
               "settings": {
                 "source_type": "collection",
                 "collection": "e-bikes",
-                "collections": [],
+                "collections": [
+                  "aangepaste-fietsen",
+                  "e-bakfietsen",
+                  "e-bikes",
+                  "e-mountainbikes",
+                  "e-racefietsen"
+                ],
                 "products": [],
                 "product_count": 8,
                 "desktop_columns": 4,
