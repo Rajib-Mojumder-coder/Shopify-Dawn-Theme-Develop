@@ -250,44 +250,7 @@
             "nav_gap": 30,
             "nav_outside_offset": 60
           },
-          "blocks": {
-            "collection_product_slider_Hy6TiN": {
-              "type": "collection-product-slider",
-              "name": "Collection Product Slider",
-              "settings": {
-                "source_type": "products",
-                "collection": "e-bikes",
-                "collections": [
-                  "aangepaste-fietsen",
-                  "e-bakfietsen",
-                  "e-bikes",
-                  "e-mountainbikes",
-                  "e-racefietsen"
-                ],
-                "products": [
-                  "kalkhoff-image-3-excite-380-600w-dli48",
-                  "qwic-elan-tour",
-                  "selle-royal-lookin-evo-athletic",
-                  "wielerkleding-actie-in-heel"
-                ],
-                "product_count": 8,
-                "desktop_columns": 4,
-                "tablet_columns": 2,
-                "mobile_columns": 2,
-                "image_ratio": "square",
-                "show_image": true,
-                "show_vendor": false,
-                "show_title": true,
-                "show_price": true,
-                "show_compare_price": true,
-                "image_radius": 12
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "collection_product_slider_Hy6TiN"
-          ]
+          "blocks": {}
         }
       },
       "block_order": [
