@@ -659,78 +659,177 @@
 
 
 <script>
+
 document.addEventListener('DOMContentLoaded', function () {
 
   const sliderElement = document.querySelector(
-    ".slider-{{ block.id }}"
+    '.slider-{{ block.id }}'
   );
 
   if (!sliderElement) return;
 
-  {% if block.settings.enable_slider %}
 
-  const swiper = new Swiper(sliderElement, {
-    loop: {{ loop }},
-    rewind: {{ rewind }},
-    freeMode: {{ free_mode }},
-    allowTouchMove: {{ touch_swipe }},
-    centeredSlides: {{ center_mode }},
-    grabCursor: {{ grab_cursor }},
+  {% if enable_slider %}
 
-    keyboard: {
-      enabled: {{ keyboard }}
-    },
+    const nextButton =
+      sliderElement.querySelector(
+        '.slider-next-{{ block.id }}'
+      );
 
-    mousewheel: {{ mousewheel }},
-    autoHeight: {{ auto_height }},
-    effect: "{{ effect }}",
+    const prevButton =
+      sliderElement.querySelector(
+        '.slider-prev-{{ block.id }}'
+      );
 
-    preloadImages: false,
-    lazy: true,
+    const pagination =
+      sliderElement.querySelector(
+        '.slider-pagination-{{ block.id }}'
+      );
 
-    autoplay: {% if autoplay %}
-      {
-        delay: {{ autoplay_speed }},
-        pauseOnMouseEnter: {{ pause_on_hover }},
-        reverseDirection: {{ reverse_direction }},
-        disableOnInteraction: !{{ disable_on_interaction }}
-      }
-    {% else %}
-      false
-    {% endif %},
 
-    speed: {{ autoplay_speed }},
+    const swiper = new Swiper(sliderElement, {
 
-    slidesPerView: {{ mobile_view }},
-    spaceBetween: 20,
+      loop: {{ loop }},
 
-    pagination: {
-      el: ".slider-{{ block.id }} .swiper-pagination",
-      clickable: true
-    },
+      rewind: {{ rewind }},
 
-    navigation: {
-      nextEl: ".slider-{{ block.id }} .swiper-button-next",
-      prevEl: ".slider-{{ block.id }} .swiper-button-prev"
-    },
+      freeMode: {{ free_mode }},
 
-    breakpoints: {
-      750: {
-        slidesPerView: {{ tablet_view }},
-        spaceBetween: 30
+      allowTouchMove: {{ touch_swipe }},
+
+      centeredSlides: {{ center_mode }},
+
+      grabCursor: {{ grab_cursor }},
+
+
+      keyboard: {
+        enabled: {{ keyboard }}
       },
 
-      1024: {
-        slidesPerView: {{ desktop_view }},
-        spaceBetween: 40
+
+      mousewheel: {{ mousewheel }},
+
+      autoHeight: {{ auto_height }},
+
+      effect: "{{ effect }}",
+
+
+      preloadImages: false,
+
+      lazy: true,
+
+
+      autoplay:
+
+        {% if autoplay %}
+
+          {
+            delay: {{ autoplay_speed }},
+
+            pauseOnMouseEnter: {{ pause_on_hover }},
+
+            reverseDirection: {{ reverse_direction }},
+
+            disableOnInteraction:
+              {{ disable_on_interaction | json }}
+          }
+
+        {% else %}
+
+          false
+
+        {% endif %},
+
+
+      speed: {{ autoplay_speed }},
+
+
+      slidesPerView: {{ mobile_view }},
+
+      spaceBetween: 20,
+
+
+      pagination: {
+
+        el: pagination,
+
+        clickable: true
+
+      },
+
+
+      navigation: {
+
+        nextEl: nextButton,
+
+        prevEl: prevButton
+
+      },
+
+
+      breakpoints: {
+
+        750: {
+
+          slidesPerView: {{ tablet_view }},
+
+          spaceBetween: 30
+
+        },
+
+
+        1024: {
+
+          slidesPerView: {{ desktop_view }},
+
+          spaceBetween: 40
+
+        }
+
       }
+
+    });
+
+
+    /*
+     * Explicitly connect the buttons.
+     * This avoids selector conflicts when multiple
+     * Custom Slider blocks exist on the same page.
+     */
+
+    if (nextButton) {
+
+      nextButton.addEventListener(
+        'click',
+        function () {
+
+          swiper.slideNext();
+
+        }
+      );
+
     }
-  });
+
+
+    if (prevButton) {
+
+      prevButton.addEventListener(
+        'click',
+        function () {
+
+          swiper.slidePrev();
+
+        }
+      );
+
+    }
 
   {% endif %}
 
 });
+
 </script>
+
  
 {% schema %}
 {
