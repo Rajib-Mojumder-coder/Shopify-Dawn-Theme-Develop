@@ -216,7 +216,7 @@
             "desktop_partial_amount": 0,
             "tablet_partial_amount": 0,
             "mobile_partial_amount": 0,
-            "enable_slider": false,
+            "enable_slider": true,
             "reverse_direction": false,
             "center_mode": false,
             "center_scale": 115,
