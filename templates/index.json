@@ -251,84 +251,31 @@
             "nav_outside_offset": 60
           },
           "blocks": {
-            "image_text_CWFgPW": {
-              "type": "_image-text",
-              "name": "Image Text Slider",
+            "collection_product_slider_Hy6TiN": {
+              "type": "collection-product-slider",
+              "name": "Collection Product Slider",
               "settings": {
-                "image": "shopify://shop_images/menu_slider_img03.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#fff",
-                "title_mobilesize": 44,
-                "title_desktopsize": 70,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "image_text_U8egnF": {
-              "type": "_image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/kalkhoff-image-3-excite-380-156041.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#fff",
-                "title_mobilesize": 44,
-                "title_desktopsize": 70,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "image_text_Hxy4pe": {
-              "type": "_image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/kalkhoff-image-3-excite-380-156046.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#fff",
-                "title_mobilesize": 44,
-                "title_desktopsize": 70,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "image_text_TcC36e": {
-              "type": "_image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/selle-royal-lookin-evo-athletic-177853.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#fff",
-                "title_mobilesize": 44,
-                "title_desktopsize": 70,
-                "description": "<p>Add a short description for this slide.</p>"
+                "source_type": "collection",
+                "collection": "e-bikes",
+                "collections": [],
+                "products": [],
+                "product_count": 8,
+                "desktop_columns": 4,
+                "tablet_columns": 2,
+                "mobile_columns": 2,
+                "image_ratio": "square",
+                "show_image": true,
+                "show_vendor": false,
+                "show_title": true,
+                "show_price": true,
+                "show_compare_price": true,
+                "image_radius": 12
               },
               "blocks": {}
             }
           },
           "block_order": [
-            "image_text_CWFgPW",
-            "image_text_U8egnF",
-            "image_text_Hxy4pe",
-            "image_text_TcC36e"
+            "collection_product_slider_Hy6TiN"
           ]
         }
       },
