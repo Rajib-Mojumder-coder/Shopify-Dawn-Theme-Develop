@@ -199,10 +199,10 @@
           "type": "custom-slider",
           "name": "Custom Slider",
           "settings": {
-            "content_position": false,
-            "content_vertical": "default",
+            "content_position": true,
+            "content_vertical": "bottom",
             "overlay_spacing": 10,
-            "content_horizontal": "start",
+            "content_horizontal": "center",
             "image_radius": 0,
             "image_overlay": false,
             "overlay_style": "solid",
@@ -354,7 +354,7 @@
       ],
       "name": "Shopify Custom Section",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-3296e57e-bd80-43f3-b60c-834eff51ef68",
         "section_height_type": "auto",
         "preset_height": "medium",
         "custom_min_height": 400,
