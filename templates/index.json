@@ -304,12 +304,69 @@
                 "description": "<p>Add a short description for this slide.</p>"
               },
               "blocks": {}
+            },
+            "custom_image_text_X9c4GH": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#5C9C3C",
+                "title_mobilesize": 20,
+                "title_desktopsize": 40,
+                "description": "<p>Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_wdtFkj": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#5C9C3C",
+                "title_mobilesize": 20,
+                "title_desktopsize": 40,
+                "description": "<p>Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_MiDthe": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#5C9C3C",
+                "title_mobilesize": 20,
+                "title_desktopsize": 40,
+                "description": "<p>Add a short description for this slide.</p>"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "custom_image_text_ftXwJT",
             "custom_image_text_X94jDx",
-            "custom_image_text_eeYrAC"
+            "custom_image_text_eeYrAC",
+            "custom_image_text_X9c4GH",
+            "custom_image_text_wdtFkj",
+            "custom_image_text_MiDthe"
           ]
         }
       },
