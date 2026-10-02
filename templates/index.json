@@ -255,6 +255,7 @@
               "type": "custom-image-text",
               "name": "Image Text Slider",
               "settings": {
+                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
                 "image_link": "",
                 "subtitle": "Featured Collection",
                 "subtitle_color": "#fff",
@@ -324,6 +325,7 @@
               "type": "custom-image-text",
               "name": "Image Text Slider",
               "settings": {
+                "image": "shopify://shop_images/imageye___-_imgi_13_qwic-elan-tour-264028.png",
                 "image_link": "",
                 "subtitle": "Featured Collection",
                 "subtitle_color": "#fff",
