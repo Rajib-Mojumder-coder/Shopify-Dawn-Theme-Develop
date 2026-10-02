@@ -200,7 +200,7 @@
           "name": "Custom Slider",
           "settings": {
             "content_position": true,
-            "content_vertical": "bottom",
+            "content_vertical": "default",
             "overlay_spacing": 10,
             "content_horizontal": "center",
             "image_radius": 0,
