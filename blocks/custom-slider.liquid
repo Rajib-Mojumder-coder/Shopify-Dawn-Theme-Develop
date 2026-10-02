@@ -987,24 +987,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "label": "Enable Partial Slides",
       "default": false
     },
-    {
-      "type": "header",
-      "content": "Slider Settings"
-    },
      {
-      "type": "checkbox",
-      "id": "enable_slider",
-      "label": "Enable Slider",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "reverse_direction",
-      "label": "Reverse Slider Direction",
-      "default": false,
-      "visible_if": "{{ block.settings.enable_slider }}"
-    },
-    {
       "type": "range",
       "id": "desktop_partial_amount",
       "label": "Desktop Partial Amount",
@@ -1034,6 +1017,24 @@ document.addEventListener('DOMContentLoaded', function () {
       "default": 0,
       "visible_if": "{{ block.settings.enable_slider and block.settings.partial_slider }}"
     },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+     {
+      "type": "checkbox",
+      "id": "enable_slider",
+      "label": "Enable Slider",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_direction",
+      "label": "Reverse Slider Direction",
+      "default": false,
+      "visible_if": "{{ block.settings.enable_slider }}"
+    },
+   
     {
       "type": "checkbox",
       "id": "center_mode",
