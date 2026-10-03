@@ -40,6 +40,43 @@
   assign prev_icon = block.settings.prev_icon
   assign next_icon = block.settings.next_icon
     
+  assign aspect_ratio = block.settings.aspect_ratio
+  assign aspect_width = block.settings.aspect_width
+  assign aspect_height = block.settings.aspect_height
+  assign image_fit = block.settings.image_fit
+  assign image_radius = block.settings.image_radius
+
+  case aspect_ratio
+    when 'square'
+      assign aspect_ratio_value = '1 / 1'
+
+    when 'portrait-4-5'
+      assign aspect_ratio_value = '4 / 5'
+
+    when 'portrait-3-4'
+      assign aspect_ratio_value = '3 / 4'
+
+    when 'portrait-2-3'
+      assign aspect_ratio_value = '2 / 3'
+
+    when 'landscape-4-3'
+      assign aspect_ratio_value = '4 / 3'
+
+    when 'landscape-3-2'
+      assign aspect_ratio_value = '3 / 2'
+
+    when 'landscape-16-9'
+      assign aspect_ratio_value = '16 / 9'
+
+    when 'wide-21-9'
+      assign aspect_ratio_value = '21 / 9'
+
+    when 'custom'
+      assign aspect_ratio_value = aspect_width | append: ' / ' | append: aspect_height
+
+    else
+      assign aspect_ratio_value = '1 / 1'
+  endcase
  %}
 
  {% assign mobile_view = block.settings.mobile_slides %}
