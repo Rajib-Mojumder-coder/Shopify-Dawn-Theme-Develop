@@ -206,7 +206,7 @@
             "aspect_ratio": "square",
             "aspect_width": 1,
             "aspect_height": 1,
-            "image_fit": "cover",
+            "image_fit": "contain",
             "image_radius": 0,
             "image_overlay": false,
             "overlay_style": "solid",
