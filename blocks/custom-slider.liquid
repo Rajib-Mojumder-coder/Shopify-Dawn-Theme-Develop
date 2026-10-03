@@ -3,7 +3,7 @@
    assign content_horizontal = block.settings.content_horizontal
    assign content_vertical = block.settings.content_vertical
    assign overlay_spacing = block.settings.overlay_spacing
-   assign image_radius = block.settings.image_radius
+  
    assign image_overlay = block.settings.image_overlay
    assign overlay_color = block.settings.overlay_color
    assign image_overlay_opacity = block.settings.image_overlay_opacity
@@ -198,9 +198,48 @@
   flex-direction: column;
 }
 
-/*....IMAGE TEXT......*/
-.custom-slider .image-text-slider{
-   --image_radius: {{ image_radius }}px;
+/* =========================================
+   SHARED CHILD IMAGE / CARD CONTROL
+   Controlled by Parent Custom Slider
+   ========================================= */
+
+.custom-slider-{{ block.id }} .image-text-slider,
+.custom-slider-{{ block.id }} .custom-slider-collection-card,
+.custom-slider-{{ block.id }} .custom-slider-product-card {
+  --child-image-radius: var(--slider-image-radius);
+  --child-image-fit: var(--slider-image-fit);
+  --child-aspect-ratio: var(--slider-aspect-ratio);
+}
+
+/* Image / media area */
+
+.custom-slider-{{ block.id }} .image-text-slider__image,
+.custom-slider-{{ block.id }} .custom-slider-collection-card__image,
+.custom-slider-{{ block.id }} .custom-slider-product-card__image {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--slider-aspect-ratio);
+  object-fit: var(--slider-image-fit);
+  border-radius: var(--slider-image-radius);
+  display: block;
+}
+
+/* Media wrappers */
+
+.custom-slider-{{ block.id }} .custom-slider-collection-card__media,
+.custom-slider-{{ block.id }} .custom-slider-product-card__media {
+  width: 100%;
+  aspect-ratio: var(--slider-aspect-ratio);
+  overflow: hidden;
+  border-radius: var(--slider-image-radius);
+}
+
+/* Make sure child cards do not override parent radius */
+
+.custom-slider-{{ block.id }} .image-text-slider img,
+.custom-slider-{{ block.id }} .custom-slider-collection-card img,
+.custom-slider-{{ block.id }} .custom-slider-product-card img {
+  border-radius: var(--slider-image-radius);
 }
 
 /* ========  MEDIA ========== */
