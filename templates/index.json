@@ -251,9 +251,27 @@
             "nav_outside_offset": 60
           },
           "blocks": {
+            "custom_image_text_PAJ6QL": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p> Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
             "collection_product_slider_UqrbyB": {
               "type": "collection-product-slider",
               "name": "Collection Product",
+              "disabled": true,
               "settings": {
                 "source_type": "collection",
                 "collection": "all-collections",
@@ -279,6 +297,7 @@
             }
           },
           "block_order": [
+            "custom_image_text_PAJ6QL",
             "collection_product_slider_UqrbyB"
           ]
         }
