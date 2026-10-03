@@ -251,122 +251,35 @@
             "nav_outside_offset": 60
           },
           "blocks": {
-            "custom_image_text_ftXwJT": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
+            "collection_product_slider_UqrbyB": {
+              "type": "collection-product-slider",
+              "name": "Collection Product",
               "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "custom_image_text_X94jDx": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "custom_image_text_eeYrAC": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "custom_image_text_X9c4GH": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "custom_image_text_wdtFkj": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "custom_image_text_MiDthe": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
+                "source_type": "collection",
+                "collection": "",
+                "collections": [],
+                "products": [],
+                "product_count": 8,
+                "desktop_columns": 4,
+                "tablet_columns": 3,
+                "mobile_columns": 2,
+                "card_gap": 24,
+                "aspect_ratio": "square",
+                "aspect_width": 1,
+                "aspect_height": 1,
+                "image_fit": "cover",
+                "image_radius": 12,
+                "show_image": true,
+                "show_vendor": false,
+                "show_title": true,
+                "show_price": true,
+                "show_compare_price": true
               },
               "blocks": {}
             }
           },
           "block_order": [
-            "custom_image_text_ftXwJT",
-            "custom_image_text_X94jDx",
-            "custom_image_text_eeYrAC",
-            "custom_image_text_X9c4GH",
-            "custom_image_text_wdtFkj",
-            "custom_image_text_MiDthe"
+            "collection_product_slider_UqrbyB"
           ]
         }
       },
