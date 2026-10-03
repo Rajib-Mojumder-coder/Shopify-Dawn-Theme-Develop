@@ -259,6 +259,7 @@
               "type": "custom-image-text",
               "name": "Image Text Slider",
               "settings": {
+                "image": "shopify://shop_images/kalkhoff-image-3-excite-380-156041.png",
                 "image_link": "",
                 "subtitle": "Featured Collection",
                 "subtitle_color": "#fff",
@@ -268,7 +269,94 @@
                 "title_color": "#fff",
                 "title_mobilesize": 44,
                 "title_desktopsize": 70,
-                "description": "<p> Add a short description for this slide.</p>"
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_pbeFft": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_NhhTpU": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/kalkhoff-image-3-excite-380-156046.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_QPhxHr": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_Uez8FB": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/menu_slider_img03.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_cAALgg": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
               },
               "blocks": {}
             },
@@ -302,6 +390,11 @@
           },
           "block_order": [
             "custom_image_text_PAJ6QL",
+            "custom_image_text_pbeFft",
+            "custom_image_text_NhhTpU",
+            "custom_image_text_QPhxHr",
+            "custom_image_text_Uez8FB",
+            "custom_image_text_cAALgg",
             "collection_product_slider_UqrbyB"
           ]
         }
