@@ -256,7 +256,7 @@
               "name": "Collection Product",
               "settings": {
                 "source_type": "collection",
-                "collection": "",
+                "collection": "all-collections",
                 "collections": [],
                 "products": [],
                 "product_count": 8,
