@@ -935,16 +935,100 @@ document.addEventListener('DOMContentLoaded', function () {
       ]
     },
     {
+      "type": "header",
+      "content": "Image / Card Settings"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Image / Card Aspect Ratio",
+      "default": "square",
+      "options": [
+        {
+          "value": "square",
+          "label": "Square 1:1"
+        },
+        {
+          "value": "portrait-4-5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "portrait-3-4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "portrait-2-3",
+          "label": "Portrait 2:3"
+        },
+        {
+          "value": "landscape-4-3",
+          "label": "Landscape 4:3"
+        },
+        {
+          "value": "landscape-3-2",
+          "label": "Landscape 3:2"
+        },
+        {
+          "value": "landscape-16-9",
+          "label": "Landscape 16:9"
+        },
+        {
+          "value": "wide-21-9",
+          "label": "Wide 21:9"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "aspect_width",
+      "label": "Custom Ratio Width",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 1,
+      "info": "Used only when Aspect Ratio is Custom."
+    },
+    {
+      "type": "range",
+      "id": "aspect_height",
+      "label": "Custom Ratio Height",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 1,
+      "info": "Used only when Aspect Ratio is Custom."
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image Fit",
+      "default": "cover",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ]
+    },
+    {
       "type": "range",
       "id": "image_radius",
-      "label": "Image Border Radius",
+      "label": "Image / Card Border Radius",
       "min": 0,
       "max": 50,
       "step": 1,
       "unit": "px",
-      "default": 0
+      "default": 12
     },
-    {
+        {
       "type": "checkbox",
       "id": "image_overlay",
       "label": "Image Overlay",
