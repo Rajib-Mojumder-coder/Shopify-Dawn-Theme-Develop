@@ -203,7 +203,7 @@
             "content_vertical": "default",
             "overlay_spacing": 10,
             "content_horizontal": "start",
-            "aspect_ratio": "square",
+            "aspect_ratio": "portrait-4-5",
             "aspect_width": 1,
             "aspect_height": 1,
             "image_fit": "cover",
