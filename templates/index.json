@@ -262,7 +262,7 @@
                 "content_type": "collections",
                 "collection_source": "selected",
                 "collections": [
-                  "e-bikes"
+                  "all-collections"
                 ],
                 "collection_limit": 12,
                 "product_source": "selected",
