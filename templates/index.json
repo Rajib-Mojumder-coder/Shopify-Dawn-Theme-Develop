@@ -263,7 +263,7 @@
                 "collection_source": "selected",
                 "collections": [],
                 "collection_limit": 12,
-                "product_source": "collection",
+                "product_source": "collections",
                 "products": [
                   "kalkhoff-image-3-excite-380-600w-dli48",
                   "qwic-elan-tour",
@@ -271,7 +271,11 @@
                   "wielerkleding-actie-in-heel"
                 ],
                 "product_collection": "all-collections",
-                "product_collections": [],
+                "product_collections": [
+                  "all-collections",
+                  "e-bakfietsen",
+                  "e-bikes"
+                ],
                 "product_limit": 12,
                 "products_per_collection": 4,
                 "show_image": true,
