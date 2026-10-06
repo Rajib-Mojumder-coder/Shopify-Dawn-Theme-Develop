@@ -857,7 +857,8 @@ COLLECTION / PRODUCT CONTENT
       "label": "All Collections"
     }
   ],
-  "default": "selected"
+  "default": "selected",
+  "visible_if": "{{ block.settings.content_type == 'collections' }}"
 },
 {
   "type": "collection_list",
