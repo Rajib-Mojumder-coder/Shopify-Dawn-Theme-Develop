@@ -283,7 +283,7 @@
                 "show_wishlist": true,
                 "show_vendor": true,
                 "show_title": true,
-                "show_description": true,
+                "show_description": false,
                 "show_price": true,
                 "show_compare_price": true,
                 "show_button": true,
