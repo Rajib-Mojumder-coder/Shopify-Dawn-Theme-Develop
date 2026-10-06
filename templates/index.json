@@ -259,11 +259,20 @@
               "type": "collection-product-list",
               "name": "Collection Product List",
               "settings": {
-                "content_type": "products",
-                "collection_source": "selected",
-                "collections": [],
+                "content_type": "collections",
+                "collection_source": "all",
+                "collections": [
+                  "aangepaste-fietsen",
+                  "all-collections",
+                  "e-bakfietsen",
+                  "e-bikes",
+                  "e-mountainbikes",
+                  "fietsbanden",
+                  "e-racefietsen",
+                  "gravelbikes"
+                ],
                 "collection_limit": 12,
-                "product_source": "selected",
+                "product_source": "collections",
                 "products": [
                   "kalkhoff-image-3-excite-380-600w-dli48",
                   "qwic-elan-tour",
