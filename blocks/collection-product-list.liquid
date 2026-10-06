@@ -18,19 +18,9 @@ assign card_alignment = block.settings.card_alignment
 assign button_style = block.settings.button_style
 %}
 
-{% comment %}
-=========================================================
-COLLECTION / PRODUCT CONTENT
-=========================================================
-{% endcomment %}
+
 
 {% if content_type == 'collections' %}
-
-  {% comment %}
-  =======================================================
-  COLLECTION LIST
-  =======================================================
-  {% endcomment %}
 
   {% case collection_source %}
 
@@ -237,43 +227,10 @@ COLLECTION / PRODUCT CONTENT
 
 
 {% elsif content_type == 'products' %}
-
-  {% comment %}
-  =======================================================
-  PRODUCT LIST
-  =======================================================
-  =======================================================
-
-  Product Source:
-
-  selected
-  → Manually selected products
-
-  collection
-  → Products from one selected collection
-
-  collections
-  → Products from multiple selected collections
-
-  all
-  → Products from the all-products collection
-  =======================================================
-  {% endcomment %}
-
-
   {% case product_source %}
 
 
     {% when 'selected' %}
-
-      {% comment %}
-      ---------------------------------------------------
-      SELECTED PRODUCTS
-      ---------------------------------------------------
-      ---------------------------------------------------
-      block.settings.products = product_list setting
-      ---------------------------------------------------
-      {% endcomment %}
 
       {% for product in block.settings.products %}
 
@@ -290,16 +247,6 @@ COLLECTION / PRODUCT CONTENT
 
 
     {% when 'collection' %}
-
-      {% comment %}
-      ---------------------------------------------------
-      ONE COLLECTION
-      ---------------------------------------------------
-      ---------------------------------------------------
-      block.settings.product_collection
-      → Selected collection
-      ---------------------------------------------------
-      {% endcomment %}
 
       {% assign source_collection = block.settings.product_collection %}
 
@@ -319,14 +266,6 @@ COLLECTION / PRODUCT CONTENT
 
     {% when 'collections' %}
 
-      {% comment %}
-      ---------------------------------------------------
-      MULTIPLE COLLECTIONS
-      ---------------------------------------------------
-      ---------------------------------------------------
-      Each selected collection contributes products.
-      ---------------------------------------------------
-      {% endcomment %}
 
       {% for collection in block.settings.product_collections %}
 
@@ -348,14 +287,7 @@ COLLECTION / PRODUCT CONTENT
 
     {% when 'all' %}
 
-      {% comment %}
-      ---------------------------------------------------
-      ALL PRODUCTS
-      ---------------------------------------------------
-      ---------------------------------------------------
-      collections.all = Shopify's all-products collection
-      ---------------------------------------------------
-      {% endcomment %}
+     
 
       {% for product in collections.all.products limit: block.settings.product_limit %}
 
