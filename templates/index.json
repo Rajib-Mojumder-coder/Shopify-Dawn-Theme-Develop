@@ -262,10 +262,7 @@
                 "content_type": "collections",
                 "collection_source": "selected",
                 "collections": [
-                  "all-collections",
-                  "e-bikes",
-                  "e-bakfietsen",
-                  "e-mountainbikes"
+                  "e-bikes"
                 ],
                 "collection_limit": 12,
                 "product_source": "selected",
