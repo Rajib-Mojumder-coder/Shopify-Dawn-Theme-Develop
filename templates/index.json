@@ -259,7 +259,7 @@
               "type": "collection-product-list",
               "name": "Collection Product List",
               "settings": {
-                "content_type": "collections",
+                "content_type": "products",
                 "collection_source": "selected",
                 "collections": [
                   "all-collections",
