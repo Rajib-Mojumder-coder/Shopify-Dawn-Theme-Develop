@@ -729,38 +729,35 @@ assign button_style = block.settings.button_style
 
 {
 "name": "Collection Product List",
-"presets": [
-  { "name": "Collection Product list" }
-],
-"tag": null,
+"presets": [ { "name": "Collection Product List" } ],
 "settings": [
+
 {
   "type": "select",
   "id": "content_type",
   "label": "Content Type",
-  "default": "products",
   "options": [
-    {
-      "value": "products",
-      "label": "Products"
-    },
     {
       "value": "collections",
       "label": "Collections"
+    },
+    {
+      "value": "products",
+      "label": "Products"
     }
-  ]
+  ],
+  "default": "products"
 },
+
 {
   "type": "header",
   "content": "Collection Source",
   "visible_if": "{{ block.settings.content_type == 'collections' }}"
 },
-
 {
   "type": "select",
   "id": "collection_source",
   "label": "Collection Source",
-  "default": "selected",
   "options": [
     {
       "value": "selected",
@@ -771,15 +768,16 @@ assign button_style = block.settings.button_style
       "label": "All Collections"
     }
   ],
-  "visible_if": "{{ block.settings.content_type == 'collections' }}"
+  "default": "selected"
 },
-
 {
   "type": "collection_list",
   "id": "collections",
   "label": "Select Collections",
-  "limit": 20
+  "limit": 20,
+  "info": "Select collections when Collection Source is set to Selected Collections."
 },
+
 {
   "type": "range",
   "id": "collection_limit",
@@ -790,6 +788,8 @@ assign button_style = block.settings.button_style
   "default": 12,
   "visible_if": "{{ block.settings.content_type == 'collections' and block.settings.collection_source == 'all' }}"
 },
+
+
 {
   "type": "header",
   "content": "Product Source",
@@ -799,7 +799,6 @@ assign button_style = block.settings.button_style
   "type": "select",
   "id": "product_source",
   "label": "Product Source",
-  "default": "selected",
   "options": [
     {
       "value": "selected",
@@ -807,36 +806,34 @@ assign button_style = block.settings.button_style
     },
     {
       "value": "collection",
-      "label": "From One Collection"
+      "label": "One Collection"
     },
     {
       "value": "collections",
-      "label": "From Multiple Collections"
-    },
-    {
-      "value": "all",
-      "label": "All Products"
+      "label": "Multiple Collections"
     }
   ],
-  "visible_if": "{{ block.settings.content_type == 'products' }}"
+  "default": "selected"
 },
 {
   "type": "product_list",
   "id": "products",
   "label": "Select Products",
-  "limit": 50
- 
+  "limit": 50,
+  "info": "Used when Product Source is Selected Products."
 },
 {
   "type": "collection",
   "id": "product_collection",
-  "label": "Select Collection"
+  "label": "Select Collection",
+  "info": "Used when Product Source is One Collection."
 },
 {
   "type": "collection_list",
   "id": "product_collections",
   "label": "Select Collections",
-  "limit": 10
+  "limit": 10,
+  "info": "Used when Product Source is Multiple Collections."
 },
 {
   "type": "range",
@@ -845,7 +842,8 @@ assign button_style = block.settings.button_style
   "min": 1,
   "max": 50,
   "step": 1,
-  "default": 12
+  "default": 12,
+  "info": "Used when Product Source is One Collection or Multiple Collections."
 },
 {
   "type": "range",
@@ -857,6 +855,8 @@ assign button_style = block.settings.button_style
   "default": 4,
   "visible_if": "{{ block.settings.content_type == 'products' and block.settings.product_source == 'collections' }}"
 },
+
+
 {
   "type": "header",
   "content": "Card Content"
@@ -883,6 +883,7 @@ assign button_style = block.settings.button_style
   "default": true,
   "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
+
 {
   "type": "checkbox",
   "id": "show_wishlist",
@@ -911,6 +912,7 @@ assign button_style = block.settings.button_style
   "label": "Show Description",
   "default": false
 },
+
 {
   "type": "checkbox",
   "id": "show_price",
@@ -918,6 +920,7 @@ assign button_style = block.settings.button_style
   "default": true,
   "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
+
 {
   "type": "checkbox",
   "id": "show_compare_price",
@@ -957,10 +960,12 @@ assign button_style = block.settings.button_style
   ]
 },
 
+
 {
   "type": "header",
   "content": "Card Alignment"
 },
+
 {
   "type": "select",
   "id": "card_alignment",
@@ -982,7 +987,9 @@ assign button_style = block.settings.button_style
   ]
 }
 
-]
+],
+
+
 }
 
 {% endschema %}
