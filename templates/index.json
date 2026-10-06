@@ -213,7 +213,7 @@
             "overlay_color": "#000000",
             "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
             "image_overlay_opacity": 0,
-            "desktop_slides": 4,
+            "desktop_slides": 5,
             "tablet_slides": 2,
             "mobile_slides": 1,
             "partial_slider": false,
