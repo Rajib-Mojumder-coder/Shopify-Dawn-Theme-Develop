@@ -203,14 +203,18 @@
    Controlled by Parent Custom Slider
    ========================================= */
 
-.custom-slider-{{ block.id }} .image-text-slider,
+/* .custom-slider-{{ block.id }} .image-text-slider,
 .custom-slider-{{ block.id }} .custom-slider-collection-card,
 .custom-slider-{{ block.id }} .custom-slider-product-card {
   --child-image-radius: var(--slider-image-radius);
   --child-image-fit: var(--slider-image-fit);
   --child-aspect-ratio: var(--slider-aspect-ratio);
+} */
+.custom-slider-{{ block.id }} .custom-slider-item {
+  --child-image-radius: var(--slider-image-radius);
+  --child-image-fit: var(--slider-image-fit);
+  --child-aspect-ratio: var(--slider-aspect-ratio);
 }
-
 /* Image / media area */
 
 .custom-slider-{{ block.id }} .image-text-slider__image,
