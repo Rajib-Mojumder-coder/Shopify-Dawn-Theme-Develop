@@ -18,276 +18,364 @@ assign card_alignment = block.settings.card_alignment
 assign button_style = block.settings.button_style
 %}
 
-
+{% comment %}
+=========================================================
+COLLECTION / PRODUCT CONTENT
+=========================================================
+{% endcomment %}
 
 {% if content_type == 'collections' %}
 
-{% if collection_source == 'selected' %}
+  {% comment %}
+  =======================================================
+  COLLECTION LIST
+  =======================================================
+  {% endcomment %}
 
-{% for collection in block.settings.collections %}
+  {% case collection_source %}
 
-  {% if collection != blank %}
+    {% when 'selected' %}
 
-    <div
-      class="swiper-slide custom-slider-item custom-slider-item--collection"
-      {{ block.shopify_attributes }}
-    >
+      {% for collection in block.settings.collections %}
 
-      <article class="custom-slider-collection-card">
+        {% if collection != blank %}
 
-        {% if show_image %}
-          <div class="custom-slider-item__media custom-slider-collection-card__media">
+          <div
+            class="swiper-slide custom-slider-item custom-slider-item--collection"
+            {{ block.shopify_attributes }}
+          >
 
-            {% if collection.featured_image != blank %}
+            <article class="custom-slider-collection-card">
 
-              {% if image_link %}
-                <a
-                  href="{{ collection.url }}"
-                  class="custom-slider-collection-card__image-link"
-                  aria-label="{{ collection.title | escape }}"
-                >
+              {% if show_image %}
+
+                <div class="custom-slider-item__media custom-slider-collection-card__media">
+
+                  {% if collection.featured_image != blank %}
+
+                    {% if image_link %}
+                      <a
+                        href="{{ collection.url }}"
+                        class="custom-slider-collection-card__image-link"
+                        aria-label="{{ collection.title | escape }}"
+                      >
+                    {% endif %}
+
+                      {{
+                        collection.featured_image
+                        | image_url: width: 1200
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '360, 540, 720, 900, 1200',
+                          class: 'custom-slider-item__image custom-slider-collection-card__image',
+                          alt: collection.featured_image.alt | default: collection.title
+                      }}
+
+                    {% if image_link %}
+                      </a>
+                    {% endif %}
+
+                  {% else %}
+
+                    <div class="custom-slider-collection-card__image-placeholder">
+                      {{ 'collection-1' | placeholder_svg_tag }}
+                    </div>
+
+                  {% endif %}
+
+                </div>
+
               {% endif %}
 
-                {{
-                  collection.featured_image
-                  | image_url: width: 1200
-                  | image_tag:
-                    loading: 'lazy',
-                    widths: '360, 540, 720, 900, 1200',
-                    class: 'custom-slider-item__image custom-slider-collection-card__image',
-                    alt: collection.featured_image.alt | default: collection.title
-                }}
 
-              {% if image_link %}
-                </a>
-              {% endif %}
+              <div class="custom-slider-item__content custom-slider-collection-card__content">
 
-            {% else %}
+                {% if show_title %}
+                  <h3 class="custom-slider-card__title">
+                    <a href="{{ collection.url }}">
+                      {{ collection.title }}
+                    </a>
+                  </h3>
+                {% endif %}
 
-              <div class="custom-slider-collection-card__image-placeholder">
-                {{ 'collection-1' | placeholder_svg_tag }}
+
+                {% if show_description and collection.description != blank %}
+                  <div class="custom-slider-card__description">
+                    {{ collection.description | strip_html | truncate: 120 }}
+                  </div>
+                {% endif %}
+
+
+                {% if show_vendor %}
+                  <div class="custom-slider-card__meta">
+                    {{ collection.all_products_count }}
+                    {{ collection.all_products_count | pluralize: 'product', 'products' }}
+                  </div>
+                {% endif %}
+
+
+                {% if show_button %}
+                  <a
+                    href="{{ collection.url }}"
+                    class="custom-slider-card__button custom-slider-card__button--{{ button_style }}"
+                  >
+                    {{ block.settings.button_text }}
+                  </a>
+                {% endif %}
+
               </div>
 
-            {% endif %}
+            </article>
 
           </div>
+
         {% endif %}
 
-
-        <div class="custom-slider-item__content custom-slider-collection-card__content">
-
-          {% if show_title %}
-            <h3 class="custom-slider-card__title">
-              <a href="{{ collection.url }}">
-                {{ collection.title }}
-              </a>
-            </h3>
-          {% endif %}
+      {% endfor %}
 
 
-          {% if show_description and collection.description != blank %}
-            <div class="custom-slider-card__description">
-              {{ collection.description | strip_html | truncate: 120 }}
-            </div>
-          {% endif %}
+    {% when 'all' %}
 
+      {% for collection in collections limit: block.settings.collection_limit %}
 
-          {% if show_vendor %}
-            <div class="custom-slider-card__meta">
-              {{ collection.all_products_count }}
-              {{ collection.all_products_count | pluralize: 'product', 'products' }}
-            </div>
-          {% endif %}
+        {% unless collection.handle == 'frontpage' %}
 
+          <div
+            class="swiper-slide custom-slider-item custom-slider-item--collection"
+            {{ block.shopify_attributes }}
+          >
 
-          {% if show_button %}
-            <a
-              href="{{ collection.url }}"
-              class="custom-slider-card__button custom-slider-card__button--{{ button_style }}"
-            >
-              {{ block.settings.button_text }}
-            </a>
-          {% endif %}
+            <article class="custom-slider-collection-card">
 
-        </div>
+              {% if show_image %}
 
-      </article>
+                <div class="custom-slider-item__media custom-slider-collection-card__media">
 
-    </div>
+                  {% if collection.featured_image != blank %}
 
-  {% endif %}
+                    {% if image_link %}
+                      <a
+                        href="{{ collection.url }}"
+                        class="custom-slider-collection-card__image-link"
+                        aria-label="{{ collection.title | escape }}"
+                      >
+                    {% endif %}
 
-{% endfor %}
+                      {{
+                        collection.featured_image
+                        | image_url: width: 1200
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '360, 540, 720, 900, 1200',
+                          class: 'custom-slider-item__image custom-slider-collection-card__image',
+                          alt: collection.featured_image.alt | default: collection.title
+                      }}
 
+                    {% if image_link %}
+                      </a>
+                    {% endif %}
 
-{% elsif collection_source == 'all' %}
+                  {% else %}
 
-{% for collection in collections limit: block.settings.collection_limit %}
+                    <div class="custom-slider-collection-card__image-placeholder">
+                      {{ 'collection-1' | placeholder_svg_tag }}
+                    </div>
 
-  {% unless collection.handle == 'frontpage' %}
+                  {% endif %}
 
-    <div
-      class="swiper-slide custom-slider-item custom-slider-item--collection"
-      {{ block.shopify_attributes }}
-    >
+                </div>
 
-      <article class="custom-slider-collection-card">
-
-        {% if show_image %}
-          <div class="custom-slider-item__media custom-slider-collection-card__media">
-
-            {% if collection.featured_image != blank %}
-
-              {% if image_link %}
-                <a
-                  href="{{ collection.url }}"
-                  class="custom-slider-collection-card__image-link"
-                  aria-label="{{ collection.title | escape }}"
-                >
               {% endif %}
 
-                {{
-                  collection.featured_image
-                  | image_url: width: 1200
-                  | image_tag:
-                    loading: 'lazy',
-                    widths: '360, 540, 720, 900, 1200',
-                    class: 'custom-slider-item__image custom-slider-collection-card__image',
-                    alt: collection.featured_image.alt | default: collection.title
-                }}
 
-              {% if image_link %}
-                </a>
-              {% endif %}
+              <div class="custom-slider-item__content custom-slider-collection-card__content">
 
-            {% else %}
+                {% if show_title %}
+                  <h3 class="custom-slider-card__title">
+                    <a href="{{ collection.url }}">
+                      {{ collection.title }}
+                    </a>
+                  </h3>
+                {% endif %}
 
-              <div class="custom-slider-collection-card__image-placeholder">
-                {{ 'collection-1' | placeholder_svg_tag }}
+
+                {% if show_description and collection.description != blank %}
+                  <div class="custom-slider-card__description">
+                    {{ collection.description | strip_html | truncate: 120 }}
+                  </div>
+                {% endif %}
+
+
+                {% if show_vendor %}
+                  <div class="custom-slider-card__meta">
+                    {{ collection.all_products_count }}
+                    {{ collection.all_products_count | pluralize: 'product', 'products' }}
+                  </div>
+                {% endif %}
+
+
+                {% if show_button %}
+                  <a
+                    href="{{ collection.url }}"
+                    class="custom-slider-card__button custom-slider-card__button--{{ button_style }}"
+                  >
+                    {{ block.settings.button_text }}
+                  </a>
+                {% endif %}
+
               </div>
 
-            {% endif %}
+            </article>
 
           </div>
-        {% endif %}
 
+        {% endunless %}
 
-        <div class="custom-slider-item__content custom-slider-collection-card__content">
+      {% endfor %}
 
-          {% if show_title %}
-            <h3 class="custom-slider-card__title">
-              <a href="{{ collection.url }}">
-                {{ collection.title }}
-              </a>
-            </h3>
-          {% endif %}
+  {% endcase %}
 
-
-          {% if show_description and collection.description != blank %}
-            <div class="custom-slider-card__description">
-              {{ collection.description | strip_html | truncate: 120 }}
-            </div>
-          {% endif %}
-
-
-          {% if show_vendor %}
-            <div class="custom-slider-card__meta">
-              {{ collection.all_products_count }}
-              {{ collection.all_products_count | pluralize: 'product', 'products' }}
-            </div>
-          {% endif %}
-
-
-          {% if show_button %}
-            <a
-              href="{{ collection.url }}"
-              class="custom-slider-card__button custom-slider-card__button--{{ button_style }}"
-            >
-              {{ block.settings.button_text }}
-            </a>
-          {% endif %}
-
-        </div>
-
-      </article>
-
-    </div>
-
-  {% endunless %}
-
-{% endfor %}
-
-{% endif %}
-
-{% comment %}
-
-# PRODUCT LIST
-
-{% endcomment %}
 
 {% elsif content_type == 'products' %}
 
-{% if product_source == 'selected' %}
+  {% comment %}
+  =======================================================
+  PRODUCT LIST
+  =======================================================
+  =======================================================
 
-{% for product in block.settings.products %}
+  Product Source:
 
-  {% render 'custom-slider-product-card',
-    product: product,
-    block: block
-  %}
+  selected
+  → Manually selected products
 
-{% endfor %}
+  collection
+  → Products from one selected collection
 
-{% elsif product_source == 'collection' %}
+  collections
+  → Products from multiple selected collections
 
-{% assign source_collection = block.settings.product_collection %}
+  all
+  → Products from the all-products collection
+  =======================================================
+  {% endcomment %}
 
-{% if source_collection != blank %}
 
-  {% for product in source_collection.products limit: block.settings.product_limit %}
+  {% case product_source %}
 
-    {% render 'custom-slider-product-card',
-      product: product,
-      block: block
-    %}
 
-  {% endfor %}
+    {% when 'selected' %}
+
+      {% comment %}
+      ---------------------------------------------------
+      SELECTED PRODUCTS
+      ---------------------------------------------------
+      ---------------------------------------------------
+      block.settings.products = product_list setting
+      ---------------------------------------------------
+      {% endcomment %}
+
+      {% for product in block.settings.products %}
+
+        {% if product != blank %}
+
+          {% render 'custom-slider-product-card',
+            product: product,
+            block: block
+          %}
+
+        {% endif %}
+
+      {% endfor %}
+
+
+    {% when 'collection' %}
+
+      {% comment %}
+      ---------------------------------------------------
+      ONE COLLECTION
+      ---------------------------------------------------
+      ---------------------------------------------------
+      block.settings.product_collection
+      → Selected collection
+      ---------------------------------------------------
+      {% endcomment %}
+
+      {% assign source_collection = block.settings.product_collection %}
+
+      {% if source_collection != blank %}
+
+        {% for product in source_collection.products limit: block.settings.product_limit %}
+
+          {% render 'custom-slider-product-card',
+            product: product,
+            block: block
+          %}
+
+        {% endfor %}
+
+      {% endif %}
+
+
+    {% when 'collections' %}
+
+      {% comment %}
+      ---------------------------------------------------
+      MULTIPLE COLLECTIONS
+      ---------------------------------------------------
+      ---------------------------------------------------
+      Each selected collection contributes products.
+      ---------------------------------------------------
+      {% endcomment %}
+
+      {% for collection in block.settings.product_collections %}
+
+        {% if collection != blank %}
+
+          {% for product in collection.products limit: block.settings.product_limit %}
+
+            {% render 'custom-slider-product-card',
+              product: product,
+              block: block
+            %}
+
+          {% endfor %}
+
+        {% endif %}
+
+      {% endfor %}
+
+
+    {% when 'all' %}
+
+      {% comment %}
+      ---------------------------------------------------
+      ALL PRODUCTS
+      ---------------------------------------------------
+      ---------------------------------------------------
+      collections.all = Shopify's all-products collection
+      ---------------------------------------------------
+      {% endcomment %}
+
+      {% for product in collections.all.products limit: block.settings.product_limit %}
+
+        {% if product != blank %}
+
+          {% render 'custom-slider-product-card',
+            product: product,
+            block: block
+          %}
+
+        {% endif %}
+
+      {% endfor %}
+
+
+  {% endcase %}
 
 {% endif %}
 
-{% elsif product_source == 'collections' %}
 
-{% for collection in block.settings.product_collections %}
-
-  {% if collection != blank %}
-
-    {% for product in collection.products limit: block.settings.products_per_collection %}
-
-      {% render 'custom-slider-product-card',
-        product: product,
-        block: block
-      %}
-
-    {% endfor %}
-
-  {% endif %}
-
-{% endfor %}
-
-{% elsif product_source == 'all' %}
-
-{% for product in collections.all.products limit: block.settings.product_limit %}
-
-  {% render 'custom-slider-product-card',
-    product: product,
-    block: block
-  %}
-
-{% endfor %}
-
-{% endif %}
-
-{% endif %}
 
 <style>
 
