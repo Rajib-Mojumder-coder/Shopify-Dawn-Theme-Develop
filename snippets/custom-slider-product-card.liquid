@@ -1,189 +1,197 @@
 {% liquid
-  assign product = product
+  assign show_image = block.settings.show_image
+  assign image_link = block.settings.image_link
 
-  assign show_image = block.settings.show_product_image
-  assign show_hover_image = block.settings.show_hover_image
-  assign show_badge = block.settings.show_product_badge
-  assign show_vendor = block.settings.show_product_vendor
-  assign show_title = block.settings.show_product_title
-  assign show_description = block.settings.show_product_description
-  assign show_price = block.settings.show_product_price
-  assign show_compare_price = block.settings.show_compare_price
+  assign show_title = block.settings.show_title
+  assign show_description = block.settings.show_description
+  assign show_vendor = block.settings.show_vendor
+
+  assign show_badge = block.settings.show_badge
   assign show_wishlist = block.settings.show_wishlist
-  assign show_add_to_cart = block.settings.show_add_to_cart
-  assign show_quick_button = block.settings.show_quick_button
+  assign show_price = block.settings.show_price
+  assign show_compare_price = block.settings.show_compare_price
 
-  assign image_link = block.settings.product_image_link
-  assign title_link = block.settings.product_title_link
+  assign show_button = block.settings.show_button
 
-  assign button_text = block.settings.add_to_cart_text
-  assign sold_out_text = block.settings.sold_out_text
-
-  assign product_form_id = 'CustomSliderProductForm-' | append: block.id | append: '-' | append: product.id
+  assign button_text = block.settings.button_text
+  assign button_style = block.settings.button_style
 
   assign current_variant = product.selected_or_first_available_variant
-
-  assign product_image = product.featured_image
-  assign second_image = product.images[1]
-
-  assign has_compare_price = false
-
-  if current_variant.compare_at_price > current_variant.price
-    assign has_compare_price = true
-  endif
 %}
 
 
-<div
-  class="swiper-slide custom-slider-item custom-slider-item--product"
-  {{ block.shopify_attributes }}
+<article
+  class="custom-slider-product-card"
+  data-product-id="{{ product.id }}"
+  data-product-handle="{{ product.handle }}"
 >
 
-  <article
-    class="custom-slider-product-card"
-    data-product-id="{{ product.id }}"
-    data-product-handle="{{ product.handle }}"
-  >
+  {%- comment -%}
+  =========================================================
+  PRODUCT MEDIA
+  =========================================================
+  {%- endcomment -%}
 
-    {%- comment -%}
-    =====================================================
-    PRODUCT MEDIA
-    =====================================================
-    {%- endcomment -%}
+  {% if show_image %}
 
-    {% if show_image %}
+    <div class="custom-slider-product-card__media">
 
-      <div class="custom-slider-product-card__media">
+      {% if product.featured_image != blank %}
 
-        {% if show_badge %}
-
-          <div class="custom-slider-product-card__badges">
-
-            {% if product.available == false %}
-
-              <span class="custom-slider-product-card__badge custom-slider-product-card__badge--sold-out">
-                {{ sold_out_text }}
-              </span>
-
-            {% elsif has_compare_price %}
-
-              <span class="custom-slider-product-card__badge custom-slider-product-card__badge--sale">
-                {{ block.settings.sale_badge_text }}
-              </span>
-
-            {% endif %}
- 
-          </div>
-
-        {% endif %}
-
-
-        {% if show_wishlist %}
-
-          <button
-            type="button"
-            class="custom-slider-product-card__wishlist"
-            aria-label="Add {{ product.title | escape }} to wishlist"
-            aria-pressed="false"
-            data-wishlist-button
-            data-product-id="{{ product.id }}"
-            data-product-handle="{{ product.handle }}"
-            data-product-url="{{ product.url }}"
-          >
-
-            <svg
-              class="custom-slider-product-card__wishlist-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>
-            </svg>
-
-            <span class="visually-hidden">
-              Add to wishlist
-            </span>
-
-          </button>
-
-        {% endif %}
-
-
-        {% if product_image != blank %}
-
-          {% if image_link %}
-            <a
-              href="{{ product.url }}"
-              class="custom-slider-product-card__image-link"
-              aria-label="{{ product.title | escape }}"
-            >
-          {% endif %}
-
-
-          <div class="custom-slider-product-card__image-wrapper">
-
-            {{
-              product_image
-              | image_url: width: 1200
-              | image_tag:
-                loading: 'lazy',
-                widths: '360, 540, 720, 900, 1200',
-                class: 'custom-slider-product-card__image custom-slider-product-card__image--primary',
-                alt: product_image.alt | default: product.title
-            }}
-
-
-            {% if show_hover_image and second_image != blank %}
-
-              {{
-                second_image
-                | image_url: width: 1200
-                | image_tag:
-                  loading: 'lazy',
-                  widths: '360, 540, 720, 900, 1200',
-                  class: 'custom-slider-product-card__image custom-slider-product-card__image--secondary',
-                  alt: second_image.alt | default: product.title
-              }}
-
-            {% endif %}
-
-          </div>
-
-
-          {% if image_link %}
-            </a>
-          {% endif %}
-
-
-        {% else %}
-
+        {% if image_link %}
           <a
             href="{{ product.url }}"
             class="custom-slider-product-card__image-link"
             aria-label="{{ product.title | escape }}"
           >
+        {% endif %}
 
-            <div class="custom-slider-product-card__image-placeholder">
-              {{ 'product-1' | placeholder_svg_tag }}
-            </div>
+          {{
+            product.featured_image
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'lazy',
+              widths: '360, 540, 720, 900, 1200',
+              class: 'custom-slider-product-card__image',
+              alt: product.featured_image.alt | default: product.title
+          }}
 
+        {% if image_link %}
           </a>
+        {% endif %}
+
+      {% else %}
+
+        <div class="custom-slider-product-card__image-placeholder">
+          {{ 'product-1' | placeholder_svg_tag }}
+        </div>
+
+      {% endif %}
+
+
+      {%- comment -%}
+      PRODUCT BADGE
+      {%- endcomment -%}
+
+      {% if show_badge %}
+
+        {% if product.available == false %}
+
+          <span class="custom-slider-product-card__badge">
+            Sold Out
+          </span>
+
+        {% elsif product.compare_at_price > product.price %}
+
+          <span class="custom-slider-product-card__badge">
+            Sale
+          </span>
+
+        {% endif %}
+
+      {% endif %}
+
+
+      {%- comment -%}
+      WISHLIST
+      {%- endcomment -%}
+
+      {% if show_wishlist %}
+
+        <button
+          type="button"
+          class="custom-slider-product-card__wishlist"
+          aria-label="Add {{ product.title | escape }} to wishlist"
+          data-wishlist-product="{{ product.id }}"
+          data-product-handle="{{ product.handle }}"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+      {% endif %}
+
+    </div>
+
+  {% endif %}
+
+
+  {%- comment -%}
+  =========================================================
+  PRODUCT CONTENT
+  =========================================================
+  {%- endcomment -%}
+
+  <div class="custom-slider-product-card__content">
+
+
+    {% if show_vendor and product.vendor != blank %}
+
+      <div class="custom-slider-product-card__vendor">
+        {{ product.vendor }}
+      </div>
+
+    {% endif %}
+
+
+    {% if show_title %}
+
+      <h3 class="custom-slider-product-card__title">
+
+        <a href="{{ product.url }}">
+          {{ product.title }}
+        </a>
+
+      </h3>
+
+    {% endif %}
+
+
+    {% if show_description and product.description != blank %}
+
+      <div class="custom-slider-product-card__description">
+        {{ product.description | strip_html | truncate: 120 }}
+      </div>
+
+    {% endif %}
+
+
+    {% if show_price %}
+
+      <div class="custom-slider-product-card__price">
+
+        {% if product.price_varies %}
+
+          <span class="custom-slider-product-card__price-current">
+            From {{ product.price_min | money }}
+          </span>
+
+        {% else %}
+
+          <span class="custom-slider-product-card__price-current">
+            {{ product.price | money }}
+          </span>
 
         {% endif %}
 
 
-        {% if show_quick_button %}
+        {% if show_compare_price and product.compare_at_price > product.price %}
 
-          <a
-            href="{{ product.url }}"
-            class="custom-slider-product-card__quick-button"
-          >
-            {{ block.settings.quick_button_text }}
-          </a>
+          <span class="custom-slider-product-card__price-compare">
+            {{ product.compare_at_price | money }}
+          </span>
 
         {% endif %}
 
@@ -192,186 +200,32 @@
     {% endif %}
 
 
-    {%- comment -%}
-    =====================================================
-    PRODUCT INFORMATION
-    =====================================================
-    {%- endcomment -%}
-
-    <div class="custom-slider-product-card__content">
-
-
-      {% if show_vendor and product.vendor != blank %}
-
-        <div class="custom-slider-product-card__vendor">
-          {{ product.vendor }}
-        </div>
-
-      {% endif %}
-
-
-      {% if show_title %}
-
-        <h3 class="custom-slider-product-card__title">
-
-          {% if title_link %}
-
-            <a href="{{ product.url }}">
-              {{ product.title | escape }}
-            </a>
-
-          {% else %}
-
-            {{ product.title | escape }}
-
-          {% endif %}
-
-        </h3>
-
-      {% endif %}
-
-
-      {% if show_description and product.description != blank %}
-
-        <div class="custom-slider-product-card__description">
-          {{ product.description | strip_html | truncate: 120 }}
-        </div>
-
-      {% endif %}
-
-
-      {% if show_price %}
-
-        <div class="custom-slider-product-card__price">
-
-          {% if current_variant != blank %}
-
-            {% if has_compare_price and show_compare_price %}
-
-              <span class="custom-slider-product-card__compare-price">
-                {{ current_variant.compare_at_price | money }}
-              </span>
-
-            {% endif %}
-
-
-            <span class="custom-slider-product-card__current-price">
-
-              {% if current_variant.price == 0 %}
-
-                {{ 'products.product.price.free' | t }}
-
-              {% else %}
-
-                {{ current_variant.price | money }}
-
-              {% endif %}
-
-            </span>
-
-          {% else %}
-
-            <span class="custom-slider-product-card__current-price">
-              {{ product.price | money }}
-            </span>
-
-          {% endif %}
-
-        </div>
-
-      {% endif %}
-
-
-      {% if show_add_to_cart %}
-
-        <div class="custom-slider-product-card__actions">
-
-          {% if product.available %}
-
-            <product-form class="custom-slider-product-card__product-form">
-
-              {% form 'product',
-                product,
-                id: product_form_id,
-                class: 'custom-slider-product-card__form'
-              %}
-
-                <input
-                  type="hidden"
-                  name="id"
-                  value="{{ current_variant.id }}"
-                >
-
-                <button
-                  type="submit"
-                  name="add"
-                  class="custom-slider-product-card__button"
-                >
-
-                  <span class="custom-slider-product-card__button-text">
-                    {{ button_text }}
-                  </span>
-
-                </button>
-
-              {% endform %}
-
-            </product-form>
-
-          {% else %}
-
-            <button
-              type="button"
-              class="custom-slider-product-card__button custom-slider-product-card__button--disabled"
-              disabled
-            >
-              {{ sold_out_text }}
-            </button>
-
-          {% endif %}
-
-        </div>
-
-      {% endif %}
-
+    {% if show_button %}
 
       {% if product.available %}
 
-        {% if block.settings.show_inventory and current_variant.inventory_management == 'shopify' %}
+        <a
+          href="{{ product.url }}"
+          class="custom-slider-product-card__button custom-slider-product-card__button--{{ button_style }}"
+        >
+          {{ button_text }}
+        </a>
 
-          <div class="custom-slider-product-card__inventory">
+      {% else %}
 
-            {% if current_variant.inventory_quantity > 0 %}
-
-              {% if current_variant.inventory_quantity <= block.settings.inventory_threshold %}
-
-                {{ block.settings.low_stock_text }}
-
-              {% else %}
-
-                {{ block.settings.in_stock_text }}
-
-              {% endif %}
-
-            {% else %}
-
-              {{ block.settings.in_stock_text }}
-
-            {% endif %}
-
-          </div>
-
-        {% endif %}
+        <span
+          class="custom-slider-product-card__button custom-slider-product-card__button--disabled"
+        >
+          Sold Out
+        </span>
 
       {% endif %}
 
+    {% endif %}
 
-    </div>
+  </div>
 
-  </article>
-
-</div>
-
+</article>
 
 <style>
 
