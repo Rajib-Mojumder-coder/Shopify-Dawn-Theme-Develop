@@ -227,8 +227,8 @@ assign button_style = block.settings.button_style
 
 
 {% elsif content_type == 'products' %}
-  {% case product_source %}
 
+  {% case product_source %}
 
     {% when 'selected' %}
 
@@ -236,10 +236,12 @@ assign button_style = block.settings.button_style
 
         {% if product != blank %}
 
-          {% render 'custom-slider-product-card',
-            product: product,
-            block: block
-          %}
+          <div class="swiper-slide custom-slider-item custom-slider-item--product">
+            {% render 'custom-slider-product-card',
+              product: product,
+              block: block
+            %}
+          </div>
 
         {% endif %}
 
@@ -254,10 +256,16 @@ assign button_style = block.settings.button_style
 
         {% for product in source_collection.products limit: block.settings.product_limit %}
 
-          {% render 'custom-slider-product-card',
-            product: product,
-            block: block
-          %}
+          {% if product != blank %}
+
+            <div class="swiper-slide custom-slider-item custom-slider-item--product">
+              {% render 'custom-slider-product-card',
+                product: product,
+                block: block
+              %}
+            </div>
+
+          {% endif %}
 
         {% endfor %}
 
@@ -266,17 +274,22 @@ assign button_style = block.settings.button_style
 
     {% when 'collections' %}
 
-
       {% for collection in block.settings.product_collections %}
 
         {% if collection != blank %}
 
           {% for product in collection.products limit: block.settings.product_limit %}
 
-            {% render 'custom-slider-product-card',
-              product: product,
-              block: block
-            %}
+            {% if product != blank %}
+
+              <div class="swiper-slide custom-slider-item custom-slider-item--product">
+                {% render 'custom-slider-product-card',
+                  product: product,
+                  block: block
+                %}
+              </div>
+
+            {% endif %}
 
           {% endfor %}
 
@@ -287,21 +300,20 @@ assign button_style = block.settings.button_style
 
     {% when 'all' %}
 
-     
-
       {% for product in collections.all.products limit: block.settings.product_limit %}
 
         {% if product != blank %}
 
-          {% render 'custom-slider-product-card',
-            product: product,
-            block: block
-          %}
+          <div class="swiper-slide custom-slider-item custom-slider-item--product">
+            {% render 'custom-slider-product-card',
+              product: product,
+              block: block
+            %}
+          </div>
 
         {% endif %}
 
       {% endfor %}
-
 
   {% endcase %}
 
