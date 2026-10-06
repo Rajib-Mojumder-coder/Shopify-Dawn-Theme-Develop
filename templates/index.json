@@ -280,7 +280,12 @@
                 ],
                 "collection_limit": 12,
                 "product_source": "selected",
-                "products": [],
+                "products": [
+                  "kalkhoff-image-3-excite-380-600w-dli48",
+                  "qwic-elan-tour",
+                  "selle-royal-lookin-evo-athletic",
+                  "wielerkleding-actie-in-heel"
+                ],
                 "product_collection": "",
                 "product_collections": [],
                 "product_limit": 12,
