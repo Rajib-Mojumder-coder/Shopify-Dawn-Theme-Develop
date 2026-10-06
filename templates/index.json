@@ -260,7 +260,7 @@
               "name": "Collection Product List",
               "settings": {
                 "content_type": "collections",
-                "collection_source": "selected",
+                "collection_source": "all",
                 "collections": [
                   "all-collections"
                 ],
