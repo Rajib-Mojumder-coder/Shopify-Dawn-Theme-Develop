@@ -260,9 +260,12 @@
               "name": "Collection Product List",
               "settings": {
                 "content_type": "collections",
-                "collection_source": "all",
+                "collection_source": "selected",
                 "collections": [
-                  "all-collections"
+                  "all-collections",
+                  "e-bikes",
+                  "e-bakfietsen",
+                  "e-mountainbikes"
                 ],
                 "collection_limit": 12,
                 "product_source": "selected",
