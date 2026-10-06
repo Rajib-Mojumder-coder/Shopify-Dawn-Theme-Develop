@@ -255,14 +255,28 @@
             "nav_outside_offset": 60
           },
           "blocks": {
-            "collection_product_list_Q4BH7Y": {
+            "collection_product_list_EpGXA4": {
               "type": "collection-product-list",
-              "name": "Collection Product list",
+              "name": "Collection Product List",
               "settings": {
-                "content_type": "products",
+                "content_type": "collections",
                 "collection_source": "selected",
                 "collections": [
-                  "all-collections"
+                  "all-collections",
+                  "e-bakfietsen",
+                  "e-bikes",
+                  "e-mountainbikes",
+                  "e-racefietsen",
+                  "fietsbanden",
+                  "gravelbikes",
+                  "aangepaste-fietsen",
+                  "moederfietsen",
+                  "kleding",
+                  "kinderzitjes",
+                  "kinderfietsen",
+                  "kilometertellers",
+                  "frontpage",
+                  "helmen"
                 ],
                 "collection_limit": 12,
                 "product_source": "selected",
@@ -289,7 +303,7 @@
             }
           },
           "block_order": [
-            "collection_product_list_Q4BH7Y"
+            "collection_product_list_EpGXA4"
           ]
         },
         "custom_slider_XdCpjp": {
