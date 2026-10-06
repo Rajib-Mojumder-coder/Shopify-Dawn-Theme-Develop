@@ -1,0 +1,986 @@
+{% liquid
+  assign product = product
+
+  assign show_image = block.settings.show_product_image
+  assign show_hover_image = block.settings.show_hover_image
+  assign show_badge = block.settings.show_product_badge
+  assign show_vendor = block.settings.show_product_vendor
+  assign show_title = block.settings.show_product_title
+  assign show_description = block.settings.show_product_description
+  assign show_price = block.settings.show_product_price
+  assign show_compare_price = block.settings.show_compare_price
+  assign show_wishlist = block.settings.show_wishlist
+  assign show_add_to_cart = block.settings.show_add_to_cart
+  assign show_quick_button = block.settings.show_quick_button
+
+  assign image_link = block.settings.product_image_link
+  assign title_link = block.settings.product_title_link
+
+  assign button_text = block.settings.add_to_cart_text
+  assign sold_out_text = block.settings.sold_out_text
+
+  assign product_form_id = 'CustomSliderProductForm-' | append: block.id | append: '-' | append: product.id
+
+  assign current_variant = product.selected_or_first_available_variant
+
+  assign product_image = product.featured_image
+  assign second_image = product.images[1]
+
+  assign has_compare_price = false
+
+  if current_variant.compare_at_price > current_variant.price
+    assign has_compare_price = true
+  endif
+%}
+
+
+<div
+  class="swiper-slide custom-slider-item custom-slider-item--product"
+  {{ block.shopify_attributes }}
+>
+
+  <article
+    class="custom-slider-product-card"
+    data-product-id="{{ product.id }}"
+    data-product-handle="{{ product.handle }}"
+  >
+
+    {%- comment -%}
+    =====================================================
+    PRODUCT MEDIA
+    =====================================================
+    {%- endcomment -%}
+
+    {% if show_image %}
+
+      <div class="custom-slider-product-card__media">
+
+        {% if show_badge %}
+
+          <div class="custom-slider-product-card__badges">
+
+            {% if product.available == false %}
+
+              <span class="custom-slider-product-card__badge custom-slider-product-card__badge--sold-out">
+                {{ sold_out_text }}
+              </span>
+
+            {% elsif has_compare_price %}
+
+              <span class="custom-slider-product-card__badge custom-slider-product-card__badge--sale">
+                {{ block.settings.sale_badge_text }}
+              </span>
+
+            {% endif %}
+
+          </div>
+
+        {% endif %}
+
+
+        {% if show_wishlist %}
+
+          <button
+            type="button"
+            class="custom-slider-product-card__wishlist"
+            aria-label="Add {{ product.title | escape }} to wishlist"
+            aria-pressed="false"
+            data-wishlist-button
+            data-product-id="{{ product.id }}"
+            data-product-handle="{{ product.handle }}"
+            data-product-url="{{ product.url }}"
+          >
+
+            <svg
+              class="custom-slider-product-card__wishlist-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+
+            <span class="visually-hidden">
+              Add to wishlist
+            </span>
+
+          </button>
+
+        {% endif %}
+
+
+        {% if product_image != blank %}
+
+          {% if image_link %}
+            <a
+              href="{{ product.url }}"
+              class="custom-slider-product-card__image-link"
+              aria-label="{{ product.title | escape }}"
+            >
+          {% endif %}
+
+
+          <div class="custom-slider-product-card__image-wrapper">
+
+            {{
+              product_image
+              | image_url: width: 1200
+              | image_tag:
+                loading: 'lazy',
+                widths: '360, 540, 720, 900, 1200',
+                class: 'custom-slider-product-card__image custom-slider-product-card__image--primary',
+                alt: product_image.alt | default: product.title
+            }}
+
+
+            {% if show_hover_image and second_image != blank %}
+
+              {{
+                second_image
+                | image_url: width: 1200
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '360, 540, 720, 900, 1200',
+                  class: 'custom-slider-product-card__image custom-slider-product-card__image--secondary',
+                  alt: second_image.alt | default: product.title
+              }}
+
+            {% endif %}
+
+          </div>
+
+
+          {% if image_link %}
+            </a>
+          {% endif %}
+
+
+        {% else %}
+
+          <a
+            href="{{ product.url }}"
+            class="custom-slider-product-card__image-link"
+            aria-label="{{ product.title | escape }}"
+          >
+
+            <div class="custom-slider-product-card__image-placeholder">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+
+          </a>
+
+        {% endif %}
+
+
+        {% if show_quick_button %}
+
+          <a
+            href="{{ product.url }}"
+            class="custom-slider-product-card__quick-button"
+          >
+            {{ block.settings.quick_button_text }}
+          </a>
+
+        {% endif %}
+
+      </div>
+
+    {% endif %}
+
+
+    {%- comment -%}
+    =====================================================
+    PRODUCT INFORMATION
+    =====================================================
+    {%- endcomment -%}
+
+    <div class="custom-slider-product-card__content">
+
+
+      {% if show_vendor and product.vendor != blank %}
+
+        <div class="custom-slider-product-card__vendor">
+          {{ product.vendor }}
+        </div>
+
+      {% endif %}
+
+
+      {% if show_title %}
+
+        <h3 class="custom-slider-product-card__title">
+
+          {% if title_link %}
+
+            <a href="{{ product.url }}">
+              {{ product.title | escape }}
+            </a>
+
+          {% else %}
+
+            {{ product.title | escape }}
+
+          {% endif %}
+
+        </h3>
+
+      {% endif %}
+
+
+      {% if show_description and product.description != blank %}
+
+        <div class="custom-slider-product-card__description">
+          {{ product.description | strip_html | truncate: 120 }}
+        </div>
+
+      {% endif %}
+
+
+      {% if show_price %}
+
+        <div class="custom-slider-product-card__price">
+
+          {% if current_variant != blank %}
+
+            {% if has_compare_price and show_compare_price %}
+
+              <span class="custom-slider-product-card__compare-price">
+                {{ current_variant.compare_at_price | money }}
+              </span>
+
+            {% endif %}
+
+
+            <span class="custom-slider-product-card__current-price">
+
+              {% if current_variant.price == 0 %}
+
+                {{ 'products.product.price.free' | t }}
+
+              {% else %}
+
+                {{ current_variant.price | money }}
+
+              {% endif %}
+
+            </span>
+
+          {% else %}
+
+            <span class="custom-slider-product-card__current-price">
+              {{ product.price | money }}
+            </span>
+
+          {% endif %}
+
+        </div>
+
+      {% endif %}
+
+
+      {% if show_add_to_cart %}
+
+        <div class="custom-slider-product-card__actions">
+
+          {% if product.available %}
+
+            <product-form class="custom-slider-product-card__product-form">
+
+              {% form 'product',
+                product,
+                id: product_form_id,
+                class: 'custom-slider-product-card__form'
+              %}
+
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ current_variant.id }}"
+                >
+
+                <button
+                  type="submit"
+                  name="add"
+                  class="custom-slider-product-card__button"
+                >
+
+                  <span class="custom-slider-product-card__button-text">
+                    {{ button_text }}
+                  </span>
+
+                </button>
+
+              {% endform %}
+
+            </product-form>
+
+          {% else %}
+
+            <button
+              type="button"
+              class="custom-slider-product-card__button custom-slider-product-card__button--disabled"
+              disabled
+            >
+              {{ sold_out_text }}
+            </button>
+
+          {% endif %}
+
+        </div>
+
+      {% endif %}
+
+
+      {% if product.available %}
+
+        {% if block.settings.show_inventory and current_variant.inventory_management == 'shopify' %}
+
+          <div class="custom-slider-product-card__inventory">
+
+            {% if current_variant.inventory_quantity > 0 %}
+
+              {% if current_variant.inventory_quantity <= block.settings.inventory_threshold %}
+
+                {{ block.settings.low_stock_text }}
+
+              {% else %}
+
+                {{ block.settings.in_stock_text }}
+
+              {% endif %}
+
+            {% else %}
+
+              {{ block.settings.in_stock_text }}
+
+            {% endif %}
+
+          </div>
+
+        {% endif %}
+
+      {% endif %}
+
+
+    </div>
+
+  </article>
+
+</div>
+
+
+<style>
+
+.custom-slider-product-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  border-radius: var(--slider-card-radius, 12px);
+  overflow: hidden;
+
+  background: {{ block.settings.card_background | default: '#ffffff' }};
+}
+
+
+.custom-slider-product-card__media {
+  position: relative;
+  width: 100%;
+
+  aspect-ratio: var(
+    --child-aspect-ratio,
+    var(--slider-aspect-ratio, 1 / 1)
+  );
+
+  overflow: hidden;
+
+  border-radius: var(
+    --child-image-radius,
+    var(--slider-image-radius, 12px)
+  );
+}
+
+
+.custom-slider-product-card__image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.custom-slider-product-card__image {
+  width: 100%;
+  height: 100%;
+
+  aspect-ratio: var(
+    --child-aspect-ratio,
+    var(--slider-aspect-ratio, 1 / 1)
+  );
+
+  object-fit: var(
+    --child-image-fit,
+    var(--slider-image-fit, cover)
+  );
+
+  border-radius: var(
+    --child-image-radius,
+    var(--slider-image-radius, 12px)
+  );
+
+  display: block;
+
+  transition:
+    opacity .35s ease,
+    transform .4s ease;
+}
+
+
+.custom-slider-product-card__image--secondary {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0;
+}
+
+
+.custom-slider-product-card__media:hover
+.custom-slider-product-card__image--primary {
+
+  {% if show_hover_image and second_image != blank %}
+    opacity: 0;
+  {% endif %}
+
+}
+
+
+.custom-slider-product-card__media:hover
+.custom-slider-product-card__image--secondary {
+
+  {% if show_hover_image and second_image != blank %}
+    opacity: 1;
+  {% endif %}
+
+}
+
+
+.custom-slider-product-card__image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+.custom-slider-product-card__image-placeholder {
+  width: 100%;
+  height: 100%;
+
+  aspect-ratio: var(
+    --child-aspect-ratio,
+    var(--slider-aspect-ratio, 1 / 1)
+  );
+
+  overflow: hidden;
+}
+
+
+.custom-slider-product-card__image-placeholder svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.custom-slider-product-card__badges {
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  z-index: 5;
+}
+
+
+.custom-slider-product-card__badge {
+  display: inline-flex;
+  align-items: center;
+
+  width: fit-content;
+
+  padding: 5px 9px;
+
+  font-size: 12px;
+  line-height: 1;
+
+  border-radius: 4px;
+
+  background: {{ block.settings.badge_background | default: '#000000' }};
+  color: {{ block.settings.badge_color | default: '#ffffff' }};
+}
+
+
+.custom-slider-product-card__badge--sale {
+  background: {{ block.settings.sale_badge_background | default: '#d32f2f' }};
+}
+
+
+.custom-slider-product-card__badge--sold-out {
+  background: {{ block.settings.sold_out_badge_background | default: '#555555' }};
+}
+
+
+/* =====================================================
+   WISHLIST
+===================================================== */
+
+.custom-slider-product-card__wishlist {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  z-index: 6;
+
+  width: 38px;
+  height: 38px;
+
+  padding: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  background: {{ block.settings.wishlist_background | default: '#ffffff' }};
+  color: {{ block.settings.wishlist_color | default: '#111111' }};
+
+  transition:
+    background .25s ease,
+    color .25s ease,
+    transform .25s ease;
+}
+
+
+.custom-slider-product-card__wishlist:hover {
+  background: {{ block.settings.wishlist_hover_background | default: '#111111' }};
+  color: {{ block.settings.wishlist_hover_color | default: '#ffffff' }};
+
+  transform: scale(1.05);
+}
+
+
+.custom-slider-product-card__wishlist.is-active {
+  background: {{ block.settings.wishlist_active_background | default: '#111111' }};
+  color: {{ block.settings.wishlist_active_color | default: '#ffffff' }};
+}
+
+
+.custom-slider-product-card__wishlist-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+/* =====================================================
+   QUICK BUTTON
+===================================================== */
+
+.custom-slider-product-card__quick-button {
+  position: absolute;
+
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 14px;
+
+  text-decoration: none;
+
+  font-size: 13px;
+  line-height: 1.2;
+
+  background: {{ block.settings.quick_button_background | default: '#ffffff' }};
+  color: {{ block.settings.quick_button_color | default: '#111111' }};
+
+  border-radius: 6px;
+
+  opacity: 0;
+  transform: translateY(8px);
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+}
+
+
+.custom-slider-product-card__media:hover
+.custom-slider-product-card__quick-button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.custom-slider-product-card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  padding: {{ block.settings.card_content_spacing | default: 16 }}px;
+}
+
+
+.custom-slider-product-card__vendor {
+  margin-bottom: 6px;
+
+  font-size: 12px;
+  line-height: 1.3;
+
+  color: {{ block.settings.vendor_color | default: '#777777' }};
+}
+
+
+.custom-slider-product-card__title {
+  margin: 0 0 8px;
+
+  font-size: {{ block.settings.title_size | default: 18 }}px;
+  line-height: 1.3;
+
+  font-weight: 600;
+}
+
+
+.custom-slider-product-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+.custom-slider-product-card__title a:hover {
+  text-decoration: underline;
+}
+
+
+.custom-slider-product-card__description {
+  margin-bottom: 10px;
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  color: {{ block.settings.description_color | default: '#666666' }};
+}
+
+
+.custom-slider-product-card__price {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-bottom: 14px;
+
+  line-height: 1.3;
+}
+
+
+.custom-slider-product-card__current-price {
+  font-size: {{ block.settings.price_size | default: 17 }}px;
+  font-weight: 600;
+
+  color: {{ block.settings.price_color | default: '#111111' }};
+}
+
+
+.custom-slider-product-card__compare-price {
+  font-size: 14px;
+
+  color: {{ block.settings.compare_price_color | default: '#888888' }};
+
+  text-decoration: line-through;
+}
+
+
+/* =====================================================
+   ADD TO CART
+===================================================== */
+
+.custom-slider-product-card__actions {
+  width: 100%;
+}
+
+
+.custom-slider-product-card__product-form,
+.custom-slider-product-card__form {
+  width: 100%;
+}
+
+
+.custom-slider-product-card__button {
+  width: 100%;
+
+  min-height: 44px;
+
+  padding: 10px 16px;
+
+  border: 0;
+  border-radius: {{ block.settings.button_radius | default: 6 }}px;
+
+  background: {{ block.settings.button_background | default: '#111111' }};
+  color: {{ block.settings.button_color | default: '#ffffff' }};
+
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background .25s ease,
+    color .25s ease;
+}
+
+
+.custom-slider-product-card__button:hover {
+  background: {{ block.settings.button_hover_background | default: '#333333' }};
+  color: {{ block.settings.button_hover_color | default: '#ffffff' }};
+}
+
+
+.custom-slider-product-card__button--disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+
+/* =====================================================
+   INVENTORY
+===================================================== */
+
+.custom-slider-product-card__inventory {
+  width: 100%;
+
+  margin-top: 8px;
+
+  font-size: 12px;
+  line-height: 1.3;
+
+  color: {{ block.settings.inventory_color | default: '#4a7c59' }};
+}
+
+
+/* =====================================================
+   ACCESSIBILITY
+===================================================== */
+
+.custom-slider-product-card .visually-hidden {
+  position: absolute !important;
+
+  width: 1px !important;
+  height: 1px !important;
+
+  padding: 0 !important;
+  margin: -1px !important;
+
+  overflow: hidden !important;
+
+  clip: rect(0, 0, 0, 0) !important;
+
+  white-space: nowrap !important;
+
+  border: 0 !important;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media screen and (max-width: 749px) {
+
+  .custom-slider-product-card__content {
+    padding: {{ block.settings.mobile_content_spacing | default: 12 }}px;
+  }
+
+  .custom-slider-product-card__title {
+    font-size: {{ block.settings.mobile_title_size | default: 16 }}px;
+  }
+
+  .custom-slider-product-card__current-price {
+    font-size: {{ block.settings.mobile_price_size | default: 16 }}px;
+  }
+
+  .custom-slider-product-card__quick-button {
+    opacity: 1;
+    transform: none;
+  }
+
+}
+
+</style>
+
+
+<script>
+(function() {
+
+  const productCard = document.querySelector(
+    '[data-product-id="{{ product.id }}"]'
+  );
+
+  if (!productCard) return;
+
+  const wishlistButton = productCard.querySelector(
+    '[data-wishlist-button]'
+  );
+
+  if (!wishlistButton) return;
+
+
+  /*
+   * ================================================
+   * SIMPLE LOCAL STORAGE WISHLIST
+   * ================================================
+   *
+   * This intentionally does not depend on a third-party
+   * wishlist app.
+   *
+   * Later we can replace this with:
+   *
+   * - Shopify customer account wishlist
+   * - Wishlist app integration
+   * - Metaobject-based wishlist
+   * - Custom AJAX wishlist
+   *
+   * without changing the product card structure.
+   */
+
+  const storageKey = 'custom_slider_wishlist';
+
+  function getWishlist() {
+
+    try {
+
+      return JSON.parse(
+        localStorage.getItem(storageKey)
+      ) || [];
+
+    } catch (error) {
+
+      return [];
+
+    }
+
+  }
+
+
+  function saveWishlist(items) {
+
+    try {
+
+      localStorage.setItem(
+        storageKey,
+        JSON.stringify(items)
+      );
+
+    } catch (error) {
+
+      console.warn(
+        'Wishlist could not be saved.',
+        error
+      );
+
+    }
+
+  }
+
+
+  function updateWishlistState() {
+
+    const wishlist = getWishlist();
+
+    const productId = String(
+      wishlistButton.dataset.productId
+    );
+
+    const isActive = wishlist.includes(productId);
+
+    wishlistButton.classList.toggle(
+      'is-active',
+      isActive
+    );
+
+    wishlistButton.setAttribute(
+      'aria-pressed',
+      isActive ? 'true' : 'false'
+    );
+
+  }
+
+
+  wishlistButton.addEventListener(
+    'click',
+    function() {
+
+      const wishlist = getWishlist();
+
+      const productId = String(
+        wishlistButton.dataset.productId
+      );
+
+      const existingIndex =
+        wishlist.indexOf(productId);
+
+
+      if (existingIndex === -1) {
+
+        wishlist.push(productId);
+
+      } else {
+
+        wishlist.splice(
+          existingIndex,
+          1
+        );
+
+      }
+
+
+      saveWishlist(wishlist);
+
+      updateWishlistState();
+
+    }
+  );
+
+
+  updateWishlistState();
+
+})();
+</script>
