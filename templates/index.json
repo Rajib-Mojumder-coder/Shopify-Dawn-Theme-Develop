@@ -254,7 +254,41 @@
             "nav_gap": 30,
             "nav_outside_offset": 60
           },
-          "blocks": {}
+          "blocks": {
+            "collection_product_list_Q4BH7Y": {
+              "type": "collection-product-list",
+              "name": "Collection Product list",
+              "settings": {
+                "content_type": "products",
+                "collection_source": "selected",
+                "collections": [],
+                "collection_limit": 12,
+                "product_source": "selected",
+                "products": [],
+                "product_collection": "",
+                "product_collections": [],
+                "product_limit": 12,
+                "products_per_collection": 4,
+                "show_image": true,
+                "image_link": true,
+                "show_badge": true,
+                "show_wishlist": true,
+                "show_vendor": false,
+                "show_title": true,
+                "show_description": false,
+                "show_price": true,
+                "show_compare_price": true,
+                "show_button": true,
+                "button_text": "Add to Cart",
+                "button_style": "solid",
+                "card_alignment": "left"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "collection_product_list_Q4BH7Y"
+          ]
         },
         "custom_slider_XdCpjp": {
           "type": "custom-slider",
