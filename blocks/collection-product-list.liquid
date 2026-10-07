@@ -388,13 +388,19 @@ assign button_style = block.settings.button_style
     transform: scale(1.03);
   }
 
-  .custom-slider-collection-card__image-placeholder {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: var(--slider-aspect-ratio, 1 / 1);
-    border-radius: var(--slider-image-radius, 12px);
-    overflow: hidden;
-  }
+ .custom-slider-collection-card__image-placeholder {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--slider-aspect-ratio, 1 / 1);
+  overflow: hidden;
+
+  border-radius:
+    var(--slider-card-radius, 12px)
+    var(--slider-card-radius, 12px)
+    0
+    0;
+}
+
 
   .custom-slider-collection-card__image-placeholder svg {
     width: 100%;
