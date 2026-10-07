@@ -338,9 +338,15 @@ assign button_style = block.settings.button_style
     width: 100%;
     aspect-ratio: var(--slider-aspect-ratio, 1 / 1);
     overflow: hidden;
-    border-radius: var(--slider-image-radius, 12px);
     position: relative;
-  }
+
+    border-radius:
+      var(--slider-card-radius, 12px)
+      var(--slider-card-radius, 12px)
+      0
+      0;
+}
+
 
   .custom-slider-item__image {
     width: 100%;
