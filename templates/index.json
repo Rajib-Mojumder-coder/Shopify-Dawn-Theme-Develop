@@ -259,9 +259,17 @@
               "type": "collection-product-list",
               "name": "Collection Product List",
               "settings": {
-                "content_type": "products",
+                "content_type": "collections",
                 "collection_source": "selected",
-                "collections": [],
+                "collections": [
+                  "all-collections",
+                  "e-bikes",
+                  "e-bakfietsen",
+                  "e-racefietsen",
+                  "e-mountainbikes",
+                  "fietsbanden",
+                  "gravelbikes"
+                ],
                 "collection_limit": 12,
                 "product_source": "selected",
                 "products": [
