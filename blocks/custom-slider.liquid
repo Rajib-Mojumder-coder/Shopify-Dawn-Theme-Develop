@@ -620,6 +620,31 @@
   .custom-slider .swiper-slide{
     max-width: none;
   } 
+
+   .custom-slider-{{ block.id }} .custom-slider-product-card,
+  .custom-slider-{{ block.id }} .custom-slider-collection-card,
+  .custom-slider-{{ block.id }} .image-text-slider {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .custom-slider-{{ block.id }} .custom-slider-card__title {
+    font-size: 15px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .custom-slider-{{ block.id }} .custom-slider-card__description {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .custom-slider-{{ block.id }} .custom-slider-card__button {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
 }
 
 
