@@ -202,6 +202,13 @@
   align-items: stretch;
 }
 
+.custom-slider-{{ block.id }}:not(.slider-disabled) .swiper-slide {
+  height: auto;
+  min-width: 0;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
 .slider-{{ block.id }}{
   display: flex;
   flex-direction: column;
