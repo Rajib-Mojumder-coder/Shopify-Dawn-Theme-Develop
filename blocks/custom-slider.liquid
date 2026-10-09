@@ -209,6 +209,16 @@
   flex-shrink: 0;
 }
 
+/* Shared card sizing */
+.custom-slider-{{ block.id }} .custom-slider-product-card,
+.custom-slider-{{ block.id }} .custom-slider-collection-card,
+.custom-slider-{{ block.id }} .image-text-slider {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 .slider-{{ block.id }}{
   display: flex;
   flex-direction: column;
