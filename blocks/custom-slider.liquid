@@ -249,17 +249,14 @@
 /* Media wrappers */
 
 .custom-slider-{{ block.id }} .custom-slider-collection-card__media,
-.custom-slider-{{ block.id }} .custom-slider-product-card__media {
+.custom-slider-{{ block.id }} .custom-slider-product-card__media,
+.custom-slider-{{ block.id }} .image-text-slider__image-wrapper {
   width: 100%;
   aspect-ratio: var(--slider-aspect-ratio);
   overflow: hidden;
   position: relative;
 
-  border-radius:
-    var(--slider-card-radius)
-    var(--slider-card-radius)
-    0
-    0;
+  border-radius: var(--slider-card-radius) var(--slider-card-radius) 0 0;
 }
 
 
