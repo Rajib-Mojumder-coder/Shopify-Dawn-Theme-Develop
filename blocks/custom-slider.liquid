@@ -229,9 +229,14 @@
   box-sizing: border-box;
 }
 
-.slider-{{ block.id }}{
-  display: flex;
-  flex-direction: column;
+/* Keep the Swiper element from expanding as a flex item */
+.custom-slider-{{ block.id }} > .swiper {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: 0 1 auto;
+  box-sizing: border-box;
 }
 
 /* =========================================
