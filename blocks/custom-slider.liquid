@@ -194,9 +194,11 @@
 }
 
 .custom-slider-{{ block.id }} {
+  display: block;
   width: 100%;
+  max-width: 100%;
   min-width: 0;
-  position: relative;
+  box-sizing: border-box;
 }
 
 .custom-slider-{{ block.id }} .swiper {
