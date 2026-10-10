@@ -173,7 +173,7 @@
 </div>
 
 <style>
-  #shopify-block-{{block.id}}{
+  /* #shopify-block-{{block.id}}{
     width: 100%;
     position: relative;
     max-width: 100%;
@@ -183,6 +183,13 @@
 
 .custom-slider-{{ block.id }} {
   display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+} */
+#shopify-block-{{ block.id }},
+.custom-slider-{{ block.id }} {
   width: 100%;
   max-width: 100%;
   min-width: 0;
