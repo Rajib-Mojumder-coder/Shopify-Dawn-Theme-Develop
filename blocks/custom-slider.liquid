@@ -1233,7 +1233,8 @@ document.addEventListener('DOMContentLoaded', function () {
       "type": "checkbox",
       "id": "partial_slider",
       "label": "Enable Partial Slides",
-      "default": false
+      "default": false,
+      "visible_if": "{{ block.settings.enable_slider == true }}"
     },
      {
       "type": "range",
