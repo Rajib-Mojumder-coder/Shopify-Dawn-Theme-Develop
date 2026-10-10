@@ -1541,7 +1541,8 @@ document.addEventListener('DOMContentLoaded', function () {
       "type": "checkbox",
       "id": "show_navigation_mobile",
       "label": "Mobile Navigation",
-      "default": false
+      "default": false,
+      "visible_if": "{{ block.settings.enable_slider }}"
     },
     {
       "type": "range",
