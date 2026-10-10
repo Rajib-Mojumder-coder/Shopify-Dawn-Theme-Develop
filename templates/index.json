@@ -238,7 +238,7 @@
             "mousewheel": false,
             "grab_cursor": true,
             "auto_height": false,
-            "show_navigation": true,
+            "show_navigation": false,
             "icon_type": "theme_arrow",
             "stroke_width": 2,
             "prev_svg": "",
