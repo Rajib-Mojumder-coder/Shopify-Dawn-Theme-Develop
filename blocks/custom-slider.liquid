@@ -201,12 +201,12 @@
   overflow:visible;
 }
 
-
 .custom-slider-{{ block.id }} .swiper {
+  display: block;
   width: 100%;
+  max-width: 100%;
   min-width: 0;
-  height: auto;
-  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .custom-slider-{{ block.id }} .swiper-wrapper {
