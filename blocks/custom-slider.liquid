@@ -672,18 +672,19 @@
     max-width: 100%;
     min-width: 0;
   }
-  
-   #shopify-block-{{ block.id }},
-  .custom-slider-{{ block.id }},
+
   .custom-slider-{{ block.id }} .swiper {
     width: 100%;
     max-width: 100%;
     min-width: 0;
+    overflow: hidden;
   }
 
-  .custom-slider .swiper-slide{
+  .custom-slider-{{ block.id }}:not(.slider-disabled) .swiper-slide {
+    min-width: 0;
     max-width: none;
-  } 
+    box-sizing: border-box;
+  }
 
   .custom-slider-{{ block.id }} .custom-slider-product-card,
   .custom-slider-{{ block.id }} .custom-slider-collection-card,
