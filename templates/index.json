@@ -200,8 +200,8 @@
           "name": "Custom Slider",
           "settings": {
             "enable_slider": false,
-            "content_position": false,
-            "content_vertical": "default",
+            "content_position": true,
+            "content_vertical": "middle",
             "overlay_spacing": 10,
             "content_horizontal": "center",
             "aspect_ratio": "landscape-4-3",
