@@ -1312,9 +1312,9 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     {
       "type": "header",
-      "content": "Slider Settings"
+      "content": "Slider Settings",
+      "visible_if": "{{ block.settings.enable_slider }}"
     },
-    
     {
       "type": "checkbox",
       "id": "reverse_direction",
@@ -1322,12 +1322,12 @@ document.addEventListener('DOMContentLoaded', function () {
       "default": false,
       "visible_if": "{{ block.settings.enable_slider }}"
     },
-   
     {
       "type": "checkbox",
       "id": "center_mode",
       "label": "Enable Center Mode",
-      "default": false
+      "default": false,
+      "visible_if": "{{ block.settings.enable_slider }}"
     },
     {
       "type": "range",
@@ -1338,7 +1338,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "step": 5,
       "default": 115,
       "unit": "%",
-      "visible_if": "{{ block.settings.center_mode }}"
+      "visible_if": "{{ block.settings.enable_slider and block.settings.center_mode }}"
     },
     {
       "type": "select",
