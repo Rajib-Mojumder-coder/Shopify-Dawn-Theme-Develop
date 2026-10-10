@@ -365,7 +365,7 @@
           "name": "Custom Slider",
           "settings": {
             "enable_slider": true,
-            "content_position": true,
+            "content_position": false,
             "content_vertical": "default",
             "overlay_spacing": 10,
             "content_horizontal": "center",
