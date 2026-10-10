@@ -79,9 +79,13 @@
   endcase
  %}
 
- {% assign mobile_view = block.settings.mobile_slides %}
+{% assign mobile_view = block.settings.mobile_slides %}
 {% assign tablet_view = block.settings.tablet_slides %}
 {% assign desktop_view = block.settings.desktop_slides %}
+
+{% assign mobile_grid_columns = mobile_view %}
+{% assign tablet_grid_columns = tablet_view %}
+{% assign desktop_grid_columns = desktop_view %}
 
 {% if block.settings.partial_slider %}
   {% assign mobile_view = mobile_view | plus: block.settings.mobile_partial_amount %}
@@ -706,36 +710,36 @@
 /* Slider OFF হলে Grid বানানো */
 {% unless block.settings.enable_slider %}
 
-.custom-slider-{{ block.id }} .swiper {
+.custom-slider-{{ block.id }}.slider-disabled .swiper {
   overflow: visible;
 }
 
-.custom-slider-{{ block.id }} .swiper-wrapper {
+.custom-slider-{{ block.id }}.slider-disabled .swiper-wrapper {
   display: grid;
-  grid-template-columns: repeat({{ desktop_view }}, minmax(0, 1fr));
+  grid-template-columns: repeat({{ desktop_grid_columns }}, minmax(0, 1fr));
   gap: 40px;
+  width: 100%;
   transform: none !important;
 }
 
-.custom-slider-{{ block.id }} .swiper-slide {
+.custom-slider-{{ block.id }}.slider-disabled .swiper-slide {
   width: auto !important;
-  margin: 0 !important;
-
-  height: auto;
+  max-width: 100% !important;
   min-width: 0;
+  margin: 0 !important;
   box-sizing: border-box;
 }
 
 @media screen and (max-width: 1023px) {
-  .custom-slider-{{ block.id }} .swiper-wrapper {
-    grid-template-columns: repeat({{ tablet_view }}, minmax(0, 1fr));
+  .custom-slider-{{ block.id }}.slider-disabled .swiper-wrapper {
+    grid-template-columns: repeat({{ tablet_grid_columns }}, minmax(0, 1fr));
     gap: 30px;
   }
 }
 
 @media screen and (max-width: 749px) {
-  .custom-slider-{{ block.id }} .swiper-wrapper {
-    grid-template-columns: repeat({{ mobile_view }}, minmax(0, 1fr));
+  .custom-slider-{{ block.id }}.slider-disabled .swiper-wrapper {
+    grid-template-columns: repeat({{ mobile_grid_columns }}, minmax(0, 1fr));
     gap: 20px;
   }
 }
