@@ -647,9 +647,16 @@
   }
 }
 
-/*Slider Responsivenes*/
 @media screen and (max-width: 749px) {
 
+/*Slider Responsivenes*/
+   #shopify-block-{{ block.id }},
+  .custom-slider-{{ block.id }},
+  .custom-slider-{{ block.id }} .swiper {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
 
   .custom-slider .swiper-slide{
     max-width: none;
