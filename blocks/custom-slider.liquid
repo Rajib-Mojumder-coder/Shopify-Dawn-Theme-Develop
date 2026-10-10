@@ -680,11 +680,11 @@
     overflow: hidden;
   } 
 
-  /* .custom-slider-{{ block.id }}:not(.slider-disabled) .swiper-slide {
+  .custom-slider-{{ block.id }}:not(.slider-disabled) .swiper-slide {
     min-width: 0;
     max-width: none;
     box-sizing: border-box;
-  } */
+  } 
 
   .custom-slider-{{ block.id }} .custom-slider-product-card,
   .custom-slider-{{ block.id }} .custom-slider-collection-card,
@@ -952,7 +952,7 @@ document.addEventListener('DOMContentLoaded', function () {
       observer: true,
       observeParents: true,
       resizeObserver: true,
-      
+
       pagination: {
         el: pagination,
         clickable: true
