@@ -206,6 +206,16 @@
   box-sizing: border-box;
 }
 
+/* Keep the Swiper element from expanding as a flex item */
+/* .custom-slider-{{ block.id }} > .swiper {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: 0 1 auto;
+  box-sizing: border-box;
+} */
+
 /* Shared card sizing */
 .custom-slider-{{ block.id }} .custom-slider-product-card,
 .custom-slider-{{ block.id }} .custom-slider-collection-card,
@@ -217,15 +227,6 @@
   padding: 10px;
 }
 
-/* Keep the Swiper element from expanding as a flex item */
-/* .custom-slider-{{ block.id }} > .swiper {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  flex: 0 1 auto;
-  box-sizing: border-box;
-} */
 
 /* =========================================
    SHARED CHILD IMAGE / CARD CONTROL
@@ -237,16 +238,7 @@
   --child-image-fit: var(--slider-image-fit);
   --child-aspect-ratio: var(--slider-aspect-ratio);
 }
-/* Image / media area */
 
-.custom-slider-{{ block.id }} .custom-slider-item__image {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: var(--child-aspect-ratio);
-  object-fit: var(--child-image-fit);
-  border-radius: var(--child-image-radius);
-  display: block;
-}
 /* Media wrappers */
 
 .custom-slider-{{ block.id }} .custom-slider-collection-card__media,
@@ -268,6 +260,18 @@
   height: 100%;
   object-fit: var(--slider-image-fit, cover);
 }
+
+/* Image / media area */
+
+.custom-slider-{{ block.id }} .custom-slider-item__image {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--child-aspect-ratio);
+  object-fit: var(--child-image-fit);
+  border-radius: var(--child-image-radius);
+  display: block;
+}
+
 
 /* ========  MEDIA ========== */
 .custom-slider img,
