@@ -470,17 +470,13 @@
 }
 
 
-.custom-slider-product-card__swatches {
+.custom-slider-{{ block.id }} .custom-slider-product-card__swatches {
   position: absolute;
-  z-index: 7;
+  z-index: 5;
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 7px;
-  max-width: calc(100% - 20px);
-  padding: 5px;
-  border-radius: 20px;
-  background: rgb(255 255 255 / 85%);
+  gap: 6px;
+  max-width: calc(100% - 60px);
 }
 
 .custom-slider-product-card__swatches--top-left {
