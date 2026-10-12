@@ -931,6 +931,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     const swiper = new Swiper(sliderElement, {
+       // Use browser/iframe viewport breakpoints
+      breakpointsBase: 'window',
 
       loop: {{ loop }},
       rewind: {{ rewind }},
