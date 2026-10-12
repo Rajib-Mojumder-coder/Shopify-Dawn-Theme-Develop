@@ -937,7 +937,17 @@ document.addEventListener('DOMContentLoaded', function () {
       slidesPerView: {{ mobile_view }},
       spaceBetween: 20,
 
-      
+       breakpoints: {
+        750: {
+          slidesPerView: {{ tablet_view }},
+          spaceBetween: 30
+        },
+
+        1024: {
+          slidesPerView: {{ desktop_view }},
+          spaceBetween: 40
+        }
+      },
 
       loop: {{ loop }},
       rewind: {{ rewind }},
