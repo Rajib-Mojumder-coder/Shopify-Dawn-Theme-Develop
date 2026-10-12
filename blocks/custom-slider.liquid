@@ -912,7 +912,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!sliderElement) return;
 
-
   {% if enable_slider %}
 
     const nextButton =
@@ -934,17 +933,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const swiper = new Swiper(sliderElement, {
 
       loop: {{ loop }},
-
       rewind: {{ rewind }},
-
       freeMode: {{ free_mode }},
-
       allowTouchMove: {{ touch_swipe }},
-
       centeredSlides: {{ center_mode }},
-
       grabCursor: {{ grab_cursor }},
-
 
       keyboard: {
         enabled: {{ keyboard }}
