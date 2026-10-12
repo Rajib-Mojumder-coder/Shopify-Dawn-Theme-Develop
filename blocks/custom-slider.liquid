@@ -912,6 +912,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!sliderElement) return;
 
+
   {% if enable_slider %}
 
     const nextButton =
@@ -931,47 +932,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     const swiper = new Swiper(sliderElement, {
-       // Use browser/iframe viewport breakpoints
-      // breakpointsBase: 'window',
-
-      slidesPerView: {{ mobile_view }},
-      spaceBetween: 20,
-
-       breakpoints: {
-        750: {
-          slidesPerView: {{ tablet_view }},
-          spaceBetween: 30
-        },
-
-        1024: {
-          slidesPerView: {{ desktop_view }},
-          spaceBetween: 40
-        }
-      },
-
-      watchOverflow: true,
-      observer: true,
-      observeParents: true,
-      resizeObserver: true
 
       loop: {{ loop }},
+
       rewind: {{ rewind }},
+
       freeMode: {{ free_mode }},
+
       allowTouchMove: {{ touch_swipe }},
+
       centeredSlides: {{ center_mode }},
+
       grabCursor: {{ grab_cursor }},
+
 
       keyboard: {
         enabled: {{ keyboard }}
       },
 
+
       mousewheel: {{ mousewheel }},
+
       autoHeight: {{ auto_height }},
+
       effect: "{{ effect }}",
 
 
       preloadImages: false,
+
       lazy: true,
+
 
       autoplay:
 
@@ -979,8 +969,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
           {
             delay: {{ autoplay_speed }},
+
             pauseOnMouseEnter: {{ pause_on_hover }},
+
             reverseDirection: {{ reverse_direction }},
+
             disableOnInteraction:
               {{ disable_on_interaction | json }}
           }
@@ -993,7 +986,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
       speed: {{ autoplay_speed }},
-           
+
+      slidesPerView: {{ mobile_view }},
+      spaceBetween: 20,
+     
+      watchOverflow: true,
+      observer: true,
+      observeParents: true,
+      resizeObserver: true,
+
       pagination: {
         el: pagination,
         clickable: true
@@ -1004,6 +1005,21 @@ document.addEventListener('DOMContentLoaded', function () {
         nextEl: nextButton,
         prevEl: prevButton
       },
+
+
+      breakpoints: {
+        750: {
+          slidesPerView: {{ tablet_view }},
+          spaceBetween: 30
+        },
+
+
+        1024: {
+          slidesPerView: {{ desktop_view }},
+          spaceBetween: 40
+        }
+
+      }
 
     });
 
@@ -1019,7 +1035,9 @@ document.addEventListener('DOMContentLoaded', function () {
       nextButton.addEventListener(
         'click',
         function () {
+
           swiper.slideNext();
+
         }
       );
 
@@ -1031,7 +1049,9 @@ document.addEventListener('DOMContentLoaded', function () {
       prevButton.addEventListener(
         'click',
         function () {
+
           swiper.slidePrev();
+
         }
       );
 
