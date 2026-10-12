@@ -1,0 +1,119 @@
+/* =========================================================
+   PRODUCT DETAILS
+   ========================================================= */
+
+.product-final__information {
+  width: 100%;
+}
+
+
+/* =========================================================
+   DETAILS INNER
+   ========================================================= */
+
+.product-final__information-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   STICKY
+   ========================================================= */
+
+@media screen and (min-width: 990px) {
+
+  .product-final__information-inner--sticky {
+    position: sticky;
+    top: 30px;
+  }
+
+}
+
+
+/* =========================================================
+   DETAILS CONTENT
+   ========================================================= */
+
+.product-final__details-content {
+  width: 100%;
+  max-width: var(--details-content-width);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--details-item-gap);
+}
+
+
+/* =========================================================
+   CONTENT WIDTH
+   ========================================================= */
+
+.product-final__information-inner--full
+.product-final__details-content {
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   TEXT ALIGNMENT
+   ========================================================= */
+
+.product-final__information-inner--align-left {
+  text-align: left;
+}
+
+.product-final__information-inner--align-center {
+  text-align: center;
+}
+
+.product-final__information-inner--align-right {
+  text-align: right;
+}
+
+
+/* =========================================================
+   VERTICAL ALIGNMENT
+   ========================================================= */
+
+.product-final__information-inner--valign-start {
+  justify-content: flex-start;
+}
+
+.product-final__information-inner--valign-center {
+  justify-content: center;
+}
+
+.product-final__information-inner--valign-end {
+  justify-content: flex-end;
+}
+
+
+/* =========================================================
+   PRODUCT FORM
+   ========================================================= */
+
+.product-final__info-content,
+.product-final__info-content .product-form,
+.product-final__info-content .custom-product-form__form {
+  width: 100%;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 989px) {
+
+  .product-final__information-inner--sticky {
+    position: static;
+  }
+
+  .product-final__details-content {
+    max-width: 100%;
+  }
+
+}

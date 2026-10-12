@@ -1,0 +1,304 @@
+{{ 'section-main-product-final.css' | asset_url | stylesheet_tag }}
+{{ 'custom-product-section.css' | asset_url | stylesheet_tag }}
+{{ 'product-media-gallery-global.css' | asset_url | stylesheet_tag }}
+{{ 'product-details.css' | asset_url | stylesheet_tag }}
+{{ 'product-quantity.css' | asset_url | stylesheet_tag }}
+
+{%  liquid  
+    assign breadcrumb_bottom_spacing = section.settings.breadcrumb_bottom_spacing
+    assign column_gap = section.settings.column_gap
+    assign product_media_position = section.settings.product_media_position 
+    assign column_ratio = section.settings.column_ratio
+    assign section_padding_top = section.settings.padding_top
+    assign section_padding_bottom = section.settings.padding_bottom
+
+    if section.settings.layout_size == 'full'
+      assign layout_width = '100%'
+    elsif section.settings.page_width == 'custom'
+      assign layout_width = section.settings.custom_page_width | append: 'px'
+    endif
+%}
+
+<product-info  id="MainProduct-{{ section.id }}" class="product-final color-{{ section.settings.color_scheme }} gradient"
+data-section="{{ section.id }}" data-product-id="{{ product.id }}" data-update-url="true" data-url="{{ product.url }}">
+
+  
+  <style>
+    #MainProduct-{{ section.id }} {
+     --page-layout-width: {{ layout_width }};
+     --breadcrumb_bottom_spacing: {{ breadcrumb_bottom_spacing }}px;
+     --section_padding_top: {{ section_padding_top }}px;
+     --section_padding_bottom: {{ section_padding_bottom }}px;
+     --product-final-column-gap: {{ column_gap }}px;
+
+     {% if section.settings.use_custom_colors %}
+       --product-background: {{ section.settings.background_color }};
+       --product-text: {{ section.settings.text_color }};
+       --product-heading: {{ section.settings.heading_color }};
+       --product-accent: {{ section.settings.accent_color }};
+       --product-border: {{ section.settings.border_color }};
+     {% else %}
+       --product-background: rgb(var(--color-background));
+       --product-text: rgb(var(--color-foreground));
+       --product-heading: rgb(var(--color-foreground));
+       --product-accent: rgb(var(--color-foreground));
+       --product-border: rgb(var(--color-foreground));
+     {% endif %}
+
+     background-color: var(--product-background);
+     color: var(--product-text);
+    }
+  </style>
+
+  <div class="product-final__inner{% if section.settings.layout_size == 'page' and section.settings.page_width == 'default' %} page-width{% endif %}">
+    
+    {% if section.settings.show_breadcrumb %}
+      <div class="product-final__breadcrumb">
+        {% render 'product-final-breadcrumb' %}
+      </div>
+    {% endif %}
+  
+   <div class="product-final__layout product-final__layout--{{ product_media_position }}
+        product-final__layout--{{ column_ratio }}">
+
+       <div class="product-final__media-block">
+          {% content_for 'block', type: 'product-media', id: 'product-media' %}
+      </div>
+
+      <div class="product-final__details-block">
+          {% content_for 'block', type: 'product-details', id: 'product-details' %}
+      </div>
+      
+    </div>
+
+
+  </div>
+
+</product-info>
+
+<script src="{{ 'custom-product-info.js' | asset_url }}" defer></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer></script>
+<script src="{{ 'custom-product-form.js' | asset_url }}" defer></script>
+<script src="{{ 'custom-product-variant-picker.js' | asset_url }}" defer></script>
+<script src="{{ 'custom-product-variant-engine.js' | asset_url }}" defer></script>
+<script src="{{ 'product-price.js' | asset_url }}" defer></script>
+<script src="{{ 'product-media-gallery-global.js' | asset_url }}" defer></script>
+<script src="{{ 'product-quantity.js' | asset_url }}" defer></script>
+<script src="{{ 'product-buy-buttons.js' | asset_url }}" defer></script>
+<script src="{{ 'product-offer.js' | asset_url }}" defer="defer"></script>
+
+{%  schema  %}
+{
+  "name": "Product Information",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_size",
+      "label": "Width",
+      "options": [
+        { "label": "Page", "value": "page" },
+        { "label": "Full", "value": "full" }
+      ],
+      "default": "page"
+    },
+    {
+      "type": "select",
+      "id": "page_width",
+      "label": "Page width",
+      "options": [
+    { "label": "Theme default", "value": "default" },
+    { "label": "Custom", "value": "custom" }
+    ],
+     "default": "default",
+      "visible_if": "{{ section.settings.layout_size == 'page' }}"
+    },
+    {
+      "type": "range",
+      "id": "custom_page_width",
+      "label": "Custom page width",
+      "min": 800,
+      "max": 1800,
+      "step": 20,
+      "unit": "px", 
+      "default": 1200,
+      "visible_if": "{{ section.settings.layout_size == 'page' and section.settings.page_width == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "product_media_position",
+      "label": "Media position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "column_ratio",
+      "label": "Column ratio",
+      "options": [
+        {
+          "value": "equal",
+          "label": "Equal"
+        },
+        {
+          "value": "media-large",
+          "label": "Media large"
+        },
+        {
+          "value": "media-medium",
+          "label": "Media medium"
+        },
+        {
+          "value": "media-small",
+          "label": "Media small"
+        }
+      ],
+      "default": "media-large"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Sticky product information"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "label": "Enable sticky product information",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_cart",
+      "label": "Enable sticky add to cart",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "label": "Use custom colors",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#222222",
+      "visible_if": "{{ section.settings.use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#111111",
+      "visible_if": "{{ section.settings.use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.use_custom_colors }}"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#e5e5e5",
+      "visible_if": "{{ section.settings.use_custom_colors }}"
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumb"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show breadcrumb",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "breadcrumb_bottom_spacing",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product information"
+    }
+  ]
+}
+{% endschema %}
+

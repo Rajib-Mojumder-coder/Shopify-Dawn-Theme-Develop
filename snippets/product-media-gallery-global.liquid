@@ -1,0 +1,1271 @@
+{%- liquid
+  assign gallery_settings = gallery_settings | default: blank
+  assign gallery_block_id = gallery_block_id | default: section.id
+
+  assign gallery_layout = gallery_settings.gallery_layout | default: 'carousel'
+
+  assign desktop_pagination = gallery_settings.desktop_pagination
+  assign desktop_pagination_type = gallery_settings.desktop_pagination_type | default: 'dots'
+
+  assign mobile_pagination = gallery_settings.mobile_pagination
+  assign mobile_pagination_type = gallery_settings.mobile_pagination_type | default: 'dots'
+
+  assign desktop_navigation = gallery_settings.desktop_navigation
+  assign mobile_navigation = gallery_settings.mobile_navigation
+
+  assign navigation_position = gallery_settings.navigation_position | default: 'sides'
+
+  assign thumbnail_position = gallery_settings.thumbnail_desktop_position | default: 'bottom'
+
+  assign media_ratio = gallery_settings.media_ratio | default: 'auto'
+  assign media_fit = gallery_settings.media_fit | default: 'contain'
+
+  assign media_count = product.media.size
+
+  assign selected_variant = product.selected_or_first_available_variant
+  assign selected_media = selected_variant.featured_media
+
+  assign gallery_id = 'MediaGallery-' | append: gallery_block_id
+
+  assign thumbnail_desktop_width = gallery_settings.thumbnail_desktop_width | default: 50
+  assign thumbnail_mobile_width = gallery_settings.thumbnail_mobile_width | default: 30
+
+  assign thumbnail_radius = gallery_settings.thumbnail_corner_radius | default: 8
+  assign media_radius = gallery_settings.media_corner_radius | default: 16
+
+  assign grid_columns = gallery_settings.grid_column | default: 2
+  assign grid_gap = gallery_settings.grid_column_gap | default: 4
+
+  assign padding_top = gallery_settings.padding_top | default: 0
+  assign padding_bottom = gallery_settings.padding_bottom | default: 0
+  assign padding_left = gallery_settings.padding_left | default: 0
+  assign padding_right = gallery_settings.padding_right | default: 0
+
+  assign constrain_height = gallery_settings.constrain_to_screen_height
+  assign media_zoom_enabled = gallery_settings.enable_media_zoom
+  assign image_zoom = gallery_settings.image_zoom | default: 'none'
+
+
+  # ==========================================================
+  # DESKTOP NAVIGATION SETTINGS
+  # ==========================================================
+
+  assign desktop_nav_icon = gallery_settings.desktop_nav_icon | default: 'arrows'
+
+  assign desktop_nav_svg = gallery_settings.desktop_nav_svg | default: blank
+
+  assign desktop_nav_icon_size = gallery_settings.desktop_nav_icon_size | default: 24
+  assign desktop_nav_button_size = gallery_settings.desktop_nav_button_size | default: 42
+
+  assign desktop_nav_icon_color = gallery_settings.desktop_nav_icon_color | default: '#000000'
+  assign desktop_nav_background = gallery_settings.desktop_nav_background | default: '#ffffff'
+  assign desktop_nav_border_enable = gallery_settings.desktop_nav_border_enable
+  assign desktop_nav_border_width = gallery_settings.desktop_nav_border_width | default: 1
+  assign desktop_nav_border_color = gallery_settings.desktop_nav_border_color | default: '#DDDDDD'
+
+
+  # ==========================================================
+  # MOBILE NAVIGATION SETTINGS
+  # ==========================================================
+
+  assign mobile_nav_icon = gallery_settings.mobile_nav_icon | default: 'arrows'
+
+  assign mobile_nav_svg = gallery_settings.mobile_nav_svg | default: blank
+
+  assign mobile_nav_icon_size = gallery_settings.mobile_nav_icon_size | default: 22
+  assign mobile_nav_button_size = gallery_settings.mobile_nav_button_size | default: 36
+
+  assign mobile_nav_icon_color = gallery_settings.mobile_nav_icon_color | default: '#000000'
+  assign mobile_nav_background = gallery_settings.mobile_nav_background | default: '#ffffff'
+  assign mobile_nav_border_enable = gallery_settings.mobile_nav_border_enable
+  assign mobile_nav_border_width = gallery_settings.mobile_nav_border_width | default: 1
+  assign mobile_nav_border_color = gallery_settings.mobile_nav_border_color | default: '#DDDDDD'
+
+
+  # ==========================================================
+  # THUMBNAIL PAGINATION FORCES SIDE NAVIGATION
+  # ==========================================================
+
+  assign show_side_navigation = false
+
+  if navigation_position == 'sides'
+    assign show_side_navigation = true
+  endif
+
+  if desktop_pagination_type == 'thumbnails'
+    assign show_side_navigation = true
+  endif
+-%}
+
+
+<media-gallery id="{{ gallery_id }}"
+  data-product-id="{{ product.id }}"
+  class="custom-media-gallery
+    custom-media-gallery--{{ gallery_layout }}
+    custom-media-gallery--ratio-{{ media_ratio }}
+    custom-media-gallery--fit-{{ media_fit }}
+    custom-media-gallery--thumb-{{ thumbnail_position }}
+
+    {% if constrain_height %}
+      custom-media-gallery--constrain-height
+    {% endif %}
+
+    {% if gallery_settings.extend_media_to_screen_edge %}
+      custom-media-gallery--edge
+    {% endif %}
+  "
+
+  role="region"
+
+  aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
+
+  data-gallery-id="{{ gallery_block_id }}"
+  data-section-id="{{ section.id }}"
+  data-media-count="{{ media_count }}"
+
+  data-desktop-pagination="{{ desktop_pagination }}"
+  data-desktop-pagination-type="{{ desktop_pagination_type }}"
+
+  data-mobile-pagination="{{ mobile_pagination }}"
+  data-mobile-pagination-type="{{ mobile_pagination_type }}"
+
+  data-media-ratio="{{ media_ratio }}"
+  data-media-fit="{{ media_fit }}"
+
+  data-image-zoom="
+    {% if media_zoom_enabled %}
+      {{ image_zoom }}
+    {% else %}
+      none
+    {% endif %}
+  "
+
+  data-full-width-first="{{ gallery_settings.full_width_first_image }}"
+
+  data-desktop-slides="{{ gallery_settings.carousel_slides | default: '1' }}"
+  data-mobile-slides="{{ gallery_settings.mobile_slides | default: '1' }}"
+
+  data-desktop-navigation="{{ desktop_navigation }}"
+  data-mobile-navigation="{{ mobile_navigation }}"
+  data-navigation-position="{{ navigation_position }}"
+
+  style="
+    --desktop-nav-icon-size: {{ desktop_nav_icon_size }}px;
+    --desktop-nav-button-size: {{ desktop_nav_button_size }}px;
+    --desktop-nav-icon-color: {{ desktop_nav_icon_color }};
+    --desktop-nav-background: {% if desktop_nav_border_enable %} {{ desktop_nav_background }} {% else %} transparent {% endif %};
+    --desktop-nav-border-width: {{ desktop_nav_border_width }}px;
+    --desktop-nav-border-style: {% if desktop_nav_border_enable %} solid {% else %}  none {% endif %};
+    --desktop-nav-border-color: {{ desktop_nav_border_color }};
+
+    
+    --mobile-nav-icon-size: {{ mobile_nav_icon_size }}px;
+    --mobile-nav-button-size: {{ mobile_nav_button_size }}px;
+    --mobile-nav-icon-color: {{ mobile_nav_icon_color }};
+    --mobile-nav-background: {% if mobile_nav_border_enable %} {{ mobile_nav_background }} {% else %} transparent {% endif %};
+    --mobile-nav-border-width: {{ mobile_nav_border_width }}px;
+    --mobile-nav-border-style: {% if mobile_nav_border_enable %} solid {% else %}  none {% endif %};
+    --mobile-nav-border-color: {{ mobile_nav_border_color }};
+
+    --gallery-thumbnail-width: {{ thumbnail_desktop_width }}px;
+    --gallery-thumbnail-mobile-width: {{ thumbnail_mobile_width }}px;
+
+    --gallery-thumbnail-radius: {{ thumbnail_radius }}px;
+    --gallery-media-radius: {{ media_radius }}px;
+
+    --gallery-grid-columns: {{ grid_columns }};
+    --gallery-grid-gap: {{ grid_gap }}px;
+
+    --gallery-padding-top: {{ padding_top }}px;
+    --gallery-padding-bottom: {{ padding_bottom }}px;
+    --gallery-padding-left: {{ padding_left }}px;
+    --gallery-padding-right: {{ padding_right }}px;
+
+    --gallery-desktop-slides:
+      {{ gallery_settings.carousel_slides | default: 1 }};
+
+    --gallery-mobile-slides:
+      {{ gallery_settings.mobile_slides | default: 1 }};
+  "
+>
+
+
+  {%- comment -%}
+  ============================================================
+  MAIN GALLERY BODY
+  ============================================================
+  {%- endcomment -%}
+
+  <div class="custom-media-gallery__body">
+
+
+    {%- comment -%}
+    ============================================================
+    MAIN MEDIA
+    ============================================================
+    {%- endcomment -%}
+
+    <div class="custom-media-gallery__main">
+
+      <div class="custom-media-gallery__viewport">
+
+        <div class="custom-media-gallery__track">
+
+          {% for media in product.media %}
+
+            {%- liquid
+              assign is_active = false
+
+              if selected_media and media.id == selected_media.id
+                assign is_active = true
+              elsif selected_media == blank and forloop.first
+                assign is_active = true
+              endif
+            -%}
+
+
+            <div
+              class="
+                custom-media-gallery__slide
+                custom-media-gallery__slide--{{ media.media_type }}
+
+                {% if is_active %}
+                  is-active
+                {% endif %}
+              "
+
+              data-media-id="{{ media.id }}"
+              data-media-position="{{ forloop.index }}"
+
+              {% unless is_active %}
+                aria-hidden="true"
+              {% endunless %}
+            >
+
+              <div class="custom-media-gallery__media">
+
+
+                {% case media.media_type %}
+
+
+                  {% when 'image' %}
+
+                    {% if media_zoom_enabled and image_zoom == 'lightbox' %}
+
+                      <button
+                        type="button"
+                        class="custom-media-gallery__media-button"
+                        data-media-lightbox
+                        aria-label="Open image {{ forloop.index }}"
+                      >
+
+                        {{
+                          media
+                          | image_url: width: 2000
+                          | image_tag:
+                            class: 'custom-media-gallery__image',
+                            loading: 'lazy',
+                            widths: '375,550,750,1100,1500,2000',
+                            sizes: '(min-width: 990px) 60vw, 100vw'
+                        }}
+
+                      </button>
+
+                    {% else %}
+
+                      <div class="custom-media-gallery__image-wrapper">
+
+                        {{
+                          media
+                          | image_url: width: 2000
+                          | image_tag:
+                            class: 'custom-media-gallery__image',
+                            loading: 'lazy',
+                            widths: '375,550,750,1100,1500,2000',
+                            sizes: '(min-width: 990px) 60vw, 100vw'
+                        }}
+
+                      </div>
+
+                    {% endif %}
+
+
+                  {% when 'video' %}
+
+                    <div class="custom-media-gallery__video-wrapper">
+
+                      {{
+                        media
+                        | media_tag:
+                          image_size: '1500x',
+                          autoplay: false,
+                          loop: gallery_settings.enable_video_looping,
+                          controls: true,
+                          preload: 'metadata',
+                          class: 'custom-media-gallery__video'
+                      }}
+
+                    </div>
+
+
+                  {% when 'external_video' %}
+
+                    <div class="custom-media-gallery__external-video">
+
+                      {{
+                        media
+                        | external_video_tag:
+                          class: 'custom-media-gallery__external-video-player'
+                      }}
+
+                    </div>
+
+
+                  {% when 'model' %}
+
+                    <div class="custom-media-gallery__model">
+
+                      {{
+                        media
+                        | model_viewer_tag:
+                          image_size: '1500x',
+                          reveal: 'interaction',
+                          toggleable: true
+                      }}
+
+                    </div>
+
+
+                {% endcase %}
+
+              </div>
+
+            </div>
+
+          {% endfor %}
+
+        </div>
+
+
+        {%- comment -%}
+        ========================================================
+        DESKTOP + MOBILE SIDE NAVIGATION
+        ========================================================
+
+        Navigation is shown here when:
+
+        1. Navigation Position = Sides
+
+        OR
+
+        2. Desktop Pagination = Thumbnails
+
+        This means that if the user selects:
+        Desktop Pagination = Thumbnails
+        Navigation Position = Bottom
+
+        the navigation automatically remains over the media
+        instead of joining the thumbnail pagination row.
+        ========================================================
+        {%- endcomment -%}
+
+        {% if media_count > 1 and gallery_layout == 'carousel' %}
+
+            {% if navigation_position == 'sides'
+              or desktop_pagination_type == 'thumbnails'
+            %}
+
+              <div
+                class="
+                  custom-media-gallery__main-navigation
+                  custom-media-gallery__main-navigation--sides
+                "
+              >
+
+                {%- comment -%}
+                ==========================================================
+                DESKTOP PREVIOUS
+                ==========================================================
+                {%- endcomment -%}
+
+                {% if desktop_navigation %}
+
+                  <button
+                    type="button"
+                    class="
+                      custom-media-gallery__main-nav
+                      custom-media-gallery__main-nav--desktop
+                      custom-media-gallery__main-nav--prev
+                      custom-media-gallery__main-nav--{{ desktop_nav_icon }}
+                    "
+                    data-gallery-prev
+                    aria-label="Previous media"
+                  >
+
+                    {% if desktop_nav_icon == 'custom_svg_code'
+                      and desktop_nav_svg != blank
+                    %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon custom-media-gallery__nav-icon--custom"
+                        aria-hidden="true"
+                      >
+                        {{ desktop_nav_svg }}
+                      </span>
+
+                    {% elsif desktop_nav_icon == 'cheverons'
+                      or desktop_nav_icon == 'large_cheverons'
+                    %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon"
+                        aria-hidden="true"
+                      >‹</span>
+
+                    {% else %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon"
+                        aria-hidden="true"
+                      >←</span>
+
+                    {% endif %}
+
+                  </button>
+
+                {% endif %}
+
+
+                {%- comment -%}
+                ==========================================================
+                MOBILE PREVIOUS
+                ==========================================================
+                {%- endcomment -%}
+
+                {% if mobile_navigation %}
+
+                  <button
+                    type="button"
+                    class="
+                      custom-media-gallery__main-nav
+                      custom-media-gallery__main-nav--mobile
+                      custom-media-gallery__main-nav--prev
+                      custom-media-gallery__main-nav--{{ mobile_nav_icon }}
+                    "
+                    data-gallery-prev
+                    aria-label="Previous media"
+                  >
+
+                    {% if mobile_nav_icon == 'custom_svg_code'
+                      and mobile_nav_svg != blank
+                    %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon custom-media-gallery__nav-icon--custom"
+                        aria-hidden="true"
+                      >
+                        {{ mobile_nav_svg }}
+                      </span>
+
+                    {% elsif mobile_nav_icon == 'cheverons'
+                      or mobile_nav_icon == 'large_cheverons'
+                    %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon"
+                        aria-hidden="true"
+                      >‹</span>
+
+                    {% else %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon"
+                        aria-hidden="true"
+                      >←</span>
+
+                    {% endif %}
+
+                  </button>
+
+                {% endif %}
+
+
+                {%- comment -%}
+                ==========================================================
+                DESKTOP NEXT
+                ==========================================================
+                {%- endcomment -%}
+
+                {% if desktop_navigation %}
+
+                  <button
+                    type="button"
+                    class="
+                      custom-media-gallery__main-nav
+                      custom-media-gallery__main-nav--desktop
+                      custom-media-gallery__main-nav--next
+                      custom-media-gallery__main-nav--{{ desktop_nav_icon }}
+                    "
+                    data-gallery-next
+                    aria-label="Next media"
+                  >
+
+                    {% if desktop_nav_icon == 'custom_svg_code'
+                      and desktop_nav_svg != blank
+                    %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon custom-media-gallery__nav-icon--custom"
+                        aria-hidden="true"
+                      >
+                        {{ desktop_nav_svg }}
+                      </span>
+
+                    {% elsif desktop_nav_icon == 'cheverons'
+                      or desktop_nav_icon == 'large_cheverons'
+                    %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon"
+                        aria-hidden="true"
+                      >›</span>
+
+                    {% else %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon"
+                        aria-hidden="true"
+                      >→</span>
+
+                    {% endif %}
+
+                  </button>
+
+                {% endif %}
+
+
+                {%- comment -%}
+                ==========================================================
+                MOBILE NEXT
+                ==========================================================
+                {%- endcomment -%}
+
+                {% if mobile_navigation %}
+
+                  <button
+                    type="button"
+                    class="
+                      custom-media-gallery__main-nav
+                      custom-media-gallery__main-nav--mobile
+                      custom-media-gallery__main-nav--next
+                      custom-media-gallery__main-nav--{{ mobile_nav_icon }}
+                    "
+                    data-gallery-next
+                    aria-label="Next media"
+                  >
+
+                    {% if mobile_nav_icon == 'custom_svg_code'
+                      and mobile_nav_svg != blank
+                    %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon custom-media-gallery__nav-icon--custom"
+                        aria-hidden="true"
+                      >
+                        {{ mobile_nav_svg }}
+                      </span>
+
+                    {% elsif mobile_nav_icon == 'cheverons'
+                      or mobile_nav_icon == 'large_cheverons'
+                    %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon"
+                        aria-hidden="true"
+                      >›</span>
+
+                    {% else %}
+
+                      <span
+                        class="custom-media-gallery__nav-icon"
+                        aria-hidden="true"
+                      >→</span>
+
+                    {% endif %}
+
+                  </button>
+
+                {% endif %}
+
+              </div>
+
+            {% endif %}
+
+          {% endif %}
+
+      </div>
+
+    </div>
+
+
+    {%- comment -%}
+    ============================================================
+    DESKTOP BOTTOM CONTROLS
+    ============================================================
+
+    Used only when:
+
+    Navigation Position = Bottom
+
+    AND
+
+    Desktop Pagination is NOT thumbnails
+
+    Layout:
+
+    PREV → PAGINATION → NEXT
+    ============================================================
+    {%- endcomment -%}
+
+    {% if gallery_layout == 'carousel'
+      and media_count > 1
+    %}
+
+      {% if navigation_position == 'bottom'
+        and desktop_navigation
+        and desktop_pagination_type != 'thumbnails'
+      %}
+
+        <div class="custom-media-gallery__desktop-bottom-controls">
+
+
+          {%- comment -%}
+          ======================================================
+          DESKTOP BOTTOM PREVIOUS
+          ======================================================
+          {%- endcomment -%}
+
+            <button
+                type="button"
+                class="
+                  custom-media-gallery__main-nav
+                  custom-media-gallery__main-nav--desktop
+                  custom-media-gallery__main-nav--prev
+                  custom-media-gallery__main-nav--{{ desktop_nav_icon }}
+                "
+                data-gallery-prev
+                aria-label="Previous media"
+              >
+
+                {% if desktop_nav_icon == 'custom_svg_code'
+                  and desktop_nav_svg != blank
+                %}
+
+                  <span
+                    class="custom-media-gallery__nav-icon custom-media-gallery__nav-icon--custom"
+                    aria-hidden="true"
+                  >
+                    {{ desktop_nav_svg }}
+                  </span>
+
+                {% elsif desktop_nav_icon == 'cheverons'
+                  or desktop_nav_icon == 'large_cheverons'
+                %}
+
+                  <span
+                    class="custom-media-gallery__nav-icon"
+                    aria-hidden="true"
+                  >‹</span>
+
+                {% else %}
+
+                  <span
+                    class="custom-media-gallery__nav-icon"
+                    aria-hidden="true"
+                  >←</span>
+
+                {% endif %}
+
+              </button>
+
+
+          {%- comment -%}
+          ======================================================
+          DESKTOP PAGINATION
+          ======================================================
+          {%- endcomment -%}
+
+          {% if desktop_pagination %}
+
+            <div
+              class="custom-media-gallery__desktop-pagination"
+              data-desktop-pagination
+            >
+
+              {% case desktop_pagination_type %}
+
+
+                {% when 'thumbnails' %}
+
+                  <div class="custom-media-gallery__thumbnail-area">
+
+                    <button
+                      type="button"
+                      class="
+                        custom-media-gallery__thumbnail-nav
+                        custom-media-gallery__thumbnail-nav--prev
+                      "
+                      data-thumbnail-prev
+                      aria-label="Previous thumbnails"
+                    >
+                      <span aria-hidden="true">‹</span>
+                    </button>
+
+
+                    <div class="custom-media-gallery__thumbnails">
+
+                      <div class="custom-media-gallery__thumbnail-track">
+
+                        {% for media in product.media %}
+
+                          <button
+                            type="button"
+                            class="
+                              custom-media-gallery__thumbnail
+
+                              {% if selected_media and media.id == selected_media.id %}
+                                is-active
+                              {% elsif selected_media == blank and forloop.first %}
+                                is-active
+                              {% endif %}
+                            "
+
+                            data-thumbnail-index="{{ forloop.index0 }}"
+                            data-thumbnail-media-id="{{ media.id }}"
+
+                            aria-label="View media {{ forloop.index }}"
+
+                            aria-current="
+                              {% if selected_media and media.id == selected_media.id %}
+                                true
+                              {% elsif selected_media == blank and forloop.first %}
+                                true
+                              {% else %}
+                                false
+                              {% endif %}
+                            "
+                          >
+
+                            {% if media.media_type == 'image' %}
+
+                              {{
+                                media
+                                | image_url: width: 300
+                                | image_tag:
+                                  loading: 'lazy',
+                                  widths: '100,150,200,300',
+                                  sizes: '100px'
+                              }}
+
+                            {% else %}
+
+                              <div class="custom-media-gallery__thumbnail-placeholder">
+
+                                {% case media.media_type %}
+
+                                  {% when 'video' %}
+                                    <span aria-hidden="true">▶</span>
+
+                                  {% when 'external_video' %}
+                                    <span aria-hidden="true">▶</span>
+
+                                  {% when 'model' %}
+                                    <span aria-hidden="true">◇</span>
+
+                                {% endcase %}
+
+                              </div>
+
+                            {% endif %}
+
+                          </button>
+
+                        {% endfor %}
+
+                      </div>
+
+                    </div>
+
+
+                    <button
+                      type="button"
+                      class="
+                        custom-media-gallery__thumbnail-nav
+                        custom-media-gallery__thumbnail-nav--next
+                      "
+                      data-thumbnail-next
+                      aria-label="Next thumbnails"
+                    >
+                      <span aria-hidden="true">›</span>
+                    </button>
+
+                  </div>
+
+
+                {% when 'dots' %}
+
+                  <div
+                    class="custom-media-gallery__dots"
+                    data-gallery-dots
+                  >
+
+                    {% for media in product.media %}
+
+                      <button
+                        type="button"
+                        class="
+                          custom-media-gallery__dot
+
+                          {% if selected_media and media.id == selected_media.id %}
+                            is-active
+                          {% elsif selected_media == blank and forloop.first %}
+                            is-active
+                          {% endif %}
+                        "
+                        data-dot-index="{{ forloop.index0 }}"
+                        aria-label="View media {{ forloop.index }}"
+                      ></button>
+
+                    {% endfor %}
+
+                  </div>
+
+
+                {% when 'counter' %}
+
+                  <div class="custom-media-gallery__counter">
+
+                    <span data-counter-current>
+
+                      {% if selected_media %}
+
+                        {% for media in product.media %}
+
+                          {% if media.id == selected_media.id %}
+                            {{ forloop.index }}
+                          {% endif %}
+
+                        {% endfor %}
+
+                      {% else %}
+
+                        1
+
+                      {% endif %}
+
+                    </span>
+
+                    <span aria-hidden="true"> / </span>
+
+                    <span>{{ media_count }}</span>
+
+                  </div>
+
+
+              {% endcase %}
+
+            </div>
+
+          {% endif %}
+
+
+          {%- comment -%}
+          ======================================================
+          DESKTOP BOTTOM NEXT
+          ======================================================
+          {%- endcomment -%}
+
+            <button
+                type="button"
+                class="
+                  custom-media-gallery__main-nav
+                  custom-media-gallery__main-nav--desktop
+                  custom-media-gallery__main-nav--next
+                  custom-media-gallery__main-nav--{{ desktop_nav_icon }}
+                "
+                data-gallery-next
+                aria-label="Next media"
+              >
+
+                {% if desktop_nav_icon == 'custom_svg_code'
+                  and desktop_nav_svg != blank
+                %}
+
+                  <span
+                    class="custom-media-gallery__nav-icon custom-media-gallery__nav-icon--custom"
+                    aria-hidden="true"
+                  >
+                    {{ desktop_nav_svg }}
+                  </span>
+
+                {% elsif desktop_nav_icon == 'cheverons'
+                  or desktop_nav_icon == 'large_cheverons'
+                %}
+
+                  <span
+                    class="custom-media-gallery__nav-icon"
+                    aria-hidden="true"
+                  >›</span>
+
+                {% else %}
+
+                  <span
+                    class="custom-media-gallery__nav-icon"
+                    aria-hidden="true"
+                  >→</span>
+
+                {% endif %}
+
+              </button>
+
+        </div>
+
+
+      {% else %}
+
+
+        {%- comment -%}
+        ========================================================
+        NORMAL DESKTOP PAGINATION
+        ========================================================
+
+        Used when:
+
+        - Navigation Position = Sides
+        - OR Desktop Navigation = disabled
+        - OR Desktop Pagination = thumbnails
+
+        Thumbnail pagination therefore remains separate from
+        bottom navigation.
+        ========================================================
+        {%- endcomment -%}
+
+        {% if desktop_pagination %}
+
+          <div
+            class="custom-media-gallery__desktop-pagination"
+            data-desktop-pagination
+          >
+
+            {% case desktop_pagination_type %}
+
+
+              {% when 'thumbnails' %}
+
+                <div class="custom-media-gallery__thumbnail-area">
+
+                  <button
+                    type="button"
+                    class="
+                      custom-media-gallery__thumbnail-nav
+                      custom-media-gallery__thumbnail-nav--prev
+                    "
+                    data-thumbnail-prev
+                    aria-label="Previous thumbnails"
+                  >
+                    <span aria-hidden="true">‹</span>
+                  </button>
+
+
+                  <div class="custom-media-gallery__thumbnails">
+
+                    <div class="custom-media-gallery__thumbnail-track">
+
+                      {% for media in product.media %}
+
+                        <button
+                          type="button"
+                          class="
+                            custom-media-gallery__thumbnail
+
+                            {% if selected_media and media.id == selected_media.id %}
+                              is-active
+                            {% elsif selected_media == blank and forloop.first %}
+                              is-active
+                            {% endif %}
+                          "
+
+                          data-thumbnail-index="{{ forloop.index0 }}"
+                          data-thumbnail-media-id="{{ media.id }}"
+
+                          aria-label="View media {{ forloop.index }}"
+                        >
+
+                          {% if media.media_type == 'image' %}
+
+                            {{
+                              media
+                              | image_url: width: 300
+                              | image_tag:
+                                loading: 'lazy',
+                                widths: '100,150,200,300',
+                                sizes: '100px'
+                            }}
+
+                          {% else %}
+
+                            <div class="custom-media-gallery__thumbnail-placeholder">
+
+                              {% case media.media_type %}
+
+                                {% when 'video' %}
+                                  <span aria-hidden="true">▶</span>
+
+                                {% when 'external_video' %}
+                                  <span aria-hidden="true">▶</span>
+
+                                {% when 'model' %}
+                                  <span aria-hidden="true">◇</span>
+
+                              {% endcase %}
+
+                            </div>
+
+                          {% endif %}
+
+                        </button>
+
+                      {% endfor %}
+
+                    </div>
+
+                  </div>
+
+
+                  <button
+                    type="button"
+                    class="
+                      custom-media-gallery__thumbnail-nav
+                      custom-media-gallery__thumbnail-nav--next
+                    "
+                    data-thumbnail-next
+                    aria-label="Next thumbnails"
+                  >
+                    <span aria-hidden="true">›</span>
+                  </button>
+
+                </div>
+
+
+              {% when 'dots' %}
+
+                <div
+                  class="custom-media-gallery__dots"
+                  data-gallery-dots
+                >
+
+                  {% for media in product.media %}
+
+                    <button
+                      type="button"
+                      class="
+                        custom-media-gallery__dot
+
+                        {% if selected_media and media.id == selected_media.id %}
+                          is-active
+                        {% elsif selected_media == blank and forloop.first %}
+                          is-active
+                        {% endif %}
+                      "
+
+                      data-dot-index="{{ forloop.index0 }}"
+                      aria-label="View media {{ forloop.index }}"
+                    ></button>
+
+                  {% endfor %}
+
+                </div>
+
+
+              {% when 'counter' %}
+
+                <div class="custom-media-gallery__counter">
+
+                  <span data-counter-current>
+
+                    {% if selected_media %}
+
+                      {% for media in product.media %}
+
+                        {% if media.id == selected_media.id %}
+                          {{ forloop.index }}
+                        {% endif %}
+
+                      {% endfor %}
+
+                    {% else %}
+
+                      1
+
+                    {% endif %}
+
+                  </span>
+
+                  <span aria-hidden="true"> / </span>
+
+                  <span>{{ media_count }}</span>
+
+                </div>
+
+
+            {% endcase %}
+
+          </div>
+
+        {% endif %}
+
+      {% endif %}
+
+    {% endif %}
+
+
+    {%- comment -%}
+    ============================================================
+    MOBILE PAGINATION
+    ============================================================
+    ============================================================
+    {%- endcomment -%}
+
+
+    {% if gallery_layout == 'carousel'
+      and mobile_pagination
+      and media_count > 1
+    %}
+
+      <div
+        class="custom-media-gallery__mobile-pagination"
+        data-mobile-pagination
+      >
+
+        {% case mobile_pagination_type %}
+
+
+          {% when 'thumbnails' %}
+
+            <div class="custom-media-gallery__mobile-thumbnails">
+
+              <div class="custom-media-gallery__thumbnail-track">
+
+                {% for media in product.media %}
+
+                  <button
+                    type="button"
+                    class="
+                      custom-media-gallery__thumbnail
+
+                      {% if selected_media and media.id == selected_media.id %}
+                        is-active
+                      {% elsif selected_media == blank and forloop.first %}
+                        is-active
+                      {% endif %}
+                    "
+
+                    data-thumbnail-index="{{ forloop.index0 }}"
+                    data-thumbnail-media-id="{{ media.id }}"
+
+                    aria-label="View media {{ forloop.index }}"
+                  >
+
+                    {% if media.media_type == 'image' %}
+
+                      {{
+                        media
+                        | image_url: width: 200
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '80,120,160,200',
+                          sizes: '60px'
+                      }}
+
+                    {% else %}
+
+                      <div class="custom-media-gallery__thumbnail-placeholder">
+
+                        {% case media.media_type %}
+
+                          {% when 'video' %}
+                            <span aria-hidden="true">▶</span>
+
+                          {% when 'external_video' %}
+                            <span aria-hidden="true">▶</span>
+
+                          {% when 'model' %}
+                            <span aria-hidden="true">◇</span>
+
+                        {% endcase %}
+
+                      </div>
+
+                    {% endif %}
+
+                  </button>
+
+                {% endfor %}
+
+              </div>
+
+            </div>
+
+
+          {% when 'dots' %}
+
+            <div
+              class="custom-media-gallery__dots"
+              data-mobile-dots
+            >
+
+              {% for media in product.media %}
+
+                <button
+                  type="button"
+                  class="custom-media-gallery__dot"
+                  data-mobile-dot-index="{{ forloop.index0 }}"
+                  aria-label="View media {{ forloop.index }}"
+                ></button>
+
+              {% endfor %}
+
+            </div>
+
+
+          {% when 'counter' %}
+
+            <div class="custom-media-gallery__counter">
+
+              <span data-mobile-counter-current>
+                1
+              </span>
+
+              <span aria-hidden="true"> / </span>
+
+              <span>{{ media_count }}</span>
+
+            </div>
+
+
+          {% when 'hint' %}
+
+            <div class="custom-media-gallery__hint">
+              Swipe to view more
+            </div>
+
+
+        {% endcase %}
+
+      </div>
+
+    {% endif %}
+
+  </div>
+
+</media-gallery>

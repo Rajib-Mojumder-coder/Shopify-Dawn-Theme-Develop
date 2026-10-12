@@ -1,0 +1,358 @@
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  assign details_gap = block.settings.details_item_gap
+  assign details_radius = block.settings.details_corner_radius
+
+  if block.settings.content_width == 'narrow'
+    assign content_max_width = '480px'
+  elsif block.settings.content_width == 'medium'
+    assign content_max_width = '620px'
+  elsif block.settings.content_width == 'wide'
+    assign content_max_width = '760px'
+  else
+    assign content_max_width = '100%'
+  endif
+-%}
+
+<div
+  class="product-final__information"
+  {{ block.shopify_attributes }}
+
+  style="
+    --details-item-gap: {{ details_gap }}px;
+    --details-content-width: {{ content_max_width }};
+    --details-background: {{ block.settings.background_color }};
+    --details-border-width: {{ block.settings.border_thickness }}px;
+    --details-border-color: {{ block.settings.border_color }};
+    --details-radius: {{ details_radius }}px;
+
+    {% if block.settings.details_padding %}
+      --details-padding-top: {{ block.settings.padding_top }}px;
+      --details-padding-bottom: {{ block.settings.padding_bottom }}px;
+      --details-padding-left: {{ block.settings.padding_left }}px;
+      --details-padding-right: {{ block.settings.padding_right }}px;
+    {% else %}
+      --details-padding-top: 0px;
+      --details-padding-bottom: 0px;
+      --details-padding-left: 0px;
+      --details-padding-right: 0px;
+    {% endif %}
+  "
+>
+
+  <div
+    class="
+      product-final__information-inner
+
+      {% if block.settings.sticky_on_desktop %}
+        product-final__information-inner--sticky
+      {% endif %}
+
+      product-final__information-inner--{{ block.settings.content_width }}
+
+      product-final__information-inner--align-{{ block.settings.text_align }}
+
+      product-final__information-inner--valign-{{ block.settings.vertical_align }}
+    "
+  >
+
+    <section
+      id="ProductInfo-{{ section.id }}"
+      class="product-final__info-content"
+      style="
+        background: var(--details-background);
+        border:
+          var(--details-border-width)
+          {{ block.settings.border_style }}
+          var(--details-border-color);
+        border-radius: var(--details-radius);
+        padding:
+          var(--details-padding-top)
+          var(--details-padding-right)
+          var(--details-padding-bottom)
+          var(--details-padding-left);
+      "
+    >
+
+      <product-form
+        class="product-form custom-product-form"
+        data-section-id="{{ section.id }}"
+        data-product-id="{{ product.id }}"
+        data-product-scope
+        data-hide-errors="false"
+      >
+
+        {%- form 'product',
+          product,
+          id: product_form_id,
+          class: 'form custom-product-form__form',
+          novalidate: 'novalidate',
+          data-type: 'add-to-cart-form'
+        -%}
+
+          <input
+            type="hidden"
+            name="id"
+            class="product-variant-id custom-product-variant__variant-id"
+            value="{{ product.selected_or_first_available_variant.id }}"
+          >
+
+          {% comment %} <input
+            type="hidden"
+            name="quantity"
+            value="1"
+            class="custom-product-form__quantity"
+          > {% endcomment %}
+
+          <div class="product-final__details-content">
+
+            {% content_for 'blocks' %}
+
+          </div>
+
+        {%- endform -%}
+
+      </product-form>
+
+    </section>
+
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Details",
+
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        },
+        {
+          "value": "full",
+          "label": "Full"
+        }
+      ],
+      "default": "medium"
+    },
+
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+
+    {
+      "type": "select",
+      "id": "vertical_align",
+      "label": "Vertical alignment",
+      "options": [
+        {
+          "value": "start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "start"
+    },
+
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+
+    {
+      "type": "range",
+      "id": "details_item_gap",
+      "label": "Block spacing",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+
+    {
+      "type": "checkbox",
+      "id": "sticky_on_desktop",
+      "label": "Sticky on desktop",
+      "default": false
+    },
+
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#00000000"
+    },
+
+    {
+      "type": "header",
+      "content": "Border"
+    },
+
+    {
+      "type": "select",
+      "id": "border_style",
+      "label": "Border",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "solid",
+          "label": "Solid"
+        }
+      ],
+      "default": "none"
+    },
+
+    {
+      "type": "range",
+      "id": "border_thickness",
+      "label": "Border thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 1,
+      "visible_if": "{{ block.settings.border_style == 'solid' }}"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#DDDDDD",
+      "visible_if": "{{ block.settings.border_style == 'solid' }}"
+    },
+
+    {
+      "type": "range",
+      "id": "details_corner_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "details_padding",
+      "label": "Enable padding",
+      "default": false
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.details_padding }}"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.details_padding }}"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.details_padding }}"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.details_padding }}"
+    } 
+  ]
+}
+{% endschema %}

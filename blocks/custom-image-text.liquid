@@ -47,9 +47,11 @@
     {% endif %}
 
     {% if block.settings.description != blank %}
-      <div class="image-text-slider__description">
+      {% comment %} <span class="image-text-slider__description">
         {{ block.settings.description }}
-      </div>
+      </span> {% endcomment %}
+      {{ block.settings.description | replace: '<p>', '<p class="image-text-slider__description">' }}
+
     {% endif %}
   </div>
 </div>
@@ -79,6 +81,7 @@
 
 .image-text-slider__content{
   padding: 1rem;
+  width: 100%;
 }
 
 .image-text-slider__subtitle{
@@ -101,7 +104,7 @@
 }
 
 .image-text-slider__description{
-  font-size:clamp(0.9rem,1.2vw,1.05rem);
+  font-size:clamp(14px, 1.2vw, 16px);
   line-height:1.7;
   color:#444;
 }
@@ -196,7 +199,7 @@
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>Add a short description for this slide.</p>"
+      "default": "<p> Add a short description for this slide.</p>"
     }
     
   ],

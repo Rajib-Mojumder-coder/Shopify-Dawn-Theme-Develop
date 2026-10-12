@@ -14,6 +14,7 @@
       "blocks": {
         "vendor": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "{{ product.vendor }}",
             "text_style": "uppercase"
@@ -26,11 +27,19 @@
         "custom_price_qwTpiT": {
           "type": "custom_price",
           "settings": {
-            "show_price": true,
+            "show_current_price": true,
+            "large_price": true,
             "price_format": "money_without_trailing_zeros",
-            "round_price": false,
-            "show_decimals": true,
-            "large_price": false
+            "round_price": true,
+            "show_compare_price": true,
+            "hide_compare_without_discount": true,
+            "compare_position": false,
+            "compare_full_width": false,
+            "show_custom_sale_badge": true,
+            "sale_badge_type": "amount",
+            "sale_badge_position": "inline",
+            "sale_badge_bg_color": "#e51616",
+            "sale_badge_text_color": "#ffffff"
           }
         },
         "price": {
@@ -40,17 +49,54 @@
         },
         "variant_picker": {
           "type": "variant_picker",
+          "disabled": true,
           "settings": {
             "picker_type": "button",
-            "swatch_shape": "circle"
+            "swatch_shape": "square"
+          }
+        },
+        "custom_variant_picker_d7LcdJ": {
+          "type": "custom-variant-picker",
+          "settings": {
+            "variant_option_1_name": "Kleur",
+            "variant_option_1_style": "swatches",
+            "variant_option_1_swatch_type": "image",
+            "variant_option_1_swatch_shape": "circle",
+            "variant_option_2_name": "Maat",
+            "variant_option_2_style": "buttons",
+            "variant_option_2_swatch_type": "image",
+            "variant_option_2_swatch_shape": "square",
+            "variant_option_3_name": "Accucapaciteit",
+            "variant_option_3_style": "buttons",
+            "variant_option_3_swatch_type": "color",
+            "variant_option_3_swatch_shape": "circle",
+            "custom_variant_color_scheme": true,
+            "variant_color_scheme": "scheme-1",
+            "variant_text_color": "#06123d",
+            "variant_background_color": "#eceef2",
+            "variant_active_text_color": "#eceef2",
+            "variant_active_background_color": "#06123d",
+            "variant_border_color": "#d9dde3",
+            "variant_active_border_color": "#06123d"
+          }
+        },
+        "inventory_Rtf9Uh": {
+          "type": "inventory",
+          "disabled": true,
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": true
           }
         },
         "quantity_selector": {
           "type": "quantity_selector",
+          "disabled": true,
           "settings": {}
         },
         "buy_buttons": {
           "type": "buy_buttons",
+          "disabled": true,
           "settings": {
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": true
@@ -58,10 +104,12 @@
         },
         "description": {
           "type": "description",
+          "disabled": true,
           "settings": {}
         },
         "share": {
           "type": "share",
+          "disabled": true,
           "settings": {
             "share_label": "Share"
           }
@@ -73,6 +121,8 @@
         "custom_price_qwTpiT",
         "price",
         "variant_picker",
+        "custom_variant_picker_d7LcdJ",
+        "inventory_Rtf9Uh",
         "quantity_selector",
         "buy_buttons",
         "description",
@@ -80,20 +130,23 @@
       ],
       "settings": {
         "enable_sticky_info": false,
+        "product_content_spacing": 14,
         "color_scheme": "scheme-f37b896e-74b3-4fd8-853c-b43ae546e1fe",
-        "media_size": "medium",
+        "media_size": "small",
         "media-container-bg": "#ffffff",
         "product_media_logo": "shopify://shop_images/Group.png",
         "constrain_to_viewport": true,
         "media_fit": "cover",
         "gallery_layout": "thumbnail",
-        "mobile_thumbnails": "hide",
+        "mobile_thumbnails": "columns",
         "media_position": "left",
         "image_zoom": "lightbox",
         "hide_variants": true,
         "enable_video_looping": false,
+        "product-slider-thumbnail": true,
+        "slider-thumbnail-perview": 4,
         "navigation_pagination_settings": true,
-        "show_navigation_desktop": true,
+        "show_navigation_desktop": false,
         "show_navigation_mobile": true,
         "icon_type": "svg_code",
         "prev_svg": "<svg width=\"50\" height=\"50\" viewbox=\"0 0 50 50\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"25\" cy=\"25\" r=\"23.5\" transform=\"rotate(90 25 25)\" stroke=\"#06123D\" stroke-width=\"3\"></circle>\n<g filter=\"url(#filter0_d_1340_14558)\">\n<g clip-path=\"url(#clip0_1340_14558)\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27.2929 18.2926C27.6834 17.902 28.3166 17.902 28.7071 18.2926L34.7071 24.2926C35.0976 24.6831 35.0976 25.3162 34.7071 25.7068L28.7071 31.7068C28.3166 32.0973 27.6834 32.0973 27.2929 31.7068C26.9024 31.3162 26.9024 30.6831 27.2929 30.2926L31.5858 25.9997H16C15.4477 25.9997 15 25.5519 15 24.9997C15 24.4474 15.4477 23.9997 16 23.9997L31.5858 23.9997L27.2929 19.7068C26.9024 19.3162 26.9024 18.6831 27.2929 18.2926Z\" fill=\"#06123D\" stroke=\"#06123D\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path>\n</g>\n</g>\n<defs>\n<filter id=\"filter0_d_1340_14558\" x=\"4.03125\" y=\"8.0293\" width=\"41.9375\" height=\"41.9409\" filterunits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\">\n<feflood flood-opacity=\"0\" result=\"BackgroundImageFix\"></feflood>\n<fecolormatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"></fecolormatrix>\n<feoffset dy=\"4\"></feoffset>\n<fegaussianblur stddeviation=\"2\"></fegaussianblur>\n<fecomposite in2=\"hardAlpha\" operator=\"out\"></fecomposite>\n<fecolormatrix type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0\"></fecolormatrix>\n<feblend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_1340_14558\"></feblend>\n<feblend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect1_dropShadow_1340_14558\" result=\"shape\"></feblend>\n</filter>\n<clippath id=\"clip0_1340_14558\">\n<rect width=\"50\" height=\"50\" fill=\"white\" transform=\"translate(25 8.0293) rotate(45)\"></rect>\n</clippath>\n</defs>\n</svg>",
@@ -106,19 +159,18 @@
         "hover_icon_color": "#000000",
         "border_radius": 50,
         "nav_gap": 10,
-        "show_pagination_desktop": true,
+        "show_pagination_desktop": false,
         "show_pagination_mobile": true,
         "pagination_color": "#cccccc",
         "pagination_active_color": "#000000",
         "pagination_opacity": 0.5,
-        "product-slider-thumbnail": false,
-        "slider-thumbnail-perview": 4,
         "padding_top": 100,
         "padding_bottom": 12
       }
     },
     "related-products": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
@@ -134,10 +186,154 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "custom_section_layout_PTHCwP": {
+      "type": "custom_section_layout",
+      "blocks": {
+        "group_3em9YH": {
+          "type": "group",
+          "name": "Group Block",
+          "settings": {
+            "desktop_direction": "row",
+            "mobile_direction": false,
+            "justify": "flex-start",
+            "align": "flex-start",
+            "desktop_gap": 50,
+            "mobile_gap": 18,
+            "custom_group_width": "fit-content",
+            "group_custom_width": 50,
+            "custom_group_height": "fit",
+            "group_custom_height": 50,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "background_fit": "cover",
+            "background_position": "center center",
+            "custom_group-overlay": false,
+            "overlay_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+            "overlay_opacity": 40,
+            "group_border_style": "none",
+            "group_border_width": 1,
+            "group_border_color": "#000000",
+            "group_corner_radius": 0,
+            "group_block_url": "",
+            "block_link_newtab": false,
+            "group_block_padding": false,
+            "group_padding_top": 20,
+            "group_padding_bottom": 20,
+            "group_padding_left": 20,
+            "group_padding_right": 20
+          },
+          "blocks": {
+            "custom_tab_BJncBL": {
+              "type": "custom-tab",
+              "name": "Custom Tab",
+              "settings": {
+                "enable_color_scheme": false,
+                "color_scheme": "",
+                "custom_tab_width": "100",
+                "tab_1_title": "Product omschrijving",
+                "tab_1_heading": "",
+                "tab_1_description": "",
+                "tab_2_title": "Specificaties",
+                "tab_2_heading": ""
+              },
+              "blocks": {}
+            },
+            "advisor_card_x9Ptir": {
+              "type": "advisor_card",
+              "name": "Advisor Card",
+              "settings": {
+                "enable_color_scheme": true,
+                "color_scheme": "scheme-3296e57e-bd80-43f3-b60c-834eff51ef68",
+                "Advisor_block_width": "100",
+                "advisor_image": "shopify://shop_images/dsdf_70f3d2b3-292e-411f-95de-08b936042ce6.png",
+                "enable_img_position": true,
+                "advisor_img_y_offset": -25,
+                "advisor_card_bg": true,
+                "card_bg_color": "#071540",
+                "transparant_img_bg": true,
+                "transparant_img_bg_color": "#06123d",
+                "advisor_heading": "We geven je graag persoonlijk advies!",
+                "heading_max_width": 350,
+                "advisor_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+                "advisor_button_width": "full",
+                "button_text": "PLAN EEN ADVIESGESPREK",
+                "button_link": "shopify://collections/e-bikes"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "custom_tab_BJncBL",
+            "advisor_card_x9Ptir"
+          ]
+        }
+      },
+      "block_order": [
+        "group_3em9YH"
+      ],
+      "name": "Custom Block Section",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "section_height_mode": "auto",
+        "preset_height": "medium",
+        "custom_min_height": 400,
+        "custom_viewport_height": 60,
+        "custom_max_height": 900,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_fit": "cover",
+        "background_object_position": "center center",
+        "background_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+        "overlay_opacity": 40,
+        "overlay_blend": "normal",
+        "overlay_blur": 0,
+        "layout_type": "full",
+        "layout_max_width": "1728px",
+        "surface_min_height": 120,
+        "layout_background": "transparant",
+        "layout_solid_bg": "#000000",
+        "layout_gradient_bg": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
+        "enable_border": false,
+        "border_style": "solid",
+        "border_width": 1,
+        "border_radius": 0,
+        "border_color": "#000000",
+        "border_opacity": 100,
+        "border_hover_color": "#ff0000",
+        "layout_padding_top": 20,
+        "layout_padding_bottom": 20,
+        "layout_padding_left": 20,
+        "layout_padding_right": 20,
+        "layout_options": "desktop_layout",
+        "desktop_layout": "flex",
+        "desktop_direction": "row",
+        "desktop_wrap": "wrap",
+        "desktop_columns": 3,
+        "desktop_justify": "flex-start",
+        "desktop_align": "stretch",
+        "desktop_gap": 24,
+        "mobile_layout": "flex",
+        "mobile_direction": "column",
+        "mobile_wrap": "wrap",
+        "mobile_columns": 1,
+        "mobile_justify": "flex-start",
+        "mobile_align": "stretch",
+        "mobile_gap": 16
+      }
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related-products",
+    "custom_section_layout_PTHCwP"
   ]
 }

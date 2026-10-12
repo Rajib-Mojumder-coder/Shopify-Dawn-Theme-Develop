@@ -1,43 +1,31 @@
 {% liquid
     assign product_media_logo = section.settings.product_media_logo
-    assign slider-thumbnail-perview = section.settings.slider-thumbnail-perview
+    assign slider_thumbnail_perview = section.settings.slider-thumbnail-perview
    %}
+
+<media-gallery id="MediaGallery-{{ section.id }}"
+    role="region" aria-label="{{ 'products.product.media.gallery_viewer' | t }}" data-desktop-layout="stacked">
 
 <div class="custom-product-media-main">
 
-     <div class="custom-product-breadcrumb-area">
-                
-            {%  assign product_collection = product.collections.first %}
-        
-            {% if product_collection %}
-                <!-- Breadcrumb -->
-                <div class="custom-product-breadcrumb"> 
-                
-                    <a href="{{product_collection.url}}"> {{ product_collection.title }} </a>
-                        <span class="breadcrumb-separator">&raquo;</span>
-                        <span> {{ product.title }} </span>
-                </div>
-            {% endif %}   
-                  
-        </div>
     
-
     <div class="media-container-wrapper">
 
         <div class="swiper productMediaSlider mySwiper2">
-            <div class="swiper-wrapper media-container-bg media-container-radius">
+            <ul class="swiper-wrapper media-container-bg media-container-radius" role="list">
 
                 {% for media in product.media %}
-                    <div class="swiper-slide">
+                <li class="swiper-slide product__media-item"
+                    data-media-id="{{ section.id }}-{{ media.id }}" data-media-position="{{ forloop.index }}">
                     <div class="custom-product-media-content">
                         {% if media.media_type == 'image' %}
                             {{ media | image_url: width: 1000 | image_tag }}
                         {% endif %}
                     </div>
-                </div>
+                </li>
                 {% endfor %}
 
-            </div>
+            </ul>
                 
             <div class="custom-slider-controls"> 
                 {% render 'custom-slider-navigation-prev' %}
@@ -45,14 +33,14 @@
                 {% render 'custom-slider-navigation-next' %}
             </div>
                 
-        </div>
+        </div>  
 
         {% if section.settings.product-slider-thumbnail %}
         <div thumbsSlider="" class="swiper mySwiper productMediaSliderThumbs">
     
             <div class="swiper-wrapper">
                 {% for media in product.media %}
-                <div class="swiper-slide thumbs-media">
+                <div class="swiper-slide thumbs-media" data-media-id="{{ media.id }}">
                   {% if media.media_type == 'image' %}
                             {{ media | image_url: width: 500 | image_tag }}
                  {% endif %}
@@ -60,64 +48,122 @@
                 {% endfor %}
             </div>
 
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="thumb-prev swiper-button-prev"></div>
+            <div class="thumb-next swiper-button-next"></div>
 
         </div>
         {% endif %}
 
         <div class="product-logo-bestseller-wrapper">
+
+            {% if product_media_logo != blank%}
             <div class="product-logo-container">
-                {% if product_media_logo != blank%}
                     {{ product_media_logo | image_url: width: 300 | image_tag: class: 'product_media_logo', loading: 'lazy'}}
-                {% endif %}
             </div>
+            {% endif %}
             
-            <div class="custom-product-bestseller">
-                <p class="custom-product-bestseller-text"> {{ product.metafields.custom.bestseller }} </p>
-            </div>
+            {% if product.metafields.custom.bestseller %}
+                <div class="custom-product-bestseller">
+                    <p class="custom-product-bestseller-text"> {{ product.metafields.custom.bestseller }} </p>
+                </div>
+            {% endif %}
+
         </div>
  
     </div>
 
 </div>
+</media-gallery>
 
  
     <!-- Initialize Swiper -->
-    <script defer>
-    document.addEventListener('DOMContentLoaded', function () {
-        var swiper = new Swiper('.productMediaSliderThumbs', {
+   <script defer>
+
+window.productThumbSwiper = 
+new Swiper('.productMediaSliderThumbs', {
         loop: true,
         spaceBetween: 10,
-        slidesPerView: {{slider-thumbnail-perview}},
+        slidesPerView: 4,
         freeMode: true,
         watchSlidesProgress: true,
+        navigation:{
+            nextEl:".productMediaSliderThumbs .thumb-next",
+            prevEl:".productMediaSliderThumbs .thumb-prev",
+       }
+      });
+      
+      window.productMainSwiper =
+       new Swiper('.productMediaSlider', {
+        loop: true,
+        spaceBetween: 10,
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+          nextEl:".slider-next-{{ section.id }}",
+          prevEl:".slider-prev-{{ section.id }}",
+        },
+        pagination:{
+            el:".slider-pagination-{{ section.id }}",
+            clickable:true
+        },
+        thumbs: {
+          swiper: window.productThumbSwiper,
         },
       });
 
 
+// function initProductGallery() {
+//     let thumbsSwiper = null;
+// const thumbsElement = document.querySelector(".productMediaSliderThumbs");
 
-      var swiper = new Swiper('.productMediaSlider', {
-        cssMode: true,
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        thumbs: {
-          swiper: swiper,
-        },
-        mousewheel: true,
-        keyboard: true,
-      })
-});
-    </script>
+// if (thumbsElement) {
+
+//     thumbsSwiper = new Swiper(".productMediaSliderThumbs",{
+
+//         loop:false,
+//         slidesPerView:{{ slider_thumbnail_perview }},
+//         spaceBetween:10,
+//         watchSlidesProgress:true,
+//         navigation:{
+//             nextEl:".productMediaSliderThumbs .thumb-next",
+//             prevEl:".productMediaSliderThumbs .thumb-prev"
+//         }
+
+//     });
+//     window.thumbsSwiper = thumbsSwiper;
+// }
+
+// const productSwiper = new Swiper(".productMediaSlider",{
+//     loop:false,
+//     navigation:{
+//         nextEl:".slider-next-{{ section.id }}",
+//         prevEl:".slider-prev-{{ section.id }}"
+//     },
+//     pagination:{
+//         el:".slider-pagination-{{ section.id }}",
+//         clickable:true
+//     },
+//     thumbs: thumbsSwiper ? { swiper: thumbsSwiper } : undefined
+
+// });
+
+// window.productSwiper = productSwiper;
+// const gallery = document.querySelector("media-gallery");
+// if (gallery) {
+//     gallery.setActiveMedia = function(mediaId) {
+//         const slides = [...document.querySelectorAll(".productMediaSlider .swiper-slide")];
+//         const index = slides.findIndex(slide =>
+//             slide.dataset.mediaId === mediaId
+//         );
+//         if(index >= 0){
+//             productSwiper.slideTo(index);
+//             thumbsSwiper?.slideTo(index);
+//         }
+//     };
+// }
+// }
+// document.addEventListener("DOMContentLoaded", initProductGallery);
+// document.addEventListener("shopify:section:load", initProductGallery);
+
+</script>
 
 <style>
 
@@ -156,6 +202,10 @@
     align-items: center;
     justify-content: center;
 }
+.custom-slider-controls .slider-navigation {
+    align-items: center;
+    justify-content: flex-end;
+}
 
 .custom-slider-controls .swiper-button-next {
     grid-column: 3;
@@ -169,29 +219,29 @@
     justify-content: center;
     align-items: center;
 }
+.productMediaSlider .product__media-item:not(.is-active) {
+    display: block !important;
+}
+/*Thumbnail Slider Prev & Next CSS*/
+.productMediaSliderThumbs {
+    position: relative;
+}
+.productMediaSliderThumbs .swiper-wrapper{
+    justify-content: center;
+    padding: 6px;
+}
 
+.productMediaSliderThumbs .thumb-prev,
+.productMediaSliderThumbs .thumb-next{
+    color:#000;
+    width:32px;
+    height:32px;
+}
+
+.productMediaSliderThumbs .thumb-prev:after,
+.productMediaSliderThumbs .thumb-next:after{
+    font-size:18px;
+    font-weight:bold;
+}
 </style>
 
-{% comment %} <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-      class="swiper mySwiper2">
-
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img src="https://swiperjs.com/demos/images/abstract-1.jpg" />
-        </div>        
-      </div>
-
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-
-</div>
-
-<div thumbsSlider="" class="swiper mySwiper">
-    
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-        <img src="https://swiperjs.com/demos/images/abstract-1.jpg" />
-        </div>
-    </div>
-
-</div> {% endcomment %}

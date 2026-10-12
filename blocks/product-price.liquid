@@ -1,0 +1,658 @@
+{%- liquid
+
+  assign current_variant = product.selected_or_first_available_variant
+
+  assign current_price = current_variant.price
+  assign compare_price = current_variant.compare_at_price
+
+  assign round_price = block.settings.round_price
+  assign price_order = block.settings.price_order
+  assign typography = block.settings.typography
+
+  assign has_discount = false
+
+  if compare_price != blank and compare_price > current_price
+    assign has_discount = true
+  endif
+
+  assign sale_percentage = 0
+  assign savings_amount = 0
+
+  if has_discount
+
+    assign savings_amount = compare_price | minus: current_price
+
+    if compare_price > 0
+      assign sale_percentage = savings_amount | times: 100 | divided_by: compare_price
+    endif
+
+  endif
+
+  if round_price
+
+    assign current_price = current_price | divided_by: 100.0 | round | times: 100
+
+    if compare_price
+      assign compare_price = compare_price | divided_by: 100.0 | round  | times: 100
+    endif
+
+  endif
+
+-%}
+
+<div
+  id="ProductPrice-{{ block.id }}"
+  class="product-price product-price--{{ block.id }} product-price--{{ price_order }}"
+  {% if block.settings.typography %} custom-price--custom-type {% endif %}
+  data-product-price-block
+  data-round-price="{{ round_price }}"
+  data-price-format="{{ block.settings.price_format }}"
+  data-money-format="{{ shop.money_format | escape }}"
+  data-show-current-price="{{ block.settings.show_current_price }}"
+  data-show-compare-price="{{ block.settings.show_compare_price }}"
+  data-hide-compare-without-discount="{{ block.settings.hide_compare_without_discount }}"
+  data-show-sale-badge="{{ block.settings.show_custom_sale_badge }}"
+  data-sale-badge-type="{{ block.settings.sale_badge_type }}"
+  data-sale-badge-position="{{ block.settings.sale_badge_position }}"
+  {{ block.shopify_attributes }}
+>
+
+
+  <div class="product-price__display">
+
+    {%- comment -%}
+      CURRENT PRICE
+    {%- endcomment -%}
+
+    {% if block.settings.show_current_price %}
+      <span class="product-price__current {% if block.settings.large_price %} product-price__current--large {% endif %}
+        {% if block.settings.typography %} product-price__current--custom-typography {% endif %}"
+          data-product-price>
+
+        {% case block.settings.price_format %}
+
+          {% when 'money_with_currency' %}
+            {{ current_price | money_with_currency }}
+
+          {% when 'money_without_currency' %}
+            {{ current_price | money_without_currency }}
+
+          {% when 'money_without_trailing_zeros' %}
+            {{ current_price | money_without_trailing_zeros }}
+
+          {% else %}
+            {{ current_price | money }}
+
+        {% endcase %}
+      </span>
+    {% endif %}
+
+
+    {%- comment -%}
+      COMPARE-AT PRICE
+    {%- endcomment -%}
+
+    {% if block.settings.show_compare_price and compare_price != blank %}
+
+      {% if has_discount or block.settings.hide_compare_without_discount == false %}
+
+        <span
+          class="
+            product-price__compare
+            {% if block.settings.compare_full_width %}
+              product-price__compare--full-width
+            {% endif %}
+          "
+          data-product-compare-price
+        >
+          {% case block.settings.price_format %}
+
+            {% when 'money_with_currency' %}
+              {{ compare_price | money_with_currency }}
+
+            {% when 'money_without_currency' %}
+              {{ compare_price | money_without_currency }}
+
+            {% when 'money_without_trailing_zeros' %}
+              {{ compare_price | money_without_trailing_zeros }}
+
+            {% else %}
+              {{ compare_price | money }}
+
+          {% endcase %}
+        </span>
+
+      {% endif %}
+
+    {% endif %}
+
+
+    {%- comment -%}
+      SALE BADGE
+    {%- endcomment -%}
+
+    {% if block.settings.show_custom_sale_badge and has_discount %}
+
+    <span class=" product-price__badge product-price__badge--{{ block.settings.sale_badge_position }}"
+      data-product-sale-badge
+      style="--sale-badge-bg: {{ block.settings.sale_badge_bg_color }};
+        --sale-badge-text: {{ block.settings.sale_badge_text_color }};
+      ">
+
+        {% case block.settings.sale_badge_type %}
+
+          {% when 'text' %}
+            SALE
+
+          {% when 'percentage' %}
+            {{ sale_percentage }}% OFF
+
+          {% when 'amount' %}
+
+            Save
+            {% case block.settings.price_format %}
+
+              {% when 'money_with_currency' %}
+                {{ savings_amount | money_with_currency }}
+
+              {% when 'money_without_currency' %}
+                {{ savings_amount | money_without_currency }}
+
+              {% when 'money_without_trailing_zeros' %}
+                {{ savings_amount | money_without_trailing_zeros }}
+
+              {% else %}
+                {{ savings_amount | money }}
+
+            {% endcase %}
+
+        {% endcase %}
+
+      </span>
+
+    {% endif %}
+
+  </div>
+
+</div>
+
+
+<style>
+
+  /* =========================================================
+   PRODUCT PRICE
+   ========================================================= */
+
+.product-price {
+  width: 100%;
+}
+
+.product-price__display {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.product-price--compare_first .product-price__compare {
+  order: 1;
+}
+
+.product-price--compare_first .product-price__current {
+  order: 2;
+}
+
+.product-price--compare_first .product-price__badge {
+  order: 3;
+}
+
+.product-price--current_first .product-price__current {
+  order: 1;
+}
+
+.product-price--current_first .product-price__compare {
+  order: 2;
+}
+
+.product-price--current_first .product-price__badge {
+  order: 3;
+}
+
+/* =========================================================
+   PRODUCT PRICE
+   Default: inherit theme typography
+   ========================================================= */
+
+.product-price__current {
+  color: inherit;
+}
+
+
+/* =========================================================
+   LARGE PRICE
+   Optional predefined size
+   ========================================================= */
+
+.product-price__current--large {
+  font-size: clamp(20px, 3vw, 22px);
+}
+
+
+/* =========================================================
+   CUSTOM TYPOGRAPHY
+   Only active when Typography is enabled
+   ========================================================= */
+
+.product-price__current--custom-typography {
+  font-size: clamp(
+    {{ block.settings.mobile_min_fontsize }}px,
+    calc(
+      {{ block.settings.mobile_min_fontsize }}px +
+      (
+        {{ block.settings.desktop_max_fontsize }} -
+        {{ block.settings.mobile_min_fontsize }}
+      ) *
+      ((100vw - 320px) / 880)
+    ),
+    {{ block.settings.desktop_max_fontsize }}px
+  );
+
+  font-weight: {{ block.settings.font_weight }};
+  line-height: {{ block.settings.line_height }};
+  letter-spacing: {{ block.settings.letter_spacing }}px;
+  color: {{ block.settings.price_color }};
+}
+
+/* =========================================================
+   COMPARE PRICE
+   ========================================================= */
+
+.product-price__compare {
+  font-size: clamp(14px, 2.5vw, 16px);
+  line-height: 1.2;
+  color: rgba(var(--color-foreground), 0.55);
+  text-decoration: line-through;
+}
+
+.product-price__compare--full-width {
+  width: 100%;
+}
+
+
+/* =========================================================
+   SALE BADGE
+   ========================================================= */
+
+.product-price__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 14px;
+
+  border-radius: 4px;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  background: var(--sale-badge-bg, #ff0000);
+  color: var(--sale-badge-text, #ffffff);
+}
+
+
+/* =========================================================
+   INLINE
+   Current → Compare → Badge
+   ========================================================= */
+
+.product-price__badge--inline {
+  position: static;
+  order: 3;
+}
+
+
+/* =========================================================
+   TOP RIGHT
+   ========================================================= */
+
+.product-price__display {
+  position: relative;
+}
+
+.product-price__badge--top-right {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  z-index: 2;
+}
+
+
+/* =========================================================
+   TOP LEFT
+   ========================================================= */
+
+.product-price__badge--top-left {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  z-index: 2;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 749px) {
+
+  .product-price__badge {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .product-price__badge--top-right {
+    top: -8px;
+    right: -8px;
+  }
+
+  .product-price__badge--top-left {
+    top: -8px;
+    left: -8px;
+  }
+
+}
+
+</style>
+
+
+{% schema %}
+{
+  "name": "Product price",
+  "tag": null,
+
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Current price"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_current_price",
+      "label": "Show current price",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "large_price",
+      "label": "Large price",
+      "default": false,
+      "visible_if": "{{ block.settings.show_current_price }}"
+    },
+
+    {
+      "type": "select",
+      "id": "price_format",
+      "label": "Money format",
+      "default": "money",
+      "options": [
+        {
+          "label": "Money",
+          "value": "money"
+        },
+        {
+          "label": "Money with currency",
+          "value": "money_with_currency"
+        },
+        {
+          "label": "Money without currency",
+          "value": "money_without_currency"
+        },
+        {
+          "label": "Money without trailing zeros",
+          "value": "money_without_trailing_zeros"
+        }
+      ],
+      "visible_if": "{{ block.settings.show_current_price }}"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "round_price",
+      "label": "Round price",
+      "default": false,
+      "visible_if": "{{ block.settings.show_current_price }}"
+    },
+    {
+      "type": "header",
+      "content": "Compare-at price"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_compare_price",
+      "label": "Show compare-at price",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "hide_compare_without_discount",
+      "label": "Hide when no discount",
+      "default": true,
+      "visible_if": "{{ block.settings.show_compare_price }}"
+    },
+    {
+      "type": "select",
+      "id": "price_order",
+      "label": "Price order",
+      "options": [
+        {
+          "value": "current_first",
+          "label": "Current price first"
+        },
+        {
+          "value": "compare_first",
+          "label": "Compare-at price first"
+        }
+      ],
+      "default": "current_first"
+    },
+    {
+      "type": "checkbox",
+      "id": "compare_full_width",
+      "label": "Full width",
+      "default": false,
+      "visible_if": "{{ block.settings.show_compare_price }}"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Sale badge"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_custom_sale_badge",
+      "label": "Show sale badge",
+      "default": true
+    },
+
+    {
+      "type": "select",
+      "id": "sale_badge_type",
+      "label": "Badge display type",
+      "default": "percentage",
+
+      "options": [
+        {
+          "value": "text",
+          "label": "Text (SALE)"
+        },
+        {
+          "value": "percentage",
+          "label": "Percentage (33% OFF)"
+        },
+        {
+          "value": "amount",
+          "label": "Amount (Save $100)"
+        }
+      ],
+
+      "visible_if": "{{ block.settings.show_custom_sale_badge }}"
+    },
+
+    {
+      "type": "select",
+      "id": "sale_badge_position",
+      "label": "Badge position",
+      "default": "inline",
+
+      "options": [
+        {
+          "value": "inline",
+          "label": "Inline with price"
+        },
+        {
+          "value": "top-right",
+          "label": "Top right"
+        },
+        {
+          "value": "top-left",
+          "label": "Top left"
+        }
+      ],
+
+      "visible_if": "{{ block.settings.show_custom_sale_badge }}"
+    },
+
+    {
+      "type": "color",
+      "id": "sale_badge_bg_color",
+      "label": "Badge background",
+      "default": "#FF0000",
+      "visible_if": "{{ block.settings.show_custom_sale_badge }}"
+    },
+
+    {
+      "type": "color",
+      "id": "sale_badge_text_color",
+      "label": "Badge text color",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.show_custom_sale_badge }}"
+    },
+    {
+    "type": "header",
+    "content": "Typography"
+    },
+    {
+    "type": "checkbox",
+    "id": "typography",
+    "label": "Custom typography",
+    "default": false
+    },
+    {
+    "type": "color",
+    "id": "price_color",
+    "label": "Price color",
+    "default": "#000000",
+    "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+    "type": "range",
+    "id": "mobile_min_fontsize",
+    "label": "Mobile font size",
+    "min": 16,
+    "max": 24,
+    "step": 1,
+    "unit": "px",
+    "default": 20,
+    "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+    "type": "range",
+    "id": "desktop_max_fontsize",
+    "label": "Desktop font size",
+    "min": 18,
+    "max": 40,
+    "step": 1,
+    "unit": "px",
+    "default": 24,
+    "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+    "type": "select",
+    "id": "font_weight",
+    "label": "Font weight",
+    "options": [
+        {
+        "value": "300",
+        "label": "Light"
+        },
+        {
+        "value": "400",
+        "label": "Regular"
+        },
+        {
+        "value": "500",
+        "label": "Medium"
+        },
+        {
+        "value": "600",
+        "label": "Semi Bold"
+        },
+        {
+        "value": "700",
+        "label": "Bold"
+        },
+        {
+        "value": "800",
+        "label": "Extra Bold"
+        },
+        {
+        "value": "900",
+        "label": "Black"
+        }
+    ],
+    "default": "600",
+    "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+    "type": "range",
+    "id": "line_height",
+    "label": "Line height",
+    "min": 0.8,
+    "max": 2,
+    "step": 0.1,
+    "default": 1.1,
+    "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+    "type": "range",
+    "id": "letter_spacing",
+    "label": "Letter spacing",
+    "min": -2,
+    "max": 10,
+    "step": 1,
+    "unit": "px",
+    "default": 0,
+    "visible_if": "{{ block.settings.typography }}"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Product price"
+    }
+  ]
+}
+{% endschema %}

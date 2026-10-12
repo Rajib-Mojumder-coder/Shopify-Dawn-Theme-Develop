@@ -1,0 +1,404 @@
+{% liquid
+  assign show_vendor = block.settings.show_vendor
+  assign show_product_type = block.settings.show_product_type
+
+  assign vendor_position = block.settings.vendor_position
+
+  assign content_width = block.settings.content_width
+  assign content_alignment = block.settings.content_alignment
+  assign text_wrap = block.settings.text_wrap
+
+  assign title_top_spacing = block.settings.title_top_spacing
+  assign title_bottom_spacing = block.settings.title_bottom_spacing
+
+  assign typography = block.settings.typography
+  assign title_color = block.settings.title_color
+
+  assign font_weight = block.settings.font_weight
+  assign line_height = block.settings.line_height
+  assign letter_spacing = block.settings.letter_spacing
+  assign text_transform = block.settings.text_transform
+
+  assign block_width = block.settings.block_width
+
+%}
+
+<div
+  class="product-details-title product-details-title--{{ block.id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.show_vendor %}
+    <div class="product-details-title__vendor">
+      {{ product.vendor }}
+    </div>
+  {% endif %}
+
+  <h1 class="product-details-title__heading">
+    {{ product.title }}
+  </h1>
+
+  {% if block.settings.show_product_type and product.type != blank %}
+    <div class="product-details-title__type">
+      {{ product.type }}
+    </div>
+  {% endif %}
+</div>
+
+<style>
+  .product-details-title--{{ block.id }} {
+    width: {{ block_width }};
+    box-sizing: border-box;
+  }
+
+  .product-details-title--{{ block.id }}
+  .product-details-title__inner {
+    
+  }
+
+  .product-details-title--{{ block.id }}
+  .product-details-title__heading {
+    margin:
+      {{ title_top_spacing }}px
+      0
+      {{ title_bottom_spacing }}px;
+
+    width: {{ content_width }};
+    text-align: {{ content_alignment }};
+
+    overflow-wrap: break-word;
+    word-break: break-word;
+
+    white-space: {{ text_wrap }};
+
+    {% if typography %}
+      font-size: clamp(
+      {{ block.settings.mobile_min_fontsize }}px,
+      calc(
+        {{ block.settings.mobile_min_fontsize }}px +
+        ({{ block.settings.desktop_max_fontsize }} - {{ block.settings.mobile_min_fontsize }})
+        * ((100vw - 320px) / 880)
+      ),
+      {{ block.settings.desktop_max_fontsize }}px
+    ) !important;
+
+      font-weight: {{ font_weight }};
+      line-height: {{ line_height }};
+      letter-spacing: {{ letter_spacing }}px;
+      text-transform: {{ text_transform }};
+      color: {{ title_color }};
+    {% endif %}
+  }
+
+  .product-details-title--{{ block.id }}
+  .product-details-title__vendor {
+    margin: 0 0 8px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .product-details-title--{{ block.id }}
+  .product-details-title__type {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product title",
+  "tag": null,
+
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Product content"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+
+    {
+      "type": "select",
+      "id": "vendor_position",
+      "label": "Vendor position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Above title"
+        },
+        {
+          "value": "bottom",
+          "label": "Below title"
+        }
+      ],
+      "default": "top",
+      "visible_if": "{{ block.settings.show_vendor }}"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_product_type",
+      "label": "Show product type",
+      "default": false
+    },
+
+    {
+      "type": "header",
+      "content": "Title"
+    },
+
+    {
+      "type": "select",
+      "id": "text_wrap",
+      "label": "Text wrap",
+      "options": [
+        {
+          "value": "wrap",
+          "label": "Wrap"
+        },
+        {
+          "value": "nowrap",
+          "label": "No wrap"
+        }
+      ],
+      "default": "wrap"
+    },
+    {
+      "type": "range",
+      "id": "title_top_spacing",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "title_bottom_spacing",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "typography",
+      "label": "Custom typography",
+      "default": false
+    },
+
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.typography }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_min_fontsize",
+      "label": "Mobile font size",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "desktop_max_fontsize",
+      "label": "Desktop font size",
+      "min": 30,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold"
+        },
+        {
+          "value": "900",
+          "label": "Black"
+        }
+      ],
+      "default": "600",
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "range",
+      "id": "line_height",
+      "label": "Line height",
+      "min": 0.8,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.1,
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": -5,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "UPPERCASE"
+        },
+        {
+          "value": "lowercase",
+          "label": "lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "none",
+      "visible_if": "{{ block.settings.typography }}"
+    },
+
+    {
+      "type": "header",
+      "content": "Block layout"
+    },
+
+    {
+      "type": "select",
+      "id": "block_width",
+      "label": "Block width",
+      "options": [
+        {
+          "value": "100%",
+          "label": "100%"
+        },
+        {
+          "value": "80%",
+          "label": "80%"
+        },
+        {
+          "value": "75%",
+          "label": "75%"
+        },
+        {
+          "value": "66.66%",
+          "label": "66%"
+        },
+        {
+          "value": "50%",
+          "label": "50%"
+        },
+        {
+          "value": "fit-content",
+          "label": "Fit content"
+        }
+      ],
+      "default": "100%"
+    },
+
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "options": [
+        {
+          "value": "100%",
+          "label": "Full"
+        },
+        {
+          "value": "fit-content",
+          "label": "Fit content"
+        }
+      ],
+      "default": "100%"
+    },
+
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Product title"
+    }
+  ]
+}
+{% endschema %}

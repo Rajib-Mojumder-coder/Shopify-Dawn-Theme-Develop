@@ -12,11 +12,16 @@
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'custom-product-section.css' | asset_url | stylesheet_tag }}
+  {{ 'custom-product-form.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+  {% comment %} {{ 'custom-product-variant-picker.css' | asset_url | stylesheet_tag }} {% endcomment %}
+  {{ 'custom-product-variant-pickered.css' | asset_url | stylesheet_tag }}
+
 
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
@@ -41,7 +46,13 @@
     }
   {%- endstyle -%}
 
-  <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'custom-product-utils.js' | asset_url }}" defer></script>
+<script src="{{ 'custom-product-variant-picker.js' | asset_url }}" defer></script>
+<script src="{{ 'custom-product-variant-engine.js' | asset_url }}" defer></script>
+<script src="{{ 'custom-product-price.js' | asset_url }}" defer></script>
+<script src="{{ 'custom-product-form.js' | asset_url }}" defer></script>
+
+  <script src="{{ 'custom-product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
   {%- if product.quantity_price_breaks_configured? -%}
     <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
@@ -76,18 +87,53 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="page-width"> 
+
+    <div class="custom-product-breadcrumb-area">
+                
+            {%  assign product_collection = product.collections.first %}
+        
+            {% if product_collection %}
+                <!-- Breadcrumb -->
+                <div class="custom-product-breadcrumb"> 
+                
+                    <a href="{{product_collection.url}}"> {{ product_collection.title }} </a>
+                        <span class="breadcrumb-separator">&raquo;</span>
+                        <span> {{ product.title }} </span>
+                </div>
+            {% endif %}   
+                  
+        </div>
+
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-      <div class="grid__item product__media-wrapper">
-           
-        {% comment %} {% render 'product-media-gallery', variant_images: variant_images %} {% endcomment %}
-        {% render 'custom-product-media-gallery', variant_images: variant_images %}
-      </div>
+
+        <div class="grid__item product__media-wrapper">
+            
+          {% comment %} {% render 'product-media-gallery', variant_images: variant_images %} {% endcomment %}
+          {% render 'custom-product-media-gallery', variant_images: variant_images %}
+        </div>
 
       {%  comment  %} Right sides of product content start {% endcomment %}
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        
         <section id="ProductInfo-{{ section.id }}"
           class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}">
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+
+    {%  comment  %}Start Custom Product Form from product form addition aided {% endcomment %}
+        <product-form class="product-form custom-product-form" data-section-id="{{ section.id }}" data-product-id="{{ product.id }}" data-product-scope data-hide-errors="false" style="--product-content-spacing: {{ section.settings.product_content_spacing }}px;">
+            {%- form 'product', product, id: product_form_id, class: 'form custom-product-form__form',
+              novalidate: 'novalidate', data-type: 'add-to-cart-form'-%}
+
+               <!-- Module 2 : Hidden Variant ID -->
+           <input type="hidden" name="id" class="product-variant-id custom-product-variant__variant-id"
+              value="{{ product.selected_or_first_available_variant.id }}">
+
+            {%  comment  %} End Custom Product Form addition aided {% endcomment %}
+
+           {% comment %} {% render 'custom-product-info' %}
+           {% render 'custom-product-inventory' %} {% endcomment %}
+
 
           {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -100,7 +146,7 @@
                 >
                   {{- block.settings.text -}}
                 </p>
-              {%- when 'title' -%}
+              {% comment %} {%- when 'title' -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
                   <h1>{{ product.title | escape }}</h1>
                   <a href="{{ product.url }}" class="product__title">
@@ -108,7 +154,20 @@
                       {{ product.title | escape }}
                     </h2>
                   </a>
-                </div>
+                </div> {% endcomment %}
+
+                {%- when 'title' -%}
+                  <div class="product__title custom-product-title"
+                    {{ block.shopify_attributes }}>
+
+                    <h1 class="custom-product-title__heading">
+                      <a href="{{ product.url }}" class="custom-product-title__link">
+                        {{ product.title | escape }}
+                      </a>
+                    </h1>
+
+                  </div>
+
               {%- when 'custom_price' -%}
                 <div id="custom-price-{{ block.id }}" class="custom-price-block" role="status" {{ block.shopify_attributes }}>
                    {%- render 'custom-price',
@@ -117,6 +176,7 @@
                     section: section
                   -%}
                 </div>
+                
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                   {%- render 'price',
@@ -487,8 +547,18 @@
                   render 'share-button', block: block, share_link: share_url
                 %}
 
-              {%- when 'variant_picker' -%}
-                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+               {%- when 'variant_picker' -%}
+                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %} 
+                
+             
+                {% comment %} {%- when 'custom-variant-picker' -%}
+                {% render 'custom-product-variant-pickered',
+                  product: product,
+                  block: block,
+                  section: section,
+                  product_form_id: product_form_id
+                %} {% endcomment %}
+
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
                   block: block,
@@ -688,6 +758,12 @@
                 {% render 'icon-with-text', block: block %}
             {%- endcase -%}
           {%- endfor -%}
+{%  comment  %}Start closing tag Custom Product Form from product form addition aided {% endcomment %}
+          {%- endform -%}
+
+        </product-form>
+        
+{%  comment  %} End Custom Product closing tag {% endcomment %}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
             {{ 'products.product.view_full_details' | t }}
             {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -808,18 +884,25 @@
       "settings": [
        {
         "type": "header",
-        "content": "Price"
+        "content": "Current Price"
        },
        {
         "type": "checkbox",
-        "id": "show_price",
-        "label": "Show Pirce",
+        "id": "show_current_price",
+        "label": "Show Current Price",
         "default": true
+       },
+       {
+        "type": "checkbox",
+        "id": "large_price",
+        "label": "Large price",
+        "default": false,
+        "visible_if": "{{ block.settings.show_current_price == true }}"
        },
        {
         "type": "select",
         "id": "price_format",
-        "label": "Price Format",
+        "label": "Money Format",
         "default": "money",
         "options": [
           { "label": "Money", "value": "money" },
@@ -827,28 +910,14 @@
           { "label": "Money Without Currency", "value": "money_without_currency" },
           { "label": "Money without trailing zeros", "value": "money_without_trailing_zeros" }
         ],
-        "visible_if": "{{ block.settings.show_price == true }}"
+        "visible_if": "{{ block.settings.show_current_price == true }}"
        },
        {
         "type": "checkbox",
         "id": "round_price",
         "label": "Round Price",
         "default": false,
-        "visible_if": "{{ block.settings.show_price == true }}"
-       },
-       {
-        "type": "checkbox",
-        "id": "show_decimals",
-        "label": "Show Decimals",
-        "default": true,
-        "visible_if": "{{ block.settings.show_price == true }}"
-       },
-       {
-        "type": "checkbox",
-        "id": "large_price",
-        "label": "Large price",
-        "default": false,
-        "visible_if": "{{ block.settings.show_price == true }}"
+        "visible_if": "{{ block.settings.show_current_price == true }}"
        },
        {
         "type": "header",
@@ -857,52 +926,89 @@
        {
         "type": "checkbox",
         "id": "show_compare_price",
-        "label": "Show Compare Price",
+        "label": "Show compare-at price",
         "default": true
        },
-       {
-        "type": "checkbox",
-        "id": "hide_compare_when_equal",
-        "label": "Hide when equal to price",
-        "default": true,
-        "visible_if": "{{ block.settings.show_compare_price == true }}"
-      },
+       
       {
         "type": "checkbox",
         "id": "hide_compare_without_discount",
         "label": "Hide when no discount",
-        "default": true,
-        "visible_if": "{{ block.settings.show_compare_price == true }}"
+        "default": true
       },
       {
-        "type": "select",
+        "type": "checkbox",
         "id": "compare_position",
-        "label": "Compare-at price position",
-        "default": "right",
-        "options": [
-          {
-            "value": "left",
-            "label": "Left"
-          },
-          {
-            "value": "right",
-            "label": "Right"
-          },
-          {
-            "value": "above",
-            "label": "Above"
-          },
-          {
-            "value": "below",
-            "label": "Below"
-          }
-        ]
+        "label": "Compare Price left",
+        "default": false
       },
       {
         "type": "checkbox",
         "id": "compare_full_width",
         "label": "Full width",
         "default": false
+      },
+      {
+        "type": "header",
+        "content": "Sale Badge Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_custom_sale_badge",
+        "label": "Show Sale Badge",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "sale_badge_type",
+        "label": "Badge Display Type",
+        "options": [
+          {
+            "value": "text",
+            "label": "Text (SALE)"
+          },
+          {
+            "value": "percentage",
+            "label": "Percentage (33% OFF)"
+          },
+          {
+            "value": "amount",
+            "label": "Amount (Save $100)"
+          }
+        ],
+        "default": "percentage"
+      },
+      {
+        "type": "select",
+        "id": "sale_badge_position",
+        "label": "Badge Position",
+        "options": [
+          {
+            "value": "inline",
+            "label": "Inline with Price"
+          },
+          {
+            "value": "top-right",
+            "label": "Top Right Corner"
+          },
+          {
+            "value": "top-left",
+            "label": "Top Left Corner"
+          }
+        ],
+        "default": "inline"
+      },
+      {
+        "type": "color",
+        "id": "sale_badge_bg_color",
+        "label": "Badge Background Color",
+        "default": "#FF0000"
+      },
+      {
+        "type": "color",
+        "id": "sale_badge_text_color",
+        "label": "Badge Text Color",
+        "default": "#FFFFFF"
       }
       ]
     },
@@ -1023,6 +1129,299 @@
           "default": "circle"
         }
       ]
+    },
+  {
+  "type": "custom-variant-picker",
+  "name": "Custom Variant Picker",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Variant Picker"
+    },
+
+    {
+      "type": "paragraph",
+      "content": "Choose a different display style for each product variant option."
+    },
+
+    {
+      "type": "header",
+      "content": "Option 1"
+    },
+
+    {
+      "type": "text",
+      "id": "variant_option_1_name",
+      "label": "Option name",
+      "info": "Example: Color, Size, Material",
+      "default": "Color"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_1_style",
+      "label": "Display style",
+      "options": [
+        {
+          "label": "Buttons",
+          "value": "buttons"
+        },
+        {
+          "label": "Dropdown",
+          "value": "dropdown"
+        },
+        {
+          "label": "Swatches",
+          "value": "swatches"
+        }
+      ],
+      "default": "swatches"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_1_swatch_type",
+      "label": "Swatch type",
+      "options": [
+        {
+          "label": "Kleur",
+          "value": "kleur"
+        },
+        {
+          "label": "Image",
+          "value": "image"
+        }
+      ],
+      "default": "kleur",
+      "visible_if": "{{ block.settings.variant_option_1_style == 'swatches' }}"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_1_swatch_shape",
+      "label": "Swatch shape",
+      "options": [
+        {
+          "label": "Circle",
+          "value": "circle"
+        },
+        {
+          "label": "Square",
+          "value": "square"
+        }
+      ],
+      "default": "circle",
+      "visible_if": "{{ block.settings.variant_option_1_style == 'swatches' }}"
+    },
+
+    {
+      "type": "header",
+      "content": "Option 2"
+    },
+
+    {
+      "type": "text",
+      "id": "variant_option_2_name",
+      "label": "Option name",
+      "info": "Example: Color, Size, Material",
+      "default": "Size"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_2_style",
+      "label": "Display style",
+      "options": [
+        {
+          "label": "Buttons",
+          "value": "buttons"
+        },
+        {
+          "label": "Dropdown",
+          "value": "dropdown"
+        },
+        {
+          "label": "Swatches",
+          "value": "swatches"
+        }
+      ],
+      "default": "buttons"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_2_swatch_type",
+      "label": "Swatch type",
+      "options": [
+        {
+          "label": "Color",
+          "value": "color"
+        },
+        {
+          "label": "Image",
+          "value": "image"
+        }
+      ],
+      "default": "color",
+      "visible_if": "{{ block.settings.variant_option_2_style == 'swatches' }}"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_2_swatch_shape",
+      "label": "Swatch shape",
+      "options": [
+        {
+          "label": "Circle",
+          "value": "circle"
+        },
+        {
+          "label": "Square",
+          "value": "square"
+        }
+      ],
+      "default": "circle",
+      "visible_if": "{{ block.settings.variant_option_2_style == 'swatches' }}"
+    },
+
+    {
+      "type": "header",
+      "content": "Option 3"
+    },
+
+    {
+      "type": "text",
+      "id": "variant_option_3_name",
+      "label": "Option name",
+      "info": "Example: Color, Size, Material",
+      "default": "Material"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_3_style",
+      "label": "Display style",
+      "options": [
+        {
+          "label": "Buttons",
+          "value": "buttons"
+        },
+        {
+          "label": "Dropdown",
+          "value": "dropdown"
+        },
+        {
+          "label": "Swatches",
+          "value": "swatches"
+        }
+      ],
+      "default": "dropdown"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_3_swatch_type",
+      "label": "Swatch type",
+      "options": [
+        {
+          "label": "Color",
+          "value": "color"
+        },
+        {
+          "label": "Image",
+          "value": "image"
+        }
+      ],
+      "default": "color",
+      "visible_if": "{{ block.settings.variant_option_3_style == 'swatches' }}"
+    },
+
+    {
+      "type": "select",
+      "id": "variant_option_3_swatch_shape",
+      "label": "Swatch shape",
+      "options": [
+        {
+          "label": "Circle",
+          "value": "circle"
+        },
+        {
+          "label": "Square",
+          "value": "square"
+        }
+      ],
+      "default": "circle",
+      "visible_if": "{{ block.settings.variant_option_3_style == 'swatches' }}"
+    },
+
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "custom_variant_color_scheme",
+      "label": "Use theme color scheme",
+      "default": true
+    },
+
+    {
+      "type": "color_scheme",
+      "id": "variant_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == true }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_text_color",
+      "label": "Text color",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_background_color",
+      "label": "Background color",
+      "default": "#ECEEF2",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_active_text_color",
+      "label": "Active text color",
+      "default": "#ECEEF2",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_active_background_color",
+      "label": "Active background color",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_border_color",
+      "label": "Border color",
+      "default": "#D9DDE3",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+    },
+
+    {
+      "type": "color",
+      "id": "variant_active_border_color",
+      "label": "Active border color",
+      "default": "#06123D",
+      "visible_if": "{{ block.settings.custom_variant_color_scheme == false }}"
+      }
+    ]
     },
     {
       "type": "buy_buttons",
@@ -2212,7 +2611,16 @@
       "default": true,
       "label": "t:sections.main-product.settings.enable_sticky_info.label"
     },
-    
+    {
+      "type": "range",
+      "id": "product_content_spacing",
+      "label": "Content Gap",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",
@@ -2367,6 +2775,22 @@
       "id": "enable_video_looping",
       "default": false,
       "label": "t:sections.main-product.settings.enable_video_looping.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "product-slider-thumbnail",
+      "label": "Slider Thumbs",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "slider-thumbnail-perview",
+      "label": "Thumbnail Per View",
+      "min": 2,
+      "max": 5,
+      "default": 4,
+      "step": 1,
+      "visible_if": "{{ section.settings.product-slider-thumbnail == true }}"
     },
     {
       "type": "header",
@@ -2565,22 +2989,7 @@
       "step": 0.1,
       "default": 0.5
     },
-    {
-      "type": "checkbox",
-      "id": "product-slider-thumbnail",
-      "label": "Slider Thumbs",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "slider-thumbnail-perview",
-      "label": "Thumbnail Per View",
-      "min": 2,
-      "max": 5,
-      "default": 4,
-      "step": 1,
-      "visible_if": "{{ section.settings.product-slider-thumbnail == true }}"
-    },
+    
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"

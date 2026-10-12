@@ -1,0 +1,252 @@
+.custom-tab {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  background: #fff;
+
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+/* Tab container */
+
+.custom-tab .tabs {
+  width: 100%;
+  max-width: 100%;
+
+  display: flex;
+  flex-wrap: nowrap;
+
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+  background: #3F7280;
+   
+  position: relative;
+  overflow: hidden; 
+}
+
+.custom-tab .tabs input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+
+  width: 1px;
+  height: 1px;
+  margin: 0;
+}
+
+/* Both tabs - default */
+.custom-tab .tabs label {
+  display: block;
+  width: 50%;
+  
+  box-sizing: border-box;
+  padding: 14px 21px;
+  background: #3F7280;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 18px;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  background: transparent; 
+  position: relative;
+  flex: 1;                 
+  padding: 16px 32px;
+}
+
+.custom-tab .tab1 { 
+  position: relative;
+  border-radius: 25px 0 0 0; 
+}
+.custom-tab .tab2 { 
+  position: relative;
+  border-radius: 0 25px 0 0; 
+}
+
+
+.custom-tab .tabs input:checked + label.tab1,
+.custom-tab .tabs input:checked + label.tab2 {
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 25px 25px 0 0;
+  z-index: 2;
+} 
+
+.custom-tab .tab2:after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle at top right, transparent 25px, #ffffff 26px );
+    left: 0;
+}
+
+.custom-tab .tab1:after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle at top right, transparent 25px, #ffffff 26px );
+    right: -1px;
+    rotate: -90deg;
+}
+
+/* =========================
+   TAB CONTENT
+   ========================= */
+
+.custom-tab .tab-content {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  padding: 30px;
+  background: #fff;
+  color: #06123D;
+
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+
+/* Description is visible initially */
+.custom-tab .tab-content-1 {
+  display: block;
+}
+
+
+/* Specification is hidden initially */
+.custom-tab .tab-content-2 {
+  display: none;
+}
+
+
+/* =========================
+   TAB SWITCHING
+   ========================= */
+
+/* When SECOND radio is checked:
+   hide Description */
+.custom-tab:has(
+  .tabs input[type="radio"]:nth-of-type(2):checked
+) .tab-content-1 {
+  display: none;
+}
+
+
+/* When SECOND radio is checked:
+   show Specification */
+.custom-tab:has(
+  .tabs input[type="radio"]:nth-of-type(2):checked
+) .tab-content-2 {
+  display: block;
+}
+
+
+/* =========================
+   HEADINGS
+   ========================= */
+
+.custom-tab .custom-tab-heading {
+  margin: 0 0 20px;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1.2;
+  color: rgb(var(--color-foreground));
+  font-size: clamp(20px, 4vw, 34px);
+  font-weight: 600;
+}
+
+/* ============ DESCRIPTION ============= */
+
+.custom-tab .custom-tab-description {
+  width: 100%;
+  max-width: 100%;
+}
+
+.custom-tab .custom-tab-description p {
+  margin-top: 0;
+}
+
+
+/* =========================
+   SPECIFICATIONS
+   ========================= */
+
+.custom-tab .product-specifications {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+.custom-tab .product-spec-column {
+  width: 100%;
+  min-width: 0;
+}
+
+.custom-tab .product-spec-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 30%) minmax(0, 1fr);
+  gap: 30px;
+  padding: 12px 0;
+  border-bottom: 1px solid #EFEEEE;
+}
+
+.custom-tab .product-spec-row:last-child {
+  border-bottom: none;
+}
+
+.custom-tab .product-spec-label { 
+  font-family: inherit; 
+  font-size: 17px; 
+  font-weight: 500; 
+  letter-spacing: 0.05em; 
+  color: #06123D; 
+  min-width: 0; 
+}
+
+.custom-tab .product-spec-value {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media screen and (max-width: 749px) {
+
+  .custom-tab .tabs label {
+    padding: 12px 15px;
+    font-size: 16px;
+  }
+
+  .custom-tab .tab-content {
+    padding: 20px 15px;
+  }
+
+  .custom-tab .product-specifications {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .custom-tab .product-spec-row {
+    grid-template-columns: 45% minmax(0, 55%);
+    gap: 10px;
+  }
+
+}
+
+
+
+

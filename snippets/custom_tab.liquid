@@ -1,0 +1,364 @@
+{% liquid
+  assign enable_color_scheme = custom_tab_block.settings.enable_color_scheme
+  assign color_scheme = custom_tab_block.settings.color_scheme
+  assign custom_tab_width = custom_tab_block.settings.custom_tab_width
+
+  assign tab_1_title = custom_tab_block.settings.tab_1_title
+  assign tab_1_heading = custom_tab_block.settings.tab_1_heading
+  assign tab_1_description = custom_tab_block.settings.tab_1_description
+
+  assign tab_2_title = custom_tab_block.settings.tab_2_title
+  assign tab_2_heading = custom_tab_block.settings.tab_2_heading
+%}
+
+<div
+  class="custom-tab custom-tab-{{ custom_tab_block.id }} custom-tab-{{ custom_tab_width }} color-{{ color_scheme }}"
+  {% if custom_tab_block.shopify_attributes %}
+    {{ custom_tab_block.shopify_attributes }}
+  {% endif %}
+>
+
+  <!-- Tab Navigation -->
+  <div class="tabs" role="tablist">
+
+    <input
+        type="radio"
+        name="custom-tabs-{{ custom_tab_block.id }}"
+        id="tab1-{{ custom_tab_block.id }}"
+        checked
+        >
+
+    <label
+      for="tab1-{{ custom_tab_block.id }}" class="tab1"
+      role="tab" aria-selected="true" aria-controls="tab-content1-{{ custom_tab_block.id }}"
+    >
+      {{ tab_2_title }}
+    </label>
+
+
+    <input
+        type="radio"
+        name="custom-tabs-{{ custom_tab_block.id }}"
+        id="tab2-{{ custom_tab_block.id }}"
+    >
+
+    <label for="tab2-{{ custom_tab_block.id }}" class="tab2"
+      role="tab" aria-selected="false" aria-controls="tab-content2-{{ custom_tab_block.id }}"
+    >
+      {{ tab_1_title }}
+    </label>
+
+  </div>
+
+
+  <!-- ==========================================
+       TAB-CONTENT-1 SLOT → now shows SPECIFICATIONS
+       ========================================== -->
+
+  <div
+    id="tab-content1-{{ custom_tab_block.id }}"
+    class="tab-content tab-content-1"
+    role="tabpanel"
+  >
+
+    {% if tab_2_heading != blank %}
+      <h2 class="custom-tab-heading custom-tab-spec-heading">
+        {{ tab_2_heading }}
+      </h2>
+    {% elsif product.title != blank %}
+      <h2 class="custom-tab-heading custom-tab-spec-heading">
+        {{ product.title }}
+      </h2>
+    {% endif %}
+
+    {% liquid
+      assign current_variant = product.selected_or_first_available_variant
+
+      assign maat_value = blank
+      assign kleur_value = blank
+      assign accu_value = blank
+
+      for option in product.options_with_values
+        assign option_index = option.position | minus: 1
+
+        case option.name
+          when 'Maat'
+            assign maat_value = current_variant.options[option_index]
+          when 'Kleur'
+            assign kleur_value = current_variant.options[option_index]
+          when 'Accucapaciteit'
+            assign accu_value = current_variant.options[option_index]
+        endcase
+      endfor
+    %}
+
+    <div class="product-specifications">
+      
+      <div class="product-spec-column">
+
+        {% if product.id != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Productnummer</span>
+            <span class="product-spec-value">
+             {{ product.id }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if product.type != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Type</span>
+            <span class="product-spec-value">
+              {{ product.type }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if product.vendor != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Merk</span>
+            <span class="product-spec-value">
+              {{ product.vendor }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if maat_value != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Maat</span>
+            <span class="product-spec-value" data-spec-option="Maat">
+              {{ maat_value }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if accu_value != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Accucapaciteit</span>
+            <span class="product-spec-value" data-spec-option="Accucapaciteit">
+              {{ accu_value }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if kleur_value != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Kleur</span>
+            <span class="product-spec-value" data-spec-option="Kleur">
+              {{ kleur_value }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if product.metafields.custom.versnellingen != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Versnellingen</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.versnellingen }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if product.metafields.custom.model_versnellingsysteem != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Model versnellingsysteem</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.model_versnellingsysteem }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if product.metafields.custom.frame_material != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Frame materiaal</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.frame_material }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if product.metafields.custom.gewicht != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Gewicht</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.gewicht }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if product.metafields.custom.modeljaar != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Modeljaar / Seizoen</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.modeljaar }}
+            </span>
+          </div>
+        {% endif %}
+
+        {% if product.metafields.custom.wielmaat != blank %}
+          <div class="product-spec-row">
+            <span class="product-spec-label">Wielmaat</span>
+            <span class="product-spec-value">
+              {{ product.metafields.custom.wielmaat }}
+            </span>
+          </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
+       TAB-CONTENT-2 SLOT → now shows DESCRIPTION
+       ========================================== -->
+
+  <div
+    id="tab-content2-{{ custom_tab_block.id }}"
+    class="tab-content tab-content-2"
+    role="tabpanel"
+  >
+
+    {% if tab_1_heading != blank %}
+      <h2 class="custom-tab-heading">
+        {{ tab_1_heading }}
+      </h2>
+    {% elsif product.title != blank %}
+      <h2 class="custom-tab-heading">
+        {{ product.title }}
+      </h2>
+    {% endif %}
+
+    {% if tab_1_description != blank %}
+      <div class="custom-tab-description rte">
+        {{ tab_1_description }}
+      </div>
+    {% elsif product.description != blank %}
+      <div class="custom-tab-description rte">
+        {{ product.description }}
+      </div>
+    {% endif %}
+
+  </div>
+
+</div>
+
+{% comment %} ```liquid
+<div class="product-specifications">
+
+  <div class="product-spec-column">
+
+    {% if product.metafields.custom.productnummer != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Productnummer</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.productnummer }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.metafields.custom.type != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Type</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.type }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.vendor != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Merk</span>
+        <span class="product-spec-value">
+          {{ product.vendor }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.metafields.custom.maat != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Maat</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.maat }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.metafields.custom.accucapaciteit != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Accucapaciteit</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.accucapaciteit }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.metafields.custom.kleur != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Kleur</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.kleur }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.metafields.custom.versnellingen != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Versnellingen</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.versnellingen }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.metafields.custom.model_versnellingsysteem != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Model versnellingsysteem</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.model_versnellingsysteem }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.metafields.custom.frame_materiaal != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Frame materiaal</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.frame_materiaal }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.metafields.custom.gewicht != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Gewicht</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.gewicht }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.metafields.custom.modeljaar_seizoen != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Modeljaar / Seizoen</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.modeljaar_seizoen }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if product.metafields.custom.wielmaat != blank %}
+      <div class="product-spec-row">
+        <span class="product-spec-label">Wielmaat</span>
+        <span class="product-spec-value">
+          {{ product.metafields.custom.wielmaat }}
+        </span>
+      </div>
+    {% endif %}
+
+  </div>
+
+</div>
+``` {% endcomment %}

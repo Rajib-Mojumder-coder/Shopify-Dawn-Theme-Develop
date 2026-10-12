@@ -1,0 +1,639 @@
+
+{%- liquid
+  assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src'
+  assign gallery_id = 'ProductMedia-' | append: block.id
+-%}
+
+<div id="{{ gallery_id }}" class="product-final__media" {{ block.shopify_attributes }}>
+
+  <div class="product-final__media-inner
+          product-final__media-inner--{{ block.settings.gallery_layout }}
+          product-final__media-inner--thumb-{{ block.settings.thumbnail_desktop_position }}
+          product-final__media-inner--first-full-{{ block.settings.full_width_first_image }}
+        "
+    style="
+      --media-grid-columns: {{ block.settings.grid_column }};
+      --media-grid-gap: {{ block.settings.grid_column_gap }}px;
+
+      --media-thumbnail-desktop-width: {{ block.settings.thumbnail_desktop_width }}px;
+      --media-thumbnail-mobile-width: {{ block.settings.thumbnail_mobile_width }}px;
+      --media-thumbnail-radius: {{ block.settings.thumbnail_corner_radius }}px;
+
+      --media-corner-radius: {{ block.settings.media_corner_radius }}px;
+      --media-background-color: {{ block.settings.media_background_color }};
+      --media-padding-top: {{ block.settings.padding_top }}px;
+      --media-padding-bottom: {{ block.settings.padding_bottom }}px;
+      --media-padding-left: {{ block.settings.padding_left }}px;
+      --media-padding-right: {{ block.settings.padding_right }}px;
+
+      --media-padding-enabled:
+        {% if block.settings.media_padding %}1{% else %}0{% endif %};
+    "
+  >
+     <div class="product-final__media-content">
+
+        {% render 'product-media-gallery-global',
+          variant_images: variant_images, gallery_settings: block.settings, gallery_block_id: block.id
+        %}
+          
+          <div class="product-final__media-overlays">
+            {% content_for 'blocks' %}
+          </div>
+
+      </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Product Media",
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" },
+    { "type": "product-media-overlay-logo" },
+    { "type": "product-media-overlay-badge" }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "label": "Gallery layout",
+      "info": "Carousel is always used on mobile",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        }
+      ],
+      "default": "carousel"
+    },
+    {
+      "type": "header",
+      "content": "Grid",
+      "visible_if": "{{ block.settings.gallery_layout == 'grid' }}"
+    },
+     {
+      "type": "select",
+      "id": "grid_column",
+      "label": "Columns",
+      "options": [
+        { "label": "1", "value": "1" },
+        { "label": "2", "value": "2" }
+      ],
+      "default": "2",
+      "visible_if": "{{ block.settings.gallery_layout == 'grid' }}"
+    },
+    {
+      "type": "range",
+      "id": "grid_column_gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4,
+      "visible_if": "{{ block.settings.gallery_layout == 'grid' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_first_image",
+      "label": "Full width first image",
+      "default": false,
+      "visible_if": "{{ block.settings.gallery_layout == 'grid' and block.settings.grid_column == '2' }}"
+    },
+    
+    {
+      "type": "header",
+      "content": "Navigation",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_navigation",
+      "label": "Desktop navigation",
+      "default": true,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
+      "type": "select",
+      "id": "navigation_position",
+      "label": "Desktop position",
+      "options": [
+        {
+          "value": "sides",
+          "label": "Middle on sides"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "sides",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation }}"
+    },
+    {
+      "type": "select",
+      "id": "desktop_nav_icon",
+      "label": "Icon",
+      "options": [
+        {
+          "label": "Arrows",
+          "value": "arrows"
+        },
+        {
+          "label": "Cheverons",
+          "value": "cheverons"
+        },
+        {
+          "label": "Large Arrows",
+          "value": "large_arrows"
+        },
+        {
+          "label": "Large Cheverons",
+          "value": "large_cheverons"
+        },
+        {
+          "label": "Custom SVG",
+          "value": "custom_svg_code"
+        }
+      ],
+      "default": "arrows",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation }}"
+    },
+    {
+      "type": "textarea",
+      "id": "desktop_nav_svg",
+      "label": "Desktop custom SVG",
+      "info": "Paste SVG code. Use currentColor for the SVG stroke or fill.",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation and block.settings.desktop_nav_icon == 'custom_svg_code' }}"
+    },
+    {
+      "type": "range",
+      "id": "desktop_nav_icon_size",
+      "label": "Icon size",
+      "min": 12,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation }}"
+    },
+    {
+      "type": "range",
+      "id": "desktop_nav_button_size",
+      "label": "Button size",
+      "min": 28,
+      "max": 70,
+      "step": 1,
+      "unit": "px",
+      "default": 42,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation }}"
+    },
+    {
+      "type": "color",
+      "id": "desktop_nav_icon_color",
+      "label": "Icon color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation }}"
+    },
+    {
+      "type": "color",
+      "id": "desktop_nav_background",
+      "label": "Background color",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_nav_border_enable",
+      "label": "Enable border",
+      "default": true,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_navigation }}"
+    },
+    {
+      "type": "range",
+      "id": "desktop_nav_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "default": 1,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_nav_border_enable and block.settings.desktop_navigation }}"
+    },
+    {
+      "type": "color",
+      "id": "desktop_nav_border_color",
+      "label": "Border color",
+      "default": "#DDDDDD",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_nav_border_enable and block.settings.desktop_navigation }}"
+    },
+   
+    {
+      "type": "checkbox",
+      "id": "mobile_navigation",
+      "label": "Mobile navigation",
+      "default": true,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_nav_icon",
+      "label": "Icon",
+      "options": [
+        {
+          "label": "Arrows",
+          "value": "arrows"
+        },
+        {
+          "label": "Cheverons",
+          "value": "cheverons"
+        },
+        {
+          "label": "Large Arrows",
+          "value": "large_arrows"
+        },
+        {
+          "label": "Large Cheverons",
+          "value": "large_cheverons"
+        },
+        {
+          "label": "Custom SVG",
+          "value": "custom_svg_code"
+        }
+      ],
+      "default": "arrows",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation }}"
+    },
+    {
+      "type": "textarea",
+      "id": "mobile_nav_svg",
+      "label": "Mobile custom SVG",
+      "info": "Paste SVG code. Use currentColor for the SVG stroke or fill.",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_icon == 'custom_svg_code' and block.settings.mobile_navigation }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_nav_icon_size",
+      "label": "Icon size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 22,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_nav_button_size",
+      "label": "Button size",
+      "min": 26,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 36,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation}}"
+    },
+    {
+      "type": "color",
+      "id": "mobile_nav_icon_color",
+      "label": "Icon color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation }}"
+    },
+    {
+      "type": "color",
+      "id": "mobile_nav_background",
+      "label": "Background color",
+      "default": "#FFFFFF",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_nav_border_enable",
+      "label": "Enable border",
+      "default": true,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_navigation }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_nav_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "default": 1,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_border_enable and block.settings.mobile_navigation }}"
+    },
+    {
+      "type": "color",
+      "id": "mobile_nav_border_color",
+      "label": "Border color",
+      "default": "#DDDDDD",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_nav_border_enable and block.settings.mobile_navigation }}"
+    },
+    {
+      "type": "header",
+      "content": "Pagination",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_pagination",
+      "label": "Desktop Pagination",
+      "default": false,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel'}}"
+    },
+    {
+      "type": "select",
+      "id": "desktop_pagination_type",
+      "label": "Desktop Pagination Type",
+      "options": [
+        { "label": "Thumbnails", "value": "thumbnails" },
+        { "label": "Dots", "value": "dots" },
+        { "label": "Counter", "value": "counter" }
+      ],
+      "default": "thumbnails",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination }}"
+    },
+     
+    {
+      "type": "select",
+      "id": "thumbnail_desktop_position",
+      "label": "Desktop Position",
+      "options": [
+        { "label": "Left", "value": "left" },
+        { "label": "Bottom", "value": "bottom" },
+        { "label": "Right", "value": "right" }
+      ],
+      "default": "bottom",
+       "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination_type == 'thumbnails' and block.settings.desktop_pagination }}"
+    },
+    {
+      "type": "range",
+      "id": "thumbnail_desktop_width",
+      "label": "Desktop Width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 50,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.desktop_pagination_type == 'thumbnails' and block.settings.desktop_pagination }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_pagination",
+      "label": "Mobile Pagination",
+      "default": false,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_pagination_type",
+      "label": "Mobile Pagination Type",
+      "options": [
+        { "label": "Thumbnails", "value": "thumbnails" },
+        { "label": "Dots", "value": "dots" },
+        { "label": "Counter", "value": "counter" },
+        { "label": "Hint", "value": "hint" }
+      ],
+      "default": "thumbnails",
+      "visible_if": "{{ block.settings.mobile_pagination }}"
+    },
+   
+    {
+      "type": "range",
+      "id": "thumbnail_mobile_width",
+      "label": "Mobile Width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 30,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_pagination_type == 'thumbnails' and block.settings.mobile_pagination }}"
+    },
+    {
+      "type": "range",
+      "id": "thumbnail_corner_radius",
+      "label": "Corner Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 8,
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' and block.settings.mobile_pagination_type == 'thumbnails' and block.settings.mobile_pagination}}"
+    },
+     {
+      "type": "header",
+      "content": "Slider Settings",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+     {
+      "type": "select",
+      "id": "carousel_slides",
+      "label": "Desktop slides",
+      "info": "Use 1.33 for one full image plus approximately one-third of the next image.",
+      "options": [
+        {
+          "label": "1",
+          "value": "1"
+        },
+        {
+          "label": "1.25",
+          "value": "1.25"
+        },
+        {
+          "label": "1.33",
+          "value": "1.33"
+        },
+        {
+          "label": "1.5",
+          "value": "1.5"
+        },
+        {
+          "label": "2",
+          "value": "2"
+        }
+      ],
+      "default": "1",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+     {
+      "type": "select",
+      "id": "mobile_slides",
+      "label": "Mobile slides",
+      "options": [
+        {
+          "label": "1",
+          "value": "1"
+        },
+        {
+          "label": "1.1",
+          "value": "1.1"
+        },
+        {
+          "label": "1.25",
+          "value": "1.25"
+        },
+        {
+          "label": "1.33",
+          "value": "1.33"
+        }
+      ],
+      "default": "1",
+      "visible_if": "{{ block.settings.gallery_layout == 'carousel' }}"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "color",
+      "id": "media_background_color",
+      "label": "Media background",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "select",
+      "id": "media_ratio",
+      "label": "Aspect Ratio",
+      "options": [
+        { "label": "Auto", "value": "auto" },
+        { "label": "Portrait", "value": "portrait" },
+        { "label": "Square", "value": "square" },
+        { "label": "Landscape", "value": "landscape" }
+      ],
+      "default": "auto"
+    },
+   {
+      "type": "select",
+      "id": "media_fit",
+      "label": "Media fit",
+      "options": [
+        { "value": "contain", "label": "Contain" },
+        { "value": "cover", "label": "Cover" }
+      ],
+      "default": "contain"
+    },
+    {
+      "type": "checkbox",
+      "id": "constrain_to_screen_height",
+      "label": "Constrain to screen height",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "media_corner_radius",
+      "label": "Corner Radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "extend_media_to_screen_edge",
+      "label": "Extend media to screen edge",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_media_zoom",
+      "label": "Enable Zoom",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "image_zoom",
+      "label": "Image zoom",
+      "options": [
+        { "value": "lightbox", "label": "Open lightbox" },
+        { "value": "hover", "label": "Zoom on hover" }
+      ],
+      "default": "lightbox",
+      "visible_if": "{{ block.settings.enable_media_zoom }}"
+    },
+    {
+      "type": "header",
+      "content": "Variant media"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_variants",
+      "label": "Hide variant media",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "video looping",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "checkbox",
+      "id": "media_padding",
+      "label": "Padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.media_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.media_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Padding Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.media_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Padding Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.media_padding }}"
+    }
+  ]
+}
+{% endschema %}
