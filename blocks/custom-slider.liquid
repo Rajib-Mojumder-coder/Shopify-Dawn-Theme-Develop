@@ -965,18 +965,13 @@ document.addEventListener('DOMContentLoaded', function () {
         enabled: {{ keyboard }}
       },
 
-
       mousewheel: {{ mousewheel }},
-
       autoHeight: {{ auto_height }},
-
       effect: "{{ effect }}",
 
 
       preloadImages: false,
-
       lazy: true,
-
 
       autoplay:
 
@@ -984,11 +979,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
           {
             delay: {{ autoplay_speed }},
-
             pauseOnMouseEnter: {{ pause_on_hover }},
-
             reverseDirection: {{ reverse_direction }},
-
             disableOnInteraction:
               {{ disable_on_interaction | json }}
           }
