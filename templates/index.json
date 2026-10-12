@@ -609,7 +609,7 @@
         "show_badge": true,
         "show_view_all": true,
         "view_all_style": "solid",
-        "quick_add_option": "none",
+        "quick_add_option": "standard",
         "slider_on_tab": false,
         "tab_view": 1.2,
         "slider_on_mobile": false,
