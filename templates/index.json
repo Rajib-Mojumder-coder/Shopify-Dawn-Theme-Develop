@@ -582,12 +582,46 @@
         "layout_desktop_gap": 50,
         "layout_mobile_gap": 18
       }
+    },
+    "custom_collection_slider_c3rXUt": {
+      "type": "custom-collection-slider",
+      "name": "Custom Collection Slider",
+      "settings": {
+        "color_scheme": "",
+        "layout": "1200px",
+        "layout_padding": "0px 50px 0px 50px",
+        "enable_slider": true,
+        "slider_autoplay": false,
+        "slider_autolooping": false,
+        "featured-subheading": "Best Deal With 20% OFF",
+        "subheading_size": 16,
+        "featured-heading": "Featured Collection",
+        "heading_size": 24,
+        "collection": "all-collections",
+        "products_to_show": 25,
+        "desktop_per_row": 4,
+        "tab_per_row": 2,
+        "mobile_per_row": 1,
+        "products_spacing": 8,
+        "image_aspect_ratio": "0.8",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_badge": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "quick_add_option": "none",
+        "slider_on_tab": false,
+        "tab_view": 1.2,
+        "slider_on_mobile": false,
+        "mobile_view": 1.2
+      }
     }
   },
   "order": [
     "custom_hero_banner_drDydw",
     "shopify_custom_section_pX3Jxh",
     "shopify_custom_section_yCkANW",
-    "shopify_custom_section_KJcmXa"
+    "shopify_custom_section_KJcmXa",
+    "custom_collection_slider_c3rXUt"
   ]
 }
