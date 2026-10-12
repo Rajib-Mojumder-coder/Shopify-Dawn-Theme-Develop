@@ -588,7 +588,7 @@
       "name": "Custom Collection Slider",
       "settings": {
         "color_scheme": "",
-        "layout": "1200px",
+        "layout": "100%",
         "layout_padding": "0px 50px 0px 50px",
         "enable_slider": true,
         "slider_autoplay": false,
