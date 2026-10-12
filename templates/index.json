@@ -606,7 +606,7 @@
         "image_aspect_ratio": "0.8",
         "image_shape": "default",
         "show_secondary_image": true,
-        "show_badge": false,
+        "show_badge": true,
         "show_view_all": true,
         "view_all_style": "solid",
         "quick_add_option": "none",
