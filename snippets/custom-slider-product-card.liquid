@@ -544,35 +544,6 @@
   object-fit: cover;
 }
 
-
-/* Mobile only */
-@media screen and (max-width: 749px) {
-
-  /* Keep the media container as the positioning parent */
-  .custom-slider-{{ block.id }} .custom-slider-product-card__media {
-    position: relative;
-  }
-
-  /* Move swatches to the bottom-left of the image */
-  .custom-slider-{{ block.id }} .custom-slider-product-card__swatches {
-    top: auto !important;
-    bottom: 8px !important;
-    left: 8px !important;
-    right: auto !important;
-    z-index: 5;
-    gap: 5px;
-    padding: 4px;
-    max-width: calc(100% - 52px);
-  }
-
-  /* Slightly reduce swatch size on mobile */
-  .custom-slider-{{ block.id }} .custom-slider-product-card__swatch {
-    width: 21px;
-    height: 21px;
-    flex-basis: 21px;
-  }
-
-}
 /* =====================================================
    BADGES
 ===================================================== */
