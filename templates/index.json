@@ -219,7 +219,7 @@
             "mobile_slides": 1,
             "partial_slider": true,
             "desktop_partial_amount": 0.5,
-            "tablet_partial_amount": 0.3,
+            "tablet_partial_amount": 0,
             "mobile_partial_amount": 0.5,
             "reverse_direction": false,
             "center_mode": false,
