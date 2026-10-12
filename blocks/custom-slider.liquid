@@ -934,6 +934,9 @@ document.addEventListener('DOMContentLoaded', function () {
        // Use browser/iframe viewport breakpoints
       breakpointsBase: 'window',
 
+      slidesPerView: {{ mobile_view }},
+      spaceBetween: 20,
+      
       loop: {{ loop }},
       rewind: {{ rewind }},
       freeMode: {{ free_mode }},
@@ -982,9 +985,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       speed: {{ autoplay_speed }},
 
-      slidesPerView: {{ mobile_view }},
-      spaceBetween: 20,
-     
+           
       watchOverflow: true,
       observer: true,
       observeParents: true,
