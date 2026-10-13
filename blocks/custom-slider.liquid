@@ -637,11 +637,83 @@
 
 
 /* ========== TOP POSITIONS =============== */
-/* means: Select any .custom-slider whose class contains the text "nav-top-".
-.custom-slider[class*="nav-top-"]{
-    display:flex;
-    flex-direction:column;
-} */
+/* ===== Top navigation layouts ===== */
+
+.custom-slider.nav-top-left .custom-slider__heading-row,
+.custom-slider.nav-top-center .custom-slider__heading-row,
+.custom-slider.nav-top-right .custom-slider__heading-row {
+  display: grid;
+  width: 100%;
+}
+
+/* Navigation left, heading right */
+.custom-slider.nav-top-left .custom-slider__heading-row {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.custom-slider.nav-top-left .custom-slider__header-navigation,
+.custom-slider.nav-top-left .slider-navigation {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.custom-slider.nav-top-left .custom-slider__heading {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: right;
+}
+
+/* Heading left, navigation centered */
+.custom-slider.nav-top-center .custom-slider__heading-row {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+.custom-slider.nav-top-center .custom-slider__heading {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.custom-slider.nav-top-center .custom-slider__header-navigation,
+.custom-slider.nav-top-center .slider-navigation {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* Default: heading left, navigation right */
+.custom-slider.nav-top-right .custom-slider__heading-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.custom-slider.nav-top-right .custom-slider__heading {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: left;
+}
+
+.custom-slider.nav-top-right .custom-slider__header-navigation,
+.custom-slider.nav-top-right .slider-navigation {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* Top navigation must size to its buttons, not the full row */
+.custom-slider.nav-top-left .slider-navigation,
+.custom-slider.nav-top-center .slider-navigation,
+.custom-slider.nav-top-right .slider-navigation {
+  width: auto;
+  min-height: var(--nav-size);
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+/* Keep your existing button appearance */
+.custom-slider-{{ block.id }} .swiper-button-prev,
+.custom-slider-{{ block.id }} .swiper-button-next {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
  /* ===========  TOP POSITIONS =============== */
 
 .custom-slider.nav-top-left,
