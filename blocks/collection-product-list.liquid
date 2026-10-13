@@ -286,7 +286,7 @@ assign button_style = block.settings.button_style
 
         {% if collection != blank %}
 
-          {% for product in collection.products limit: block.settings.product_limit %}
+          {% for product in collection.products limit: block.settings.products_per_collection %}
 
             {% if product != blank %}
 
