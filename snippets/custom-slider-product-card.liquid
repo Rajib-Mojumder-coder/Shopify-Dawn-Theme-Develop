@@ -17,6 +17,11 @@
   assign button_style = block.settings.button_style
 
   assign current_variant = product.selected_or_first_available_variant
+
+  assign show_secondary_image = block.settings.show_secondary_image
+  assign second_image = product.images[1]
+  assign quick_add_option = block.settings.quick_add_option | default: 'none'
+  assign show_button = block.settings.show_add_to_cart
 %}
 
 
