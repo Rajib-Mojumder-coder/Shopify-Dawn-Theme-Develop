@@ -93,6 +93,23 @@
   {% assign desktop_view = desktop_view | plus: block.settings.desktop_partial_amount %}
 {% endif %}
 
+
+{% capture slider_navigation_markup %}
+  {% if enable_slider and show_navigation or enable_slider and show_navigation_mobile %}
+    <div class="slider-navigation slider-navigation-{{ block.id }}
+      {% unless show_navigation %}nav-hide-desktop{% endunless %}
+      {% unless show_navigation_mobile %}nav-hide-mobile{% endunless %}">
+
+      <!-- Move your existing PREVIOUS button markup here. -->
+      <!-- Move your existing NEXT button markup here. -->
+
+    </div>
+  {% endif %}
+{% endcapture %}
+
+
+
+
 <div class="custom-slider custom-slider-{{ block.id }} {% if content_position %} content_vertical_{{ content_vertical }} {% endif %} color-{{ block.settings.color_scheme }} gradient content_horizontal_{{ content_horizontal }} nav-{{ nav_position }} {% unless enable_slider %} slider-disabled {% endunless %}"
   style="--overlay-spacing: {{ overlay_spacing }}%; --overlay-spacing-negative: {{ overlay_spacing }}%;
    --nav-gap: {{ nav_gap }}px; --nav-outside-offset: {{ nav_outside_offset }}px; --nav-size: {{ block.settings.icon_size }}px;
