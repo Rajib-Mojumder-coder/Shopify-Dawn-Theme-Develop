@@ -183,13 +183,13 @@
           </h2>
         {% endif %}
 
-        {% if enable_slider and show_navigation or enable_slider and show_navigation_mobile %}
-          <div class="custom-slider__header-navigation">
-            <!-- Keep your existing Previous button markup here -->
-            <!-- Keep your existing Next button markup here -->
-          </div>
+        {% if nav_position == 'top-left'
+          or nav_position == 'top-center'
+          or nav_position == 'top-right'
+        %}
+          {{ slider_navigation_markup }}
         {% endif %}
-        
+
       </div>
     </div>
   {% endif %}
