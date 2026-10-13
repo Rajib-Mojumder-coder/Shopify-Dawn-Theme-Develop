@@ -952,14 +952,6 @@ assign button_style = block.settings.button_style
 
 {
   "type": "checkbox",
-  "id": "show_badge",
-  "label": "Show Sale Badge",
-  "default": true,
-  "visible_if": "{{ block.settings.content_type == 'products' }}"
-},
-
-{
-  "type": "checkbox",
   "id": "show_wishlist",
   "label": "Show Wishlist",
   "default": true,
@@ -1054,6 +1046,68 @@ assign button_style = block.settings.button_style
   ]
 },
 
+{
+  "type": "header",
+  "content": "Product Image and Badges"
+},
+{
+  "type": "checkbox",
+  "id": "show_secondary_image",
+  "label": "Show Secondary Image on Hover",
+  "default": true,
+  "visible_if": "{{ block.settings.content_type == 'products' }}"
+},
+{
+  "type": "checkbox",
+  "id": "show_badge",
+  "label": "Show Sale and Sold Out Badges",
+  "default": true,
+  "visible_if": "{{ block.settings.content_type == 'products' }}"
+},
+{
+  "type": "header",
+  "content": "Quick Add",
+  "visible_if": "{{ block.settings.content_type == 'products' }}"
+},
+{
+  "type": "select",
+  "id": "quick_add_option",
+  "label": "Quick Add",
+  "options": [
+    { "value": "none", "label": "None" },
+    { "value": "standard", "label": "Standard" },
+    { "value": "bulk", "label": "Bulk Add" }
+  ],
+  "default": "none",
+  "visible_if": "{{ block.settings.content_type == 'products' }}"
+},
+{
+  "type": "header",
+  "content": "View All Button"
+},
+{
+  "type": "checkbox",
+  "id": "show_view_all",
+  "label": "Show View All Button",
+  "default": false
+},
+{
+  "type": "select",
+  "id": "view_all_style",
+  "label": "View All Button Style",
+  "options": [
+    { "value": "solid", "label": "Solid" },
+    { "value": "outline", "label": "Outline" }
+  ],
+  "default": "solid",
+  "visible_if": "{{ block.settings.show_view_all }}"
+},
+{
+  "type": "collection",
+  "id": "view_all_collection",
+  "label": "View All Destination",
+  "info": "Choose the collection opened by the View All button."
+},
 {
   "type": "header",
   "content": "Product Card Color Swatches"
