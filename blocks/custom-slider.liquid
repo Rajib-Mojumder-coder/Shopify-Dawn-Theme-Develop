@@ -176,7 +176,9 @@
         </div>
       {% endif %}
 
-      <div class="custom-slider__heading-row">
+      
+      <div class="custom-slider__heading-row heading-align-{{ block.settings.heading_alignment }}">
+
         {% if block.settings.heading != blank %}
           <h2 class="custom-slider__heading">
             {{ block.settings.heading | escape }}
@@ -191,6 +193,7 @@
         {% endif %}
 
       </div>
+      
     </div>
   {% endif %}
 
@@ -813,7 +816,7 @@
   .custom-slider__header {
     margin-bottom: 16px;
   }
-  
+
 /*Slider Responsivenes*/
    #shopify-block-{{ block.id }} {
     width: 100%;
