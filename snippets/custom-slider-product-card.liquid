@@ -224,8 +224,11 @@
           type="button"
           class="custom-slider-product-card__wishlist"
           aria-label="Add {{ product.title | escape }} to wishlist"
+          data-wishlist-button
+          data-product-id="{{ product.id }}"
           data-wishlist-product="{{ product.id }}"
           data-product-handle="{{ product.handle }}"
+          aria-pressed="false"
         >
           <svg
             viewBox="0 0 24 24"
