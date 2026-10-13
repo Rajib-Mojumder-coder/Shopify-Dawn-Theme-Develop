@@ -148,7 +148,6 @@
 
 
       {% if product.featured_image != blank %}
-
         {% if image_link %}
           <a
             href="{{ product.url }}"
@@ -163,9 +162,21 @@
             | image_tag:
               loading: 'lazy',
               widths: '360, 540, 720, 900, 1200',
-              class: 'custom-slider-product-card__image',
+              class: 'custom-slider-product-card__image custom-slider-product-card__image--primary',
               alt: product.featured_image.alt | default: product.title
           }}
+
+          {% if show_secondary_image and second_image != blank %}
+            {{
+              second_image
+              | image_url: width: 1200
+              | image_tag:
+                loading: 'lazy',
+                widths: '360, 540, 720, 900, 1200',
+                class: 'custom-slider-product-card__image custom-slider-product-card__image--secondary',
+                alt: second_image.alt | default: product.title
+            }}
+          {% endif %}
 
         {% if image_link %}
           </a>
