@@ -201,15 +201,12 @@
 
     </div>
 
-      {% if enable_slider and show_navigation or enable_slider and show_navigation_mobile %}
-            <div class="slider-navigation slider-navigation-{{ block.id }}
-              {% unless show_navigation %} nav-hide-desktop{% endunless %}
-              {% unless show_navigation_mobile %} nav-hide-mobile{% endunless %}">
-
-              
-
-            </div>
-      {% endif %}
+      {% unless nav_position == 'top-left'
+        or nav_position == 'top-center'
+        or nav_position == 'top-right'
+      %}
+        {{ slider_navigation_markup }}
+      {% endunless %}
 
       {% if enable_slider and show_pagination %}
         <div class="swiper-pagination slider-pagination-{{ block.id }}"></div>
