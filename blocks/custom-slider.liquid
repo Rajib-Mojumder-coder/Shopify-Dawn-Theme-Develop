@@ -100,8 +100,56 @@
       {% unless show_navigation %}nav-hide-desktop{% endunless %}
       {% unless show_navigation_mobile %}nav-hide-mobile{% endunless %}">
 
-      <!-- Move your existing PREVIOUS button markup here. -->
-      <!-- Move your existing NEXT button markup here. -->
+      <!-- PREVIOUS -->
+              <div class="swiper-button-prev slider-prev-{{ block.id }}" aria-label="Previous slide">
+
+                {% case icon_type %}
+
+                  {% when 'theme_arrow' %}
+                    <svg class="nav-icon"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-linecap="round" stroke-linejoin="round"naria-hidden="true">
+                      <path d="M15 18L9 12L15 6"/>
+                    </svg>
+
+                  {% when 'image' %}
+                    {% if prev_icon != blank %}
+                    {{ prev_icon | image_url: width: 100 | image_tag: class: 'nav-image', loading: 'lazy' }}                
+                    {% endif %}
+
+                  {% when 'svg_code' %}
+                    <div class="nav-svg">
+                      {{ block.settings.prev_svg }}
+                    </div>
+
+                {% endcase %}
+
+              </div>
+
+              <!-- NEXT -->
+              <div class="swiper-button-next slider-next-{{ block.id }}" aria-label="Next slide">
+
+                {% case icon_type %}
+
+                  {% when 'theme_arrow' %}
+                     <svg class="nav-icon" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M9 18L15 12L9 6"/>
+                      </svg>
+
+                  {% when 'image' %}
+                    {% if next_icon != blank %}
+                      {{ next_icon | image_url: width: 100 | image_tag: class: 'nav-image', loading: 'lazy'}}
+                    {% endif %}
+
+                  {% when 'svg_code' %}
+                    <div class="nav-svg">
+                      {{ block.settings.next_svg }}
+                    </div>
+
+                {% endcase %}
+
+              </div>
 
     </div>
   {% endif %}
@@ -157,56 +205,7 @@
               {% unless show_navigation %} nav-hide-desktop{% endunless %}
               {% unless show_navigation_mobile %} nav-hide-mobile{% endunless %}">
 
-              <!-- PREVIOUS -->
-              <div class="swiper-button-prev slider-prev-{{ block.id }}" aria-label="Previous slide">
-
-                {% case icon_type %}
-
-                  {% when 'theme_arrow' %}
-                    <svg class="nav-icon"
-                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                      stroke-linecap="round" stroke-linejoin="round"naria-hidden="true">
-                      <path d="M15 18L9 12L15 6"/>
-                    </svg>
-
-                  {% when 'image' %}
-                    {% if prev_icon != blank %}
-                    {{ prev_icon | image_url: width: 100 | image_tag: class: 'nav-image', loading: 'lazy' }}                
-                    {% endif %}
-
-                  {% when 'svg_code' %}
-                    <div class="nav-svg">
-                      {{ block.settings.prev_svg }}
-                    </div>
-
-                {% endcase %}
-
-              </div>
-
-              <!-- NEXT -->
-              <div class="swiper-button-next slider-next-{{ block.id }}" aria-label="Next slide">
-
-                {% case icon_type %}
-
-                  {% when 'theme_arrow' %}
-                     <svg class="nav-icon" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M9 18L15 12L9 6"/>
-                      </svg>
-
-                  {% when 'image' %}
-                    {% if next_icon != blank %}
-                      {{ next_icon | image_url: width: 100 | image_tag: class: 'nav-image', loading: 'lazy'}}
-                    {% endif %}
-
-                  {% when 'svg_code' %}
-                    <div class="nav-svg">
-                      {{ block.settings.next_svg }}
-                    </div>
-
-                {% endcase %}
-
-              </div>
+              
 
             </div>
       {% endif %}
