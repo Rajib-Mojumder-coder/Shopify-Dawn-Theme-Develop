@@ -578,6 +578,22 @@
 }
 
 /* =====================================================
+   PRICE
+===================================================== */
+
+.custom-slider-product-card__price-current {
+  font-size: {{ block.settings.price_size | default: 17 }}px;
+  font-weight: 600;
+  color: {{ block.settings.price_color | default: '#111111' }};
+}
+
+.custom-slider-product-card__price-compare {
+  font-size: 14px;
+  color: {{ block.settings.compare_price_color | default: '#888888' }};
+  text-decoration: line-through;
+}
+
+/* =====================================================
    BADGES
 ===================================================== */
 
