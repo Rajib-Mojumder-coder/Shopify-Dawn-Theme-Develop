@@ -100,6 +100,34 @@
   --slider-card-radius: {{ image_radius }}px; --heading-size: {{ block.settings.heading_size }}px;
     --subheading-size: {{ block.settings.subheading_size }}px;" {{ block.shopify_attributes }}>
 
+  {% if block.settings.subheading != blank
+    or block.settings.heading != blank
+  %}
+    <div class="custom-slider__header custom-slider__header-{{ block.id }}">
+
+      {% if block.settings.subheading != blank %}
+        <div class="custom-slider__subheading">
+          {{ block.settings.subheading | escape }}
+        </div>
+      {% endif %}
+
+      <div class="custom-slider__heading-row">
+        {% if block.settings.heading != blank %}
+          <h2 class="custom-slider__heading">
+            {{ block.settings.heading | escape }}
+          </h2>
+        {% endif %}
+
+        {% if enable_slider and show_navigation or enable_slider and show_navigation_mobile %}
+          <div class="custom-slider__header-navigation">
+            <!-- Keep your existing Previous button markup here -->
+            <!-- Keep your existing Next button markup here -->
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
   <div class="swiper slider-{{ block.id }}">
     <div class="swiper-wrapper">
 
