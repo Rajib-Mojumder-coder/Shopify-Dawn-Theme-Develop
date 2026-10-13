@@ -205,7 +205,7 @@
             "heading": "Heading Am I",
             "heading_size": 32,
             "subheading_size": 13,
-            "heading_alignment": "center",
+            "heading_alignment": "left",
             "content_position": true,
             "content_vertical": "default",
             "overlay_spacing": 0,
