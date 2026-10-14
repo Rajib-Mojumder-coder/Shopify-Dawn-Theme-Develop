@@ -389,6 +389,22 @@
   height: 100%;
 }
 
+.custom-slider-product-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: var(
+    --child-image-fit,
+    var(--slider-image-fit, cover)
+  );
+  object-position: center;
+  border-radius: var(
+    --child-image-radius,
+    var(--slider-image-radius, 12px)
+  );
+  transition: opacity .35s ease, transform .4s ease;
+}
+
 .custom-slider-product-card__image-wrapper {
   position: relative;
   width: 100%;
