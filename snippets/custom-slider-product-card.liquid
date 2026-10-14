@@ -368,10 +368,14 @@
                   {% if variant.available %}
                     <option
                       value="{{ variant.id }}"
+                      data-price-formatted="{{ variant.price | money | escape }}"
+                      data-compare-price-formatted="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | escape }}{% endif %}"
+                      data-available="{{ variant.available }}"
+                      data-inventory-management="{{ variant.inventory_management | escape }}"
+                      data-inventory-policy="{{ variant.inventory_policy | escape }}"
+                      data-inventory-quantity="{{ variant.inventory_quantity | default: 0 }}"
+                      data-image="{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 1200 }}{% endif %}"
                       {% if variant.id == current_variant.id %}selected{% endif %}
-                      {% if variant.inventory_management == 'shopify' and variant.inventory_policy == 'deny' %}
-                        data-max-quantity="{{ variant.inventory_quantity }}"
-                      {% endif %}
                     >
                       {{ variant.title | escape }} — {{ variant.price | money }}
                     </option>
