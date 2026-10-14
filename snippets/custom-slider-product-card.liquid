@@ -417,6 +417,7 @@
   pointer-events: none;
 }
 
+/* Hover image only on devices with a real hover pointer */
 @media (hover: hover) and (pointer: fine) {
   .custom-slider-product-card__media:hover
   .custom-slider-product-card__image--primary {
@@ -429,45 +430,20 @@
   }
 }
 
-.custom-slider-product-card__media:hover
-.custom-slider-product-card__image--primary {
-
-  {% if show_hover_image and second_image != blank %}
-    opacity: 0;
-  {% endif %}
-
-}
-
-
-.custom-slider-product-card__media:hover
-.custom-slider-product-card__image--secondary {
-
-  {% if show_hover_image and second_image != blank %}
-    opacity: 1;
-  {% endif %}
-
-}
-
-
-
-
 .custom-slider-product-card__image-placeholder {
   width: 100%;
   height: 100%;
-
+  overflow: hidden;
   aspect-ratio: var(
     --child-aspect-ratio,
     var(--slider-aspect-ratio, 1 / 1)
   );
-
-  overflow: hidden;
 }
 
-
 .custom-slider-product-card__image-placeholder svg {
+  display: block;
   width: 100%;
   height: 100%;
-  display: block;
 }
 
 /* =============  BADGES =================== */
