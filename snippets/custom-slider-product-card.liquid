@@ -323,26 +323,94 @@
     {% endif %}
 
 
-    {% if show_button %}
-      {% if product.available %}
+    
+      {% if quick_add_option == 'standard' %}
+        {% if product.available %}
+          {% if product.has_only_default_variant %}
+            {% form 'product', product, class: 'custom-slider-product-card__product-form' %}
+              <input
+                type="hidden"
+                name="id"
+                value="{{ product.selected_or_first_available_variant.id }}"
+              >
 
-        <a
-          href="{{ product.url }}"
-          class="custom-slider-product-card__button custom-slider-product-card__button--{{ button_style }}"
-        >
-          {{ button_text }}
-        </a>
+              <button
+                type="submit"
+                class="custom-slider-product-card__button"
+              >
+                Add to cart
+              </button>
+            {% endform %}
+          {% else %}
+            <a
+              href="{{ product.url }}"
+              class="custom-slider-product-card__button custom-slider-product-card__button--link"
+            >
+              Choose options
+            </a>
+          {% endif %}
+        {% else %}
+          <button
+            type="button"
+            class="custom-slider-product-card__button custom-slider-product-card__button--disabled"
+            disabled
+          >
+            Sold Out
+          </button>
+        {% endif %}
 
-      {% else %}
+      {% elsif quick_add_option == 'bulk' %}
+        {% if product.available %}
+          {% form 'product', product, class: 'custom-slider-product-card__product-form custom-slider-product-card__product-form--bulk' %}
+            <label class="custom-slider-product-card__variant-label">
+              Choose variant
+              <select name="id" required>
+                {% for variant in product.variants %}
+                  {% if variant.available %}
+                    <option
+                      value="{{ variant.id }}"
+                      {% if variant.id == current_variant.id %}selected{% endif %}
+                      {% if variant.inventory_management == 'shopify' and variant.inventory_policy == 'deny' %}
+                        data-max-quantity="{{ variant.inventory_quantity }}"
+                      {% endif %}
+                    >
+                      {{ variant.title | escape }} — {{ variant.price | money }}
+                    </option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </label>
 
-        <span
-          class="custom-slider-product-card__button custom-slider-product-card__button--disabled"
-        >
-          Sold Out
-        </span>
+            <label class="custom-slider-product-card__quantity-label">
+              Quantity
+              <input
+                type="number"
+                name="quantity"
+                value="1"
+                min="1"
+                step="1"
+                required
+              >
+            </label>
 
+            <button
+              type="submit"
+              class="custom-slider-product-card__button"
+            >
+              Add to cart
+            </button>
+          {% endform %}
+        {% else %}
+          <button
+            type="button"
+            class="custom-slider-product-card__button custom-slider-product-card__button--disabled"
+            disabled
+          >
+            Sold Out
+          </button>
+        {% endif %}
       {% endif %}
-    {% endif %}
+
 
   </div>
 
