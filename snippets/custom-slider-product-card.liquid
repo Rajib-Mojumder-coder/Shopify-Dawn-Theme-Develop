@@ -21,6 +21,18 @@
   assign second_image = product.images[1]
   assign quick_add_option = block.settings.quick_add_option | default: 'none'
   assign show_button = block.settings.show_add_to_cart
+
+  assign color_option_name = block.settings.color_option_name | default: 'Kleur' | strip | downcase
+assign color_option = blank
+
+for option in product.options_with_values
+  assign normalized_option_name = option.name | strip | downcase
+
+  if normalized_option_name == color_option_name or normalized_option_name == 'kleur'
+    assign color_option = option
+    break
+  endif
+endfor
 %}
 
 
@@ -41,22 +53,7 @@
 
     <div class="custom-slider-product-card__media">
 
-      {% liquid
-          assign color_option_name = block.settings.color_option_name | default: 'Kleur' | strip | downcase
-          assign color_option = blank
-
-          for option in product.options_with_values
-            assign normalized_option_name = option.name | strip | downcase
-
-            if normalized_option_name == color_option_name or normalized_option_name == 'kleur'
-              assign color_option = option
-              break
-            endif
-          endfor
-        %}
-
-      
-      
+               
       {% if block.settings.show_color_swatches and color_option != blank %}
         <div
           class="custom-slider-product-card__swatches custom-slider-product-card__swatches--{{ block.settings.color_swatch_position }} custom-slider-product-card__swatches--{{ block.settings.color_swatch_shape }}"
