@@ -291,7 +291,7 @@
                 "show_add_to_cart": true,
                 "add_to_cart_alignment": "left",
                 "button_text": "Add to Cart",
-                "button_style": "outline",
+                "button_style": "solid",
                 "show_secondary_image": true,
                 "show_badge": false,
                 "quick_add_option": "standard",
