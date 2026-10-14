@@ -1026,139 +1026,215 @@
 
 
 <script>
-(function() {
-
-  const productCard = document.querySelector(
-    '[data-product-id="{{ product.id }}"]'
-  );
-
-  if (!productCard) return;
-
-  const wishlistButton = productCard.querySelector(
-    '[data-wishlist-button]'
-  );
-
-  if (!wishlistButton) return;
 
 
-  /*
-   * ================================================
-   * SIMPLE LOCAL STORAGE WISHLIST
-   * ================================================
-   *
-   * This intentionally does not depend on a third-party
-   * wishlist app.
-   *
-   * Later we can replace this with:
-   *
-   * - Shopify customer account wishlist
-   * - Wishlist app integration
-   * - Metaobject-based wishlist
-   * - Custom AJAX wishlist
-   *
-   * without changing the product card structure.
-   */
+(function () {
+  const cards = document.querySelectorAll('.custom-slider-product-card');
 
-  const storageKey = 'custom_slider_wishlist';
+  cards.forEach((card) => {
+    if (card.dataset.cardInitialized === 'true') return;
+    card.dataset.cardInitialized = 'true';
 
-  function getWishlist() {
+    const swatches = card.querySelectorAll('[data-card-swatch]');
+    const variantSelect = card.querySelector('select[name="id"]');
+    const quantityInput = card.querySelector('input[name="quantity"]');
+    const primaryImage = card.querySelector(
+      '.custom-slider-product-card__image--primary'
+    );
+    const currentPrice = card.querySelector('[data-card-price]');
+    const comparePrice = card.querySelector('[data-card-compare-price]');
+    const wishlistButton = card.querySelector('[data-wishlist-button]');
 
-    try {
+    const storageKey = 'custom_slider_wishlist';
 
-      return JSON.parse(
-        localStorage.getItem(storageKey)
-      ) || [];
-
-    } catch (error) {
-
-      return [];
-
+    function getWishlist() {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey)) || [];
+      } catch (error) {
+        return [];
+      }
     }
 
-  }
-
-
-  function saveWishlist(items) {
-
-    try {
-
-      localStorage.setItem(
-        storageKey,
-        JSON.stringify(items)
-      );
-
-    } catch (error) {
-
-      console.warn(
-        'Wishlist could not be saved.',
-        error
-      );
-
+    function saveWishlist(items) {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(items));
+      } catch (error) {
+        console.warn('Wishlist could not be saved.', error);
+      }
     }
 
-  }
+    function updateWishlist() {
+      if (!wishlistButton) return;
 
+      const productId = String(wishlistButton.dataset.productId);
+      const active = getWishlist().includes(productId);
 
-  function updateWishlistState() {
+      wishlistButton.classList.toggle('is-active', active);
+      wishlistButton.setAttribute('aria-pressed', String(active));
+    }
 
-    const wishlist = getWishlist();
+    if (wishlistButton) {
+      wishlistButton.addEventListener('click', () => {
+        const wishlist = getWishlist();
+        const productId = String(wishlistButton.dataset.productId);
+        const index = wishlist.indexOf(productId);
 
-    const productId = String(
-      wishlistButton.dataset.productId
-    );
+        if (index === -1) {
+          wishlist.push(productId);
+        } else {
+          wishlist.splice(index, 1);
+        }
 
-    const isActive = wishlist.includes(productId);
+        saveWishlist(wishlist);
+        updateWishlist();
+      });
 
-    wishlistButton.classList.toggle(
-      'is-active',
-      isActive
-    );
+      updateWishlist();
+    }
 
-    wishlistButton.setAttribute(
-      'aria-pressed',
-      isActive ? 'true' : 'false'
-    );
+    function updateQuantityLimit(variant) {
+      if (!quantityInput || !variant) return;
 
-  }
+      const tracked =
+        variant.dataset.inventoryManagement === 'shopify';
 
+      const denyOverselling =
+        variant.dataset.inventoryPolicy === 'deny';
 
-  wishlistButton.addEventListener(
-    'click',
-    function() {
+      const inventory = Number(variant.dataset.inventoryQuantity);
 
-      const wishlist = getWishlist();
+      if (tracked && denyOverselling) {
+        const max = Math.max(0, inventory);
 
-      const productId = String(
-        wishlistButton.dataset.productId
-      );
+        quantityInput.max = String(max);
 
-      const existingIndex =
-        wishlist.indexOf(productId);
+        if (max > 0 && Number(quantityInput.value) > max) {
+          quantityInput.value = String(max);
+        }
 
-
-      if (existingIndex === -1) {
-
-        wishlist.push(productId);
-
+        if (max === 0) {
+          quantityInput.value = '1';
+        }
       } else {
-
-        wishlist.splice(
-          existingIndex,
-          1
-        );
-
+        quantityInput.removeAttribute('max');
       }
 
-
-      saveWishlist(wishlist);
-
-      updateWishlistState();
-
+      quantityInput.min = '1';
     }
-  );
 
+    function updatePrice(variant) {
+      if (!variant) return;
 
-  updateWishlistState();
+      if (currentPrice && variant.dataset.priceFormatted) {
+        currentPrice.textContent = variant.dataset.priceFormatted;
+      }
 
+      if (comparePrice) {
+        const formattedCompare = variant.dataset.comparePriceFormatted || '';
+
+        comparePrice.textContent = formattedCompare;
+        comparePrice.hidden = !formattedCompare;
+      }
+    }
+
+    function updateImage(variant) {
+      if (!primaryImage || !variant) return;
+
+      const image = variant.dataset.image;
+      if (image) {
+        primaryImage.src = image;
+      }
+    }
+
+    function updateActiveSwatch(variant) {
+      if (!variant || !swatches.length) return;
+
+      const optionPosition = Number(variant.dataset.colorOptionPosition);
+      const optionValue = variant.dataset[`option${optionPosition}`];
+
+      swatches.forEach((swatch) => {
+        const active =
+          swatch.dataset.optionValue === optionValue;
+
+        swatch.classList.toggle('is-active', active);
+        swatch.setAttribute('aria-pressed', String(active));
+      });
+    }
+
+    function updateVariant(variant) {
+      if (!variant) return;
+
+      card.dataset.selectedVariantId = variant.value;
+
+      updatePrice(variant);
+      updateImage(variant);
+      updateQuantityLimit(variant);
+      updateActiveSwatch(variant);
+    }
+
+    if (variantSelect) {
+      variantSelect.addEventListener('change', () => {
+        const variant = variantSelect.selectedOptions[0];
+        updateVariant(variant);
+      });
+
+      if (variantSelect.selectedOptions.length) {
+        updateVariant(variantSelect.selectedOptions[0]);
+      }
+    }
+
+    swatches.forEach((swatch) => {
+      swatch.addEventListener('click', () => {
+        if (swatch.dataset.available !== 'true') return;
+
+        const variantId = swatch.dataset.variantId;
+
+        if (variantSelect) {
+          const matchingOption = Array.from(variantSelect.options).find(
+            (option) => option.value === variantId
+          );
+
+          if (matchingOption) {
+            variantSelect.value = variantId;
+            updateVariant(matchingOption);
+            return;
+          }
+        }
+
+        // Swatch-only cards without a variant selector.
+        card.dataset.selectedVariantId = variantId;
+
+        if (currentPrice && swatch.dataset.priceFormatted) {
+          currentPrice.textContent = swatch.dataset.priceFormatted;
+        }
+
+        if (comparePrice) {
+          const formattedCompare =
+            swatch.dataset.comparePriceFormatted || '';
+
+          comparePrice.textContent = formattedCompare;
+          comparePrice.hidden = !formattedCompare;
+        }
+
+        if (primaryImage && swatch.dataset.image) {
+          primaryImage.src = swatch.dataset.image;
+        }
+      });
+    });
+
+    if (quantityInput) {
+      quantityInput.addEventListener('change', () => {
+        let quantity = Math.max(1, Math.floor(Number(quantityInput.value) || 1));
+
+        if (quantityInput.max !== '') {
+          quantity = Math.min(quantity, Number(quantityInput.max));
+        }
+
+        quantityInput.value = String(quantity);
+      });
+    }
+  });
 })();
+
+
 </script>
