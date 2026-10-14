@@ -294,7 +294,7 @@
                 "button_style": "outline",
                 "show_secondary_image": true,
                 "show_badge": false,
-                "quick_add_option": "none",
+                "quick_add_option": "standard",
                 "show_view_all": false,
                 "view_all_style": "solid",
                 "view_all_collection": "",
