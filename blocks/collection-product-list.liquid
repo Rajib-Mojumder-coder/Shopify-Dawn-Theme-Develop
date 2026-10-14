@@ -681,33 +681,22 @@
 <script>
 
   document.addEventListener('DOMContentLoaded', function () {
-
     const wishlistButtons = document.querySelectorAll(
       '.custom-slider-product-card__wishlist'
     );
-
     if (!wishlistButtons.length) return;
 
-
     const storageKey = 'custom_slider_wishlist';
-
-
     function getWishlist() {
 
       try {
-
         return JSON.parse(
           localStorage.getItem(storageKey)
         ) || [];
-
       } catch (error) {
-
         return [];
-
       }
-
     }
-
 
     function saveWishlist(items) {
 
@@ -715,25 +704,17 @@
         storageKey,
         JSON.stringify(items)
       );
-
     }
 
-
     function updateButton(button) {
-
       const productId = button.dataset.productId;
-
       if (!productId) return;
-
       const wishlist = getWishlist();
-
       const active = wishlist.includes(productId);
-
       button.classList.toggle(
         'is-active',
         active
       );
-
       button.setAttribute(
         'aria-pressed',
         active ? 'true' : 'false'
@@ -743,43 +724,29 @@
 
 
     wishlistButtons.forEach(function (button) {
-
       updateButton(button);
-
-
       button.addEventListener(
         'click',
         function () {
 
           const productId =
             button.dataset.productId;
-
           if (!productId) return;
-
 
           let wishlist =
             getWishlist();
 
-
           const index =
             wishlist.indexOf(productId);
 
-
           if (index === -1) {
-
             wishlist.push(productId);
-
           } else {
-
             wishlist.splice(index, 1);
-
           }
 
-
           saveWishlist(wishlist);
-
           updateButton(button);
-
 
           document.dispatchEvent(
             new CustomEvent(
