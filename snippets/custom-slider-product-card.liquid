@@ -721,6 +721,67 @@
    QUICK BUTTON
 ===================================================== */
 
+.custom-slider-product-card__product-form {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+}
+
+.custom-slider-product-card__variant-label,
+.custom-slider-product-card__quantity-label {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  font-size: 13px;
+}
+
+.custom-slider-product-card__variant-label select,
+.custom-slider-product-card__quantity-label input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 1px solid #d5d5d5;
+  border-radius: 6px;
+  background: #fff;
+  color: #111;
+  font: inherit;
+}
+
+.custom-slider-product-card__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: {{ block.settings.button_radius | default: 6 }}px;
+  background: {{ block.settings.button_background | default: '#111111' }};
+  color: {{ block.settings.button_color | default: '#ffffff' }};
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.custom-slider-product-card__button:hover {
+  background: {{ block.settings.button_hover_background | default: '#333333' }};
+  color: {{ block.settings.button_hover_color | default: '#ffffff' }};
+}
+
+.custom-slider-product-card__button--disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   QUICK BUTTON
+===================================================== */
+
 .custom-slider-product-card__quick-button {
   position: absolute;
 
