@@ -109,14 +109,12 @@
 
 
                 {% if show_add_to_cart %}
-                  <div class="custom-slider-product-card__actions
-                      add-to-cart-align-{{ block.settings.add_to_cart_alignment }}
-                    ">
+                  <div class="custom-slider-card__actions add-to-cart-align-{{ add_to_cart_alignment }}">
                     <a
                       href="{{ collection.url }}"
-                      class="custom-slider-card__button custom-slider-card__button--{{ button_style }}"
+                      class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-card__button"
                     >
-                      {{ block.settings.button_text }}
+                      {{ button_text | default: 'View Collection' | escape }}
                     </a>
                   </div>
                 {% endif %}
