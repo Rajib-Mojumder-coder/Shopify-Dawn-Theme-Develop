@@ -985,6 +985,102 @@
 
 {
   "type": "header",
+  "content": "Collection Card Button"
+},
+{
+  "type": "checkbox",
+  "id": "show_collection_button",
+  "label": "Show View Collection Button",
+  "default": true,
+  "visible_if": "{{ block.settings.content_type == 'collections' }}"
+},
+{
+  "type": "text",
+  "id": "collection_button_text",
+  "label": "Collection Button Text",
+  "default": "View Collection",
+  "visible_if": "{{ block.settings.content_type == 'collections' and block.settings.show_collection_button }}"
+},
+{
+  "type": "select",
+  "id": "collection_button_alignment",
+  "label": "Collection Button Alignment",
+  "options": [
+    {
+      "value": "left",
+      "label": "Left"
+    },
+    {
+      "value": "center",
+      "label": "Center"
+    },
+    {
+      "value": "right",
+      "label": "Right"
+    }
+  ],
+  "default": "left",
+  "visible_if": "{{ block.settings.content_type == 'collections' and block.settings.show_collection_button }}"
+},
+{
+  "type": "header",
+  "content": "Product Card Button"
+},
+{
+  "type": "checkbox",
+  "id": "show_product_button",
+  "label": "Show Product Button",
+  "default": true,
+  "visible_if": "{{ block.settings.content_type == 'products' }}"
+},
+{
+  "type": "text",
+  "id": "button_text",
+  "label": "Product Button Text",
+  "default": "Add to Cart",
+  "visible_if": "{{ block.settings.content_type == 'products' and block.settings.show_product_button }}"
+},
+{
+  "type": "select",
+  "id": "button_style",
+  "label": "Button Style",
+  "options": [
+    {
+      "value": "solid",
+      "label": "Solid"
+    },
+    {
+      "value": "outline",
+      "label": "Outline"
+    }
+  ],
+  "default": "solid",
+  "visible_if": "{{ block.settings.content_type == 'products' and block.settings.show_product_button or block.settings.content_type == 'collections' and block.settings.show_collection_button }}"
+},
+{
+  "type": "select",
+  "id": "quick_add_option",
+  "label": "Product Button Behaviour",
+  "options": [
+    {
+      "value": "normal",
+      "label": "Normal Add to Cart (Go to Cart Page)"
+    },
+    {
+      "value": "standard",
+      "label": "Standard Quick Add (Stay on Page)"
+    },
+    {
+      "value": "bulk",
+      "label": "Bulk Add (Select Variant and Quantity)"
+    }
+  ],
+  "default": "normal",
+  "visible_if": "{{ block.settings.content_type == 'products' and block.settings.show_product_button }}"
+},
+
+{
+  "type": "header",
   "content": "View All Button"
 },
 {
