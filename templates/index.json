@@ -295,7 +295,7 @@
                 "show_secondary_image": true,
                 "show_badge": false,
                 "quick_add_option": "bulk",
-                "show_view_all": false,
+                "show_view_all": true,
                 "view_all_style": "solid",
                 "view_all_collection": "",
                 "color_option_name": "Color",
