@@ -211,17 +211,15 @@
                 {% endif %}
 
 
-                {% if show_add_to_cart %}
-                   <div class="custom-slider-product-card__actions
-                      add-to-cart-align-{{ block.settings.add_to_cart_alignment }}
-                    ">
-                      <a
-                        href="{{ collection.url }}"
-                        class="custom-slider-card__button custom-slider-card__button--{{ button_style }}"
-                      >
-                        {{ block.settings.button_text }}
-                      </a>
-
+                {% if block.settings.show_collection_button %}
+                  <div class="custom-slider-card__actions custom-slider-card__actions--{{ block.settings.collection_button_alignment | default: 'left' }}">
+                    <a
+                      href="{{ collection.url }}"
+                      class="custom-slider-button custom-slider-button--{{ block.settings.button_style | default: 'solid' }} custom-slider-card__button"
+                      aria-label="{{ block.settings.collection_button_text | default: 'View Collection' | escape }}: {{ collection.title | escape }}"
+                    >
+                      {{ block.settings.collection_button_text | default: 'View Collection' | escape }}
+                    </a>
                   </div>
                 {% endif %}
 
