@@ -985,7 +985,8 @@
 
 {
   "type": "header",
-  "content": "Collection Card Button"
+  "content": "Collection Card Button",
+  "visible_if": "{{ block.settings.content_type == 'collections' }}"
 },
 {
   "type": "checkbox",
@@ -1024,7 +1025,8 @@
 },
 {
   "type": "header",
-  "content": "Product Card Button"
+  "content": "Product Card Button",
+  "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
 {
   "type": "checkbox",
