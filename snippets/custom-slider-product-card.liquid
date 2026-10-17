@@ -3,7 +3,7 @@
   assign button_text = block.settings.button_text | default: 'Add to Cart'
   assign button_style = block.settings.button_style | default: 'solid'
   assign quick_add_option = block.settings.quick_add_option | default: 'normal'
-  
+
   assign show_image = block.settings.show_image
   assign image_link = block.settings.image_link
 
@@ -345,105 +345,174 @@ endfor
 
     {% endif %}
 
+      {% if show_product_button %}
+        <div class="custom-slider-product-card__actions">
 
-    
-      {% if quick_add_option == 'standard' %}
-        {% if product.available %}
-          {% if product.has_only_default_variant %}
-            {% form 'product', product, class: 'custom-slider-product-card__product-form' %}
-              <input
-                type="hidden"
-                name="id"
-                value="{{ product.selected_or_first_available_variant.id }}"
-              >
+          {% case quick_add_option %}
 
-              <button
-                type="submit"
-                class="custom-slider-product-card__button"
-              >
-                Add to cart
-              </button>
-            {% endform %}
-          {% else %}
-            <a
-              href="{{ product.url }}"
-              class="custom-slider-product-card__button custom-slider-product-card__button--link"
-            >
-              Choose options
-            </a>
-          {% endif %}
-        {% else %}
-          <button
-            type="button"
-            class="custom-slider-product-card__button custom-slider-product-card__button--disabled"
-            disabled
-          >
-            Sold Out
-          </button>
-        {% endif %}
+            {% when 'normal' %}
 
-            
-      {% elsif quick_add_option == 'bulk' %}
-        {% if product.available %}
-          {% form 'product', product, class: 'custom-slider-product-card__product-form custom-slider-product-card__product-form--bulk' %}
-            <label class="custom-slider-product-card__variant-label">
-              Choose variant
+              {% if product.available and product.has_only_default_variant %}
+                <form
+                  action="{{ routes.cart_add_url }}"
+                  method="post"
+                  accept-charset="UTF-8"
+                  class="custom-slider-product-card__form"
+                >
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="{{ product.selected_or_first_available_variant.id }}"
+                  >
+                  <input type="hidden" name="quantity" value="1">
 
-              <select name="id" required>
-                {% for variant in product.variants %}
-                  {% if variant.available %}
-                    <option
-                      value="{{ variant.id }}"
-                      data-price-formatted="{{ variant.price | money | escape }}"
-                      data-compare-price-formatted="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | escape }}{% endif %}"
-                      data-available="{{ variant.available }}"
-                      data-inventory-management="{{ variant.inventory_management | escape }}"
-                      data-inventory-policy="{{ variant.inventory_policy | escape }}"
-                      data-inventory-quantity="{{ variant.inventory_quantity | default: 0 }}"
-                      data-image="{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 1200 }}{% endif %}"
-                      data-option1="{{ variant.option1 | escape }}"
-                      data-option2="{{ variant.option2 | escape }}"
-                      data-option3="{{ variant.option3 | escape }}"
-                      data-color-option-position="{{ color_option.position | default: 0 }}"
-                      {% if variant.id == current_variant.id %}selected{% endif %}
-                    >
-                      {{ variant.title | escape }} — {{ variant.price | money }}
-                    </option>
-                  {% endif %}
-                {% endfor %}
-              </select>
-            </label>
+                  <button
+                    type="submit"
+                    class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
+                  >
+                    {{ button_text | escape }}
+                  </button>
+                </form>
 
-            <label class="custom-slider-product-card__quantity-label">
-              Quantity
+              {% elsif product.available %}
+                <a
+                  href="{{ product.url }}"
+                  class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
+                >
+                  Choose Options
+                </a>
 
-              <input
-                type="number"
-                name="quantity"
-                value="1"
-                min="1"
-                step="1"
-                required
-              >
-            </label>
+              {% else %}
+                <button
+                  type="button"
+                  class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
+                  disabled
+                >
+                  Sold Out
+                </button>
+              {% endif %}
 
-            <button
-              type="submit"
-              class="custom-slider-product-card__button"
-            >
-              Add to cart
-            </button>
-          {% endform %}
-        {% else %}
-          <button
-            type="button"
-            class="custom-slider-product-card__button custom-slider-product-card__button--disabled"
-            disabled
-          >
-            Sold Out
-          </button>
-        {% endif %}
+
+            {% when 'standard' %}
+
+              {% if product.available and product.has_only_default_variant %}
+                <form
+                  action="{{ routes.cart_add_url }}"
+                  method="post"
+                  accept-charset="UTF-8"
+                  class="custom-slider-product-card__form"
+                  data-quick-add-mode="standard"
+                >
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="{{ product.selected_or_first_available_variant.id }}"
+                  >
+                  <input type="hidden" name="quantity" value="1">
+
+                  <button
+                    type="submit"
+                    class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
+                  >
+                    {{ button_text | escape }}
+                  </button>
+                </form>
+
+              {% elsif product.available %}
+                <a
+                  href="{{ product.url }}"
+                  class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
+                >
+                  Choose Options
+                </a>
+
+              {% else %}
+                <button
+                  type="button"
+                  class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
+                  disabled
+                >
+                  Sold Out
+                </button>
+              {% endif %}
+
+
+            {% when 'bulk' %}
+
+              {% if product.available %}
+                <form
+                  action="{{ routes.cart_add_url }}"
+                  method="post"
+                  accept-charset="UTF-8"
+                  class="custom-slider-product-card__form custom-slider-product-card__form--bulk"
+                  data-quick-add-mode="bulk"
+                >
+                  <label
+                    class="custom-slider-product-card__field-label"
+                    for="SliderVariant-{{ block.id }}-{{ product.id }}"
+                  >
+                    Select variant
+                  </label>
+
+                  <select
+                    id="SliderVariant-{{ block.id }}-{{ product.id }}"
+                    name="id"
+                    required
+                  >
+                    {% for variant in product.variants %}
+                      {% if variant.available %}
+                        <option
+                          value="{{ variant.id }}"
+                          {% if variant.id == product.selected_or_first_available_variant.id %}
+                            selected
+                          {% endif %}
+                        >
+                          {{ variant.title | escape }} — {{ variant.price | money }}
+                        </option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+
+                  <label
+                    class="custom-slider-product-card__field-label"
+                    for="SliderQuantity-{{ block.id }}-{{ product.id }}"
+                  >
+                    Quantity
+                  </label>
+
+                  <input
+                    id="SliderQuantity-{{ block.id }}-{{ product.id }}"
+                    type="number"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    step="1"
+                    required
+                  >
+
+                  <button
+                    type="submit"
+                    class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
+                  >
+                    {{ button_text | escape }}
+                  </button>
+                </form>
+
+              {% else %}
+                <button
+                  type="button"
+                  class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
+                  disabled
+                >
+                  Sold Out
+                </button>
+              {% endif %}
+
+          {% endcase %}
+        </div>
       {% endif %}
+    
+      
 
   </div>
 
