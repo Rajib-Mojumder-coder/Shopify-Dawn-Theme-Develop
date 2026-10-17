@@ -4,21 +4,10 @@
   assign product_source = block.settings.product_source
 
   assign show_image = block.settings.show_image
-  assign show_badge = block.settings.show_badge
-  assign show_wishlist = block.settings.show_wishlist
   assign show_vendor = block.settings.show_vendor
   assign show_title = block.settings.show_title
   assign show_description = block.settings.show_description
-  assign show_price = block.settings.show_price
-  assign show_compare_price = block.settings.show_compare_price
-
-  assign show_add_to_cart = block.settings.show_add_to_cart
-  assign button_text = block.settings.button_text | default: 'Add to Cart'
-  assign button_style = block.settings.button_style | default: 'solid'
-  assign add_to_cart_alignment = block.settings.add_to_cart_alignment | default: 'left'
-
-  assign quick_add_option = block.settings.quick_add_option | default: 'none'
-
+  
   assign image_link = block.settings.image_link
   assign card_alignment = block.settings.card_alignment
 %}
