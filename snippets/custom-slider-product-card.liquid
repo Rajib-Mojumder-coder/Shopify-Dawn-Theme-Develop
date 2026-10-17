@@ -1,4 +1,9 @@
 {% liquid
+  assign show_product_button = block.settings.show_product_button
+  assign button_text = block.settings.button_text | default: 'Add to Cart'
+  assign button_style = block.settings.button_style | default: 'solid'
+  assign quick_add_option = block.settings.quick_add_option | default: 'normal'
+  
   assign show_image = block.settings.show_image
   assign image_link = block.settings.image_link
 
