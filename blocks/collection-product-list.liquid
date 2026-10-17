@@ -329,14 +329,9 @@
 
 {% endif %}
 
-
-
-
 <style>
 
-  /* =========================================================
-     SHARED CHILD CONTRACT
-  ========================================================= */
+  /* =============   SHARED CHILD CONTRACT ========== */
 
  .custom-slider-{{ block.id }} .custom-slider-item {
     width: 100%;
@@ -366,9 +361,7 @@
 }
 
 
-  /* =========================================================
-     COLLECTION CARD
-  ========================================================= */
+  /* ==========  COLLECTION CARD ========= */
 
 /* Collection card */
 .custom-slider-{{ block.id }} .custom-slider-collection-card {
@@ -432,20 +425,13 @@
   }
 
 
-  /* =========================================================
-     CARD CONTENT
-  ========================================================= */
+  /* ===============  CARD CONTENT =============== */
 
   /* Keep normal content below the image by default */
   .custom-slider-{{ block.id }} .custom-slider-item__content {
     position: static;
     padding-top: 14px;
   }
-
-  /* .custom-slider-collection-card__content,
-  .custom-slider-product-card__content {
-    text-align: {{ card_alignment }};
-  } */
 
   .custom-slider-card__title {
     margin: 0;
@@ -470,10 +456,7 @@
     opacity: .7;
   }
 
-
-  /* =========================================================
-     PRODUCT CARD
-  ========================================================= */
+  /* ============    PRODUCT CARD ================ */
 
   .custom-slider-product-card {
     width: 100%;
@@ -502,12 +485,7 @@
     transform: scale(1.03);
   }
 
-
-
-
-  /* =========================================================
-     BADGE
-  ========================================================= */
+  /* ================  BADGE =============== */
 
   .custom-slider-product-card__badge {
     position: absolute;
@@ -522,10 +500,7 @@
     color: #fff;
   }
 
-
-  /* =========================================================
-     WISHLIST
-  ========================================================= */
+  /* ============   WISHLIST ================ */
 
   .custom-slider-product-card__wishlist {
     position: absolute;
@@ -572,10 +547,7 @@
     display: block;
   }
 
-
-  /* =========================================================
-     PRICE
-  ========================================================= */
+  /* =============   PRICE =================== */
 
   .custom-slider-product-card__price {
     margin-top: 8px;
@@ -603,10 +575,7 @@
     font-size: .9em;
   }
 
-
-  /* =========================================================
-     PRODUCT BUTTON
-  ========================================================= */
+  /* =============    PRODUCT BUTTON =============== */
 
   .custom-slider-card__button {
     display: inline-flex;
@@ -656,10 +625,7 @@
     cursor: not-allowed;
   }
 
-
-  /* =========================================================
-     MOBILE
-  ========================================================= */
+  /* ===============   MOBILE ================= */
 
   @media screen and (max-width: 749px) {
 
@@ -716,9 +682,7 @@
         'aria-pressed',
         active ? 'true' : 'false'
       );
-
     }
-
 
     wishlistButtons.forEach(function (button) {
       updateButton(button);
@@ -821,7 +785,6 @@
   "info": "Select collections when Collection Source is set to Selected Collections."
   
 },
-
 {
   "type": "range",
   "id": "collection_limit",
@@ -832,8 +795,6 @@
   "default": 12,
   "visible_if": "{{ block.settings.content_type == 'collections' and block.settings.collection_source == 'all' }}"
 },
-
-
 {
   "type": "header",
   "content": "Product Source",
@@ -899,26 +860,22 @@
   "default": 4,
   "visible_if": "{{ block.settings.content_type == 'products' and block.settings.product_source == 'collections' }}"
 },
-
 {
   "type": "header",
   "content": "Card Content"
 },
-
 {
   "type": "checkbox",
   "id": "show_image",
   "label": "Show Image",
   "default": true
 },
-
 {
   "type": "checkbox",
   "id": "image_link",
   "label": "Make Image Clickable",
   "default": true
 },
-
 {
   "type": "checkbox",
   "id": "show_wishlist",
@@ -926,28 +883,24 @@
   "default": true,
   "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
-
 {
   "type": "checkbox",
   "id": "show_vendor",
   "label": "Show Vendor / Product Count",
   "default": false
 },
-
 {
   "type": "checkbox",
   "id": "show_title",
   "label": "Show Title",
   "default": true
 },
-
 {
   "type": "checkbox",
   "id": "show_description",
   "label": "Show Description",
   "default": false
 },
-
 {
   "type": "checkbox",
   "id": "show_price",
@@ -955,7 +908,6 @@
   "default": true,
   "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
-
 {
   "type": "checkbox",
   "id": "show_compare_price",
@@ -963,7 +915,6 @@
   "default": true,
   "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
-
 {
   "type": "header",
   "content": "Product Image and Badges"
@@ -982,7 +933,6 @@
   "default": true,
   "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
-
 {
   "type": "header",
   "content": "Collection Card Button",
@@ -1158,12 +1108,10 @@
   "default": "bottom-left",
   "visible_if": "{{ block.settings.show_color_swatches == true }}"
 },
-
 {
   "type": "header",
   "content": "Card Alignment"
 },
-
 {
   "type": "select",
   "id": "card_alignment",
@@ -1186,8 +1134,6 @@
 }
 
 ]
-
-
 }
 
 {% endschema %}
