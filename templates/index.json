@@ -313,7 +313,7 @@
                 "show_badge": false,
                 "show_collection_button": true,
                 "collection_button_text": "View Collection",
-                "collection_button_alignment": "left",
+                "collection_button_alignment": "center",
                 "show_product_button": true,
                 "button_text": "Add to Cart",
                 "button_style": "solid",
