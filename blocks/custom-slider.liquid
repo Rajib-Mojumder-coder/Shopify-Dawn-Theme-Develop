@@ -399,7 +399,87 @@
     width: 100% !important;
 } */
 /*Slider CSS End*/
+/*Button Design*/
+/* Shared button design */
+.custom-slider-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 10px 16px;
+  border: 1px solid #111;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
 
+.custom-slider-button--solid {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+
+.custom-slider-button--outline {
+  background: transparent;
+  border-color: #111;
+  color: #111;
+}
+
+.custom-slider-button--solid:hover {
+  background: #333;
+  border-color: #333;
+  color: #fff;
+}
+
+.custom-slider-button--outline:hover {
+  background: #111;
+  color: #fff;
+}
+
+.custom-slider-button:disabled,
+.custom-slider-button.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Collection button alignment */
+.custom-slider-card__actions {
+  display: flex;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.custom-slider-card__actions--left {
+  justify-content: flex-start;
+}
+
+.custom-slider-card__actions--center {
+  justify-content: center;
+}
+
+.custom-slider-card__actions--right {
+  justify-content: flex-end;
+}
+
+.custom-slider-card__button {
+  width: auto;
+}
+
+/* Product purchase button fills card width */
+.custom-slider-product-card__button {
+  width: 100%;
+  margin-top: 14px;
+}
   
 /* Add-to-cart alignment is independent of text alignment */
 .custom-slider-{{ block.id }} .custom-slider-product-card__actions {
