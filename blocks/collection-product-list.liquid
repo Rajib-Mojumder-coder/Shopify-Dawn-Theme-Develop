@@ -965,57 +965,6 @@
 },
 
 {
-  "type": "checkbox",
-  "id": "show_add_to_cart",
-  "label": "Show Add to Cart",
-  "default": true
-},
-{
-  "type": "select",
-  "id": "add_to_cart_alignment",
-  "label": "Add to Cart Alignment",
-  "default": "left",
-  "options": [
-    {
-      "value": "left",
-      "label": "Left"
-    },
-    {
-      "value": "center",
-      "label": "Center"
-    },
-    {
-      "value": "right",
-      "label": "Right"
-    }
-  ],
-  "visible_if": "{{ block.settings.show_add_to_cart == true }}"
-},
-{
-  "type": "text",
-  "id": "button_text",
-  "label": "Button Text",
-  "default": "Add to Cart"
-},
-
-{
-  "type": "select",
-  "id": "button_style",
-  "label": "Button Style",
-  "default": "solid",
-  "options": [
-    {
-      "value": "solid",
-      "label": "Solid"
-    },
-    {
-      "value": "outline",
-      "label": "Outline"
-    }
-  ]
-},
-
-{
   "type": "header",
   "content": "Product Image and Badges"
 },
@@ -1033,32 +982,7 @@
   "default": true,
   "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
-{
-  "type": "header",
-  "content": "Quick Add",
-  "visible_if": "{{ block.settings.content_type == 'products' }}"
-},
-{
-  "type": "select",
-  "id": "quick_add_option",
-  "label": "Purchase Behaviour",
-  "options": [
-    {
-      "value": "none",
-      "label": "Normal Add to Cart (Cart Page)"
-    },
-    {
-      "value": "standard",
-      "label": "Standard Quick Add (Stay on Page)"
-    },
-    {
-      "value": "bulk",
-      "label": "Bulk Add (Quantity + Add)"
-    }
-  ],
-  "default": "none",
-   "visible_if": "{{ block.settings.content_type == 'products' }}"
-},
+
 {
   "type": "header",
   "content": "View All Button"
