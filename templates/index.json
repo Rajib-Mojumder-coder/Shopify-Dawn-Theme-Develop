@@ -316,7 +316,7 @@
                 "collection_button_alignment": "center",
                 "show_product_button": true,
                 "button_text": "Add to Cart",
-                "button_style": "solid",
+                "button_style": "outline",
                 "quick_add_option": "bulk",
                 "show_view_all": true,
                 "view_all_style": "outline",
