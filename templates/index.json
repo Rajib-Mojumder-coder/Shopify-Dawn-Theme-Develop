@@ -265,9 +265,12 @@
               "type": "collection-product-list",
               "name": "Collection Product List",
               "settings": {
-                "content_type": "products",
+                "content_type": "collections",
                 "collection_source": "selected",
-                "collections": [],
+                "collections": [
+                  "e-bikes",
+                  "all-collections"
+                ],
                 "collection_limit": 12,
                 "product_source": "selected",
                 "products": [
@@ -288,12 +291,14 @@
                 "show_description": false,
                 "show_price": true,
                 "show_compare_price": true,
-                "show_add_to_cart": true,
-                "add_to_cart_alignment": "left",
-                "button_text": "Add to Cart",
-                "button_style": "solid",
                 "show_secondary_image": true,
                 "show_badge": false,
+                "show_collection_button": true,
+                "collection_button_text": "View Collection",
+                "collection_button_alignment": "left",
+                "show_product_button": true,
+                "button_text": "Add to Cart",
+                "button_style": "solid",
                 "quick_add_option": "bulk",
                 "show_view_all": true,
                 "view_all_style": "outline",
