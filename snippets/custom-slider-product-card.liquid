@@ -48,11 +48,7 @@ endfor
   data-product-handle="{{ product.handle }}"
 >
 
-  {%- comment -%}
-  =========================================================
-  PRODUCT MEDIA
-  =========================================================
-  {%- endcomment -%}
+  {%- comment -%}===========  PRODUCT MEDIA  ===============  {%- endcomment -%}
 
   {% if show_image %}
 
@@ -214,9 +210,7 @@ endfor
       {% endif %}
 
 
-      {%- comment -%}
-      PRODUCT BADGE
-      {%- endcomment -%}
+      {%- comment -%}    PRODUCT BADGE  {%- endcomment -%}
 
       {% if show_badge %}
 
@@ -237,9 +231,7 @@ endfor
       {% endif %}
 
 
-      {%- comment -%}
-      WISHLIST
-      {%- endcomment -%}
+      {%- comment -%}     WISHLIST   {%- endcomment -%}
 
       {% if show_wishlist %}
 
@@ -276,14 +268,9 @@ endfor
   {% endif %}
 
 
-  {%- comment -%}
-  =========================================================
-  PRODUCT CONTENT
-  =========================================================
-  {%- endcomment -%}
+  {%- comment -%} ============== PRODUCT CONTENT =============== {%- endcomment -%}
 
   <div class="custom-slider-product-card__content">
-
 
     {% if show_vendor and product.vendor != blank %}
 
@@ -293,19 +280,15 @@ endfor
 
     {% endif %}
 
-
     {% if show_title %}
 
       <h3 class="custom-slider-product-card__title">
-
         <a href="{{ product.url }}">
           {{ product.title }}
         </a>
-
       </h3>
 
     {% endif %}
-
 
     {% if show_description and product.description != blank %}
 
@@ -319,10 +302,8 @@ endfor
     {% if show_price %}
 
       <div class="custom-slider-product-card__price">
-        <span
-          class="custom-slider-product-card__price-current"
-          data-card-price
-        >
+        <span class="custom-slider-product-card__price-current"
+          data-card-price>
           {% if product.price_varies %}
             From {{ product.price_min | money }}
           {% else %}
