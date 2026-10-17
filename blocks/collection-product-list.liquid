@@ -27,24 +27,18 @@
 {% if content_type == 'collections' %}
 
   {% case collection_source %}
-
     {% when 'selected' %}
 
       {% for collection in block.settings.collections %}
-
         {% if collection != blank %}
 
-          <div
-            class="swiper-slide custom-slider-item custom-slider-item--collection"
-            {{ block.shopify_attributes }}
-          >
+          <div class="swiper-slide custom-slider-item custom-slider-item--collection"
+            {{ block.shopify_attributes }}>
 
             <article class="custom-slider-collection-card">
 
               {% if show_image %}
-
                 <div class="custom-slider-item__media custom-slider-collection-card__media">
-
                   {% if collection.featured_image != blank %}
 
                     {% if image_link %}
@@ -65,18 +59,13 @@
                           alt: collection.featured_image.alt | default: collection.title
                       }}
 
-                    {% if image_link %}
-                      </a>
-                    {% endif %}
-
+                    {% if image_link %}  </a> {% endif %}
                   {% else %}
 
                     <div class="custom-slider-collection-card__image-placeholder">
                       {{ 'collection-1' | placeholder_svg_tag }}
                     </div>
-
                   {% endif %}
-
                 </div>
 
               {% endif %}
@@ -121,15 +110,10 @@
                   {% endif %}
 
               </div>
-
             </article>
-
           </div>
-
         {% endif %}
-
       {% endfor %}
-
 
     {% when 'all' %}
 
@@ -137,11 +121,7 @@
 
         {% unless collection.handle == 'frontpage' %}
 
-          <div
-            class="swiper-slide custom-slider-item custom-slider-item--collection"
-            {{ block.shopify_attributes }}
-          >
-
+          <div class="swiper-slide custom-slider-item custom-slider-item--collection" {{ block.shopify_attributes }}>
             <article class="custom-slider-collection-card">
 
               {% if show_image %}
@@ -149,7 +129,6 @@
                 <div class="custom-slider-item__media custom-slider-collection-card__media">
 
                   {% if collection.featured_image != blank %}
-
                     {% if image_link %}
                       <a
                         href="{{ collection.url }}"
@@ -171,15 +150,11 @@
                     {% if image_link %}
                       </a>
                     {% endif %}
-
                   {% else %}
-
                     <div class="custom-slider-collection-card__image-placeholder">
                       {{ 'collection-1' | placeholder_svg_tag }}
                     </div>
-
                   {% endif %}
-
                 </div>
 
               {% endif %}
@@ -222,39 +197,28 @@
                     </a>
                   </div>
                 {% endif %}
-
               </div>
-
             </article>
-
           </div>
-
         {% endunless %}
-
       {% endfor %}
-
   {% endcase %}
 
 
 {% elsif content_type == 'products' %}
 
   {% case product_source %}
-
     {% when 'selected' %}
 
       {% for product in block.settings.products %}
-
         {% if product != blank %}
-
           <div class="swiper-slide custom-slider-item custom-slider-item--product">
             {% render 'custom-slider-product-card',
               product: product,
               block: block
             %}
           </div>
-
         {% endif %}
-
       {% endfor %}
 
 
@@ -263,68 +227,49 @@
       {% assign source_collection = block.settings.product_collection %}
 
       {% if source_collection != blank %}
-
         {% for product in source_collection.products limit: block.settings.product_limit %}
-
           {% if product != blank %}
-
             <div class="swiper-slide custom-slider-item custom-slider-item--product">
               {% render 'custom-slider-product-card',
                 product: product,
                 block: block
               %}
             </div>
-
           {% endif %}
-
         {% endfor %}
-
       {% endif %}
 
 
     {% when 'collections' %}
 
       {% for collection in block.settings.product_collections %}
-
         {% if collection != blank %}
-
           {% for product in collection.products limit: block.settings.products_per_collection %}
-
             {% if product != blank %}
-
               <div class="swiper-slide custom-slider-item custom-slider-item--product">
                 {% render 'custom-slider-product-card',
                   product: product,
                   block: block
                 %}
               </div>
-
             {% endif %}
-
           {% endfor %}
-
         {% endif %}
-
       {% endfor %}
 
 
     {% when 'all' %}
 
       {% for product in collections.all.products limit: block.settings.product_limit %}
-
         {% if product != blank %}
-
           <div class="swiper-slide custom-slider-item custom-slider-item--product">
             {% render 'custom-slider-product-card',
               product: product,
               block: block
             %}
           </div>
-
         {% endif %}
-
       {% endfor %}
-
   {% endcase %}
 
 {% endif %}
@@ -351,7 +296,6 @@
       0
       0;
 }
-
 
 .custom-slider-{{ block.id }} .custom-slider-item__image {
   width: 100%;
@@ -388,7 +332,6 @@
   overflow: hidden;
 }
 
-
   .custom-slider-collection-card__image-link {
     display: block;
     width: 100%;
@@ -417,8 +360,7 @@
     0;
 }
 
-
-  .custom-slider-collection-card__image-placeholder svg {
+.custom-slider-collection-card__image-placeholder svg {
     width: 100%;
     height: 100%;
     display: block;
@@ -737,7 +679,6 @@
 "tag": null,
 "presets": [ { "name": "Collection Product List" } ],
 "settings": [
-
 {
   "type": "select",
   "id": "content_type",
@@ -1030,7 +971,6 @@
   "default": "normal",
   "visible_if": "{{ block.settings.content_type == 'products' and block.settings.show_product_button }}"
 },
-
 {
   "type": "header",
   "content": "Product Card Color Swatches"
