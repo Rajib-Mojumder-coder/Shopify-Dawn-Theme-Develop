@@ -297,7 +297,7 @@
                 "quick_add_option": "bulk",
                 "show_view_all": true,
                 "view_all_style": "solid",
-                "view_all_collection": "",
+                "view_all_collection": "e-bikes",
                 "color_option_name": "Color",
                 "show_color_swatches": false,
                 "color_swatch_type": "color",
