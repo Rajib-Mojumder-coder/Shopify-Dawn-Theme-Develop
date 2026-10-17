@@ -529,16 +529,11 @@ function updateProductInventory(product) {
 
 function updateProductPrice(product) {
 
-    /*---------------------------------------------------------*
-     * 1. Safety check
-     *---------------------------------------------------------*/
+    /*------------     * 1. Safety check----------------*/
 
     if (!product) return;
 
-
-    /*---------------------------------------------------------*
-     * 2. Find price scope
-     *---------------------------------------------------------*/
+    /*---------------   * 2. Find price scope-------------*/
 
     const priceScope =
         product.querySelector(
@@ -548,21 +543,14 @@ function updateProductPrice(product) {
     if (!priceScope) return;
 
 
-    /*---------------------------------------------------------*
-     * 3. Get current variant
-     *---------------------------------------------------------*/
+    /*------------   * 3. Get current variant-------------*/
 
     const variant =
         getCurrentVariant();
-
     if (!variant) return;
 
-
-    /*---------------------------------------------------------*
-     * 4. Product scope protection
-     *
-     * Prevent Product A from updating Product B.
-     *---------------------------------------------------------*/
+    /*--------------- * 4. Product scope protection     *
+     Prevent Product A from updating Product B.-----------*/
 
     const scopeProductId =
         String(
