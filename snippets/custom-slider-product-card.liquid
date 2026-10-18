@@ -1328,13 +1328,17 @@ endfor
     }
 
     if (variantSelect) {
-      variantSelect.addEventListener('change', function () {
-        const selectedVariant = variantSelect.selectedOptions[0];
+      variantSelect.addEventListener('change', () => {
+        const variant = variantSelect.selectedOptions[0];
 
-        if (!selectedVariant) return;
+        if (!variant) return;
 
-        updateVariant(selectedVariant);
+        updateVariant(variant);
       });
+
+      if (variantSelect.selectedOptions.length) {
+        updateVariant(variantSelect.selectedOptions[0]);
+      }
     }
 
     swatches.forEach((swatch) => {
