@@ -1274,7 +1274,11 @@ endfor
     function updateVariant(variant) {
       if (!variant) return;
 
-      card.dataset.selectedVariantId = variant.value;
+      const variantId = variant.value || variant.dataset.variantId;
+
+      if (variantId) {
+        card.dataset.selectedVariantId = variantId;
+      }
 
       updatePrice(variant);
       updateImage(variant);
