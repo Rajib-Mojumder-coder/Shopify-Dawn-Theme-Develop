@@ -515,7 +515,91 @@
 .custom-slider-product-card__form .custom-slider-product-card__button {
   width: 100%;
 }
-/**/
+/*bulk form-এর layout নিয়ন্ত্রণ*/
+
+/* Bulk Add: default stacked layout */
+.custom-slider-product-card__form--bulk {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.custom-slider-product-card__form--bulk select,
+.custom-slider-product-card__form--bulk input[type="number"] {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 9px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font: inherit;
+  background: #fff;
+  color: #111;
+}
+
+.custom-slider-product-card__field-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Quantity and button share one row when checkbox is enabled */
+.custom-slider-product-card__bulk-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.custom-slider-product-card__quantity-control {
+  min-width: 0;
+}
+
+.custom-slider-product-card__bulk-controls
+.custom-slider-product-card__button {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.custom-slider-product-card__form--inline
+.custom-slider-product-card__bulk-controls {
+  grid-template-columns: minmax(70px, 0.7fr) minmax(0, 1.3fr);
+  gap: 8px;
+}
+
+.custom-slider-product-card__form--inline
+.custom-slider-product-card__quantity-control
+.custom-slider-product-card__field-label {
+  white-space: nowrap;
+}
+
+.custom-slider-product-card__form--inline
+.custom-slider-product-card__bulk-controls
+.custom-slider-product-card__button {
+  min-height: 44px;
+  padding: 8px 10px;
+  overflow-wrap: anywhere;
+}
+
+@media screen and (max-width: 360px) {
+  .custom-slider-product-card__form--inline
+  .custom-slider-product-card__bulk-controls {
+    grid-template-columns: minmax(60px, 0.65fr) minmax(0, 1.35fr);
+    gap: 6px;
+  }
+
+  .custom-slider-product-card__form--inline
+  .custom-slider-product-card__bulk-controls
+  .custom-slider-product-card__button {
+    font-size: 12px;
+  }
+}
+
   
 /* Add-to-cart alignment is independent of text alignment */
 .custom-slider-{{ block.id }} .custom-slider-product-card__actions {
