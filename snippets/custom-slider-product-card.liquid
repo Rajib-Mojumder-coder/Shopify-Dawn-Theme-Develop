@@ -416,94 +416,92 @@ endfor
                   Sold Out
                 </button>
               {% endif %}
+          
+              {% when 'bulk' %}
+                {% if product.available %}
+                  {% assign inline_bulk_controls = block.settings.bulk_quantity_button_inline %}
 
+                  <form
+                    action="{{ routes.cart_add_url }}"
+                    method="post"
+                    accept-charset="UTF-8"
+                    class="custom-slider-product-card__form custom-slider-product-card__form--bulk{% if inline_bulk_controls %} custom-slider-product-card__form--inline{% endif %}"
+                    data-quick-add-mode="bulk"
+                    data-product-id="{{ product.id }}"
+                  >
+                    <label
+                      class="custom-slider-product-card__field-label"
+                      for="SliderVariant-{{ block.id }}-{{ product.id }}"
+                    >
+                      Select variant
+                    </label>
 
-            
-{% when 'bulk' %}
-  {% if product.available %}
-    {% assign inline_bulk_controls = block.settings.bulk_quantity_button_inline %}
+                    <select
+                      id="SliderVariant-{{ block.id }}-{{ product.id }}"
+                      name="id"
+                      required
+                    >
+                      {% for variant in product.variants %}
+                        {% if variant.available %}
+                          <option
+                            value="{{ variant.id }}"
+                            {% if variant.id == current_variant.id %}selected{% endif %}
+                          >
+                            {{ variant.title | escape }} — {{ variant.price | money }}
+                          </option>
+                        {% endif %}
+                      {% endfor %}
+                    </select>
 
-    <form
-      action="{{ routes.cart_add_url }}"
-      method="post"
-      accept-charset="UTF-8"
-      class="custom-slider-product-card__form custom-slider-product-card__form--bulk{% if inline_bulk_controls %} custom-slider-product-card__form--inline{% endif %}"
-      data-quick-add-mode="bulk"
-      data-product-id="{{ product.id }}"
-    >
-      <label
-        class="custom-slider-product-card__field-label"
-        for="SliderVariant-{{ block.id }}-{{ product.id }}"
-      >
-        Select variant
-      </label>
+                    <div class="custom-slider-product-card__bulk-controls">
+                      <div class="custom-slider-product-card__quantity-control">
+                        <label
+                          class="custom-slider-product-card__field-label"
+                          for="SliderQuantity-{{ block.id }}-{{ product.id }}"
+                        >
+                          Quantity
+                        </label>
 
-      <select
-        id="SliderVariant-{{ block.id }}-{{ product.id }}"
-        name="id"
-        required
-      >
-        {% for variant in product.variants %}
-          {% if variant.available %}
-            <option
-              value="{{ variant.id }}"
-              {% if variant.id == current_variant.id %}selected{% endif %}
-            >
-              {{ variant.title | escape }} — {{ variant.price | money }}
-            </option>
-          {% endif %}
-        {% endfor %}
-      </select>
+                        <input
+                          id="SliderQuantity-{{ block.id }}-{{ product.id }}"
+                          type="number"
+                          name="quantity"
+                          value="1"
+                          min="1"
+                          step="1"
+                          required
+                        >
+                      </div>
 
-      <div class="custom-slider-product-card__bulk-controls">
-        <div class="custom-slider-product-card__quantity-control">
-          <label
-            class="custom-slider-product-card__field-label"
-            for="SliderQuantity-{{ block.id }}-{{ product.id }}"
-          >
-            Quantity
-          </label>
-
-          <input
-            id="SliderQuantity-{{ block.id }}-{{ product.id }}"
-            type="number"
-            name="quantity"
-            value="1"
-            min="1"
-            step="1"
-            required
-          >
-        </div>
-
-        <button
-          type="submit"
-          class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
-        >
-          <span>{{ button_text | escape }}</span>
-          <span class="loading__spinner hidden" aria-hidden="true">
-            <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-              <circle
-                class="path"
-                fill="none"
-                stroke-width="6"
-                cx="33"
-                cy="33"
-                r="30"
-              ></circle>
-            </svg>
-          </span>
-        </button>
-      </div>
-    </form>
-  {% else %}
-    <button
-      type="button"
-      class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
-      disabled
-    >
-      Sold Out
-    </button>
-  {% endif %}
+                      <button
+                        type="submit"
+                        class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
+                      >
+                        <span>{{ button_text | escape }}</span>
+                        <span class="loading__spinner hidden" aria-hidden="true">
+                          <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle
+                              class="path"
+                              fill="none"
+                              stroke-width="6"
+                              cx="33"
+                              cy="33"
+                              r="30"
+                            ></circle>
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                  </form>
+                {% else %}
+                  <button
+                    type="button"
+                    class="custom-slider-button custom-slider-button--{{ button_style }} custom-slider-product-card__button"
+                    disabled
+                  >
+                    Sold Out
+                  </button>
+                {% endif %}
 
 
           {% endcase %}
