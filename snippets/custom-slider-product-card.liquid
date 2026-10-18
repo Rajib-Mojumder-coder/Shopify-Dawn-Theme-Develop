@@ -1239,10 +1239,21 @@ endfor
     function updateImage(variant) {
       if (!primaryImage || !variant) return;
 
-      const image = variant.dataset.image;
-      if (image) {
-        primaryImage.src = image;
+      const imageUrl = variant.dataset.image;
+
+      if (!imageUrl) return;
+
+      // Force the browser to use the selected variant image.
+      primaryImage.src = imageUrl;
+      primaryImage.removeAttribute('srcset');
+      primaryImage.removeAttribute('sizes');
+
+      if (variant.dataset.imageAlt) {
+        primaryImage.alt = variant.dataset.imageAlt;
       }
+
+      // Prevent the old secondary image from covering the selected image.
+      card.classList.add('has-variant-image');
     }
 
     function updateActiveSwatch(variant) {
