@@ -452,6 +452,7 @@ endfor
                             data-inventory-policy="{{ variant.inventory_policy | escape }}"
                             data-inventory-quantity="{{ variant.inventory_quantity | default: 0 }}"
                             data-image="{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 1200 }}{% endif %}"
+                            data-image-alt="{% if variant.featured_image %}{{ variant.featured_image.alt | default: product.title | escape }}{% endif %}"
                             {% if variant.id == current_variant.id %}selected{% endif %}
                           >
                             {{ variant.title | escape }} — {{ variant.price | money }}
