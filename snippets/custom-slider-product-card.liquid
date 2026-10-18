@@ -294,30 +294,32 @@ endfor
 
 
     {% if show_price %}
-
       <div class="custom-slider-product-card__price">
-        <span class="custom-slider-product-card__price-current"
-          data-card-price>
+        <span
+          class="custom-slider-product-card__price-current"
+          data-card-price
+        >
           {% if product.price_varies %}
-            From {{ product.price_min | money }}
+            From {{ current_variant.price | money }}
           {% else %}
             {{ current_variant.price | money }}
           {% endif %}
         </span>
 
-        <span
-          class="custom-slider-product-card__price-compare"
-          data-card-compare-price
-          {% unless current_variant.compare_at_price > current_variant.price %}
-            hidden
-          {% endunless %}
-        >
-          {% if current_variant.compare_at_price > current_variant.price %}
-            {{ current_variant.compare_at_price | money }}
-          {% endif %}
-        </span>
+        {% if show_compare_price %}
+          <span
+            class="custom-slider-product-card__price-compare"
+            data-card-compare-price
+            {% unless current_variant.compare_at_price > current_variant.price %}
+              hidden
+            {% endunless %}
+          >
+            {% if current_variant.compare_at_price > current_variant.price %}
+              {{ current_variant.compare_at_price | money }}
+            {% endif %}
+          </span>
+        {% endif %}
       </div>
-
     {% endif %}
 
       {% if show_product_button %}
