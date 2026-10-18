@@ -1259,17 +1259,25 @@ endfor
     function updateActiveSwatch(variant) {
       if (!variant || !swatches.length) return;
 
-      const optionPosition = Number(variant.dataset.colorOptionPosition);
+      const optionPosition = Number(
+        variant.dataset.colorOptionPosition ||
+        swatches[0].dataset.colorOptionPosition
+      );
+
+      if (!optionPosition) return;
+
       const optionValue = variant.dataset[`option${optionPosition}`];
 
+      if (!optionValue) return;
+
       swatches.forEach((swatch) => {
-        const active =
-          swatch.dataset.optionValue === optionValue;
+        const active = swatch.dataset.optionValue === optionValue;
 
         swatch.classList.toggle('is-active', active);
         swatch.setAttribute('aria-pressed', String(active));
       });
     }
+
 
     function updateVariant(variant) {
       if (!variant) return;
