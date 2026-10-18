@@ -536,6 +536,19 @@ endfor
   background: {{ block.settings.card_background | default: '#ffffff' }};
 }
 
+/* Respect the hidden attribute even when other CSS sets display. */
+.custom-slider-product-card [hidden] {
+  display: none !important;
+}
+
+/* Keep the selected variant image visible on hover. */
+@media (hover: hover) and (pointer: fine) {
+  .custom-slider-product-card__media:hover
+  .custom-slider-product-card.has-variant-image
+  .custom-slider-product-card__image--primary {
+    opacity: 1;
+  }
+}
 
 .custom-slider-product-card__media {
   position: relative;
