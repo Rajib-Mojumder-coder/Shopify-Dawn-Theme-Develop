@@ -121,6 +121,7 @@ endfor
                 data-inventory-policy="{{ swatch_variant.inventory_policy | escape }}"
                 data-inventory-quantity="{{ swatch_variant.inventory_quantity | default: 0 }}"
                 data-image="{% if swatch_variant.featured_image %}{{ swatch_variant.featured_image | image_url: width: 1200 }}{% endif %}"
+                data-image-alt="{{ swatch_variant.featured_image.alt | default: product.title | escape }}"
                 aria-label="{{ value | escape }}"
                 aria-pressed="{% if color_option.selected_value == value %}true{% else %}false{% endif %}"
                 title="{{ value | escape }}"
