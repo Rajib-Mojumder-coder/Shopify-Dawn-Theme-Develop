@@ -602,29 +602,30 @@ endfor
   );
   transition: opacity .35s ease, transform .4s ease;
 }
-
+/* Primary image: always visible by default */
 .custom-slider-product-card__image--primary {
-  position: relative;
   opacity: 1;
+  visibility: visible;
 }
 
+/* Secondary image: hidden by default */
 .custom-slider-product-card__image--secondary {
-  position: absolute;
-  inset: 0;
   opacity: 0;
-  pointer-events: none;
+  visibility: hidden;
 }
 
-/* Hover image only on devices with a real hover pointer */
+/* Show secondary image only when it exists */
 @media (hover: hover) and (pointer: fine) {
-  .custom-slider-product-card__media:hover
-  .custom-slider-product-card__image--primary {
-    opacity: 0;
-  }
-
   .custom-slider-product-card__media:hover
   .custom-slider-product-card__image--secondary {
     opacity: 1;
+    visibility: visible;
+  }
+
+  .custom-slider-product-card__media:hover
+  .custom-slider-product-card__image--primary {
+    opacity: 0;
+    visibility: hidden;
   }
 }
 
