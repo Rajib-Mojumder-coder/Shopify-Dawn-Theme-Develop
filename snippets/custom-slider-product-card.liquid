@@ -1323,14 +1323,13 @@ endfor
     }
 
     if (variantSelect) {
-      variantSelect.addEventListener('change', () => {
-        const variant = variantSelect.selectedOptions[0];
-        updateVariant(variant);
-      });
+      variantSelect.addEventListener('change', function () {
+        const selectedVariant = variantSelect.selectedOptions[0];
 
-      if (variantSelect.selectedOptions.length) {
-        updateVariant(variantSelect.selectedOptions[0]);
-      }
+        if (!selectedVariant) return;
+
+        updateVariant(selectedVariant);
+      });
     }
 
     swatches.forEach((swatch) => {
