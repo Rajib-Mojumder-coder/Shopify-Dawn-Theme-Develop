@@ -1251,16 +1251,20 @@ endfor
     function updatePrice(variant) {
       if (!variant) return;
 
-      if (currentPrice && variant.dataset.priceFormatted) {
-        currentPrice.textContent = variant.dataset.priceFormatted;
+      if (currentPrice) {
+        const price = variant.dataset.priceFormatted;
+
+        if (price) {
+          currentPrice.textContent = price;
+        }
       }
 
       if (comparePrice) {
-        const formattedCompare =
+        const compareAtPrice =
           variant.dataset.comparePriceFormatted || '';
 
-        comparePrice.textContent = formattedCompare;
-        comparePrice.hidden = !formattedCompare;
+        comparePrice.textContent = compareAtPrice;
+        comparePrice.hidden = !compareAtPrice;
       }
     }
 
