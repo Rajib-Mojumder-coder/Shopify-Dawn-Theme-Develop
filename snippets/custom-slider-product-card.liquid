@@ -180,7 +180,8 @@ endfor
               alt: product.featured_image.alt | default: product.title
           }}
 
-          {% if show_secondary_image and second_image != blank %}
+          {% comment %} {% if show_secondary_image and second_image != blank %} {% endcomment %}
+           {% if show_secondary_image and product.images.size > 1 %}
             {{
               second_image
               | image_url: width: 1200
