@@ -1228,7 +1228,8 @@ endfor
       }
 
       if (comparePrice) {
-        const formattedCompare = variant.dataset.comparePriceFormatted || '';
+        const formattedCompare =
+          variant.dataset.comparePriceFormatted || '';
 
         comparePrice.textContent = formattedCompare;
         comparePrice.hidden = !formattedCompare;
