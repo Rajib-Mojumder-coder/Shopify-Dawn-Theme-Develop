@@ -1298,22 +1298,33 @@ endfor
     }
 
     swatches.forEach((swatch) => {
-      swatch.addEventListener('click', () => {
-        if (swatch.dataset.available !== 'true') return;
+        swatch.addEventListener('click', () => {
+          if (swatch.dataset.available !== 'true') return;
 
-        const variantId = swatch.dataset.variantId;
+          const variantId = swatch.dataset.variantId;
 
-        if (variantSelect) {
-          const matchingOption = Array.from(variantSelect.options).find(
-            (option) => option.value === variantId
-          );
+          if (variantSelect) {
+            const matchingOption = Array.from(variantSelect.options).find(
+              (option) => option.value === variantId
+            );
 
-          if (matchingOption) {
-            variantSelect.value = variantId;
-            updateVariant(matchingOption);
-            return;
+            if (matchingOption) {
+              variantSelect.value = variantId;
+              updateVariant(matchingOption);
+
+              // Trigger any other listeners attached to the selector.
+              variantSelect.dispatchEvent(
+                new Event('change', { bubbles: true })
+              );
+
+              return;
+            }
           }
-        }
+
+          // Works when the card has no variant selector.
+          updateVariant(swatch);
+        });
+      });
 
         // Swatch-only cards without a variant selector.
         card.dataset.selectedVariantId = variantId;
