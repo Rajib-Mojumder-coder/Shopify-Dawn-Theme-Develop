@@ -960,6 +960,14 @@
   "default": "normal",
   "visible_if": "{{ block.settings.content_type == 'products' and block.settings.show_product_button }}"
 },
+
+{
+  "type": "checkbox",
+  "id": "bulk_quantity_button_inline",
+  "label": "Show Quantity and Add to Cart in One Row",
+  "default": false,
+  "visible_if": "{{ block.settings.content_type == 'products' and block.settings.show_product_button and block.settings.quick_add_option == 'bulk' }}"
+},
 {
   "type": "header",
   "content": "Product Card Color Swatches"
