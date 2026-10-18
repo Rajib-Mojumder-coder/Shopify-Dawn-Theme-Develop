@@ -20,9 +20,7 @@
 
   assign show_secondary_image = block.settings.show_secondary_image
   assign second_image = product.images[1]
-  assign quick_add_option = block.settings.quick_add_option | default: 'none'
-  assign show_button = block.settings.show_add_to_cart
-
+ 
   assign color_option_name = block.settings.color_option_name | default: 'Kleur' | strip | downcase
 assign color_option = blank
 
