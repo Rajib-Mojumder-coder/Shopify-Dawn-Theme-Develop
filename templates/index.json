@@ -320,7 +320,7 @@
                 "quick_add_option": "bulk",
                 "bulk_quantity_button_inline": true,
                 "color_option_name": "Color",
-                "show_color_swatches": false,
+                "show_color_swatches": true,
                 "color_swatch_type": "color",
                 "color_swatch_shape": "circle",
                 "color_swatch_position": "top-left",
