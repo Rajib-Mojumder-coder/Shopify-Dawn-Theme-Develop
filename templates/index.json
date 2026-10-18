@@ -310,7 +310,7 @@
                 "show_price": true,
                 "show_compare_price": true,
                 "show_secondary_image": true,
-                "show_badge": false,
+                "show_badge": true,
                 "show_collection_button": false,
                 "collection_button_text": "View Collection",
                 "collection_button_alignment": "center",
