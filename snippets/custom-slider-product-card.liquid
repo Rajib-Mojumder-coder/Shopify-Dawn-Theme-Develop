@@ -444,13 +444,10 @@ endfor
                         {% if variant.available %}
                           <option
                             value="{{ variant.id }}"
-                            data-price="{{ variant.price }}"
                             data-price-formatted="{{ variant.price | money | escape }}"
-                            data-compare-price="{{ variant.compare_at_price | default: 0 }}"
                             data-compare-price-formatted="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | escape }}{% endif %}"
-                            data-available="{{ variant.available }}"
                             data-inventory-management="{{ variant.inventory_management | escape }}"
-                            data-inventory-policy="{{ variant.inventory_policy | escape }}"
+                            data-inventory-policy="{{ variant.inventory_policy }}"
                             data-inventory-quantity="{{ variant.inventory_quantity | default: 0 }}"
                             data-image="{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 1200 }}{% endif %}"
                             data-image-alt="{{ variant.featured_image.alt | default: product.title | escape }}"
