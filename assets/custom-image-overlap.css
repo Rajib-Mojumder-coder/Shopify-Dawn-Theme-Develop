@@ -1,0 +1,89 @@
+
+/* =========================================
+   CUSTOM IMAGE OVERLAP
+========================================= */
+
+.custom-image-overlap {
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  max-width: 100%;
+  top: var(--cio-offset-desktop, 0px);
+  overflow: visible;
+}
+
+/* Block width */
+
+.custom-image-overlap--width-100 {
+  width: 100%;
+}
+
+.custom-image-overlap--width-75 {
+  width: 75%;
+}
+
+.custom-image-overlap--width-66 {
+  width: 66.66%;
+}
+
+.custom-image-overlap--width-50 {
+  width: 50%;
+}
+
+.custom-image-overlap--width-33 {
+  width: 33.33%;
+}
+
+.custom-image-overlap--width-25 {
+  width: 25%;
+}
+
+/* Horizontal alignment */
+
+.custom-image-overlap--left {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.custom-image-overlap--center {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.custom-image-overlap--right {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+/* Optional background */
+
+.custom-image-overlap[style*="--cio-background"] {
+  background-color: var(--cio-background);
+}
+
+/* Image */
+
+.custom-image-overlap__image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Mobile */
+
+@media screen and (max-width: 749px) {
+  .custom-image-overlap {
+    top: var(--cio-offset-mobile, 0px);
+  }
+}
+
+/* Narrow screens */
+
+@media screen and (max-width: 480px) {
+  .custom-image-overlap--width-75,
+  .custom-image-overlap--width-66 {
+    width: 100%;
+  }
+}
