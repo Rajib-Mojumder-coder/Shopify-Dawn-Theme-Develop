@@ -712,7 +712,7 @@
                 "subtitle_line_height": 1,
                 "subtitle_letter_spacing": 0,
                 "subtitle_transform": "none",
-                "subtitle_color": "#06123D"
+                "subtitle_color": "#06123d"
               },
               "blocks": {}
             },
@@ -791,32 +791,31 @@
             "group_padding_right": 20
           },
           "blocks": {
-            "advisor_card_wxJjHC": {
-              "type": "advisor_card",
-              "name": "Advisor Card",
+            "custom_image_overlap_KhVNQK": {
+              "type": "custom-image-overlap",
+              "name": "Image Overlap",
               "settings": {
-                "enable_color_scheme": true,
+                "image": "shopify://shop_images/Mask_group_055c6219-b636-463a-8bd8-1b350f9d81e7.png",
+                "block_width": "100",
+                "image_alignment": "right",
+                "enable_color_scheme": false,
                 "color_scheme": "",
-                "Advisor_block_width": "100",
-                "advisor_image": "shopify://shop_images/Mask_group_055c6219-b636-463a-8bd8-1b350f9d81e7.png",
-                "enable_img_position": true,
-                "advisor_img_y_offset": -40,
-                "advisor_card_bg": true,
-                "card_bg_color": "#071540",
-                "transparant_img_bg": true,
-                "transparant_img_bg_color": "#06123D",
-                "advisor_heading": "",
-                "heading_max_width": 350,
-                "advisor_description": "",
-                "advisor_button_width": "full",
-                "button_text": "",
-                "button_link": ""
+                "enable_background": false,
+                "background_color": "#071540",
+                "enable_desktop_offset": true,
+                "desktop_offset_unit": "px",
+                "desktop_offset_px": -100,
+                "desktop_offset_percent": -10,
+                "enable_mobile_offset": true,
+                "mobile_offset_unit": "px",
+                "mobile_offset_px": -300,
+                "mobile_offset_percent": -35
               },
               "blocks": {}
             }
           },
           "block_order": [
-            "advisor_card_wxJjHC"
+            "custom_image_overlap_KhVNQK"
           ]
         }
       },
