@@ -8,8 +8,7 @@
   z-index: 2;
   box-sizing: border-box;
   max-width: 100%;
-  top: var(--cio-offset-desktop, 0px);
-  overflow: visible;
+  transform: translateY(var(--cio-offset-desktop, 0px));
 }
 
 /* Block width */
