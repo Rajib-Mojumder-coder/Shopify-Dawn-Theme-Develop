@@ -1,0 +1,152 @@
+
+{{ 'custom-image-overlap.css' | asset_url | stylesheet_tag }}
+
+{% render 'custom-image-overlap-content', image_block: block %}
+
+{% schema %}
+{
+  "name": "Image Overlap",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "block_width",
+      "label": "Block Width",
+      "default": "100",
+      "options": [
+        { "value": "100", "label": "100%" },
+        { "value": "75", "label": "75%" },
+        { "value": "66", "label": "66.66%" },
+        { "value": "50", "label": "50%" },
+        { "value": "33", "label": "33.33%" },
+        { "value": "25", "label": "25%" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_alignment",
+      "label": "Image Alignment",
+      "default": "right",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_color_scheme",
+      "label": "Enable Color Scheme",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-5",
+      "visible_if": "{{ block.settings.enable_color_scheme }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_background",
+      "label": "Enable Custom Background",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#071540",
+      "visible_if": "{{ block.settings.enable_background }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_desktop_offset",
+      "label": "Enable Desktop Top Offset",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "desktop_offset_unit",
+      "label": "Desktop Offset Unit",
+      "default": "px",
+      "options": [
+        { "value": "px", "label": "Pixels (px)" },
+        { "value": "%", "label": "Percentage (%)" }
+      ],
+      "visible_if": "{{ block.settings.enable_desktop_offset }}"
+    },
+    {
+      "type": "range",
+      "id": "desktop_offset_px",
+      "label": "Desktop Vertical Offset",
+      "min": -200,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": -100,
+      "visible_if": "{{ block.settings.enable_desktop_offset and block.settings.desktop_offset_unit == 'px' }}"
+    },
+    {
+      "type": "range",
+      "id": "desktop_offset_percent",
+      "label": "Desktop Vertical Offset",
+      "min": -50,
+      "max": 20,
+      "step": 1,
+      "unit": "%",
+      "default": -10,
+      "visible_if": "{{ block.settings.enable_desktop_offset and block.settings.desktop_offset_unit == '%' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_offset",
+      "label": "Enable Mobile Top Offset",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "mobile_offset_unit",
+      "label": "Mobile Offset Unit",
+      "default": "px",
+      "options": [
+        { "value": "px", "label": "Pixels (px)" },
+        { "value": "%", "label": "Percentage (%)" }
+      ],
+      "visible_if": "{{ block.settings.enable_mobile_offset }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_offset_px",
+      "label": "Mobile Vertical Offset",
+      "min": -500,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": -300,
+      "visible_if": "{{ block.settings.enable_mobile_offset and block.settings.mobile_offset_unit == 'px' }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_offset_percent",
+      "label": "Mobile Vertical Offset",
+      "min": -60,
+      "max": 20,
+      "step": 1,
+      "unit": "%",
+      "default": -35,
+      "visible_if": "{{ block.settings.enable_mobile_offset and block.settings.mobile_offset_unit == '%' }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Overlap"
+    }
+  ]
+}
+{% endschema %}
