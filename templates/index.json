@@ -630,7 +630,7 @@
           "settings": {
             "desktop_direction": "column",
             "mobile_direction": false,
-            "justify": "flex-start",
+            "justify": "center",
             "align": "flex-start",
             "desktop_gap": 50,
             "mobile_gap": 18,
@@ -665,8 +665,8 @@
               "type": "custom_heading",
               "name": "Heading Title block",
               "settings": {
-                "block_settings": false,
-                "block_outer_width": "100%",
+                "block_settings": true,
+                "block_outer_width": "50%",
                 "block_max_width": 1200,
                 "block_spacing": false,
                 "padding_top": 0,
