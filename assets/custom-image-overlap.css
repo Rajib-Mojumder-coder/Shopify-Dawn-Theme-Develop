@@ -74,7 +74,7 @@
 
 @media screen and (max-width: 749px) {
   .custom-image-overlap {
-    top: var(--cio-offset-mobile, 0px);
+    transform: translateY(var(--cio-offset-mobile, 0px));
   }
 }
 
