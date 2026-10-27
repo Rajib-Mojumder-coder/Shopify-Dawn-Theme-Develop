@@ -1,0 +1,71 @@
+
+{% liquid
+  assign image_block = image_block
+  assign overlap_image = image_block.settings.image
+  assign block_width = image_block.settings.block_width
+  assign image_alignment = image_block.settings.image_alignment
+
+  assign enable_color_scheme = image_block.settings.enable_color_scheme
+  assign color_scheme = image_block.settings.color_scheme
+  assign enable_background = image_block.settings.enable_background
+  assign background_color = image_block.settings.background_color
+
+  assign enable_desktop_offset = image_block.settings.enable_desktop_offset
+  assign desktop_offset_unit = image_block.settings.desktop_offset_unit
+  assign desktop_offset_px = image_block.settings.desktop_offset_px
+  assign desktop_offset_percent = image_block.settings.desktop_offset_percent
+
+  assign enable_mobile_offset = image_block.settings.enable_mobile_offset
+  assign mobile_offset_unit = image_block.settings.mobile_offset_unit
+  assign mobile_offset_px = image_block.settings.mobile_offset_px
+  assign mobile_offset_percent = image_block.settings.mobile_offset_percent
+
+  assign desktop_offset = '0px'
+  assign mobile_offset = '0px'
+
+  if enable_desktop_offset
+    if desktop_offset_unit == '%'
+      assign desktop_offset = desktop_offset_percent | append: '%'
+    else
+      assign desktop_offset = desktop_offset_px | append: 'px'
+    endif
+  endif
+
+  if enable_mobile_offset
+    if mobile_offset_unit == '%'
+      assign mobile_offset = mobile_offset_percent | append: '%'
+    else
+      assign mobile_offset = mobile_offset_px | append: 'px'
+    endif
+  endif
+%}
+
+{% if overlap_image != blank %}
+  <div
+    class="
+      custom-image-overlap
+      custom-image-overlap--{{ image_block.id }}
+      custom-image-overlap--width-{{ block_width }}
+      custom-image-overlap--{{ image_alignment }}
+      {% if enable_color_scheme %}color-{{ color_scheme }} gradient{% endif %}
+    "
+    style="
+      --cio-offset-desktop: {{ desktop_offset }};
+      --cio-offset-mobile: {{ mobile_offset }};
+      {% if enable_background %}
+        --cio-background: {{ background_color }};
+      {% endif %}
+    "
+    {{ image_block.shopify_attributes }}
+  >
+    {{
+      overlap_image
+      | image_url: width: 2000
+      | image_tag:
+        loading: 'lazy',
+        class: 'custom-image-overlap__image',
+        widths: '375,550,750,1100,1500,2000',
+        sizes: '(max-width: 749px) 100vw, 75vw'
+    }}
+  </div>
+{% endif %}
