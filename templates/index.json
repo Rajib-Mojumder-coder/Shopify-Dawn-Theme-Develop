@@ -346,7 +346,7 @@
         "custom_viewport_height": 60,
         "custom_max_height": 900,
         "section_top_padding": 60,
-        "section_bottom_padding": 60,
+        "section_bottom_padding": 100,
         "background_media": "none",
         "background_fit": "cover",
         "background_position": "center center",
