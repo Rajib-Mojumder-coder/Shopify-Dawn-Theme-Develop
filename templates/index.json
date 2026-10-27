@@ -720,6 +720,7 @@
               "type": "custom-image-overlap",
               "name": "Image Overlap",
               "settings": {
+                "image": "shopify://shop_images/Mask_group_055c6219-b636-463a-8bd8-1b350f9d81e7.png",
                 "block_width": "100",
                 "image_alignment": "right",
                 "enable_color_scheme": false,
