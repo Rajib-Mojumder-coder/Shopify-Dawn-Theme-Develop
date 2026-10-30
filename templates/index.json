@@ -620,12 +620,37 @@
         "layout_desktop_gap": 50,
         "layout_mobile_gap": 18
       }
+    },
+    "image_text_overlap_QGdR7K": {
+      "type": "image-text-overlap",
+      "name": "Image Text Overlap",
+      "settings": {
+        "subheading": "Discover More",
+        "heading": "Your Main Heading Goes Here",
+        "description": "<p>Add your description here to introduce your product or service.</p>",
+        "button_label": "Explore Now",
+        "button_link": "",
+        "image": "shopify://shop_images/Mask_group_055c6219-b636-463a-8bd8-1b350f9d81e7.png",
+        "desktop_image_width": 50,
+        "desktop_image_height": 650,
+        "image_fit": "cover",
+        "image_position": "center center",
+        "desktop_offset_unit": "px",
+        "desktop_offset_px": -50,
+        "desktop_offset_percent": -25,
+        "content_max_width": 600,
+        "column_gap": 40,
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "color_scheme": ""
+      }
     }
   },
   "order": [
     "custom_hero_banner_drDydw",
     "shopify_custom_section_pX3Jxh",
     "shopify_custom_section_yCkANW",
-    "shopify_custom_section_KJcmXa"
+    "shopify_custom_section_KJcmXa",
+    "image_text_overlap_QGdR7K"
   ]
 }
