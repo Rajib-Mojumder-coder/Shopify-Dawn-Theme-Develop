@@ -1,0 +1,274 @@
+
+{{ 'image-text-overlap.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign overlap_image = section.settings.image
+  assign image_ratio = 1
+
+  if overlap_image != blank
+    assign image_ratio = overlap_image.aspect_ratio
+  endif
+
+  assign desktop_offset = section.settings.desktop_offset_px | append: 'px'
+
+  if section.settings.desktop_offset_unit == 'percent'
+    assign desktop_offset = section.settings.desktop_offset_percent | append: '%'
+  endif
+%}
+
+<section
+  id="ImageTextOverlap-{{ section.id }}"
+  class="image-text-overlap image-text-overlap--{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
+  style="
+    --ito-desktop-offset: {{ desktop_offset }};
+    --ito-image-height: {{ section.settings.desktop_image_height }}px;
+    --ito-image-ratio: {{ image_ratio }};
+    --ito-section-padding-top: {{ section.settings.section_padding_top }}px;
+    --ito-section-padding-bottom: {{ section.settings.section_padding_bottom }}px;
+    --ito-content-max-width: {{ section.settings.content_max_width }}px;
+    --ito-column-gap: {{ section.settings.column_gap }}px;
+    --ito-image-width: {{ section.settings.desktop_image_width }}%;
+  "
+>
+  {% if overlap_image != blank %}
+    <div class="image-text-overlap__media">
+      {{
+        overlap_image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'lazy',
+          widths: '375,550,750,990,1200,1500,1800,2000,2400',
+          sizes: '(min-width: 750px) 50vw, 100vw',
+          class: 'image-text-overlap__image',
+          alt: overlap_image.alt
+      }}
+    </div>
+  {% endif %}
+
+  <div class="image-text-overlap__inner page-width">
+    <div class="image-text-overlap__content">
+      {% if section.settings.subheading != blank %}
+        <p class="image-text-overlap__subheading">
+          {{ section.settings.subheading | escape }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="image-text-overlap__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="image-text-overlap__description rte">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        <a
+          {% if section.settings.button_link != blank %}
+            href="{{ section.settings.button_link }}"
+          {% else %}
+            role="link" aria-disabled="true"
+          {% endif %}
+          class="image-text-overlap__button button"
+        >
+          {{ section.settings.button_label | escape }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="image-text-overlap__spacer" aria-hidden="true"></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image Text Overlap",
+  "tag": "section",
+  "class": "section-image-text-overlap",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover More"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Main Heading Goes Here"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Add your description here to introduce your product or service.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Explore Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "desktop_image_width",
+      "label": "Desktop Image Width",
+      "min": 35,
+      "max": 70,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "desktop_image_height",
+      "label": "Desktop Image Height",
+      "min": 350,
+      "max": 1000,
+      "step": 25,
+      "unit": "px",
+      "default": 650
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image Fit",
+      "default": "cover",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "default": "center center",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "center top", "label": "Top" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Desktop Image Overlap"
+    },
+    {
+      "type": "select",
+      "id": "desktop_offset_unit",
+      "label": "Offset Unit",
+      "default": "px",
+      "options": [
+        { "value": "px", "label": "Pixels" },
+        { "value": "percent", "label": "Percentage of Image Height" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "desktop_offset_px",
+      "label": "Vertical Offset",
+      "min": -500,
+      "max": 0,
+      "step": 10,
+      "unit": "px",
+      "default": -200,
+      "visible_if": "{{ section.settings.desktop_offset_unit == 'px' }}"
+    },
+    {
+      "type": "range",
+      "id": "desktop_offset_percent",
+      "label": "Vertical Offset",
+      "min": -50,
+      "max": 0,
+      "step": 1,
+      "unit": "%",
+      "default": -25,
+      "visible_if": "{{ section.settings.desktop_offset_unit == 'percent' }}"
+    },
+    {
+      "type": "header",
+      "content": "Content Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Content Maximum Width",
+      "min": 350,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Desktop Column Gap",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section Top Padding",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section Bottom Padding",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Text Overlap"
+    }
+  ]
+}
+{% endschema %}
