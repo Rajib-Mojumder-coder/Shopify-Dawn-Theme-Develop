@@ -66,11 +66,19 @@
 }
 
 .image-text-overlap__image {
-  display: block;
+  /* display: block;
   width: 100%;
   height: 100%;
   object-fit: var(--ito-image-fit, cover);
-  object-position: var(--ito-image-position, center center);
+  object-position: var(--ito-image-position, center center); */
+
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  object-fit: cover;
+
+  transform: translateY(var(--tio-desktop-offset, -200px));
 }
 
 /* ==========================================
