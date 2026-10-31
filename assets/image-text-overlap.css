@@ -53,7 +53,7 @@
   width: calc(
     100% + max(0px, (100vw - var(--page-width, 120rem)) / 2)
   );
-
+  height: var(--ito-image-height);
   max-width: none;
 
   margin-right: calc(
