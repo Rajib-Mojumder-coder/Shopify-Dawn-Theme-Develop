@@ -626,9 +626,9 @@
       "name": "Image Text Overlap",
       "settings": {
         "subheading": "Discover More",
-        "heading": "Your Main Heading Goes Here",
-        "description": "<p>Add your description here to introduce your product or service.</p>",
-        "button_label": "Explore Now",
+        "heading": "<strong>Bezoek een van onze filialen</strong>&nbsp;",
+        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.<br/></p>",
+        "button_label": "NEEM CONTACT OP",
         "button_link": "",
         "image": "shopify://shop_images/Mask_group_055c6219-b636-463a-8bd8-1b350f9d81e7.png",
         "desktop_image_width": 50,
