@@ -54,7 +54,7 @@
   width: calc(
     100% + max(0px, (100vw - var(--page-width, 120rem)) / 2)
   );
-  /* height: var(--ito-image-height); */
+  
   max-width: none;
 
   margin-right: calc(
@@ -77,6 +77,7 @@
   width: 100%;
   height: 100%;
   max-width: none;
+  max-height: var(--ito-image-height);
   object-fit: cover;
    transform: translateY(var(--ito-desktop-offset));
   /* transform: translateY(var(--tio-desktop-offset, -200px)); */
