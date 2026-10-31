@@ -37,13 +37,32 @@
 /* Image: full bleed on the right */
 
 .image-text-overlap__media {
-  position: absolute;
+  /* position: absolute;
   z-index: 1;
   top: 0;
   right: 0;
   width: var(--ito-image-width);
   height: var(--ito-image-height);
-  transform: translateY(var(--ito-desktop-offset));
+  transform: translateY(var(--ito-desktop-offset)); */
+
+   grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  z-index: 2;
+
+  width: calc(
+    100% + max(0px, (100vw - var(--page-width, 120rem)) / 2)
+  );
+
+  max-width: none;
+
+  margin-right: calc(
+    -1 * max(0px, (100vw - var(--page-width, 120rem)) / 2)
+  );
+
+  /* Keep the wrapper in normal document flow */
+  transform: none;
+  overflow: visible;
 }
 
 .image-text-overlap__image {
