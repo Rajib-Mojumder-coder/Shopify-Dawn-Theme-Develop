@@ -16,9 +16,7 @@
 /* Desktop content container */
 
 .image-text-overlap__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
+  
   gap: var(--ito-column-gap);
   position: relative;
   z-index: 2;
