@@ -12,6 +12,7 @@
   overflow: visible;
   display: grid;
   gap: var(--ito-column-gap);
+  align-items: center;
 }
 
 /* Desktop content container */
