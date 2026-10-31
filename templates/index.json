@@ -638,7 +638,7 @@
         "desktop_offset_unit": "px",
         "desktop_offset_px": -130,
         "desktop_offset_percent": -25,
-        "content_max_width": 600,
+        "content_max_width": 570,
         "column_gap": 40,
         "section_padding_top": 80,
         "section_padding_bottom": 0,
