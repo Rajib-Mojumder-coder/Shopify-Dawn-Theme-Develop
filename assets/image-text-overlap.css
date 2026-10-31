@@ -10,6 +10,7 @@
   padding-top: var(--ito-section-padding-top);
   padding-bottom: var(--ito-section-padding-bottom);
   overflow: visible;
+  display: grid;
 }
 
 /* Desktop content container */
