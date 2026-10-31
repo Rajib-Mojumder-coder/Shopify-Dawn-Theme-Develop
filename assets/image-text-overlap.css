@@ -76,8 +76,8 @@
   height: auto;
   max-width: none;
   object-fit: cover;
-
-  transform: translateY(var(--tio-desktop-offset, -200px));
+   transform: translateY(var(--ito-desktop-offset));
+  /* transform: translateY(var(--tio-desktop-offset, -200px)); */
 }
 
 /* ==========================================
