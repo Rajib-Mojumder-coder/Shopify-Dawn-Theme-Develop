@@ -11,13 +11,14 @@
   padding-bottom: var(--ito-section-padding-bottom);
   overflow: visible;
   display: grid;
+  gap: var(--ito-column-gap);
 }
 
 /* Desktop content container */
 
 .image-text-overlap__inner {
   
-  gap: var(--ito-column-gap);
+  
   position: relative;
   z-index: 2;
   overflow: visible;
