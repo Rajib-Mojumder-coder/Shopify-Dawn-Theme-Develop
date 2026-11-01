@@ -21,9 +21,11 @@
     assign mobile_offset = section.settings.mobile_offset_percent | append: '%'
   endif
 
+  assign mobile_offset = section.settings.mobile_offset_px | append: 'px'
   assign mobile_visible_ratio = 1
 
   if section.settings.mobile_offset_unit == 'percent'
+    assign mobile_offset = section.settings.mobile_offset_percent | append: '%'
     assign mobile_visible_ratio = 100 | plus: section.settings.mobile_offset_percent
     assign mobile_visible_ratio = mobile_visible_ratio | divided_by: 100.0
   endif
