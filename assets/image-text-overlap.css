@@ -137,10 +137,7 @@
       Reserve only the image height remaining
       after the overlap.
     */
-    height: max(
-      0px,
-      calc(100vw / var(--ito-image-ratio) + var(--ito-mobile-offset))
-    );
+    height: max( 0px, calc(100vw / var(--ito-image-ratio) * var(--ito-mobile-visible-ratio)));
 
     aspect-ratio: auto;
     margin-left: 0;
