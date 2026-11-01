@@ -249,6 +249,42 @@
     },
     {
       "type": "header",
+      "content": "Mobile Image Overlap"
+    },
+    {
+      "type": "select",
+      "id": "mobile_offset_unit",
+      "label": "Offset Unit",
+      "default": "percent",
+      "options": [
+        { "value": "px", "label": "Pixels" },
+        { "value": "percent", "label": "Percentage of Image Height" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "mobile_offset_px",
+      "label": "Vertical Offset",
+      "min": -400,
+      "max": 0,
+      "step": 10,
+      "unit": "px",
+      "default": -200,
+      "visible_if": "{{ section.settings.mobile_offset_unit == 'px' }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_offset_percent",
+      "label": "Vertical Offset",
+      "min": -90,
+      "max": 0,
+      "step": 5,
+      "unit": "%",
+      "default": -50,
+      "visible_if": "{{ section.settings.mobile_offset_unit == 'percent' }}"
+    },
+    {
+      "type": "header",
       "content": "Content Layout"
     },
     {
