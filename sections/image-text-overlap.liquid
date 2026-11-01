@@ -84,19 +84,12 @@
         </div>
       {% endif %}
 
-      {% if section.settings.button_label != blank %}
-        <a
-          {% if section.settings.button_link != blank %}
-            href="{{ section.settings.button_link }}"
-          {% else %}
-            role="link" aria-disabled="true"
-          {% endif %}
-          class="image-text-overlap__button button"
-        >
-          {{ section.settings.button_label | escape }}
-        </a>
-      {% endif %}
-      
+      {% render 'global-button',
+        button_text: section.settings.button_label,
+        button_link: section.settings.button_link,
+        transparent: false
+      %}
+
     </div>
 
     <div class="image-text-overlap__spacer" aria-hidden="true"></div>
