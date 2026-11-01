@@ -113,10 +113,11 @@
   font-weight: 500;
   text-decoration: none;
 }
+.image-text-overlap .custom-global-button {
+  display: inline-flex;
+  margin-top: 28px;
+}
 
-/* ==========================================
-   MOBILE
-========================================== */
 /* ==========================================
    MOBILE
 ========================================== */
@@ -198,5 +199,8 @@
   .image-text-overlap__button {
     margin-top: 22px;
     font-size: 20px;
+  }
+  .image-text-overlap .custom-global-button {
+    margin-top: 22px;
   }
 }
