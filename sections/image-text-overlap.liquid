@@ -102,6 +102,24 @@
   </div>
 </section>
 
+<style>
+  @media screen and (max-width: 749px) {
+  .image-text-overlap__media {
+    {% if section.settings.mobile_offset_unit == 'percent' %}
+      height: calc(
+        100vw / var(--ito-image-ratio) *
+        var(--ito-mobile-visible-ratio)
+      );
+    {% else %}
+      height: max(
+        0px,
+        calc(100vw / var(--ito-image-ratio) + var(--ito-mobile-offset))
+      );
+    {% endif %}
+  }
+}
+</style>
+
 {% schema %}
 {
   "name": "Image Text Overlap",
