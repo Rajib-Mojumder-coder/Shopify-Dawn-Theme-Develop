@@ -117,34 +117,38 @@
 /* ==========================================
    MOBILE
 ========================================== */
+/* ==========================================
+   MOBILE
+========================================== */
 
 @media screen and (max-width: 749px) {
 
-   .image-text-overlap {
+  .image-text-overlap {
     padding-top: 0;
     display: block;
   }
 
-  /* Mobile image wrapper */
   .image-text-overlap__media {
     position: relative;
-    top: auto;
-    right: auto;
-
     width: 100vw;
     max-width: none;
 
-    height: auto;
-    aspect-ratio: var(--ito-image-ratio);
+    /*
+      Reserve only the image height remaining
+      after the overlap.
+    */
+    height: max(
+      0px,
+      calc(100vw / var(--ito-image-ratio) + var(--ito-mobile-offset))
+    );
 
+    aspect-ratio: auto;
     margin-left: 0;
     margin-right: 0;
 
-    transform: none;
     overflow: visible;
   }
 
-  /* Move image upward by 50% of its own height */
   .image-text-overlap__image {
     display: block;
     position: absolute;
@@ -152,22 +156,22 @@
     left: 0;
 
     width: 100%;
-    height: 100%;
-
+    height: auto;
     max-height: none;
+
     object-fit: var(--ito-image-fit, cover);
     object-position: var(--ito-image-position, center center);
 
-    transform: translateY(-50%);
+    transform: translateY(var(--ito-mobile-offset));
   }
 
-  /* Content below the overlapping image */
   .image-text-overlap__inner {
     display: block;
     position: relative;
     z-index: 2;
 
-    padding-top: calc(50vw / var(--ito-image-ratio));
+    /* No extra padding needed */
+    padding-top: 0;
   }
 
   .image-text-overlap__spacer {
