@@ -14,6 +14,12 @@
   if section.settings.desktop_offset_unit == 'percent'
     assign desktop_offset = section.settings.desktop_offset_percent | append: '%'
   endif
+
+  assign mobile_offset = section.settings.mobile_offset_px | append: 'px'
+
+  if section.settings.mobile_offset_unit == 'percent'
+    assign mobile_offset = section.settings.mobile_offset_percent | append: '%'
+  endif
 %}
 
 <section
