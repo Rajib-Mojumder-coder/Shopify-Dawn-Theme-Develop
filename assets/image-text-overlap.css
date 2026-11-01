@@ -136,18 +136,8 @@
     /*
       Reserve only the image height remaining
       after the overlap.
-    */
-     {% if section.settings.mobile_offset_unit == 'percent' %}
-      height: calc(
-        100vw / var(--ito-image-ratio) *
-        var(--ito-mobile-visible-ratio)
-      );
-    {% else %}
-      height: max(
-        0px,
-        calc(100vw / var(--ito-image-ratio) + var(--ito-mobile-offset))
-      );
-    {% endif %}
+    
+    height: max( 0px, calc(100vw / var(--ito-image-ratio) * var(--ito-mobile-visible-ratio)));*/
 
     aspect-ratio: auto;
     margin-left: 0;
