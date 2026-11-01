@@ -121,6 +121,9 @@
 /* ==========================================
    MOBILE
 ========================================== */
+/* ==========================================
+   MOBILE
+========================================== */
 
 @media screen and (max-width: 749px) {
 
@@ -131,30 +134,40 @@
 
   .image-text-overlap__media {
     position: relative;
-    width: 100vw;
+    width: 100%;
     max-width: none;
 
-    /*
-      Reserve only the image height remaining
-      after the overlap.
-    
-    height: max( 0px, calc(100vw / var(--ito-image-ratio) * var(--ito-mobile-visible-ratio)));*/
+    /* Reserve only the visible image height */
+    {% if section.settings.mobile_offset_unit == 'percent' %}
+      height: calc(
+        92vw / var(--ito-image-ratio) *
+        var(--ito-mobile-visible-ratio)
+      );
+    {% else %}
+      height: max(
+        0px,
+        calc(
+          92vw / var(--ito-image-ratio) +
+          var(--ito-mobile-offset)
+        )
+      );
+    {% endif %}
 
-    aspect-ratio: auto;
-    margin-left: 0;
-    margin-right: 0;
-
+    margin: 0;
     overflow: visible;
   }
 
   .image-text-overlap__image {
-    display: block;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
+    left: auto;
 
-    width: 100%;
-    height: auto;
+    display: block;
+    width: 92vw;
+    height: calc(92vw / var(--ito-image-ratio));
+
+    max-width: none;
     max-height: none;
 
     object-fit: var(--ito-image-fit, cover);
@@ -168,8 +181,7 @@
     position: relative;
     z-index: 2;
 
-    /* No extra padding needed */
-    padding-top: 0;
+    padding-top: 24px;
   }
 
   .image-text-overlap__spacer {
@@ -196,10 +208,6 @@
     line-height: 1.55;
   }
 
-  .image-text-overlap__button {
-    margin-top: 22px;
-    font-size: 20px;
-  }
   .image-text-overlap .custom-global-button {
     margin-top: 22px;
   }
