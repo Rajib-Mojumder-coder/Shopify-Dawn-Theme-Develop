@@ -196,6 +196,11 @@
     object-position: var(--ito-image-position, center center);
 
     transform: none;
+    border-radius:
+      var(--ito-mobile-radius-top-left, 0px)
+      var(--ito-mobile-radius-top-right, 0px)
+      var(--ito-mobile-radius-bottom-right, 0px)
+      var(--ito-mobile-radius-bottom-left, 0px);
   }
 
 
