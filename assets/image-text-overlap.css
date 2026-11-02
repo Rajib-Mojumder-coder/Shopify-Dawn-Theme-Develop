@@ -146,18 +146,6 @@
     grid-template-columns: minmax(0, 1fr);
     align-items: start;
   }
-  
-.image-text-overlap__inner {
-    display: grid;
-    align-items: start;
-  }
-
-  .image-text-overlap__content {
-      grid-column: 1;
-      width: 100%;
-      max-width: var(--ito-content-max-width);
-      min-width: 0;
-  }
 
   .image-text-overlap__media {
     position: relative;
