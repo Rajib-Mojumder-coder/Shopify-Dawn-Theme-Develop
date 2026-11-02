@@ -337,6 +337,7 @@
       "block_order": [
         "custom_slider_C8zM7x"
       ],
+      "disabled": true,
       "name": "Shopify Custom Section",
       "settings": {
         "color_scheme": "scheme-2",
@@ -638,10 +639,13 @@
         "desktop_offset_unit": "px",
         "desktop_offset_px": -130,
         "desktop_offset_percent": -25,
+        "mobile_offset_unit": "percent",
+        "mobile_offset_px": -200,
+        "mobile_offset_percent": -50,
         "content_max_width": 570,
         "column_gap": 40,
         "section_padding_top": 80,
-        "section_padding_bottom": 0,
+        "section_padding_bottom": 45,
         "color_scheme": "scheme-3296e57e-bd80-43f3-b60c-834eff51ef68"
       }
     }
