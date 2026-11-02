@@ -12,7 +12,7 @@
   padding-bottom: var(--ito-section-padding-bottom);
 
   display: grid;
-  gap: var(--ito-column-gap);
+  /* gap: var(--ito-column-gap); */
   align-items: flex-start;
 
   overflow: visible;
