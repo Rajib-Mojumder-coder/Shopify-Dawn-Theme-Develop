@@ -262,8 +262,8 @@
     position: absolute;
 
     top: 0;
-    right: 0;
-    left: auto;
+    right: auto;
+    left: 0;
 
     display: block;
 
