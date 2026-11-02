@@ -7,19 +7,22 @@
   position: relative;
   z-index: 2;
   isolation: isolate;
+
   padding-top: var(--ito-section-padding-top);
   padding-bottom: var(--ito-section-padding-bottom);
-  overflow: visible;
+
   display: grid;
   gap: var(--ito-column-gap);
   align-items: flex-start;
+
+  overflow: visible;
 }
 
-/* Desktop content container */
+/* ==========================================
+   CONTENT CONTAINER
+========================================== */
 
 .image-text-overlap__inner {
-  
-  
   position: relative;
   z-index: 2;
   overflow: visible;
@@ -35,40 +38,51 @@
   min-width: 0;
 }
 
-/* Image: full bleed on the right */
+/* ==========================================
+   IMAGE MEDIA
+========================================== */
 
 .image-text-overlap__media {
   grid-column: 2;
   grid-row: 1;
+
   position: relative;
   z-index: 2;
 
   width: calc(
     100% + max(0px, (100vw - var(--page-width, 120rem)) / 2)
   );
-  
+
   max-width: none;
 
   margin-right: calc(
     -1 * max(0px, (100vw - var(--page-width, 120rem)) / 2)
   );
 
-  /* Keep the wrapper in normal document flow */
-  transform: none;
+  height: var(--ito-image-height);
+
   overflow: visible;
+
+  /* Offset is controlled by the media wrapper */
+  transform: translateY(var(--ito-desktop-offset));
 }
 
 .image-text-overlap__image {
-  
   display: block;
+
   width: 100%;
   height: 100%;
+
   max-width: none;
-  max-height: var(--ito-image-height);
-  object-fit: cover;
-   transform: translateY(var(--ito-desktop-offset));
-  /* transform: translateY(var(--tio-desktop-offset, -200px)); */
+  max-height: none;
+
+  object-fit: var(--ito-image-fit, cover);
+  object-position: var(--ito-image-position, center center);
+
+  /* Prevent double transformation */
+  transform: none;
 }
+
 
 /* ==========================================
    TYPOGRAPHY
@@ -76,6 +90,7 @@
 
 .image-text-overlap__subheading {
   margin: 0 0 16px;
+
   font-size: clamp(16px, 1.5vw, 25px);
   line-height: 1.25;
   font-weight: 600;
@@ -83,14 +98,17 @@
 
 .image-text-overlap__heading {
   margin: 0;
+
   font-size: clamp(32px, 4.5vw, 65px);
   line-height: 1.08;
   font-weight: 600;
+
   overflow-wrap: anywhere;
 }
 
 .image-text-overlap__description {
   margin-top: 20px;
+
   font-size: clamp(15px, 1.2vw, 17px);
   line-height: 1.6;
   font-weight: 400;
@@ -104,61 +122,84 @@
   margin-bottom: 0;
 }
 
-.image-text-overlap__button {
+
+/* ==========================================
+   GLOBAL BUTTON
+========================================== */
+
+.image-text-overlap .custom-global-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 28px;
-  font-size: clamp(16px, 1.4vw, 20px);
-  font-weight: 500;
-  text-decoration: none;
-}
-.image-text-overlap .custom-global-button {
-  display: inline-flex;
+
   margin-top: 28px;
 }
 
+
 /* ==========================================
-   DESKTOP & TABLET IMAGE HEIGHT
+   DESKTOP & TABLET
+   750px AND ABOVE
 ========================================== */
 
 @media screen and (min-width: 750px) {
 
   .image-text-overlap__media {
-    height: clamp(
-      420px,
-      48vw,
-      var(--ito-image-height)
-    );
+    height: var(--ito-image-height);
+
+    /* Never change the configured overlap */
+    transform: translateY(var(--ito-desktop-offset));
   }
 
   .image-text-overlap__image {
-    display: block;
     width: 100%;
     height: 100%;
+
     max-height: none;
 
     object-fit: var(--ito-image-fit, cover);
     object-position: var(--ito-image-position, center center);
   }
+
 }
+
+
 /* ==========================================
    MOBILE
+   749px AND BELOW
 ========================================== */
 
 @media screen and (max-width: 749px) {
 
   .image-text-overlap {
-    padding-top: 0;
     display: block;
+    padding-top: 0;
   }
+
+
+  /* ------------------------------------------
+     MOBILE IMAGE WRAPPER
+  ------------------------------------------ */
 
   .image-text-overlap__media {
     position: relative;
+
+    top: auto;
+    right: auto;
+
     width: 100%;
     max-width: none;
 
-    /* Reserve only the visible image height */
+    /* Remove desktop height */
+    height: auto;
+
+    margin: 0;
+
+    /* Desktop offset disabled */
+    transform: none;
+
+    overflow: visible;
+
+    /* Reserve only the remaining visible height */
     {% if section.settings.mobile_offset_unit == 'percent' %}
       height: calc(
         92vw / var(--ito-image-ratio) *
@@ -173,18 +214,22 @@
         )
       );
     {% endif %}
-
-    margin: 0;
-    overflow: visible;
   }
+
+
+  /* ------------------------------------------
+     MOBILE IMAGE
+  ------------------------------------------ */
 
   .image-text-overlap__image {
     position: absolute;
+
     top: 0;
     right: 0;
     left: auto;
 
     display: block;
+
     width: 92vw;
     height: calc(92vw / var(--ito-image-ratio));
 
@@ -197,11 +242,18 @@
     transform: translateY(var(--ito-mobile-offset));
   }
 
+
+  /* ------------------------------------------
+     MOBILE CONTENT
+  ------------------------------------------ */
+
   .image-text-overlap__inner {
     display: block;
+
     position: relative;
     z-index: 2;
 
+    /* Gap between image and content */
     padding-top: 24px;
   }
 
@@ -210,11 +262,18 @@
   }
 
   .image-text-overlap__content {
+    width: 100%;
     max-width: 100%;
   }
 
+
+  /* ------------------------------------------
+     MOBILE TYPOGRAPHY
+  ------------------------------------------ */
+
   .image-text-overlap__subheading {
     margin-bottom: 12px;
+
     font-size: clamp(16px, 5vw, 25px);
   }
 
@@ -225,11 +284,18 @@
 
   .image-text-overlap__description {
     margin-top: 16px;
+
     font-size: 17px;
     line-height: 1.55;
   }
 
+
+  /* ------------------------------------------
+     MOBILE BUTTON
+  ------------------------------------------ */
+
   .image-text-overlap .custom-global-button {
     margin-top: 22px;
   }
+
 }
