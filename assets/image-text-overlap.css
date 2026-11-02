@@ -153,7 +153,7 @@
     grid-row: 1;
 
     width: calc(
-      100% + max(0px, (90vw - var(--page-width, 120rem)) / 2)
+      100% + max(0px, (80vw - var(--page-width, 120rem)) / 2)
     );
 
     height: auto;
