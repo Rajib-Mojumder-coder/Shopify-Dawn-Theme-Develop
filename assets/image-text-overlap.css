@@ -186,11 +186,6 @@
     transform: none;
   }
 
-  .image-text-overlap__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: start;
-  }
 
   .image-text-overlap__content {
     grid-column: 1;
