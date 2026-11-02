@@ -148,21 +148,27 @@
   }
 
   .image-text-overlap__media {
-    position: absolute;
-    top: 0;
-    right: 0;
+    position: relative;
+    grid-column: 2;
+    grid-row: 1;
 
-    width: var(--ito-image-width);
+    width: calc(
+      100% + max(0px, (100vw - var(--page-width, 120rem)) / 2)
+    );
+
     height: auto;
     aspect-ratio: var(--ito-image-ratio);
 
     max-width: none;
 
-    margin: 0;
+    margin-right: calc(
+      -1 * max(0px, (100vw - var(--page-width, 120rem)) / 2)
+    );
 
+    overflow: visible;
+
+    /* Keep offset independent of viewport width */
     transform: translateY(var(--ito-desktop-offset));
-
-    z-index: 2;
   }
 
   .image-text-overlap__image {
@@ -176,6 +182,8 @@
 
     object-fit: var(--ito-image-fit, cover);
     object-position: var(--ito-image-position, center center);
+
+    transform: none;
   }
 
   .image-text-overlap__inner {
