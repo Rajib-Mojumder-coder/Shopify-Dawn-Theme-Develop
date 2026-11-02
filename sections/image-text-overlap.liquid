@@ -47,6 +47,15 @@
     --ito-image-width: {{ section.settings.desktop_image_width }}%;
     --ito-image-fit: {{ section.settings.image_fit }};
     --ito-image-position: {{ section.settings.image_position }};
+    --ito-desktop-radius-top-left: {{ section.settings.desktop_radius_top_left }}px;
+    --ito-desktop-radius-top-right: {{ section.settings.desktop_radius_top_right }}px;
+    --ito-desktop-radius-bottom-right: {{ section.settings.desktop_radius_bottom_right }}px;
+    --ito-desktop-radius-bottom-left: {{ section.settings.desktop_radius_bottom_left }}px;
+
+    --ito-mobile-radius-top-left: {{ section.settings.mobile_radius_top_left }}px;
+    --ito-mobile-radius-top-right: {{ section.settings.mobile_radius_top_right }}px;
+    --ito-mobile-radius-bottom-right: {{ section.settings.mobile_radius_bottom_right }}px;
+    --ito-mobile-radius-bottom-left: {{ section.settings.mobile_radius_bottom_left }}px;
   "
 >
   {% if overlap_image != blank %}
