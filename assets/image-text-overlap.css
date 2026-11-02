@@ -148,6 +148,13 @@
     /* column-gap: clamp(20px, 3vw, 35px); */
   }
 
+  .image-text-overlap__content {
+    grid-column: 1;
+    width: 100%;
+    max-width: var(--ito-content-max-width);
+    min-width: 0;
+  }
+  
   .image-text-overlap {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
