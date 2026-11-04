@@ -1,6 +1,7 @@
 
 {{ 'image-text-overlap.css' | asset_url | stylesheet_tag }}
 
+
 {% liquid
   assign overlap_image = section.settings.image
   assign image_ratio = 1
@@ -16,12 +17,6 @@
   endif
 
   assign mobile_offset = section.settings.mobile_offset_px | append: 'px'
-
-  if section.settings.mobile_offset_unit == 'percent'
-    assign mobile_offset = section.settings.mobile_offset_percent | append: '%'
-  endif
-
-  assign mobile_offset = section.settings.mobile_offset_px | append: 'px'
   assign mobile_visible_ratio = 1
 
   if section.settings.mobile_offset_unit == 'percent'
@@ -29,7 +24,30 @@
     assign mobile_visible_ratio = 100 | plus: section.settings.mobile_offset_percent
     assign mobile_visible_ratio = mobile_visible_ratio | divided_by: 100.0
   endif
+
+  assign desktop_image_column = 2
+  assign desktop_content_column = 1
+
+  if section.settings.desktop_image_side == 'left'
+    assign desktop_image_column = 1
+    assign desktop_content_column = 2
+  endif
+
+  assign mobile_image_left = '0'
+  assign mobile_image_right = 'auto'
+
+  if section.settings.mobile_image_alignment == 'right'
+    assign mobile_image_left = 'auto'
+    assign mobile_image_right = '0'
+  endif
+
+  assign mobile_media_height = 'max(0px, calc(92vw / var(--ito-image-ratio) + var(--ito-mobile-offset)))'
+
+  if section.settings.mobile_offset_unit == 'percent'
+    assign mobile_media_height = 'calc(92vw / var(--ito-image-ratio) * var(--ito-mobile-visible-ratio))'
+  endif
 %}
+
 
 <section
   id="ImageTextOverlap-{{ section.id }}"
