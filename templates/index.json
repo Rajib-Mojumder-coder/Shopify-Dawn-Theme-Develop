@@ -655,6 +655,41 @@
         "section_padding_bottom": 45,
         "color_scheme": "scheme-3296e57e-bd80-43f3-b60c-834eff51ef68"
       }
+    },
+    "image_text_overlap_96FwAT": {
+      "type": "image-text-overlap",
+      "name": "Image Text Overlap",
+      "settings": {
+        "subheading": "Discover More",
+        "heading": "Your Main Heading Goes Here",
+        "description": "<p>Add your description here to introduce your product or service.</p>",
+        "button_label": "Explore Now",
+        "button_link": "",
+        "image": "shopify://shop_images/Mask_group_15af9099-84dc-492b-ba98-283896d8a902.png",
+        "desktop_image_width": 50,
+        "desktop_image_height": 650,
+        "image_fit": "cover",
+        "image_position": "center center",
+        "desktop_offset_unit": "px",
+        "desktop_offset_px": -200,
+        "desktop_offset_percent": -25,
+        "desktop_radius_top_left": 450,
+        "desktop_radius_top_right": 0,
+        "desktop_radius_bottom_right": 0,
+        "desktop_radius_bottom_left": 450,
+        "mobile_offset_unit": "percent",
+        "mobile_offset_px": -200,
+        "mobile_offset_percent": -50,
+        "mobile_radius_top_left": 0,
+        "mobile_radius_top_right": 200,
+        "mobile_radius_bottom_right": 200,
+        "mobile_radius_bottom_left": 0,
+        "content_max_width": 600,
+        "column_gap": 40,
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "color_scheme": ""
+      }
     }
   },
   "order": [
@@ -662,6 +697,7 @@
     "shopify_custom_section_pX3Jxh",
     "shopify_custom_section_yCkANW",
     "shopify_custom_section_KJcmXa",
-    "image_text_overlap_QGdR7K"
+    "image_text_overlap_QGdR7K",
+    "image_text_overlap_96FwAT"
   ]
 }
