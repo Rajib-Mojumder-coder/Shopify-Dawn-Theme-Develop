@@ -24,7 +24,6 @@
       "block_order": [
         "slide_nJfYiz"
       ],
-      "disabled": true,
       "name": "Hero BAnner New",
       "settings": {
         "layout_max_width": "1728",
@@ -626,6 +625,8 @@
       "type": "image-text-overlap",
       "name": "Image Text Overlap",
       "settings": {
+        "desktop_image_side": "left",
+        "mobile_image_alignment": "left",
         "subheading": "Discover More",
         "heading": "Your Main Heading Goes Here",
         "description": "<p>Add your description here to introduce your product or service.</p>",
@@ -639,10 +640,10 @@
         "desktop_offset_unit": "px",
         "desktop_offset_px": -140,
         "desktop_offset_percent": -25,
-        "desktop_radius_top_left": 450,
-        "desktop_radius_top_right": 0,
-        "desktop_radius_bottom_right": 0,
-        "desktop_radius_bottom_left": 450,
+        "desktop_radius_top_left": 0,
+        "desktop_radius_top_right": 500,
+        "desktop_radius_bottom_right": 500,
+        "desktop_radius_bottom_left": 0,
         "mobile_offset_unit": "percent",
         "mobile_offset_px": -200,
         "mobile_offset_percent": -50,
