@@ -53,6 +53,13 @@
   id="ImageTextOverlap-{{ section.id }}"
   class="image-text-overlap image-text-overlap--{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
   style="
+      --ito-desktop-image-column: {{ desktop_image_column }};
+    --ito-desktop-content-column: {{ desktop_content_column }};
+
+    --ito-mobile-image-left: {{ mobile_image_left }};
+    --ito-mobile-image-right: {{ mobile_image_right }};
+
+    --ito-mobile-media-height: {{ mobile_media_height }};
     --ito-desktop-offset: {{ desktop_offset }};
     --ito-mobile-offset: {{ mobile_offset }};
     --ito-mobile-visible-ratio: {{ mobile_visible_ratio }};
