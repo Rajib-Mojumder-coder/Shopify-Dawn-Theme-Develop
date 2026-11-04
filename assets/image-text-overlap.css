@@ -225,7 +225,6 @@
 
 /* ==========================================
    MOBILE
-   749px AND BELOW
 ========================================== */
 
 @media screen and (max-width: 749px) {
@@ -235,58 +234,28 @@
     padding-top: 0;
   }
 
-
-  /* ------------------------------------------
-     MOBILE IMAGE WRAPPER
-  ------------------------------------------ */
-
+  /* Image always remains above content */
   .image-text-overlap__media {
     position: relative;
-
-    top: auto;
-    right: auto;
 
     width: 100%;
     max-width: none;
 
-    /* Remove desktop height */
-    height: auto;
+    height: var(--ito-mobile-media-height);
 
     margin: 0;
 
-    /* Desktop offset disabled */
     transform: none;
-
     overflow: visible;
-
-    /* Reserve only the remaining visible height */
-    {% if section.settings.mobile_offset_unit == 'percent' %}
-      height: calc(
-        92vw / var(--ito-image-ratio) *
-        var(--ito-mobile-visible-ratio)
-      );
-    {% else %}
-      height: max(
-        0px,
-        calc(
-          92vw / var(--ito-image-ratio) +
-          var(--ito-mobile-offset)
-        )
-      );
-    {% endif %}
   }
 
-
-  /* ------------------------------------------
-     MOBILE IMAGE
-  ------------------------------------------ */
-
+  /* Independent mobile image alignment */
   .image-text-overlap__image {
     position: absolute;
 
     top: 0;
-    right: auto;
-    left: 0;
+    left: var(--ito-mobile-image-left, 0);
+    right: var(--ito-mobile-image-right, auto);
 
     display: block;
 
@@ -300,25 +269,21 @@
     object-position: var(--ito-image-position, center center);
 
     transform: translateY(var(--ito-mobile-offset));
-     border-radius:
+
+    border-radius:
       var(--ito-mobile-radius-top-left, 0px)
       var(--ito-mobile-radius-top-right, 0px)
       var(--ito-mobile-radius-bottom-right, 0px)
       var(--ito-mobile-radius-bottom-left, 0px);
   }
 
-
-  /* ------------------------------------------
-     MOBILE CONTENT
-  ------------------------------------------ */
-
+  /* Content always follows the image */
   .image-text-overlap__inner {
     display: block;
 
     position: relative;
     z-index: 2;
 
-    /* Gap between image and content */
     padding-top: 24px;
   }
 
@@ -329,38 +294,6 @@
   .image-text-overlap__content {
     width: 100%;
     max-width: 100%;
-  }
-
-
-  /* ------------------------------------------
-     MOBILE TYPOGRAPHY
-  ------------------------------------------ */
-
-  .image-text-overlap__subheading {
-    margin-bottom: 12px;
-
-    font-size: clamp(16px, 5vw, 25px);
-  }
-
-  .image-text-overlap__heading {
-    font-size: clamp(28px, 8vw, 45px);
-    line-height: 1.1;
-  }
-
-  .image-text-overlap__description {
-    margin-top: 16px;
-
-    font-size: 17px;
-    line-height: 1.55;
-  }
-
-
-  /* ------------------------------------------
-     MOBILE BUTTON
-  ------------------------------------------ */
-
-  .image-text-overlap .custom-global-button {
-    margin-top: 22px;
   }
 
 }
