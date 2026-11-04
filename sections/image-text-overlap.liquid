@@ -46,6 +46,14 @@
   if section.settings.mobile_offset_unit == 'percent'
     assign mobile_media_height = 'calc(92vw / var(--ito-image-ratio) * var(--ito-mobile-visible-ratio))'
   endif
+
+  assign desktop_media_margin_left = '0px'
+assign desktop_media_margin_right = 'calc(-1 * max(0px, (100vw - var(--page-width, 120rem)) / 2))'
+
+if section.settings.desktop_image_side == 'left'
+  assign desktop_media_margin_left = 'calc(-1 * max(0px, (100vw - var(--page-width, 120rem)) / 2))'
+  assign desktop_media_margin_right = '0px'
+endif
 %}
 
 
