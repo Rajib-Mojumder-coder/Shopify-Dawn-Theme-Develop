@@ -233,7 +233,8 @@
 
   .image-text-overlap {
     display: block;
-    padding-top: 0;
+    padding-top: var(--ito-mobile-padding-top);
+    padding-bottom: var(--ito-mobile-padding-bottom);
   }
 
   /* Image always remains above content */
