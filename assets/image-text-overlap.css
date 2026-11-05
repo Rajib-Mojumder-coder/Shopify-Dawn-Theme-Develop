@@ -8,8 +8,10 @@
   z-index: 2;
   isolation: isolate;
 
+  .image-text-overlap {
   padding-top: var(--ito-section-padding-top);
   padding-bottom: var(--ito-section-padding-bottom);
+}
 
   display: grid;
   /* gap: var(--ito-column-gap); */
