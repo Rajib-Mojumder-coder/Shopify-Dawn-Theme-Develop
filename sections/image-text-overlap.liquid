@@ -54,6 +54,21 @@ if section.settings.desktop_image_side == 'left'
   assign desktop_media_margin_left = 'calc(-1 * max(0px, (100vw - var(--page-width, 120rem)) / 2))'
   assign desktop_media_margin_right = '0px'
 endif
+
+assign desktop_padding_top = 0
+assign desktop_padding_bottom = 0
+assign mobile_padding_top = 0
+assign mobile_padding_bottom = 0
+
+if section.settings.enable_desktop_padding
+  assign desktop_padding_top = section.settings.desktop_section_padding_top
+  assign desktop_padding_bottom = section.settings.desktop_section_padding_bottom
+endif
+
+if section.settings.enable_mobile_padding
+  assign mobile_padding_top = section.settings.mobile_section_padding_top
+  assign mobile_padding_bottom = section.settings.mobile_section_padding_bottom
+endif
 %}
 
 
