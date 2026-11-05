@@ -654,7 +654,7 @@
         "content_max_width": 600,
         "column_gap": 40,
         "section_padding_top": 80,
-        "section_padding_bottom": 80,
+        "section_padding_bottom": 200,
         "color_scheme": "scheme-3296e57e-bd80-43f3-b60c-834eff51ef68"
       }
     },
