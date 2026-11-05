@@ -666,7 +666,7 @@
         "mobile_image_alignment": "left",
         "subheading": "Discover More",
         "heading": "Bezoek een van onze filialen",
-        "description": "<p>Add your description here to introduce your product or service.</p>",
+        "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>",
         "button_label": "Explore Now",
         "button_link": "",
         "image": "shopify://shop_images/Mask_group_15af9099-84dc-492b-ba98-283896d8a902.png",
@@ -692,7 +692,7 @@
         "column_gap": 40,
         "section_padding_top": 80,
         "section_padding_bottom": 80,
-        "color_scheme": ""
+        "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2"
       }
     }
   },
