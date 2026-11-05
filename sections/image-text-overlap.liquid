@@ -466,30 +466,65 @@ endif
       "unit": "px",
       "default": 40
     },
-    
     {
       "type": "header",
       "content": "Spacing"
     },
     {
-      "type": "range",
-      "id": "section_padding_top",
-      "label": "Section Top Padding",
-      "min": 0,
-      "max": 200,
-      "step": 5,
-      "unit": "px",
-      "default": 80
+      "type": "checkbox",
+      "id": "enable_desktop_padding",
+      "label": "Enable Desktop Padding",
+      "default": false
     },
     {
       "type": "range",
-      "id": "section_padding_bottom",
-      "label": "Section Bottom Padding",
+      "id": "desktop_section_padding_top",
+      "label": "Desktop Top Padding",
       "min": 0,
       "max": 200,
       "step": 5,
       "unit": "px",
-      "default": 80
+      "default": 80,
+      "visible_if": "{{ section.settings.enable_desktop_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "desktop_section_padding_bottom",
+      "label": "Desktop Bottom Padding",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 80,
+      "visible_if": "{{ section.settings.enable_desktop_padding }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_padding",
+      "label": "Enable Mobile Padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_padding_top",
+      "label": "Mobile Top Padding",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 30,
+      "visible_if": "{{ section.settings.enable_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_padding_bottom",
+      "label": "Mobile Bottom Padding",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 30,
+      "visible_if": "{{ section.settings.enable_mobile_padding }}"
     },
     {
       "type": "color_scheme",
