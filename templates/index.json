@@ -657,7 +657,7 @@
         "desktop_section_padding_top": 80,
         "desktop_section_padding_bottom": 80,
         "enable_mobile_padding": true,
-        "mobile_section_padding_top": 0,
+        "mobile_section_padding_top": 60,
         "mobile_section_padding_bottom": 60,
         "color_scheme": "scheme-3296e57e-bd80-43f3-b60c-834eff51ef68"
       }
