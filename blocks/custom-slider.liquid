@@ -93,25 +93,14 @@
   {% assign desktop_view = desktop_view | plus: block.settings.desktop_partial_amount %}
 {% endif %}
 
-<div class="custom-slider custom-slider-{{ block.id }} {% if content_position %} content_vertical_{{ content_vertical }} {% endif %} content_horizontal_{{ content_horizontal }} nav-{{ nav_position }} {% unless enable_slider %} slider-disabled {% endunless %}"
-  style="--overlay-spacing: {{ overlay_spacing }}%; --overlay-spacing-negative: {{ overlay_spacing }}%;
-   --nav-gap: {{ nav_gap }}px; --nav-outside-offset: {{ nav_outside_offset }}px; --nav-size: {{ block.settings.icon_size }}px;
-   --overlay_color: {{overlay_color}}; --slider-aspect-ratio: {{ aspect_ratio_value }}; --slider-image-fit: {{ image_fit }};
-  --slider-card-radius: {{ image_radius }}px;" {{ block.shopify_attributes }}>
 
-  <div class="swiper slider-{{ block.id }}">
-    <div class="swiper-wrapper">
+{% capture slider_navigation_markup %}
+  {% if enable_slider and show_navigation or enable_slider and show_navigation_mobile %}
+    <div class="slider-navigation slider-navigation-{{ block.id }}
+      {% unless show_navigation %}nav-hide-desktop{% endunless %}
+      {% unless show_navigation_mobile %}nav-hide-mobile{% endunless %}">
 
-      {% content_for 'blocks' %}
-
-    </div>
-
-      {% if enable_slider and show_navigation or enable_slider and show_navigation_mobile %}
-            <div class="slider-navigation slider-navigation-{{ block.id }}
-              {% unless show_navigation %} nav-hide-desktop{% endunless %}
-              {% unless show_navigation_mobile %} nav-hide-mobile{% endunless %}">
-
-              <!-- PREVIOUS -->
+      <!-- PREVIOUS -->
               <div class="swiper-button-prev slider-prev-{{ block.id }}" aria-label="Previous slide">
 
                 {% case icon_type %}
@@ -162,8 +151,65 @@
 
               </div>
 
-            </div>
+    </div>
+  {% endif %}
+{% endcapture %}
+
+
+
+
+<div class="custom-slider custom-slider-{{ block.id }} {% if content_position %} content_vertical_{{ content_vertical }} {% endif %} color-{{ block.settings.color_scheme }} gradient content_horizontal_{{ content_horizontal }} nav-{{ nav_position }} {% unless enable_slider %} slider-disabled {% endunless %}"
+  style="--overlay-spacing: {{ overlay_spacing }}%; --overlay-spacing-negative: {{ overlay_spacing }}%;
+   --nav-gap: {{ nav_gap }}px; --nav-outside-offset: {{ nav_outside_offset }}px; --nav-size: {{ block.settings.icon_size }}px;
+   --overlay_color: {{overlay_color}}; --slider-aspect-ratio: {{ aspect_ratio_value }}; --slider-image-fit: {{ image_fit }};
+  --slider-card-radius: {{ image_radius }}px; --heading-size: {{ block.settings.heading_size }}px;
+    --subheading-size: {{ block.settings.subheading_size }}px;" {{ block.shopify_attributes }}>
+
+  {% if block.settings.subheading != blank
+    or block.settings.heading != blank
+  %}
+    <div class="custom-slider__header custom-slider__header-{{ block.id }}">
+
+      {% if block.settings.subheading != blank %}
+        <div class="custom-slider__subheading">
+          {{ block.settings.subheading | escape }}
+        </div>
       {% endif %}
+
+      
+      <div class="custom-slider__heading-row heading-align-{{ block.settings.heading_alignment }}">
+
+        {% if block.settings.heading != blank %}
+          <h2 class="custom-slider__heading">
+            {{ block.settings.heading | escape }}
+          </h2>
+        {% endif %}
+
+        {% if nav_position == 'top-left'
+          or nav_position == 'top-center'
+          or nav_position == 'top-right'
+        %}
+          {{ slider_navigation_markup }}
+        {% endif %}
+
+      </div>
+
+    </div>
+  {% endif %}
+
+  <div class="swiper slider-{{ block.id }}">
+    <div class="swiper-wrapper">
+
+      {% content_for 'blocks' %}
+
+    </div>
+
+      {% unless nav_position == 'top-left'
+        or nav_position == 'top-center'
+        or nav_position == 'top-right'
+      %}
+        {{ slider_navigation_markup }}
+      {% endunless %}
 
       {% if enable_slider and show_pagination %}
         <div class="swiper-pagination slider-pagination-{{ block.id }}"></div>
@@ -175,21 +221,7 @@
 <script src="{{ 'custom-slider-product-swatches.js' | asset_url }}" defer></script>
 
 <style>
-  /* #shopify-block-{{block.id}}{
-    width: 100%;
-    position: relative;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-  }
-
-.custom-slider-{{ block.id }} {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-} */
+ 
 #shopify-block-{{ block.id }},
 .custom-slider-{{ block.id }} {
   width: 100%;
@@ -198,35 +230,88 @@
   box-sizing: border-box;
 }
 
-  .custom-slider{
-  position:relative;
-  width:100%;
-  }
-
-.custom-slider .swiper{
-  width:100%;
-  height: 100%;
-  /* overflow:hidden; */
-  overflow:visible;
+.custom-slider-{{ block.id }} {
+  position: relative;
 }
 
+
+/* ===== Heading area ===== */
+
+.custom-slider-{{ block.id }} .custom-slider__header {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.custom-slider-{{ block.id }} .custom-slider__subheading {
+  margin-bottom: 8px;
+  font-size: var(--subheading-size, 13px);
+  line-height: 1.4;
+}
+
+
+/* Heading row alignment */
+.custom-slider .custom-slider__heading-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Default: Left aligned */
+.custom-slider .custom-slider__heading-row.heading-align-left
+.custom-slider__heading {
+  text-align: left;
+  justify-self: start;
+}
+
+/* Center aligned */
+.custom-slider .custom-slider__heading-row.heading-align-center
+.custom-slider__heading {
+  text-align: center;
+  justify-self: center;
+}
+
+
+.custom-slider-{{ block.id }} .custom-slider__heading {
+  margin: 0;
+  min-width: 0;
+  font-size: var(--heading-size, 70px);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  max-width: {{ block.settings.heading_width }}px;
+   width: 100%;
+   font-weight: 600;
+}
+
+
 .custom-slider-{{ block.id }} .swiper {
-  display: block;
   width: 100%;
   max-width: 100%;
   min-width: 0;
+  height: auto;
   box-sizing: border-box;
 }
 
 .custom-slider-{{ block.id }} .swiper-wrapper {
   min-width: 0;
+  align-items: stretch;
 }
 
 .custom-slider-{{ block.id }}:not(.slider-disabled) .swiper-slide {
   min-width: 0;
-  max-width: 100%;
   box-sizing: border-box;
 }
+
+/* Keep the Swiper element from expanding as a flex item */
+/* .custom-slider-{{ block.id }} > .swiper {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: 0 1 auto;
+  box-sizing: border-box;
+} */
 
 /* Shared card sizing */
 .custom-slider-{{ block.id }} .custom-slider-product-card,
@@ -236,67 +321,32 @@
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
-  padding: 10px;
+  /* padding: 10px; */
 }
 
-/* Keep the Swiper element from expanding as a flex item */
-.custom-slider-{{ block.id }} > .swiper {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  flex: 0 1 auto;
-  box-sizing: border-box;
-}
 
 /* =========================================
    SHARED CHILD IMAGE / CARD CONTROL
    Controlled by Parent Custom Slider
    ========================================= */
 
-/* .custom-slider-{{ block.id }} .image-text-slider,
-.custom-slider-{{ block.id }} .custom-slider-collection-card,
-.custom-slider-{{ block.id }} .custom-slider-product-card {
-  --child-image-radius: var(--slider-image-radius);
-  --child-image-fit: var(--slider-image-fit);
-  --child-aspect-ratio: var(--slider-aspect-ratio);
-} */
 .custom-slider-{{ block.id }} .custom-slider-item {
   --child-image-radius: var(--slider-image-radius);
   --child-image-fit: var(--slider-image-fit);
   --child-aspect-ratio: var(--slider-aspect-ratio);
 }
-/* Image / media area */
 
-/* .custom-slider-{{ block.id }} .image-text-slider__image,
-.custom-slider-{{ block.id }} .custom-slider-collection-card__image,
-.custom-slider-{{ block.id }} .custom-slider-product-card__image {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: var(--slider-aspect-ratio);
-  object-fit: var(--slider-image-fit);
-  border-radius: var(--slider-image-radius);
-  display: block;
-} */
-.custom-slider-{{ block.id }} .custom-slider-item__image {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: var(--child-aspect-ratio);
-  object-fit: var(--child-image-fit);
-  border-radius: var(--child-image-radius);
-  display: block;
-}
 /* Media wrappers */
 
 .custom-slider-{{ block.id }} .custom-slider-collection-card__media,
 .custom-slider-{{ block.id }} .custom-slider-product-card__media,
 .custom-slider-{{ block.id }} .image-text-slider__image-wrapper {
+  position: relative;
   width: 100%;
   aspect-ratio: var(--slider-aspect-ratio);
   overflow: hidden;
-  position: relative;
   box-sizing: border-box;
-  border-radius: var(--slider-card-radius) var(--slider-card-radius) 0 0;
+  border-radius: var(--slider-card-radius);
 }
 
 .custom-slider-{{ block.id }} .custom-slider-product-card__image,
@@ -305,11 +355,20 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: var(--slider-image-fit, cover);
+  max-width: 100%;
+  object-fit: var(--slider-image-fit, contain);
+  object-position: center;
+}
+
+/* Prevent cards from forcing the slide wider */
+.custom-slider-{{ block.id }} .swiper-slide > * {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* ========  MEDIA ========== */
-.custom-slider img,
+/* .custom-slider img,
 .custom-slider video {
   display: block;
   width: 100%;
@@ -317,7 +376,7 @@
   height: 100%;
   position: relative;
   z-index: 0;
-}
+} */
 
 
 {% if image_overlay %}
@@ -343,6 +402,206 @@
     width: 100% !important;
 } */
 /*Slider CSS End*/
+/*Button Design*/
+/* Shared button design */
+.custom-slider-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 10px 16px;
+  border: 1px solid #111;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.custom-slider-button--solid {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+
+.custom-slider-button--outline {
+  background: transparent;
+  border-color: #111;
+  color: #111;
+}
+
+.custom-slider-button--solid:hover {
+  background: #333;
+  border-color: #333;
+  color: #fff;
+}
+
+.custom-slider-button--outline:hover {
+  background: #111;
+  color: #fff;
+}
+
+.custom-slider-button:disabled,
+.custom-slider-button.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Collection button alignment */
+.custom-slider-card__actions {
+  display: flex;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.custom-slider-card__actions--left {
+  justify-content: flex-start;
+}
+
+.custom-slider-card__actions--center {
+  justify-content: center;
+}
+
+.custom-slider-card__actions--right {
+  justify-content: flex-end;
+}
+
+.custom-slider-card__button {
+  width: auto;
+}
+
+/* Product purchase button fills card width */
+.custom-slider-product-card__button {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.custom-slider-product-card__actions {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.custom-slider-product-card__form {
+  width: 100%;
+}
+
+.custom-slider-product-card__form--bulk {
+  display: grid;
+  gap: 8px;
+}
+
+.custom-slider-product-card__field-label {
+  display: block;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.custom-slider-product-card__form--bulk select,
+.custom-slider-product-card__form--bulk input[type="number"] {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.custom-slider-product-card__form .custom-slider-product-card__button {
+  width: 100%;
+}
+/*bulk form-এর layout নিয়ন্ত্রণ*/
+
+/* Bulk Add: default stacked layout */
+.custom-slider-product-card__form--bulk {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.custom-slider-product-card__form--bulk select,
+.custom-slider-product-card__form--bulk input[type="number"] {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 9px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font: inherit;
+  background: #fff;
+  color: #111;
+}
+
+.custom-slider-product-card__field-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Quantity and button share one row when checkbox is enabled */
+.custom-slider-product-card__bulk-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.custom-slider-product-card__quantity-control {
+  min-width: 0;
+}
+
+.custom-slider-product-card__bulk-controls
+.custom-slider-product-card__button {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.custom-slider-product-card__form--inline
+.custom-slider-product-card__bulk-controls {
+  grid-template-columns: minmax(70px, 0.7fr) minmax(0, 1.3fr);
+  gap: 8px;
+}
+
+.custom-slider-product-card__form--inline
+.custom-slider-product-card__quantity-control
+.custom-slider-product-card__field-label {
+  white-space: nowrap;
+}
+
+.custom-slider-product-card__form--inline
+.custom-slider-product-card__bulk-controls
+.custom-slider-product-card__button {
+  min-height: 44px;
+  padding: 8px 10px;
+  overflow-wrap: anywhere;
+}
+
+@media screen and (max-width: 360px) {
+  .custom-slider-product-card__form--inline
+  .custom-slider-product-card__bulk-controls {
+    grid-template-columns: minmax(60px, 0.65fr) minmax(0, 1.35fr);
+    gap: 6px;
+  }
+
+  .custom-slider-product-card__form--inline
+  .custom-slider-product-card__bulk-controls
+  .custom-slider-product-card__button {
+    font-size: 12px;
+  }
+}
 
   
 /* Add-to-cart alignment is independent of text alignment */
@@ -590,58 +849,84 @@
 
 
 /* ========== TOP POSITIONS =============== */
-/* means: Select any .custom-slider whose class contains the text "nav-top-".
-.custom-slider[class*="nav-top-"]{
-    display:flex;
-    flex-direction:column;
-} */
- /* ===========  TOP POSITIONS =============== */
+/* ===== Top navigation layouts ===== */
 
-.custom-slider.nav-top-left,
-.custom-slider.nav-top-center,
-.custom-slider.nav-top-right {
-  display: flex;
-  flex-direction: column;
+.custom-slider.nav-top-left .custom-slider__heading-row,
+.custom-slider.nav-top-center .custom-slider__heading-row,
+.custom-slider.nav-top-right .custom-slider__heading-row {
+  display: grid;
+  width: 100%;
 }
 
+/* Navigation left, heading right */
+.custom-slider.nav-top-left .custom-slider__heading-row {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+/* TOP LEFT: Navigation left, heading right */
+.custom-slider.nav-top-left .slider-navigation {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.custom-slider.nav-top-left .custom-slider__heading {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: right;
+}
+
+/* Heading left, navigation centered */
+.custom-slider.nav-top-center .custom-slider__heading-row {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+.custom-slider.nav-top-center .custom-slider__heading {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+/* TOP CENTER: Heading left, navigation centered */
+.custom-slider.nav-top-center .slider-navigation {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* Default: heading left, navigation right */
+.custom-slider.nav-top-right .custom-slider__heading-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.custom-slider.nav-top-right .custom-slider__heading {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: left;
+}
+
+/* TOP RIGHT: Heading left, navigation right */
+.custom-slider.nav-top-right .slider-navigation {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* Top navigation must size to its buttons, not the full row */
 .custom-slider.nav-top-left .slider-navigation,
 .custom-slider.nav-top-center .slider-navigation,
 .custom-slider.nav-top-right .slider-navigation {
-  order: 1;
-  width: 100%;
+  width: auto;
   min-height: var(--nav-size);
-  margin: 0 0 20px;
+  margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-.custom-slider.nav-top-left .swiper,
-.custom-slider.nav-top-center .swiper,
-.custom-slider.nav-top-right .swiper {
-  display: flex;
-  flex-direction: column;
-  overflow: visible;
-}
-
-.custom-slider.nav-top-left .swiper-wrapper,
-.custom-slider.nav-top-center .swiper-wrapper,
-.custom-slider.nav-top-right .swiper-wrapper {
-  order: 2;
-}
-
-/*Alignment*/
-
-.custom-slider.nav-top-left .slider-navigation {
-  justify-content: flex-start;
-}
-
-.custom-slider.nav-top-center .slider-navigation {
   justify-content: center;
 }
 
-.custom-slider.nav-top-right .slider-navigation {
-  justify-content: flex-end;
+/* Keep your existing button appearance */
+.custom-slider-{{ block.id }} .swiper-button-prev,
+.custom-slider-{{ block.id }} .swiper-button-next {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
+
 
 /* ================   BOTTOM POSITIONS ================== */
 
@@ -727,6 +1012,19 @@
 
 .custom-slider-{{ block.id }} .nav-hide-mobile {
     display: none;
+  }
+
+   .custom-slider__heading-row {
+    gap: 12px;
+  }
+
+  .custom-slider__heading {
+    font-size: min(var(--heading-size, 32px), 26px);
+
+  }
+
+  .custom-slider__header {
+    margin-bottom: 16px;
   }
 
 /*Slider Responsivenes*/
@@ -929,94 +1227,77 @@
 
 
 
-<script>
 
+<script>
 document.addEventListener('DOMContentLoaded', function () {
 
-  const sliderElement = document.querySelector(
-    '.slider-{{ block.id }}'
+  /* Find the complete slider wrapper */
+  const sliderRoot = document.querySelector(
+    '.custom-slider-{{ block.id }}'
   );
 
-  if (!sliderElement) return;
-
+  if (!sliderRoot) return;
 
   {% if enable_slider %}
 
-    const nextButton =
-      sliderElement.querySelector(
-        '.slider-next-{{ block.id }}'
-      );
+    /* Find the Swiper container */
+    const sliderElement = sliderRoot.querySelector(
+      '.slider-{{ block.id }}'
+    );
 
-    const prevButton =
-      sliderElement.querySelector(
-        '.slider-prev-{{ block.id }}'
-      );
+    if (!sliderElement) return;
 
-    const pagination =
-      sliderElement.querySelector(
-        '.slider-pagination-{{ block.id }}'
-      );
+    /* Find navigation from the parent wrapper */
+    const nextButton = sliderRoot.querySelector(
+      '.slider-next-{{ block.id }}'
+    );
 
+    const prevButton = sliderRoot.querySelector(
+      '.slider-prev-{{ block.id }}'
+    );
 
+    const pagination = sliderRoot.querySelector(
+      '.slider-pagination-{{ block.id }}'
+    );
+
+    /* Initialize Swiper once */
     const swiper = new Swiper(sliderElement, {
 
-      loop: {{ loop }},
-
-      rewind: {{ rewind }},
-
-      freeMode: {{ free_mode }},
-
-      allowTouchMove: {{ touch_swipe }},
-
-      centeredSlides: {{ center_mode }},
-
-      grabCursor: {{ grab_cursor }},
-
+      loop: {{ loop | json }},
+      rewind: {{ rewind | json }},
+      freeMode: {{ free_mode | json }},
+      allowTouchMove: {{ touch_swipe | json }},
+      centeredSlides: {{ center_mode | json }},
+      grabCursor: {{ grab_cursor | json }},
 
       keyboard: {
-        enabled: {{ keyboard }}
+        enabled: {{ keyboard | json }}
       },
 
-
-      mousewheel: {{ mousewheel }},
-
-      autoHeight: {{ auto_height }},
-
-      effect: "{{ effect }}",
-
+      mousewheel: {{ mousewheel | json }},
+      autoHeight: {{ auto_height | json }},
+      effect: {{ effect | json }},
 
       preloadImages: false,
-
       lazy: true,
 
-
       autoplay:
-
         {% if autoplay %}
-
           {
             delay: {{ autoplay_speed }},
-
-            pauseOnMouseEnter: {{ pause_on_hover }},
-
-            reverseDirection: {{ reverse_direction }},
-
-            disableOnInteraction:
-              {{ disable_on_interaction | json }}
+            pauseOnMouseEnter: {{ pause_on_hover | json }},
+            reverseDirection: {{ reverse_direction | json }},
+            disableOnInteraction: {{ disable_on_interaction | json }}
           }
-
         {% else %}
-
           false
-
         {% endif %},
-
 
       speed: {{ autoplay_speed }},
 
       slidesPerView: {{ mobile_view }},
       spaceBetween: 20,
-     
+
       watchOverflow: true,
       observer: true,
       observeParents: true,
@@ -1025,81 +1306,32 @@ document.addEventListener('DOMContentLoaded', function () {
       pagination: {
         el: pagination,
         clickable: true
-
       },
-
 
       navigation: {
-
         nextEl: nextButton,
-
         prevEl: prevButton
-
       },
 
-
       breakpoints: {
-
         750: {
-
           slidesPerView: {{ tablet_view }},
-
           spaceBetween: 30
-
         },
 
-
         1024: {
-
           slidesPerView: {{ desktop_view }},
-
           spaceBetween: 40
-
         }
-
       }
 
     });
 
-
-    /*
-     * Explicitly connect the buttons.
-     * This avoids selector conflicts when multiple
-     * Custom Slider blocks exist on the same page.
-     */
-
-    if (nextButton) {
-
-      nextButton.addEventListener(
-        'click',
-        function () {
-
-          swiper.slideNext();
-
-        }
-      );
-
-    }
-
-
-    if (prevButton) {
-
-      prevButton.addEventListener(
-        'click',
-        function () {
-
-          swiper.slidePrev();
-
-        }
-      );
-
-    }
-
   {% endif %}
 
 });
-
 </script>
+
 
  
 {% schema %}
@@ -1112,6 +1344,67 @@ document.addEventListener('DOMContentLoaded', function () {
       "label": "Enable Slider",
       "default": true
     },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Heading Settings"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_width",
+      "label": "Heading Width",
+      "min": 350,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "min": 32,
+      "max": 70,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading Size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "center", "label": "Center"}
+      ],
+      "default": "left"
+    },
+
     {
       "type": "checkbox",
       "id": "content_position",

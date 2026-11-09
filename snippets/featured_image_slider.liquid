@@ -6,7 +6,7 @@
     top: 5%;
     left: 60%;
     transform: translate(-50%, -5%);
-    max-width: 225px;
+    max-width: var(--desktop_size_product-badge);
 }
   .block-{{ block.id }} .font-subtitle-2{
     margin-bottom: 20px;
@@ -64,7 +64,7 @@
     top: 5%;
     left: 5%;
     transform: translate(-5%, -5%);
-    max-width: 155px;
+    max-width: var(--mobile_size_product-badge);
 }
 .featured-bottom-content {
     max-width: 350px;
@@ -102,7 +102,8 @@
 </style>
 
 
- <div class="color-{{ color_scheme }} swiper-slide slide-media-main block-{{ block.id }}" style="--title-width: {{ title_width }}px; --desc-width: {{ description_width }}px; --radius: {{ slider_border_radius }}px;">
+ <div class="color-{{ color_scheme }} swiper-slide slide-media-main block-{{ block.id }}" style="--title-width: {{ title_width }}px; --desc-width: {{ description_width }}px; --radius: {{ slider_border_radius }}px; --image_fit: {{ image_fit }}; 
+ --desktop_size_product-badge: {{ desktop_size_product-badge }}px; --mobile_size_product-badge: {{ mobile_size_product-badge }}px;">
     
     
         {% if enable_product_badge %}
@@ -153,20 +154,23 @@
 
                 {% for i in (1..6) %}
                     {% assign icon_key = "brand_icon_" | append: i %}
-                    {% assign icon = [icon_key] %} 
-                    
-                    {% if icon %}
+                    {% assign icon = block.settings[icon_key] %}
+
+                    {% if icon != blank %}
                         <div class="brand_icon_items">
-                            <img src="{{ icon | image_url: width: 68 }}">
+                            <img src="{{ icon | image_url: width: 68 }}" alt="">
                         </div>
-                        {%  unless forloop.last %} 
+
+                        {% unless forloop.last %}
                             <span class="plus-icon">+</span>
-                        {% endunless %} 
+                        {% endunless %}
                     {% endif %}
 
                 {% endfor %}
 
             </div>
+
+
         </div>
         
         

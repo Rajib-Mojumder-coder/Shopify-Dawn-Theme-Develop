@@ -8,6 +8,7 @@
   assign color_scheme = section.settings.color_scheme
   assign padding_top = section.settings.padding_top
   assign padding_bottom = section.settings.padding_bottom
+ 
 %}
 
 <style>
@@ -20,7 +21,7 @@
     }
    
 }
-    
+   
     
 
 </style>
@@ -37,8 +38,11 @@
                         color_scheme: block.settings.color_scheme,
                         desktop-image: block.settings.desktop-image,
                         mobile-image: block.settings.mobile-image,
+                        image_fit: block.settings.image_fit,
                         enable_product_badge: block.settings.enable_product_badge,
                         product-badge: block.settings.product-badge,
+                        desktop_size_product-badge: block.settings.desktop_size_product-badge,
+                        mobile_size_product-badge: block.settings.mobile_size_product-badge,
                         slider_border_radius: block.settings.slider_border_radius,
                         enable_gradient: block.settings.enable_gradient,
                         overlay_background: block.settings.overlay_background,

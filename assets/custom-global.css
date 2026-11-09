@@ -184,6 +184,7 @@ h1,h2,h3,h5,h6, p{
   line-height: var(--line-height-title);
   letter-spacing: var(--letter-spacing-normal);
   margin: 0;
+  /* color: rgb(var(--gradient-background)); */
 }
 @media (max-width: 767px) {
   .font-title-medium {

@@ -12,6 +12,13 @@
     "custom_hero_banner_drDydw": {
       "type": "custom_hero_banner",
       "blocks": {
+        "slide_3dLnea": {
+          "type": "slide",
+          "settings": {
+            "media": "shopify://shop_images/Peeters_Tweewielers_sRGB-18_x.png",
+            "slider_image_overlay": true
+          }
+        },
         "slide_nJfYiz": {
           "type": "slide",
           "settings": {
@@ -22,9 +29,9 @@
         }
       },
       "block_order": [
+        "slide_3dLnea",
         "slide_nJfYiz"
       ],
-      "disabled": true,
       "name": "Hero BAnner New",
       "settings": {
         "layout_max_width": "1728",
@@ -47,6 +54,216 @@
         "search_button_text": "ZOEKEN",
         "appointment_text": "Make an appointment!",
         "appointment_btn_url": "shopify://pages/contact"
+      }
+    },
+    "custom_logo_marque_WeptEe": {
+      "type": "custom-logo-marque",
+      "blocks": {
+        "logo_XYyJjx": {
+          "type": "logo",
+          "settings": {
+            "marque_logo": "shopify://shop_images/cortina-logo.svg"
+          }
+        },
+        "logo_cnaw38": {
+          "type": "logo",
+          "settings": {
+            "marque_logo": "shopify://shop_images/merida-logo.svg"
+          }
+        },
+        "logo_aBgzcK": {
+          "type": "logo",
+          "settings": {
+            "marque_logo": "shopify://shop_images/kal.svg"
+          }
+        },
+        "logo_FVyTRp": {
+          "type": "logo",
+          "settings": {
+            "marque_logo": "shopify://shop_images/urban-arrow-logo.svg"
+          }
+        },
+        "logo_LAhKHW": {
+          "type": "logo",
+          "settings": {
+            "marque_logo": "shopify://shop_images/alpina-logo_1.svg"
+          }
+        },
+        "logo_NHi7b7": {
+          "type": "logo",
+          "settings": {
+            "marque_logo": "shopify://shop_images/Koninklijke_Gazelle4_2.svg"
+          }
+        },
+        "logo_QQNnJm": {
+          "type": "logo",
+          "settings": {
+            "marque_logo": "shopify://shop_images/Group_323.svg"
+          }
+        },
+        "logo_MtFnbi": {
+          "type": "logo",
+          "settings": {
+            "marque_logo": "shopify://shop_images/Group_324.png"
+          }
+        }
+      },
+      "block_order": [
+        "logo_XYyJjx",
+        "logo_cnaw38",
+        "logo_aBgzcK",
+        "logo_FVyTRp",
+        "logo_LAhKHW",
+        "logo_NHi7b7",
+        "logo_QQNnJm",
+        "logo_MtFnbi"
+      ],
+      "name": "Logo Marque",
+      "settings": {
+        "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2",
+        "padding_top": 3.2,
+        "padding_bottom": 5,
+        "slide_per_desktop": 5,
+        "desktop_item_gap": "40",
+        "slide_per_mobile": 2,
+        "slider_speed": 5000,
+        "mobile_item_gap": "40",
+        "left_to_right": false,
+        "looping": true
+      }
+    },
+    "custom_features_slider_94KTrh": {
+      "type": "features-block-slider",
+      "blocks": {
+        "image_slider_VCLXG7": {
+          "type": "image_slider",
+          "disabled": true,
+          "settings": {
+            "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2",
+            "desktop-image": "shopify://shop_images/Peeters_Tweewielers_sRGB-18_3.png",
+            "mobile-image": "shopify://shop_images/Peeters_Tweewielers_sRGB-18_3_1.png",
+            "image_fit": "contain",
+            "enable_product_badge": true,
+            "desktop_size_product-badge": 160,
+            "mobile_size_product-badge": 100,
+            "slider_border_radius": 200,
+            "enable_gradient": true,
+            "overlay_background": "linear-gradient(84deg, rgba(6, 18, 61, 1) 26%, rgba(6, 18, 61, 0.46) 50%, rgba(0, 0, 0, 0) 70%)",
+            "subtitle": "VACATURE",
+            "title": "Wij zoeken een ervaren fietsmonteur!",
+            "title_width": 750,
+            "top_spacing": 30,
+            "bottom_spacing": 30,
+            "description": "<p>Heb jij net zo’n passie voor fietsen als wij en heb je ervaring in het onderhouden, repareren en afstellen van diverse fietsen?<br/><br/>Bekijk dan onze vacature en wie weet tot snel!</p>",
+            "description_width": 500,
+            "button_text": "BEKIJK VACATURE",
+            "button_link": "",
+            "notetext": ""
+          }
+        },
+        "image_slider_AQgkVD": {
+          "type": "image_slider",
+          "disabled": true,
+          "settings": {
+            "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2",
+            "desktop-image": "shopify://shop_images/Peeters_Tweewielers_sRGB-18_3_2.png",
+            "mobile-image": "shopify://shop_images/Peeters_Tweewielers_sRGB-18_3_1_7c44ebc7-4fbd-4bee-b3dc-bfefcc52c6ba.png",
+            "image_fit": "cover",
+            "enable_product_badge": false,
+            "desktop_size_product-badge": 160,
+            "mobile_size_product-badge": 100,
+            "slider_border_radius": 200,
+            "enable_gradient": true,
+            "overlay_background": "linear-gradient(84deg, rgba(6, 18, 61, 1) 26%, rgba(6, 18, 61, 0.46) 50%, rgba(0, 0, 0, 0) 70%)",
+            "subtitle": "HET COMPLETE PAKKET",
+            "title": "Bij aanschaf van een mountainbike of racefiets",
+            "title_width": 590,
+            "top_spacing": 30,
+            "bottom_spacing": 30,
+            "description": "",
+            "description_width": 500,
+            "brand_icon_1": "shopify://shop_images/Group_1.svg",
+            "brand_icon_2": "shopify://shop_images/Group_2_a8aebb27-4b46-4cf5-8378-17dc7cfacfc8.svg",
+            "brand_icon_3": "shopify://shop_images/Racefiets_icon_120c5ff1-5dd1-4675-88ee-1db2eae2e933.svg",
+            "brand_icon_4": "shopify://shop_images/pedal.svg",
+            "brand_icon_5": "shopify://shop_images/Group.svg",
+            "brand_icon_6": "shopify://shop_images/Group_2.svg",
+            "button_text": "",
+            "button_link": "",
+            "notetext": "&nbsp;*Zolang de voorraad strekt&nbsp;"
+          }
+        },
+        "image_slider_yzfXWT": {
+          "type": "image_slider",
+          "settings": {
+            "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2",
+            "desktop-image": "shopify://shop_images/GDES3772-2.png",
+            "mobile-image": "shopify://shop_images/video_zonder_geluid_1.png",
+            "image_fit": "cover",
+            "enable_product_badge": true,
+            "product-badge": "shopify://shop_images/Group_398.png",
+            "desktop_size_product-badge": 130,
+            "mobile_size_product-badge": 80,
+            "slider_border_radius": 200,
+            "enable_gradient": true,
+            "overlay_background": "linear-gradient(84deg, rgba(6, 18, 61, 1) 26%, rgba(6, 18, 61, 0.46) 50%, rgba(0, 0, 0, 0) 70%)",
+            "subtitle": "",
+            "title": "Cortina Family- fiets actie!",
+            "title_width": 520,
+            "top_spacing": 30,
+            "bottom_spacing": 30,
+            "description": "<p>Bij aankoop van een Cortina Common Family of Cortina U4 Transport Family fiets, ontvang je een GRATIS kinderzitje én een Goud servicepakket ter waarde van €225!</p>",
+            "description_width": 500,
+            "button_text": "BEKIJK DE FIETSEN",
+            "button_link": "",
+            "notetext": "*Deze actie is geldig t/m 31 mei 2024"
+          }
+        },
+        "product_slider_UGEWxH": {
+          "type": "product_slider",
+          "settings": {
+            "product": "wielerkleding-actie-in-heel",
+            "color_scheme": "scheme-2",
+            "slider_border_radius": 200,
+            "desktop-image": "shopify://shop_images/product-bg-img.png",
+            "mobile-image": "shopify://shop_images/mobile_product_img.png",
+            "title": "Hello Title",
+            "description": "<p>&nbsp;Heb jij net zo'n passie voor!&nbsp;</p>"
+          }
+        },
+        "video_slider_aXrmfa": {
+          "type": "video_slider",
+          "settings": {
+            "video_type": "upload",
+            "video_file": "shopify://files/videos/d58ae12c3e1b4847a77ad85d7b218050.mp4",
+            "video_file_url": "",
+            "external_video_url": "",
+            "color_scheme": "scheme-3296e57e-bd80-43f3-b60c-834eff51ef68",
+            "slider_border_radius": 200,
+            "videocontroloptions": false,
+            "autoplay": true,
+            "loop": true,
+            "controls": false,
+            "title": "Ophaal- en brengservice",
+            "description": "<p>Laat je fiets door ons ophalen en we garanderen een snelle terugkeer binnen 24 uur. Bovendien is deze service voor klanten binnen een straal van 15 km van Heel of Heythuysen volledig GRATIS.</p>",
+            "button_text": "MEER INFO",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_slider_VCLXG7",
+        "image_slider_AQgkVD",
+        "image_slider_yzfXWT",
+        "product_slider_UGEWxH",
+        "video_slider_aXrmfa"
+      ],
+      "name": "Features Block Slider",
+      "settings": {
+        "layout_max_width": "1728",
+        "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "shopify_custom_section_pX3Jxh": {
@@ -145,7 +362,6 @@
       "block_order": [
         "group_HKJmQ4"
       ],
-      "disabled": true,
       "name": "Shopify Custom Section",
       "settings": {
         "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2",
@@ -192,35 +408,42 @@
         "layout_mobile_gap": 18
       }
     },
-    "shopify_custom_section_yCkANW": {
+    "shopify_custom_section_KJcmXa": {
       "type": "shopify_custom_section",
       "blocks": {
-        "custom_slider_C8zM7x": {
+        "custom_slider_B8KYhd": {
           "type": "custom-slider",
           "name": "Custom Slider",
           "settings": {
             "enable_slider": true,
+            "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2",
+            "subheading": "",
+            "heading": "Bekijk ons veelzijdige assortiment fietsen",
+            "heading_width": 550,
+            "heading_size": 56,
+            "subheading_size": 13,
+            "heading_alignment": "left",
             "content_position": true,
-            "content_vertical": "default",
-            "overlay_spacing": 0,
-            "content_horizontal": "center",
-            "aspect_ratio": "landscape-4-3",
+            "content_vertical": "bottom",
+            "overlay_spacing": 10,
+            "content_horizontal": "start",
+            "aspect_ratio": "square",
             "aspect_width": 1,
             "aspect_height": 1,
-            "image_fit": "contain",
-            "image_radius": 12,
-            "image_overlay": false,
+            "image_fit": "cover",
+            "image_radius": 30,
+            "image_overlay": true,
             "overlay_style": "solid",
             "overlay_color": "#000000",
             "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
-            "image_overlay_opacity": 0,
+            "image_overlay_opacity": 8,
             "desktop_slides": 4,
             "tablet_slides": 2,
             "mobile_slides": 1,
             "partial_slider": true,
-            "desktop_partial_amount": 0.5,
-            "tablet_partial_amount": 0.3,
-            "mobile_partial_amount": 0.5,
+            "desktop_partial_amount": 0.3,
+            "tablet_partial_amount": 0.1,
+            "mobile_partial_amount": 0.2,
             "reverse_direction": false,
             "center_mode": false,
             "center_scale": 115,
@@ -250,64 +473,136 @@
             "bg_color": "#ffffff",
             "hover_bg_color": "#000000",
             "border_radius": 50,
-            "nav_position": "center-inner",
+            "nav_position": "bottom-right",
             "nav_gap": 30,
             "nav_outside_offset": 60
           },
           "blocks": {
-            "collection_product_list_M3KqeV": {
-              "type": "collection-product-list",
-              "name": "Collection Product List",
+            "custom_image_text_WY3Nhf": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
               "settings": {
-                "content_type": "products",
-                "collection_source": "selected",
-                "collections": [],
-                "collection_limit": 12,
-                "product_source": "selected",
-                "products": [
-                  "kalkhoff-image-3-excite-380-600w-dli48",
-                  "qwic-elan-tour",
-                  "selle-royal-lookin-evo-athletic",
-                  "wielerkleding-actie-in-heel"
-                ],
-                "product_collection": "",
-                "product_collections": [],
-                "product_limit": 12,
-                "products_per_collection": 4,
-                "show_image": true,
-                "image_link": true,
-                "show_badge": false,
-                "show_wishlist": true,
-                "show_vendor": false,
-                "show_title": true,
-                "show_description": false,
-                "show_price": true,
-                "show_compare_price": true,
-                "show_add_to_cart": true,
-                "add_to_cart_alignment": "left",
-                "button_text": "Add to Cart",
-                "button_style": "solid",
-                "color_option_name": "Color",
-                "show_color_swatches": true,
-                "color_swatch_type": "color",
-                "color_swatch_shape": "circle",
-                "color_swatch_position": "top-left",
-                "card_alignment": "left"
+                "image": "shopify://shop_images/Peeters_Tweewielers_sRGB-39_7.png",
+                "image_link": "",
+                "subtitle": "E-Bikes",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "",
+                "title_color": "#5c9c3c",
+                "title_mobilesize": 20,
+                "title_desktopsize": 40,
+                "description": ""
+              },
+              "blocks": {}
+            },
+            "custom_image_text_TXLYAG": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/Peeters_Tweewielers_sRGB-39_3.png",
+                "image_link": "",
+                "subtitle": "E-Bikes",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "",
+                "title_color": "#5c9c3c",
+                "title_mobilesize": 20,
+                "title_desktopsize": 40,
+                "description": ""
+              },
+              "blocks": {}
+            },
+            "custom_image_text_mQWkWg": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/Peeters_Tweewielers_sRGB-39_5.png",
+                "image_link": "",
+                "subtitle": "E-Bikes",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "",
+                "title_color": "#5c9c3c",
+                "title_mobilesize": 20,
+                "title_desktopsize": 40,
+                "description": ""
+              },
+              "blocks": {}
+            },
+            "custom_image_text_j3fNny": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/Peeters_Tweewielers_sRGB-39_8.png",
+                "image_link": "",
+                "subtitle": "E-Bikes",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "",
+                "title_color": "#5c9c3c",
+                "title_mobilesize": 20,
+                "title_desktopsize": 40,
+                "description": ""
+              },
+              "blocks": {}
+            },
+            "custom_image_text_cAcTxK": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/Peeters_Tweewielers_sRGB-39_2.png",
+                "image_link": "",
+                "subtitle": "Stadsfietsen",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "",
+                "title_color": "#5c9c3c",
+                "title_mobilesize": 20,
+                "title_desktopsize": 40,
+                "description": ""
+              },
+              "blocks": {}
+            },
+            "custom_image_text_cfndwT": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/Peeters_Tweewielers_sRGB-39_1.png",
+                "image_link": "",
+                "subtitle": "E-Bikes",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "",
+                "title_color": "#5c9c3c",
+                "title_mobilesize": 20,
+                "title_desktopsize": 40,
+                "description": ""
               },
               "blocks": {}
             }
           },
           "block_order": [
-            "collection_product_list_M3KqeV"
+            "custom_image_text_WY3Nhf",
+            "custom_image_text_TXLYAG",
+            "custom_image_text_mQWkWg",
+            "custom_image_text_j3fNny",
+            "custom_image_text_cAcTxK",
+            "custom_image_text_cfndwT"
           ]
         }
       },
       "block_order": [
-        "custom_slider_C8zM7x"
+        "custom_slider_B8KYhd"
       ],
       "name": "Shopify Custom Section",
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2",
         "section_height_type": "auto",
         "preset_height": "medium",
         "custom_min_height": 400,
@@ -351,243 +646,96 @@
         "layout_mobile_gap": 18
       }
     },
-    "shopify_custom_section_KJcmXa": {
-      "type": "shopify_custom_section",
-      "blocks": {
-        "custom_slider_B8KYhd": {
-          "type": "custom-slider",
-          "name": "Custom Slider",
-          "settings": {
-            "enable_slider": true,
-            "content_position": true,
-            "content_vertical": "default",
-            "overlay_spacing": 10,
-            "content_horizontal": "start",
-            "aspect_ratio": "square",
-            "aspect_width": 1,
-            "aspect_height": 1,
-            "image_fit": "cover",
-            "image_radius": 0,
-            "image_overlay": false,
-            "overlay_style": "solid",
-            "overlay_color": "#000000",
-            "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
-            "image_overlay_opacity": 0,
-            "desktop_slides": 2,
-            "tablet_slides": 2,
-            "mobile_slides": 1,
-            "partial_slider": true,
-            "desktop_partial_amount": 0.3,
-            "tablet_partial_amount": 0.1,
-            "mobile_partial_amount": 0.2,
-            "reverse_direction": false,
-            "center_mode": false,
-            "center_scale": 115,
-            "effect": "slide",
-            "slider_settings": true,
-            "loop": true,
-            "autoplay": false,
-            "autoplay_speed": 5000,
-            "disable_on_interaction": true,
-            "pause_on_hover": true,
-            "rewind": false,
-            "free_mode": false,
-            "touch_swipe": true,
-            "keyboard": true,
-            "mousewheel": false,
-            "grab_cursor": true,
-            "auto_height": false,
-            "show_navigation": true,
-            "icon_type": "theme_arrow",
-            "stroke_width": 2,
-            "prev_svg": "",
-            "next_svg": "",
-            "show_navigation_mobile": false,
-            "icon_size": 44,
-            "icon_color": "#000000",
-            "hover_icon_color": "#ffffff",
-            "bg_color": "#ffffff",
-            "hover_bg_color": "#000000",
-            "border_radius": 50,
-            "nav_position": "center-inner",
-            "nav_gap": 30,
-            "nav_outside_offset": 60
-          },
-          "blocks": {
-            "custom_image_text_WY3Nhf": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "custom_image_text_ay9XFf": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "custom_image_text_RJnz9d": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "custom_image_text_pXGtqF": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "custom_image_text_JgFUpF": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            },
-            "custom_image_text_6KQMLA": {
-              "type": "custom-image-text",
-              "name": "Image Text Slider",
-              "settings": {
-                "image": "shopify://shop_images/imageye___-_imgi_11_qwic-elan-tour-264029.png",
-                "image_link": "",
-                "subtitle": "Featured Collection",
-                "subtitle_color": "#fff",
-                "subtitle_mobilesize": 24,
-                "subtitle_desktopsize": 26,
-                "title": "Image Text Slider",
-                "title_color": "#5c9c3c",
-                "title_mobilesize": 20,
-                "title_desktopsize": 40,
-                "description": "<p>Add a short description for this slide.</p>"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "custom_image_text_WY3Nhf",
-            "custom_image_text_ay9XFf",
-            "custom_image_text_RJnz9d",
-            "custom_image_text_pXGtqF",
-            "custom_image_text_JgFUpF",
-            "custom_image_text_6KQMLA"
-          ]
-        }
-      },
-      "block_order": [
-        "custom_slider_B8KYhd"
-      ],
-      "disabled": true,
-      "name": "Shopify Custom Section",
+    "image_text_overlap_96FwAT": {
+      "type": "image-text-overlap",
+      "name": "Image Text Overlap",
       "settings": {
-        "color_scheme": "scheme-1",
-        "section_height_type": "auto",
-        "preset_height": "medium",
-        "custom_min_height": 400,
-        "custom_viewport_height": 60,
-        "custom_max_height": 900,
-        "section_top_padding": 60,
-        "section_bottom_padding": 60,
-        "background_media": "none",
-        "background_fit": "cover",
-        "background_position": "center center",
-        "custom_section-overlay": false,
-        "overlay_style": "solid",
-        "overlay_color": "#000000",
-        "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
-        "overlay_opacity": 40,
-        "overlay_blend": "normal",
-        "overlay_blur": 0,
-        "layout_direction": "row",
-        "layout_mobile_direction": false,
-        "content_horizontal_align": "flex-start",
-        "content_vertical_align": "center",
-        "layout_type": "Default",
-        "custom_layout-size": 1720,
-        "layout_padding": false,
-        "layout_padding-top": 20,
-        "layout_padding-bottom": 20,
-        "layout_padding-left": 20,
-        "layout_padding-right": 20,
-        "layout_border": false,
-        "layout_border-width": 5,
-        "layout_border-style": "solid",
-        "layout_border-color": "#000000",
-        "layout_border-opacity": 100,
-        "border_hover-color": "#ff0000",
-        "Layout_Border_radius": false,
-        "layout_border_top_left_radius": 0,
-        "layout_border_top_right_radius": 0,
-        "layout_border_bottom_left_radius": 0,
-        "layout_border_bottom_right_radius": 0,
-        "layout_desktop_gap": 50,
-        "layout_mobile_gap": 18
+        "desktop_image_side": "left",
+        "mobile_image_alignment": "right",
+        "subheading": "Discover More",
+        "heading": "Your Main Heading Goes Here",
+        "description": "<p>Add your description here to introduce your product or service.</p>",
+        "button_label": "Explore Now",
+        "button_link": "",
+        "image": "shopify://shop_images/Mask_group_15af9099-84dc-492b-ba98-283896d8a902.png",
+        "desktop_image_width": 50,
+        "desktop_image_height": 650,
+        "image_fit": "cover",
+        "image_position": "center center",
+        "desktop_offset_unit": "px",
+        "desktop_offset_px": -120,
+        "desktop_offset_percent": -25,
+        "desktop_radius_top_left": 0,
+        "desktop_radius_top_right": 500,
+        "desktop_radius_bottom_right": 500,
+        "desktop_radius_bottom_left": 0,
+        "mobile_offset_unit": "percent",
+        "mobile_offset_px": -200,
+        "mobile_offset_percent": -50,
+        "mobile_radius_top_left": 250,
+        "mobile_radius_top_right": 0,
+        "mobile_radius_bottom_right": 0,
+        "mobile_radius_bottom_left": 250,
+        "content_max_width": 600,
+        "column_gap": 40,
+        "enable_desktop_padding": true,
+        "desktop_section_padding_top": 80,
+        "desktop_section_padding_bottom": 80,
+        "enable_mobile_padding": true,
+        "mobile_section_padding_top": 60,
+        "mobile_section_padding_bottom": 60,
+        "color_scheme": "scheme-3296e57e-bd80-43f3-b60c-834eff51ef68"
+      }
+    },
+    "image_text_overlap_Gic98m": {
+      "type": "image-text-overlap",
+      "name": "Image Text Overlap",
+      "settings": {
+        "desktop_image_side": "right",
+        "mobile_image_alignment": "left",
+        "subheading": "Discover More",
+        "heading": "Your Main Heading Goes Here",
+        "description": "<p>Add your description here to introduce your product or service.</p>",
+        "button_label": "Explore Now",
+        "button_link": "",
+        "image": "shopify://shop_images/Mask_group_15af9099-84dc-492b-ba98-283896d8a902.png",
+        "desktop_image_width": 50,
+        "desktop_image_height": 650,
+        "image_fit": "cover",
+        "image_position": "center center",
+        "desktop_offset_unit": "px",
+        "desktop_offset_px": -120,
+        "desktop_offset_percent": -25,
+        "desktop_radius_top_left": 450,
+        "desktop_radius_top_right": 0,
+        "desktop_radius_bottom_right": 0,
+        "desktop_radius_bottom_left": 450,
+        "mobile_offset_unit": "percent",
+        "mobile_offset_px": -200,
+        "mobile_offset_percent": -50,
+        "mobile_radius_top_left": 0,
+        "mobile_radius_top_right": 200,
+        "mobile_radius_bottom_right": 200,
+        "mobile_radius_bottom_left": 0,
+        "content_max_width": 600,
+        "column_gap": 40,
+        "enable_desktop_padding": true,
+        "desktop_section_padding_top": 100,
+        "desktop_section_padding_bottom": 80,
+        "enable_mobile_padding": true,
+        "mobile_section_padding_top": 30,
+        "mobile_section_padding_bottom": 30,
+        "color_scheme": "scheme-0d0b089b-70ad-41da-9d0d-e8162a43bca2"
       }
     }
   },
   "order": [
     "custom_hero_banner_drDydw",
+    "custom_logo_marque_WeptEe",
+    "custom_features_slider_94KTrh",
     "shopify_custom_section_pX3Jxh",
-    "shopify_custom_section_yCkANW",
-    "shopify_custom_section_KJcmXa"
+    "shopify_custom_section_KJcmXa",
+    "image_text_overlap_96FwAT",
+    "image_text_overlap_Gic98m"
   ]
 }

@@ -8,7 +8,7 @@
     }   
       
     .featuresSlider .slide-background-media{
-        background-size: cover;
+        background-size: var(--image_fit);
         background-repeat: no-repeat;
         position: absolute;
         inset: 0;

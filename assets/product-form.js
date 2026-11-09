@@ -20,39 +20,26 @@ if (!customElements.get('product-form')) {
             return;
           }
 
-
-          /*=========================================================
-            Hidden Variant ID
-          =========================================================*/
+          /*===============  Hidden Variant ID =================*/
 
           // Enable the hidden variant id input if it exists
           if (this.variantIdInput) {
             this.variantIdInput.disabled = false;
           }
 
-
-          /*=========================================================
-            Submit Event
-          =========================================================*/
+          /*============== Submit Event ===================*/
 
           this.form.addEventListener(
             'submit',
             this.onSubmitHandler.bind(this)
           );
-
-
-          /*=========================================================
-            Cart
-          =========================================================*/
+          /*========       Cart   ==============*/
 
           this.cart =
             document.querySelector('cart-notification') ||
             document.querySelector('cart-drawer');
 
-
-          /*=========================================================
-            Add To Cart Button
-          =========================================================*/
+          /*========== Add To Cart Button =================*/
 
           this.submitButton =
             this.querySelector('[type="submit"]');
@@ -61,9 +48,7 @@ if (!customElements.get('product-form')) {
             this.submitButton.querySelector('span');
 
 
-          /*=========================================================
-            Cart Drawer Accessibility
-          =========================================================*/
+          /*======== Cart Drawer Accessibility ==============*/
 
           if (document.querySelector('cart-drawer')) {
             this.submitButton.setAttribute(
@@ -72,18 +57,12 @@ if (!customElements.get('product-form')) {
             );
           }
 
-
-          /*=========================================================
-            Hide Errors
-          =========================================================*/
+          /*==================  Hide Errors ================*/
 
           this.hideErrors =
             this.dataset.hideErrors === 'true';
 
         }
-
-
-
 
       onSubmitHandler(evt) {
         evt.preventDefault();

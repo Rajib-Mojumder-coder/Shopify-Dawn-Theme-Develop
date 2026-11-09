@@ -3,11 +3,11 @@
 {{ 'features_slider_new.css' | asset_url | stylesheet_tag }}
 
 
-{% render 'custom-features-slider' %} 
+{% render 'features-block-slider' %} 
 
 {% schema %}
 {
-"name": "Custom Features Slider",
+"name": "Features Block Slider",
 "settings": [
 {
 "type": "text",
@@ -69,6 +69,16 @@
     "label": "Mobile Image"
     },
     {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image Fit Size",
+      "options": [
+        { "label": "contain", "value": "contain" },
+        { "label": "cover", "value": "cover" }
+      ],
+      "default": "contain"
+    },
+    {
     "type": "checkbox",
     "id": "enable_product_badge",
     "label": "Enable Product Badge",
@@ -77,7 +87,30 @@
     {
     "type": "image_picker",
     "id": "product-badge",
-    "label": "Product Badge"
+    "label": "Product Badge",
+    "visible_if": "{{ block.settings.enable_product_badge == true }}"
+    },
+    {
+    "type": "range",
+    "id": "desktop_size_product-badge",
+    "label": "Slider Border Radius",
+    "default": 160,
+    "min": 70,
+    "max": 180,
+    "step": 10,
+    "unit": "px",
+     "visible_if": "{{ block.settings.enable_product_badge == true }}"
+    },
+    {
+    "type": "range",
+    "id": "mobile_size_product-badge",
+    "label": "Slider Border Radius",
+    "default": 100,
+    "min": 30,
+    "max": 150,
+    "step": 5,
+    "unit": "px",
+     "visible_if": "{{ block.settings.enable_product_badge == true }}"
     },
     {
     "type": "range",

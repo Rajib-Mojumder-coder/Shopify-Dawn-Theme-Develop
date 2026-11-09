@@ -1,46 +1,33 @@
 {% liquid
-assign content_type = block.settings.content_type
-assign collection_source = block.settings.collection_source
-assign product_source = block.settings.product_source
+  assign content_type = block.settings.content_type
+  assign collection_source = block.settings.collection_source
+  assign product_source = block.settings.product_source
 
-assign show_image = block.settings.show_image
-assign show_badge = block.settings.show_badge
-assign show_wishlist = block.settings.show_wishlist
-assign show_vendor = block.settings.show_vendor
-assign show_title = block.settings.show_title
-assign show_description = block.settings.show_description
-assign show_price = block.settings.show_price
-assign show_compare_price = block.settings.show_compare_price
-assign show_add_to_cart = block.settings.show_add_to_cart
-
-assign image_link = block.settings.image_link
-assign card_alignment = block.settings.card_alignment
-assign button_style = block.settings.button_style
+  assign show_image = block.settings.show_image
+  assign show_vendor = block.settings.show_vendor
+  assign show_title = block.settings.show_title
+  assign show_description = block.settings.show_description
+  
+  assign image_link = block.settings.image_link
+  assign card_alignment = block.settings.card_alignment
 %}
-
 
 
 {% if content_type == 'collections' %}
 
   {% case collection_source %}
-
     {% when 'selected' %}
 
       {% for collection in block.settings.collections %}
-
         {% if collection != blank %}
 
-          <div
-            class="swiper-slide custom-slider-item custom-slider-item--collection"
-            {{ block.shopify_attributes }}
-          >
+          <div class="swiper-slide custom-slider-item custom-slider-item--collection"
+            {{ block.shopify_attributes }}>
 
             <article class="custom-slider-collection-card">
 
               {% if show_image %}
-
                 <div class="custom-slider-item__media custom-slider-collection-card__media">
-
                   {% if collection.featured_image != blank %}
 
                     {% if image_link %}
@@ -61,18 +48,13 @@ assign button_style = block.settings.button_style
                           alt: collection.featured_image.alt | default: collection.title
                       }}
 
-                    {% if image_link %}
-                      </a>
-                    {% endif %}
-
+                    {% if image_link %}  </a> {% endif %}
                   {% else %}
 
                     <div class="custom-slider-collection-card__image-placeholder">
                       {{ 'collection-1' | placeholder_svg_tag }}
                     </div>
-
                   {% endif %}
-
                 </div>
 
               {% endif %}
@@ -104,29 +86,23 @@ assign button_style = block.settings.button_style
                 {% endif %}
 
 
-                {% if show_add_to_cart %}
-                  <div class="custom-slider-product-card__actions
-                      add-to-cart-align-{{ block.settings.add_to_cart_alignment }}
-                    ">
-                    <a
-                      href="{{ collection.url }}"
-                      class="custom-slider-card__button custom-slider-card__button--{{ button_style }}"
-                    >
-                      {{ block.settings.button_text }}
-                    </a>
-                  </div>
-                {% endif %}
+                {% if block.settings.show_collection_button %}
+                    <div class="custom-slider-card__actions custom-slider-card__actions--{{ block.settings.collection_button_alignment | default: 'left' }}">
+                      <a
+                        href="{{ collection.url }}"
+                        class="custom-slider-button custom-slider-button--{{ block.settings.button_style | default: 'solid' }} custom-slider-card__button"
+                        aria-label="{{ block.settings.collection_button_text | default: 'View Collection' | escape }}: {{ collection.title | escape }}"
+                      >
+                        {{ block.settings.collection_button_text | default: 'View Collection' | escape }}
+                      </a>
+                    </div>
+                  {% endif %}
 
               </div>
-
             </article>
-
           </div>
-
         {% endif %}
-
       {% endfor %}
-
 
     {% when 'all' %}
 
@@ -134,11 +110,7 @@ assign button_style = block.settings.button_style
 
         {% unless collection.handle == 'frontpage' %}
 
-          <div
-            class="swiper-slide custom-slider-item custom-slider-item--collection"
-            {{ block.shopify_attributes }}
-          >
-
+          <div class="swiper-slide custom-slider-item custom-slider-item--collection" {{ block.shopify_attributes }}>
             <article class="custom-slider-collection-card">
 
               {% if show_image %}
@@ -146,7 +118,6 @@ assign button_style = block.settings.button_style
                 <div class="custom-slider-item__media custom-slider-collection-card__media">
 
                   {% if collection.featured_image != blank %}
-
                     {% if image_link %}
                       <a
                         href="{{ collection.url }}"
@@ -168,15 +139,11 @@ assign button_style = block.settings.button_style
                     {% if image_link %}
                       </a>
                     {% endif %}
-
                   {% else %}
-
                     <div class="custom-slider-collection-card__image-placeholder">
                       {{ 'collection-1' | placeholder_svg_tag }}
                     </div>
-
                   {% endif %}
-
                 </div>
 
               {% endif %}
@@ -208,52 +175,39 @@ assign button_style = block.settings.button_style
                 {% endif %}
 
 
-                {% if show_add_to_cart %}
-                   <div class="custom-slider-product-card__actions
-                      add-to-cart-align-{{ block.settings.add_to_cart_alignment }}
-                    ">
-                      <a
-                        href="{{ collection.url }}"
-                        class="custom-slider-card__button custom-slider-card__button--{{ button_style }}"
-                      >
-                        {{ block.settings.button_text }}
-                      </a>
-
+                {% if block.settings.show_collection_button %}
+                  <div class="custom-slider-card__actions custom-slider-card__actions--{{ block.settings.collection_button_alignment | default: 'left' }}">
+                    <a
+                      href="{{ collection.url }}"
+                      class="custom-slider-button custom-slider-button--{{ block.settings.button_style | default: 'solid' }} custom-slider-card__button"
+                      aria-label="{{ block.settings.collection_button_text | default: 'View Collection' | escape }}: {{ collection.title | escape }}"
+                    >
+                      {{ block.settings.collection_button_text | default: 'View Collection' | escape }}
+                    </a>
                   </div>
                 {% endif %}
-
               </div>
-
             </article>
-
           </div>
-
         {% endunless %}
-
       {% endfor %}
-
   {% endcase %}
 
 
 {% elsif content_type == 'products' %}
 
   {% case product_source %}
-
     {% when 'selected' %}
 
       {% for product in block.settings.products %}
-
         {% if product != blank %}
-
           <div class="swiper-slide custom-slider-item custom-slider-item--product">
             {% render 'custom-slider-product-card',
               product: product,
               block: block
             %}
           </div>
-
         {% endif %}
-
       {% endfor %}
 
 
@@ -262,88 +216,64 @@ assign button_style = block.settings.button_style
       {% assign source_collection = block.settings.product_collection %}
 
       {% if source_collection != blank %}
-
         {% for product in source_collection.products limit: block.settings.product_limit %}
-
           {% if product != blank %}
-
             <div class="swiper-slide custom-slider-item custom-slider-item--product">
               {% render 'custom-slider-product-card',
                 product: product,
                 block: block
               %}
             </div>
-
           {% endif %}
-
         {% endfor %}
-
       {% endif %}
 
 
     {% when 'collections' %}
 
       {% for collection in block.settings.product_collections %}
-
         {% if collection != blank %}
-
-          {% for product in collection.products limit: block.settings.product_limit %}
-
+          {% for product in collection.products limit: block.settings.products_per_collection %}
             {% if product != blank %}
-
               <div class="swiper-slide custom-slider-item custom-slider-item--product">
                 {% render 'custom-slider-product-card',
                   product: product,
                   block: block
                 %}
               </div>
-
             {% endif %}
-
           {% endfor %}
-
         {% endif %}
-
       {% endfor %}
 
 
     {% when 'all' %}
 
       {% for product in collections.all.products limit: block.settings.product_limit %}
-
         {% if product != blank %}
-
           <div class="swiper-slide custom-slider-item custom-slider-item--product">
             {% render 'custom-slider-product-card',
               product: product,
               block: block
             %}
           </div>
-
         {% endif %}
-
       {% endfor %}
-
   {% endcase %}
 
 {% endif %}
 
-
-
-
 <style>
 
-  /* =========================================================
-     SHARED CHILD CONTRACT
-  ========================================================= */
+  /* =============   SHARED CHILD CONTRACT ========== */
 
-  .custom-slider-item {
+ .custom-slider-{{ block.id }} .custom-slider-item {
     width: 100%;
     height: auto;
     box-sizing: border-box;
   }
 
-  .custom-slider-item__media {
+.custom-slider-{{ block.id }} .custom-slider-item__media {
     width: 100%;
     aspect-ratio: var(--slider-aspect-ratio, 1 / 1);
     overflow: hidden;
@@ -356,8 +286,7 @@ assign button_style = block.settings.button_style
       0;
 }
 
-
- .custom-slider-item__image {
+.custom-slider-{{ block.id }} .custom-slider-item__image {
   width: 100%;
   height: 100%;
   display: block;
@@ -365,9 +294,7 @@ assign button_style = block.settings.button_style
 }
 
 
-  /* =========================================================
-     COLLECTION CARD
-  ========================================================= */
+  /* ==========  COLLECTION CARD ========= */
 
 /* Collection card */
 .custom-slider-{{ block.id }} .custom-slider-collection-card {
@@ -385,6 +312,7 @@ assign button_style = block.settings.button_style
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  min-width: 0;
 }
 
 .custom-slider-collection-card,
@@ -392,7 +320,6 @@ assign button_style = block.settings.button_style
   border-radius: var(--slider-card-radius, 12px);
   overflow: hidden;
 }
-
 
   .custom-slider-collection-card__image-link {
     display: block;
@@ -422,28 +349,20 @@ assign button_style = block.settings.button_style
     0;
 }
 
-
-  .custom-slider-collection-card__image-placeholder svg {
+.custom-slider-collection-card__image-placeholder svg {
     width: 100%;
     height: 100%;
     display: block;
   }
 
 
-  /* =========================================================
-     CARD CONTENT
-  ========================================================= */
+  /* ===============  CARD CONTENT =============== */
 
   /* Keep normal content below the image by default */
   .custom-slider-{{ block.id }} .custom-slider-item__content {
     position: static;
     padding-top: 14px;
   }
-
-  /* .custom-slider-collection-card__content,
-  .custom-slider-product-card__content {
-    text-align: {{ card_alignment }};
-  } */
 
   .custom-slider-card__title {
     margin: 0;
@@ -468,10 +387,7 @@ assign button_style = block.settings.button_style
     opacity: .7;
   }
 
-
-  /* =========================================================
-     PRODUCT CARD
-  ========================================================= */
+  /* ============    PRODUCT CARD ================ */
 
   .custom-slider-product-card {
     width: 100%;
@@ -500,12 +416,7 @@ assign button_style = block.settings.button_style
     transform: scale(1.03);
   }
 
-
-
-
-  /* =========================================================
-     BADGE
-  ========================================================= */
+  /* ================  BADGE =============== */
 
   .custom-slider-product-card__badge {
     position: absolute;
@@ -520,10 +431,7 @@ assign button_style = block.settings.button_style
     color: #fff;
   }
 
-
-  /* =========================================================
-     WISHLIST
-  ========================================================= */
+  /* ============   WISHLIST ================ */
 
   .custom-slider-product-card__wishlist {
     position: absolute;
@@ -570,10 +478,7 @@ assign button_style = block.settings.button_style
     display: block;
   }
 
-
-  /* =========================================================
-     PRICE
-  ========================================================= */
+  /* =============   PRICE =================== */
 
   .custom-slider-product-card__price {
     margin-top: 8px;
@@ -601,10 +506,7 @@ assign button_style = block.settings.button_style
     font-size: .9em;
   }
 
-
-  /* =========================================================
-     PRODUCT BUTTON
-  ========================================================= */
+  /* =============    PRODUCT BUTTON =============== */
 
   .custom-slider-card__button {
     display: inline-flex;
@@ -654,10 +556,7 @@ assign button_style = block.settings.button_style
     cursor: not-allowed;
   }
 
-
-  /* =========================================================
-     MOBILE
-  ========================================================= */
+  /* ===============   MOBILE ================= */
 
   @media screen and (max-width: 749px) {
 
@@ -676,33 +575,22 @@ assign button_style = block.settings.button_style
 <script>
 
   document.addEventListener('DOMContentLoaded', function () {
-
     const wishlistButtons = document.querySelectorAll(
       '.custom-slider-product-card__wishlist'
     );
-
     if (!wishlistButtons.length) return;
 
-
     const storageKey = 'custom_slider_wishlist';
-
-
     function getWishlist() {
 
       try {
-
         return JSON.parse(
           localStorage.getItem(storageKey)
         ) || [];
-
       } catch (error) {
-
         return [];
-
       }
-
     }
-
 
     function saveWishlist(items) {
 
@@ -710,71 +598,47 @@ assign button_style = block.settings.button_style
         storageKey,
         JSON.stringify(items)
       );
-
     }
 
-
     function updateButton(button) {
-
       const productId = button.dataset.productId;
-
       if (!productId) return;
-
       const wishlist = getWishlist();
-
       const active = wishlist.includes(productId);
-
       button.classList.toggle(
         'is-active',
         active
       );
-
       button.setAttribute(
         'aria-pressed',
         active ? 'true' : 'false'
       );
-
     }
 
-
     wishlistButtons.forEach(function (button) {
-
       updateButton(button);
-
-
       button.addEventListener(
         'click',
         function () {
 
           const productId =
             button.dataset.productId;
-
           if (!productId) return;
-
 
           let wishlist =
             getWishlist();
 
-
           const index =
             wishlist.indexOf(productId);
 
-
           if (index === -1) {
-
             wishlist.push(productId);
-
           } else {
-
             wishlist.splice(index, 1);
-
           }
 
-
           saveWishlist(wishlist);
-
           updateButton(button);
-
 
           document.dispatchEvent(
             new CustomEvent(
@@ -804,7 +668,6 @@ assign button_style = block.settings.button_style
 "tag": null,
 "presets": [ { "name": "Collection Product List" } ],
 "settings": [
-
 {
   "type": "select",
   "id": "content_type",
@@ -852,7 +715,6 @@ assign button_style = block.settings.button_style
   "info": "Select collections when Collection Source is set to Selected Collections."
   
 },
-
 {
   "type": "range",
   "id": "collection_limit",
@@ -863,8 +725,6 @@ assign button_style = block.settings.button_style
   "default": 12,
   "visible_if": "{{ block.settings.content_type == 'collections' and block.settings.collection_source == 'all' }}"
 },
-
-
 {
   "type": "header",
   "content": "Product Source",
@@ -930,34 +790,22 @@ assign button_style = block.settings.button_style
   "default": 4,
   "visible_if": "{{ block.settings.content_type == 'products' and block.settings.product_source == 'collections' }}"
 },
-
 {
   "type": "header",
   "content": "Card Content"
 },
-
 {
   "type": "checkbox",
   "id": "show_image",
   "label": "Show Image",
   "default": true
 },
-
 {
   "type": "checkbox",
   "id": "image_link",
   "label": "Make Image Clickable",
   "default": true
 },
-
-{
-  "type": "checkbox",
-  "id": "show_badge",
-  "label": "Show Sale Badge",
-  "default": true,
-  "visible_if": "{{ block.settings.content_type == 'products' }}"
-},
-
 {
   "type": "checkbox",
   "id": "show_wishlist",
@@ -965,28 +813,24 @@ assign button_style = block.settings.button_style
   "default": true,
   "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
-
 {
   "type": "checkbox",
   "id": "show_vendor",
   "label": "Show Vendor / Product Count",
   "default": false
 },
-
 {
   "type": "checkbox",
   "id": "show_title",
   "label": "Show Title",
   "default": true
 },
-
 {
   "type": "checkbox",
   "id": "show_description",
   "label": "Show Description",
   "default": false
 },
-
 {
   "type": "checkbox",
   "id": "show_price",
@@ -994,7 +838,6 @@ assign button_style = block.settings.button_style
   "default": true,
   "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
-
 {
   "type": "checkbox",
   "id": "show_compare_price",
@@ -1002,18 +845,47 @@ assign button_style = block.settings.button_style
   "default": true,
   "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
-
+{
+  "type": "header",
+  "content": "Product Image and Badges"
+},
 {
   "type": "checkbox",
-  "id": "show_add_to_cart",
-  "label": "Show Add to Cart",
-  "default": true
+  "id": "show_secondary_image",
+  "label": "Show Secondary Image on Hover",
+  "default": true,
+  "visible_if": "{{ block.settings.content_type == 'products' }}"
+},
+{
+  "type": "checkbox",
+  "id": "show_badge",
+  "label": "Show Sale and Sold Out Badges",
+  "default": true,
+  "visible_if": "{{ block.settings.content_type == 'products' }}"
+},
+{
+  "type": "header",
+  "content": "Collection Card Button",
+  "visible_if": "{{ block.settings.content_type == 'collections' }}"
+},
+{
+  "type": "checkbox",
+  "id": "show_collection_button",
+  "label": "Show View Collection Button",
+  "default": true,
+  "visible_if": "{{ block.settings.content_type == 'collections' }}"
+},
+{
+  "type": "text",
+  "id": "collection_button_text",
+  "label": "Collection Button Text",
+  "default": "View Collection",
+  "visible_if": "{{ block.settings.content_type == 'collections' and block.settings.show_collection_button }}"
 },
 {
   "type": "select",
-  "id": "add_to_cart_alignment",
-  "label": "Add to Cart Alignment",
-  "default": "left",
+  "id": "collection_button_alignment",
+  "label": "Collection Button Alignment",
   "options": [
     {
       "value": "left",
@@ -1028,20 +900,32 @@ assign button_style = block.settings.button_style
       "label": "Right"
     }
   ],
-  "visible_if": "{{ block.settings.show_add_to_cart == true }}"
+  "default": "left",
+  "visible_if": "{{ block.settings.content_type == 'collections' and block.settings.show_collection_button }}"
+},
+{
+  "type": "header",
+  "content": "Product Card Button",
+  "visible_if": "{{ block.settings.content_type == 'products' }}"
+},
+{
+  "type": "checkbox",
+  "id": "show_product_button",
+  "label": "Show Product Button",
+  "default": true,
+  "visible_if": "{{ block.settings.content_type == 'products' }}"
 },
 {
   "type": "text",
   "id": "button_text",
-  "label": "Button Text",
-  "default": "Add to Cart"
+  "label": "Product Button Text",
+  "default": "Add to Cart",
+  "visible_if": "{{ block.settings.content_type == 'products' and block.settings.show_product_button }}"
 },
-
 {
   "type": "select",
   "id": "button_style",
   "label": "Button Style",
-  "default": "solid",
   "options": [
     {
       "value": "solid",
@@ -1051,9 +935,39 @@ assign button_style = block.settings.button_style
       "value": "outline",
       "label": "Outline"
     }
-  ]
+  ],
+  "default": "solid",
+  "visible_if": "{{ block.settings.content_type == 'products' and block.settings.show_product_button or block.settings.content_type == 'collections' and block.settings.show_collection_button }}"
+},
+{
+  "type": "select",
+  "id": "quick_add_option",
+  "label": "Product Button Behaviour",
+  "options": [
+    {
+      "value": "normal",
+      "label": "Normal Add to Cart (Go to Cart Page)"
+    },
+    {
+      "value": "standard",
+      "label": "Standard Quick Add (Stay on Page)"
+    },
+    {
+      "value": "bulk",
+      "label": "Bulk Add (Select Variant and Quantity)"
+    }
+  ],
+  "default": "normal",
+  "visible_if": "{{ block.settings.content_type == 'products' and block.settings.show_product_button }}"
 },
 
+{
+  "type": "checkbox",
+  "id": "bulk_quantity_button_inline",
+  "label": "Show Quantity and Add to Cart in One Row",
+  "default": false,
+  "visible_if": "{{ block.settings.content_type == 'products' and block.settings.show_product_button and block.settings.quick_add_option == 'bulk' }}"
+},
 {
   "type": "header",
   "content": "Product Card Color Swatches"
@@ -1131,12 +1045,10 @@ assign button_style = block.settings.button_style
   "default": "bottom-left",
   "visible_if": "{{ block.settings.show_color_swatches == true }}"
 },
-
 {
   "type": "header",
   "content": "Card Alignment"
 },
-
 {
   "type": "select",
   "id": "card_alignment",
@@ -1158,9 +1070,7 @@ assign button_style = block.settings.button_style
   ]
 }
 
-],
-
-
+]
 }
 
 {% endschema %}
