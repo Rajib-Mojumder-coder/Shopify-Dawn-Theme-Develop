@@ -1120,9 +1120,9 @@
               "type": "custom-image-text",
               "name": "Image Text Slider",
               "settings": {
-                "image": "shopify://shop_images/Peeters_Tweewielers_sRGB-39_5.png",
+                "image": "shopify://shop_images/Group_420.png",
                 "image_link": "",
-                "subtitle": "Moederfietsen",
+                "subtitle": "",
                 "subtitle_color": "#fff",
                 "subtitle_mobilesize": 24,
                 "subtitle_desktopsize": 26,
