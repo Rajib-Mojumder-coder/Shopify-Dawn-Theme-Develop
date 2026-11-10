@@ -568,7 +568,7 @@
       "type": "shopify_custom_section",
       "blocks": {
         "custom_slider_B8KYhd": {
-          "type": "custom-slider",
+          "type": "custom-slider-revised",
           "name": "Custom Slider",
           "settings": {
             "enable_slider": true,
@@ -1005,7 +1005,7 @@
           ]
         },
         "custom_slider_48JihT": {
-          "type": "custom-slider",
+          "type": "custom-slider-revised",
           "name": "Custom Slider",
           "settings": {
             "enable_slider": true,
