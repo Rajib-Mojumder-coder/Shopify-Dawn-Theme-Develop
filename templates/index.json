@@ -584,7 +584,7 @@
             "block_padding_bottom_mobile": 40,
             "block_padding_left_mobile": 0,
             "subheading": "",
-            "heading": "Bekijk ons veelzijdige assortiment fietsen",
+            "heading": "",
             "heading_width": 640,
             "heading_size": 70,
             "subheading_size": 13,
@@ -639,7 +639,7 @@
             "bg_color": "#ffffff",
             "hover_bg_color": "#000000",
             "border_radius": 50,
-            "nav_position": "bottom-center",
+            "nav_position": "top-center",
             "nav_gap": 30,
             "nav_outside_offset": 60
           },
