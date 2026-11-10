@@ -214,12 +214,15 @@
           </h2>
         {% endif %}
 
-        {% if nav_position == 'top-left'
+        {% if is_top_navigation %}
+          {{ slider_navigation_markup }}
+        {% endif %}
+        {% comment %} {% if nav_position == 'top-left'
           or nav_position == 'top-center'
           or nav_position == 'top-right'
         %}
           {{ slider_navigation_markup }}
-        {% endif %}
+        {% endif %} {% endcomment %}
 
       </div>
 
