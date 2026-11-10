@@ -898,7 +898,192 @@
 
 
 /* ========== Navigation POSITIONS =============== */
+/* ==========================================
+   TOP LEFT
+========================================== */
 
+.custom-slider-{{ block.id }}.nav-top-left
+.custom-slider__heading-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  justify-content: start;
+}
+
+.custom-slider-{{ block.id }}.nav-top-left
+.slider-navigation {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.custom-slider-{{ block.id }}.nav-top-left
+.custom-slider__heading {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: right;
+  justify-self: end;
+}
+
+
+/* ==========================================
+   TOP CENTER
+========================================== */
+
+.custom-slider-{{ block.id }}.nav-top-center
+.custom-slider__heading-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+.custom-slider-{{ block.id }}.nav-top-center
+.slider-navigation {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+}
+
+.custom-slider-{{ block.id }}.nav-top-center
+.custom-slider__heading {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  text-align: left;
+}
+
+
+/* ==========================================
+   TOP RIGHT
+========================================== */
+
+.custom-slider-{{ block.id }}.nav-top-right
+.custom-slider__heading-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.custom-slider-{{ block.id }}.nav-top-right
+.slider-navigation {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.custom-slider-{{ block.id }}.nav-top-right
+.custom-slider__heading {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  text-align: left;
+}
+
+
+/* ==========================================
+   TOP NAVIGATION WITHOUT HEADING
+========================================== */
+
+.custom-slider-{{ block.id }}.nav-top-left
+.heading-row-no-title {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.custom-slider-{{ block.id }}.nav-top-center
+.heading-row-no-title {
+  display: flex;
+  justify-content: center;
+}
+
+.custom-slider-{{ block.id }}.nav-top-right
+.heading-row-no-title {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+/* ==========================================
+   BOTTOM NAVIGATION
+========================================== */
+
+.custom-slider-{{ block.id }}.nav-bottom-left,
+.custom-slider-{{ block.id }}.nav-bottom-center,
+.custom-slider-{{ block.id }}.nav-bottom-right {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.custom-slider-{{ block.id }}.nav-bottom-left .slider-navigation,
+.custom-slider-{{ block.id }}.nav-bottom-center .slider-navigation,
+.custom-slider-{{ block.id }}.nav-bottom-right .slider-navigation {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.custom-slider-{{ block.id }}.nav-bottom-left .slider-navigation {
+  justify-content: flex-start;
+}
+
+.custom-slider-{{ block.id }}.nav-bottom-center .slider-navigation {
+  justify-content: center;
+}
+
+.custom-slider-{{ block.id }}.nav-bottom-right .slider-navigation {
+  justify-content: flex-end;
+}
+
+
+/* ==========================================
+   CENTER INSIDE
+========================================== */
+
+.custom-slider-{{ block.id }}.nav-center-inner .swiper {
+  position: relative;
+}
+
+.custom-slider-{{ block.id }}.nav-center-inner .slider-navigation {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  padding-inline: 20px;
+  transform: translateY(-50%);
+  justify-content: space-between;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.custom-slider-{{ block.id }}.nav-center-inner .swiper-button-prev,
+.custom-slider-{{ block.id }}.nav-center-inner .swiper-button-next {
+  pointer-events: auto;
+}
+
+
+/* ==========================================
+   CENTER OUTSIDE
+========================================== */
+
+.custom-slider-{{ block.id }}.nav-center-outer .swiper {
+  position: relative;
+}
+
+.custom-slider-{{ block.id }}.nav-center-outer .slider-navigation {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--nav-outside-offset) * -1);
+  right: calc(var(--nav-outside-offset) * -1);
+  width: auto;
+  transform: translateY(-50%);
+  justify-content: space-between;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.custom-slider-{{ block.id }}.nav-center-outer .swiper-button-prev,
+.custom-slider-{{ block.id }}.nav-center-outer .swiper-button-next {
+  pointer-events: auto;
+}
 /* ========== End Navigation POSITIONS =============== */
 
 
