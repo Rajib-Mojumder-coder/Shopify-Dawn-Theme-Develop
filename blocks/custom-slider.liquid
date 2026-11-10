@@ -196,9 +196,7 @@
   --block-padding-bottom-mobile: {% if mobile_layout_padding %}{{ block_padding_bottom_mobile }}px{% else %}0px{% endif %};
   --block-padding-left-mobile: {% if mobile_layout_padding %}{{ block_padding_left_mobile }}px{% else %}0px{% endif %};" {{ block.shopify_attributes }}>
 
-  {% if block.settings.subheading != blank
-    or block.settings.heading != blank
-  %}
+  {% if block.settings.subheading != blank or block.settings.heading != blank or is_top_navigation %}
     <div class="custom-slider__header custom-slider__header-{{ block.id }}">
 
       {% if block.settings.subheading != blank %}
