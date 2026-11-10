@@ -256,6 +256,10 @@
       {% endif %}
   </div>
 
+    {% if is_bottom_navigation %}
+      {{ slider_navigation_markup }}
+    {% endif %}
+
 </div>
 
 <script src="{{ 'custom-slider-product-swatches.js' | asset_url }}" defer></script>
