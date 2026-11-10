@@ -904,11 +904,11 @@
             "group_corner_radius": 0,
             "group_block_url": "",
             "block_link_newtab": false,
-            "group_block_padding": false,
-            "group_padding_top": 20,
-            "group_padding_bottom": 20,
-            "group_padding_left": 20,
-            "group_padding_right": 20
+            "group_block_padding": true,
+            "group_padding_top": 0,
+            "group_padding_bottom": 200,
+            "group_padding_left": 0,
+            "group_padding_right": 0
           },
           "blocks": {
             "custom_heading_ctr7Wh": {
