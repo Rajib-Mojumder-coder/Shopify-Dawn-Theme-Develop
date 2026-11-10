@@ -1294,112 +1294,125 @@
 </style>
 
 
-
-
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
 
-  /* Find the complete slider wrapper */
-  const sliderRoot = document.querySelector(
-    '.custom-slider-{{ block.id }}'
-  );
+  function initCustomSlider() {
 
-  if (!sliderRoot) return;
-
-  {% if enable_slider %}
-
-    /* Find the Swiper container */
-    const sliderElement = sliderRoot.querySelector(
-      '.slider-{{ block.id }}'
+    const sliderRoot = document.querySelector(
+      '.custom-slider-{{ block.id }}'
     );
 
-    if (!sliderElement) return;
+    if (!sliderRoot) return;
 
-    /* Find navigation from the parent wrapper */
-    const nextButton = sliderRoot.querySelector(
-      '.slider-next-{{ block.id }}'
-    );
+    {% if enable_slider %}
 
-    const prevButton = sliderRoot.querySelector(
-      '.slider-prev-{{ block.id }}'
-    );
+      const sliderElement = sliderRoot.querySelector(
+        '.slider-{{ block.id }}'
+      );
 
-    const pagination = sliderRoot.querySelector(
-      '.slider-pagination-{{ block.id }}'
-    );
+      if (!sliderElement) return;
 
-    /* Initialize Swiper once */
-    const swiper = new Swiper(sliderElement, {
+      // Prevent duplicate initialization
+      if (sliderElement.swiper) return;
 
-      loop: {{ loop | json }},
-      rewind: {{ rewind | json }},
-      freeMode: {{ free_mode | json }},
-      allowTouchMove: {{ touch_swipe | json }},
-      centeredSlides: {{ center_mode | json }},
-      grabCursor: {{ grab_cursor | json }},
+      // Navigation can be outside the Swiper element
+      const nextButton = sliderRoot.querySelector(
+        '.slider-next-{{ block.id }}'
+      );
 
-      keyboard: {
-        enabled: {{ keyboard | json }}
-      },
+      const prevButton = sliderRoot.querySelector(
+        '.slider-prev-{{ block.id }}'
+      );
 
-      mousewheel: {{ mousewheel | json }},
-      autoHeight: {{ auto_height | json }},
-      effect: {{ effect | json }},
+      const pagination = sliderRoot.querySelector(
+        '.slider-pagination-{{ block.id }}'
+      );
 
-      preloadImages: false,
-      lazy: true,
+      const swiper = new Swiper(sliderElement, {
 
-      autoplay:
-        {% if autoplay %}
-          {
-            delay: {{ autoplay_speed }},
-            pauseOnMouseEnter: {{ pause_on_hover | json }},
-            reverseDirection: {{ reverse_direction | json }},
-            disableOnInteraction: {{ disable_on_interaction | json }}
-          }
-        {% else %}
-          false
-        {% endif %},
+        loop: {{ loop | json }},
+        rewind: {{ rewind | json }},
+        freeMode: {{ free_mode | json }},
+        allowTouchMove: {{ touch_swipe | json }},
+        centeredSlides: {{ center_mode | json }},
+        grabCursor: {{ grab_cursor | json }},
 
-      speed: {{ autoplay_speed }},
-
-      slidesPerView: {{ mobile_view }},
-      spaceBetween: 20,
-
-      watchOverflow: true,
-      observer: true,
-      observeParents: true,
-      resizeObserver: true,
-
-      pagination: {
-        el: pagination,
-        clickable: true
-      },
-
-      navigation: {
-        nextEl: nextButton,
-        prevEl: prevButton
-      },
-
-      breakpoints: {
-        750: {
-          slidesPerView: {{ tablet_view }},
-          spaceBetween: 30
+        keyboard: {
+          enabled: {{ keyboard | json }}
         },
 
-        1024: {
-          slidesPerView: {{ desktop_view }},
-          spaceBetween: 40
+        mousewheel: {{ mousewheel | json }},
+        autoHeight: {{ auto_height | json }},
+        effect: {{ effect | json }},
+
+        preloadImages: false,
+        lazy: true,
+
+        autoplay:
+          {% if autoplay %}
+            {
+              delay: {{ autoplay_speed }},
+              pauseOnMouseEnter: {{ pause_on_hover | json }},
+              reverseDirection: {{ reverse_direction | json }},
+              disableOnInteraction: {{ disable_on_interaction | json }}
+            }
+          {% else %}
+            false
+          {% endif %},
+
+        speed: {{ autoplay_speed }},
+
+        slidesPerView: {{ mobile_view }},
+        spaceBetween: 20,
+
+        watchOverflow: true,
+        observer: true,
+        observeParents: true,
+        resizeObserver: true,
+
+        pagination: pagination ? {
+          el: pagination,
+          clickable: true
+        } : false,
+
+        navigation: (nextButton && prevButton) ? {
+          nextEl: nextButton,
+          prevEl: prevButton
+        } : false,
+
+        breakpoints: {
+          750: {
+            slidesPerView: {{ tablet_view }},
+            spaceBetween: 30
+          },
+
+          1024: {
+            slidesPerView: {{ desktop_view }},
+            spaceBetween: 40
+          }
         }
-      }
 
-    });
+      });
 
-  {% endif %}
+    {% endif %}
 
-});
+  }
+
+  // Initial page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCustomSlider);
+  } else {
+    initCustomSlider();
+  }
+
+  // Shopify theme editor support
+  document.addEventListener('shopify:section:load', function () {
+    initCustomSlider();
+  });
+
+})();
 </script>
-
 
  
 {% schema %}
