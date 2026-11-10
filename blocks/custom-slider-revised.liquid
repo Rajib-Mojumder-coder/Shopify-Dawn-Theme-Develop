@@ -245,12 +245,11 @@
 
     </div>
 
-      {% unless nav_position == 'top-left'
-        or nav_position == 'top-center'
-        or nav_position == 'top-right'
-      %}
-        {{ slider_navigation_markup }} 
-      {% endunless %}
+    {% unless is_top_navigation or is_bottom_navigation %}
+
+      {{ slider_navigation_markup }}
+
+    {% endunless %}
 
       {% if enable_slider and show_pagination %}
         <div class="swiper-pagination slider-pagination-{{ block.id }}"></div>
