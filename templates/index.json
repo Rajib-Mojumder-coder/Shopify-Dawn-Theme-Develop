@@ -882,7 +882,7 @@
             "mobile_direction": true,
             "justify": "flex-start",
             "align": "flex-start",
-            "desktop_gap": 50,
+            "desktop_gap": 0,
             "mobile_gap": 18,
             "custom_group_width": "fit-content",
             "group_custom_width": 50,
@@ -906,7 +906,7 @@
             "block_link_newtab": false,
             "group_block_padding": true,
             "group_padding_top": 0,
-            "group_padding_bottom": 200,
+            "group_padding_bottom": 92,
             "group_padding_left": 0,
             "group_padding_right": 0
           },
