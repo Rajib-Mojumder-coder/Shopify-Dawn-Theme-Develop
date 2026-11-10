@@ -68,7 +68,7 @@
          display: flex;
         flex-direction: column;
 
-        --font-weight: {{ block.settings.subheading_font_weight }};
+        --subheading_font_weight: {{ block.settings.subheading_font_weight }};
     }
     /* BORDER */
     .custom_heading--{{ block.id }}.block_border{
@@ -123,7 +123,7 @@
             calc({{ block.settings.subtitle_mobile_size }}px +
                 ({{ block.settings.subtitle_desktop_size }} - {{ block.settings.subtitle_mobile_size }}) * 
                 ((100vw - 320px) / 880)), {{ block.settings.subtitle_desktop_size }}px);
-        font-weight: 600;
+        font-weight: var(--subheading_font_weight);
         line-height: {{ block.settings.subtitle_line_height }};
         letter-spacing: {{ block.settings.subtitle_letter_spacing }}px;
         text-transform: {{ block.settings.subtitle_transform }};
