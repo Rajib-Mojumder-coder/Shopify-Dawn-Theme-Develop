@@ -1102,9 +1102,9 @@
               "type": "custom-image-text",
               "name": "Image Text Slider",
               "settings": {
-                "image": "shopify://shop_images/Peeters_Tweewielers_sRGB-39_3.png",
+                "image": "shopify://shop_images/Group_418.png",
                 "image_link": "",
-                "subtitle": "Stadsfietsen",
+                "subtitle": "",
                 "subtitle_color": "#fff",
                 "subtitle_mobilesize": 24,
                 "subtitle_desktopsize": 26,
