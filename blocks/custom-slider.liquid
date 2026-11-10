@@ -107,6 +107,15 @@
 {% endif %}
 
 
+{% assign is_top_navigation = false %}
+
+{% if nav_position == 'top-left'
+  or nav_position == 'top-center'
+  or nav_position == 'top-right'
+  %}
+  {% assign is_top_navigation = true %}
+{% endif %}
+
 {% capture slider_navigation_markup %}
   {% if enable_slider and show_navigation or enable_slider and show_navigation_mobile %}
     <div class="slider-navigation slider-navigation-{{ block.id }}
