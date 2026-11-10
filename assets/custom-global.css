@@ -179,14 +179,14 @@ h1,h2,h3,h5,h6, p{
 }
 .font-title-medium {
   font-family: var(--font-nohemi);
-  font-size: var(--font-title-medium);
+  font-size: clamp(44px, 5vw, 70px);
   font-weight: var(--font-weight-semi-bold);
   line-height: var(--line-height-title);
   letter-spacing: var(--letter-spacing-normal);
   margin: 0;
   /* color: rgb(var(--gradient-background)); */
 }
-@media (max-width: 767px) {
+@media (max-width: 750px) {
   .font-title-medium {
   font-weight: var(--font-weight-medium);
 }
@@ -239,6 +239,7 @@ body, .button {
 
   transition: all 0.3s ease;
   max-width: 350px;
+  width: 100%;
 }
 /* Text */
 .btn-text {
@@ -283,6 +284,7 @@ body, .button {
 @media (max-width: 450px){
   .custom-global-button {
   max-width: 75%;
+  width: 100%;
 }
 }
 /* Search Placeholder */

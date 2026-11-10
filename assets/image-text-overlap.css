@@ -98,7 +98,7 @@
 .image-text-overlap__heading {
   margin: 0;
 
-  font-size: clamp(32px, 4.5vw, 65px);
+  font-size: clamp(44px, 5vw, 70px);
   line-height: 1.08;
   font-weight: 600;
 
@@ -132,6 +132,7 @@
   justify-content: center;
 
   margin-top: 28px;
+
 }
 
 /* ==========================================
@@ -259,8 +260,8 @@
 
     display: block;
 
-    width: 92vw;
-    height: calc(92vw / var(--ito-image-ratio));
+    width: 88vw;
+    height: calc(88vw / var(--ito-image-ratio));
 
     max-width: none;
     max-height: none;
@@ -295,5 +296,9 @@
     width: 100%;
     max-width: 100%;
   }
-
+  .image-text-overlap .custom-global-button {
+    width: 100%;
+    max-width: 100%;
+  }
+  
 }

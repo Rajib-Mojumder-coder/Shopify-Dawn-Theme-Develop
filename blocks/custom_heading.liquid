@@ -87,10 +87,11 @@
     .custom_heading--{{ block.id }} .custom_heading_text{
         margin-block: {{heading_top_spacing}}px {{heading_bottom_spacing}}px;
         margin-inline: 0;
-        font-size: clamp(
+        /* font-size: clamp(
             {{ block.settings.mobile_min_fontsize }}px,
             calc( {{ block.settings.mobile_min_fontsize }}px + 
-            ( {{ block.settings.desktop_max_fontsize }} - {{ block.settings.mobile_min_fontsize }} ) * ((100vw - 320px) / 880)), {{ block.settings.desktop_max_fontsize }}px );
+            ( {{ block.settings.desktop_max_fontsize }} - {{ block.settings.mobile_min_fontsize }} ) * ((100vw - 320px) / 880)), {{ block.settings.desktop_max_fontsize }}px ); */
+        font-size: clamp(44px, 5vw, 70px);
         font-weight: {{ block.settings.font_weight }};
         line-height: {{ block.settings.line_height }};
         letter-spacing: {{ block.settings.letter_spacing }}px;

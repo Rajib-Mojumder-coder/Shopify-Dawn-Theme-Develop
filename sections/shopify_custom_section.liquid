@@ -1,8 +1,38 @@
 {{ 'shopify_custom_section.css' | asset_url | stylesheet_tag }}
 
 <style>
+    /*For Body Background Color*/
+    /* Desktop: Above 750px */
+  @media screen and (min-width: 751px) {
+    .shopify_custom_section {
+      {% if section.settings.enable_desktop_body_bg %}
+        background: {{ section.settings.desktop_body_background }};
+      {% endif %}
+    }
+  }
+
+  /* Mobile: 750px and below */
+  @media screen and (max-width: 750px) {
+    .shopify_custom_section {
+      {% if section.settings.enable_mobile_body_bg %}
+        background: {{ section.settings.Mobile_body_background }};
+      {% endif %}
+    }
+  }
+  /* End Body Background Color */
+
     .custom_section-{{section.id}}{
-    --section_padding: {{ section.settings.section_top_padding }}px 0 {{ section.settings.section_bottom_padding }}px 0;
+    --section_padding: {% if section.settings.section_desktop_spacing %} {{ section.settings.section_top_padding }}px 0 
+    {{ section.settings.section_bottom_padding }}px 0 {% else %} 0px {% endif %};
+
+      padding: var(--section_padding);
+      /* Desktop radius variables */
+    --section-radius-top-left: {% if section.settings.desktop_section_radius %}{{ section.settings.desktop_radius_top_left }}px{% else %}0px{% endif %};
+    --section-radius-top-right: {% if section.settings.desktop_section_radius %}{{ section.settings.desktop_radius_top_right }}px{% else %}0px{% endif %};
+    --section-radius-bottom-left: {% if section.settings.desktop_section_radius %}{{ section.settings.desktop_radius_bottom_left }}px{% else %}0px{% endif %};
+    --section-radius-bottom-right: {% if section.settings.desktop_section_radius %}{{ section.settings.desktop_radius_bottom_right }}px{% else %}0px{% endif %};
+
+
     --section_height:
     {% case section.settings.section_height_type %}
         {% when 'preset' %}
@@ -29,6 +59,11 @@
     min-height: var(--section_height); 
     height: var(--section_height);
     display: flex;
+    border-radius:
+      var(--section-radius-top-left)
+      var(--section-radius-top-right)
+      var(--section-radius-bottom-right)
+      var(--section-radius-bottom-left);
     /* background: rgb(var(--gradient-background)); */
 
    .custom_section-{{section.id}} .custom_section_bg-image,
@@ -86,15 +121,30 @@
     
 }
  /* ── Mobile ── */
-  @media (max-width: 768px) {
+  @media (max-width: 750px) {
     .custom_section-{{section.id}} .section_layout-container {
       {% if section.settings.layout_mobile_direction %}
         flex-direction: column;
       {% endif %}
       gap: {{ section.settings.layout_mobile_gap }}px;
     }
+
+      .custom_section-{{ section.id }} {
+      --section-radius-top-left: {% if section.settings.mobile_section_radius %}{{ section.settings.mobile_radius_top_left }}px{% else %}0px{% endif %};
+      --section-radius-top-right: {% if section.settings.mobile_section_radius %}{{ section.settings.mobile_radius_top_right }}px{% else %}0px{% endif %};
+      --section-radius-bottom-left: {% if section.settings.mobile_section_radius %}{{ section.settings.mobile_radius_bottom_left }}px{% else %}0px{% endif %};
+      --section-radius-bottom-right: {% if section.settings.mobile_section_radius %}{{ section.settings.mobile_radius_bottom_right }}px{% else %}0px{% endif %};
+    
+        /* Mobile Section Spacing */
+    --section_padding: {% if section.settings.section_mobile_spacing %} {{ section.settings.mobile_section_top_padding }}px 0 
+        {{ section.settings.mobile_section_bottom_padding }}px 0 {% else %} 0px {% endif %};
+
+      padding: var(--section_padding);
+    }
+
   } 
 </style>
+
 <div class="custom_section-{{section.id}} custom_section-main color-{{ section.settings.color_scheme }} gradient" style="padding : var(--section_padding); --layout-direction:{{section.settings.layout_direction}};  --content-justify: {{ section.settings.content_horizontal_align }}; --content-align: {{ section.settings.content_vertical_align }};" {{ section.shopify_attributes }}> 
 
                         <!-- BACKGROUND -->
@@ -125,7 +175,7 @@
     
 </div>
 
-{%  schema  %}  
+{% schema %}  
 {
     "name": "Shopify Custom Section",
     "tag": "section",
@@ -142,6 +192,32 @@
             "type": "color_scheme",
             "id": "color_scheme",
             "label": "Color Scheme"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_desktop_body_bg",
+            "label": "Desktop Body Background",
+            "default": true
+        },
+        {
+            "type": "color",
+            "id": "desktop_body_background",
+            "label": "Desktop Body Color",
+            "default": "#06123D",
+            "visible_if": "{{ section.settings.enable_desktop_body_bg == true}}"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_mobile_body_bg",
+            "label": "Mobile Body Background",
+            "default": false
+        },
+        {
+            "type": "color",
+            "id": "Mobile_body_background",
+            "label": "Mobile Body Color",
+            "default": "#06123D",
+            "visible_if": "{{ section.settings.enable_mobile_body_bg == true}}"
         },
         {
             "type": "select",
@@ -201,24 +277,60 @@
             "visible_if": "{{section.settings.section_height_type == 'custom' }}"
         },
         {
+            "type": "checkbox",
+            "id": "section_desktop_spacing",
+            "label": "Section Desktop Spacing",
+            "default": false
+        },
+        {
             "type": "range",
             "id": "section_top_padding",
-            "label": "Section Top Spacing",
+            "label": "Desktop Top Spacing",
             "min": 0,
-            "max": 100,
-            "step": 1,
+            "max": 200,
+            "step": 2,
             "unit": "px",
-            "default": 60
+            "default": 60,
+            "visible_if": "{{ section.settings.section_desktop_spacing == true }}"
         },
         {
             "type": "range",
             "id": "section_bottom_padding",
-            "label": "Section Bottom Spacing",
+            "label": "Desktop Bottom Spacing",
             "min": 0,
-            "max": 100,
-            "step": 1,
+            "max": 200,
+            "step": 2,
             "unit": "px",
-            "default": 60
+            "default": 60,
+            "visible_if": "{{ section.settings.section_desktop_spacing == true }}"
+        },
+        {
+            "type": "checkbox",
+            "id": "section_mobile_spacing",
+            "label": "Section Mobile Spacing",
+        "default": false
+        },
+        {
+            "type": "range",
+            "id": "mobile_section_top_padding",
+            "label": "Mobile Top Spacing",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "unit": "px",
+            "default": 30,
+            "visible_if": "{{ section.settings.section_mobile_spacing == true }}"
+        },
+        {
+            "type": "range",
+            "id": "mobile_section_bottom_padding",
+            "label": "Mobile Bottom Spacing",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "unit": "px",
+            "default": 30,
+            "visible_if": "{{ section.settings.section_mobile_spacing == true }}"
         },
         {
             "type": "select",
@@ -345,6 +457,106 @@
             "default": 0,
             "visible_if": "{{ section.settings.custom_section-overlay }}"
         },
+        {
+            "type": "checkbox",
+            "id": "desktop_section_radius",
+            "label": "Desktop Section Radius",
+            "default": false
+            },
+            {
+            "type": "range",
+            "id": "desktop_radius_top_left",
+            "label": "Desktop Top Left Radius",
+            "min": 0,
+            "max": 250,
+            "step": 5,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.desktop_section_radius == true }}"
+            },
+            {
+            "type": "range",
+            "id": "desktop_radius_top_right",
+            "label": "Desktop Top Right Radius",
+            "min": 0,
+            "max": 250,
+            "step": 5,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.desktop_section_radius == true }}"
+            },
+            {
+            "type": "range",
+            "id": "desktop_radius_bottom_left",
+            "label": "Desktop Bottom Left Radius",
+            "min": 0,
+            "max": 250,
+            "step": 5,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.desktop_section_radius == true }}"
+            },
+            {
+            "type": "range",
+            "id": "desktop_radius_bottom_right",
+            "label": "Desktop Bottom Right Radius",
+            "min": 0,
+            "max": 250,
+            "step": 5,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.desktop_section_radius == true }}"
+            },
+            {
+            "type": "checkbox",
+            "id": "mobile_section_radius",
+            "label": "Mobile Section Radius",
+            "default": false
+            },
+            {
+            "type": "range",
+            "id": "mobile_radius_top_left",
+            "label": "Mobile Top Left Radius",
+            "min": 0,
+            "max": 250,
+            "step": 5,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.mobile_section_radius == true }}"
+            },
+            {
+            "type": "range",
+            "id": "mobile_radius_top_right",
+            "label": "Mobile Top Right Radius",
+            "min": 0,
+            "max": 250,
+            "step": 5,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.mobile_section_radius == true }}"
+            },
+            {
+            "type": "range",
+            "id": "mobile_radius_bottom_left",
+            "label": "Mobile Bottom Left Radius",
+            "min": 0,
+            "max": 250,
+            "step": 5,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.mobile_section_radius == true }}"
+            },
+            {
+            "type": "range",
+            "id": "mobile_radius_bottom_right",
+            "label": "Mobile Bottom Right Radius",
+            "min": 0,
+            "max": 250,
+            "step": 5,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ section.settings.mobile_section_radius == true }}"
+            },
         {
             "type": "header",
             "content": "Layout"

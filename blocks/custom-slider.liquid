@@ -1,4 +1,17 @@
  {% liquid
+  assign block_padding_top = block.settings.block_padding_top
+  assign block_padding_right = block.settings.block_padding_right
+  assign block_padding_bottom = block.settings.block_padding_bottom
+  assign block_padding_left = block.settings.block_padding_left
+
+  assign block_padding_top_mobile = block.settings.block_padding_top_mobile
+  assign block_padding_right_mobile = block.settings.block_padding_right_mobile
+  assign block_padding_bottom_mobile = block.settings.block_padding_bottom_mobile
+  assign block_padding_left_mobile = block.settings.block_padding_left_mobile
+
+  assign desktop_layout_padding = block.settings.desktop_layout_padding
+  assign mobile_layout_padding = block.settings.mobile_layout_padding 
+
    assign content_position = block.settings.content_position
    assign content_horizontal = block.settings.content_horizontal
    assign content_vertical = block.settings.content_vertical
@@ -163,7 +176,16 @@
    --nav-gap: {{ nav_gap }}px; --nav-outside-offset: {{ nav_outside_offset }}px; --nav-size: {{ block.settings.icon_size }}px;
    --overlay_color: {{overlay_color}}; --slider-aspect-ratio: {{ aspect_ratio_value }}; --slider-image-fit: {{ image_fit }};
   --slider-card-radius: {{ image_radius }}px; --heading-size: {{ block.settings.heading_size }}px;
-    --subheading-size: {{ block.settings.subheading_size }}px;" {{ block.shopify_attributes }}>
+    --subheading-size: {{ block.settings.subheading_size }}px; 
+    --block-padding-top: {% if desktop_layout_padding %}{{ block_padding_top }}px{% else %}0px{% endif %};
+  --block-padding-right: {% if desktop_layout_padding %}{{ block_padding_right }}px{% else %}0px{% endif %};
+  --block-padding-bottom: {% if desktop_layout_padding %}{{ block_padding_bottom }}px{% else %}0px{% endif %};
+  --block-padding-left: {% if desktop_layout_padding %}{{ block_padding_left }}px{% else %}0px{% endif %};
+
+  --block-padding-top-mobile: {% if mobile_layout_padding %}{{ block_padding_top_mobile }}px{% else %}0px{% endif %};
+  --block-padding-right-mobile: {% if mobile_layout_padding %}{{ block_padding_right_mobile }}px{% else %}0px{% endif %};
+  --block-padding-bottom-mobile: {% if mobile_layout_padding %}{{ block_padding_bottom_mobile }}px{% else %}0px{% endif %};
+  --block-padding-left-mobile: {% if mobile_layout_padding %}{{ block_padding_left_mobile }}px{% else %}0px{% endif %};" {{ block.shopify_attributes }}>
 
   {% if block.settings.subheading != blank
     or block.settings.heading != blank
@@ -232,6 +254,13 @@
 
 .custom-slider-{{ block.id }} {
   position: relative;
+  padding:
+      var(--block-padding-top, 0px)
+      var(--block-padding-right, 0px)
+      var(--block-padding-bottom, 0px)
+      var(--block-padding-left, 0px);
+
+    box-sizing: border-box;
 }
 
 
@@ -276,12 +305,14 @@
 .custom-slider-{{ block.id }} .custom-slider__heading {
   margin: 0;
   min-width: 0;
-  font-size: var(--heading-size, 70px);
-  line-height: 1.2;
+  font-size: clamp(44px, 5vw, 70px);
+ /* font-size: clamp(44px, var(--heading-size, 70px), 70px); */
+  line-height: 1;
   overflow-wrap: anywhere;
   max-width: {{ block.settings.heading_width }}px;
-   width: 100%;
-   font-weight: 600;
+  width: 100%;
+  font-weight: 600;
+  margin-bottom: 14px;
 }
 
 
@@ -1027,7 +1058,6 @@
     margin-bottom: 16px;
   }
 
-/*Slider Responsivenes*/
    #shopify-block-{{ block.id }} {
     width: 100%;
     max-width: 100vw;
@@ -1038,7 +1068,14 @@
     width: 100%;
     max-width: 100%;
     min-width: 0;
-  }
+
+     padding:
+        var(--block-padding-top-mobile, 0px)
+        var(--block-padding-right-mobile, 0px)
+        var(--block-padding-bottom-mobile, 0px)
+        var(--block-padding-left-mobile, 0px);
+    }
+  
 
   .custom-slider-{{ block.id }} .swiper {
     width: 100%;
@@ -1081,6 +1118,15 @@
   }
     .custom-slider-{{ block.id }} .custom-slider-product-card__price {
     gap: 5px;
+  }
+
+  .custom-slider.nav-bottom-right .slider-navigation {
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-right: 50px;
+    padding-left: 15px;
   }
 
 }
@@ -1349,6 +1395,110 @@ document.addEventListener('DOMContentLoaded', function () {
       "id": "color_scheme",
       "label": "Color Scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Block Layout Padding"
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_layout_padding",
+      "label": "Desktop Layout Padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "block_padding_top",
+      "label": "Desktop Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.desktop_layout_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "block_padding_right",
+      "label": "Desktop Padding Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.desktop_layout_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "block_padding_bottom",
+      "label": "Desktop Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.desktop_layout_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "block_padding_left",
+      "label": "Desktop Padding Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.desktop_layout_padding == true }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_layout_padding",
+      "label": "Mobile Layout Padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "block_padding_top_mobile",
+      "label": "Mobile Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.mobile_layout_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "block_padding_right_mobile",
+      "label": "Mobile Padding Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.mobile_layout_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "block_padding_bottom_mobile",
+      "label": "Mobile Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.mobile_layout_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "block_padding_left_mobile",
+      "label": "Mobile Padding Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.mobile_layout_padding == true }}"
     },
     {
       "type": "header",
