@@ -352,6 +352,7 @@
                 "subtitle_typography": false,
                 "subtitle_mobile_size": 24,
                 "subtitle_desktop_size": 25,
+                "subheading_font_weight": "600",
                 "subtitle_line_height": 1,
                 "subtitle_letter_spacing": 0,
                 "subtitle_transform": "none",
@@ -958,10 +959,11 @@
                 "subtitle_typography": true,
                 "subtitle_mobile_size": 16,
                 "subtitle_desktop_size": 18,
+                "subheading_font_weight": "400",
                 "subtitle_line_height": 1.5,
                 "subtitle_letter_spacing": 0,
                 "subtitle_transform": "none",
-                "subtitle_color": "#FFFFFF"
+                "subtitle_color": "#ffffff"
               },
               "blocks": {}
             },
