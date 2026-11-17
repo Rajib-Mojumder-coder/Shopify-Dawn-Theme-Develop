@@ -231,11 +231,26 @@
             {% endif %}
         </div> 
 
-        <div>
+        <div class="custom-slider__navigation-wrapper">
+
+          {% if block.settings.navigation_logo != blank %}
+            <div class="custom-slider__navigation-logo">
+              {{
+                block.settings.navigation_logo
+                | image_url: width: 400
+                | image_tag:
+                  loading: 'lazy',
+                  alt: block.settings.navigation_logo.alt,
+                  class: 'custom-slider__navigation-logo-image'
+              }}
+            </div>
+          {% endif %}
+
           {% if is_top_navigation %}
             {{ slider_navigation_markup }}
           {% endif %}
-        </div>
+
+    </div>
         {% comment %} {% if nav_position == 'top-left'
           or nav_position == 'top-center'
           or nav_position == 'top-right'
