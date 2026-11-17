@@ -217,17 +217,19 @@
       
       <div class="custom-slider__heading-row heading-align-{{ block.settings.heading_alignment }}">
 
-        {% if block.settings.heading != blank %}
-          <h2 class="custom-slider__heading">
-            {{ block.settings.heading | escape }}
-          </h2>
-        {% endif %}
+        <div class="custom-slider__heading-content">
+            {% if block.settings.heading != blank %}
+              <h2 class="custom-slider__heading">
+                {{ block.settings.heading | escape }}
+              </h2>
+            {% endif %}
 
-        {% if block.settings.description != blank %}
-        <div class="custom-slider__description">
-          {{ block.settings.description }}
-        </div>
-      {% endif %} 
+            {% if block.settings.description != blank %}
+              <div class="custom-slider__description">
+                {{ block.settings.description }}
+              </div>
+            {% endif %}
+        </div> 
 
         {% if is_top_navigation %}
           {{ slider_navigation_markup }}
@@ -310,7 +312,12 @@
   min-width: 0;
   gap: 16px;
 }
-
+.custom-slider__heading-content{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  
+}
 /* Default: Left aligned */
 .custom-slider .custom-slider__heading-row.heading-align-left
 .custom-slider__heading {
