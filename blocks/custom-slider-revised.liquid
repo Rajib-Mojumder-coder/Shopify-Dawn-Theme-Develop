@@ -223,6 +223,12 @@
           </h2>
         {% endif %}
 
+        {% if block.settings.description != blank %}
+        <div class="custom-slider__description">
+          {{ block.settings.description }}
+        </div>
+      {% endif %} 
+
         {% if is_top_navigation %}
           {{ slider_navigation_markup }}
         {% endif %}
