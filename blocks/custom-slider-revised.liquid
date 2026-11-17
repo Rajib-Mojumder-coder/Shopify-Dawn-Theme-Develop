@@ -231,9 +231,11 @@
             {% endif %}
         </div> 
 
-        {% if is_top_navigation %}
-          {{ slider_navigation_markup }}
-        {% endif %}
+        <div>
+          {% if is_top_navigation %}
+            {{ slider_navigation_markup }}
+          {% endif %}
+        </div>
         {% comment %} {% if nav_position == 'top-left'
           or nav_position == 'top-center'
           or nav_position == 'top-right'
