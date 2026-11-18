@@ -233,18 +233,20 @@
 
         <div class="custom-slider__navigation-wrapper">
 
-          {% if block.settings.navigation_logo != blank %}
-            <div class="custom-slider__navigation-logo">
-              {{
-                block.settings.navigation_logo
-                | image_url: width: 400
-                | image_tag:
-                  loading: 'lazy',
-                  alt: block.settings.navigation_logo.alt,
-                  class: 'custom-slider__navigation-logo-image'
-              }}
-            </div>
-          {% endif %}
+         {% if block.settings.navigation_logo != blank %}
+          <div class="custom-slider__navigation-logo">
+            {{
+              block.settings.navigation_logo
+              | image_url: width: 800
+              | image_tag:
+                loading: 'lazy',
+                alt: block.settings.navigation_logo.alt,
+                class: 'custom-slider__navigation-logo-image',
+                widths: '100, 200, 300, 375, 400, 600, 800',
+                sizes: '(max-width: 750px) 375px, 400px'
+            }}
+          </div>
+        {% endif %}
 
           {% if is_top_navigation %}
             {{ slider_navigation_markup }}
