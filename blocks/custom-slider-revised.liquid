@@ -1709,7 +1709,6 @@
       ],
       "default": "left"
     },
-
     {
       "type": "checkbox",
       "id": "content_position",
@@ -1895,7 +1894,7 @@
       "unit": "px",
       "default": 12
     },
-        {
+    {
       "type": "checkbox",
       "id": "image_overlay",
       "label": "Image Overlay",
@@ -1911,7 +1910,7 @@
       ],
       "default": "solid",
       "visible_if": "{{ block.settings.image_overlay }}"
-  },
+    },
       {
       "type": "color",
       "id": "overlay_color",
@@ -1925,7 +1924,7 @@
       "label": "Gradient Overlay",
       "default": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
       "visible_if": "{{ block.settings.image_overlay and block.settings.overlay_style == 'gradient' }}"
-  },
+    },
     {
       "type": "range",
       "id": "image_overlay_opacity",
@@ -1937,7 +1936,6 @@
       "default": 0,
       "visible_if": "{{block.settings.image_overlay == true}}"
     },
-   
     {
     "type": "header",
     "content": "Responsive"
@@ -2111,7 +2109,6 @@
       "default": true,
       "visible_if": "{{ block.settings.enable_slider and block.settings.slider_settings }}"
     },
-    
      {
       "type": "checkbox",
       "id": "rewind",
@@ -2290,7 +2287,6 @@
       "default": 50,
       "visible_if": "{{ block.settings.show_navigation }}"
     },
-    
     {
       "type": "header",
       "content": "Navigation Position",
@@ -2368,4 +2364,5 @@
   ],
   "presets": [{"name": "Custom Slider"}]
 }
+
 {% endschema %}
