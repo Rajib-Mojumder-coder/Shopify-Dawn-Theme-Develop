@@ -1796,12 +1796,12 @@
       "type": "range",
       "id": "navigation_logo_width",
       "label": "Nav Logo Width",
-      "min": 200,
+      "min": 300,
       "max": 400,
       "step": 10,
       "unit": "px",
-      "default": 300,
-      "visible_if": "{{ block.settings.navigation_logo == true }}"
+      "default": 350,
+      "visible_if": "{{ block.settings.navigation_logo_on == true }}"
     },
     {
       "type": "range",
@@ -1812,7 +1812,7 @@
       "step": 2,
       "unit": "px",
       "default": 12,
-      "visible_if": "{{ block.settings.navigation_logo == true }}"
+      "visible_if": "{{ block.settings.navigation_logo_on == true }}"
     },
     {
       "type": "header",
