@@ -233,6 +233,7 @@
 
         <div class="custom-slider__navigation-wrapper">
 
+        {% if block.settings.navigation_logo_on == true %}
          {% if block.settings.navigation_logo != blank %}
           <div class="custom-slider__navigation-logo">
             {{
@@ -246,6 +247,7 @@
                 sizes: '(max-width: 750px) 375px, 400px'
             }}
           </div>
+        {% endif %}
         {% endif %}
 
           {% if is_top_navigation %}
@@ -1777,6 +1779,12 @@
     {
       "type": "header",
       "content": "Navigation Logo Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "navigation_logo_on",
+      "label": "Navigation Logo",
+      "default": false
     },
     {
       "type": "image_picker",
