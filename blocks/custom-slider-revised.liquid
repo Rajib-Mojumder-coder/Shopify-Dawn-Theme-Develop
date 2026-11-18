@@ -392,15 +392,15 @@
 }
 
 /* Navigation Logo */
-.custom-slider__navigation-logo {
+.custom-slider-{{ block.id }} .custom-slider__navigation-logo {
     width: 100%;
     max-width: 100%;
     margin-bottom: {{ block.settings.navigation_logo_spacing }}px;
 }
 
-.custom-slider__navigation-logo-image {
+.custom-slider-{{ block.id }} .custom-slider__navigation-logo-image {
     display: block;
-    width: {{ block.settings.navigation_logo_width }}px;
+    width: 400px;
     height: auto;
     object-fit: contain;
 }
