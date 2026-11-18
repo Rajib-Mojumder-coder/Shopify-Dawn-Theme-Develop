@@ -71,14 +71,17 @@
   }
 
 @media(min-width: 1201px) and (max-width: 1400px){
+
  .custom-features-slider-{{ section.id }} .slide-media-main {
   min-height: 540px;
   }
+
 .custom-features-slider-{{ section.id }} .title{
   font-size: var(--font-title-semimedium);
 }
 
 }
+
 @media(min-width: 1024px) and (max-width: 1200px){
   
   .custom-features-slider-{{ section.id }} .slide-media-main {
@@ -98,13 +101,16 @@
 .featuresSlider .desc {
     max-width: 450px;
 }
+
 }
 
 @media(min-width: 750px) and (max-width: 1024px) {
+
  .custom-features-slider-{{ section.id }} .slide-media-main {
   min-height: 450px;
   border-radius: 120px;
   }
+  
   .featuresSlider .title{
   font-size: var(--font-title-small);
   max-width: 440px;
