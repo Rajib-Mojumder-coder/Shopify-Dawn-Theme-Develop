@@ -240,8 +240,7 @@ max-width: 50px;
         filter: brightness(0) invert(1);
     }
 .search-submit-button {
-    background: var( --color-secondary);
-    border: none;
+    display: none;
 }
 .heroSlider {
     aspect-ratio: 103 / 121;
