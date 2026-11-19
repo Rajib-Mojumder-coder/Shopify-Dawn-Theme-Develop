@@ -292,6 +292,13 @@ max-width: 50px;
     text-align: left;
 
 }
+
+.mobile-search-form {
+    background: #EFEEEE;
+    border-radius: 200px;
+    padding: 10px 14px;
+}
+
 .mobile-padding {
     padding: 3rem !important;
 } 
