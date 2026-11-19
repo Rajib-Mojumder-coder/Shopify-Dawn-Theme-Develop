@@ -292,7 +292,8 @@ max-width: 50px;
 
 .mobile-hero-search button{
   border: none;
-  
+  background: #52B099;
+  border-radius: 100px;
 }
 .mobile-search-heading{
     /* color: #06123D; */
