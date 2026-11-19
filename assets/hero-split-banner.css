@@ -280,6 +280,15 @@ max-width: 50px;
     background:#fff;
     border-radius: 25px;
 }
+.mobile-hero-search input[type="search" i] {
+    appearance: none;
+    box-sizing: border-box;
+    padding-block: 1px;
+    padding-inline: 2px;
+    border: 0;
+    outline: none;
+}
+
 .mobile-search-heading{
     /* color: #06123D; */
     width: 100%;
@@ -298,7 +307,6 @@ max-width: 50px;
     border-radius: 200px;
     padding: 10px 14px;
 }
-
 .mobile-padding {
     padding: 3rem !important;
 } 
