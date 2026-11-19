@@ -288,6 +288,9 @@ max-width: 50px;
     border: 0;
     outline: none;
     background: transparent;
+            width: 100%;
+        max-width: 80%;
+        height: 100%;
 }
 
 .mobile-hero-search button{
