@@ -198,9 +198,9 @@ max-width: 50px;
     overflow: hidden;
 }
 
-  /* .hero_search_bar .heroSearchIcon {
+  .hero_search_bar .heroSearchIcon {
     display: none;
-  } */
+  }
 
   .hero_search_bar form {
     display: flex;
