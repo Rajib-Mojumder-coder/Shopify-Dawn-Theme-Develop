@@ -275,6 +275,10 @@ max-width: 50px;
 
 
 @media (max-width: 750px) {
+
+.mobile-hero-search{
+    
+}
 .mobile-padding {
     padding: 4rem 3rem !important;
 } 
