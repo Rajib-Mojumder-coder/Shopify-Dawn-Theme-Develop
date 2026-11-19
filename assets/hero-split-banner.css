@@ -286,7 +286,7 @@ max-width: 50px;
     margin-bottom: 15px;
 
     font-family: 'Nohemi';
-    font-size: 18px;
+    font-size: clamp(16px, 5vw, 25px);
     font-weight: 600;
     color: var(--color-primary);
     text-align: left;
