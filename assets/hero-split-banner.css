@@ -290,6 +290,10 @@ max-width: 50px;
     background: transparent;
 }
 
+.mobile-hero-search button{
+  border: none;
+  
+}
 .mobile-search-heading{
     /* color: #06123D; */
     width: 100%;
