@@ -319,8 +319,9 @@ max-width: 50px;
     padding: 10px 14px;
 }
 .mobile-padding {
-    padding: 3rem !important;
-} 
+    padding: clamp(1rem, 5vw, 3rem) !important;
+}
+
   .hero-content {
     position: relative;
 }
