@@ -294,6 +294,7 @@ max-width: 50px;
   border: none;
   background: #52B099;
   border-radius: 100px;
+  aspect-ratio: .65 / .5;
 }
 .mobile-search-heading{
     /* color: #06123D; */
