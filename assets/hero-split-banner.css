@@ -278,7 +278,7 @@ max-width: 50px;
 
 .mobile-hero-search{
     background:#fff;
-    background-radius: 25px;
+    border-radius: 25px;
 }
 .mobile-padding {
     padding: 4rem 3rem !important;
