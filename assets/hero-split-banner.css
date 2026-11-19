@@ -229,6 +229,10 @@ max-width: 50px;
         border: none;
         outline: none;
     }
+
+    .hero_search_bar input::placeholder {
+        font-size: 16px;
+    }
     
 .search-submit-button {
     background: var( --color-secondary);
