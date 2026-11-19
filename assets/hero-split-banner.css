@@ -194,6 +194,8 @@ max-width: 50px;
 }
 .hero_search_bar {
     border-radius: 25px;
+    padding: 0;
+    overflow: hidden;
 }
   .hero_search_bar .heroSearchIcon {
     display: none;
