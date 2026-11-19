@@ -1,25 +1,4 @@
-{% comment %} <div class="hero_search_bar">
-    <form action="{{ routes.search_url }}" method="get"> 
-        <div class="form_left_content"> 
-            <img class="heroSearchIcon" src="{{ 'search-sm.svg' | asset_url }}" width= "50" height= "50" alt="{{ search }}">
-            <input
-            type="search",
-            placeholder=  "{{ search_placeholder}}",
-            value="{{ search.terms | escape }}",
-            name="q" 
-            >
-        </div>
-        
 
-        <button class="search-submit-button custom-global-button" type="submit">
-            <span class="btn-text">{{ search_button_text }}</span>
-            <span class="btn-icon"> <img src="{{ 'Vector 1.svg' | asset_url }}" alt=""> </span>
-        </button>
-    </form>
- </div>
- {% endcomment %}
-
- 
 <div class="hero_search_bar">
   <form action="{{ routes.search_url }}" method="get">
 
@@ -50,3 +29,28 @@
 
   </form>
 </div>
+
+
+
+{% comment %} <div class="hero_search_bar">
+    <form action="{{ routes.search_url }}" method="get"> 
+        <div class="form_left_content"> 
+            <img class="heroSearchIcon" src="{{ 'search-sm.svg' | asset_url }}" width= "50" height= "50" alt="{{ search }}">
+            <input
+            type="search",
+            placeholder=  "{{ search_placeholder}}",
+            value="{{ search.terms | escape }}",
+            name="q" 
+            >
+        </div>
+        
+
+        <button class="search-submit-button custom-global-button" type="submit">
+            <span class="btn-text">{{ search_button_text }}</span>
+            <span class="btn-icon"> <img src="{{ 'Vector 1.svg' | asset_url }}" alt=""> </span>
+        </button>
+    </form>
+ </div>
+ {% endcomment %}
+
+ 
