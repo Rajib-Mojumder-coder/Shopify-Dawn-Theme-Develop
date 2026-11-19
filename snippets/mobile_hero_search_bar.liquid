@@ -1,0 +1,32 @@
+
+<div class="only-mobile search-bar mobile-hero-search">
+
+  <!-- Placeholder heading above search bar -->
+  <div class="mobile-search-heading">
+    Waar ben je naar op zoek?
+  </div>
+
+  <!-- Mobile search form -->
+  <div class="mobile-search-form">
+    <form action="{{ routes.search_url }}" method="get">
+
+      <input
+        type="search"
+        placeholder=""
+        value="{{ search.terms | escape }}"
+        name="q"
+      >
+
+      <button type="submit" class="mobile-search-button">
+        <img
+          src="{{ 'search-sm.svg' | asset_url }}"
+          alt="Search"
+          width="30"
+          height="30"
+        >
+      </button>
+
+    </form>
+  </div>
+
+</div>
