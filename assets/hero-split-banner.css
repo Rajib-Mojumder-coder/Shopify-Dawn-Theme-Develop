@@ -211,6 +211,14 @@ max-width: 50px;
     width: 100%;
 }
 
+ .form_left_content {
+        flex: 1;
+        min-width: 0;
+        width: auto;
+        padding-left: 15px;
+        gap: 0;
+}
+
 .hero_search_bar input {
     text-align: center;
 }
