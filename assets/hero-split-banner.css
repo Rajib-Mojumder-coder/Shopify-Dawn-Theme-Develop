@@ -220,8 +220,16 @@ max-width: 50px;
 }
 
 .hero_search_bar input {
-    text-align: center;
-}
+        width: 100%;
+        min-width: 0;
+        height: 50px;
+        text-align: left;
+        font-size: 16px;
+        padding: 0;
+        border: none;
+        outline: none;
+    }
+    
 .search-submit-button {
     background: var( --color-secondary);
     border: none;
