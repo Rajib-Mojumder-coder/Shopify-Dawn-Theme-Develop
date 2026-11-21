@@ -2482,6 +2482,47 @@
       "visible_if": "{{ block.settings.enable_slider }}"
     },
     {
+      "type": "select",
+      "id": "nav_position_mobile",
+      "label": "Mobile Navigation Position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top Right"
+        },
+        {
+          "value": "center-inner",
+          "label": "Center Inside"
+        },
+        {
+          "value": "center-outer",
+          "label": "Center Outside"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "center-inner",
+      "visible_if": "{{ block.settings.enable_slider and block.settings.show_navigation_mobile }}"
+    },
+    {
       "type": "range",
       "id": "icon_size",
       "label": "Icon Size",
