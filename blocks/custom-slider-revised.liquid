@@ -275,8 +275,12 @@
             {% endif %}
           {% endif %}
 
-          {% if is_top_navigation %}
+          {% if enable_slider and show_navigation and is_top_navigation %}
             {{ slider_navigation_markup }}
+          {% endif %}
+
+          {% if enable_slider and show_navigation_mobile and is_mobile_top_navigation %}
+            {{ mobile_navigation_markup }}
           {% endif %}
 
     </div>
