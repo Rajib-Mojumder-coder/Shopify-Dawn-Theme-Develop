@@ -1080,7 +1080,7 @@
             "prev_svg": "",
             "next_svg": "",
             "show_navigation_mobile": true,
-            "nav_position_mobile": "center-inner",
+            "nav_position_mobile": "bottom-center",
             "icon_size": 44,
             "icon_color": "#000000",
             "hover_icon_color": "#ffffff",
