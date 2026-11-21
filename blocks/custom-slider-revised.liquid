@@ -186,7 +186,33 @@
   {% endif %}
 {% endcapture %}
 
+{% assign is_top_navigation = false %}
 
+{% if nav_position == 'top-left'
+  or nav_position == 'top-center'
+  or nav_position == 'top-right'
+  %}
+  {% assign is_top_navigation = true %}
+{% endif %}
+
+{% assign nav_position_mobile = block.settings.nav_position_mobile %}
+
+{% assign is_mobile_top_navigation = false %}
+
+{% if nav_position_mobile == 'top-left'
+  or nav_position_mobile == 'top-center'
+  or nav_position_mobile == 'top-right'
+%}
+ {% assign is_mobile_top_navigation = true %}
+{% endif %}
+
+assign is_mobile_bottom_navigation = false
+
+if nav_position_mobile == 'bottom-left'
+  or nav_position_mobile == 'bottom-center'
+  or nav_position_mobile == 'bottom-right'
+  assign is_mobile_bottom_navigation = true
+endif
 
 
 <div class="custom-slider custom-slider-{{ block.id }} {% if content_position %} content_vertical_{{ content_vertical }} {% endif %} color-{{ block.settings.color_scheme }} gradient content_horizontal_{{ content_horizontal }} nav-{{ nav_position }} {% unless enable_slider %} slider-disabled {% endunless %}"
