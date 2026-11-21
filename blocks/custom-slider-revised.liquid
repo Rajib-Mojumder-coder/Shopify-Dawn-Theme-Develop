@@ -1725,9 +1725,9 @@
           clickable: true
         } : false,
 
-        navigation: (nextButton && prevButton) ? {
-          nextEl: nextButton,
-          prevEl: prevButton
+        navigation: (nextButtons.length && prevButtons.length) ? {
+          nextEl: [...nextButtons],
+          prevEl: [...prevButtons]
         } : false,
 
         breakpoints: {
