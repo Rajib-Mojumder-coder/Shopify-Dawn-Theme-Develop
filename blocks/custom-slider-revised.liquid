@@ -303,13 +303,18 @@
 
     </div>
 
-    {% unless is_top_navigation or is_bottom_navigation %}
-      {{ slider_navigation_markup }}
-    {% endunless %}
+      {% if enable_slider and show_navigation and is_bottom_navigation %}
+        {{ slider_navigation_markup }}
+      {% endif %}
+
+      {% if enable_slider and show_navigation_mobile and is_mobile_bottom_navigation %}
+        {{ mobile_navigation_markup }}
+      {% endif %}
 
       {% if enable_slider and show_pagination %}
         <div class="swiper-pagination slider-pagination-{{ block.id }}"></div>
       {% endif %}
+      
   </div>
 
     {% if is_bottom_navigation %}
