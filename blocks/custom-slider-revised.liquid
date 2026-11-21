@@ -184,6 +184,11 @@
   {% endif %}
 {% endcapture %}
 
+{% capture mobile_navigation_markup %}
+  {{ slider_navigation_markup
+    | replace: 'slider-navigation-desktop', 'slider-navigation-mobile'
+  }}
+{% endcapture %}
 
 {% assign nav_position_mobile = block.settings.nav_position_mobile %}
 
