@@ -314,7 +314,7 @@
       {% if enable_slider and show_pagination %}
         <div class="swiper-pagination slider-pagination-{{ block.id }}"></div>
       {% endif %}
-      
+
   </div>
 
     {% if is_bottom_navigation %}
@@ -865,6 +865,18 @@
 }
 
 /* =============   NAVIGATION BASE ================ */
+/* ==========================================
+   DESKTOP / MOBILE NAVIGATION VISIBILITY
+========================================== */
+
+.custom-slider .slider-navigation-desktop {
+  display: flex;
+}
+
+.custom-slider .slider-navigation-mobile {
+  display: none;
+}
+
 
 /* ======   Navigation Position Base ========= */
 
