@@ -1666,11 +1666,11 @@
       if (sliderElement.swiper) return;
 
       // Navigation can be outside the Swiper element
-      const nextButton = sliderRoot.querySelector(
+      const nextButtons = sliderRoot.querySelectorAll(
         '.slider-next-{{ block.id }}'
       );
 
-      const prevButton = sliderRoot.querySelector(
+      const prevButtons = sliderRoot.querySelectorAll(
         '.slider-prev-{{ block.id }}'
       );
 
