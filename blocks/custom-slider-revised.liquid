@@ -186,14 +186,6 @@
   {% endif %}
 {% endcapture %}
 
-{% assign is_top_navigation = false %}
-
-{% if nav_position == 'top-left'
-  or nav_position == 'top-center'
-  or nav_position == 'top-right'
-  %}
-  {% assign is_top_navigation = true %}
-{% endif %}
 
 {% assign nav_position_mobile = block.settings.nav_position_mobile %}
 
