@@ -1232,7 +1232,7 @@
         "section_bottom_padding": 30,
         "section_mobile_spacing": true,
         "mobile_section_top_padding": 50,
-        "mobile_section_bottom_padding": 200,
+        "mobile_section_bottom_padding": 50,
         "background_media": "none",
         "background_fit": "cover",
         "background_position": "center center",
