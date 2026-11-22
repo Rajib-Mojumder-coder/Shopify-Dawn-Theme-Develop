@@ -316,7 +316,7 @@ max-width: 50px;
 .mobile-search-form {
     background: #EFEEEE;
     border-radius: 200px;
-    padding: 10px 14px;
+    /* padding: 10px 14px; */
 }
 .mobile-padding {
     padding: clamp(1rem, 5vw, 3rem) !important;
