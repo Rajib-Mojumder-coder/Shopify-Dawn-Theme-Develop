@@ -1367,6 +1367,78 @@
             "nav_outside_offset": 60
           },
           "blocks": {
+            "custom_image_text_6AQJyD": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/Flow_dames_Edit_6.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_MRc96G": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/Flow_dames_Edit_4.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_gUByEy": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/Flow_dames_Edit_6.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
+            "custom_image_text_9pRqrQ": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image": "shopify://shop_images/Flow_dames_Edit_3.png",
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            },
             "custom_image_text_fi3Hzf": {
               "type": "custom-image-text",
               "name": "Image Text Slider",
@@ -1387,6 +1459,10 @@
             }
           },
           "block_order": [
+            "custom_image_text_6AQJyD",
+            "custom_image_text_MRc96G",
+            "custom_image_text_gUByEy",
+            "custom_image_text_9pRqrQ",
             "custom_image_text_fi3Hzf"
           ]
         }
