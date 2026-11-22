@@ -840,7 +840,7 @@
       "name": "Image Text Overlap",
       "settings": {
         "desktop_image_side": "right",
-        "mobile_image_alignment": "right",
+        "mobile_image_alignment": "left",
         "subheading": "",
         "heading": "Tweedehands fietsen",
         "description": "<p>Bij ons vind je tweedehands fietsen met omruilgarantie én afgesteld door de vakman. Je kunt deze fietsen veilig online bestellen en betalen. Vervolgens kun je de bestelling zonder bijkomende kosten afhalen bij de Bike Totaal winkel of thuis laten bezorgen voor € 29,95 in NL/ € 49,95 in BE.</p>",
