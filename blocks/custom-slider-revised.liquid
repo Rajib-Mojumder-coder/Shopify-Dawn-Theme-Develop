@@ -417,6 +417,8 @@
     {{ block.settings.heading_width }}px {% else %} 100% {% endif %};
   font-weight: 600;
   margin-bottom: 14px;
+
+   text-align: {% if block.settings.heading_width_mode == '100%' %} {{ block.settings.heading_text_align }}  {% else %} left {% endif %};
 }
 
 /* Custom Slider Description */
