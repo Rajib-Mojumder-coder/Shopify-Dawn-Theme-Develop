@@ -1923,76 +1923,97 @@
       "label": "Description",
       "default": "<p>Add a short description below your heading.</p>"
     },
-    {
-      "type": "range",
-      "id": "heading_width",
-      "label": "Heading Width",
-      "min": 350,
-      "max": 800,
-      "step": 10,
-      "unit": "px",
-      "default": 500
-    },
-    {
-      "type": "range",
-      "id": "heading_size",
-      "label": "Heading Size",
-      "min": 32,
-      "max": 70,
-      "step": 2,
-      "unit": "px",
-      "default": 32
-    },
-    {
-      "type": "range",
-      "id": "subheading_size",
-      "label": "Subheading Size",
-      "min": 10,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "default": 13
-    },
-    {
-      "type": "select",
-      "id": "heading_alignment",
-      "label": "Heading Alignment",
-      "options": [
-        {"value": "left", "label": "Left"},
-        {"value": "center", "label": "Center"}
-      ],
-      "default": "left"
-    },
-    {
-      "type": "checkbox",
-      "id": "content_position",
-      "label": "Content Vertical Position",
-      "default": false
-    },
-    {
-      "type": "select",
-      "id": "content_vertical",
-      "label": "Content Vertical Position",
-      "default": "default",
-      "options": [
-        {
-          "value": "top",
-          "label": "Top"
-        },
-        {
-          "value": "middle",
-          "label": "Middle"
-        },
-        {
-          "value": "bottom",
-          "label": "Bottom"
-        },
-        {
-          "value": "default",
-          "label": "Below Image"
-        }
-      ],
-      "visible_if": "{{ block.settings.content_position == true }}"
+   {
+    "type": "select",
+    "id": "heading_width_mode",
+    "label": "Heading Width",
+    "options": [
+      {
+        "value": "fit-content",
+        "label": "Fit content"
+      },
+      {
+        "value": "100%",
+        "label": "Full width"
+      },
+      {
+        "value": "custom",
+        "label": "Custom width (px)"
+      }
+    ],
+    "default": "custom"
+  },
+  {
+    "type": "range",
+    "id": "heading_width",
+    "label": "Custom heading width",
+    "min": 400,
+    "max": 800,
+    "step": 10,
+    "unit": "px",
+    "default": 500,
+    "visible_if": "{{ block.settings.heading_width_mode == 'custom' }}"
+  },
+  {
+    "type": "range",
+    "id": "heading_size",
+    "label": "Heading Size",
+    "min": 32,
+    "max": 70,
+    "step": 2,
+    "unit": "px",
+    "default": 32
+  },
+  {
+    "type": "range",
+    "id": "subheading_size",
+    "label": "Subheading Size",
+    "min": 10,
+    "max": 24,
+    "step": 1,
+    "unit": "px",
+    "default": 13
+  },
+  {
+    "type": "select",
+    "id": "heading_alignment",
+    "label": "Heading Alignment",
+    "options": [
+      {"value": "left", "label": "Left"},
+      {"value": "center", "label": "Center"}
+    ],
+    "default": "left"
+  },
+  {
+    "type": "checkbox",
+    "id": "content_position",
+    "label": "Content Vertical Position",
+    "default": false
+  },
+  {
+    "type": "select",
+    "id": "content_vertical",
+    "label": "Content Vertical Position",
+    "default": "default",
+    "options": [
+      {
+        "value": "top",
+        "label": "Top"
+      },
+      {
+        "value": "middle",
+        "label": "Middle"
+      },
+      {
+        "value": "bottom",
+        "label": "Bottom"
+      },
+      {
+        "value": "default",
+        "label": "Below Image"
+      }
+    ],
+    "visible_if": "{{ block.settings.content_position == true }}"
     }, 
     {
       "type": "range",
