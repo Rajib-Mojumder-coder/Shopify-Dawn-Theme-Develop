@@ -418,7 +418,6 @@
   font-weight: 600;
   margin-bottom: 14px;
 
-   text-align: {% if block.settings.heading_width_mode == '100%' %} {{ block.settings.heading_text_align }}  {% else %} left {% endif %};
 }
 
 /* Custom Slider Description */
@@ -1957,27 +1956,17 @@
     "default": 500,
     "visible_if": "{{ block.settings.heading_width_mode == 'custom' }}"
   },
-  {
-  "type": "select",
-  "id": "heading_text_align",
-  "label": "Heading Text Alignment",
-  "options": [
-    {
-      "value": "left",
-      "label": "Left"
-    },
-    {
-      "value": "center",
-      "label": "Center"
-    },
-    {
-      "value": "right",
-      "label": "Right"
-    }
-  ],
-  "default": "left",
-  "visible_if": "{{ block.settings.heading_width_mode == '100%' }}"
-},
+  
+ {
+    "type": "select",
+    "id": "heading_alignment",
+    "label": "Heading Alignment",
+    "options": [
+      {"value": "left", "label": "Left"},
+      {"value": "center", "label": "Center"}
+    ],
+    "default": "left"
+  },
   {
     "type": "range",
     "id": "heading_size",
@@ -1998,16 +1987,7 @@
     "unit": "px",
     "default": 13
   },
-  {
-    "type": "select",
-    "id": "heading_alignment",
-    "label": "Heading Alignment",
-    "options": [
-      {"value": "left", "label": "Left"},
-      {"value": "center", "label": "Center"}
-    ],
-    "default": "left"
-  },
+ 
   {
     "type": "checkbox",
     "id": "content_position",
