@@ -253,7 +253,8 @@
             {% endif %}
         </div> 
 
-      <div class="custom-slider__navigation-wrapper">
+      <div class="custom-slider__navigation-wrapper {% unless block.settings.navigation_logo_on and block.settings.navigation_logo != blank or enable_slider and show_navigation and is_top_navigation
+      or enable_slider and show_navigation_mobile and is_mobile_top_navigation %} navigation-wrapper-empty {% endunless %}">
 
         {% if block.settings.navigation_logo_on == true %}
             {% if block.settings.navigation_logo != blank %}
@@ -283,7 +284,7 @@
             {{ mobile_navigation_markup }}
           {% endif %}
 
-    </div>
+      </div>
         {% comment %} {% if nav_position == 'top-left'
           or nav_position == 'top-center'
           or nav_position == 'top-right'
