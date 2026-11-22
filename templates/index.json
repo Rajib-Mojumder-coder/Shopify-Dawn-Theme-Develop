@@ -1429,8 +1429,8 @@
         "layout_border_top_right_radius": 0,
         "layout_border_bottom_left_radius": 0,
         "layout_border_bottom_right_radius": 0,
-        "layout_desktop_gap": 50,
-        "layout_mobile_gap": 18
+        "layout_desktop_gap": 0,
+        "layout_mobile_gap": 0
       }
     }
   },
