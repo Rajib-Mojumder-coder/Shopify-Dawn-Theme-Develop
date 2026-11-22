@@ -1325,7 +1325,7 @@
             "overlay_color": "#000000",
             "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7))",
             "image_overlay_opacity": 0,
-            "desktop_slides": 4,
+            "desktop_slides": 2,
             "tablet_slides": 2,
             "mobile_slides": 1,
             "partial_slider": false,
@@ -1333,7 +1333,7 @@
             "tablet_partial_amount": 0.4,
             "mobile_partial_amount": 0.4,
             "reverse_direction": false,
-            "center_mode": false,
+            "center_mode": true,
             "center_scale": 115,
             "effect": "slide",
             "slider_settings": false,
@@ -1366,7 +1366,28 @@
             "nav_gap": 30,
             "nav_outside_offset": 60
           },
-          "blocks": {}
+          "blocks": {
+            "custom_image_text_fi3Hzf": {
+              "type": "custom-image-text",
+              "name": "Image Text Slider",
+              "settings": {
+                "image_link": "",
+                "subtitle": "Featured Collection",
+                "subtitle_color": "#fff",
+                "subtitle_mobilesize": 24,
+                "subtitle_desktopsize": 26,
+                "title": "Image Text Slider",
+                "title_color": "#fff",
+                "title_mobilesize": 44,
+                "title_desktopsize": 70,
+                "description": "<p>&nbsp;Add a short description for this slide.</p>"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "custom_image_text_fi3Hzf"
+          ]
         }
       },
       "block_order": [
