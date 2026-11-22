@@ -412,17 +412,9 @@
  /* font-size: clamp(44px, var(--heading-size, 70px), 70px); */
   line-height: 1;
   overflow-wrap: anywhere;
-  width: {% if block.settings.heading_width_mode == 'fit-content' %}
-    fit-content
-  {% else %}
-    100%
-  {% endif %};
-
+  width: {% if block.settings.heading_width_mode == 'fit-content' %} fit-content {% else %} 100% {% endif %};
   max-width: {% if block.settings.heading_width_mode == 'custom' %}
-    {{ block.settings.heading_width }}px
-  {% else %}
-    100%
-  {% endif %};
+    {{ block.settings.heading_width }}px {% else %} 100% {% endif %};
   font-weight: 600;
   margin-bottom: 14px;
 }
