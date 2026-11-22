@@ -1956,6 +1956,27 @@
     "visible_if": "{{ block.settings.heading_width_mode == 'custom' }}"
   },
   {
+  "type": "select",
+  "id": "heading_text_align",
+  "label": "Heading Text Alignment",
+  "options": [
+    {
+      "value": "left",
+      "label": "Left"
+    },
+    {
+      "value": "center",
+      "label": "Center"
+    },
+    {
+      "value": "right",
+      "label": "Right"
+    }
+  ],
+  "default": "left",
+  "visible_if": "{{ block.settings.heading_width_mode == '100%' }}"
+},
+  {
     "type": "range",
     "id": "heading_size",
     "label": "Heading Size",
