@@ -1371,6 +1371,7 @@
               "type": "custom-image-text",
               "name": "Image Text Slider",
               "settings": {
+                "image": "shopify://shop_images/Flow_dames_Edit_1.png",
                 "image_link": "",
                 "subtitle": "Featured Collection",
                 "subtitle_color": "#fff",
