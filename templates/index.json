@@ -1056,7 +1056,7 @@
             "partial_slider": true,
             "desktop_partial_amount": 0.3,
             "tablet_partial_amount": 0.3,
-            "mobile_partial_amount": 0.4,
+            "mobile_partial_amount": 0,
             "reverse_direction": false,
             "center_mode": false,
             "center_scale": 115,
