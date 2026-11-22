@@ -367,6 +367,22 @@
   min-width: 0;
   gap: 16px;
 }
+
+/* Navigation wrapper empty হলে Heading 100% */
+.custom-slider .custom-slider__heading-row:has(
+  .custom-slider__navigation-wrapper.navigation-wrapper-empty
+) {
+  display: block;
+}
+
+/* Heading content full width */
+.custom-slider .custom-slider__heading-row:has(
+  .custom-slider__navigation-wrapper.navigation-wrapper-empty
+) .custom-slider__heading-content {
+  width: 100%;
+  flex: 0 0 100%;
+}
+
 .custom-slider__heading-content{
   display: flex;
   flex-direction: column;
