@@ -1303,7 +1303,7 @@
             "subheading": "",
             "heading": "Onze bestsellers",
             "description": "",
-            "heading_width_mode": "100%",
+            "heading_width_mode": "fit-content",
             "heading_width": 430,
             "heading_size": 32,
             "subheading_size": 13,
