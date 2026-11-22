@@ -1966,7 +1966,8 @@
       {"value": "center", "label": "Center"},
       {"value": "right", "label": "Right"}
     ],
-    "default": "left"
+    "default": "left",
+     "visible_if": "{{ block.settings.heading_width_mode == '100%' }}"
   },
   {
     "type": "range",
