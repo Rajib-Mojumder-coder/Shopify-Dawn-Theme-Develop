@@ -1370,6 +1370,7 @@
             "collection_product_list_R4EDD8": {
               "type": "collection-product-list",
               "name": "Collection Product List",
+              "disabled": true,
               "settings": {
                 "content_type": "products",
                 "collection_source": "selected",
@@ -1415,7 +1416,6 @@
             "custom_image_text_6AQJyD": {
               "type": "custom-image-text",
               "name": "Image Text Slider",
-              "disabled": true,
               "settings": {
                 "image": "shopify://shop_images/Flow_dames_Edit_6.png",
                 "image_link": "",
@@ -1434,7 +1434,6 @@
             "custom_image_text_MRc96G": {
               "type": "custom-image-text",
               "name": "Image Text Slider",
-              "disabled": true,
               "settings": {
                 "image": "shopify://shop_images/Flow_dames_Edit_4.png",
                 "image_link": "",
@@ -1453,7 +1452,6 @@
             "custom_image_text_gUByEy": {
               "type": "custom-image-text",
               "name": "Image Text Slider",
-              "disabled": true,
               "settings": {
                 "image": "shopify://shop_images/Flow_dames_Edit_6.png",
                 "image_link": "",
@@ -1472,7 +1470,6 @@
             "custom_image_text_9pRqrQ": {
               "type": "custom-image-text",
               "name": "Image Text Slider",
-              "disabled": true,
               "settings": {
                 "image": "shopify://shop_images/Flow_dames_Edit_3.png",
                 "image_link": "",
